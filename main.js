@@ -331,7 +331,7 @@ var enemyColors = {
   };
 (()=>{
   var n=new XMLHttpRequest;
-  n.open("GET","/world.yaml");
+  n.open("GET","world.yaml");
   n.addEventListener("load",e=>{
     if(e.target.status==200)return WORLD=YAML.parse(e.target.responseText);
     if(e.target.status==0)return customAlert(`[No connection]: Please check your internet connection because you might be offline.`,20,"#FFFF00");
