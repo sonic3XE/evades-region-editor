@@ -109,27 +109,6 @@ function loadImage(src) {
   return image;
 }
 config.isImagesLoaded;
-var locationCheck=
-  ((e)=>{
-    return !["5c9443f4-551d-4e22-b514-9e3ab758e1cb.id.repl.co",
-    "evadesmapeditor.sonicexe66.repl.co",
-    "evadesmapeditor--sonicexe66.repl.co"].includes(e)
-  })(location.host)
-if (
-  locationCheck
-   ) {
-  document.children[0].innerHTML=`<img src="https://vignette.wikia.nocookie.net/supersonicdude/images/2/20/Sonic_exe_by_shadowninja976-d5f7dux.png/revision/latest" style="width:100%;height:100%;position:fixed;left:0px;top:0px;user-select:none;background-repeat: repeat-y repeat-x;" draggable="false">
-  <font style="width:100%;font-family:arial;    color: #00FF80;    font-weight:bold;    position: absolute;    top: 50%;    left: 50%;    transform: translate(-50%, -50%);    font-size: 35px;    text-align: center;">
-  you're serious.</font>`
-}
-/*if(new Date("November 8, 2023 12:00:00 UTC").getTime()<Date.now()){
-  document.children[0].innerHTML=`<img src="https://vignette.wikia.nocookie.net/supersonicdude/images/2/20/Sonic_exe_by_shadowninja976-d5f7dux.png/revision/latest" style="width:100%;height:100%;position:fixed;left:0px;top:0px;opacity:0.75;user-select:none;background-repeat: repeat-y repeat-x;" draggable="false">
-  <font style="width:100%;font-family:arial;color: #0000;font-weight:bold;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 30px;text-align: center;-webkit-text-stroke-width: 3px;-webkit-text-stroke-color: blue;">
-  The editor is in standby mode<br>Reason: Lack of enemy/projectile PY files<br>I just wanted to have enemy PY files in the simulator but... I don't have access to THAT private repository (EvadesClassic)<br>Maybe create a permalink to those files?<br>Thank you users for using this editor. It's been a long run since its release of evades region editor and it came to the halting process. This site is hosted on repl.it (<a style="text-decoration:none" href="https://replit.com/@Sonicexe66">@Sonicexe66</a>) <br>btw my github is <a style="text-decoration:none" href="https://github.com/sonic3XE">sonic3XE</a><br>- @sonic.exe666</font>
-  <font style="width:100%;font-family:arial;color: #FFFF;font-weight:bold;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);font-size: 30px;text-align: center;">
-  The editor is in standby mode<br>Reason: Lack of enemy/projectile PY files<br>I just wanted to have enemy PY files in the simulator but... I don't have access to THAT private repository (EvadesClassic)<br>Maybe create a permalink to those files?<br>Thank you users for using this editor. It's been a long run since its release of evades region editor and it came to the halting process. This site is hosted on repl.it (<a style="color:#8FF;text-decoration:none" href="https://replit.com/@Sonicexe66">@Sonicexe66</a>) <br>btw my github is <a style="color:#88F;text-decoration:none" href="https://github.com/sonic3XE">sonic3XE</a><br>- @sonic.exe666</font>`
-  document.body.style.background="black";
-}*/
 /**
  * @param {string} hex
  */
