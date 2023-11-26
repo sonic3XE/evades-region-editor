@@ -1,0 +1,21 @@
+{
+	"name": "Evades Region Editor",
+	"short_name": "Evades Region Editor",
+	"description": "Visual YAML editor in Evades.io",
+	"start_url": "index.html",
+	"display": "fullscreen",
+	"orientation": "any",
+	"background_color": "#222222",
+	"icons": [
+		{
+			"src": "favicon.ico",
+			"sizes": "128x128",
+			"type": "image/x-icon"
+		},
+		{
+			"src": "evades.svg",
+			"sizes": "256x256",
+			"type": "image/svg+xml"
+		}
+	]
+}

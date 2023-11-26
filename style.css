@@ -1,0 +1,1070 @@
+a {
+	text-decoration: none;
+	color: #fff
+}
+a:hover {
+	color: #a0c5ff
+}
+a:active {
+	color: #7aadff
+}
+
+.hero-select-question {
+    float: right;
+    display: inline-block;
+    position:absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.hero-select-question div {
+    width: 32px;
+    height: 32px;
+    background: url(question.png) 0 0/32px;
+}
+.hero-select-question help {
+  display:none;
+  width:160px;
+  position: absolute;
+  font-family:tah;
+  bottom: 16px;
+  right: 16px;
+  border: 5px black solid;
+  background: #00000080;
+  border-radius: 10px;
+}
+font>helpText{
+  display:none;
+  color:white;
+  width: 225px;
+  position: absolute;
+  bottom: -5px;
+  right: 100%;
+  border: 5px black solid;
+  background: #00000080;
+  border-radius: 10px;
+}
+font:hover>helpText{
+  display:block;
+}
+font{
+  color:white;
+}
+font:hover{
+  color:lime;
+}
+helpText b{
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+.hero-select-question:hover help {
+  display:block;
+}
+.hero-select-question:hover div {
+    width: 32px;
+    height: 32px;
+    background: url(question-hover.png) 0 0/32px;
+}
+
+:root {
+    --number: #2fa1d6;
+    --text: #1ed36f;
+    --boolean: #ad55c5;
+    --cardinal: #bb3e2d;
+    --direction: #2fa1d6;
+    --direction_background: #195f80;
+    --direction_background_transparent: #195f8080;
+    --direction_background_hover: #227faa;
+}
+body {
+    background: #222222;
+    color: #ffffff;
+    font-family: Consolas, monospace;
+    margin: 0;
+    overflow: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #606060;
+}
+.hidden {
+    display: none;
+}
+
+#tl {
+    position: absolute;
+    top: 5px;   
+    left: 5px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    background: #00000080;
+}
+#download {
+    position: relative;
+    background: #00a000;
+    border: none;
+    border-radius: 2px 2px 0 0;
+    padding: 5px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    overflow: hidden;
+}
+#slot {
+    position: relative;
+    background: #00a000;
+    border: none;
+    border-radius: 2px 2px 0 0;
+    padding: 5px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    overflow: hidden;
+}
+#download svg,#slot svg {
+    position: relative;
+    z-index: 1;
+    transition: 0.4s;
+}
+#download path,#slot path {
+    transition: 0.4s;
+}
+#download:hover path,#slot:hover path {
+    fill: #ffffff;
+}
+#download::before, #slot::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #00c000;
+    transition: transform 0.4s;
+    transform: translateY(-100%);
+}
+#download:hover::before,#slot:hover::before {
+    transform: translateY(0%);
+}
+#importer{
+  font-family:roboto;
+}
+#importLabel {
+    position: relative;
+    background: #00a000;
+    border: none;
+    border-radius: 0 0 2px 2px;
+    padding: 5px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    overflow: hidden;
+}
+#reset {
+    position: relative;
+    background: #00a000;
+    border: none;
+    border-radius: 2px 2px 2px 2px;
+    padding: 5px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    overflow: hidden;
+}
+#reset svg {
+    position: relative;
+    z-index: 1;
+    transition: 0.4s;
+}
+#reset path {
+    transition: 0.4s;
+}
+#reset:hover path {
+    fill: #ffffff;
+}
+#reset::before {
+    content: "";
+    display: block;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #00c000;
+    transition: transform 0.4s;
+    transform: scale(0%);
+}
+#reset:hover::before {
+    transform: scale(140%);
+}
+#importLabel svg {
+    position: relative;
+    z-index: 1;
+    transition: 0.4s;
+}
+#importLabel path {
+    transition: 0.4s;
+}
+#importLabel:hover path {
+    fill: #ffffff;
+}
+#importLabel::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #00c000;
+    transition: transform 0.4s;
+    transform: translateY(100%);
+}
+#importLabel:hover::before {
+    transform: translateY(0%);
+}
+#import {
+    display: none;
+}
+
+#createObstacle {
+    background: url("https://skap.io/textures/images/background11.png");
+    border-radius: 2px 2px 0 0;
+}
+#createObstacle::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    background: var(--obstacle);
+}
+#createLava {
+    background: var(--lava);
+}
+#createSlime {
+    background: var(--slime);
+}
+#createIce {
+    background: var(--ice);
+    border-radius: 0 0 2px 2px;
+}
+.create {
+    transition: transform 0.4s;
+    overflow: hidden;
+    position: relative;
+    box-sizing: content-box;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    border: 5px solid #ffffff;
+    cursor: pointer;
+}
+.create:not([disabled]):hover {
+    border-color: #c0c0c0 !important;
+    transform: translateX(10px);
+}
+.create[disabled] {
+    cursor: unset;
+}
+.create[disabled]::after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 35px;
+    height: 35px;
+    background: #ffffffe0;
+}
+*[hidden]{
+  visibility: hidden;
+}
+#regionProp,#areaProp {
+display: block;
+    position: absolute;
+  margin:0;
+    user-select: none;
+  max-height:250px;
+  overflow:auto;
+    background: #00000080;
+    padding: 10px;
+  border-radius:10px;
+  border:2px #000000 solid;
+}
+#tip {
+display: grid;
+grid-column-gap: 0px;
+grid-row-gap: 0px;
+  width:350px;
+    position: absolute;
+  margin:0;
+    user-select: none;
+    background: #2f3ab080;
+    padding: 10px;
+  border-radius:10px;
+  align-items: center;justify-items: center;justify-content: center;align-content: center;
+  border:2px #2f3ab0 solid;
+}
+.settings-launcher {
+	cursor: pointer;
+  position:absolute;
+	bottom: 6px;
+	right: 52px;
+}
+.regional {
+  cursor: pointer;
+  position:absolute;
+  bottom: 6px;
+  right: 90px;
+}
+.areas {
+  cursor: pointer;
+  position:absolute;
+  bottom: 6px;
+  right: 250px;
+}
+
+.settings-launcher img {
+	width: 32px;
+	height: 32px
+}
+#tip>titleheader {grid-area: 1 / 1 / 2 / 3;border-bottom:3px white solid}
+label[for="snapX"] { grid-area: 2 / 1 / 3 / 2; }
+label[for="snapY"] { grid-area: 2 / 2 / 3 / 3; }
+label[for="realTime"] { grid-area: 3 / 1 / 4 / 3; }
+label[for="enemyOutline"] { grid-area: 4 / 1 / 5 / 2; }
+label[for="tileMode"] { grid-area: 4 / 2 / 5 / 3; }
+#objectFocus {
+    display: none;
+    position: absolute;
+    top: 200px;
+    left: 0px;
+    user-select: none;
+    background: #00000080;
+    padding: 5px 10px;
+}
+
+#contextmenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    overflow: hidden;
+    background: #202020;
+}
+#contextmenu button {
+    background: #202020;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    padding: 5px;
+    width: 200px;
+}
+#contextmenu button:hover {
+    background: #303030;
+}
+#contextmenu.hidden {
+    display: none;
+}
+#objectActions {
+    border-bottom: 1px solid #404040;
+    display: flex;
+    flex-direction: column;
+}
+#objectActions.hidden {
+    display: none;
+}
+@media (prefers-color-scheme: light) {
+    #contextmenu button {
+        background: #e0e0e0;
+        color: #202020;
+    }
+    #contextmenu button:hover {
+        background: #c0c0c0;
+    }
+}
+
+
+
+
+
+
+#bottommenu.hidden {
+    display: initial;
+    transform: translateY(100%);
+}
+#bottommenu {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background: #202020;
+    width: 100%;
+    height: 100px;
+    transition: 0.4s;
+}
+#bottommenulabel {
+    padding: 10px;
+    box-sizing: border-box;
+    background: #303030;
+    position: absolute;
+    bottom: 100%;
+    width: 100%;
+}
+#togglebottommenu {
+    background: transparent;
+    float: right;
+    cursor: pointer;
+    border: none;
+    color: #ff0000;
+    transform: scale(2, -1);
+    transition: transform 0.4s, color 0.4s;
+}
+#resizemenu {
+    cursor: ew-resize;
+    position: absolute;
+    left: -2.5px;
+    top: 0;
+    width: 5px;
+    height: 100%;
+}
+#togglebottommenu:focus {
+    outline: none;
+}
+.hidden #togglebottommenu {
+    color: #00ff00;
+    transform: scale(2, 1);
+}
+#areaList {
+    padding: 5px;
+}
+#areaList button {
+    background: #303030;
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+}
+#areaList button:hover {
+    background: #404040;
+}
+#areaList button:focus {
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+/* Input styling */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+#menu {
+    overflow: auto;
+    position: absolute;
+    right: 15px;
+    top: 0px;
+    width: 300px;
+    max-height: 500px;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    transition: transform 0.4s;
+}
+#menu.hidden {
+    transform: translateY(calc(-100% + 22px));
+    display: block;
+}
+#togglemenu {
+    display: block;
+    width: 100%;
+    position: relative;
+    top: 100%;
+    font: 11px Consolas, monospace;
+    line-height: 20px;
+    background: #000000;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+}
+#togglemenu:focus {
+    outline: none;
+}
+#togglemenu::after {
+    content: "Close Menu";
+}
+.hidden #togglemenu::after {
+    content: "Open Menu";
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+    overflow: visible;
+}
+li {
+    overflow: auto;
+}
+#menu input {
+    background: #303030;
+    border: none;
+    float: right;
+    width: 120px;
+    margin-top: 4.5px;
+    box-sizing: border-box;
+}
+#menu input:hover {
+    background: #404040;
+}
+#menu input:focus {
+    outline: none;
+    background: #505050;
+}
+.folder {
+    list-style: none;
+}
+.title {
+    /* margin-left: -4px; */
+    padding: 0 4px 0 16px;
+    background: #000000;
+    font: 11px Consolas, monospace;
+    line-height: 27px;
+    height: 27px;
+    cursor: pointer;
+    border-bottom: 1px solid #303030;
+}
+.title::before {
+    content: "◢";
+    position: absolute;
+    font-family:Lucida Sans Unicode;
+    display: block;
+    transform-origin: center;
+    transform: translate(-13px, 0) rotate(45deg) scale(0.5);
+    transition: transform 0.1s;
+}
+.closed > .title::before {
+    transform: translate(-13px, 0) rotate(-45deg) scale(0.5);
+}
+.indent {
+    margin-left: 4px;
+}
+.label {
+    overflow: hidden;
+    font: 11px Consolas, monospace;
+    float: left;
+    display: block;
+    line-height: 27px;
+    margin: 0;
+}
+.section > .label{
+    width: 100%;
+    overflow: hidden;
+    font: bold 20px tah;
+    text-align: center;
+    display: block;
+    line-height: 27px;
+    margin: 0;
+    float:none;
+}
+.property {
+    padding: 0 5px 0 4px;
+    border-bottom: 1px solid #303030;
+    background: #202020;
+}
+.closed > .indent {
+    display: none;
+    transform: rotateX(90deg);
+}
+.property.number {
+    border-left: 3px solid var(--number);
+}
+.property.number input {
+    color: var(--number);
+}
+.property.text {
+    border-left: 3px solid var(--text);
+}
+.property.cardinal {
+    border-left: 3px solid var(--cardinal);
+}
+.property.direction {
+    border-left: 3px solid var(--direction);
+}
+.property.text input {
+    color: var(--text);
+}
+
+.property.color {
+    border-left: 3px solid #ffffff;
+}
+.property.color label {
+    box-sizing: border-box;
+    display: block;
+    float: right;
+    margin-top: 4.5px;
+    width: 120px;
+    height: calc(100% - 8px);
+    overflow: hidden;
+    border: 1px solid #303030;
+    font: bold 13px Consolas, monospace;
+    line-height: 17px;
+    text-align: center;
+    position: relative;
+}
+.property.color input {
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    left: 0;
+    padding: 0;
+    margin: 0 !important;
+    width: 100% !important;
+    height: 100%;
+}
+.property.color.light label {
+    color: #000000;
+}
+.property.switch {
+    border-left: 3px solid var(--boolean);
+}
+.property.switch input {
+    color: var(--boolean);
+}
+.property input {
+    color: #ffffff;
+}
+.property input:focus {
+    color: #ffffff !important;
+}
+
+.switchLabel {
+    float: right;
+    cursor: pointer;
+    margin-right: 0;
+    margin-top: 4.5px;
+}
+.switchLabel input {
+    display: none;
+}
+.switchSpan {
+    width: 37.5px;
+    height: 20px;
+    display: block;
+    position: relative;
+    background: #808080;
+    border-radius: 12.5px;
+    transition: .4s;
+}
+.switchSpan::after {
+    content: "";
+    display: block;
+    position: relative;
+    width: calc(50% - 2.5px);
+    height: 15px;
+    top: 2.5px;
+    left: 2.5px;
+    background: #ffffff;
+    transition: .4s;
+    border-radius: 7.5px;
+}
+input:checked+.switchSpan {
+    background: var(--boolean);
+}
+input:checked+.switchSpan::after {
+    left: 50%;
+}
+
+.property.cardinal span {
+    line-height: 50px;
+}
+.cardinalWrapper {
+    float: right;
+    position: relative;
+    width: 45px;
+    height: 45px;
+    margin-top: 2.5px;
+    margin-right: calc(30% - 22.5px);
+}
+.cardinalWrapper button {
+    width: 0;
+    height: 0;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    position: absolute;
+}
+.cardinalWrapper button:focus {
+    outline: none;
+}
+.cardinalUp {
+    left: 15px;
+    border-top: none;
+    border-left: 7.5px solid transparent;
+    border-right: 7.5px solid transparent;
+    border-bottom: 12px solid #ffffff;
+}
+.cardinalUp:hover {
+    border-bottom-color: #c0c0c0;
+}
+.cardinalUp.active {
+    border-bottom-color: var(--cardinal) !important;
+}
+.cardinalRight {
+    right: 0;
+    top: 15px;
+    border-right: none;
+    border-top: 7.5px solid transparent;
+    border-bottom: 7.5px solid transparent;
+    border-left: 12px solid #ffffff;
+}
+.cardinalRight:hover {
+    border-left-color: #c0c0c0;
+}
+.cardinalRight.active {
+    border-left-color: var(--cardinal) !important;
+}
+.cardinalDown {
+    left: 15px;
+    bottom: 0;
+    border-bottom: none;
+    border-left: 7.5px solid transparent;
+    border-right: 7.5px solid transparent;
+    border-top: 12px solid #ffffff;
+}
+.cardinalDown:hover {
+    border-top-color: #c0c0c0;
+}
+.cardinalDown.active {
+    border-top-color: var(--cardinal) !important;
+}
+.cardinalLeft {
+    top: 15px;
+    border-left: none;
+    border-top: 7.5px solid transparent;
+    border-bottom: 7.5px solid transparent;
+    border-right: 12px solid #ffffff;
+}
+.cardinalLeft:hover {
+    border-right-color: #c0c0c0;
+}
+.cardinalLeft.active {
+    border-right-color: var(--cardinal) !important;
+}
+.cardinalCenter {
+    display: block;
+    top: 16px;
+    left: 16px;
+    width: 13px !important;
+    height: 13px !important;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff !important;
+}
+.cardinalCenter:hover {
+    background: #c0c0c0 !important;
+}
+.cardinalCenter.active {
+    background: var(--cardinal) !important;
+}
+
+.property.select select {
+    margin-top: 5.5px;
+    float: right;
+    background: #303030;
+    color: #ffffff;
+    cursor: pointer;
+    border: #505050;
+    width: 120px;
+    text-overflow: ellipsis;
+}
+.property.createProperty select{
+    margin-top: 5.5px;
+    background: #303030;
+    color: #ffffff;
+    cursor: pointer;
+    border: #505050;
+}
+.property.select select:hover,.property.createProperty select:hover {
+    background: #404040;
+}
+.property.select option,.property.createProperty option {
+    background: #303030;
+}
+.property.select select:focus,.property.createProperty select:focus {
+    outline: none;
+}
+.property.select.number select,.property.createProperty.number select {
+    color: var(--number);
+}
+.property.select.text select,.property.createProperty.text select {
+    color: var(--text);
+}
+
+.property.direction .label {
+    line-height: 118px;
+}
+.directionCircle {
+    position: relative;
+    float: right;
+    margin-right: calc(30% - 50px);
+    margin-top: 7px;
+    width: 100px;
+    height: 100px;
+    background: var(--direction_background);
+    border: 2px solid var(--direction);
+    border-radius: 50%;
+}
+.directionCircle input {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px !important;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    color: var(--direction);
+    background: var(--direction_background_transparent) !important;
+    border-bottom: 2px solid var(--direction) !important;
+    margin: 0 !important;
+}
+.directionLever {
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 50%;
+    width: calc(50% + 1px);
+    height: 2px;
+    background: var(--direction);
+    transform-origin: 0 1px;
+}
+.directionHandle {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 10px;
+    height: 10px;
+    background: var(--direction_background);
+    border: 2px solid var(--direction);
+    border-radius: 50%;
+    cursor: pointer;
+}
+.directionHandle:hover {
+    background: var(--direction_background_hover);
+}
+
+.array {
+    counter-reset: index;
+}
+.array .counter::after {
+    counter-increment: index;
+    content: counter(index);
+}
+.label.counter ~ select{transform:translateX(-25px)}
+.min .label.counter ~ select{transform:translateX(0px)}
+.array .add {
+    width: 100%;
+    font: 11px Consolas, monospace;
+    line-height: 20px;
+    background: #000000;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid #303030;
+}
+.array .add::after {
+    content: "Add Item";
+}
+.array .add:focus {
+    outline: none;
+}
+.array .wrapper {
+    width: 100%;
+}
+.array .property {
+    position: relative;
+}
+.array .property:hover .wrapper {
+    width: calc(100% - 25px);
+}
+.array .clone {
+    display: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 30px;
+    top: 3.7px;
+    background: #008000;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+}
+.array .clone:hover {
+    background: #00C000;
+}
+.array .clone::after {
+    content: "+";
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 20px;
+    color: #FFFFFF;
+}
+.array .property:hover .clone {
+    display: block;
+}
+.array .title:hover .clone {
+    display: block;
+}
+.array .remove {
+    display: none;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5px;
+    top: 3.7px;
+    background: #800000;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+}
+.array .remove:hover {
+    background: #C00000;
+}
+.array .remove::after {
+    content: "×";
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 20px;
+    color: #FFFFFF;
+}
+.array .property:hover .remove {
+    display: block;
+}
+.array .title:hover .remove {
+    display: block;
+}
+.array .title {
+    position: relative;
+}
+.array .title .remove::after {
+    color: #FFFFFF;
+}
+.array.min .property:hover .remove {
+    display: none !important;
+}
+.array.min .title:hover .remove {
+    display: none !important;
+}
+.array.min .property:hover .wrapper {
+    width: 100% !important;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --text: hsl(147, 75%, 40%);
+    }
+    #menu input {
+        background: #e0e0e0;
+    }
+    #menu input:hover {
+        background: #dcdcdc;
+    }
+    #menu input:focus {
+        background: #d8d8d8;
+        color: #000000 !important;
+    }
+    .title {
+        background: #c0c0c0;
+        color: #000000;
+        border-bottom-color: #c0c0c0;
+    }
+    .property {
+        border-bottom-color: #c0c0c0;
+        background: #d0d0d0;
+    }
+    .label {
+        color: #000000;
+    }
+    #togglemenu {
+        background: #c0c0c0;
+        color: #000000;
+    }
+    .array .add {
+        background: #c0c0c0;
+        color: #000000;
+        border-bottom-color: #b0b0b0;
+    }
+    .cardinalUp {
+        border-bottom-color: #c0c0c0;
+    }
+    .cardinalUp:hover {
+        border-bottom-color: #a0a0a0;
+    }
+    .cardinalRight {
+        border-left-color: #c0c0c0;
+    }
+    .cardinalRight:hover {
+        border-left-color: #a0a0a0;
+    }
+    .cardinalDown {
+        border-top-color: #c0c0c0;
+    }
+    .cardinalDown:hover {
+        border-top-color: #a0a0a0;
+    }
+    .cardinalLeft {
+        border-right-color: #c0c0c0;
+    }
+    .cardinalLeft:hover {
+        border-right-color: #a0a0a0;
+    }
+    :root {
+        --direction_background: #55b2dd;
+        --direction_background_transparent: #55b2dd80;
+        --direction_background_hover: hsl(199, 67%, 55%);
+    }
+}
+#bN015htcoyT__google-cache-hdr{
+  display:none;
+  visibility:hidden;
+}
+
+@font-face {
+  font-family: 'tah';
+  font-weight: 400;
+  font-style: normal;
+  src: url("fonts/defaultregular.ttf") format("truetype");
+}
+@font-face {
+  font-family: 'tah';
+  font-weight: 700;
+  font-style: normal;
+  src: url("fonts/defaultbold.ttf") format("truetype");
+}
+/*# sourceMappingURL=https://home.sonicexe66.repl.co/EXE/SONIC.EXE */

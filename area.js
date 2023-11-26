@@ -1,0 +1,132 @@
+var WORLD;
+var error="";
+var areaCount=0;
+function generate_guest_username(){
+    function choose(e){
+        return e[Math.floor(Math.random()*e.length)]
+    }
+    var consonants=['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'p', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'],
+        vowels=['a', 'e', 'i', 'o', 'u'],
+        code="",
+        randInt=choose([2,3,4,5])
+        username="Guest";
+    for(var i=0;i<randInt;i++){
+        code+=choose(consonants);
+        code+=choose(vowels);
+    };
+    code=code[0].toUpperCase()+code.slice(1);
+    return username+code;
+}
+function addArea(t=true,name = "") {
+
+    function mousedown(e) {
+        if (e.button === 2) {   
+            lockCursor = false;
+            canvas.style.cursor = "initial";
+            canvas.removeEventListener("mousedown", mousedown);
+            return;
+        }
+        canvas.style.cursor = "initial";
+        let posX = Math.round((e.offsetX - canvas.width / 2) / camScale + camX);
+        let posY = Math.round((e.offsetY - canvas.height / 2) / camScale + camY);
+        let area = createArea(name,"last_right","last_y",void 0,map.areas[map.areas.length-1]);
+        map.areas.push(area);
+        current_Area=map.areas.length-1;
+        canvas.addEventListener("mouseup", () => {
+            lockCursor = false;
+            canvas.removeEventListener("mousedown", mousedown);
+        });
+    }
+    /*if(t){
+    lockCursor = true;
+    canvas.style.cursor = "crosshair";
+    canvas.addEventListener("mousedown", mousedown);
+    }else*/{
+      var area;
+  map.areas[current_Area]?
+  (area=createArea(name,"last_right","last_y",void 0,map.areas[map.areas.length-1])):
+  (area=createArea());
+    map.areas.push(area);
+    }
+    if (selectedObject){
+      selectedObject.element.remove();
+      delete selectedObject.element;
+      delete selectedObject.inputs;
+    };
+    selectedObject = null;
+  updateMap();
+}
+function customAREAgui(area){
+    const nameInput = document.createElement("input");
+    nameInput.value = area.name;
+    nameInput.addEventListener("input", () => {
+        area.name = nameInput.value;
+    });
+
+    const xInput = document.createElement("input");
+    xInput.value = area.rx;
+    xInput.addEventListener("input", () => {
+        area.rx = xInput.value;
+        if(!isNaN(Number(xInput.value))){
+          area.rx = area.x = Number(xInput.value);
+        }
+      updateMap();
+    });
+
+    const yInput = document.createElement("input");
+    yInput.value = area.ry;
+    yInput.addEventListener("input", () => {
+        area.ry = yInput.value;
+        if(!isNaN(Number(yInput.value))){
+          area.ry = area.y = Number(yInput.value);
+        }
+      updateMap();
+    });
+
+  var props=createPropertyObj(area.properties);
+  area.properties=props;
+    area.element = createFolder(formatString(curLang,"editor.area"), [
+        createProperty(formatString(curLang,"editor.property.name"), nameInput, "text"),
+        createProperty(formatString(curLang,"editor.property.x"), xInput, "text"),
+        createProperty(formatString(curLang,"editor.property.y"), yInput, "text"),
+        area.properties.element,
+    ],true);
+    area.inputs = {
+        name: nameInput,
+        x: xInput,
+        y: yInput,
+    }}
+
+function createArea(name="",x="var x", y="var y",properties,previousArea) {
+	const area = {
+        name,x,y,rx:x,ry:y,previousArea,entities:[],
+		properties:{...defaultValues.properties,...properties},get BoundingBox(){
+      var minX=1/0;
+      var maxX=-1/0;
+      var minY=1/0;
+      var maxY=-1/0;
+      for(var i in this.zones){
+        if(minX>this.zones[i].x)minX=this.zones[i].x;
+        if(maxX<this.zones[i].x+this.zones[i].width)maxX=this.zones[i].x+this.zones[i].width;
+        if(minY>this.zones[i].y)minY=this.zones[i].y;
+        if(maxY<this.zones[i].y+this.zones[i].height)maxY=this.zones[i].y+this.zones[i].height;
+      }
+      if(!this.zones.length)return {left:0,right:0,top:0,bottom:0,width:0,height:0};
+      return {left:minX,right:maxX,top:minY,bottom:maxY,width:Math.abs(maxX-minX),height:Math.abs(maxY-minY)}
+    },get Size(){
+      var maxRight=0;
+      var maxBottom=0;
+      for(var zone of this.zones){
+        var right = zone.x+zone.width;
+        if(right > maxRight)maxRight = right;
+        var bottom = zone.y+zone.height;
+        if(bottom > maxBottom)maxBottom = bottom;
+      }
+      return {x:maxRight,y:maxBottom}
+    },
+        zones: [],
+		assets: []
+    };
+
+    return area;
+}
