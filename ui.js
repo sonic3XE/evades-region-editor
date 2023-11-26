@@ -3,7 +3,7 @@ var curLang={};
   var s=new XMLHttpRequest();
   var language=localStorage.getItem("lang");
   if(!language)localStorage.setItem("lang","en_us");
-  s.open("GET","/"+localStorage.getItem("lang")+".json",false);
+  s.open("GET",localStorage.getItem("lang")+".json",false);
   s.addEventListener("load",e=>{
     curLang=JSON.parse(s.responseText.replace(/\n  /g,"").replace(",\n}","}"));
   })
