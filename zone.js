@@ -435,6 +435,20 @@ point1.release_time=undefined;
 			switchintInput.value = Math.max(Number(switchintInput.value),0);
 			point1.switch_interval = Math.max(Number(switchintInput.value),0);spawnEntities()
 		});
+        const gravInput = document.createElement("input");
+        gravInput.value = point1.gravity;
+		gravInput.step=1;
+		gravInput.addEventListener("input", () => {
+			gravInput.value = Number(gravInput.value);
+			point1.gravity = Number(gravInput.value);spawnEntities()
+		});
+        const repelInput = document.createElement("input");
+        repelInput.value = point1.repulsion;
+		repelInput.step=1;
+		repelInput.addEventListener("input", () => {
+			repelInput.value = Number(repelInput.value);
+			point1.repulsion = Number(repelInput.value);spawnEntities()
+		});
 
 		const dirInput = document.createElement("input");
 		dirInput.value=point1.direction;
@@ -488,45 +502,11 @@ point1.release_time=undefined;
         createProperty(formatString(curLang,"editor.property.experience_drain_radius"), aura16Input, "number"),
         createProperty(formatString(curLang,"editor.property.reducing_radius"), aura17Input, "number"),
       ],!0),
-      createFolder(formatString(curLang,"editor.category.icicle"),[
-        createProperty(formatString(curLang,"editor.property.horizontal"), hInput, "switch", {value: point1.horizontal}),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.liquid"),[
-			  createProperty(formatString(curLang,"editor.property.player_detection_radius"), pdrInput, "number"),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.turning"),[
-			  createProperty(formatString(curLang,"editor.property.circle_size"), csInput, "number"),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.switch"), [
-			  createProperty(formatString(curLang,"editor.property.switch_interval"), switchintInput, "number"),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.quicksand"), [
-			  createProperty(formatString(curLang,"editor.property.push_direction"), pushDirInput, "number"),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.wall"),[
-			  createProperty(formatString(curLang,"editor.property.move_clockwise"), ckwsInput, "switch", {value: point1.move_clockwise}),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.radiating_bullets"),[
-			  createProperty(formatString(curLang,"editor.property.release_interval"), reinInput, "number"),
-			  createProperty(formatString(curLang,"editor.property.release_time"), retiInput, "number"),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.speed_sniper"),[
-			  createProperty(formatString(curLang,"editor.property.speed_loss"), splsInput, "number"),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.regen_sniper"),[
-			  createProperty(formatString(curLang,"editor.property.regen_loss"), rglsInput, "number"),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.grass"), [
-			  createProperty(formatString(curLang,"editor.property.powered"), powInput, "switch", {value: point1.powered}),
+      createFolder(formatString(curLang,"editor.category.cybot"), [
+        createProperty(formatString(curLang,"editor.property.hard_mode"), hardInput, "switch", {value: point1.hard_mode}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.flower"), [
 			  createProperty(formatString(curLang,"editor.property.growth_multiplier"), groInput, "number"),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.wind_ghost"), [
-        createProperty(formatString(curLang,"editor.property.ignore_invulnerability"), ignInput, "switch", {value: point1.ignore_invulnerability}),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.cybot"), [
-        createProperty(formatString(curLang,"editor.property.hard_mode"), hardInput, "switch", {value: point1.hard_mode}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.frost_giant"), [
         createProperty(formatString(curLang,"editor.property.direction"), dirInput, "number"),
@@ -542,6 +522,46 @@ point1.release_time=undefined;
         createProperty(formatString(curLang,"editor.property.immune"), immInput, "switch", {value:point1.immune}),
 		  	createProperty(formatString(curLang,"editor.property.pattern"), null, "select", {value:point1.pattern,event:e=>{point1.pattern=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.pattern.none"),void 0],...['spiral', 'twinspiral', 'quadspiral', 'cone', 'twincone', 'cone_edges', 'twin', 'singlebig'].map(e=>[formatString(curLang,"editor.pattern."+e),e])],selectType: "text"}),
 			  createProperty(formatString(curLang,"editor.property.cone_angle"), coneAngleInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.grass"), [
+			  createProperty(formatString(curLang,"editor.property.powered"), powInput, "switch", {value: point1.powered}),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.gravity"), [
+			  createProperty(formatString(curLang,"editor.property.gravity"), gravInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.icicle"),[
+        createProperty(formatString(curLang,"editor.property.horizontal"), hInput, "switch", {value: point1.horizontal}),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.liquid"),[
+			  createProperty(formatString(curLang,"editor.property.player_detection_radius"), pdrInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.quicksand"), [
+			  createProperty(formatString(curLang,"editor.property.push_direction"), pushDirInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.radiating_bullets"),[
+			  createProperty(formatString(curLang,"editor.property.release_interval"), reinInput, "number"),
+			  createProperty(formatString(curLang,"editor.property.release_time"), retiInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.regen_sniper"),[
+			  createProperty(formatString(curLang,"editor.property.regen_loss"), rglsInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.repelling"), [
+			  createProperty(formatString(curLang,"editor.property.repulsion"), repelInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.speed_sniper"),[
+			  createProperty(formatString(curLang,"editor.property.speed_loss"), splsInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.switch"), [
+			  createProperty(formatString(curLang,"editor.property.switch_interval"), switchintInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.turning"),[
+			  createProperty(formatString(curLang,"editor.property.circle_size"), csInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.wall"),[
+			  createProperty(formatString(curLang,"editor.property.move_clockwise"), ckwsInput, "switch", {value: point1.move_clockwise}),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.wind_ghost"), [
+        createProperty(formatString(curLang,"editor.property.ignore_invulnerability"), ignInput, "switch", {value: point1.ignore_invulnerability}),
       ],!0),
     ]);
       /*createProperty("test",null,"createProperty",{
@@ -724,71 +744,77 @@ var props=createPropertyObj(Zone.properties);
     };
 }
 function cloneSpawner(e){
-      var obj = {};
-      obj.x = e.x;
-      obj.y = e.y;
-      obj.radius = e.radius;
-      obj.angle = e.angle;
-      obj.speed = e.speed;
-      obj.count = e.count;
-      obj.types = e.types.map(t => { return t.i });
-      obj.types.includes("slowing") && (obj.slowing_radius = e.slowing_radius);
-      obj.types.includes("draining") && (obj.draining_radius = e.draining_radius);
-      obj.types.includes("experience_drain") && (obj.experience_drain_radius = e.experience_drain_radius);
-      obj.types.includes("liquid") && (obj.player_detection_radius = e.player_detection_radius);
-      obj.types.includes("turning") && (obj.circle_size = e.circle_size);
-      obj.types.includes("slippery") && (obj.slippery_radius = e.slippery_radius);
-      obj.types.includes("gravity") && (obj.gravity_radius = e.gravity_radius);
-      obj.types.includes("repelling") && (obj.repelling_radius = e.repelling_radius);
-      obj.types.includes("magnetic_reduction") && (obj.magnetic_reduction_radius = e.magnetic_reduction_radius);
-      obj.types.includes("magnetic_nullification") && (obj.magnetic_nullification_radius = e.magnetic_nullification_radius);
-      obj.types.includes("toxic") && (obj.toxic_radius = e.toxic_radius);
-      obj.types.includes("enlarging") && (obj.enlarging_radius = e.enlarging_radius);
-      obj.types.includes("radar") && (obj.radar_radius = e.radar_radius);
-      obj.types.includes("quicksand") && (
-        obj.quicksand_radius = e.quicksand_radius,
-        obj.push_direction = e.push_direction
-      );
-      obj.types.includes("freezing") && (obj.freezing_radius = e.freezing_radius);
-      obj.types.includes("reducing") && (obj.reducing_radius = e.reducing_radius);
-      obj.types.includes("disabling") && (obj.disabling_radius = e.disabling_radius);
-      obj.types.includes("lava") && (obj.lava_radius = e.lava_radius);
-      obj.types.includes("barrier") && (obj.barrier_radius = e.barrier_radius);
-      obj.types.includes("icicle") && (obj.horizontal = e.horizontal);
-      obj.types.includes("wall") && (obj.move_clockwise = e.move_clockwise);
-      obj.types.includes("grass") && (obj.powered = e.powered);
-      obj.types.includes("flower") && (obj.growth_multiplier = e.growth_multiplier);
-      obj.types.includes("wind_ghost") && (obj.ignore_invulnerablility = e.ignore_invulnerablility);
-      obj.types.includes("switch") && (obj.switch_interval = e.switch_interval);
-      obj.types.includes("cybot") && (obj.hard_mode = e.hard_mode);
-      obj.types.includes("frost_giant") && (
-        obj.shot_acceleration = e.shot_acceleration,
-        obj.shot_interval = e.shot_interval,
-        obj.turn_acceleration = e.turn_acceleration,
-        obj.turn_speed = e.turn_speed,
-        obj.immune = e.immune,
-        obj.pattern = e.pattern,
-
-        obj.direction = e.direction,
-        obj.cone_angle = e.cone_angle,
-        obj.pause_duration = e.pause_duration,
-        obj.pause_interval = e.pause_interval,
-        obj.projectile_duration = e.projectile_duration,
-        obj.projectile_radius = e.projectile_radius,
-        obj.projectile_speed = e.projectile_speed
-      );
-      obj.types.includes("radiating_bullets") && (
-        obj.release_time = e.release_time,
-        obj.release_interval = e.release_interval
-      );
-      return obj;
+	var obj = {};
+	obj.x = e.x;
+	obj.y = e.y;
+	obj.radius = e.radius;
+	obj.angle = e.angle;
+	obj.speed = e.speed;
+	obj.count = e.count;
+	obj.types = e.types.map(t => { return t.i });
+	obj.types.includes("slowing") && (obj.slowing_radius = e.slowing_radius);
+	obj.types.includes("draining") && (obj.draining_radius = e.draining_radius);
+	obj.types.includes("experience_drain") && (obj.experience_drain_radius = e.experience_drain_radius);
+	obj.types.includes("liquid") && (obj.player_detection_radius = e.player_detection_radius);
+	obj.types.includes("turning") && (obj.circle_size = e.circle_size);
+	obj.types.includes("slippery") && (obj.slippery_radius = e.slippery_radius);
+	obj.types.includes("gravity") && (
+		obj.gravity_radius = e.gravity_radius,
+		obj.gravity = e.gravity
+	);
+	obj.types.includes("repelling") && (
+		obj.repelling_radius = e.repelling_radius,
+		obj.repulsion = e.repulsion
+	);
+	obj.types.includes("magnetic_reduction") && (obj.magnetic_reduction_radius = e.magnetic_reduction_radius);
+	obj.types.includes("magnetic_nullification") && (obj.magnetic_nullification_radius = e.magnetic_nullification_radius);
+	obj.types.includes("toxic") && (obj.toxic_radius = e.toxic_radius);
+	obj.types.includes("enlarging") && (obj.enlarging_radius = e.enlarging_radius);
+	obj.types.includes("radar") && (obj.radar_radius = e.radar_radius);
+	obj.types.includes("quicksand") && (
+		obj.quicksand_radius = e.quicksand_radius,
+		obj.push_direction = e.push_direction
+	);
+	obj.types.includes("freezing") && (obj.freezing_radius = e.freezing_radius);
+	obj.types.includes("reducing") && (obj.reducing_radius = e.reducing_radius);
+	obj.types.includes("disabling") && (obj.disabling_radius = e.disabling_radius);
+	obj.types.includes("lava") && (obj.lava_radius = e.lava_radius);
+	obj.types.includes("barrier") && (obj.barrier_radius = e.barrier_radius);
+	obj.types.includes("icicle") && (obj.horizontal = e.horizontal);
+	obj.types.includes("wall") && (obj.move_clockwise = e.move_clockwise);
+	obj.types.includes("grass") && (obj.powered = e.powered);
+	obj.types.includes("flower") && (obj.growth_multiplier = e.growth_multiplier);
+	obj.types.includes("wind_ghost") && (obj.ignore_invulnerablility = e.ignore_invulnerablility);
+	obj.types.includes("switch") && (obj.switch_interval = e.switch_interval);
+	obj.types.includes("cybot") && (obj.hard_mode = e.hard_mode);
+	obj.types.includes("frost_giant") && (
+		obj.shot_acceleration = e.shot_acceleration,
+		obj.shot_interval = e.shot_interval,
+		obj.turn_acceleration = e.turn_acceleration,
+		obj.turn_speed = e.turn_speed,
+		obj.immune = e.immune,
+		obj.pattern = e.pattern,
+		
+		obj.direction = e.direction,
+		obj.cone_angle = e.cone_angle,
+		obj.pause_duration = e.pause_duration,
+		obj.pause_interval = e.pause_interval,
+		obj.projectile_duration = e.projectile_duration,
+		obj.projectile_radius = e.projectile_radius,
+		obj.projectile_speed = e.projectile_speed
+	);
+	obj.types.includes("radiating_bullets") && (
+		obj.release_time = e.release_time,
+		obj.release_interval = e.release_interval
+	);
+	return obj;
 }
 function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,properties,type="active",requirements=[],spawner=[],previousZone) {
     const Zone = {x, y, rx:x,ry:y,width,rw:width,height,rh:height, type, properties:{...defaultValues.properties,...properties},spawner:[], translate:{x:tx,y:ty},requirements,previousZone};
     // Create inputs/labels
   spawner.map(p => {
-    const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius);
-	var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y'];
+    const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p,repulsion);
+	var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion'];
 	for(var i in p){
 		if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
 	}
@@ -885,14 +911,16 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
     /*quicksand enemy*/push_direction,
     /*cybot enemy*/hard_mode=false,
     reducing_radius=140,
+	gravity,
+	repulsion,
 	) {
         const point1 = {
             types:[],x,y,turn_acceleration,cone_angle,
             count,turn_speed,shot_acceleration,
             speed,shot_interval,pause_duration,
             radius,angle,pause_interval,
-			      horizontal,immune,move_clockwise,
-			      pattern,direction,projectile_duration,
+			horizontal,immune,move_clockwise,
+			pattern,direction,projectile_duration,
             projectile_radius,projectile_speed,
             growth_multiplier,powered,ignore_invulnerability,
             speed_loss,regen_loss,release_interval,release_time,
@@ -902,8 +930,9 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
             magnetic_reduction_radius,magnetic_nullification_radius,
             freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,
             switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,
+			gravity,repulsion,
         }
-types.map(p => {
+	types.map(p => {
         const pointe = createpoint2(p,point1);
         point1.types.push(pointe);
         return pointe.element;
