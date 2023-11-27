@@ -214,6 +214,7 @@
   "editor.requirement.inaccessible":"Inaccessible",
   "editor.requirement.ten_hard_variants":"Ten Hard Variants",
   "editor.requirement.cybot_hard_mode_defeated":"Cybot Hard Mode Defeated",
+  "editor.requirement.cybot_castle_defeated":"Cybot Castle Defeated",
   "editor.texture.normal":"Normal",
   "editor.texture.leaves":"Leaves",
   "editor.texture.wooden":"Wooden",
