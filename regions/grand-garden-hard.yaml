@@ -1,0 +1,1541 @@
+name: Grand Garden Hard
+properties:
+  friction: 0.75
+  background_color:
+  - 100
+  - 200
+  - 10
+  - 90
+areas:
+# 1
+- x: var x
+  y: var y
+  zones:
+  - type: teleport
+    x: 0
+    y: 0
+    width: 32
+    height: 480
+    translate:
+      x: -94604
+      y: 0
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 100
+  - type: safe
+    x: 32
+    y: 0
+    width: 288
+    height: 480
+    properties:
+      minimum_speed: 10
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 20
+      radius: 23
+      speed: 1
+      powered: True
+      types:
+      - grass
+    - count: 5
+      radius: 12
+      speed: 6
+      types:
+      - turning
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 2
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 25
+      speed: 1
+      powered: True
+      types:
+      - grass
+    - count: 10
+      radius: 14
+      speed: 7
+      types:
+      - turning
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 3
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 28
+      speed: 1
+      powered: True
+      types:
+      - grass
+    - count: 10
+      radius: 17
+      speed: 8
+      types:
+      - turning
+    - count: 5
+      radius: 38
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 4
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 30
+      speed: 1
+      powered: True
+      types:
+      - grass
+    - count: 10
+      radius: 19
+      speed: 9
+      types:
+      - turning
+    - count: 5
+      radius: 38
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 5
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 33
+      speed: 1
+      powered: True
+      types:
+      - grass
+    - count: 10
+      radius: 22
+      speed: 11
+      types:
+      - turning
+    - count: 5
+      radius: 38
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 6
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 35
+      speed: 1
+      powered: True
+      types:
+      - grass
+    - count: 10
+      radius: 24
+      speed: 12
+      types:
+      - turning
+    - count: 5
+      radius: 38
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 7
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 38
+      speed: 2
+      powered: True
+      types:
+      - grass
+    - count: 10
+      radius: 27
+      speed: 13
+      types:
+      - turning
+    - count: 2
+      radius: 53
+      speed: 13
+      types:
+      - turning
+    - count: 5
+      radius: 38
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 8
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 20
+      radius: 23
+      speed: 2
+      powered: True
+      types:
+      - grass
+    - count: 7
+      radius: 23
+      speed: 4
+      types:
+      - flower
+    - count: 5
+      radius: 38
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 9
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 27
+      speed: 2
+      powered: True
+      types:
+      - grass
+    - count: 14
+      radius: 27
+      speed: 5
+      types:
+      - flower
+    - count: 5
+      radius: 38
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 10
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 30
+      speed: 2
+      powered: True
+      types:
+      - grass
+    - count: 14
+      radius: 30
+      speed: 6
+      types:
+      - flower
+    - count: 5
+      radius: 38
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 11
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 34
+      speed: 2
+      powered: True
+      types:
+      - grass
+    - count: 14
+      radius: 34
+      speed: 6
+      types:
+      - flower
+    - count: 5
+      radius: 38
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 12
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 38
+      speed: 2
+      powered: True
+      types:
+      - grass
+    - count: 14
+      radius: 38
+      speed: 7
+      types:
+      - flower
+    - count: 5
+      radius: 38
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 13
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 42
+      speed: 2
+      powered: True
+      types:
+      - grass
+    - count: 14
+      radius: 42
+      speed: 8
+      types:
+      - flower
+    - count: 5
+      radius: 38
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 14
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 45
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 14
+      radius: 45
+      speed: 9
+      types:
+      - flower
+    - count: 2
+      radius: 90
+      speed: 9
+      types:
+      - flower
+    - count: 5
+      radius: 38
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 15
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 20
+      radius: 23
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 9
+      radius: 12
+      speed: 6
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 16
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 25
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 18
+      radius: 14
+      speed: 7
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 17
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 28
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 18
+      radius: 17
+      speed: 8
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 18
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 30
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 18
+      radius: 19
+      speed: 9
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 19
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 33
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 18
+      radius: 22
+      speed: 11
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 20
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 35
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 18
+      radius: 24
+      speed: 12
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 21
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 38
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 18
+      radius: 27
+      speed: 13
+      types:
+      - seedling
+    - count: 2
+      radius: 53
+      speed: 13
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 22
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 20
+      radius: 23
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 5
+      radius: 23
+      speed: 4
+      types:
+      - flower
+    - count: 5
+      radius: 18
+      speed: 6
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 23
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 27
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 11
+      radius: 27
+      speed: 5
+      types:
+      - flower
+    - count: 11
+      radius: 20
+      speed: 7
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 24
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 30
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 11
+      radius: 30
+      speed: 6
+      types:
+      - flower
+    - count: 11
+      radius: 23
+      speed: 8
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 25
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 34
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 11
+      radius: 34
+      speed: 6
+      types:
+      - flower
+    - count: 11
+      radius: 25
+      speed: 9
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 26
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 38
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 11
+      radius: 38
+      speed: 7
+      types:
+      - flower
+    - count: 11
+      radius: 28
+      speed: 11
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 27
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 42
+      speed: 3
+      powered: True
+      types:
+      - grass
+    - count: 11
+      radius: 42
+      speed: 8
+      types:
+      - flower
+    - count: 11
+      radius: 30
+      speed: 12
+      types:
+      - seedling
+    - count: 5
+      radius: 38
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 28
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 40
+      radius: 45
+      speed: 4
+      powered: True
+      types:
+      - grass
+    - count: 11
+      radius: 45
+      speed: 9
+      types:
+      - flower
+    - count: 11
+      radius: 33
+      speed: 13
+      types:
+      - seedling
+    - count: 1
+      radius: 90
+      speed: 4
+      powered: True
+      types:
+      - grass
+    - count: 5
+      radius: 38
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# Victory 1
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: victory
+    x: 64
+    y: 0
+    width: 2976
+    height: last_height
+  - height: last_height
+    type: removal
+    width: 160
+    x: 3040
+    y: 0

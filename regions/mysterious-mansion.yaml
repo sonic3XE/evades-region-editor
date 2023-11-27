@@ -1,0 +1,6378 @@
+name: Mysterious Mansion
+properties:
+  background_color:
+    - 78
+    - 39
+    - 0
+    - 80
+  warping_disabled: True
+  friction: 0.75
+areas:
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2776
+        y: -24
+      - type: torch
+        x: 400
+        y: -36
+      - type: torch
+        x: 600
+        y: -36
+      - type: torch
+        x: 800
+        y: -36
+      - type: torch
+        x: 1000
+        y: -36
+      - type: torch
+        x: 1200
+        y: -36
+      - type: torch
+        x: 1400
+        y: -36
+      - type: torch
+        x: 1600
+        y: -36
+      - type: torch
+        x: 1800
+        y: -36
+      - type: torch
+        x: 2000
+        y: -36
+      - type: torch
+        x: 2200
+        y: -36
+      - type: torch
+        x: 2400
+        y: -36
+      - type: torch
+        x: 2600
+        y: -36
+      - type: torch
+        x: 2800
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2800
+        y: 480
+    name: Pathway 1
+    properties:
+      background_color:
+        - 78
+        - 39
+        - 0
+        - 100
+      lighting: 0.05
+      texture: leaves
+    x: 270104
+    y: 43040
+    zones:
+      - height: 480
+        translate:
+          x: -267904
+          y: -41600
+        type: teleport
+        width: 64
+        x: 0
+        y: 0
+      - height: last_height
+        type: safe
+        width: 256
+        x: last_right
+        y: 0
+      - height: 480
+        spawner:
+          - count: 8
+            radius: 45
+            speed: 7.5
+            types:
+              - pumpkin
+          - count: 30
+            radius: 45
+            speed: 7.5
+            types:
+              - fake_pumpkin
+        type: active
+        width: 2560
+        x: last_right
+        y: 0
+      - height: last_height
+        type: safe
+        width: 256
+        x: last_right
+        y: 0
+      - height: last_height
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: last_right
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2776
+        y: -24
+      - type: torch
+        x: 400
+        y: -36
+      - type: torch
+        x: 600
+        y: -36
+      - type: torch
+        x: 800
+        y: -36
+      - type: torch
+        x: 1000
+        y: -36
+      - type: torch
+        x: 1200
+        y: -36
+      - type: torch
+        x: 1400
+        y: -36
+      - type: torch
+        x: 1600
+        y: -36
+      - type: torch
+        x: 1800
+        y: -36
+      - type: torch
+        x: 2000
+        y: -36
+      - type: torch
+        x: 2200
+        y: -36
+      - type: torch
+        x: 2400
+        y: -36
+      - type: torch
+        x: 2600
+        y: -36
+      - type: torch
+        x: 2800
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2800
+        y: 480
+    name: Pathway 2
+    properties:
+      background_color:
+        - 78
+        - 39
+        - 0
+        - 100
+      lighting: 0.12
+      texture: leaves
+    x: 273304
+    y: 43040
+    zones:
+      - height: 480
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: last_height
+        type: safe
+        width: 256
+        x: last_right
+        y: 0
+      - height: 480
+        spawner:
+          - count: 7
+            radius: 28
+            speed: 7
+            types:
+              - pumpkin
+          - count: 25
+            radius: 28
+            speed: 7
+            types:
+              - fake_pumpkin
+          - count: 7
+            radius: 16
+            speed: 8
+            types:
+              - pumpkin
+          - count: 25
+            radius: 16
+            speed: 8
+            types:
+              - fake_pumpkin
+        type: active
+        width: 2560
+        x: last_right
+        y: 0
+      - height: last_height
+        type: safe
+        width: 256
+        x: last_right
+        y: 0
+      - height: last_height
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: last_right
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2776
+        y: -24
+      - type: torch
+        x: 400
+        y: -36
+      - type: torch
+        x: 600
+        y: -36
+      - type: torch
+        x: 800
+        y: -36
+      - type: torch
+        x: 1000
+        y: -36
+      - type: torch
+        x: 1200
+        y: -36
+      - type: torch
+        x: 1400
+        y: -36
+      - type: torch
+        x: 1600
+        y: -36
+      - type: torch
+        x: 1800
+        y: -36
+      - type: torch
+        x: 2000
+        y: -36
+      - type: torch
+        x: 2200
+        y: -36
+      - type: torch
+        x: 2400
+        y: -36
+      - type: torch
+        x: 2600
+        y: -36
+      - type: torch
+        x: 2800
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2800
+        y: 480
+    name: Pathway 3
+    properties:
+      background_color:
+        - 78
+        - 39
+        - 0
+        - 100
+      lighting: 0.3
+      texture: leaves
+    x: 276504
+    y: 43040
+    zones:
+      - height: 480
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: last_height
+        type: safe
+        width: 256
+        x: last_right
+        y: 0
+      - height: 480
+        spawner:
+          - count: 4
+            radius: 40
+            speed: 7
+            types:
+              - pumpkin
+          - count: 15
+            radius: 40
+            speed: 7
+            types:
+              - fake_pumpkin
+          - count: 4
+            radius: 25
+            speed: 8
+            types:
+              - pumpkin
+          - count: 15
+            radius: 25
+            speed: 8
+            types:
+              - fake_pumpkin
+          - count: 4
+            radius: 25
+            speed: 9
+            types:
+              - pumpkin
+          - count: 12
+            radius: 25
+            speed: 9
+            types:
+              - fake_pumpkin
+          - count: 4
+            radius: 12
+            speed: 10
+            types:
+              - pumpkin
+          - count: 12
+            radius: 12
+            speed: 10
+            types:
+              - fake_pumpkin
+        type: active
+        width: 2560
+        x: last_right
+        y: 0
+      - height: last_height
+        type: safe
+        width: 256
+        x: last_right
+        y: 0
+      - height: last_height
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: last_right
+        y: 0
+  - assets:
+      - type: flashlight_spawner
+        x: 216
+        y: 232
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 1816
+        y: -24
+      - type: torch
+        x: 350
+        y: -36
+      - type: torch
+        x: 650
+        y: -36
+      - type: torch
+        x: 950
+        y: -36
+      - type: torch
+        x: 1250
+        y: -36
+      - type: torch
+        x: 1550
+        y: -36
+      - type: torch
+        x: 1850
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 350
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 650
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 950
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1250
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1550
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1850
+        y: 480
+    name: Entrance
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.2
+    x: 279704
+    y: 43040
+    zones:
+      - height: 480
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: last_height
+        type: safe
+        width: 256
+        x: last_right
+        y: 0
+      - height: 480
+        spawner:
+          - count: 40
+            radius: 18
+            speed: 2.4
+            types:
+              - glowy
+          - count: 6
+            radius: 30
+            speed: 3
+            types:
+              - wall
+        type: active
+        width: 1600
+        x: last_right
+        y: 0
+      - height: last_height
+        type: safe
+        width: 256
+        x: last_right
+        y: 0
+      - height: last_height
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: last_right
+        y: 0
+  - assets:
+      - height: 768
+        type: light_region
+        width: 768
+        x: -160
+        y: -72
+      - height: 768
+        type: light_region
+        width: 768
+        x: 1464
+        y: -72
+      - height: 1536
+        type: light_region
+        width: 1536
+        x: 232
+        y: -472
+      - type: torch
+        x: 880
+        y: -36
+      - type: torch
+        x: 1152
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 880
+        y: 640
+      - type: torch
+        upside_down: true
+        x: 1152
+        y: 640
+    name: Chamber
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 281944
+    y: 42976
+    zones:
+      - height: 640
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: last_height
+        type: safe
+        width: 320
+        x: last_right
+        y: 0
+      - height: last_height
+        spawner:
+          - count: 4
+            radius: 80
+            speed: 1.6
+            types:
+              - glowy
+          - count: 24
+            radius: 18
+            speed: 3
+            types:
+              - glowy
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 1280
+        x: last_right
+        y: 0
+      - height: last_height
+        type: safe
+        width: 384
+        x: last_right
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 1984
+        y: 192
+      - height: 32
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 896
+        y: 0
+      - height: 32
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 896
+        y: 608
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -72
+      - height: 512
+        type: light_region
+        width: 512
+        x: 5240
+        y: -72
+      - type: torch
+        x: 350
+        y: -36
+      - type: torch
+        x: 650
+        y: -36
+      - type: torch
+        x: 950
+        y: -36
+      - type: torch
+        x: 1250
+        y: -36
+      - type: torch
+        x: 1550
+        y: -36
+      - type: torch
+        x: 1850
+        y: -36
+      - type: torch
+        x: 2150
+        y: -36
+      - type: torch
+        x: 2450
+        y: -36
+      - type: torch
+        x: 2750
+        y: -36
+      - type: torch
+        x: 3050
+        y: -36
+      - type: torch
+        x: 3350
+        y: -36
+      - type: torch
+        x: 3650
+        y: -36
+      - type: torch
+        x: 3950
+        y: -36
+      - type: torch
+        x: 4250
+        y: -36
+      - type: torch
+        x: 4550
+        y: -36
+      - type: torch
+        x: 4850
+        y: -36
+      - type: torch
+        x: 5150
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 350
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 650
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 950
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 1250
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 1550
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 1850
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 2150
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 2450
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 2750
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 3050
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 3350
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 3650
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 3950
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 4250
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 4550
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 4850
+        y: 384
+      - type: torch
+        upside_down: true
+        x: 5150
+        y: 384
+    name: Main Corridor
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 283992
+    y: 43104
+    zones:
+      - height: 384
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 64
+      - height: 384
+        spawner:
+          - count: 8
+            radius: 12
+            speed: 1
+            types:
+              - slowing
+          - count: 8
+            radius: 12
+            speed: 1
+            types:
+              - draining
+          - count: 8
+            radius: 12
+            speed: 1
+            types:
+              - toxic
+          - count: 9
+            radius: 12
+            speed: 5
+            types:
+              - normal
+          - count: 9
+            radius: 12
+            speed: 5
+            types:
+              - dasher
+          - count: 9
+            radius: 12
+            speed: 5
+            types:
+              - homing
+          - count: 9
+            radius: 12
+            speed: 5
+            types:
+              - glowy
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 5120
+        x: 256
+        y: 0
+      - height: 384
+        type: safe
+        width: 256
+        x: 5376
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 5376
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 5376
+        y: 320
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2680
+        y: -24
+    name: Liminal Alley 1
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 289368
+    y: 43488
+    zones:
+      - height: 480
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 18
+            radius: 30
+            speed: 4
+            types:
+              - switch
+          - count: 12
+            radius: 30
+            speed: 4
+            types:
+              - glowy
+          - count: 6
+            radius: 30
+            speed: 6
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 256
+        y: 0
+      - height: 480
+        type: safe
+        width: 256
+        x: 2816
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 2816
+        y: 416
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2680
+    name: Liminal Alley 2
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 292184
+    y: 43968
+    zones:
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 16
+            radius: 30
+            speed: 3
+            types:
+              - switch
+          - count: 10
+            radius: 30
+            speed: 3
+            types:
+              - glowy
+          - count: 8
+            radius: 30
+            speed: 6
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 2816
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 416
+        y: 2816
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: 56
+      - height: 512
+        type: light_region
+        width: 512
+        x: 1496
+        y: 56
+    name: Liminal Alley 3
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 292664
+    y: 46400
+    zones:
+      - height: 640
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 384
+      - height: 640
+        spawner:
+          - count: 22
+            radius: 30
+            speed: 2
+            types:
+              - switch
+          - count: 12
+            radius: 30
+            speed: 2
+            types:
+              - glowy
+          - count: 10
+            radius: 30
+            speed: 6
+            types:
+              - wall
+        type: active
+        width: 1280
+        x: 320
+        y: 0
+      - height: 640
+        type: safe
+        width: 320
+        x: 1600
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 1856
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: 5240
+    name: Liminal Alley 4
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 294584
+    y: 46400
+    zones:
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 5120
+        spawner:
+          - count: 2
+            radius: 80
+            speed: 3
+            types:
+              - switch
+          - count: 18
+            radius: 12
+            speed: 4
+            types:
+              - switch
+          - count: 18
+            radius: 12
+            speed: 4
+            types:
+              - glowy
+          - count: 10
+            radius: 30
+            speed: 6
+            types:
+              - wall
+        type: active
+        width: 256
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 5376
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 5376
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 1656
+        y: -24
+    name: Liminal Alley 5
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 292536
+    y: 51552
+    zones:
+      - height: 480
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 416
+      - height: 480
+        spawner:
+          - count: 4
+            radius: 48
+            speed: 9
+            types:
+              - switch
+          - count: 9
+            radius: 16
+            speed: 3
+            types:
+              - switch
+          - count: 9
+            radius: 16
+            speed: 3
+            types:
+              - glowy
+          - count: 8
+            radius: 30
+            speed: 6
+            types:
+              - wall
+        type: active
+        width: 1536
+        x: 256
+        y: 0
+      - height: 480
+        type: safe
+        width: 256
+        x: 1792
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 1984
+        y: 224
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 3064
+    name: Liminal Alley 6
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 292536
+    y: 52032
+    zones:
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 2944
+        spawner:
+          - count: 9
+            radius: 6
+            speed: 6
+            types:
+              - switch
+          - count: 6
+            radius: 24
+            speed: 5
+            types:
+              - switch
+          - count: 6
+            radius: 36
+            speed: 2
+            types:
+              - switch
+          - count: 9
+            radius: 6
+            speed: 6
+            types:
+              - glowy
+          - count: 6
+            radius: 24
+            speed: 5
+            types:
+              - glowy
+          - count: 5
+            radius: 36
+            speed: 2
+            types:
+              - glowy
+          - count: 10
+            radius: 30
+            speed: 6
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 3200
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 3392
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2680
+        y: -24
+    name: Liminal Alley 7
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 292536
+    y: 55488
+    zones:
+      - height: 480
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 7
+            radius: 8
+            speed: 8
+            types:
+              - switch
+          - count: 7
+            radius: 16
+            speed: 4
+            types:
+              - switch
+          - count: 3
+            radius: 32
+            speed: 3
+            types:
+              - switch
+          - count: 2
+            radius: 64
+            speed: 2
+            types:
+              - switch
+          - count: 7
+            radius: 8
+            speed: 8
+            types:
+              - glowy
+          - count: 7
+            radius: 16
+            speed: 4
+            types:
+              - glowy
+          - count: 3
+            radius: 32
+            speed: 3
+            types:
+              - glowy
+          - count: 2
+            radius: 64
+            speed: 2
+            types:
+              - glowy
+          - count: 5
+            radius: 24
+            speed: 24
+            types:
+              - dasher
+          - count: 10
+            radius: 30
+            speed: 6
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 256
+        y: 0
+      - height: 480
+        type: safe
+        width: 256
+        x: 2816
+        y: 0
+      - height: 480
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3072
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: 1656
+      - type: torch
+        x: -12
+        y: 275
+      - type: torch
+        x: 256
+        y: 275
+      - type: torch
+        x: -12
+        y: 475
+      - type: torch
+        x: 256
+        y: 475
+      - type: torch
+        x: -12
+        y: 675
+      - type: torch
+        x: 256
+        y: 675
+      - type: torch
+        x: -12
+        y: 875
+      - type: torch
+        x: 256
+        y: 875
+      - type: torch
+        x: -12
+        y: 1075
+      - type: torch
+        x: 256
+        y: 1075
+      - type: torch
+        x: -12
+        y: 1275
+      - type: torch
+        x: 256
+        y: 1275
+      - type: torch
+        x: -12
+        y: 1475
+      - type: torch
+        x: 256
+        y: 1475
+      - type: torch
+        x: -12
+        y: 1675
+      - type: torch
+        x: 256
+        y: 1675
+    name: Attic Stairs 1
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 282840
+    y: 43616
+    zones:
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: -800
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 1536
+        spawner:
+          - count: 8
+            radius: 18
+            speed: 3
+            types:
+              - zigzag
+          - count: 6
+            radius: 15
+            speed: 3
+            types:
+              - wall
+        type: active
+        width: 256
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 1792
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 1984
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: 1656
+      - type: torch
+        x: -12
+        y: 275
+      - type: torch
+        x: 256
+        y: 275
+      - type: torch
+        x: -12
+        y: 475
+      - type: torch
+        x: 256
+        y: 475
+      - type: torch
+        x: -12
+        y: 675
+      - type: torch
+        x: 256
+        y: 675
+      - type: torch
+        x: -12
+        y: 875
+      - type: torch
+        x: 256
+        y: 875
+      - type: torch
+        x: -12
+        y: 1075
+      - type: torch
+        x: 256
+        y: 1075
+      - type: torch
+        x: -12
+        y: 1275
+      - type: torch
+        x: 256
+        y: 1275
+      - type: torch
+        x: -12
+        y: 1475
+      - type: torch
+        x: 256
+        y: 1475
+      - type: torch
+        x: -12
+        y: 1675
+      - type: torch
+        x: 256
+        y: 1675
+    name: Attic Stairs 2
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 282840
+    y: 45664
+    zones:
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 1536
+        spawner:
+          - count: 8
+            radius: 18
+            speed: 5
+            types:
+              - zigzag
+          - count: 6
+            radius: 15
+            speed: 5
+            types:
+              - wall
+        type: active
+        width: 256
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 1792
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 1984
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: 1656
+      - type: torch
+        x: -12
+        y: 275
+      - type: torch
+        x: 256
+        y: 275
+      - type: torch
+        x: -12
+        y: 475
+      - type: torch
+        x: 256
+        y: 475
+      - type: torch
+        x: -12
+        y: 675
+      - type: torch
+        x: 256
+        y: 675
+      - type: torch
+        x: -12
+        y: 875
+      - type: torch
+        x: 256
+        y: 875
+      - type: torch
+        x: -12
+        y: 1075
+      - type: torch
+        x: 256
+        y: 1075
+      - type: torch
+        x: -12
+        y: 1275
+      - type: torch
+        x: 256
+        y: 1275
+      - type: torch
+        x: -12
+        y: 1475
+      - type: torch
+        x: 256
+        y: 1475
+      - type: torch
+        x: -12
+        y: 1675
+      - type: torch
+        x: 256
+        y: 1675
+    name: Attic Stairs 3
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 282840
+    y: 47712
+    zones:
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 1536
+        spawner:
+          - count: 12
+            radius: 18
+            speed: 3
+            types:
+              - zigzag
+          - count: 9
+            radius: 15
+            speed: 3
+            types:
+              - wall
+        type: active
+        width: 256
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 1792
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 1984
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: 1656
+        y: -136
+      - type: torch
+        x: 275
+        y: -36
+      - type: torch
+        x: 475
+        y: -36
+      - type: torch
+        x: 675
+        y: -36
+      - type: torch
+        x: 875
+        y: -36
+      - type: torch
+        x: 1075
+        y: -36
+      - type: torch
+        x: 1275
+        y: -36
+      - type: torch
+        x: 1475
+        y: -36
+      - type: torch
+        x: 1675
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 275
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 475
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 675
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 875
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 1075
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 1275
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 1475
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 1675
+        y: 256
+    name: Attic Crawlspace
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 282840
+    y: 49760
+    zones:
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 256
+        spawner:
+          - count: 8
+            radius: 27
+            speed: 3
+            types:
+              - zigzag
+          - count: 6
+            radius: 27
+            speed: 3
+            types:
+              - wall
+        type: active
+        width: 1536
+        x: 256
+        y: 0
+      - height: 256
+        type: safe
+        width: 256
+        x: 1792
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 1984
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2744
+        y: -24
+      - type: torch
+        x: 400
+        y: -36
+      - type: torch
+        x: 600
+        y: -36
+      - type: torch
+        x: 800
+        y: -36
+      - type: torch
+        x: 1000
+        y: -36
+      - type: torch
+        x: 1200
+        y: -36
+      - type: torch
+        x: 1400
+        y: -36
+      - type: torch
+        x: 1600
+        y: -36
+      - type: torch
+        x: 1800
+        y: -36
+      - type: torch
+        x: 2000
+        y: -36
+      - type: torch
+        x: 2200
+        y: -36
+      - type: torch
+        x: 2400
+        y: -36
+      - type: torch
+        x: 2600
+        y: -36
+      - type: torch
+        x: 2800
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2800
+        y: 480
+    name: Attic 1
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 284888
+    y: 49760
+    zones:
+      - height: 480
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 8
+            radius: 18
+            speed: 4
+            types:
+              - wavy
+          - count: 4
+            radius: 9
+            speed: 5
+            types:
+              - sizing
+          - count: 6
+            radius: 30
+            speed: 3
+            types:
+              - mist
+          - count: 8
+            radius: 30
+            speed: 5
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 256
+        y: 0
+      - height: 480
+        type: safe
+        width: 256
+        x: 2816
+        y: 0
+      - height: 480
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3072
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2744
+        y: -24
+      - type: torch
+        x: 400
+        y: -36
+      - type: torch
+        x: 600
+        y: -36
+      - type: torch
+        x: 800
+        y: -36
+      - type: torch
+        x: 1000
+        y: -36
+      - type: torch
+        x: 1200
+        y: -36
+      - type: torch
+        x: 1400
+        y: -36
+      - type: torch
+        x: 1600
+        y: -36
+      - type: torch
+        x: 1800
+        y: -36
+      - type: torch
+        x: 2000
+        y: -36
+      - type: torch
+        x: 2200
+        y: -36
+      - type: torch
+        x: 2400
+        y: -36
+      - type: torch
+        x: 2600
+        y: -36
+      - type: torch
+        x: 2800
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2800
+        y: 480
+    name: Attic 2
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 288024
+    y: 49760
+    zones:
+      - height: 480
+        type: safe
+        width: 256
+        x: 64
+        y: 0
+      - height: 480
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 8
+            radius: 18
+            speed: 5
+            types:
+              - wavy
+          - count: 4
+            radius: 9
+            speed: 6
+            types:
+              - sizing
+          - count: 6
+            radius: 40
+            speed: 3
+            types:
+              - mist
+          - count: 8
+            radius: 30
+            speed: 5
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 256
+        x: 2880
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3072
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 3704
+      - type: torch
+        x: -12
+        y: 400
+      - type: torch
+        x: 480
+        y: 400
+      - type: torch
+        x: -12
+        y: 600
+      - type: torch
+        x: 480
+        y: 600
+      - type: torch
+        x: -12
+        y: 800
+      - type: torch
+        x: 480
+        y: 800
+      - type: torch
+        x: -12
+        y: 1000
+      - type: torch
+        x: 480
+        y: 1000
+      - type: torch
+        x: -12
+        y: 1200
+      - type: torch
+        x: 480
+        y: 1200
+      - type: torch
+        x: -12
+        y: 1400
+      - type: torch
+        x: 480
+        y: 1400
+      - type: torch
+        x: -12
+        y: 1600
+      - type: torch
+        x: 480
+        y: 1600
+      - type: torch
+        x: -12
+        y: 1800
+      - type: torch
+        x: 480
+        y: 1800
+      - type: torch
+        x: -12
+        y: 2000
+      - type: torch
+        x: 480
+        y: 2000
+      - type: torch
+        x: -12
+        y: 2200
+      - type: torch
+        x: 480
+        y: 2200
+      - type: torch
+        x: -12
+        y: 2400
+      - type: torch
+        x: 480
+        y: 2400
+      - type: torch
+        x: -12
+        y: 2600
+      - type: torch
+        x: 480
+        y: 2600
+      - type: torch
+        x: -12
+        y: 2800
+      - type: torch
+        x: 480
+        y: 2800
+      - type: torch
+        x: -12
+        y: 3000
+      - type: torch
+        x: 480
+        y: 3000
+      - type: torch
+        x: -12
+        y: 3200
+      - type: torch
+        x: 480
+        y: 3200
+      - type: torch
+        x: -12
+        y: 3400
+      - type: torch
+        x: 480
+        y: 3400
+      - type: torch
+        x: -12
+        y: 3600
+      - type: torch
+        x: 480
+        y: 3600
+      - type: torch
+        x: -12
+        y: 3800
+      - type: torch
+        x: 480
+        y: 3800
+    name: Attic 3
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 291160
+    y: 45920
+    zones:
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 3584
+        spawner:
+          - count: 12
+            radius: 18
+            speed: 4
+            types:
+              - icicle
+          - count: 6
+            radius: 30
+            speed: 3
+            types:
+              - icicle
+          - count: 3
+            radius: 24
+            speed: 2
+            types:
+              - spiral
+          - count: 12
+            radius: 18
+            speed: 3
+            types:
+              - mist
+          - count: 8
+            radius: 30
+            speed: 5
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 3840
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 3840
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2744
+        y: -24
+      - type: torch
+        x: 400
+        y: -36
+      - type: torch
+        x: 600
+        y: -36
+      - type: torch
+        x: 800
+        y: -36
+      - type: torch
+        x: 1000
+        y: -36
+      - type: torch
+        x: 1200
+        y: -36
+      - type: torch
+        x: 1400
+        y: -36
+      - type: torch
+        x: 1600
+        y: -36
+      - type: torch
+        x: 1800
+        y: -36
+      - type: torch
+        x: 2000
+        y: -36
+      - type: torch
+        x: 2200
+        y: -36
+      - type: torch
+        x: 2400
+        y: -36
+      - type: torch
+        x: 2600
+        y: -36
+      - type: torch
+        x: 2800
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2800
+        y: 480
+    name: Attic 4
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 288344
+    y: 45440
+    zones:
+      - height: 480
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 224
+      - height: 480
+        spawner:
+          - count: 10
+            radius: 18
+            speed: 4
+            types:
+              - wavy
+          - count: 5
+            radius: 9
+            speed: 5
+            types:
+              - sizing
+          - count: 12
+            radius: 30
+            speed: 3
+            types:
+              - mist
+          - count: 8
+            radius: 30
+            speed: 5
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 256
+        y: 0
+      - height: 480
+        type: safe
+        width: 256
+        x: 2816
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 2816
+        y: 416
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2680
+      - type: torch
+        x: -12
+        y: 400
+      - type: torch
+        x: 480
+        y: 400
+      - type: torch
+        x: -12
+        y: 600
+      - type: torch
+        x: 480
+        y: 600
+      - type: torch
+        x: -12
+        y: 800
+      - type: torch
+        x: 480
+        y: 800
+      - type: torch
+        x: -12
+        y: 1000
+      - type: torch
+        x: 480
+        y: 1000
+      - type: torch
+        x: -12
+        y: 1200
+      - type: torch
+        x: 480
+        y: 1200
+      - type: torch
+        x: -12
+        y: 1400
+      - type: torch
+        x: 480
+        y: 1400
+      - type: torch
+        x: -12
+        y: 1600
+      - type: torch
+        x: 480
+        y: 1600
+      - type: torch
+        x: -12
+        y: 1800
+      - type: torch
+        x: 480
+        y: 1800
+      - type: torch
+        x: -12
+        y: 2000
+      - type: torch
+        x: 480
+        y: 2000
+      - type: torch
+        x: -12
+        y: 2200
+      - type: torch
+        x: 480
+        y: 2200
+      - type: torch
+        x: -12
+        y: 2400
+      - type: torch
+        x: 480
+        y: 2400
+      - type: torch
+        x: -12
+        y: 2600
+      - type: torch
+        x: 480
+        y: 2600
+    name: Attic 5
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 287864
+    y: 45664
+    zones:
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 416
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 18
+            radius: 18
+            speed: 4
+            types:
+              - icicle
+          - count: 4
+            radius: 30
+            speed: 3
+            types:
+              - icicle
+          - count: 4
+            radius: 45
+            speed: 2
+            types:
+              - icicle
+          - count: 4
+            radius: 24
+            speed: 2
+            types:
+              - spiral
+          - count: 30
+            radius: 12
+            speed: 3
+            types:
+              - mist
+          - count: 8
+            radius: 30
+            speed: 5
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 2816
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 3008
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2744
+        y: -24
+      - type: torch
+        x: 400
+        y: -36
+      - type: torch
+        x: 600
+        y: -36
+      - type: torch
+        x: 800
+        y: -36
+      - type: torch
+        x: 1000
+        y: -36
+      - type: torch
+        x: 1200
+        y: -36
+      - type: torch
+        x: 1400
+        y: -36
+      - type: torch
+        x: 1600
+        y: -36
+      - type: torch
+        x: 1800
+        y: -36
+      - type: torch
+        x: 2000
+        y: -36
+      - type: torch
+        x: 2200
+        y: -36
+      - type: torch
+        x: 2400
+        y: -36
+      - type: torch
+        x: 2600
+        y: -36
+      - type: torch
+        x: 2800
+        y: -36
+      - type: torch
+        upside_down: true
+        x: 400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 1800
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2000
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2200
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2400
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2600
+        y: 480
+      - type: torch
+        upside_down: true
+        x: 2800
+        y: 480
+    name: Attic 6
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 285048
+    y: 48736
+    zones:
+      - height: 480
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 32
+        properties:
+          background_color:
+            - 255
+            - 0
+            - 0
+            - 100
+        translate:
+          x: -160
+          y: 928
+        type: exit
+        width: 32
+        x: 0
+        y: 448
+      - height: 480
+        spawner:
+          - count: 15
+            radius: 18
+            speed: 5
+            types:
+              - wavy
+          - count: 3
+            radius: 35
+            speed: 5
+            types:
+              - wavy
+          - count: 6
+            radius: 9
+            speed: 6
+            types:
+              - sizing
+          - count: 15
+            radius: 30
+            speed: 3
+            types:
+              - mist
+          - count: 8
+            radius: 30
+            speed: 5
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 256
+        y: 0
+      - height: 480
+        type: safe
+        width: 256
+        x: 2816
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 2816
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2776
+      - type: torch
+        x: -12
+        y: 400
+      - type: torch
+        x: 480
+        y: 400
+      - type: torch
+        x: -12
+        y: 600
+      - type: torch
+        x: 480
+        y: 600
+      - type: torch
+        x: -12
+        y: 800
+      - type: torch
+        x: 480
+        y: 800
+      - type: torch
+        x: -12
+        y: 1000
+      - type: torch
+        x: 480
+        y: 1000
+      - type: torch
+        x: -12
+        y: 1200
+      - type: torch
+        x: 480
+        y: 1200
+      - type: torch
+        x: -12
+        y: 1400
+      - type: torch
+        x: 480
+        y: 1400
+      - type: torch
+        x: -12
+        y: 1600
+      - type: torch
+        x: 480
+        y: 1600
+      - type: torch
+        x: -12
+        y: 1800
+      - type: torch
+        x: 480
+        y: 1800
+      - type: torch
+        x: -12
+        y: 2000
+      - type: torch
+        x: 480
+        y: 2000
+      - type: torch
+        x: -12
+        y: 2200
+      - type: torch
+        x: 480
+        y: 2200
+      - type: torch
+        x: -12
+        y: 2400
+      - type: torch
+        x: 480
+        y: 2400
+      - type: torch
+        x: -12
+        y: 2600
+      - type: torch
+        x: 480
+        y: 2600
+      - type: torch
+        x: -12
+        y: 2800
+      - type: torch
+        x: 480
+        y: 2800
+    name: Attic 7
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 284824
+    y: 45600
+    zones:
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 64
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 480
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 24
+            radius: 18
+            speed: 4
+            types:
+              - icicle
+          - count: 7
+            radius: 30
+            speed: 3
+            types:
+              - icicle
+          - count: 5
+            radius: 45
+            speed: 2
+            types:
+              - icicle
+          - count: 5
+            radius: 24
+            speed: 2
+            types:
+              - spiral
+          - count: 20
+            radius: 12
+            speed: 3
+            types:
+              - mist
+          - count: 8
+            radius: 30
+            speed: 5
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 256
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 224
+        y: 3072
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: 2680
+      - type: torch
+        x: 256
+        y: 400
+      - type: torch
+        x: 256
+        y: 600
+      - type: torch
+        x: -12
+        y: 1200
+      - type: torch
+        x: 256
+        y: 1200
+      - type: torch
+        x: 256
+        y: 2600
+    name: Ruined Hallway 1
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 289368
+    y: 40032
+    zones:
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 16
+            radius: 12
+            speed: 1
+            types:
+              - slowing
+          - count: 15
+            radius: 12
+            speed: 4
+            types:
+              - glowy
+          - count: 8
+            radius: 15
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 256
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 2816
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 3008
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2680
+        y: -136
+      - type: torch
+        x: 400
+        y: -32
+      - type: torch
+        x: 800
+        y: -32
+      - type: torch
+        x: 1000
+        y: -32
+      - type: torch
+        x: 2000
+        y: -32
+      - type: torch
+        x: 2200
+        y: -32
+      - type: torch
+        upside_down: true
+        x: 800
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 1000
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 1200
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 1600
+        y: 256
+      - type: torch
+        upside_down: true
+        x: 2400
+        y: 256
+    name: Ruined Hallway 2
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 289368
+    y: 39776
+    zones:
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 192
+      - height: 256
+        spawner:
+          - count: 20
+            radius: 12
+            speed: 1
+            types:
+              - draining
+          - count: 18
+            radius: 12
+            speed: 4
+            types:
+              - glowy
+          - count: 8
+            radius: 15
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 256
+        y: 0
+      - height: 256
+        type: safe
+        width: 256
+        x: 2816
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3008
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2776
+        y: -24
+    name: Crypt Hall
+    properties:
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 292440
+    y: 39776
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 7
+            radius: 18
+            speed: 5
+            types:
+              - snowman
+          - count: 5
+            radius: 18
+            speed: 4
+            types:
+              - fire_trail
+          - count: 3
+            radius: 18
+            speed: 4
+            types:
+              - phantom
+          - count: 9
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3136
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2776
+    name: Crypt Entrance
+    properties:
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 295640
+    y: 39776
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 224
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 9
+            radius: 18
+            speed: 8
+            types:
+              - snowman
+          - count: 5
+            radius: 18
+            speed: 6
+            types:
+              - fire_trail
+          - count: 4
+            radius: 18
+            speed: 5
+            types:
+              - phantom
+          - count: 9
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 416
+        y: 2944
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2776
+    name: Crypt Chamber
+    properties:
+      applies_lantern: true
+      pellet_count: 0
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 296120
+    y: 42656
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 64
+  - assets:
+      - height: 320
+        type: light_region
+        width: 320
+        x: 160
+        y: 240
+    name: Crypt Loop .
+    properties:
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 295640
+    y: 36576
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 416
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 11
+            radius: 18
+            speed: 5
+            types:
+              - snowman
+          - count: 6
+            radius: 18
+            speed: 4
+            types:
+              - fire_trail
+          - count: 4
+            radius: 18
+            speed: 5
+            types:
+              - phantom
+          - count: 9
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 224
+        y: 3136
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2776
+        y: -24
+    name: Crypt Loop Abyss
+    properties:
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 292440
+    y: 36576
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 5
+            radius: 18
+            speed: 4
+            types:
+              - snowman
+          - count: 10
+            radius: 18
+            speed: 5
+            types:
+              - fire_trail
+          - count: 4
+            radius: 18
+            speed: 5
+            types:
+              - phantom
+          - count: 9
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3136
+        y: 0
+      - height: 480
+        translate:
+          x: 3552
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2776
+        y: -24
+    name: Crypt Loop ..
+    properties:
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 296120
+    y: 36576
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 9
+            radius: 18
+            speed: 7
+            types:
+              - snowman
+          - count: 7
+            radius: 12
+            speed: 5
+            types:
+              - fire_trail
+          - count: 6
+            radius: 18
+            speed: 6
+            types:
+              - phantom
+          - count: 9
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 2944
+        y: 416
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2776
+    name: Crypt Loop '..'
+    properties:
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 299064
+    y: 37056
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 6
+            radius: 21
+            speed: 5
+            types:
+              - snowman
+          - count: 12
+            radius: 14
+            speed: 8
+            types:
+              - snowman
+          - count: 5
+            radius: 18
+            speed: 7
+            types:
+              - phantom
+          - count: 9
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 3136
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2776
+    name: Crypt Loop ';..;'
+    properties:
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 299064
+    y: 40256
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 4
+            radius: 30
+            speed: 4
+            types:
+              - fire_trail
+          - count: 6
+            radius: 18
+            speed: 7
+            types:
+              - fire_trail
+          - count: 5
+            radius: 18
+            speed: 6
+            types:
+              - phantom
+          - count: 9
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 2944
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2776
+        y: -24
+    name: Crypt Loop v(`;..;`)v
+    properties:
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 295864
+    y: 42976
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 32
+        properties:
+          background_color:
+            - 255
+            - 0
+            - 0
+            - 100
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 32
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 416
+      - height: 480
+        spawner:
+          - count: 3
+            radius: 27
+            speed: 4
+            types:
+              - snowman
+          - count: 7
+            radius: 18
+            speed: 7
+            types:
+              - snowman
+          - count: 3
+            radius: 35
+            speed: 5
+            types:
+              - fire_trail
+          - count: 7
+            radius: 18
+            speed: 8
+            types:
+              - fire_trail
+          - count: 6
+            radius: 18
+            speed: 7
+            types:
+              - phantom
+          - count: 9
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3136
+        y: 224
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2776
+    name: Crypt Loop Escape
+    properties:
+      background_color:
+        - 70
+        - 55
+        - 45
+        - 150
+      lighting: 0.1
+    x: 295864
+    y: 43456
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 2
+            radius: 45
+            speed: 2
+            types:
+              - snowman
+          - count: 10
+            radius: 18
+            speed: 4
+            types:
+              - snowman
+          - count: 2
+            radius: 80
+            speed: 3
+            types:
+              - fire_trail
+          - count: 10
+            radius: 18
+            speed: 3
+            types:
+              - fire_trail
+          - count: 10
+            radius: 18
+            speed: 3
+            types:
+              - phantom
+          - count: 9
+            radius: 30
+            speed: 4
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 224
+        y: 3136
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: 72
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: 72
+        y: 1560
+      - type: flashlight_spawner
+        x: 168
+        y: 152
+      - type: flashlight_spawner
+        x: 504
+        y: 152
+    name: Dungeon 1
+    properties:
+      background_color:
+        - 30
+        - 30
+        - 30
+        - 150
+      lighting: 0.04
+    x: 296088
+    y: 46656
+    zones:
+      - height: 320
+        type: safe
+        width: 672
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 1344
+        spawner:
+          - count: 6
+            radius: 96
+            speed: 3
+            types:
+              - wall
+          - count: 32
+            radius: 16
+            speed: 2
+            types:
+              - wall
+          - count: 5
+            immune: false
+            pattern: quadspiral
+            pause_duration: 5000
+            pause_interval: 1000
+            radius: 24
+            shot_interval: 250
+            speed: 1
+            types:
+              - frost_giant
+        type: active
+        width: 672
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 672
+        x: 0
+        y: 1664
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 192
+        x: 480
+        y: 1920
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -168
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -168
+        y: 2680
+    name: Dungeon 2
+    properties:
+      background_color:
+        - 30
+        - 30
+        - 30
+        - 150
+      lighting: 0.04
+    x: 296568
+    y: 48640
+    zones:
+      - height: 256
+        type: safe
+        width: 192
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 192
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 8
+            radius: 48
+            speed: 6
+            types:
+              - wall
+          - count: 18
+            radius: 12
+            speed: 3
+            types:
+              - wall
+          - count: 4
+            move_clockwise: false
+            radius: 30
+            speed: 2
+            types:
+              - wall
+        type: active
+        width: 192
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 192
+        x: 0
+        y: 2816
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 192
+        x: 0
+        y: 3008
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -80
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -80
+        y: 2680
+    name: Dungeon 3
+    properties:
+      background_color:
+        - 30
+        - 30
+        - 30
+        - 150
+      lighting: 0.04
+    x: 296568
+    y: 51712
+    zones:
+      - height: 320
+        type: safe
+        width: 384
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 192
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 8
+            radius: 96
+            speed: 9
+            types:
+              - wall
+          - count: 18
+            radius: 24
+            speed: 4.5
+            types:
+              - wall
+          - count: 4
+            move_clockwise: false
+            radius: 60
+            speed: 3
+            types:
+              - wall
+        type: active
+        width: 384
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 384
+        x: 0
+        y: 2880
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 320
+        x: 64
+        y: 3136
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2776
+        y: -24
+    name: Dungeon 4
+    properties:
+      background_color:
+        - 30
+        - 30
+        - 30
+        - 150
+      lighting: 0.04
+    x: 296632
+    y: 54912
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 320
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 8
+            radius: 48
+            speed: 6
+            types:
+              - wall
+          - count: 5
+            radius: 48
+            speed: 6
+            types:
+              - normal
+          - count: 17
+            radius: 24
+            speed: 4
+            types:
+              - normal
+          - count: 2
+            radius: 48
+            speed: 6
+            types:
+              - immune
+          - count: 2
+            radius: 24
+            speed: 4
+            types:
+              - immune
+          - count: 1
+            immune: false
+            pattern: quadspiral
+            pause_duration: 5000
+            pause_interval: 1000
+            radius: 48
+            shot_interval: 250
+            speed: 6
+            types:
+              - frost_giant
+          - count: 1
+            immune: false
+            pattern: quadspiral
+            pause_duration: 5000
+            pause_interval: 1000
+            radius: 24
+            shot_interval: 250
+            speed: 4
+            types:
+              - frost_giant
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3136
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: 5240
+        y: -136
+    name: Dungeon 5
+    properties:
+      background_color:
+        - 30
+        - 30
+        - 30
+        - 150
+      lighting: 0.04
+    x: 299832
+    y: 54912
+    zones:
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 256
+        spawner:
+          - count: 12
+            radius: 48
+            speed: 6
+            types:
+              - wall
+          - count: 7
+            radius: 48
+            speed: 6
+            types:
+              - normal
+          - count: 18
+            radius: 24
+            speed: 4
+            types:
+              - normal
+          - count: 3
+            radius: 48
+            speed: 6
+            types:
+              - immune
+          - count: 7
+            radius: 24
+            speed: 4
+            types:
+              - immune
+        type: active
+        width: 5120
+        x: 256
+        y: 0
+      - height: 256
+        type: safe
+        width: 256
+        x: 5376
+        y: 0
+      - height: 256
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 5568
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2776
+    name: Dungeon 6
+    properties:
+      background_color:
+        - 30
+        - 30
+        - 30
+        - 150
+      lighting: 0.04
+    x: 305464
+    y: 51968
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 480
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 16
+            radius: 48
+            speed: 5
+            types:
+              - wall
+          - count: 4
+            radius: 48
+            speed: 5
+            types:
+              - immune
+          - count: 36
+            radius: 24
+            speed: 1
+            types:
+              - immune
+          - count: 36
+            radius: 12
+            speed: 1
+            types:
+              - immune
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 256
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 2944
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: -136
+      - height: 512
+        type: light_region
+        width: 512
+        x: -136
+        y: 2680
+      - type: torch
+        x: -12
+        y: 400
+      - type: torch
+        x: 256
+        y: 400
+      - type: torch
+        x: -12
+        y: 600
+      - type: torch
+        x: 256
+        y: 600
+      - type: torch
+        x: -12
+        y: 800
+      - type: torch
+        x: 256
+        y: 800
+      - type: torch
+        x: -12
+        y: 1000
+      - type: torch
+        x: 256
+        y: 1000
+      - type: torch
+        x: -12
+        y: 1200
+      - type: torch
+        x: 256
+        y: 1200
+      - type: torch
+        x: -12
+        y: 1400
+      - type: torch
+        x: 256
+        y: 1400
+      - type: torch
+        x: -12
+        y: 1600
+      - type: torch
+        x: 256
+        y: 1600
+      - type: torch
+        x: -12
+        y: 1800
+      - type: torch
+        x: 256
+        y: 1800
+      - type: torch
+        x: -12
+        y: 2000
+      - type: torch
+        x: 256
+        y: 2000
+      - type: torch
+        x: -12
+        y: 2200
+      - type: torch
+        x: 256
+        y: 2200
+      - type: torch
+        x: -12
+        y: 2400
+      - type: torch
+        x: 256
+        y: 2400
+      - type: torch
+        x: -12
+        y: 2600
+      - type: torch
+        x: 256
+        y: 2600
+      - type: torch
+        x: -12
+        y: 2800
+      - type: torch
+        x: 256
+        y: 2800
+      - type: torch
+        x: -12
+        y: 3000
+      - type: torch
+        x: 256
+        y: 3000
+      - type: torch
+        x: -12
+        y: 3200
+      - type: torch
+        x: 256
+        y: 3200
+      - type: torch
+        x: -12
+        y: 3400
+      - type: torch
+        x: 256
+        y: 3400
+      - type: torch
+        x: -12
+        y: 3600
+      - type: torch
+        x: 256
+        y: 3600
+      - type: torch
+        x: -12
+        y: 3800
+      - type: torch
+        x: 256
+        y: 3800
+      - type: torch
+        x: -12
+        y: 4000
+      - type: torch
+        x: 256
+        y: 4000
+      - type: torch
+        x: -12
+        y: 4200
+      - type: torch
+        x: 256
+        y: 4200
+      - type: torch
+        x: -12
+        y: 4400
+      - type: torch
+        x: 256
+        y: 4400
+      - type: torch
+        x: -12
+        y: 4600
+      - type: torch
+        x: 256
+        y: 4600
+      - type: torch
+        x: -12
+        y: 4800
+      - type: torch
+        x: 256
+        y: 4800
+      - type: torch
+        x: -12
+        y: 5000
+      - type: torch
+        x: 256
+        y: 5000
+      - type: torch
+        x: -12
+        y: 5200
+      - type: torch
+        x: 256
+        y: 5200
+    name: Upper Hall
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.25
+    x: 282840
+    y: 37344
+    zones:
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 256
+        x: 0
+        y: 0
+      - height: 5120
+        spawner:
+          - count: 30
+            radius: 12
+            speed: 1
+            types:
+              - toxic
+          - count: 30
+            radius: 12
+            speed: 4
+            types:
+              - glowy
+          - count: 8
+            radius: 15
+            speed: 5
+            types:
+              - wall
+        type: active
+        width: 256
+        x: 0
+        y: 256
+      - height: 256
+        type: safe
+        width: 256
+        x: 0
+        y: 5376
+      - height: 64
+        translate:
+          x: -800
+          y: 160
+        type: exit
+        width: 256
+        x: 0
+        y: 5568
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2780
+        y: -24
+    name: Hedge's Entrance
+    properties:
+      background_color:
+        - 35
+        - 145
+        - 30
+        - 100
+      lighting: 0.5
+    x: 279896
+    y: 36864
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 320
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 320
+        x: 0
+        y: 416
+      - height: 480
+        spawner:
+          - count: 4
+            radius: 24
+            speed: 4
+            types:
+              - tree
+          - count: 3
+            radius: 36
+            speed: 2
+            types:
+              - tree
+          - count: 6
+            radius: 48
+            types:
+              - fake_pumpkin
+          - count: 2
+            radius: 48
+            speed: 8
+            types:
+              - pumpkin
+          - count: 5
+            radius: 35
+            speed: 6
+            types:
+              - firefly
+          - count: 6
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 8
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 256
+        x: 2944
+        y: 416
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2780
+    name: Hedge ]
+    properties:
+      background_color:
+        - 35
+        - 145
+        - 30
+        - 100
+      lighting: 0.5
+    x: 279896
+    y: 33664
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 96
+        translate:
+          x: -3264
+          y: 6880
+        type: exit
+        width: 160
+        x: 160
+        y: 96
+      - height: 2560
+        spawner:
+          - count: 3
+            radius: 65
+            speed: 4
+            types:
+              - firefly
+          - count: 6
+            radius: 35
+            speed: 4
+            types:
+              - firefly
+          - count: 10
+            radius: 25
+            speed: 4
+            types:
+              - firefly
+          - count: 15
+            radius: 20
+            speed: 4
+            types:
+              - firefly
+          - count: 6
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 12
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 320
+        x: 0
+        y: 3136
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2780
+    name: Hedge [
+    properties:
+      background_color:
+        - 35
+        - 145
+        - 30
+        - 100
+      lighting: 0.5
+    x: 279896
+    y: 37344
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 320
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 3
+            radius: 30
+            speed: 5
+            types:
+              - tree
+          - count: 3
+            radius: 45
+            speed: 3
+            types:
+              - tree
+          - count: 5
+            radius: 56
+            types:
+              - fake_pumpkin
+          - count: 2
+            radius: 56
+            speed: 6
+            types:
+              - pumpkin
+          - count: 4
+            radius: 35
+            speed: 6
+            types:
+              - firefly
+          - count: 6
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 12
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 320
+        translate:
+          x: -160
+          y: 64
+        type: exit
+        width: 64
+        x: 0
+        y: 2880
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2780
+        y: -24
+    name: Hedge [[
+    properties:
+      background_color:
+        - 35
+        - 145
+        - 30
+        - 100
+      lighting: 0.5
+    x: 276696
+    y: 40288
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 480
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 15
+            radius: 24
+            speed: 1
+            types:
+              - tree
+          - count: 6
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 16
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 320
+        translate:
+          x: 160
+          y: -224
+        type: exit
+        width: 64
+        x: 3136
+        y: 160
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2780
+        y: -24
+    name: Hedge [[|
+    properties:
+      background_color:
+        - 35
+        - 145
+        - 30
+        - 100
+      lighting: 0.5
+    x: 273496
+    y: 40288
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 320
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 7
+            radius: 96
+            speed: 3
+            types:
+              - tree
+          - count: 6
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 16
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 480
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3136
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2780
+    name: Hedge [[|]
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 273496
+    y: 37088
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 320
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 26
+            radius: 18
+            speed: 4
+            types:
+              - disabling
+          - count: 3
+            radius: 30
+            speed: 9
+            types:
+              - turning
+          - count: 3
+            radius: 30
+            speed: 9
+            types:
+              - oscillating
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 20
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 320
+        x: 0
+        y: 3136
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2780
+        y: -24
+    name: Hedge [[|]|
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 273496
+    y: 36608
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 320
+        x: 0
+        y: 416
+      - height: 32
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 32
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 30
+            radius: 18
+            speed: 4
+            types:
+              - firefly
+          - count: 16
+            horizontal: true
+            radius: 30
+            speed: 8
+            types:
+              - icicle
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 20
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 320
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3136
+        y: 0
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2780
+    name: Maze [[|]|]
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 276696
+    y: 33728
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: -320
+          y: -160
+        type: exit
+        width: 320
+        x: 160
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 26
+            radius: 18
+            speed: 4
+            types:
+              - disabling
+          - count: 3
+            radius: 30
+            speed: 9
+            types:
+              - turning
+          - count: 3
+            radius: 30
+            speed: 9
+            types:
+              - oscillating
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 20
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 320
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 2880
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2780
+        y: -24
+    name: Hedge [[|]|]]
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 273656
+    y: 33248
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 320
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 160
+      - height: 480
+        spawner:
+          - count: 30
+            radius: 18
+            speed: 4
+            types:
+              - firefly
+          - count: 16
+            horizontal: true
+            radius: 30
+            speed: 8
+            types:
+              - icicle
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 20
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 64
+        translate:
+          x: 160
+          y: 160
+        type: exit
+        width: 320
+        x: 2880
+        y: 416
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2780
+    name: Hedge  [[|]|[?
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 273176
+    y: 33408
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 320
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 416
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 26
+            radius: 18
+            speed: 4
+            types:
+              - disabling
+          - count: 3
+            radius: 30
+            speed: 9
+            types:
+              - turning
+          - count: 3
+            radius: 30
+            speed: 9
+            types:
+              - oscillating
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 20
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 32
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 32
+        x: 0
+        y: 1440
+      - height: 64
+        translate:
+          x: 320
+          y: 160
+        type: exit
+        width: 320
+        x: 0
+        y: 3136
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2780
+        y: -24
+    name: Hedge's Passageway
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 269976
+    y: 34592
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 320
+        x: 0
+        y: 416
+      - height: 480
+        spawner:
+          - count: 30
+            radius: 18
+            speed: 4
+            types:
+              - firefly
+          - count: 16
+            horizontal: true
+            radius: 30
+            speed: 8
+            types:
+              - icicle
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 20
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 32
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 32
+        x: 3168
+        y: 256
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2780
+    name: Hedge's Hidden Clearing
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 269816
+    y: 35072
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 320
+        x: 160
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 26
+            radius: 18
+            speed: 4
+            types:
+              - disabling
+          - count: 3
+            radius: 30
+            speed: 9
+            types:
+              - turning
+          - count: 3
+            radius: 30
+            speed: 9
+            types:
+              - oscillating
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 20
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 32
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 32
+        x: 0
+        y: 1440
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 480
+        x: 0
+        y: 3136
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2780
+        y: -24
+    name: Greater Hedge 1
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 266616
+    y: 36256
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 320
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 30
+            radius: 18
+            speed: 4
+            types:
+              - firefly
+          - count: 16
+            horizontal: true
+            radius: 30
+            speed: 8
+            types:
+              - icicle
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 20
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 32
+        translate:
+          x: 160
+          y: -1200
+        type: exit
+        width: 32
+        x: 3168
+        y: 256
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2780
+    name: Hedge's Toxic End
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 269816
+    y: 38272
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 64
+        translate:
+          x: 0
+          y: -160
+        type: exit
+        width: 480
+        x: 0
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 10
+            radius: 12
+            speed: 4
+            types:
+              - slowing
+          - count: 10
+            radius: 12
+            speed: 4
+            types:
+              - draining
+          - count: 10
+            radius: 12
+            speed: 4
+            types:
+              - toxic
+          - count: 2
+            radius: 50
+            speed: 1
+            types:
+              - sniper
+          - count: 1
+            radius: 50
+            speed: 1
+            types:
+              - corrosive_sniper
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 24
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: -104
+      - height: 512
+        type: light_region
+        width: 512
+        x: -24
+        y: 2780
+    name: Greater Hedge 2
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 266136
+    y: 36256
+    zones:
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 0
+      - height: 320
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 416
+        y: 0
+      - height: 2560
+        spawner:
+          - count: 10
+            radius: 12
+            speed: 4
+            types:
+              - slowing
+          - count: 10
+            radius: 12
+            speed: 4
+            types:
+              - draining
+          - count: 10
+            radius: 12
+            speed: 4
+            types:
+              - toxic
+          - count: 2
+            radius: 50
+            speed: 1
+            types:
+              - sniper
+          - count: 1
+            radius: 50
+            speed: 1
+            types:
+              - corrosive_sniper
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 24
+            types:
+              - wall
+        type: active
+        width: 480
+        x: 0
+        y: 320
+      - height: 320
+        type: safe
+        width: 480
+        x: 0
+        y: 2880
+      - height: 320
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 2880
+  - assets:
+      - height: 512
+        type: light_region
+        width: 512
+        x: -104
+        y: -24
+      - height: 512
+        type: light_region
+        width: 512
+        x: 2780
+        y: -24
+    name: Greater Hedge 3
+    properties:
+      background_color:
+        - 45
+        - 10
+        - 75
+        - 100
+      lighting: 0.5
+    x: 262936
+    y: 39136
+    zones:
+      - height: 480
+        type: safe
+        width: 320
+        x: 0
+        y: 0
+      - height: 480
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 480
+        spawner:
+          - count: 30
+            radius: 18
+            speed: 4
+            types:
+              - firefly
+          - count: 16
+            horizontal: true
+            radius: 30
+            speed: 8
+            types:
+              - icicle
+          - count: 1
+            radius: 60
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 45
+            speed: 10
+            types:
+              - wall
+          - count: 1
+            radius: 30
+            speed: 10
+            types:
+              - wall
+          - count: 8
+            radius: 30
+            speed: 4
+            types:
+              - wall
+          - count: 1
+            move_clockwise: false
+            radius: 30
+            speed: 20
+            types:
+              - wall
+        type: active
+        width: 2560
+        x: 320
+        y: 0
+      - height: 480
+        type: safe
+        width: 320
+        x: 2880
+        y: 0
+      - height: 320
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 3136
+        y: 0
+  # Hedge Victory
+  - name: Victory!
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.75
+    x: 261976
+    y: 39136
+    zones:
+      - height: 448
+        translate:
+          x: 160
+          y: 0
+        type: exit
+        width: 64
+        x: 896
+        y: 32
+      - height: 32
+        translate:
+          x: 0
+          y: -512
+        type: exit
+        width: 64
+        x: 896
+        y: 0
+      - height: 480
+        type: victory
+        width: 832
+        x: 64
+        y: 0
+      - height: 480
+        type: removal
+        width: 64
+        x: 0
+        y: 0
+  # Liminal Alley Victory
+  - name: Victory!
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.75
+    x: 295672
+    y: 55488
+    zones:
+      - height: 480
+        translate:
+          x: -160
+          y: 0
+        type: exit
+        width: 64
+        x: 0
+        y: 0
+      - height: 480
+        type: victory
+        width: 832
+        x: 64
+        y: 0
+      - height: 480
+        type: teleport
+        width: 64
+        x: 896
+        y: 0
+        translate:
+          x: 11392
+          y: 0
+  # Attic Victory
+  - name: Victory!
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.75
+    x: 284824
+    y: 44640
+    zones:
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 480
+        x: 0
+        y: 896
+      - height: 480
+        type: victory
+        width: 416
+        x: 0
+        y: 0
+      - height: 416
+        type: victory
+        width: 480
+        x: 0
+        y: 480
+      - height: 480
+        type: teleport
+        width: 64
+        x: 416
+        y: 0
+        translate:
+          x: 22720
+          y: 0
+  # Dungeon Victory
+  - name: Victory!
+    properties:
+      background_color:
+        - 45
+        - 20
+        - 0
+        - 150
+      lighting: 0.75
+    x: 305464
+    y: 51008
+    zones:
+      - height: 64
+        translate:
+          x: 0
+          y: 160
+        type: exit
+        width: 480
+        x: 0
+        y: 896
+      - height: 832
+        type: victory
+        width: 480
+        x: 0
+        y: 64
+      - height: 64
+        type: removal
+        width: 480
+        x: 0
+        y: 0

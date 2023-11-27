@@ -1,0 +1,58 @@
+name: Endless Echo Hard
+properties:
+  friction: 0.75
+  max_level: 99999
+  background_color:
+  - 55
+  - 94
+  - 186
+  - 75
+areas:
+- x: var x
+  y: var y
+  zones:
+  - height: 480
+    translate:
+      x: 160
+      y: 0
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 100
+    type: teleport
+    width: 32
+    x: 3168
+    y: 0
+  - properties:
+      minimum_speed: 10
+    height: 480
+    type: safe
+    width: 288
+    x: 2880
+    y: 0
+  - type: active
+    x: 320
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 0
+      radius: 0
+      speed: 0
+      types:
+      - normal
+  - type: safe
+    x: 64
+    y: 0
+    width: 256
+    height: 480
+  - type: exit
+    x: 0
+    y: 0
+    height: 480
+    width: 64
+    translate:
+      x: -160
+      y: 0

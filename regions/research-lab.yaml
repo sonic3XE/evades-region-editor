@@ -1,0 +1,315 @@
+name: Research Lab
+properties:
+  pellet_count: 0
+  warping_disabled: True
+  all_enemies_immune: True
+areas:
+- x: var x
+  y: var y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -3616
+      y: 0
+  - type: safe
+    x: 64
+    y: 0
+    width: 256
+    height: 480
+    properties: {minimum_speed: 10}
+  - type: safe
+    x: 320
+    y: 0
+    width: 2816
+    height: 32
+    properties: {minimum_speed: 10}
+  - type: safe
+    x: 320
+    y: 448
+    width: last_width
+    height: 32
+    properties: {minimum_speed: 10}
+  - type: active
+    x: 320
+    y: 32
+    width: last_width
+    height: 416
+    spawner:
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 384
+      y: 240
+      angle: 90
+      slowing_radius: 45
+      types:
+      - slowing
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 480
+      y: 240
+      angle: 90
+      draining_radius: 45
+      types:
+      - draining
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 576
+      y: 240
+      angle: 90
+      gravity_radius: 45
+      types:
+      - gravity
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 672
+      y: 240
+      angle: 90
+      repelling_radius: 45
+      types:
+      - repelling
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 768
+      y: 240
+      angle: 90
+      freezing_radius: 45
+      types:
+      - freezing
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 864
+      y: 240
+      angle: 90
+      slippery_radius: 45
+      types:
+      - slippery
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 960
+      y: 240
+      angle: 90
+      disabling_radius: 45
+      types:
+      - disabling
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1056
+      y: 240
+      angle: 90
+      enlarging_radius: 45
+      types:
+      - enlarging
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1152
+      y: 240
+      angle: 90
+      toxic_radius: 45
+      types:
+      - toxic
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1248
+      y: 240
+      angle: 90
+      magnetic_reduction_radius: 45
+      types:
+      - magnetic_reduction
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1344
+      y: 240
+      angle: 90
+      magnetic_nullification_radius: 45
+      types:
+      - magnetic_nullification
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1440
+      y: 240
+      angle: 90
+      lava_radius: 45
+      types:
+      - lava
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1536
+      y: 240
+      angle: 90
+      quicksand_radius: 45
+      types:
+      - quicksand
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1632
+      y: 240
+      angle: 90
+      radar_radius: 45
+      types:
+      - radar
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1728
+      y: 240
+      angle: 90
+      barrier_radius: 45
+      types:
+      - barrier
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1824
+      y: 240
+      angle: 90
+      reducing_radius: 45
+      types:
+      - reducing
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 1920
+      y: 240
+      angle: 90
+      types:
+      - sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2016
+      y: 240
+      angle: 90
+      types:
+      - ice_sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2112
+      y: 240
+      angle: 90
+      types:
+      - speed_sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2208
+      y: 240
+      angle: 90
+      types:
+      - regen_sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2304
+      y: 240
+      angle: 90
+      types:
+      - radiating_bullets
+    - count: 1
+      radius: 12
+      speed: 10.5
+      x: 2400
+      y: 240
+      angle: 90
+      types:
+      - tree
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2496
+      y: 240
+      angle: 90
+      types:
+      - corrosive_sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2592
+      y: 240
+      angle: 90
+      types:
+      - poison_sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2688
+      y: 240
+      angle: 90
+      types:
+      - positive_magnetic_sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2784
+      y: 240
+      angle: 90
+      types:
+      - negative_magnetic_sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2880
+      y: 240
+      angle: 90
+      types:
+      - wind_sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 2976
+      y: 240
+      angle: 90
+      types:
+      - prediction_sniper
+    - count: 1
+      radius: 12
+      speed: 3
+      x: 3072
+      y: 240
+      angle: 90
+      types:
+      - lead_sniper
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: 480
+    properties: {minimum_speed: 10}
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -7008
+      y: 0
+  - height: 32
+    translate: {x: -512, y: -6944}
+    type: teleport
+    width: 32
+    x: 288
+    y: 224
+    properties:
+      background_color: [115, 84, 179, 255]
+    requirements:
+    - mystery_keycard
+  properties:
+    background_color: [38, 92, 255, 125]

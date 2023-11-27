@@ -1,0 +1,5516 @@
+name: Frozen Fjord
+properties:
+  friction: 0.75
+  background_color:
+  - 25
+  - 64
+  - 255
+  - 75
+areas:
+# Area 1
+- properties:
+    snow: 0.1
+  x: var x
+  y: var y
+  zones:
+  - type: teleport
+    x: 32
+    y: 0
+    width: 288
+    height: 64
+    translate:
+      x: 0
+      y: -2624
+  - type: teleport
+    x: 32
+    y: 416
+    width: 288
+    height: 64
+    translate:
+      x: -1952
+      y: 10880
+  - type: teleport
+    x: 0
+    y: 0
+    width: 32
+    height: 480
+    translate:
+      x: 133196
+      y: 0
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 100
+  - type: safe
+    x: 32
+    y: 64
+    width: 288
+    height: 352
+    properties:
+      minimum_speed: 10
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - radius: 50
+      x: 1200
+      y: 240
+      angle: 180
+      pattern: cone
+      types:
+      - frost_giant
+    - radius: 50
+      x: 1800
+      y: 240
+      angle: 0
+      direction: -1
+      pattern: cone
+      types:
+      - frost_giant
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 2
+- properties:
+    snow: 0.2
+  x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - radius: 50
+      x: 1600
+      y: 50
+      angle: 0
+      turn_speed: 2
+      pattern: spiral
+      types:
+      - frost_giant
+    - radius: 50
+      x: 1600
+      y: 430
+      angle: 0
+      turn_speed: -2
+      pattern: spiral
+      types:
+      - frost_giant
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 3
+- properties:
+    snow: 0.3
+  x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - radius: 50
+      x: 800
+      y: 50
+      angle: 0
+      shot_interval: 200
+      turn_speed: 2
+      pattern: spiral
+      types:
+      - frost_giant
+    - radius: 50
+      x: 800
+      y: 430
+      angle: 0
+      shot_interval: 200
+      turn_speed: -2
+      pattern: spiral
+      types:
+      - frost_giant
+    - radius: 50
+      x: 1600
+      y: 240
+      angle: 0
+      shot_interval: 200
+      turn_speed: 1
+      pattern: quadspiral
+      types:
+      - frost_giant
+    - radius: 50
+      x: 2400
+      y: 50
+      angle: 0
+      shot_interval: 200
+      turn_speed: 2
+      pattern: spiral
+      types:
+      - frost_giant
+    - radius: 50
+      x: 2400
+      y: 430
+      angle: 0
+      shot_interval: 200
+      turn_speed: -2
+      pattern: spiral
+      types:
+      - frost_giant
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 4
+- properties:
+    snow: 0.4
+  x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - radius: 50
+      pattern: twin
+      angle: 180
+      x: 800
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: 180
+      x: 800
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: cone_edges
+      angle: 180
+      cone_angle: 20
+      shot_interval: 350
+      x: 1000
+      y: 240
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: 90
+      pause_interval: 5000
+      pause_duration: 1000
+      x: 1600
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: -90
+      pause_interval: 5000
+      pause_duration: 800
+      x: 2000
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: 90
+      pause_interval: 5000
+      pause_duration: 600
+      x: 2400
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: -90
+      pause_interval: 5000
+      pause_duration: 400
+      x: 2800
+      y: 430
+      types:
+      - frost_giant
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 5
+- properties:
+    snow: 0.5
+  x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - radius: 50
+      pattern: twin
+      angle: 125
+      pause_interval: 5000
+      pause_duration: 600
+      x: 400
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: -55
+      pause_interval: 5000
+      pause_duration: 600
+      x: 400
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: 125
+      pause_interval: 5000
+      pause_duration: 600
+      x: 800
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: -55
+      pause_interval: 5000
+      pause_duration: 600
+      x: 800
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: 125
+      pause_interval: 5000
+      pause_duration: 600
+      x: 1200
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: -55
+      pause_interval: 5000
+      pause_duration: 600
+      x: 1200
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: 125
+      pause_interval: 5000
+      pause_duration: 600
+      x: 1600
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: cone
+      angle: -55
+      x: 1600
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twinspiral
+      x: 2400
+      y: 240
+      turn_speed: 4
+      shot_interval: 200
+      types:
+      - frost_giant
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 6
+- properties:
+    snow: 0.6
+  x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - radius: 50
+      pattern: twincone
+      angle: 180
+      cone_angle: 120
+      turn_speed: 1.5
+      shot_interval: 250
+      x: 600
+      y: 240
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      pause_interval: 5000
+      pause_duration: 5000
+      turn_acceleration: 0.8
+      shot_acceleration: 5
+      x: 1600
+      y: 240
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      angle: 90
+      pause_interval: 5000
+      pause_duration: 5000
+      turn_acceleration: 0.05
+      shot_acceleration: 2
+      x: 2600
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      direction: -1
+      angle: -90
+      pause_interval: 5000
+      pause_duration: 5000
+      turn_acceleration: 0.05
+      shot_acceleration: 2
+      x: 2600
+      y: 430
+      types:
+      - frost_giant
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 7
+- properties:
+    snow: 0.7
+  x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - radius: 50
+      pattern: spiral
+      x: 400
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      x: 400
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      x: 1000
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      x: 1000
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      x: 1600
+      y: 240
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      x: 2200
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      x: 2200
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      x: 2800
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: spiral
+      x: 2800
+      y: 430
+      types:
+      - frost_giant
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 8
+- properties:
+    snow: 0.8
+  x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - radius: 50
+      pattern: twincone
+      angle: -90
+      cone_angle: 120
+      shot_interval: 250
+      x: 400
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twincone
+      angle: -90
+      cone_angle: 120
+      shot_interval: 250
+      x: 800
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twincone
+      angle: -90
+      cone_angle: 120
+      shot_interval: 250
+      x: 1200
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twincone
+      angle: -90
+      cone_angle: 120
+      shot_interval: 250
+      x: 1600
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twincone
+      angle: -90
+      cone_angle: 120
+      shot_interval: 250
+      x: 2000
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twin
+      angle: 90
+      pause_interval: 3000
+      pause_duration: 1500
+      x: 2400
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: twincone
+      angle: -90
+      cone_angle: 120
+      shot_interval: 250
+      x: 2800
+      y: 430
+      types:
+      - frost_giant
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 9
+- properties:
+    snow: 0.9
+  x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - radius: 50
+      pattern: singlebig
+      angle: 35
+      shot_interval: 1275
+      x: 400
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: singlebig
+      angle: -35
+      shot_interval: 1275
+      x: 700
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: singlebig
+      angle: 35
+      shot_interval: 1275
+      x: 1000
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: singlebig
+      angle: -35
+      shot_interval: 1275
+      x: 1300
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: singlebig
+      angle: 35
+      shot_interval: 1275
+      x: 1600
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: singlebig
+      angle: -35
+      shot_interval: 1275
+      x: 1900
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: singlebig
+      angle: 35
+      shot_interval: 1275
+      x: 2200
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: singlebig
+      angle: -35
+      shot_interval: 1275
+      x: 2500
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: singlebig
+      angle: 35
+      shot_interval: 1275
+      x: 2800
+      y: 50
+      types:
+      - frost_giant
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 10
+- properties:
+    snow: 1
+  x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - radius: 50
+      pattern: cone
+      angle: 180
+      x: 900
+      y: 50
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: cone
+      angle: 180
+      x: 900
+      y: 430
+      types:
+      - frost_giant
+    - radius: 50
+      pattern: cone
+      angle: 180
+      x: 1200
+      y: 240
+      types:
+      - frost_giant
+    type: active
+    width: 960
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 11
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y + 64
+  name: Cave 1-1
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    type: active
+    width: 1280
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 12
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  name: Cave 1-2
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 2
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    type: active
+    width: 1280
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 13
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  name: Cave 1-3
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 4
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    type: active
+    width: 1280
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 14
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  name: Cave 1-4
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    type: active
+    width: 1280
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 15
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  name: Cave 1-5
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    type: active
+    width: 1280
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 16
+- x: last_right
+  y: last_y - 224
+  properties:
+    snow: 0.1
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 12
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    - count: 6
+      radius: 18
+      speed: 6
+      types:
+      - slippery
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 480
+    y: 160
+    width: 2240
+    height: 480
+    texture: ice
+# Area 17
+- x: last_right
+  y: last_y
+  properties:
+    snow: 0.2
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 14
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    - count: 6
+      radius: 18
+      speed: 6
+      types:
+      - slippery
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 96
+    width: 2368
+    height: 608
+    texture: ice
+# Area 18
+- x: last_right
+  y: last_y
+  properties:
+    snow: 0.3
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 14
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    - count: 6
+      radius: 18
+      speed: 6
+      types:
+      - slippery
+    - count: 5
+      radius: 18
+      speed: 6
+      horizontal: true
+      y: 0, 128
+      types:
+      - icicle
+    - count: 5
+      radius: 18
+      speed: 6
+      horizontal: true
+      y: 672, 800
+      types:
+      - icicle
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 480
+    y: 128
+    width: 2240
+    height: 224
+    texture: ice
+  - type: wall
+    x: 480
+    y: 448
+    width: 2240
+    height: 224
+    texture: ice
+# Area 19
+- x: last_right
+  y: last_y
+  properties:
+    snow: 0.4
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 5
+      types:
+      - snowman
+    - count: 10
+      radius: 18
+      speed: 10
+      types:
+      - icicle
+    - count: 10
+      radius: 18
+      speed: 10
+      horizontal: true
+      types:
+      - icicle
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 480
+    y: 128
+    width: 480
+    height: 544
+    texture: ice
+  - type: wall
+    x: 1440
+    y: 128
+    width: 480
+    height: 544
+    texture: ice
+  - type: wall
+    x: 2400
+    y: 128
+    width: 320
+    height: 224
+    texture: ice
+  - type: wall
+    x: 2400
+    y: 448
+    width: 320
+    height: 224
+    texture: ice
+# Area 20
+- x: last_right
+  y: last_y
+  properties:
+    snow: 0.4
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 36
+      speed: 10
+      types:
+      - icicle
+    - count: 15
+      radius: 36
+      speed: 10
+      horizontal: true
+      types:
+      - icicle
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 480
+    y: 128
+    width: 480
+    height: 544
+    texture: ice
+  - type: wall
+    x: 1440
+    y: 128
+    width: 480
+    height: 544
+    texture: ice
+  - type: wall
+    x: 2400
+    y: 128
+    width: 320
+    height: 224
+    texture: ice
+  - type: wall
+    x: 2400
+    y: 448
+    width: 320
+    height: 224
+    texture: ice
+# Area 21
+- x: last_right
+  y: last_y
+  properties:
+    snow: 0.5
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 30
+      radius: 18
+      speed: 5
+      types:
+      - snowman
+    type: active
+    width: 2528
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 384
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 384
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 384
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+# Area 22
+- x: last_right
+  y: last_y
+  properties:
+    snow: 0.6
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 18
+      speed: 5
+      types:
+      - ice_sniper
+    - count: 30
+      radius: 18
+      speed: 5
+      types:
+      - snowman
+    type: active
+    width: 2528
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 384
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 384
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 384
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+# Area 23
+- x: last_right
+  y: last_y
+  properties:
+    snow: 0.8
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 5
+      types:
+      - ice_sniper
+    - count: 30
+      radius: 18
+      speed: 5
+      types:
+      - snowman
+    - count: 10
+      radius: 18
+      speed: 5
+      types:
+      - slippery
+    type: active
+    width: 2528
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 384
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 384
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 384
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+# Area 24
+- x: last_right
+  y: last_y
+  properties:
+    snow: 1
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 5
+      types:
+      - ice_sniper
+    - count: 30
+      radius: 18
+      speed: 5
+      types:
+      - snowman
+    - count: 5
+      radius: 18
+      speed: 5
+      types:
+      - slippery
+    - count: 20
+      radius: 18
+      speed: 5
+      types:
+      - icicle
+    - count: 20
+      radius: 18
+      speed: 5
+      horizontal: true
+      types:
+      - icicle
+    type: active
+    width: 2528
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 384
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 128
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 384
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 352
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 384
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 704
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1024
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1344
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1664
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1984
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2304
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2624
+    y: 576
+    width: 160
+    height: 96
+    texture: ice
+# Area 25
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y + 224
+  name: Cave 2-1
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 18
+      speed: 6
+      types:
+      - icicle
+    - count: 3
+      radius: 18
+      speed: 6
+      types:
+      - slippery
+    type: active
+    width: 960
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 26
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  name: Cave 2-2
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 20
+      radius: 18
+      speed: 6
+      types:
+      - icicle
+    - count: 4
+      radius: 18
+      speed: 6
+      types:
+      - slippery
+    type: active
+    width: 1280
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 27
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  name: Cave 2-3
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 18
+      speed: 6
+      types:
+      - icicle
+    - count: 3
+      radius: 18
+      speed: 6
+      types:
+      - slippery
+    - count: 3
+      radius: 18
+      speed: 6
+      types:
+      - ice_sniper
+    type: active
+    width: 1600
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 28
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  name: Cave 2-4
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 18
+      speed: 6
+      types:
+      - icicle
+    - count: 3
+      radius: 18
+      speed: 6
+      types:
+      - slippery
+    - count: 3
+      radius: 18
+      speed: 6
+      types:
+      - ice_sniper
+    - count: 10
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    type: active
+    width: 1920
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 29
+- properties:
+    lighting: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  name: Cave 2-5
+  zones:
+  - height: 352
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 18
+      speed: 6
+      types:
+      - icicle
+    - count: 3
+      radius: 18
+      speed: 6
+      types:
+      - slippery
+    - count: 3
+      radius: 18
+      speed: 6
+      types:
+      - ice_sniper
+    - count: 3
+      radius: 18
+      speed: 6
+      types:
+      - snowman
+    type: active
+    width: 2240
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 30
+- properties:
+    snow: 0.1
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y - 240
+  zones:
+  - height: 864
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 40
+      radius: 18
+      speed: 5
+      types:
+      - icicle
+    - count: 40
+      radius: 18
+      speed: 5
+      horizontal: true
+      types:
+      - icicle
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+# Area 31
+- properties:
+    snow: 0.2
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  zones:
+  - height: 864
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 30
+      radius: 18
+      speed: 5
+      types:
+      - icicle
+    - count: 30
+      radius: 18
+      speed: 5
+      horizontal: true
+      types:
+      - icicle
+    - count: 10
+      radius: 18
+      speed: 5
+      types:
+      - slippery
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+# Area 32
+- properties:
+    snow: 0.3
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  zones:
+  - height: 864
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 20
+      radius: 18
+      speed: 5
+      types:
+      - icicle
+    - count: 20
+      radius: 18
+      speed: 5
+      horizontal: true
+      types:
+      - icicle
+    - count: 10
+      radius: 18
+      speed: 5
+      types:
+      - slippery
+    - count: 10
+      radius: 18
+      speed: 5
+      types:
+      - ice_sniper
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+# Area 33
+- properties:
+    snow: 0.4
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  zones:
+  - height: 864
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 20
+      radius: 18
+      speed: 5
+      types:
+      - icicle
+    - count: 20
+      radius: 18
+      speed: 5
+      horizontal: true
+      types:
+      - icicle
+    - count: 5
+      radius: 20
+      pattern: quadspiral
+      immune: false
+      shot_interval: 3000
+      speed: 5
+      turn_speed: 5
+      types:
+      - frost_giant
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+# Area 34
+- properties:
+    snow: 0.4
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  zones:
+  - height: 864
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 20
+      radius: 18
+      speed: 5
+      types:
+      - icicle
+    - count: 20
+      radius: 18
+      speed: 5
+      horizontal: true
+      types:
+      - icicle
+    - count: 10
+      radius: 20
+      pattern: quadspiral
+      immune: false
+      shot_interval: 3000
+      speed: 5
+      turn_speed: 5
+      types:
+      - frost_giant
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+# Area 35
+- properties:
+    snow: 0.5
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  zones:
+  - height: 864
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 20
+      radius: 18
+      speed: 5
+      types:
+      - icicle
+    - count: 20
+      radius: 18
+      speed: 5
+      horizontal: true
+      types:
+      - icicle
+    - count: 10
+      radius: 20
+      pattern: quadspiral
+      immune: false
+      shot_interval: 3000
+      speed: 5
+      turn_speed: 5
+      types:
+      - frost_giant
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 96
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 288
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 480
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 608
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 992
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1376
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1760
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2144
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2528
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 672
+    width: 96
+    height: 96
+    texture: ice
+# Area 36
+- properties:
+    snow: 0.6
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y + 32
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 20
+      radius: 20
+      pattern: quadspiral
+      immune: false
+      shot_interval: 3000
+      speed: 5
+      turn_speed: 5
+      types:
+      - frost_giant
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+# Area 37
+- properties:
+    snow: 0.7
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 20
+      pattern: quadspiral
+      immune: false
+      shot_interval: 2000
+      speed: 5
+      turn_speed: 5
+      types:
+      - frost_giant
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+# Area 38
+- properties:
+    snow: 0.8
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 20
+      pattern: quadspiral
+      immune: false
+      shot_interval: 1000
+      speed: 5
+      turn_speed: 5
+      types:
+      - frost_giant
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+# Area 39
+- properties:
+    snow: 0.9
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 20
+      pattern: quadspiral
+      immune: false
+      shot_interval: 500
+      speed: 5
+      turn_speed: 5
+      types:
+      - frost_giant
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+# Area 40
+- properties:
+    snow: 1
+    background_color:
+    - 25
+    - 64
+    - 255
+    - 75
+  x: last_right
+  y: last_y
+  zones:
+  - height: 800
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 20
+      pattern: quadspiral
+      immune: false
+      speed: 5
+      turn_speed: 5
+      types:
+      - frost_giant
+    - count: 8
+      radius: 20
+      speed: 5
+      types:
+      - icicle
+    - count: 8
+      radius: 20
+      speed: 5
+      horizontal: true
+      types:
+      - icicle
+    - count: 5
+      radius: 20
+      speed: 5
+      types:
+      - slippery
+    - count: 5
+      radius: 20
+      speed: 5
+      types:
+      - ice_sniper
+    type: active
+    width: 2592
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: wall
+    x: 416
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 160
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 416
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 800
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1184
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1568
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 1952
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2336
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+  - type: wall
+    x: 2720
+    y: 544
+    width: 96
+    height: 96
+    texture: ice
+# Area 41
+- x: last_right
+  y: last_y + 160
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: victory
+    width: 2976
+    x: 64
+    y: 0
+  - height: last_height
+    type: removal
+    width: 160
+    x: 3040
+    y: 0

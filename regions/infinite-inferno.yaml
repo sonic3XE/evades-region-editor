@@ -1,0 +1,2438 @@
+name: Infinite Inferno
+properties:
+  friction: 0.75
+  background_color:
+  - 88
+  - 12
+  - 24
+  - 172
+areas:
+# Area 1, Prayer's Passage
+# Tunnel leading to elevator
+- x: var x
+  y: var y
+  name: Prayer's Passage
+  properties:
+    background_color:
+    - 48
+    - 48
+    - 48
+    - 144
+  zones:
+  # To Cyber Castle
+  - x: 0
+    y: 0
+    width: 320
+    height: 64
+    type: teleport
+    translate:
+      x: 0
+      y: -1120
+  # To Central Core
+  - x: 0
+    y: 416
+    width: 320
+    height: 64
+    type: teleport
+    translate:
+      x: 0
+      y: -149752
+  
+  - x: 0
+    y: 64
+    width: 320
+    height: 352
+    type: safe
+    properties:
+      minimum_speed: 10
+  
+  - x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 20
+      radius: 10
+      speed: 2
+      types:
+      - normal
+    - count: 25
+      radius: 13
+      speed: 0.5
+      types:
+      - grass
+    type: active
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: last_height
+    type: safe
+  
+  - x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 2: Infinite Elevator
+- x: last_right
+  y: last_y
+  name: Infinite Elevator
+  zones:
+  # To Area 1
+  - x: 0
+    y: 0
+    width: 64
+    height: 480
+    type: exit
+    translate:
+      x: -160
+      y: 0
+
+  - x: last_right
+    y: last_y
+    width: 256
+    height: last_height
+    type: safe
+  
+  - x: last_right
+    y: last_y
+    width: 5120
+    height: last_height
+    type: active
+    spawner:
+    - count: 70
+      radius: 15
+      speed: 3
+      types:
+      - normal
+    - count: 25
+      radius: 10
+      speed: 3
+      types:
+      - slowing
+  
+  - x: last_right
+    y: last_y
+    width: 320
+    height: last_height
+    type: safe
+  
+  # To Area 3
+  - x: 5696
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+
+# Circles begin here, from Circle 1-1 to Circle 8-4
+# Circle 1
+# Central Core memories.
+# Area 3: Circle 1-1
+- x: last_right
+  y: last_y
+  name: Circle 1-1
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 2
+  - x: 0
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 0
+    y: 256
+    width: 256
+    height: 928
+    type: active
+    spawner:
+    - count: 16
+      radius: 12
+      speed: 2
+      types:
+      - normal
+    - count: 4
+      radius: 30
+      speed: 2
+      types:
+      - wall
+  
+  - x: 0
+    y: last_bottom
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 4
+  - x: 192
+    y: 1216
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 4: Circle 1-2
+- x: last_right
+  y: last_y + 960
+  name: Circle 1-2
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 3
+  - x: 0
+    y: 256
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 15
+      radius: 12
+      speed: 4
+      types:
+      - dasher
+    - count: 12
+      radius: 15
+      speed: 6
+      types:
+      - normal
+    - count: 12
+      radius: 30
+      speed: 3
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 5
+  - x: 2848
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+# Area 5: Circle 1-3
+- x: last_x
+  y: last_y - 480
+  name: Circle 1-3
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 6
+  - x: 0
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 8
+      radius: 20
+      speed: 4
+      types:
+      - normal
+    - count: 16
+      radius: 15
+      speed: 4
+      types:
+      - homing
+    - count: 12
+      radius: 30
+      speed: 3
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 4
+  - x: 2848
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+# Area 6: Circle 1-4
+- x: last_x
+  y: last_y - 480
+  name: Circle 1-4
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 5
+  - x: 0
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 30
+      radius: 12
+      speed: 4
+      types:
+      - slowing
+      - draining
+    - count: 6
+      radius: 12
+      speed: 7
+      types:
+      - dasher
+    - count: 3
+      radius: 110
+      speed: 2
+      types:
+      - normal
+    - count: 12
+      radius: 30
+      speed: 3
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 7
+  - x: 3008
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+
+# Circle 2
+# Vicious Valley memories.
+# Area 7: Circle 2-1
+- x: last_right
+  y: last_y
+  name: Circle 2-1
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 6
+  - x: 0
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 0
+    y: 256
+    width: 256
+    height: 928
+    type: active
+    spawner:
+    - count: 7
+      radius: 11
+      speed: 2
+      types:
+      - sizing
+    - count: 1
+      radius: 32
+      speed: 1
+      types:
+      - sizing
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: 0
+    y: last_bottom
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 8
+  - x: 192
+    y: 1216
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 8: Circle 2-2
+- x: last_right
+  y: last_y + 960
+  name: Circle 2-2
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 7
+  - x: 0
+    y: 256
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 4
+      radius: 16
+      speed: 4
+      types:
+      - slowing
+    - count: 16
+      radius: 14
+      speed: 6
+      types:
+      - turning
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 9
+  - x: 2848
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+# Area 9: Circle 2-3
+- x: last_x
+  y: last_y - 480
+  name: Circle 2-3
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 8
+  - x: 0
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 10
+      radius: 22
+      speed: 4
+      types:
+      - homing
+    - count: 11
+      radius: 4
+      speed: 3
+      types:
+      - freezing
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 10
+  - x: 2848
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+# Area 10: Circle 2-4
+- x: last_x
+  y: last_y - 480
+  name: Circle 2-4
+  properties:
+    # Sniper bullets were nearly the same colour as background.
+    background_color:
+      - 66
+      - 12
+      - 24
+      - 152
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 9
+  - x: 0
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 8
+      radius: 16
+      speed: 3
+      types:
+      - sniper
+    - count: 2
+      radius: 54
+      speed: 1
+      types:
+      - sniper
+    - count: 4
+      radius: 6
+      speed: 4
+      types:
+      - homing
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 11
+  - x: 3008
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+
+# Circle 3
+# Elite Expanse memories
+# Area 11: Circle 3-1
+- x: last_right
+  y: last_y
+  name: Circle 3-1
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 10
+  - x: 0
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 0
+    y: 256
+    width: 256
+    height: 928
+    type: active
+    spawner:
+    - count: 10
+      radius: 15
+      speed: 12
+      types:
+      - teleporting
+    - count: 3
+      radius: 25
+      speed: 15
+      types:
+      - teleporting
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: 0
+    y: last_bottom
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 12
+  - x: 192
+    y: 1216
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 12: Circle 3-2
+- x: last_right
+  y: last_y + 960
+  name: Circle 3-2
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 11
+  - x: 0
+    y: 256
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 14
+      radius: 10
+      speed: 6
+      types:
+      - gravity
+    - count: 12
+      radius: 15
+      speed: 6
+      types:
+      - homing
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 13
+  - x: 2848
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+# Area 13: Circle 3-3
+- x: last_x
+  y: last_y - 480
+  name: Circle 3-3
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 12
+  - x: 0
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 14
+      radius: 10
+      speed: 8
+      types:
+      - repelling
+    - count: 14
+      radius: 15
+      speed: 40
+      types:
+      - teleporting
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 14
+  - x: 2848
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+# Area 14: Circle 3-4
+- x: last_x
+  y: last_y - 480
+  name: Circle 3-4
+  properties:
+    # Sniper bullets were nearly the same colour as background.
+    background_color:
+      - 66
+      - 12
+      - 24
+      - 152
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 13
+  - x: 0
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 17
+      radius: 12
+      speed: 6
+      types:
+      - gravity
+      - repelling
+    - count: 2
+      radius: 85
+      speed: 55
+      types:
+      - teleporting
+    - count: 4
+      radius: 20
+      speed: 11
+      types:
+      - sniper
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 15
+  - x: 3008
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+
+# Circle 4
+# Glacial Gorge memories
+# Area 15: Circle 4-1
+- x: last_right
+  y: last_y
+  name: Circle 4-1
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 14
+  - x: 0
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 0
+    y: 256
+    width: 256
+    height: 928
+    type: active
+    spawner:
+    - count: 12
+      radius: 17
+      speed: 5
+      horizontal: true
+      types:
+      - icicle
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: 0
+    y: last_bottom
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 16
+  - x: 192
+    y: 1216
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 16: Circle 4-2
+- x: last_right
+  y: last_y + 960
+  name: Circle 4-2
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 15
+  - x: 0
+    y: 256
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 18
+      radius: 17
+      speed: 3.5
+      types:
+      - liquid
+    - count: 4
+      radius: 12
+      speed: 10
+      types:
+      - icicle
+    - count: 6
+      radius: 16
+      speed: 5
+      types:
+      - icicle
+    - count: 5
+      radius: 5
+      speed: 15
+      types:
+      - icicle
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 17
+  - x: 2848
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+# Area 17: Circle 4-3
+- x: last_x
+  y: last_y - 480
+  name: Circle 4-3
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 16
+  - x: 0
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 1
+      radius: 0
+      speed: 4
+      x: 512
+      y: 240
+      angle: 90
+      types:
+      - slippery
+    - count: 1
+      radius: 0
+      speed: 4
+      x: 1600
+      y: 240
+      angle: 270
+      types:
+      - slippery
+    - count: 1
+      radius: 0
+      speed: 4
+      x: 2560
+      y: 240
+      angle: 90
+      types:
+      - slippery
+    - count: 14
+      radius: 12
+      speed: 5
+      types:
+      - icicle
+    - count: 8
+      radius: 14
+      speed: 6
+      types:
+      - liquid
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 18
+  - x: 2848
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+# Area 18: Circle 4-4
+- x: last_x
+  y: last_y - 480
+  name: Circle 4-4
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 17
+  - x: 0
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 22
+      radius: 14
+      speed: 9
+      types:
+      - icicle
+    - count: 8
+      radius: 7
+      speed: 13
+      types:
+      - icicle
+    - count: 2
+      radius: 55
+      speed: 4
+      types:
+      - icicle
+    - count: 4
+      radius: 16
+      speed: 3
+      types:
+      - ice_sniper
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 19
+  - x: 3008
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+
+# Circle 5
+# Assorted Alcove memories
+# Area 19: Circle 5-1
+- x: last_right
+  y: last_y
+  name: Circle 5-1
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 18
+  - x: 0
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 0
+    y: 256
+    width: 256
+    height: 928
+    type: active
+    spawner:
+    - count: 12
+      radius: 10
+      speed: 2.5
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: 0
+    y: last_bottom
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 20
+  - x: 192
+    y: 1216
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 20: Circle 5-2
+- x: last_right
+  y: last_y + 960
+  name: Circle 5-2
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 19
+  - x: 0
+    y: 256
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 24
+      radius: 24
+      speed: 8
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 21
+  - x: 2848
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+# Area 21: Circle 5-3
+- x: last_x
+  y: last_y - 480
+  name: Circle 5-3
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 20
+  - x: 0
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 20
+      radius: 18
+      speed: 6
+      types:
+      - cycling
+    - count: 5
+      radius: 6
+      speed: 9
+      types:
+      - cycling
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 22
+  - x: 2848
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+# Area 22: Circle 5-4
+- x: last_x
+  y: last_y - 480
+  name: Circle 5-4
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 21
+  - x: 0
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 2
+      radius: 65
+      speed: 6
+      types:
+      - cycling
+    - count: 50
+      radius: 12
+      speed: 1
+      types:
+      - cycling
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 23
+  - x: 3008
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+  
+# Circle 6
+# Dangerous District memories
+# Area 23: Circle 6-1
+- x: last_right
+  y: last_y
+  name: Circle 6-1
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 22
+  - x: 0
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 0
+    y: 256
+    width: 256
+    height: 928
+    type: active
+    spawner:
+    - count: 1
+      radius: 12
+      speed: 2
+      types:
+      - radiating_bullets
+    - count: 8
+      radius: 8
+      speed: 2
+      types:
+      - normal
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: 0
+    y: last_bottom
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 24
+  - x: 192
+    y: 1216
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 24: Circle 6-2
+- x: last_right
+  y: last_y + 960
+  name: Circle 6-2
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 23
+  - x: 0
+    y: 256
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 3
+      radius: 22
+      speed: 5
+      types:
+      - radiating_bullets
+    - count: 8
+      radius: 12
+      speed: 9
+      types:
+      - normal
+    - count: 6
+      radius: 8
+      speed: 6
+      types:
+      - speed_sniper
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 25
+  - x: 2848
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+# Area 25: Circle 6-3
+- x: last_x
+  y: last_y - 480
+  name: Circle 6-3
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 24
+  - x: 0
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 4
+      radius: 24
+      speed: 4
+      types:
+      - radiating_bullets
+    - count: 12
+      radius: 8
+      speed: 9
+      types:
+      - normal
+    - count: 6
+      radius: 8
+      speed: 6
+      types:
+      - regen_sniper
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 26
+  - x: 2848
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+# Area 26: Circle 6-4
+- x: last_x
+  y: last_y - 480
+  name: Circle 6-4
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 25
+  - x: 0
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 6
+      radius: 26
+      speed: 4
+      types:
+      - radiating_bullets
+    - count: 9
+      radius: 4
+      speed: 4
+      types:
+      - disabling
+    - count: 14
+      radius: 20
+      speed: 6
+      types:
+      - normal
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 27
+  - x: 3008
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+
+# Circle 7
+# Magnetic Monopole memories
+# Area 27: Circle 7-1
+- x: last_right
+  y: last_y
+  name: Circle 7-1
+  properties:
+    magnetism: true
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 26
+  - x: 0
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 0
+    y: 256
+    width: 256
+    height: 928
+    type: active
+    spawner:
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    - count: 2
+      radius: 14
+      speed: 2
+      types:
+      - normal
+    - count: 10
+      radius: 14
+      speed: 2
+      types:
+      - magnetic_reduction
+  
+  - x: 0
+    y: last_bottom
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 28
+  - x: 192
+    y: 1216
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 28: Circle 7-2
+- x: last_right
+  y: last_y + 960
+  name: Circle 7-2
+  properties:
+    magnetism: true
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 27
+  - x: 0
+    y: 256
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 26
+      radius: 12
+      speed: 3
+      types:
+      - wall
+    - count: 12
+      radius: 26
+      speed: 4
+      types:
+      - normal
+    - count: 5
+      radius: 14
+      speed: 3
+      types:
+      - negative_magnetic_sniper
+    - count: 10
+      radius: 8
+      speed: 5
+      types:
+      - magnetic_reduction
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 29
+  - x: 2848
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+# Area 29: Circle 7-3
+- x: last_x
+  y: last_y - 480
+  name: Circle 7-3
+  properties:
+    magnetism: true
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 28
+  - x: 0
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 14
+      radius: 18
+      speed: 4
+      types:
+      - normal
+    - count: 6
+      radius: 14
+      speed: 2
+      types:
+      - positive_magnetic_sniper
+    - count: 12
+      radius: 14
+      speed: 4
+      types:
+      - magnetic_reduction
+    - types:
+      - wall
+      count: 26
+      radius: 12
+      speed: 3
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 30
+  - x: 2848
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+# Area 30: Circle 7-4
+- x: last_x
+  y: last_y - 480
+  name: Circle 7-4
+  properties:
+    magnetism: true
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 29
+  - x: 0
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 12
+      radius: 12
+      speed: 3
+      types:
+      - wall
+    - count: 12
+      radius: 12
+      speed: 3
+      move_clockwise: false
+      types:
+      - wall
+    - count: 8
+      radius: 18
+      speed: 4
+      types:
+      - normal
+    - count: 3
+      radius: 68
+      speed: 2
+      types:
+      - normal
+    - count: 10
+      radius: 12
+      speed: 2
+      types:
+      - magnetic_reduction
+    - count: 6
+      radius: 12
+      speed: 3
+      types:
+      - magnetic_nullification
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 31
+  - x: 3008
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+
+# Circle 8
+# Grand Garden memories
+# Area 31: Circle 8-1
+- x: last_right
+  y: last_y
+  name: Circle 8-1
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 30
+  - x: 0
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 0
+    y: 256
+    width: 256
+    height: 928
+    type: active
+    spawner:
+    - count: 30
+      radius: 12
+      speed: 1.5
+      types:
+      - grass
+    - count: 3
+      radius: 40
+      speed: 2
+      types:
+      - turning
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: 0
+    y: last_bottom
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 32
+  - x: 192
+    y: 1216
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 32: Circle 8-2
+- x: last_right
+  y: last_y + 960
+  name: Circle 8-2
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 31
+  - x: 0
+    y: 256
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 30
+      radius: 12
+      speed: 2
+      types:
+      - grass
+    - count: 3
+      radius: 12
+      speed: 7
+      types:
+      - turning
+    - count: 3
+      radius: 45
+      speed: 3
+      types:
+      - turning
+    - count: 18
+      radius: 20
+      speed: 8
+      types:
+      - flower
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 33
+  - x: 2848
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+# Area 33: Circle 8-3
+- x: last_x
+  y: last_y - 480
+  name: Circle 8-3
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 32
+  - x: 0
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 40
+      radius: 12
+      speed: 2
+      types:
+      - grass
+    - count: 16
+      radius: 12
+      speed: 4
+      types:
+      - seedling
+    - count: 5
+      radius: 22
+      speed: 3
+      types:
+      - seedling
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 34
+  - x: 2848
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+# Area 34: Circle 8-4
+- x: last_x
+  y: last_y - 480
+  name: Circle 8-4
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 33
+  - x: 0
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 30
+      radius: 11
+      speed: 3
+      types:
+      - grass
+    - count: 20
+      radius: 16
+      speed: 9
+      types:
+      - seedling
+      - flower
+    - count: 6
+      radius: 40
+      speed: 5
+      types:
+      - seedling
+      - flower
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 35
+  - x: 3008
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+
+# Circle ∞
+# Cyber Castle memories
+# Area 35: Circle ∞-1
+- x: last_right
+  y: last_y
+  name: Circle ∞-1
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 34
+  - x: 0
+    y: 0
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 0
+    y: 256
+    width: 256
+    height: 928
+    type: active
+    spawner:
+    - count: 6
+      radius: 0
+      speed: 4
+      push_direction: 270
+      types:
+      - quicksand
+    - count: 4
+      radius: 16
+      speed: 5
+      types:
+      - sandrock
+    - count: 8
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: 0
+    y: last_bottom
+    width: 256
+    height: 256
+    type: safe
+  
+  # To Area 36
+  - x: 192
+    y: 1216
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: 160
+      y: 0
+# Area 36: Circle ∞-2
+- x: last_right
+  y: last_y + 960
+  name: Circle ∞-2
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 35
+  - x: 0
+    y: 256
+    width: 64
+    height: 224
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 20
+      radius: 12
+      speed: 4
+      types:
+      - draining
+    - count: 30
+      radius: 16
+      speed: 5
+      types:
+      - lava
+    - count: 6
+      radius: 15
+      speed: 3
+      types:
+      - fire_trail
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 37
+  - x: 2848
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+# Area 37: Circle ∞-3
+- x: last_x
+  y: last_y - 480
+  name: Circle ∞-3
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 36
+  - x: 0
+    y: 0
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: -160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 16
+      radius: 26
+      speed: 10
+      types:
+      - wind_sniper
+    - count: 16
+      radius: 45
+      speed: 14
+      types:
+      - repelling_ghost
+    - count: 5
+      radius: 180
+      speed: 1
+      types:
+      - disabling_ghost
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 38
+  - x: 2848
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+# Area 38: Circle ∞-4
+- x: last_x
+  y: last_y - 480
+  name: Circle ∞-4
+  zones:
+  - x: 0
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 37
+  - x: 0
+    y: 416
+    width: 224
+    height: 64
+    type: exit
+    translate:
+      x: 0
+      y: 160
+  
+  - x: 256
+    y: 0
+    width: 2560
+    height: 480
+    type: active
+    spawner:
+    - count: 2
+      radius: 3
+      speed: 12
+      types:
+      - freezing
+    - count: 12
+      radius: 20
+      speed: 3
+      types:
+      - liquid
+    - count: 3
+      radius: 50
+      speed: 3
+      types:
+      - snowman
+    - count: 22
+      radius: 30
+      speed: 10
+      types:
+      - icicle
+    - count: 12
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  
+  - x: last_right
+    y: 0
+    width: 256
+    height: 480
+    type: safe
+  
+  # To Area 38
+  - x: 3008
+    y: 0
+    width: 64
+    height: 480
+    type: exit
+    translate:
+      x: 160
+      y: 0
+
+# Area 39: Victory.
+- x: last_right
+  y: last_y
+  zones:
+  # To Area 38
+  - x: 0
+    y: 0
+    width: 64
+    height: 480
+    type: exit
+    translate:
+      x: -160
+      y: 0
+  
+  - x: last_right
+    y: 0
+    width: 2976
+    height: 480
+    type: victory
+  
+  - x: last_right
+    y: 0
+    width: 160
+    height: 480
+    type: removal

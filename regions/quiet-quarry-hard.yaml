@@ -1,0 +1,4280 @@
+name: Quiet Quarry Hard
+properties:
+  friction: 0.75
+  background_color:
+  - 30
+  - 30
+  - 30
+  - 50
+areas:
+#1
+- x: var x
+  y: var y
+  zones:
+  - type: teleport
+    x: 0
+    y: 0
+    width: 32
+    height: 480
+    translate:
+      x: -133004
+      y: 0
+    properties:
+      background_color:
+      - 64
+      - 126
+      - 135
+      - 100
+  - type: dummy
+    x: 320
+    y: 0
+    width: 2560
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 8
+  - type: dummy
+    x: 320
+    y: 416
+    width: 2560
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 8
+  - type: safe
+    x: 32
+    y: 0
+    width: 288
+    height: 480
+    properties:
+      minimum_speed: 10
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 8
+      types:
+      - repelling_ghost
+    - count: 2
+      radius: 165
+      speed: 5
+      types:
+      - wall
+  - type: dummy
+    x: 320
+    y: 0
+    width: 2560
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 8
+  - type: dummy
+    x: 320
+    y: 416
+    width: 2560
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 8
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#2
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 9
+  - type: dummy
+    x: 1568
+    y: 64
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 9
+  - type: dummy
+    x: 320
+    y: 416
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 9
+  - type: dummy
+    x: 1568
+    y: 352
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 9
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 6
+      radius: 18
+      speed: 9
+      types:
+      - repelling_ghost
+    - count: 4
+      radius: 150
+      speed: 7
+      types:
+      - wall
+  - type: dummy
+    x: 320
+    y: 0
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 9
+  - type: dummy
+    x: 1568
+    y: 64
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 9
+  - type: dummy
+    x: 320
+    y: 416
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 9
+  - type: dummy
+    x: 1568
+    y: 352
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 9
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#3
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 1120
+    y: 64
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 1920
+    y: 0
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 320
+    y: 416
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 1120
+    y: 352
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 1920
+    y: 416
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 7
+      radius: 18
+      speed: 10
+      types:
+      - repelling_ghost
+    - count: 6
+      radius: 135
+      speed: 9
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 1120
+    y: 64
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 1920
+    y: 0
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 320
+    y: 416
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 1120
+    y: 352
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - type: dummy
+    x: 1920
+    y: 416
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 10
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#4
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 928
+    y: 64
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 1568
+    y: 128
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 2208
+    y: 64
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 320
+    y: 416
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 928
+    y: 352
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 1568
+    y: 288
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 2208
+    y: 352
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 11
+      types:
+      - repelling_ghost
+    - count: 7
+      radius: 120
+      speed: 12
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 928
+    y: 64
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 1568
+    y: 128
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 2208
+    y: 64
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 320
+    y: 416
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 928
+    y: 352
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 1568
+    y: 288
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - type: dummy
+    x: 2208
+    y: 352
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 11
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#5
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 800
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 1312
+    y: 128
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 1824
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 2336
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 320
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 800
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 1312
+    y: 288
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 1824
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 2336
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 9
+      radius: 18
+      speed: 12
+      types:
+      - repelling_ghost
+    - count: 6
+      radius: 140
+      speed: 13
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 800
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 1312
+    y: 128
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 1824
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 2336
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 320
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 800
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 1312
+    y: 288
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 1824
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - type: dummy
+    x: 2336
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 12
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#6
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 2560
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 13
+  - type: dummy
+    x: 320
+    y: 416
+    width: 2560
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 13
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 12
+      speed: 5
+      types:
+      - wind_ghost
+    - count: 10
+      radius: 18
+      speed: 13
+      types:
+      - repelling_ghost
+    - count: 5
+      radius: 120
+      speed: 14
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 2560
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 13
+  - type: dummy
+    x: 320
+    y: 416
+    width: 2560
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 13
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#7
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1568
+    y: 64
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 320
+    y: 416
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1568
+    y: 352
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 3
+      radius: 18
+      speed: 14
+      types:
+      - repelling_ghost
+    - count: 4
+      radius: 120
+      speed: 20
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1568
+    y: 64
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 320
+    y: 416
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1568
+    y: 352
+    width: 1312
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#8
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1120
+    y: 64
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1920
+    y: 0
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 320
+    y: 416
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1120
+    y: 352
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1920
+    y: 416
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 12
+      speed: 3
+      types:
+      - wind_ghost
+    - count: 6
+      radius: 135
+      speed: 15
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1120
+    y: 64
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1920
+    y: 0
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 320
+    y: 416
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1120
+    y: 352
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - type: dummy
+    x: 1920
+    y: 416
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 15
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#9
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 928
+    y: 64
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 1568
+    y: 128
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 2208
+    y: 64
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 320
+    y: 416
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 928
+    y: 352
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 1568
+    y: 288
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 2208
+    y: 352
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 14
+      radius: 12
+      speed: 2
+      types:
+      - wind_ghost
+    - count: 5
+      radius: 135
+      speed: 15
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 928
+    y: 64
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 1568
+    y: 128
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 2208
+    y: 64
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 320
+    y: 416
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 928
+    y: 352
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 1568
+    y: 288
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - type: dummy
+    x: 2208
+    y: 352
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 16
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#10
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 800
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 1312
+    y: 128
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 1824
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 2336
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 320
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 800
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 1312
+    y: 288
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 1824
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 2336
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:    
+    - count: 4
+      radius: 120
+      speed: 3
+      types:
+      - wall
+    - count: 6
+      radius: 160
+      speed: 9
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 800
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 1312
+    y: 128
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 1824
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 2336
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 320
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 800
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 1312
+    y: 288
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 1824
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - type: dummy
+    x: 2336
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 17
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Areas 11 - 20:
+#dasher enemies +100% speed, now lunging enemy
+#areas 11 to 16 non-wall enemies +25% speed and count, apply after
+#areas 17 to 20 non-wall enemies +10% speed and count, apply after
+#11
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 1.25
+      types:
+      - liquid
+    - count: 8
+      radius: 36
+      speed: 12.5
+      types:
+      - lunging
+    - count: 1
+      radius: 212
+      speed: 8
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#12
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 25
+      radius: 18
+      speed: 1.25
+      types:
+      - liquid
+    - count: 1
+      radius: 212
+      speed: 9
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#13
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 13
+      radius: 18
+      speed: 2.5
+      types:
+      - liquid
+    - count: 13
+      radius: 18
+      speed: 22.5
+      types:
+      - lunging
+    - count: 1
+      radius: 212
+      speed: 11
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#14
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 13
+      radius: 18
+      speed: 2.5
+      types:
+      - liquid
+    - count: 3
+      radius: 12
+      speed: 7.5
+      types:
+      - slowing
+    - count: 9
+      radius: 18
+      speed: 13.75
+      types:
+      - normal
+    - count: 1
+      radius: 212
+      speed: 12
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#15
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 11
+      radius: 18
+      speed: 7.5
+      types:
+      - normal
+    - count: 10
+      radius: 24
+      speed: 22.5
+      types:
+      - lunging
+    - count: 9
+      radius: 18
+      speed: 2.5
+      types:
+      - liquid
+    - count: 1
+      radius: 212
+      speed: 14
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#16
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 6.25
+      types:
+      - normal
+    - count: 6
+      radius: 12
+      speed: 10
+      types:
+      - normal
+    - count: 4
+      radius: 24
+      speed: 2.5
+      types:
+      - normal
+    - count: 3
+      radius: 12
+      speed: 6.25
+      types:
+      - slowing
+    - count: 14
+      radius: 18
+      speed: 2.5
+      types:
+      - liquid
+    - count: 1
+      radius: 212
+      speed: 15
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#17
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 9
+      radius: 18
+      speed: 6.6
+      types:
+      - normal
+    - count: 9
+      radius: 18
+      speed: 3.3
+      types:
+      - liquid
+    - count: 4
+      radius: 24
+      speed: 24.2
+      types:
+      - lunging
+    - count: 1
+      radius: 212
+      speed: 17
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#18
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 4
+      radius: 18
+      speed: 6.6
+      types:
+      - normal
+    - count: 4
+      radius: 12
+      speed: 3.3
+      types:
+      - liquid
+    - count: 4
+      radius: 18
+      speed: 3.3
+      types:
+      - liquid
+    - count: 4
+      radius: 24
+      speed: 3.3
+      types:
+      - liquid
+    - count: 1
+      radius: 212
+      speed: 18
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#19
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 22
+      radius: 18
+      speed: 2.2
+      types:
+      - liquid
+    - count: 6
+      radius: 12
+      speed: 33
+      types:
+      - lunging
+    - count: 1
+      radius: 212
+      speed: 20
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#20
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 24
+      speed: 2.2
+      types:
+      - liquid
+    - count: 15
+      radius: 24
+      speed: 26.4
+      types:
+      - lunging
+    - count: 1
+      radius: 212
+      speed: 30
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Areas 21 - 30:
+#wind_ghost enemies added
+#21
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 6
+      types:
+      - wind_ghost
+    - count: 1
+      radius: 200
+      speed: 1
+      types:
+      - switch
+    - count: 2
+      radius: 200
+      speed: 5
+      types:
+      - wall
+    - count: 6
+      radius: 20
+      speed: 8
+      move_clockwise: False
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#22
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 6
+      types:
+      - wind_ghost
+    - count: 7
+      radius: 18
+      speed: 12
+      types:
+      - switch
+    - count: 1
+      radius: 200
+      speed: 1
+      types:
+      - switch
+    - count: 2
+      radius: 200
+      speed: 5
+      move_clockwise: False
+      types:
+      - wall
+    - count: 3
+      radius: 40
+      speed: 8
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#23
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 14
+      radius: 18
+      speed: 6
+      types:
+      - wind_ghost
+    - count: 8
+      radius: 18
+      speed: 9
+      types:
+      - switch
+    - count: 12
+      radius: 36
+      speed: 6
+      types:
+      - switch
+    - count: 1
+      radius: 200
+      speed: 1
+      types:
+      - switch
+    - count: 2
+      radius: 200
+      speed: 5
+      types:
+      - wall
+    - count: 6
+      radius: 20
+      speed: 8
+      move_clockwise: False
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#24
+#type: spawner
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 36
+      speed: 6
+      types:
+      - wind_ghost
+    - count: 11
+      radius: 50
+      speed: 5
+      types:
+      - switch
+    - count: 1
+      radius: 200
+      speed: 1
+      types:
+      - switch
+    - count: 2
+      radius: 200
+      speed: 5
+      move_clockwise: False
+      types:
+      - wall
+    - count: 3
+      radius: 40
+      speed: 8
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#25
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 36
+      speed: 6
+      types:
+      - wind_ghost
+    - count: 8
+      radius: 12
+      speed: 6
+      types:
+      - switch
+    - count: 15
+      radius: 18
+      speed: 2
+      types:
+      - switch
+    - count: 2
+      radius: 12
+      speed: 6
+      types:
+      - slowing
+      - draining
+    - count: 1
+      radius: 200
+      speed: 1
+      types:
+      - switch
+    - count: 4
+      radius: 140
+      speed: 5
+      types:
+      - wall
+    - count: 5
+      radius: 20
+      speed: 6
+      move_clockwise: False
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#26
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 7
+      types:
+      - wind_ghost
+    - count: 15
+      radius: 16
+      speed: 5
+      types:
+      - switch
+      - slowing
+    - count: 1
+      radius: 200
+      speed: 1
+      types:
+      - switch
+    - count: 4
+      radius: 140
+      speed: 5
+      move_clockwise: False
+      types:
+      - wall
+    - count: 5
+      radius: 40
+      speed: 7
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#27
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 9
+      types:
+      - wind_ghost
+    - count: 8
+      radius: 22
+      speed: 9
+      types:
+      - slowing
+      - switch
+    - count: 1
+      radius: 200
+      speed: 1
+      types:
+      - switch
+    - count: 4
+      radius: 140
+      speed: 5
+      types:
+      - wall
+    - count: 4
+      radius: 60
+      speed: 8
+      move_clockwise: False
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#28
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 8
+      types:
+      - wind_ghost
+    - count: 20
+      radius: 12
+      speed: 6
+      types:
+      - switch
+    - count: 1
+      radius: 200
+      speed: 1
+      types:
+      - switch
+    - count: 4
+      radius: 140
+      speed: 5
+      move_clockwise: False
+      types:
+      - wall
+    - count: 3
+      radius: 80
+      speed: 9
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#29
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 36
+      speed: 7
+      types:
+      - wind_ghost
+    - count: 12
+      radius: 36
+      speed: 5
+      types:
+      - slowing
+      - switch
+    - count: 1
+      radius: 200
+      speed: 1
+      types:
+      - switch
+    - count: 4
+      radius: 140
+      speed: 5
+      types:
+      - wall
+    - count: 2
+      radius: 100
+      speed: 9
+      move_clockwise: False
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#30
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 7
+      radius: 60
+      speed: 8
+      types:
+      - wind_ghost
+    - count: 20
+      radius: 36
+      speed: 5
+      types:
+      - switch
+    - count: 6
+      radius: 120
+      speed: 3
+      move_clockwise: False
+      types:
+      - wall
+    - count: 4
+      radius: 120
+      speed: 5.1
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Areas 31 - 39:
+#pink tiles in 31 - 33, wall enemies faster to compensate
+#31
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1120
+    y: 64
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1920
+    y: 0
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 320
+    y: 416
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1120
+    y: 352
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1920
+    y: 416
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 12
+      speed: 5
+      types:
+      - wind_ghost
+    - count: 4
+      radius: 120
+      speed: 27
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1120
+    y: 64
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1920
+    y: 0
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 320
+    y: 416
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1120
+    y: 352
+    width: 864
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1920
+    y: 416
+    width: 960
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#32
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 928
+    y: 64
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1568
+    y: 128
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 2208
+    y: 64
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 320
+    y: 416
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 928
+    y: 352
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1568
+    y: 288
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 2208
+    y: 352
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 20
+      radius: 12
+      speed: 5
+      types:
+      - wind_ghost
+    - count: 4
+      radius: 120
+      speed: 27
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 928
+    y: 64
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1568
+    y: 128
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 2208
+    y: 64
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 320
+    y: 416
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 928
+    y: 352
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1568
+    y: 288
+    width: 704
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 2208
+    y: 352
+    width: 672
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#33
+- x: last_right
+  y: last_y
+  zones:
+  - type: dummy
+    x: 320
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 800
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1312
+    y: 128
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1824
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 2336
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 320
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 800
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1312
+    y: 288
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1824
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 2336
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 13
+      radius: 54
+      speed: 10
+      types:
+      - gravity_ghost
+    - count: 4
+      radius: 120
+      speed: 27
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - type: dummy
+    x: 320
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 800
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1312
+    y: 128
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1824
+    y: 64
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 2336
+    y: 0
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 320
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 800
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1312
+    y: 288
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 1824
+    y: 352
+    width: 576
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - type: dummy
+    x: 2336
+    y: 416
+    width: 544
+    height: 64
+    properties:
+      background_color:
+      - 255
+      - 65
+      - 235
+      - 50
+      minimum_speed: 22
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Areas 33 - 36:
+#non-wall enemies +25% speed and count
+#34
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 18
+      radius: 12
+      speed: 5
+      types:
+      - slowing
+    - count: 13
+      radius: 36
+      speed: 2.5
+      types:
+      - liquid
+    - count: 1
+      radius: 212
+      speed: 18
+      types:
+      - wall
+    - count: 9
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#35
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 18
+      radius: 12
+      speed: 5
+      types:
+      - draining
+    - count: 9
+      radius: 18
+      speed: 2.5
+      types:
+      - liquid
+    - count: 9
+      radius: 18
+      speed: 15
+      types:
+      - dasher
+    - count: 1
+      radius: 212
+      speed: 21
+      types:
+      - wall
+    - count: 9
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#36
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 11
+      radius: 12
+      speed: 5
+      types:
+      - gravity
+    - count: 16
+      radius: 24
+      speed: 2.5
+      types:
+      - liquid
+    - count: 1
+      radius: 212
+      speed: 18
+      types:
+      - wall
+    - count: 9
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#areas 37 - 39:
+#areas 38 and 39 use area 37 switch enemy spawns
+#37
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 19
+      radius: 12
+      speed: 2
+      types:
+      - slowing
+    - count: 15
+      radius: 33
+      speed: 8
+      types:
+      - switch
+    - count: 1
+      radius: 80
+      speed: 2
+      types:
+      - sizing
+    - count: 2
+      radius: 160
+      speed: 3
+      types:
+      - wall
+    - count: 4
+      radius: 90
+      speed: 6
+      move_clockwise: False
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#38
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 19
+      radius: 12
+      speed: 2
+      types:
+      - draining
+    - count: 15
+      radius: 33
+      speed: 8
+      types:
+      - switch
+    - count: 1
+      radius: 80
+      speed: 2
+      types:
+      - sizing
+    - count: 2
+      radius: 160
+      speed: 3
+      move_clockwise: False
+      types:
+      - wall
+    - count: 4
+      radius: 90
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#39
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 12
+      speed: 2
+      types:
+      - gravity
+    - count: 15
+      radius: 33
+      speed: 8
+      types:
+      - switch
+    - count: 1
+      radius: 80
+      speed: 2
+      types:
+      - sizing
+    - count: 2
+      radius: 160
+      speed: 3
+      types:
+      - wall
+    - count: 4
+      radius: 90
+      speed: 6
+      move_clockwise: False
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Area 40:
+#gravity enemies -5 count, +700% radius, +100% speed, now gravity_ghost
+#ice_sniper enemies +700% radius, now ice_ghost
+#40
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 7
+      radius: 12
+      speed: 5
+      types:
+      - slowing
+    - count: 7
+      radius: 12
+      speed: 5
+      types:
+      - draining
+    - count: 2
+      radius: 80
+      speed: 8
+      types:
+      - gravity_ghost
+    - count: 2
+      radius: 80
+      speed: 8
+      types:
+      - ice_ghost
+    - count: 6
+      radius: 120
+      speed: 5
+      move_clockwise: False
+      types:
+      - wall
+    - count: 8
+      radius: 60
+      speed: 2
+      types:
+      - wall
+    - count: 32
+      radius: 15
+      speed: 3
+      move_clockwise: False
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#41
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: victory
+    width: 2976
+    x: 64
+    y: 0
+  - height: last_height
+    type: removal
+    width: 160
+    x: 3040
+    y: 0

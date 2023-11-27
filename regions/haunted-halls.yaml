@@ -1,0 +1,1414 @@
+name: Haunted Halls
+properties:
+  friction: 0.75
+  background_color:
+    - 78
+    - 39
+    - 0
+    - 80
+  texture: leaves
+areas:
+# 1
+- x: var x
+  y: var y
+  zones:
+  - type: teleport
+    x: 32
+    y: 0
+    width: 320
+    height: 64
+    translate:
+      x: 0
+      y: -1120
+  - type: teleport
+    x: 32
+    y: 416
+    width: 320
+    height: 64
+    translate:
+      x: 0
+      y: 2560
+  - type: teleport
+    x: 0
+    y: 0
+    width: 32
+    height: 480
+    translate:
+      x: 268304
+      y: 41600
+    properties:
+      background_color:
+      - 62
+      - 6
+      - 79
+      - 125
+      minimum_speed: 10
+    requirements:
+    - mansion_discovered
+  - type: safe
+    x: 32
+    y: 64
+    width: 320
+    height: 352
+    properties:
+      minimum_speed: 10
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 2
+      radius: 45
+      speed: 4
+      types:
+      - tree
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# 2
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.9
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 90
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 4
+      radius: 45
+      speed: 4
+      types:
+      - tree
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# 3
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.8
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 100
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 6
+      radius: 45
+      speed: 4
+      types:
+      - tree
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# 4
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.7
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 110
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 6
+      radius: 45
+      speed: 4
+      types:
+      - tree
+    - count: 2
+      radius: 30
+      speed: 5
+      types:
+      - wall
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# 5
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.6
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 120
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 6
+      radius: 45
+      speed: 4
+      types:
+      - tree
+    - count: 2
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    - count: 3
+      radius: 30
+      types:
+      - fake_pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# 6
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.5
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 130
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 6
+      radius: 45
+      speed: 4
+      types:
+      - tree
+    - count: 4
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    - count: 10
+      radius: 30
+      types:
+      - fake_pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+# 7
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.5
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 130
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 5
+      radius: 45
+      speed: 4
+      types:
+      - tree
+    - count: 4
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    - count: 10
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 5
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+# 8
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.4
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 140
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 4
+      radius: 45
+      speed: 4
+      types:
+      - tree
+    - count: 4
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    - count: 15
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 10
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+# 9
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.3
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 150
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 2
+      radius: 45
+      speed: 4
+      types:
+      - tree
+    - count: 2
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    - count: 25
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 10
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+# 10
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.2
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 160
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 2
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    - count: 35
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 15
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: flashlight_spawner
+    x: 240
+    y: 240
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+# 11
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.1
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 170
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 2
+      radius: 30
+      speed: 5
+      types:
+      - wall
+    - count: 50
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 20
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: flashlight_spawner
+    x: 240
+    y: 240
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+# 12
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 180
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 60
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 25
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: flashlight_spawner
+    x: 240
+    y: 240
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+  - type: torch
+    x: 420
+    y: -36
+  - type: torch
+    x: 740
+    y: -36
+  - type: torch
+    x: 1060
+    y: -36
+  - type: torch
+    x: 1380
+    y: -36
+  - type: torch
+    x: 1700
+    y: -36
+  - type: torch
+    x: 2020
+    y: -36
+  - type: torch
+    x: 2340
+    y: -36
+  - type: torch
+    x: 2660
+    y: -36
+  - type: torch
+    x: 420
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 740
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1060
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1380
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1700
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2020
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2340
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2660
+    y: 480
+    upside_down: true
+# 13
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 180
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 60
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 30
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: flashlight_spawner
+    x: 240
+    y: 240
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+  - type: torch
+    x: 420
+    y: -36
+  - type: torch
+    x: 740
+    y: -36
+  - type: torch
+    x: 1060
+    y: -36
+  - type: torch
+    x: 1380
+    y: -36
+  - type: torch
+    x: 1700
+    y: -36
+  - type: torch
+    x: 2020
+    y: -36
+  - type: torch
+    x: 2340
+    y: -36
+  - type: torch
+    x: 2660
+    y: -36
+  - type: torch
+    x: 420
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 740
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1060
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1380
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1700
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2020
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2340
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2660
+    y: 480
+    upside_down: true
+# 14
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 180
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 60
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 35
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+  - type: torch
+    x: 420
+    y: -36
+  - type: torch
+    x: 740
+    y: -36
+  - type: torch
+    x: 1060
+    y: -36
+  - type: torch
+    x: 1380
+    y: -36
+  - type: torch
+    x: 1700
+    y: -36
+  - type: torch
+    x: 2020
+    y: -36
+  - type: torch
+    x: 2340
+    y: -36
+  - type: torch
+    x: 2660
+    y: -36
+  - type: torch
+    x: 420
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 740
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1060
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1380
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1700
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2020
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2340
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2660
+    y: 480
+    upside_down: true
+# 15
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 180
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 60
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 40
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 2880
+    y: 0
+    width: 320
+    height: 480
+  - type: torch
+    x: 420
+    y: -36
+  - type: torch
+    x: 740
+    y: -36
+  - type: torch
+    x: 1060
+    y: -36
+  - type: torch
+    x: 1380
+    y: -36
+  - type: torch
+    x: 1700
+    y: -36
+  - type: torch
+    x: 2020
+    y: -36
+  - type: torch
+    x: 2340
+    y: -36
+  - type: torch
+    x: 2660
+    y: -36
+  - type: torch
+    x: 420
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 740
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1060
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1380
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 1700
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2020
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2340
+    y: 480
+    upside_down: true
+  - type: torch
+    x: 2660
+    y: 480
+    upside_down: true
+# 16
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 180
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - type: active
+    x: last_right
+    y: 0
+    width: 7680
+    height: 480
+    spawner:
+    - count: 180
+      radius: 30
+      types:
+      - fake_pumpkin
+    - count: 135
+      radius: 30
+      speed: 8
+      types:
+      - pumpkin
+  - height: 480
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: 480
+    type: exit
+    translate:
+      x: 160
+      y: 0
+    width: 64
+    x: last_right
+    y: 0
+  assets:
+  - type: light_region
+    x: 0
+    y: 0
+    width: 320
+    height: 480
+  - type: light_region
+    x: 8000
+    y: 0
+    width: 320
+    height: 480
+  - {type: torch, x: 420, y: -36}
+  - {type: torch, upside_down: true, x: 420, y: 480}
+  - {type: torch, x: 740, y: -36}
+  - {type: torch, upside_down: true, x: 740, y: 480}
+  - {type: torch, x: 1060, y: -36}
+  - {type: torch, upside_down: true, x: 1060, y: 480}
+  - {type: torch, x: 1380, y: -36}
+  - {type: torch, upside_down: true, x: 1380, y: 480}
+  - {type: torch, x: 1700, y: -36}
+  - {type: torch, upside_down: true, x: 1700, y: 480}
+  - {type: torch, x: 2020, y: -36}
+  - {type: torch, upside_down: true, x: 2020, y: 480}
+  - {type: torch, x: 2340, y: -36}
+  - {type: torch, upside_down: true, x: 2340, y: 480}
+  - {type: torch, x: 2560, y: -36}
+  - {type: torch, upside_down: true, x: 2560, y: 480}
+  - {type: torch, x: 2720, y: -36}
+  - {type: torch, upside_down: true, x: 2720, y: 480}
+  - {type: torch, x: 2880, y: -36}
+  - {type: torch, upside_down: true, x: 2880, y: 480}
+  - {type: torch, x: 3040, y: -36}
+  - {type: torch, upside_down: true, x: 3040, y: 480}
+  - {type: torch, x: 3200, y: -36}
+  - {type: torch, upside_down: true, x: 3200, y: 480}
+  - {type: torch, x: 3360, y: -36}
+  - {type: torch, upside_down: true, x: 3360, y: 480}
+  - {type: torch, x: 3520, y: -36}
+  - {type: torch, upside_down: true, x: 3520, y: 480}
+  - {type: torch, x: 3680, y: -36}
+  - {type: torch, upside_down: true, x: 3680, y: 480}
+  - {type: torch, x: 3840, y: -36}
+  - {type: torch, upside_down: true, x: 3840, y: 480}
+  - {type: torch, x: 4000, y: -36}
+  - {type: torch, upside_down: true, x: 4000, y: 480}
+  - {type: torch, x: 4160, y: -36}
+  - {type: torch, upside_down: true, x: 4160, y: 480}
+  - {type: torch, x: 4320, y: -36}
+  - {type: torch, upside_down: true, x: 4320, y: 480}
+  - {type: torch, x: 4480, y: -36}
+  - {type: torch, upside_down: true, x: 4480, y: 480}
+  - {type: torch, x: 4640, y: -36}
+  - {type: torch, upside_down: true, x: 4640, y: 480}
+  - {type: torch, x: 4800, y: -36}
+  - {type: torch, upside_down: true, x: 4800, y: 480}
+  - {type: torch, x: 4960, y: -36}
+  - {type: torch, upside_down: true, x: 4960, y: 480}
+  - {type: torch, x: 5120, y: -36}
+  - {type: torch, upside_down: true, x: 5120, y: 480}
+  - {type: torch, x: 5200, y: -36}
+  - {type: torch, upside_down: true, x: 5200, y: 480}
+  - {type: torch, x: 5280, y: -36}
+  - {type: torch, upside_down: true, x: 5280, y: 480}
+  - {type: torch, x: 5360, y: -36}
+  - {type: torch, upside_down: true, x: 5360, y: 480}
+  - {type: torch, x: 5440, y: -36}
+  - {type: torch, upside_down: true, x: 5440, y: 480}
+  - {type: torch, x: 5520, y: -36}
+  - {type: torch, upside_down: true, x: 5520, y: 480}
+  - {type: torch, x: 5600, y: -36}
+  - {type: torch, upside_down: true, x: 5600, y: 480}
+  - {type: torch, x: 5680, y: -36}
+  - {type: torch, upside_down: true, x: 5680, y: 480}
+  - {type: torch, x: 5760, y: -36}
+  - {type: torch, upside_down: true, x: 5760, y: 480}
+  - {type: torch, x: 5840, y: -36}
+  - {type: torch, upside_down: true, x: 5840, y: 480}
+  - {type: torch, x: 5920, y: -36}
+  - {type: torch, upside_down: true, x: 5920, y: 480}
+  - {type: torch, x: 6000, y: -36}
+  - {type: torch, upside_down: true, x: 6000, y: 480}
+  - {type: torch, x: 6080, y: -36}
+  - {type: torch, upside_down: true, x: 6080, y: 480}
+  - {type: torch, x: 6160, y: -36}
+  - {type: torch, upside_down: true, x: 6160, y: 480}
+  - {type: torch, x: 6240, y: -36}
+  - {type: torch, upside_down: true, x: 6240, y: 480}
+  - {type: torch, x: 6320, y: -36}
+  - {type: torch, upside_down: true, x: 6320, y: 480}
+  - {type: torch, x: 6400, y: -36}
+  - {type: torch, upside_down: true, x: 6400, y: 480}
+  - {type: torch, x: 6480, y: -36}
+  - {type: torch, upside_down: true, x: 6480, y: 480}
+  - {type: torch, x: 6560, y: -36}
+  - {type: torch, upside_down: true, x: 6560, y: 480}
+  - {type: torch, x: 6640, y: -36}
+  - {type: torch, upside_down: true, x: 6640, y: 480}
+  - {type: torch, x: 6720, y: -36}
+  - {type: torch, upside_down: true, x: 6720, y: 480}
+  - {type: torch, x: 6800, y: -36}
+  - {type: torch, upside_down: true, x: 6800, y: 480}
+  - {type: torch, x: 6880, y: -36}
+  - {type: torch, upside_down: true, x: 6880, y: 480}
+  - {type: torch, x: 6960, y: -36}
+  - {type: torch, upside_down: true, x: 6960, y: 480}
+  - {type: torch, x: 7040, y: -36}
+  - {type: torch, upside_down: true, x: 7040, y: 480}
+  - {type: torch, x: 7120, y: -36}
+  - {type: torch, upside_down: true, x: 7120, y: 480}
+  - {type: torch, x: 7200, y: -36}
+  - {type: torch, upside_down: true, x: 7200, y: 480}
+  - {type: torch, x: 7280, y: -36}
+  - {type: torch, upside_down: true, x: 7280, y: 480}
+  - {type: torch, x: 7360, y: -36}
+  - {type: torch, upside_down: true, x: 7360, y: 480}
+  - {type: torch, x: 7440, y: -36}
+  - {type: torch, upside_down: true, x: 7440, y: 480}
+  - {type: torch, x: 7520, y: -36}
+  - {type: torch, upside_down: true, x: 7520, y: 480}
+  - {type: torch, x: 7600, y: -36}
+  - {type: torch, upside_down: true, x: 7600, y: 480}
+  - {type: torch, x: 7680, y: -36}
+  - {type: torch, upside_down: true, x: 7680, y: 480}
+  - {type: torch, x: 7760, y: -36}
+  - {type: torch, upside_down: true, x: 7760, y: 480}
+  - {type: torch, x: 7840, y: -36}
+  - {type: torch, upside_down: true, x: 7840, y: 480}
+  - {type: torch, x: 7920, y: -36}
+  - {type: torch, upside_down: true, x: 7920, y: 480}
+  - {type: torch, x: 8000, y: -36}
+  - {type: torch, upside_down: true, x: 8000, y: 480}
+  - {type: torch, x: 8080, y: -36}
+  - {type: torch, upside_down: true, x: 8080, y: 480}
+  - {type: torch, x: 8300, y: -36}
+  - {type: torch, upside_down: true, x: 8300, y: 480}
+# Victory
+- x: last_right
+  y: last_y
+  properties:
+    lighting: 0.5
+    background_color:
+    - 78
+    - 39
+    - 0
+    - 130
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    type: victory
+    width: 480
+    x: last_right
+    y: 0
+  - height: 480
+    type: teleport
+    width: 64
+    x: last_right
+    y: 0
+    translate:
+      x: 211352
+      y: 41600

@@ -1,0 +1,1780 @@
+areas:
+- name: Security Gate A
+  x: 24352
+  y: 163952
+  zones:
+  - height: 192
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - inaccessible
+    translate:
+      x: 3776
+      y: 0
+    type: teleport
+    width: 32
+    x: 0
+    y: 0
+  - height: 192
+    properties:
+      background_color:
+      - 181
+      - 255
+      - 248
+      - 75
+    translate:
+      x: -22304
+      y: -16000
+    type: teleport
+    width: 32
+    x: 0
+    y: 288
+  - height: 96
+    properties:
+      minimum_speed: 10
+    type: safe
+    width: 32
+    x: 0
+    y: 192
+  - height: 480
+    properties:
+      minimum_speed: 10
+    type: safe
+    width: 288
+    x: 32
+    y: 0
+  - height: 480
+    spawner:
+    - angle: 0
+      count: 1
+      radar_radius: 288
+      radius: 18
+      speed: 15
+      types:
+      - radar
+      x: 1024
+      y: 240
+    - angle: 0
+      count: 1
+      radar_radius: 192
+      radius: 14
+      speed: 8
+      types:
+      - radar
+      x: 480
+      y: 160
+    - angle: 0
+      count: 1
+      radar_radius: 192
+      radius: 14
+      speed: 8
+      types:
+      - radar
+      x: 480
+      y: 320
+    - angle: 180
+      count: 1
+      radar_radius: 160
+      radius: 10
+      speed: 5
+      types:
+      - radar
+      x: 2868
+      y: 10
+    - angle: 180
+      count: 1
+      radar_radius: 160
+      radius: 10
+      speed: 5
+      types:
+      - radar
+      x: 2868
+      y: 212
+    - angle: 180
+      count: 1
+      radar_radius: 160
+      radius: 10
+      speed: 5
+      types:
+      - radar
+      x: 2868
+      y: 268
+    - angle: 180
+      count: 1
+      radar_radius: 160
+      radius: 10
+      speed: 5
+      types:
+      - radar
+      x: 2868
+      y: 470
+    - angle: 0
+      count: 1
+      radar_radius: 144
+      radius: 12
+      speed: 15
+      types:
+      - radar
+      x: 380
+      y: 60
+    - angle: 180
+      count: 1
+      radar_radius: 144
+      radius: 12
+      speed: 15
+      types:
+      - radar
+      x: 2820
+      y: 420
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - height: 480
+    type: safe
+    width: 256
+    x: 2880
+    y: 0
+  - height: 480
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - cybot_castle_defeated
+    - ten_hard_variants
+    translate:
+      x: 160
+      y: 0
+    type: teleport
+    width: 64
+    x: 3136
+    y: 0
+- name: Network Bridge
+  x: 27552
+  y: 161072
+  zones:
+  - height: 64
+    translate:
+      x: 0
+      y: -160
+    type: exit
+    width: 480
+    x: 0
+    y: 0
+  - height: 256
+    type: safe
+    width: 480
+    x: 0
+    y: 64
+  - height: 2560
+    spawner:
+    - count: 30
+      radius: 4
+      slowing_radius: 50
+      speed: 11
+      types:
+      - slowing
+    - count: 30
+      draining_radius: 50
+      radius: 4
+      speed: 11
+      types:
+      - draining
+    - angle: 90
+      barrier_radius: 80
+      count: 1
+      radius: 8
+      speed: 3
+      types:
+      - barrier
+      x: 240
+      y: 2720
+    - angle: 270
+      barrier_radius: 80
+      count: 1
+      radius: 8
+      speed: 3
+      types:
+      - barrier
+      x: 240
+      y: 480
+    type: active
+    width: 480
+    x: 0
+    y: 320
+  - height: 480
+    type: safe
+    width: 480
+    x: 0
+    y: 2880
+- name: Security Gate B
+  properties:
+    pellet_count: 0
+  x: 27488
+  y: 160528
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 64
+  - height: 480
+    type: safe
+    width: 480
+    x: 64
+    y: 64
+  - height: 480
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: 544
+    y: 64
+  - height: 64
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - mystery_keycard
+    translate:
+      x: 0
+      y: -1120
+    type: teleport
+    width: 608
+    x: 0
+    y: 0
+- name: Icy Tunnel
+  x: 24352
+  y: 160592
+  zones:
+  - height: 64
+    translate:
+      x: 0
+      y: -160
+    type: exit
+    width: 256
+    x: 0
+    y: 0
+  - height: 64
+    translate:
+      x: 192
+      y: 288
+    type: exit
+    width: 256
+    x: 0
+    y: 416
+  - height: 352
+    type: safe
+    width: 256
+    x: 0
+    y: 64
+  - height: 480
+    spawner:
+    - count: 2
+      radius: 44
+      speed: 3
+      types:
+      - ice_sniper
+    - count: 8
+      radius: 18
+      speed: 3
+      types:
+      - ice_sniper
+    - count: 3
+      radius: 44
+      speed: 3
+      types:
+      - ice_ghost
+    - count: 16
+      radius: 18
+      speed: 3
+      types:
+      - ice_ghost
+    - count: 4
+      freezing_radius: 120
+      radius: 18
+      speed: 5
+      types:
+      - freezing
+    - count: 16
+      radius: 6
+      speed: 6
+      types:
+      - snowman
+    - count: 5
+      radius: 16
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: 256
+    y: 0
+  - height: 480
+    type: safe
+    width: 256
+    x: 2816
+    y: 0
+  - height: 480
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: 3072
+    y: 0
+- name: Electric Tunnel
+  x: 28096
+  y: 160592
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    type: safe
+    width: 256
+    x: 64
+    y: 0
+  - height: 480
+    spawner:
+    - count: 2
+      radius: 170
+      speed: 3
+      types:
+      - thunderbolt
+    - count: 14
+      radius: 18
+      speed: 5
+      types:
+      - electrical
+    - count: 8
+      radius: 22
+      speed: 7
+      types:
+      - sparking
+    - count: 36
+      radius: 18
+      speed: 3
+      types:
+      - static
+    - count: 5
+      move_clockwise: false
+      radius: 16
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - height: 352
+    type: safe
+    width: 256
+    x: 2880
+    y: 64
+  - height: 64
+    translate:
+      x: 0
+      y: -160
+    type: exit
+    width: 256
+    x: 2880
+    y: 0
+  - height: 64
+    translate:
+      x: -160
+      y: 160
+    type: exit
+    width: 256
+    x: 2880
+    y: 416
+- name: Router Hall B
+  x: 24352
+  y: 157392
+  zones:
+  - height: 64
+    translate:
+      x: 0
+      y: -160
+    type: exit
+    width: 256
+    x: 0
+    y: 0
+  - height: 256
+    type: safe
+    width: 480
+    x: 0
+    y: 64
+  - height: 64
+    type: safe
+    width: 224
+    x: 256
+    y: 0
+  - height: 2560
+    spawner:
+    - angle: 270
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 384
+      y: 2752
+    - angle: 270
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 96
+      y: 2496
+    - angle: 270
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 384
+      y: 2240
+    - angle: 270
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 96
+      y: 1984
+    - angle: 270
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 384
+      y: 1728
+    - angle: 90
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 96
+      y: 1472
+    - angle: 90
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 384
+      y: 1216
+    - angle: 90
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 96
+      y: 960
+    - angle: 90
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 384
+      y: 704
+    - angle: 90
+      count: 1
+      radius: 96
+      speed: 0.5
+      types:
+      - immune
+      x: 96
+      y: 448
+    - angle: 0
+      count: 1
+      radar_radius: 200
+      radius: 32
+      speed: 8
+      types:
+      - radar
+      x: 240
+      y: 496
+    - angle: 180
+      count: 1
+      radar_radius: 200
+      radius: 32
+      speed: 8
+      types:
+      - radar
+      x: 240
+      y: 816
+    - angle: 0
+      count: 1
+      radar_radius: 200
+      radius: 32
+      speed: 8
+      types:
+      - radar
+      x: 240
+      y: 1136
+    - angle: 180
+      count: 1
+      radar_radius: 200
+      radius: 32
+      speed: 8
+      types:
+      - radar
+      x: 240
+      y: 1456
+    - angle: 0
+      count: 1
+      radar_radius: 200
+      radius: 32
+      speed: 8
+      types:
+      - radar
+      x: 240
+      y: 1776
+    - angle: 180
+      count: 1
+      radar_radius: 200
+      radius: 32
+      speed: 8
+      types:
+      - radar
+      x: 240
+      y: 2096
+    - angle: 0
+      count: 1
+      radar_radius: 200
+      radius: 32
+      speed: 8
+      types:
+      - radar
+      x: 240
+      y: 2416
+    - angle: 180
+      count: 1
+      radar_radius: 200
+      radius: 32
+      speed: 8
+      types:
+      - radar
+      x: 240
+      y: 2736
+    type: active
+    width: 480
+    x: 0
+    y: 320
+  - height: 256
+    type: safe
+    width: 480
+    x: 0
+    y: 2880
+  - height: 64
+    type: safe
+    width: 224
+    x: 256
+    y: 3136
+  - height: 64
+    translate:
+      x: 0
+      y: 160
+    type: exit
+    width: 256
+    x: 0
+    y: 3136
+- name: Router Hall A
+  x: 30752
+  y: 157392
+  zones:
+  - height: 64
+    translate:
+      x: 0
+      y: -160
+    type: exit
+    width: 256
+    x: 224
+    y: 0
+  - height: 256
+    type: safe
+    width: 480
+    x: 0
+    y: 64
+  - height: 64
+    type: safe
+    width: 224
+    x: 0
+    y: 0
+  - height: 2560
+    spawner:
+    - angle: 0
+      count: 1
+      radar_radius: 360
+      radius: 48
+      speed: 4
+      types:
+      - radar
+      x: 240
+      y: 880
+    - angle: 180
+      count: 1
+      radar_radius: 360
+      radius: 48
+      speed: 4
+      types:
+      - radar
+      x: 240
+      y: 1360
+    - angle: 0
+      count: 1
+      radar_radius: 360
+      radius: 48
+      speed: 4
+      types:
+      - radar
+      x: 240
+      y: 1840
+    - angle: 180
+      count: 1
+      radar_radius: 360
+      radius: 48
+      speed: 4
+      types:
+      - radar
+      x: 240
+      y: 2320
+    - angle: 45
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 2688
+    - angle: 135
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 2688
+    - angle: 45
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 2496
+    - angle: 135
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 2496
+    - angle: 45
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 2304
+    - angle: 135
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 2304
+    - angle: 45
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 2112
+    - angle: 135
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 2122
+    - angle: 45
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1920
+    - angle: 135
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1920
+    - angle: 45
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1728
+    - angle: 135
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1728
+    - angle: 225
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1536
+    - angle: 315
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1536
+    - angle: 225
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1344
+    - angle: 315
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1344
+    - angle: 225
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1152
+    - angle: 315
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 1152
+    - angle: 225
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 960
+    - angle: 315
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 960
+    - angle: 225
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 768
+    - angle: 315
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 768
+    - angle: 225
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 576
+    - angle: 315
+      count: 1
+      radius: 18
+      speed: 6.5
+      types:
+      - corrosive
+      x: 240
+      y: 576
+    type: active
+    width: 480
+    x: 0
+    y: 320
+  - height: 256
+    type: safe
+    width: 480
+    x: 0
+    y: 2880
+  - height: 64
+    type: safe
+    width: 224
+    x: 0
+    y: 3136
+  - height: 64
+    translate:
+      x: 0
+      y: 160
+    type: exit
+    width: 256
+    x: 224
+    y: 3136
+- name: Planting Tunnel
+  x: 24352
+  y: 156912
+  zones:
+  - height: 64
+    translate:
+      x: 160
+      y: -160
+    type: exit
+    width: 256
+    x: 0
+    y: 0
+  - height: 64
+    translate:
+      x: 0
+      y: 160
+    type: exit
+    width: 256
+    x: 0
+    y: 416
+  - height: 352
+    type: safe
+    width: 256
+    x: 0
+    y: 64
+  - height: 480
+    spawner:
+    - count: 12
+      radius: 50
+      speed: 2
+      types:
+      - corrosive
+    - count: 11
+      radius: 60
+      speed: 2
+      types:
+      - corrosive
+    - count: 40
+      radius: 9
+      speed: 3
+      types:
+      - flower
+    - count: 3
+      radius: 24
+      speed: 10
+      types:
+      - seedling
+    - count: 5
+      radius: 44
+      speed: 0
+      types:
+      - cactus
+    - count: 5
+      radius: 16
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: 256
+    y: 0
+  - height: 416
+    type: safe
+    width: 256
+    x: 2816
+    y: 64
+  - height: 64
+    translate:
+      x: 0
+      y: -160
+    type: exit
+    width: 256
+    x: 2816
+    y: 0
+  - height: 480
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: 3072
+    y: 0
+- name: Metallic Tunnel
+  x: 28096
+  y: 156912
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 64
+    translate:
+      x: 0
+      y: -160
+    type: exit
+    width: 256
+    x: 64
+    y: 0
+  - height: 416
+    type: safe
+    width: 256
+    x: 64
+    y: 64
+  - height: 480
+    spawner:
+    - count: 8
+      radius: 50
+      speed: 2
+      types:
+      - immune
+    - count: 7
+      radius: 60
+      speed: 2
+      types:
+      - immune
+    - count: 40
+      radius: 9
+      speed: 3
+      types:
+      - switch
+    - count: 3
+      radius: 24
+      speed: 10
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 44
+      speed: 1
+      types:
+      - sniper
+    - count: 5
+      move_clockwise: false
+      radius: 16
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - height: 352
+    type: safe
+    width: 256
+    x: 2880
+    y: 64
+  - height: 64
+    translate:
+      x: -160
+      y: -160
+    type: exit
+    width: 256
+    x: 2880
+    y: 0
+  - height: 64
+    translate:
+      x: 0
+      y: 160
+    type: exit
+    width: 256
+    x: 2880
+    y: 416
+- name: Digital Channel A
+  x: 26944
+  y: 153712
+  zones:
+  - height: 256
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 320
+    type: safe
+    width: 416
+    x: 64
+    y: 0
+  - height: 64
+    type: safe
+    width: 64
+    x: 0
+    y: 256
+  - height: 2560
+    spawner:
+    - count: 16
+      radius: 18
+      speed: 2
+      types:
+      - prediction_sniper
+    type: active
+    width: 480
+    x: 0
+    y: 320
+  - height: 256
+    type: safe
+    width: 480
+    x: 0
+    y: 2880
+  - height: 64
+    type: safe
+    width: 224
+    x: 0
+    y: 3136
+  - height: 64
+    translate:
+      x: 0
+      y: 160
+    type: exit
+    width: 256
+    x: 224
+    y: 3136
+- name: Digital Channel B
+  x: 28160
+  y: 153712
+  zones:
+  - height: 256
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: 416
+    y: 0
+  - height: 320
+    type: safe
+    width: 416
+    x: 0
+    y: 0
+  - height: 64
+    type: safe
+    width: 64
+    x: 416
+    y: 256
+  - height: 2560
+    spawner:
+    - count: 14
+      radius: 50
+      speed: 2
+      types:
+      - prediction_sniper
+    type: active
+    width: 480
+    x: 0
+    y: 320
+  - height: 256
+    type: safe
+    width: 480
+    x: 0
+    y: 2880
+  - height: 64
+    type: safe
+    width: 224
+    x: 256
+    y: 3136
+  - height: 64
+    translate:
+      x: 0
+      y: 160
+    type: exit
+    width: 256
+    x: 0
+    y: 3136
+- name: Light Tunnel
+  x: 23808
+  y: 153712
+  zones:
+  - height: 256
+    translate:
+      x: -160
+      y: 160
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 224
+    type: safe
+    width: 64
+    x: 0
+    y: 256
+  - height: 480
+    type: safe
+    width: 256
+    x: 64
+    y: 0
+  - height: 480
+    spawner:
+    - count: 19
+      radius: 12
+      speed: 12
+      types:
+      - normal
+    - count: 6
+      radius: 24
+      speed: 10
+      types:
+      - dasher
+    - count: 10
+      radius: 6
+      speed: 5
+      types:
+      - slowing
+    - count: 10
+      radius: 6
+      speed: 5
+      types:
+      - draining
+    - count: 5
+      radius: 16
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: 256
+    y: 0
+  - height: 480
+    type: safe
+    width: 256
+    x: 2816
+    y: 0
+  - height: 256
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: 3072
+    y: 0
+  - height: 224
+    type: safe
+    width: 64
+    x: 3072
+    y: 256
+- name: Dark Tunnel
+  x: 28640
+  y: 153712
+  zones:
+  - height: 256
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 224
+    type: safe
+    width: 64
+    x: 0
+    y: 256
+  - height: 480
+    type: safe
+    width: 256
+    x: 64
+    y: 0
+  - height: 480
+    spawner:
+    - count: 28
+      radius: 28
+      speed: 48
+      types:
+      - teleporting
+    - count: 16
+      radius: 20
+      speed: 2
+      types:
+      - gravity
+    - count: 16
+      radius: 20
+      speed: 2
+      types:
+      - repelling
+    - count: 5
+      move_clockwise: false
+      radius: 16
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: 256
+    y: 0
+  - height: 480
+    type: safe
+    width: 256
+    x: 2816
+    y: 0
+  - height: 256
+    translate:
+      x: 160
+      y: 160
+    type: exit
+    width: 64
+    x: 3072
+    y: 0
+  - height: 224
+    type: safe
+    width: 64
+    x: 3072
+    y: 256
+- name: Security Gate C
+  properties:
+    pellet_count: 0
+  x: 27488
+  y: 156912
+  zones:
+  - height: 480
+    type: safe
+    width: 480
+    x: 64
+    y: 0
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: 544
+    y: 0
+  - height: 32
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - cybot_hard_mode_defeated
+    translate:
+      x: 0
+      y: -96
+    type: teleport
+    width: 160
+    x: 224
+    y: 0
+- name: Network Connector
+  properties:
+    pellet_count: 0
+  x: 27488
+  y: 156442
+  zones:
+  - height: 480
+    type: safe
+    width: 480
+    x: 64
+    y: 0
+  - height: 32
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    translate:
+      x: 0
+      y: 96
+    type: exit
+    width: 160
+    x: 224
+    y: 448
+  - height: 32
+    properties:
+      background_color:
+      - 235
+      - 192
+      - 52
+      - 255
+    type: dummy
+    width: 32
+    x: 128
+    y: 32
+  - height: 32
+    properties:
+      background_color:
+      - 235
+      - 192
+      - 52
+      - 255
+    type: dummy
+    width: 32
+    x: 448
+    y: 32
+  - height: 32
+    properties:
+      background_color:
+      - 235
+      - 192
+      - 52
+      - 255
+    type: dummy
+    width: 32
+    x: 96
+    y: 352
+  - height: 32
+    properties:
+      background_color:
+      - 235
+      - 192
+      - 52
+      - 255
+    type: dummy
+    width: 32
+    x: 480
+    y: 352
+  - height: 32
+    properties:
+      background_color:
+      - 235
+      - 192
+      - 52
+      - 255
+    type: dummy
+    width: 352
+    x: 128
+    y: 384
+- name: Data Center A
+  properties:
+    background_color:
+    - 27
+    - 200
+    - 227
+    - 225
+  x: 24352
+  y: 161072
+  zones:
+  - height: 960
+    spawner:
+    - count: 2
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 2
+      move_clockwise: false
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 1
+      radius: 30
+      speed: 8
+      types:
+      - icbot
+      x: 480
+      y: 480
+    type: active
+    width: 960
+    x: 0
+    y: 0
+  - height: 32
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 175
+    translate:
+      x: 0
+      y: -160
+    type: exit
+    width: 32
+    x: 0
+    y: 0
+- name: Data Center B
+  properties:
+    background_color:
+    - 190
+    - 252
+    - 3
+    - 225
+  x: 30272
+  y: 161072
+  zones:
+  - height: 960
+    spawner:
+    - count: 2
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 2
+      move_clockwise: false
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 1
+      radius: 30
+      speed: 8
+      types:
+      - elbot
+      x: 480
+      y: 480
+    type: active
+    width: 960
+    x: 0
+    y: 0
+  - height: 32
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 175
+    translate:
+      x: 0
+      y: -160
+    type: exit
+    width: 32
+    x: 928
+    y: 0
+- name: Data Center C
+  properties:
+    background_color:
+    - 14
+    - 176
+    - 36
+    - 225
+  x: 24352
+  y: 155952
+  zones:
+  - height: 960
+    spawner:
+    - count: 2
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 2
+      move_clockwise: false
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 1
+      radius: 30
+      speed: 8
+      types:
+      - plbot
+      x: 480
+      y: 480
+    type: active
+    width: 960
+    x: 0
+    y: 0
+  - height: 32
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 175
+    translate:
+      x: 0
+      y: 160
+    type: exit
+    width: 32
+    x: 0
+    y: 928
+- name: Data Center D
+  properties:
+    background_color:
+    - 224
+    - 98
+    - 56
+    - 225
+  x: 30272
+  y: 155952
+  zones:
+  - height: 960
+    spawner:
+    - count: 2
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 2
+      move_clockwise: false
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 1
+      radius: 30
+      speed: 8
+      types:
+      - mebot
+      x: 480
+      y: 480
+    type: active
+    width: 960
+    x: 0
+    y: 0
+  - height: 32
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 175
+    translate:
+      x: 0
+      y: 160
+    type: teleport
+    width: 32
+    x: 928
+    y: 928
+- name: Data Center E
+  properties:
+    background_color:
+    - 255
+    - 249
+    - 191
+    - 225
+  x: 22848
+  y: 153712
+  zones:
+  - height: 960
+    spawner:
+    - count: 2
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 2
+      move_clockwise: false
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 1
+      radius: 30
+      speed: 8
+      types:
+      - libot
+      x: 480
+      y: 480
+    type: active
+    width: 960
+    x: 0
+    y: 0
+  - height: 32
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 175
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 32
+    x: 928
+    y: 0
+- name: Data Center F
+  properties:
+    background_color:
+    - 81
+    - 23
+    - 120
+    - 225
+  x: 31776
+  y: 153712
+  zones:
+  - height: 960
+    spawner:
+    - count: 2
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 2
+      move_clockwise: false
+      radius: 16
+      speed: 11
+      types:
+      - wall
+    - count: 1
+      radius: 30
+      speed: 8
+      types:
+      - dabot
+      x: 480
+      y: 480
+    type: active
+    width: 960
+    x: 0
+    y: 0
+  - height: 32
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 175
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 32
+    x: 0
+    y: 0
+- name: FINAL BOSS
+  x: 27216
+  y: 158416
+  zones:
+  - height: 1152
+    spawner:
+    - count: 4
+      radius: 17
+      speed: 7
+      types:
+      - wall
+    - count: 4
+      move_clockwise: false
+      radius: 17
+      speed: 7
+      types:
+      - wall
+    - count: 1
+      hard_mode: true
+      radius: 15
+      speed: 4
+      types:
+      - cybot
+      x: 576
+      y: 576
+    - count: 1
+      radius: 18
+      speed: 0
+      types:
+      - frost_giant
+      x: 576
+      y: 576
+    type: active
+    width: 1152
+    x: 0
+    y: 0
+  - height: 32
+    translate:
+      x: 0
+      y: 1088
+    type: exit
+    width: 64
+    x: 544
+    y: 1120
+  - height: 64
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - cybot_hard_mode_defeated
+    translate:
+      x: 0
+      y: -544
+    type: teleport
+    width: 64
+    x: 544
+    y: 0
+- name: Victory!
+  x: 27536
+  y: 157552
+  zones:
+  - height: 352
+    type: victory
+    width: 512
+    x: 0
+    y: 128
+  - height: 128
+    type: removal
+    width: 512
+    x: 0
+    y: 0
+name: Cyber Castle Hard
+properties:
+  background_color:
+  - 14
+  - 170
+  - 201
+  - 125
+  death_timer: 60000
+  friction: 0.75

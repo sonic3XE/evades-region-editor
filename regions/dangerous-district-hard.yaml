@@ -1,0 +1,4730 @@
+name: Dangerous District Hard
+properties:
+  background_color:
+  - 181
+  - 0
+  - 0
+  - 40
+  max_level: 99999
+  friction: 0.75
+areas:
+#Areas 1 to 40:
+#radiating_bullets enemies have release_time and release_interval property
+#Areas 1 to 10:
+#non-radiating_bullets enemies +50% speed +25% count
+# Area 1
+- x: var x
+  y: var y
+  zones:
+  - type: teleport
+    x: 0
+    y: 0
+    width: 32
+    height: 480
+    translate:
+      x: -268076
+      y: 0
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 100
+  - type: safe
+    x: 32
+    y: 0
+    width: 288
+    height: 480
+    properties:
+      minimum_speed: 10
+  - height: 480
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 4.5
+      types:
+      - normal
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 2
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 4.5
+      types:
+      - normal
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 3
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 4.5
+      types:
+      - normal
+    - count: 1
+      radius: 18
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 30
+      speed: 4.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 4
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 4.5
+      types:
+      - normal
+    - count: 2
+      radius: 18
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 30
+      speed: 4.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 5
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 7.5
+      types:
+      - normal
+    - count: 2
+      radius: 28
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 30
+      speed: 4.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 6
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 30
+      speed: 4.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 7
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 1
+      radius: 12
+      speed: 7
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 30
+      speed: 4.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 8
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 12
+      speed: 7
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 30
+      speed: 4.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 9
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 7.5
+      types:
+      - normal
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 1
+      radius: 12
+      speed: 7
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 30
+      speed: 4.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 10
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 28
+      speed: 7.5
+      types:
+      - normal
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 1
+      radius: 12
+      speed: 7
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 1
+      radius: 100
+      speed: 3
+      release_interval: 2000
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 30
+      speed: 4.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Areas 11 to 19:
+#normal and wall enemies +50% speed +25% count
+#speed_sniper enemies +100% speed
+# Area 11
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 7.5
+      types:
+      - normal
+    - count: 3
+      radius: 18
+      speed: 10
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 12
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 7.5
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 10
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 13
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 7.5
+      types:
+      - normal
+    - count: 3
+      radius: 24
+      speed: 10
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 14
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 7.5
+      types:
+      - normal
+    - count: 4
+      radius: 24
+      speed: 10
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 15
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 24
+      speed: 10
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 16
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 24
+      speed: 10
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 17
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 24
+      speed: 10
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 18
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 24
+      speed: 10
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 19
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 18
+      speed: 14
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Area 20:
+#radiating_bullets enemies +50% count
+#speed_sniper enemies +100% speed, -50% count
+# Area 20
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 12
+      radius: 18
+      speed: 1
+      release_time: 2000
+      release_interval: 5000
+      types:
+      - radiating_bullets
+    - count: 3
+      radius: 18
+      speed: 18
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Areas 21 to 29:
+#normal and wall enemies +50% speed +25% count
+#regen_sniper enemies +100% speed
+# Area 21
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 3
+      radius: 18
+      speed: 14
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 22
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 14
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 23
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 3
+      radius: 24
+      speed: 14
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 24
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 4
+      radius: 24
+      speed: 14
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 25
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 18
+      speed: 7
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 24
+      speed: 14
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 26
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 2
+      radius: 18
+      speed: 7
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 24
+      speed: 10.5
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 27
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 18
+      speed: 13.5
+      types:
+      - normal
+    - count: 2
+      radius: 18
+      speed: 7
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 24
+      speed: 14
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 28
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 13.5
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 24
+      speed: 14
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 29
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 18
+      speed: 18
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Area 30:
+#radiating_bullets enemies +100% count
+#speed_sniper enemies +100% speed, -50% count
+# Area 30
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 12
+      radius: 18
+      speed: 1
+      release_time: 2000
+      release_interval: 5000
+      types:
+      - radiating_bullets
+    - count: 3
+      radius: 18
+      speed: 22
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Areas 31 to 39:
+#normal, disabling, and wall enemies +50% speed, +25% count
+#disabling enemies radius now 160, type now disabling_ghost
+#various balancing buffs to improve consistency
+# Area 31
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 7
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 3
+      radius: 18
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 120
+      speed: 4.5
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 10.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 32
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 120
+      speed: 4.5
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 10.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 33
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 24
+      speed: 5.5
+      types:
+      - normal
+    - count: 15
+      radius: 18
+      speed: 5.5
+      types:
+      - normal
+    - count: 15
+      radius: 12
+      speed: 5.5
+      types:
+      - normal
+    - count: 4
+      radius: 120
+      speed: 1.5
+      types:
+      - disabling_ghost
+    - count: 6
+      radius: 90
+      speed: 3
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 60
+      speed: 6
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 10.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 34
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 7
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 5
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 120
+      speed: 7.5
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 10.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 35
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 5
+      radius: 18
+      speed: 7
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 120
+      speed: 10.5
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 10.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 36
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 14
+      radius: 18
+      speed: 10.5
+      types:
+      - normal
+    - count: 6
+      radius: 18
+      speed: 7
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 120
+      speed: 10.5
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 10.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 37
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 50
+      radius: 18
+      speed: 4.5
+      types:
+      - normal
+    - count: 4
+      radius: 120
+      speed: 1.5
+      types:
+      - disabling_ghost
+    - count: 6
+      radius: 90
+      speed: 3
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 60
+      speed: 6
+      types:
+      - disabling_ghost
+    - count: 19
+      radius: 30
+      speed: 6
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 38
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 70
+      radius: 18
+      speed: 4.5
+      types:
+      - normal
+    - count: 4
+      radius: 120
+      speed: 1.5
+      types:
+      - disabling_ghost
+    - count: 6
+      radius: 90
+      speed: 3
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 60
+      speed: 6
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 10.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 39
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 3
+      release_time: 1500
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 18
+      speed: 3
+      release_time: 3000
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 15
+      radius: 120
+      speed: 4.5
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 16.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+#Area 40:
+#Big disabling enemy now two disabling_ghost enemies with +50% speed and 320 radius
+#minor disabling enemies +50% speed, +25% count, radius now 120
+#speed_sniper and regen_sniper enemies +100% speed
+#wall enemies +50% speed, +25% count
+# Area 40
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 120
+      speed: 5
+      types:
+      - disabling_ghost
+    - count: 3
+      radius: 80
+      speed: 9
+      types:
+      - disabling_ghost
+    - count: 3
+      radius: 24
+      speed: 6
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 3
+      radius: 24
+      speed: 6
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 1
+      radius: 75
+      speed: 2
+      speed_loss: 2
+      types:
+      - speed_sniper
+    - count: 1
+      radius: 75
+      speed: 2
+      regen_loss: 0.8
+      types:
+      - regen_sniper
+    - count: 2
+      radius: 200
+      speed: 3
+      types:
+        - disabling_ghost
+    - count: 3
+      radius: 60
+      speed: 5
+      types:
+        - normal
+    - count: 5
+      radius: 18
+      speed: 5
+      types:
+        - normal
+    - count: 1
+      radius: 75
+      speed: 2
+      release_interval: 2000
+      types:
+        - radiating_bullets
+    - count: 10
+      radius: 30
+      speed: 10.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 41
+- x: last_right
+  y: last_y
+  properties:
+    pellet_count: 0
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: victory
+    width: 2976
+    x: 64
+    y: 0
+  - height: last_height
+    type: exit
+    width: 64
+    translate:
+      x: 160
+      y: 0
+    x: 3040
+    y: 0
+# Area 42
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 12
+      radius: 18
+      speed: 5.675
+      types:
+      - normal
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 43
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 5.675
+      types:
+      - normal
+    - count: 1
+      radius: 18
+      speed: 3
+      release_interval: 3000
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 30
+      speed: 4.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 44
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 4.5
+      types:
+      - normal
+    - count: 1
+      radius: 18
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 9
+      radius: 30
+      speed: 5.675
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 45
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 9.375
+      types:
+      - normal
+    - count: 2
+      radius: 28
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 9
+      radius: 30
+      speed: 5.675
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 46
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 9
+      radius: 30
+      speed: 5.675
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 47
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 1
+      radius: 12
+      speed: 7
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 9
+      radius: 30
+      speed: 5.675
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 48
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 12
+      speed: 7
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 9
+      radius: 30
+      speed: 5.675
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 49
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 9.375
+      types:
+      - normal
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 1
+      radius: 12
+      speed: 7
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 9
+      radius: 30
+      speed: 5.675
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 50
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 9
+      radius: 28
+      speed: 9.375
+      types:
+      - normal
+    - count: 1
+      radius: 28
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 1
+      radius: 12
+      speed: 7
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 1
+      radius: 100
+      speed: 3
+      release_interval: 1500
+      types:
+      - radiating_bullets
+    - count: 9
+      radius: 30
+      speed: 5.675
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 51
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 9.375
+      types:
+      - normal
+    - count: 5
+      radius: 36
+      speed: 12.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 52
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 9.375
+      types:
+      - normal
+    - count: 6
+      radius: 36
+      speed: 12.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 53
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 9.375
+      types:
+      - normal
+    - count: 4
+      radius: 35
+      speed: 6
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 48
+      speed: 12.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 54
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 9.375
+      types:
+      - normal
+    - count: 5
+      radius: 35
+      speed: 6
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 48
+      speed: 12.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 55
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 10
+      radius: 18
+      speed: 9.375
+      types:
+      - normal
+    - count: 6
+      radius: 48
+      speed: 12.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 56
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 12
+      radius: 18
+      speed: 9.375
+      types:
+      - normal
+    - count: 6
+      radius: 48
+      speed: 12.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 57
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 9
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 2
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 48
+      speed: 12.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 58
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 3
+      radius: 48
+      speed: 12.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 59
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 36
+      speed: 17.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 60
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 12
+      radius: 18
+      speed: 1
+      release_time: 1000
+      release_interval: 4000
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 36
+      speed: 22.5
+      types:
+      - speed_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 61
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 5
+      radius: 36
+      speed: 17.5
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 62
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 6
+      radius: 36
+      speed: 17.5
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 63
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 4
+      radius: 35
+      speed: 6
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 48
+      speed: 17.5
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 64
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 5
+      radius: 35
+      speed: 6
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 48
+      speed: 17.5
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 65
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 1
+      radius: 18
+      speed: 7
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 10
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 6
+      radius: 48
+      speed: 17.5
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 66
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 2
+      radius: 18
+      speed: 7
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 12
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 6
+      radius: 48
+      speed: 13.125
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 67
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 9
+      radius: 18
+      speed: 16.875
+      types:
+      - normal
+    - count: 2
+      radius: 18
+      speed: 7
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 48
+      speed: 17.5
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 68
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 18
+      speed: 16.875
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 3
+      radius: 48
+      speed: 17.5
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 69
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 6
+      radius: 36
+      speed: 22.5
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 70
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 12
+      radius: 18
+      speed: 1
+      release_time: 1000
+      release_interval: 4000
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 36
+      speed: 27.5
+      types:
+      - regen_ghost
+    - count: 9
+      radius: 30
+      speed: 7.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 71
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 9
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 3
+      radius: 18
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 90
+      speed: 9
+      types:
+      - disabling_ghost
+    - count: 4
+      radius: 60
+      speed: 9
+      types:
+      - disabling_ghost
+    - count: 12
+      radius: 30
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 72
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 90
+      speed: 9
+      types:
+      - disabling_ghost
+    - count: 5
+      radius: 60
+      speed: 9
+      types:
+      - disabling_ghost
+    - count: 12
+      radius: 30
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 73
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 20
+      radius: 24
+      speed: 6.875
+      types:
+      - normal
+    - count: 20
+      radius: 18
+      speed: 6.875
+      types:
+      - normal
+    - count: 20
+      radius: 12
+      speed: 6.875
+      types:
+      - normal
+    - count: 4
+      radius: 90
+      speed: 3
+      types:
+      - disabling_ghost
+    - count: 4
+      radius: 60
+      speed: 3
+      types:
+      - disabling_ghost
+    - count: 6
+      radius: 60
+      speed: 6
+      types:
+      - disabling_ghost
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 45
+      speed: 12
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 12
+      types:
+      - disabling_ghost
+    - count: 1
+      radius: 45
+      speed: 3
+      types:
+      - speed_ghost
+    - count: 1
+      radius: 45
+      speed: 3
+      types:
+      - regen_ghost
+    - count: 1
+      radius: 30
+      speed: 4
+      types:
+      - speed_ghost
+    - count: 1
+      radius: 30
+      speed: 4
+      types:
+      - regen_ghost
+    - count: 12
+      radius: 30
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 74
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 9
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 4
+      radius: 18
+      speed: 5
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 90
+      speed: 15
+      types:
+      - disabling_ghost
+    - count: 5
+      radius: 60
+      speed: 15
+      types:
+      - disabling_ghost
+    - count: 12
+      radius: 30
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 75
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 5
+      radius: 18
+      speed: 7
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 90
+      speed: 21
+      types:
+      - disabling_ghost
+    - count: 5
+      radius: 60
+      speed: 21
+      types:
+      - disabling_ghost
+    - count: 12
+      radius: 30
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 76
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 16
+      radius: 18
+      speed: 13.125
+      types:
+      - normal
+    - count: 6
+      radius: 18
+      speed: 7
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 90
+      speed: 21
+      types:
+      - disabling_ghost
+    - count: 5
+      radius: 60
+      speed: 21
+      types:
+      - disabling_ghost
+    - count: 12
+      radius: 30
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 77
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 65
+      radius: 18
+      speed: 5.625
+      types:
+      - normal
+    - count: 4
+      radius: 90
+      speed: 3
+      types:
+      - disabling_ghost
+    - count: 4
+      radius: 60
+      speed: 3
+      types:
+      - disabling_ghost
+    - count: 6
+      radius: 60
+      speed: 6
+      types:
+      - disabling_ghost
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 45
+      speed: 12
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 12
+      types:
+      - disabling_ghost
+    - count: 1
+      radius: 60
+      speed: 3
+      types:
+      - speed_ghost
+    - count: 1
+      radius: 60
+      speed: 3
+      types:
+      - regen_ghost
+    - count: 1
+      radius: 45
+      speed: 4
+      types:
+      - speed_ghost
+    - count: 1
+      radius: 45
+      speed: 4
+      types:
+      - regen_ghost
+    - count: 23
+      radius: 30
+      speed: 6.5
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 78
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 85
+      radius: 18
+      speed: 5.625
+      types:
+      - normal
+    - count: 4
+      radius: 90
+      speed: 3
+      types:
+      - disabling_ghost
+    - count: 4
+      radius: 60
+      speed: 3
+      types:
+      - disabling_ghost
+    - count: 6
+      radius: 60
+      speed: 6
+      types:
+      - disabling_ghost
+    - count: 6
+      radius: 30
+      speed: 6
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 45
+      speed: 12
+      types:
+      - disabling_ghost
+    - count: 10
+      radius: 30
+      speed: 12
+      types:
+      - disabling_ghost
+    - count: 1
+      radius: 45
+      speed: 3
+      types:
+      - speed_ghost
+    - count: 1
+      radius: 45
+      speed: 3
+      types:
+      - regen_ghost
+    - count: 1
+      radius: 30
+      speed: 4
+      types:
+      - speed_ghost
+    - count: 1
+      radius: 30
+      speed: 4
+      types:
+      - regen_ghost
+    - count: 12
+      radius: 30
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 79
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 3
+      release_time: 1125
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 5
+      radius: 18
+      speed: 3
+      release_time: 2250
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 15
+      radius: 90
+      speed: 9
+      types:
+      - disabling_ghost
+    - count: 15
+      radius: 60
+      speed: 9
+      types:
+      - disabling_ghost
+    - count: 12
+      radius: 30
+      speed: 15
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 80
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 3
+      release_interval: 2250
+      types:
+      - radiating_bullets
+    - count: 4
+      radius: 90
+      speed: 10
+      types:
+      - disabling_ghost
+    - count: 4
+      radius: 60
+      speed: 10
+      types:
+      - disabling_ghost
+    - count: 3
+      radius: 60
+      speed: 18
+      types:
+      - disabling_ghost
+    - count: 3
+      radius: 40
+      speed: 18
+      types:
+      - disabling_ghost
+    - count: 5
+      radius: 48
+      speed: 7.5
+      types:
+      - speed_ghost
+    - count: 5
+      radius: 48
+      speed: 7.5
+      types:
+      - regen_ghost
+    - count: 2
+      radius: 150
+      speed: 2.5
+      types:
+      - speed_ghost
+    - count: 2
+      radius: 150
+      speed: 2.5
+      types:
+      - regen_ghost
+    - count: 3
+      radius: 200
+      speed: 3.75
+      types:
+        - disabling_ghost
+    - count: 5
+      radius: 60
+      speed: 6.25
+      types:
+        - normal
+    - count: 8
+      radius: 18
+      speed: 6.25
+      types:
+        - normal
+    - count: 1
+      radius: 75
+      speed: 2
+      release_interval: 1250
+      types:
+        - radiating_bullets
+    - count: 12
+      radius: 30
+      speed: 10
+      types:
+      - wall
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - height: last_height
+    type: safe
+    width: 256
+    x: last_right
+    y: 0
+  - height: last_height
+    translate:
+      x: 160
+      y: 0
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+# Area 81
+- x: last_right
+  y: last_y
+  zones:
+  - height: 480
+    translate:
+      x: -160
+      y: 0
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: last_height
+    type: victory
+    width: 2976
+    x: 64
+    y: 0
+  - height: last_height
+    type: removal
+    width: 160
+    x: 3040
+    y: 0

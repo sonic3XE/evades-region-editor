@@ -1,0 +1,2440 @@
+areas:
+- name: Pyramid Passage
+  x: var x
+  y: var y
+  zones:
+  - height: 128
+    translate: {x: -160, y: 0}
+    type: teleport
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 15
+      radius: 10
+      speed: 1
+      types: [sand]
+    - count: 15
+      radius: 18
+      speed: 0
+      types: [cactus]
+    - count: 1
+      push_direction: 0
+      quicksand_radius: 5504
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 5824
+      y: 64
+    type: active
+    width: 11008
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 416, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- name: Area 1
+  x: 16992
+  y: 4320
+  zones:
+  - {height: 480, type: safe, width: 320, x: 0, y: 0}
+  - height: 480
+    spawner:
+    - count: 10
+      radius: 12
+      speed: 3
+      types: [homing]
+    type: active
+    width: 1280
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 1600, y: 0}
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 1856
+    y: 0
+  - height: 128
+    translate: {x: -416, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+- name: Area 2
+  x: 18912
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 1856
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 15
+      radius: 12
+      speed: 3
+      types: [homing]
+    type: active
+    width: 1280
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 1600, y: 0}
+- name: Area 3
+  x: 20832
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 1856
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 18
+      speed: 3
+      types: [homing]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 1280
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 1600, y: 0}
+- name: Area 4
+  x: 22752
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 1856
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 12
+      radius: 18
+      speed: 3
+      types: [homing]
+    - count: 2
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 3
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 1280
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 1600, y: 0}
+- name: Area 5
+  x: 24672
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 1856
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 11
+      radius: 32
+      speed: 3
+      types: [homing]
+    - count: 1
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 3
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 1280
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 1600, y: 0}
+- name: Area 6
+  x: 26592
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 2112
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 15
+      radius: 32
+      speed: 2
+      types: [homing]
+    - count: 1
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 3
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 1536
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 1856, y: 0}
+- name: Area 7
+  x: 28768
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 2368
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 10
+      radius: 24
+      speed: 4
+      types: [homing]
+    - count: 7
+      radius: 18
+      speed: 5
+      types: [sand]
+    - count: 1
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 3
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 1792
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2112, y: 0}
+- name: Area 8
+  x: 31200
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 2624
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 12
+      radius: 24
+      speed: 4
+      types: [homing]
+    - count: 8
+      radius: 18
+      speed: 6
+      types: [sand]
+    - count: 1
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 3
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    - count: 3
+      radius: 28
+      speed: 0
+      types: [cactus]
+    type: active
+    width: 2048
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2368, y: 0}
+  - height: 32
+    translate: {x: 0, y: -320}
+    type: exit
+    width: 128
+    x: 1280
+    y: 0
+- name: Dune 1-1
+  x: 32416
+  y: 3648
+  zones:
+  - {height: 480, type: safe, width: 256, x: 0, y: 0}
+  - height: 480
+    spawner:
+    - count: 15
+      radius: 30
+      speed: 5
+      types: [wall]
+    - count: 40
+      radius: 25
+      speed: 0
+      types: [cactus]
+    - count: 8
+      radius: 65
+      speed: 0
+      types: [cactus]
+    - count: 15
+      radius: 50
+      speed: 4
+      types: [sand]
+    type: active
+    width: 5696
+    x: 256
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 5952, y: 0}
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 6208
+    y: 0
+  - height: 32
+    translate: {x: -1120, y: 448}
+    type: exit
+    width: 32
+    x: 64
+    y: 448
+  - height: 32
+    translate: {x: -1152, y: 448}
+    type: exit
+    width: 32
+    x: 96
+    y: 448
+  - height: 32
+    translate: {x: -1184, y: 448}
+    type: exit
+    width: 32
+    x: 128
+    y: 448
+  - height: 32
+    translate: {x: -1216, y: 448}
+    type: exit
+    width: 32
+    x: 160
+    y: 448
+- name: Dune 1-2
+  x: 38688
+  y: 3648
+  zones:
+  - height: 480
+    spawner:
+    - count: 15
+      radius: 30
+      speed: 5
+      types: [wall]
+    - count: 40
+      radius: 36
+      speed: 0
+      types: [cactus]
+    - count: 10
+      radius: 84
+      speed: 0
+      types: [cactus]
+    - count: 16
+      radius: 72
+      speed: 5
+      types: [sand]
+    type: active
+    width: 5696
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 6016, y: 0}
+  - height: 32
+    translate: {x: -1376, y: 448}
+    type: exit
+    width: 32
+    x: 6080
+    y: 448
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 32
+    translate: {x: -1408, y: 448}
+    type: exit
+    width: 32
+    x: 6112
+    y: 448
+  - height: 32
+    translate: {x: -1440, y: 448}
+    type: exit
+    width: 32
+    x: 6144
+    y: 448
+  - height: 32
+    translate: {x: -1472, y: 448}
+    type: exit
+    width: 32
+    x: 6176
+    y: 448
+- name: Area 9
+  x: 33888
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 2880
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 13
+      radius: 24
+      speed: 3
+      types: [homing]
+    - count: 8
+      radius: 18
+      speed: 7
+      types: [sand]
+    - count: 3
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 3
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2304
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2624, y: 0}
+- name: Area 10
+  x: 36832
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 16
+      radius: 18
+      speed: 4
+      types: [homing]
+    - count: 1
+      radius: 120
+      speed: 2
+      types: [homing]
+    - count: 1
+      radius: 120
+      speed: 2
+      types: [sand]
+    - count: 16
+      radius: 18
+      speed: 4
+      types: [sand]
+    - count: 2
+      push_direction: 270
+      quicksand_radius: 175
+      radius: 6
+      speed: 3
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 11
+  x: 40032
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 20
+      radius: 20
+      speed: 4
+      types: [sand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 12
+  x: 43232
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 13
+      radius: 28
+      speed: 3
+      types: [sand]
+    - count: 13
+      radius: 16
+      speed: 5
+      types: [sand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    - count: 5
+      radius: 24
+      speed: 0
+      types: [cactus]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+  - height: 32
+    translate: {x: 0, y: -320}
+    type: exit
+    width: 128
+    x: 1536
+    y: 0
+- name: Area 13
+  x: 46432
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 20
+      radius: 18
+      speed: 6
+      types: [sand]
+    - count: 6
+      radius: 22
+      speed: 7
+      types: [homing]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 14
+  x: 49632
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 25
+      radius: 22
+      speed: 4
+      types: [sand]
+    - count: 5
+      radius: 32
+      speed: 4
+      types: [homing]
+    - count: 3
+      push_direction: 90
+      quicksand_radius: 75
+      radius: 8
+      speed: 2
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 15
+  x: 52832
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 24
+      radius: 32
+      speed: 7.5
+      types: [sandrock]
+    - count: 8
+      radius: 16
+      speed: 3
+      types: [sandrock]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 16
+  x: 56032
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 50
+      radius: 10
+      speed: 8.5
+      types: [sandrock]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 17
+  x: 59232
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 18
+      radius: 50
+      speed: 6
+      types: [sandrock]
+    - count: 8
+      radius: 20
+      speed: 9
+      types: [sandrock]
+    - count: 8
+      radius: 12
+      speed: 7
+      types: [homing]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 18
+  x: 62432
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 3
+      push_direction: 90
+      quicksand_radius: 100
+      radius: 27
+      speed: 3
+      types: [quicksand]
+    - count: 30
+      radius: 20
+      speed: 8
+      types: [sandrock]
+    - count: 8
+      radius: 20
+      speed: 5
+      types: [homing]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    - count: 5
+      radius: 24
+      speed: 0
+      types: [cactus]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+  - height: 32
+    translate: {x: 0, y: -320}
+    type: exit
+    width: 128
+    x: 1536
+    y: 0
+- name: Dune 2-1
+  x: 63904
+  y: 3648
+  zones:
+  - {height: 480, type: safe, width: 256, x: 0, y: 0}
+  - height: 32
+    translate: {x: -1376, y: 448}
+    type: exit
+    width: 32
+    x: 64
+    y: 448
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 6464
+    y: 0
+  - height: 480
+    spawner:
+    - count: 15
+      radius: 30
+      speed: 5
+      types: [wall]
+    - count: 38
+      radius: 50
+      speed: 0
+      types: [cactus]
+    - count: 8
+      radius: 125
+      speed: 2
+      types: [cactus]
+    - count: 23
+      radius: 50
+      speed: 7
+      types: [sandrock]
+    type: active
+    width: 5952
+    x: 256
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 6208, y: 0}
+  - height: 32
+    translate: {x: -1408, y: 448}
+    type: exit
+    width: 32
+    x: 96
+    y: 448
+  - height: 32
+    translate: {x: -1440, y: 448}
+    type: exit
+    width: 32
+    x: 128
+    y: 448
+  - height: 32
+    translate: {x: -1472, y: 448}
+    type: exit
+    width: 32
+    x: 160
+    y: 448
+- name: Dune 2-2
+  x: 70432
+  y: 3648
+  zones:
+  - {height: 480, type: safe, width: 256, x: 6272, y: 0}
+  - height: 32
+    translate: {x: -1376, y: 448}
+    type: exit
+    width: 32
+    x: 6336
+    y: 448
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    spawner:
+    - count: 15
+      radius: 30
+      speed: 5
+      types: [wall]
+    - count: 30
+      radius: 70
+      speed: 0
+      types: [cactus]
+    - count: 8
+      radius: 125
+      speed: 2.5
+      types: [cactus]
+    - count: 25
+      radius: 50
+      speed: 6
+      types: [sandrock]
+    - count: 5
+      radius: 20
+      speed: 8
+      types: [sandrock]
+    type: active
+    width: 5952
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 32
+    translate: {x: -1408, y: 448}
+    type: exit
+    width: 32
+    x: 6368
+    y: 448
+  - height: 32
+    translate: {x: -1440, y: 448}
+    type: exit
+    width: 32
+    x: 6400
+    y: 448
+  - height: 32
+    translate: {x: -1472, y: 448}
+    type: exit
+    width: 32
+    x: 6432
+    y: 448
+- name: Area 19
+  x: 65632
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 17
+      radius: 32
+      speed: 10
+      types: [sandrock]
+    - count: 13
+      radius: 18
+      speed: 7
+      types: [sand]
+    - count: 8
+      radius: 50
+      speed: 4
+      types: [crumbling]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 20
+  x: 68832
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 18
+      radius: 18
+      speed: 10
+      types: [sandrock]
+    - count: 1
+      radius: 120
+      speed: 8
+      types: [sandrock]
+    - count: 1
+      radius: 120
+      speed: 6
+      types: [sand]
+    - count: 15
+      radius: 18
+      speed: 4
+      types: [sand]
+    - count: 2
+      push_direction: 90
+      quicksand_radius: 225
+      radius: 6
+      speed: 3
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 5
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 21
+  x: 72032
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 18
+      radius: 40
+      speed: 3
+      types: [crumbling]
+    - count: 18
+      radius: 30
+      speed: 5
+      types: [crumbling]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 22
+  x: 75232
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 17
+      radius: 50
+      speed: 3
+      types: [crumbling]
+    - count: 17
+      radius: 18
+      speed: 9
+      types: [sandrock]
+    - count: 3
+      radius: 12
+      speed: 12
+      types: [sandrock]
+    - count: 10
+      radius: 18
+      speed: 0
+      types: [cactus]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+  - height: 32
+    translate: {x: 0, y: -320}
+    type: exit
+    width: 128
+    x: 1536
+    y: 0
+- name: Area 23
+  x: 78432
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 12
+      radius: 35
+      speed: 7
+      types: [crumbling]
+    - count: 6
+      radius: 50
+      speed: 5
+      types: [crumbling]
+    - count: 3
+      radius: 30
+      speed: 8
+      types: [crumbling]
+    - count: 10
+      radius: 18
+      speed: 7
+      types: [sandrock]
+    - count: 3
+      radius: 12
+      speed: 9
+      types: [sandrock]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 24
+  x: 81632
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 3
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 7
+      types: [quicksand]
+    - count: 12
+      radius: 18
+      speed: 10
+      types: [sandrock]
+    - count: 12
+      radius: 50
+      speed: 10
+      types: [crumbling]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 25
+  x: 84832
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 2
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 7
+      types: [quicksand]
+    - count: 2
+      radius: 12
+      speed: 7
+      types: [slowing]
+    - count: 10
+      radius: 24
+      speed: 10
+      types: [crumbling]
+    - count: 6
+      radius: 60
+      speed: 8
+      types: [crumbling]
+    - count: 10
+      radius: 24
+      speed: 8
+      types: [sandrock]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 26
+  x: 88032
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 10
+      radius: 18
+      speed: 6
+      types: [sand]
+    - count: 8
+      radius: 30
+      speed: 4
+      types: [sand]
+    - count: 12
+      radius: 18
+      speed: 10
+      types: [sandrock]
+    - count: 3
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 7
+      types: [quicksand]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 27
+  x: 91232
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 10
+      radius: 18
+      speed: 5
+      types: [sand]
+    - count: 10
+      radius: 12
+      speed: 5
+      types: [sand]
+    - count: 10
+      radius: 18
+      speed: 9
+      types: [sandrock]
+    - count: 8
+      radius: 12
+      speed: 9
+      types: [sandrock]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 28
+  x: 94432
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 9
+      radius: 36
+      speed: 3
+      types: [sand]
+    - count: 10
+      radius: 18
+      speed: 3
+      types: [sand]
+    - count: 12
+      radius: 36
+      speed: 7
+      types: [sandrock]
+    - count: 8
+      radius: 18
+      speed: 7
+      types: [sandrock]
+    - count: 3
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 5
+      types: [quicksand]
+    - count: 10
+      radius: 24
+      speed: 0
+      types: [cactus]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+  - height: 32
+    translate: {x: 0, y: -320}
+    type: exit
+    width: 128
+    x: 1536
+    y: 0
+- name: Dune 3-1
+  x: 95904
+  y: 3648
+  zones:
+  - {height: 480, type: safe, width: 256, x: 0, y: 0}
+  - height: 32
+    translate: {x: -1376, y: 448}
+    type: exit
+    width: 32
+    x: 64
+    y: 448
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 6464
+    y: 0
+  - height: 480
+    spawner:
+    - count: 30
+      radius: 30
+      speed: 8
+      types: [wall]
+    - count: 35
+      radius: 60
+      speed: 0
+      types: [cactus]
+    - count: 3
+      radius: 125
+      speed: 2
+      types: [cactus]
+    - count: 12
+      radius: 45
+      speed: 0
+      types: [cactus]
+    - count: 6
+      radius: 100
+      speed: 5
+      types: [crumbling]
+    - count: 10
+      radius: 45
+      speed: 3
+      types: [sand]
+    type: active
+    width: 5952
+    x: 256
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 6208, y: 0}
+  - height: 32
+    translate: {x: -1408, y: 448}
+    type: exit
+    width: 32
+    x: 96
+    y: 448
+  - height: 32
+    translate: {x: -1440, y: 448}
+    type: exit
+    width: 32
+    x: 128
+    y: 448
+  - height: 32
+    translate: {x: -1472, y: 448}
+    type: exit
+    width: 32
+    x: 160
+    y: 448
+- name: Dune 3-2
+  x: 102432
+  y: 3648
+  zones:
+  - {height: 480, type: safe, width: 256, x: 6272, y: 0}
+  - height: 32
+    translate: {x: -1376, y: 448}
+    type: exit
+    width: 32
+    x: 6336
+    y: 448
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    spawner:
+    - count: 30
+      radius: 30
+      speed: 8
+      types: [wall]
+    - count: 30
+      radius: 60
+      speed: 0
+      types: [cactus]
+    - count: 3
+      radius: 125
+      speed: 2
+      types: [cactus]
+    - count: 10
+      radius: 35
+      speed: 1
+      types: [cactus]
+    - count: 12
+      radius: 125
+      speed: 6
+      types: [crumbling]
+    - count: 2
+      push_direction: 90
+      quicksand_radius: 75
+      radius: 15
+      speed: 3
+      types: [quicksand]
+    type: active
+    width: 5952
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 32
+    translate: {x: -1408, y: 448}
+    type: exit
+    width: 32
+    x: 6368
+    y: 448
+  - height: 32
+    translate: {x: -1440, y: 448}
+    type: exit
+    width: 32
+    x: 6400
+    y: 448
+  - height: 32
+    translate: {x: -1472, y: 448}
+    type: exit
+    width: 32
+    x: 6432
+    y: 448
+- name: Area 29
+  x: 97632
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 25
+      radius: 60
+      speed: 7
+      types: [crumbling]
+    - count: 2
+      push_direction: 270
+      quicksand_radius: 75
+      radius: 6
+      speed: 6
+      types: [quicksand]
+    - count: 2
+      radius: 12
+      speed: 6
+      types: [slowing]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 30
+  x: 100832
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - angle: 0
+      count: 1
+      push_direction: 270
+      quicksand_radius: 150
+      radius: 9
+      speed: 8
+      types: [quicksand]
+      x: 338
+      y: 240
+    - angle: 180
+      count: 1
+      push_direction: 270
+      quicksand_radius: 150
+      radius: 9
+      speed: 8
+      types: [quicksand]
+      x: 2862
+      y: 240
+    - angle: 45
+      count: 1
+      radius: 18
+      speed: 8
+      types: [slowing]
+      x: 338
+      y: 18
+    - angle: 315
+      count: 1
+      radius: 18
+      speed: 8
+      types: [slowing]
+      x: 338
+      y: 462
+    - angle: 225
+      count: 1
+      radius: 18
+      speed: 8
+      types: [slowing]
+      x: 2862
+      y: 18
+    - angle: 135
+      count: 1
+      radius: 18
+      speed: 8
+      types: [slowing]
+      x: 2862
+      y: 462
+    - count: 2
+      radius: 190
+      speed: 2
+      types: [crumbling]
+    - count: 33
+      radius: 36
+      speed: 5
+      types: [crumbling]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 31
+  x: 104032
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 3
+      radius: 38
+      slowing_radius: 350
+      speed: 1
+      types: [slowing]
+    - count: 50
+      radius: 12
+      speed: 2
+      types: [slowing]
+    - count: 1
+      push_direction: 90
+      quicksand_radius: 75
+      radius: 10
+      speed: 5
+      types: [quicksand]
+    - count: 5
+      radius: 20
+      speed: 9
+      types: [sand]
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 32
+  x: 107232
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 3
+      radius: 40
+      slowing_radius: 300
+      speed: 1
+      types: [slowing]
+    - count: 20
+      radius: 20
+      slowing_radius: 100
+      speed: 2
+      types: [slowing]
+    - count: 12
+      radius: 12
+      slowing_radius: 50
+      speed: 8
+      types: [slowing]
+    - count: 2
+      push_direction: 90
+      quicksand_radius: 100
+      radius: 10
+      speed: 5
+      types: [quicksand]
+    - count: 9
+      radius: 30
+      speed: 5
+      types: [sand]
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    - count: 6
+      radius: 34
+      speed: 0
+      types: [cactus]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+  - height: 32
+    translate: {x: 0, y: -320}
+    type: exit
+    width: 128
+    x: 1536
+    y: 0
+- name: Area 33
+  x: 110432
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 2
+      radius: 40
+      slowing_radius: 250
+      speed: 1
+      types: [slowing]
+    - count: 12
+      radius: 20
+      slowing_radius: 80
+      speed: 6
+      types: [slowing]
+    - count: 12
+      radius: 12
+      slowing_radius: 50
+      speed: 9
+      types: [slowing]
+    - count: 3
+      push_direction: 90
+      quicksand_radius: 125
+      radius: 10
+      speed: 5
+      types: [quicksand]
+    - count: 3
+      radius: 34
+      speed: 8
+      types: [sand]
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 34
+  x: 113632
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 3
+      radius: 40
+      slowing_radius: 200
+      speed: 1
+      types: [slowing]
+    - count: 12
+      radius: 8
+      slowing_radius: 60
+      speed: 7
+      types: [slowing]
+    - count: 5
+      radius: 4
+      slowing_radius: 40
+      speed: 10
+      types: [slowing]
+    - count: 4
+      push_direction: 90
+      quicksand_radius: 150
+      radius: 10
+      speed: 5
+      types: [quicksand]
+    - count: 7
+      push_direction: 90
+      quicksand_radius: 30
+      radius: 4
+      speed: 7
+      types: [quicksand]
+    - count: 3
+      radius: 34
+      speed: 8
+      types: [sand]
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 35
+  x: 116832
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 4
+      radius: 20
+      speed: 2
+      types: [slowing]
+    - count: 5
+      push_direction: 180
+      quicksand_radius: 350
+      radius: 20
+      speed: 1
+      types: [quicksand]
+    - count: 12
+      push_direction: 180
+      radius: 16
+      speed: 3
+      types: [quicksand]
+    - count: 22
+      radius: 30
+      speed: 5.5
+      types: [sandrock]
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 36
+  x: 120032
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 6
+      push_direction: 180
+      quicksand_radius: 350
+      radius: 50
+      speed: 0.5
+      types: [quicksand]
+    - count: 20
+      push_direction: 180
+      radius: 10
+      speed: 1
+      types: [quicksand]
+    - count: 12
+      radius: 45
+      speed: 4
+      types: [sandrock]
+    - count: 20
+      radius: 26
+      speed: 5
+      types: [sandrock]
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 37
+  x: 123232
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 7
+      push_direction: 180
+      quicksand_radius: 350
+      radius: 50
+      speed: 1
+      types: [quicksand]
+    - count: 20
+      push_direction: 180
+      radius: 10
+      speed: 1
+      types: [quicksand]
+    - count: 55
+      radius: 10
+      speed: 3
+      types: [sandrock]
+    - count: 10
+      radius: 30
+      speed: 4
+      types: [sandrock]
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 38
+  x: 126432
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 8
+      push_direction: 0
+      quicksand_radius: 350
+      radius: 50
+      speed: 0.5
+      types: [quicksand]
+    - count: 14
+      push_direction: 0
+      radius: 14
+      speed: 1
+      types: [quicksand]
+    - count: 24
+      radius: 40
+      speed: 4
+      types: [crumbling]
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 39
+  x: 129632
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 9
+      push_direction: 0
+      quicksand_radius: 350
+      radius: 50
+      speed: 0.5
+      types: [quicksand]
+    - count: 12
+      push_direction: 0
+      radius: 18
+      speed: 1
+      types: [quicksand]
+    - count: 16
+      radius: 40
+      speed: 6
+      types: [crumbling]
+    - count: 8
+      radius: 18
+      speed: 1
+      types: [slowing]
+    - count: 14
+      radius: 24
+      speed: 12
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- name: Area 40
+  x: 132832
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: 3136
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 64, y: 0}
+  - height: 480
+    spawner:
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 475
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 475
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 625
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 625
+      y: 405
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 775
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 775
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 925
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 925
+      y: 75
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1075
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1075
+      y: 405
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1225
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1225
+      y: 75
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1375
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1375
+      y: 405
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1525
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1525
+      y: 75
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1675
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1675
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1825
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1825
+      y: 405
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1975
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 1975
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2125
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2125
+      y: 75
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2275
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2275
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2425
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2425
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2575
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2575
+      y: 405
+    - count: 1
+      push_direction: 270
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2725
+      y: 75
+    - count: 1
+      push_direction: 90
+      radius: 0
+      speed: 0
+      types: [quicksand]
+      x: 2725
+      y: 405
+    - count: 35
+      radius: 20
+      slowing_radius: 175
+      speed: 1
+      types: [slowing]
+    - count: 15
+      radius: 55
+      speed: 2
+      types: [crumbling]
+    - count: 12
+      radius: 32
+      speed: 18
+      types: [wall]
+    type: active
+    width: 2560
+    x: 320
+    y: 0
+  - {height: 480, type: safe, width: 256, x: 2880, y: 0}
+- x: 136032
+  y: 4320
+  zones:
+  - height: 480
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - height: 480
+    translate: {x: 160, y: 0}
+    type: removal
+    width: 160
+    x: 3040
+    y: 0
+  - {height: 480, type: victory, width: 2976, x: 64, y: 0}
+name: Shifting Sands
+properties:
+  warping_disabled: true
+  background_color: [255, 159, 15, 100]
+  friction: 0.75

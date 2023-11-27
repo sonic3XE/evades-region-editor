@@ -1,0 +1,1890 @@
+name: Assorted Alcove Hard
+properties:
+  friction: 0.75
+  warping_disabled: true
+  background_color:
+  - 105
+  - 70
+  - 5
+  - 80
+areas:
+# 1
+- x: var x
+  y: var y
+  zones:
+  - type: teleport
+    x: 0
+    y: 0
+    width: 32
+    height: 480
+    translate:
+      x: -94604
+      y: 0
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 100
+  - type: safe
+    x: 32
+    y: 0
+    width: 288
+    height: 480
+    properties:
+      minimum_speed: 10
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 4
+      radius: 18
+      speed: 8.1
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 2
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 7
+      radius: 18
+      speed: 10.8
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 3
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 8
+      radius: 10
+      speed: 6.3
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+    - count: 6
+      radius: 20
+      speed: 12.6
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+    - count: 6
+      radius: 10
+      speed: 9.9
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 4
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 12
+      radius: 30
+      speed: 9.9
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 5
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 8
+      radius: 7
+      speed: 13.5
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+    - count: 8
+      radius: 18
+      speed: 10.8
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 6
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 14
+      radius: 12
+      speed: 13.5
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 7
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 23
+      radius: 18
+      speed: 10.8
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+    - count: 2
+      radius: 80
+      speed: 10.8
+      types:
+      - enlarging
+      - homing
+      - normal
+      - sizing
+      - slowing
+      - switch
+    - count: 4
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 8
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 12
+      radius: 12
+      speed: 10.45
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 9
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 5.7
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 10
+      radius: 24
+      speed: 13.3
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 10
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 6
+      radius: 40
+      speed: 5.7
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 6
+      radius: 30
+      speed: 8.55
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 6
+      radius: 20
+      speed: 11.4
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 6
+      radius: 10
+      speed: 14.25
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 11
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 24
+      radius: 12
+      speed: 13.3
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 12
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 13
+      radius: 12
+      speed: 12.35
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 6
+      radius: 18
+      speed: 18.05
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 13
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 18
+      radius: 18
+      speed: 13.3
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 14
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 26
+      radius: 12
+      speed: 13.3
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 2
+      radius: 80
+      speed: 13.3
+      types:
+      - corrosive
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 9
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 15
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 6
+      radius: 45
+      speed: 8.55
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 9
+      radius: 11
+      speed: 11.4
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 16
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 7
+      radius: 12
+      speed: 5.7
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 6
+      radius: 12
+      speed: 10.45
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 6
+      radius: 12
+      speed: 14.25
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 17
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 12
+      radius: 48
+      speed: 14.25
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 18
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 3
+      radius: 8
+      speed: 20.9
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 15
+      radius: 36
+      speed: 11.4
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 19
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 13
+      radius: 28
+      speed: 13.3
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 20
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 5
+      radius: 14
+      speed: 15.2
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 5
+      radius: 12
+      speed: 15.2
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 6
+      radius: 10
+      speed: 15.2
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 6
+      radius: 10
+      speed: 11.4
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 21
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 14
+      radius: 18
+      speed: 20.9
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 2
+      radius: 80
+      speed: 14.25
+      types:
+      - corrosive
+      - disabling
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 12
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 22
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 5
+      radius: 50
+      speed: 16
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 23
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 17
+      radius: 25
+      speed: 9
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 24
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 9
+      radius: 10
+      speed: 25
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 3
+      radius: 40
+      speed: 9
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 25
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 6
+      radius: 18
+      speed: 18
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 10
+      radius: 18
+      speed: 7
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 3
+      radius: 24
+      speed: 21
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 26
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 9
+      radius: 9
+      speed: 21
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 10
+      radius: 12
+      speed: 7
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 27
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 15
+      radius: 38
+      speed: 16
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 28
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 18
+      radius: 18
+      speed: 22
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 2
+      radius: 80
+      speed: 18
+      types:
+      - corrosive
+      - disabling
+      - draining
+      - enlarging
+      - freezing
+      - homing
+      - immune
+      - normal
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 4
+      radius: 30
+      speed: 15
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# Victory 1
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: victory
+    x: 64
+    y: 0
+    width: 2976
+    height: last_height
+  - height: last_height
+    type: removal
+    width: 160
+    translate:
+      x: 160
+      y: 0
+    x: 3040
+    y: 0
