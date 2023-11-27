@@ -120,6 +120,9 @@ regions:
 - file: regions/quiet-quarry-hard.yaml
   x: 135052
   y: 26080
+- file: regions/research-lab.yaml
+  x: 5632
+  y: 147952
 - file: regions/restless-ridge.yaml
   x: 0
   y: 43040
