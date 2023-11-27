@@ -389,8 +389,12 @@ function render() {
     ctx.fillStyle = luma(map.properties.background_color) > 128 ? "black" : "white";
   };
   ctx.lineWidth = 6;
-  ctx.strokeText(`${map.name}: ${map.areas[current_Area].zones.filter(e=>e.type=="victory").length?"Victory!":(map.areas[current_Area].name == undefined || map.areas[current_Area].name == "") ? `Area ${current_Area + 1}` : map.areas[current_Area].name}`, canvas.width / 2, 20);
-  ctx.fillText(`${map.name}: ${map.areas[current_Area].zones.filter(e=>e.type=="victory").length?"Victory!":(map.areas[current_Area].name == undefined || map.areas[current_Area].name == "") ? `Area ${current_Area + 1}` : map.areas[current_Area].name}`, canvas.width / 2, 20);
+  let rs = `Area ${map.areas[current_Area].name}`;
+  isNaN(parseInt(map.areas[current_Area].name)) && (rs = map.areas[current_Area].name);
+  let cs = `${map.name}: ${rs}`;
+  map.areas[current_Area].zones.filter(e=>e.type=="victory").length&&(cs=`${map.name}: Victory!`);
+  ctx.strokeText(cs, canvas.width / 2, 20);
+  ctx.fillText(cs, canvas.width / 2, 20);
   //ctx.fillText(`${error}`, canvas.width / 2, canvas.height - 20);
   ctx.strokeStyle="#000";
   ctx.lineWidth = 4;
