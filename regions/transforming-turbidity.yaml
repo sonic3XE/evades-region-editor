@@ -175,7 +175,7 @@ areas:
       speed: 6
       types:
       - normal
-      - count: 3
+    - count: 3
       radius: 15
       speed: 5
       types:
@@ -230,7 +230,7 @@ areas:
       speed: 5
       types:
       - slowing
-      - count: 3
+    - count: 3
       radius: 15
       speed: 3
       types:
@@ -1046,7 +1046,7 @@ areas:
       speed: 5
       types:
       - disabling
-      - count: 10
+    - count: 10
       radius: 18
       speed: 5
       types:
@@ -1488,7 +1488,7 @@ areas:
       speed: 7
       types:
       - sniper
-      - count: 15
+    - count: 15
       radius: 15
       speed: 70
       types:
@@ -1538,7 +1538,7 @@ areas:
       speed: 7
       types:
       - sniper
-      - count: 10
+    - count: 10
       radius: 18
       speed: 90
       types:
@@ -1595,7 +1595,7 @@ areas:
       types:
         - disabling
         - slowing
-        - count: 10
+    - count: 10
       radius: 18
       speed: 70
       types:
@@ -1610,7 +1610,7 @@ areas:
       speed: 5
       types:
       - sniper
-      - count: 1
+    - count: 1
       radius: 120
       speed: 15
       types:
@@ -1660,7 +1660,7 @@ areas:
       speed: 3.3
       types:
       - regen_sniper
-      - count: 15
+    - count: 15
       radius: 12
       speed: 3.3
       types:
@@ -1715,7 +1715,7 @@ areas:
       speed: 3.3
       types:
       - gravity
-      - count: 5
+    - count: 5
       radius: 12
       speed: 3.3
       types:
@@ -1970,7 +1970,7 @@ areas:
       speed: 7
       types:
       - gravity
-      - count: 8
+    - count: 8
       radius: 12
       speed: 3.3
       types:
@@ -2030,7 +2030,7 @@ areas:
       speed: 5
       types:
       - slowing
-      - count: 5
+    - count: 5
       radius: 65
       speed: 3.3
       types:
@@ -2090,12 +2090,12 @@ areas:
       speed: 7
       types:
       - gravity
-      - count: 8
+    - count: 8
       radius: 12
       speed: 3.3
       types:
       - sniper
-      - count: 10
+    - count: 10
       radius: 12
       speed: 3.3
       types:
@@ -2155,7 +2155,7 @@ areas:
       speed: 7
       types:
       - sniper
-      - count: 15
+    - count: 15
       radius: 12
       speed: 3.3
       types:
