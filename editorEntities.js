@@ -15,36 +15,27 @@ function spawnEntities(){
   var boundary=map.areas[current_Area].BoundingBox;
   var victoryZones=map.areas[current_Area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
   map.areas[current_Area].entities=[];
-  if(isVictory&&victoryZones.length){
+  if(victoryZones.length){
     var areaofzone=victoryZones.map(e=>e.width*e.height);
     for(var it in areaofzone){
       if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
     }
     var sum=victoryZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
-    for(var i=0;i<(totalPellets==25?250:totalPellets);i++){
+    for(var i=0;i<(totalPellets==25?(isVictory?250:25):totalPellets);i++){
       var rand=Math.random()*sum;
-    var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
+      var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
       var left=randZone.x;
       var right=randZone.x+randZone.width;
       var bottom=randZone.y+randZone.height;
       var top=randZone.y;
-    var pellet=new PelletEntity(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,{left:boundary.left,right:boundary.right,bottom:boundary.bottom,top:boundary.top,width:boundary.width,height:boundary.height});
-    pellet.collision();
-    map.areas[current_Area].entities.push(pellet);
-  }}
-  var activeZone=map.areas[current_Area].zones.filter(e=>e.type=="active")[0];
-  if(activeZone){
-    var radius=8;
-    for(var i=0;i<totalPellets;i++){
-      if(isVictory)break;
-        var left=activeZone.x;
-        var right=activeZone.x+activeZone.width;
-        var bottom=activeZone.y+activeZone.height;
-        var top=activeZone.y;
-      var pellet=new PelletEntity(Math.random()*(activeZone.width-16)+activeZone.x+8,Math.random()*(activeZone.height-16)+activeZone.y+8,8,{left:boundary.left,right:boundary.right,bottom:boundary.bottom,top:boundary.top,width:boundary.width,height:boundary.height});
+      var pellet=new PelletEntity(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,{left:boundary.left,right:boundary.right,bottom:boundary.bottom,top:boundary.top,width:boundary.width,height:boundary.height});
       pellet.collision();
       map.areas[current_Area].entities.push(pellet);
     }
+  }
+  var activeZones=map.areas[current_Area].zones.filter(e=>e.type=="active");
+  for(var x in activeZones){
+    var activeZone=activeZones[x];
     for (var i in activeZone.spawner) {
       for (var j=0;j<activeZone.spawner[i].count;j++) {
         if(activeZone.spawner[i].count>1024){console.warn("Too many spawner entities to be displayed");continue};
@@ -102,9 +93,8 @@ function spawnEntities(){
         };entity.collision();map.areas[current_Area].entities.push(entity);
       }
     }
-    if(isNaN(map.areas[current_Area].entities.filter(e=>(isNaN(e.x)||isNaN(e.y))).length)){return spawnEntities();}
-
   }
+  if(isNaN(map.areas[current_Area].entities.filter(e=>(isNaN(e.x)||isNaN(e.y))).length)){return spawnEntities();}
 }
 //rect and circle collision
 function clamp(a,r,t){return Math.min(t,Math.max(r,a))}
