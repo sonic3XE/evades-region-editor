@@ -389,8 +389,9 @@ function render() {
     ctx.fillStyle = luma(map.properties.background_color) > 128 ? "black" : "white";
   };
   ctx.lineWidth = 6;
-  let rs = `Area ${map.areas[current_Area].name}`;
-  isNaN(parseInt(map.areas[current_Area].name)) && (rs = map.areas[current_Area].name);
+  var areaname=String(map.areas[current_Area].name||(current_Area+1));
+  let rs = `Area ${areaname}`;
+  isNaN(parseInt(areaname)) && (rs = areaname);
   let cs = `${map.name}: ${rs}`;
   map.areas[current_Area].zones.filter(e=>e.type=="victory").length&&(cs=`${map.name}: Victory!`);
   ctx.strokeText(cs, canvas.width / 2, 20);
