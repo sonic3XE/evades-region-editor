@@ -13,18 +13,16 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 const controls = {
-  UP:"w",
-  LEFT:"a",
-  DOWN:"s",
-  RIGHT:"d",
-  NEXT_AREA:"arrowright",
-  PREVIOUS_AREA:"arrowleft",
-  ZOOM_OUT:"-",
-  ZOOM_OUT2:"_",
-  ZOOM_IN:"=",
-  ZOOM_IN2:"+",
-  DELETE_ZONE:"delete",
-  TOGGLE_HITBOX:"o",
+  UP:0x57,
+  LEFT:0x41,
+  DOWN:0x53,
+  RIGHT:0x44,
+  NEXT_AREA:0x27,
+  PREVIOUS_AREA:0x25,
+  ZOOM_OUT:0xBD,
+  ZOOM_IN:0xBB,
+  DELETE_ZONE:0x2E,
+  TOGGLE_HITBOX:0x4F,
 };
 
 const types = ["wall", "light_region", "flashlight_spawner", "torch", "gate", "active", "safe", "exit", "teleport", "victory", "removal"];
@@ -174,10 +172,10 @@ document.addEventListener("keydown", e => {
   if (e.repeat) return;
   if (e.target instanceof HTMLInputElement) return;
   if (e.ctrlKey) return;
-  keysDown.add(e.key?.toLowerCase());
+  keysDown.add(e.which);
 });
 document.addEventListener("keyup", e => {
-  keysDown.delete(e.key?.toLowerCase());
+  keysDown.delete(e.which);
 })
 /** 
  * @param {number} t
@@ -858,8 +856,8 @@ areas:
 document.addEventListener("keydown", e => {
   var camera = { x: camX, y: camY }
   if (e.target instanceof HTMLInputElement) return;
-  if (e.key.toLowerCase() === controls.TOGGLE_HITBOX) hitbox = !hitbox;
-  if (e.key.toLowerCase() === controls.PREVIOUS_AREA&&!lockCursor) {
+  if (e.which === controls.TOGGLE_HITBOX) hitbox = !hitbox;
+  if (e.which === controls.PREVIOUS_AREA&&!lockCursor) {
     map.areas[current_Area].element.remove();
     map.areas[current_Area].properties.element.remove();
     delete map.areas[current_Area].element;
@@ -888,7 +886,7 @@ document.addEventListener("keydown", e => {
       hide(objectActions);
     };
   }
-  if (e.key.toLowerCase() === controls.NEXT_AREA&&!lockCursor) {
+  if (e.which === controls.NEXT_AREA&&!lockCursor) {
     map.areas[current_Area].element.remove();
     map.areas[current_Area].properties.element.remove();
     delete map.areas[current_Area].element;
@@ -917,7 +915,7 @@ document.addEventListener("keydown", e => {
       hide(objectActions);
     };
   }
-  if (e.key.toLowerCase() === controls.DELETE_ZONE) {deleteObject();spawnEntities();}
+  if (e.which === controls.DELETE_ZONE) {deleteObject();spawnEntities();}
 });
 resizemenu.addEventListener("mousedown", () => {
   resizing = true;
@@ -1267,6 +1265,7 @@ contextBtns.deleteObject.addEventListener("click", () => {
 });
 contextBtns.deleteArea.addEventListener("click", () => {
   let arr = map.areas;
+  if (!confirm("are you sure to delete the current area?"))return;
   if (map.areas.includes(map.areas[current_Area])) {
     map.areas[current_Area].element.remove();
     map.areas[current_Area].properties.element.remove();
