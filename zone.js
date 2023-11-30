@@ -929,11 +929,12 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
             switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,
 			gravity,repulsion,
         }
-	types.map(p => {
-        const pointe = createpoint2(p,point1);
-        point1.types.push(pointe);
-        return pointe.element;
-    });
+		if(typeof types == "string")types=[types];
+		types.map(p => {
+			const pointe = createpoint2(p,point1);
+			point1.types.push(pointe);
+			return pointe.element;
+		});
     return point1;
   }
 //ENEMY TYPES
