@@ -96,7 +96,7 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
                   a[t]&=255;
                 })
               }
-              const exitZone=createZone(area.zones[zone].x,area.zones[zone].y,area.zones[zone].width,area.zones[zone].height,area.zones[zone].translate?.x,area.zones[zone].translate?.y,area.zones[zone].properties,area.zones[zone].type,area.zones[zone].requirements,area.zones[zone].spawner,area.properties);
+              const exitZone=createZone(area.zones[zone].x,area.zones[zone].y,area.zones[zone].width,area.zones[zone].height,area.zones[zone].translate?.x,area.zones[zone].translate?.y,area.zones[zone].properties,area.zones[zone].type,area.zones[zone].requirements,area.zones[zone].spawner,area.zones[zone].patterns);
               parsedArea.zones.push(exitZone);
             }
             for(var asset in area.assets){

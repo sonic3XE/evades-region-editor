@@ -806,8 +806,8 @@ function cloneSpawner(e){
 	);
 	return obj;
 }
-function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,properties,type="active",requirements=[],spawner=[],previousZone) {
-    const Zone = {x, y, rx:x,ry:y,width,rw:width,height,rh:height, type, properties:{...defaultValues.properties,...properties},spawner:[], translate:{x:tx,y:ty},requirements,previousZone};
+function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,properties,type="active",requirements=[],spawner=[],patterns=[]) {
+    const Zone = {x, y, rx:x,ry:y,width,rw:width,height,rh:height, type, properties:{...defaultValues.properties,...properties},spawner:[], translate:{x:tx,y:ty},requirements,patterns};
     // Create inputs/labels
   spawner.map(p => {
     const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion);
