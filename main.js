@@ -692,7 +692,7 @@ x:target.x,y:target.y};
 function targetedObject(e) {
   let objects = getObjects(/*type*/);
   for (let i = objects.length - 1; i >= 0; i--) {
-    const obj = objects[i];
+    const obj = /*selectedObject||*/objects[i];
     const [{ x: x0, y: y0, width: x1, height: y1 }] = points(obj);
     const mouse = { x: e.pageX, y: e.pageY };
     if (obj.type === "flashlight_spawner" || obj.type === "torch") {
@@ -712,7 +712,7 @@ canvas.addEventListener("mousemove", e => {
     let arr = getObjects(type);
 
     for (let i = arr.length - 1; i >= 0; i--) {
-      const obj = arr[i];
+      const obj = /*selectedObject||*/arr[i];
       const [{ x: x0, y: y0, width: x1, height: y1 }] = points(obj);
       const mouse = point(e);
 
@@ -996,7 +996,7 @@ pellet_multiplier = 1
 applies_lantern = False
 sticky_coat_distort_reduced = False
 allow_solo_with_group = False
-all_enemies_immune = ?
+all_enemies_immune = False
 */
   const properties = {...obj};
   properties.background_color&&(properties.background_color=[...properties.background_color].map(e=>Math.ceil(e)));
