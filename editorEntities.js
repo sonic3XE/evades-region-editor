@@ -46,8 +46,7 @@ function spawnEntities(){
         var randType=Math.floor(Math.random()*activeZone.spawner[i].types.length);
         var radius;
 		try{radius=activeZone.spawner[i].radius??enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].radius}catch(e){
-			randType="normal";
-			radius=activeZone.spawner[i].radius??enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].radius;
+			radius=activeZone.spawner[i].radius??enemyConfig.normal_enemy.radius;
 		}
         var auraColor=auraColors[activeZone.spawner[i].types[randType].i];
         let entity;
@@ -77,7 +76,18 @@ function spawnEntities(){
         }
         switch(activeZone.spawner[i].types[randType].i){
           default:
+			try{
             entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].color,radius,activeZone.spawner[i].types[randType].i,activeZone.spawner[i].speed,activeZone.spawner[i].angle,activeZone.spawner[i][`${activeZone.spawner[i].types[randType].i}_radius`],auraColor,{left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+			}catch(e){
+          entity=new NormalEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height}
+          );
+			}
           break;
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise)
