@@ -44,7 +44,11 @@ function spawnEntities(){
         var bottom=activeZone.y+activeZone.height;
         var top=activeZone.y;
         var randType=Math.floor(Math.random()*activeZone.spawner[i].types.length);
-        var radius=activeZone.spawner[i].radius??enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].radius;
+        var radius;
+		try{radius=activeZone.spawner[i].radius??enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].radius}catch(e){
+			randType="normal";
+			radius=activeZone.spawner[i].radius??enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].radius;
+		}
         var auraColor=auraColors[activeZone.spawner[i].types[randType].i];
         let entity;
         var enemyX;
