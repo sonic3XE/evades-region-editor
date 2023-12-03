@@ -396,6 +396,9 @@ function render() {
   map.areas[current_Area].zones.filter(e=>e.type=="victory").length&&(cs=`${map.name}: Victory!`);
   ctx.strokeText(cs, canvas.width / 2, 20);
   ctx.fillText(cs, canvas.width / 2, 20);
+  ctx.font = "bold 25px tah";
+  ctx.strokeText(`# of zones: ${map.areas[current_Area].zones.length}`, canvas.width / 2, 50);
+  ctx.fillText(`# of zones: ${map.areas[current_Area].zones.length}`, canvas.width / 2, 50);
   //ctx.fillText(`${error}`, canvas.width / 2, canvas.height - 20);
   ctx.strokeStyle="#000";
   ctx.lineWidth = 4;
