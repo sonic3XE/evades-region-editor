@@ -8,7 +8,12 @@ a:hover {
 a:active {
 	color: #7aadff
 }
-
+.issues>span{
+	display:none;
+}
+.issues:hover>span{
+	display:block;
+}
 .hero-select-question {
     float: right;
     display: inline-block;
