@@ -696,7 +696,7 @@ function customZONEgui(Zone){
           }else {
             hide(translation)
           }
-var props=createPropertyObj(Zone.properties);
+var props=createPropertyObj(Zone.properties,"zone");
   Zone.properties=props;
 	Zone.element = createFolder(formatString(curLang,"editor.zone"), [
     createProperty(formatString(curLang,"editor.property.type"), null, "select",{

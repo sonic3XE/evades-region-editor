@@ -12,19 +12,6 @@ const config={get isImagesLoaded(){
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-const controls = {
-  UP:0x57,
-  LEFT:0x41,
-  DOWN:0x53,
-  RIGHT:0x44,
-  NEXT_AREA:0x27,
-  PREVIOUS_AREA:0x25,
-  ZOOM_OUT:0xBD,
-  ZOOM_IN:0xBB,
-  DELETE_ZONE:0x2E,
-  TOGGLE_HITBOX:0x4F,
-};
-
 const types = ["wall", "light_region", "flashlight_spawner", "torch", "gate", "active", "safe", "exit", "teleport", "victory", "removal"];
 function getObjects(type = "active") {
   return [...map.areas[current_Area].zones, ...map.areas[current_Area].assets];
@@ -41,7 +28,8 @@ const map = {
   name: "No Name",
   players: [],
   properties: {},
-  areas: []
+  areas: [],
+  players: [],
 };
 
 {
@@ -666,7 +654,7 @@ x:target.x,y:target.y};
     document.addEventListener("mouseup", () => {
       lockCursor = false;
       document.removeEventListener("mousemove", u);
-      updateMap();
+     (!playtesting)&&updateMap();
     });
 
   } else {
@@ -690,6 +678,7 @@ x:target.x,y:target.y};
  * @returns {Zone | Asset}
  */
 function targetedObject(e) {
+  if(playtesting)return;
   let objects = getObjects(/*type*/);
   for (let i = objects.length - 1; i >= 0; i--) {
     const obj = /*selectedObject||*/objects[i];
@@ -707,7 +696,7 @@ function targetedObject(e) {
 }
 
 canvas.addEventListener("mousemove", e => {
-  if (lockCursor) return;
+  if (lockCursor||playtesting) return(canvas.style.cursor="default");
   for (let type of types) {
     let arr = getObjects(type);
 
@@ -856,6 +845,29 @@ areas:
 document.addEventListener("keydown", e => {
   var camera = { x: camX, y: camY }
   if (e.target instanceof HTMLInputElement) return;
+  if (e.which === controls.PLAYTEST){
+    playtesting=!playtesting;
+    tl.hidden=playtesting;
+    menu.hidden=playtesting;
+    realTime.disabled=playtesting;
+    realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));
+    playtesting?(window.tempCamPos={x:camX,y:camY,area:current_Area}):(camX=window.tempCamPos.x,camY=window.tempCamPos.y);
+  };
+if(playtesting){
+  if (e.which === controls.TOGGLE_HERO_INFO) toggleHeroCard = !toggleHeroCard;
+  localStorage.heroCard=toggleHeroCard;
+  if (e.which === controls.TOGGLE_LEADERBOARD) toggleLeaderboard = !toggleLeaderboard;
+  localStorage.leaderboard=toggleLeaderboard;
+  if (e.which === controls.TOGGLE_AREA_INFO&&location.search=="?isDev") toggleAreaInfo = !toggleAreaInfo;
+  localStorage.areaInfo=toggleAreaInfo;
+  if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
+  localStorage.chat=toggleChat;
+  if (e.which === controls.TOGGLE_MAP[0]||e.which === controls.TOGGLE_MAP[1]) toggleMap = !toggleMap,e.preventDefault();
+  localStorage.map=toggleMap;
+  if (e.which === controls.TOGGLE_MINIMAP_MODE) toggleMinimapMode = !toggleMinimapMode;
+  localStorage.minimapMode=toggleMinimapMode;
+}
+  if(playtesting)return;
   if (e.which === controls.TOGGLE_HITBOX) hitbox = !hitbox;
   if (e.which === controls.PREVIOUS_AREA&&!lockCursor) {
     map.areas[current_Area].element.remove();
@@ -964,15 +976,23 @@ socket.addEventListener("close",socketclosed);
 /** 
  * @param {Properties} obj
 */
-function createPropertyObj(obj) {
+function createPropertyObj(obj,t="region") {
   obj={...defaultValues.properties,...obj}
   delete obj.inputs,delete obj.element;
   var arrayCheck=Object.keys(obj);
-  var arr = "background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
+  var arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
+if(t=="region"){
+arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
+}
+if(t=="zone"){
+arr="background_color,friction,texture,minimum_speed".split(",");
+}
   for(var i in obj){
-    if(arr.indexOf(i)==-1){
+    if(arr.indexOf(i)==-1&&defaultValues.properties[i]!=obj[i]){
       //customAlert(`ERROR: Property name "${i}" not found.`,1/0,"#F00");
-      customAlert(`[Unknown Property!]: ${i} is not assigned to a default value. Modified value is ${JSON.stringify(obj[i])}.`,1/0,"#FF3333");
+      customAlert(`[Warning]: ${i} is not allowed in ${t} properties.`,10,"#FF9933");
+    }else if(arr.indexOf(i)==-1&&t!="zone"){
+      customAlert(`[Unknown property]: ${i} is not assigned to default property. The modified value is ${JSON.stringify(obj[i])}.`,1/0,"#FF3333");
       delete obj[i];
     };
   };
@@ -1126,6 +1146,7 @@ all_enemies_immune = False
     opacityInput.value = Math.max(Math.min(Number(opacityInput.value), 255), 0);
     properties.background_color[3] = Number(opacityInput.value);
   });
+if(t=="region"){
   properties.element = createFolder(formatString(curLang,"editor.property.properties"), [
     createFolder(formatString(curLang,"editor.property.background_color"), [
       createProperty(formatString(curLang,"editor.property.background_color.color"), colorInput, "color"),
@@ -1155,7 +1176,24 @@ all_enemies_immune = False
     createProperty(formatString(curLang,"editor.property.pellet_count"), _pellet_count, "number"),
     createProperty(formatString(curLang,"editor.property.pellet_multiplier"), _pellet_multiplier, "number")
   ]);
+};
+if(t=="zone"){
+  properties.element = createFolder(formatString(curLang,"editor.property.properties"), [
+    createFolder(formatString(curLang,"editor.property.background_color"), [
+      createProperty(formatString(curLang,"editor.property.background_color.color"), colorInput, "color"),
+      createProperty(formatString(curLang,"editor.property.background_color.alpha"), opacityInput, "number"),
+    ]),
+    createProperty(formatString(curLang,"editor.property.friction"), _friction, "number"),
+    createProperty(formatString(curLang,"editor.property.texture"), null, "select", {
+      value: properties.texture, event: (e) => { properties.texture = e },
+      selectOptions: ["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e]),
+      selectType: "text"
+    }),
+    createProperty(formatString(curLang,"editor.property.minimum_speed"), _minimum_speed, "number"),
+  ]);
+};
   properties.element.classList.add("closed");
+if(t=="region"){
   properties.inputs = {
     color: colorInput, 
     opacity: opacityInput, 
@@ -1177,6 +1215,7 @@ all_enemies_immune = False
     pellet_count: _pellet_count,
     pellet_multiplier: _pellet_multiplier
   };
+}
   return properties;
 }
 // Setup Evades Region Editor

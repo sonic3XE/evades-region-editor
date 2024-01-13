@@ -1,3 +1,20 @@
+function closestPointToRectangle(pos, rectpos, rectsize) {
+  var xpos = pos.x;
+  var ypos = pos.y;
+  if (xpos < rectpos.x) {
+    xpos = rectpos.x
+  }
+  if (xpos > rectpos.x + rectsize.x) {
+    xpos = rectpos.x + rectsize.x;
+  }
+  if (ypos < rectpos.y) {
+    ypos = rectpos.y
+  }
+  if (ypos > rectpos.y + rectsize.y) {
+    ypos = rectpos.y + rectsize.y;
+  }
+  return {x:xpos, y:ypos};
+}
 var WORLD;
 var error="";
 var areaCount=0;
