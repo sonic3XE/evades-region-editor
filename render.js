@@ -1,3 +1,4 @@
+var selfId=null;
 var evadesRenderer={
 	directionalIndicatorHud: new DirectionalIndicatorHud,
 	experienceBar: new ExperienceBar,
