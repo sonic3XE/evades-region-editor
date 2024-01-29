@@ -342,6 +342,13 @@ function createSPAWNERgui(point1,Zone){
     aura16Input.value = Math.max(Number(aura17Input.value),0);
     point1.reducing_radius = Math.max(Number(aura17Input.value),0);spawnEntities()
   });
+  const aura18Input = document.createElement("input");
+  aura18Input.value = point1.blocking_radius;
+  aura18Input.step=1;
+  aura18Input.addEventListener("input", () => {
+    aura18Input.value = Math.max(Number(aura18Input.value),0);
+    point1.blocking_radius = Math.max(Number(aura18Input.value),0);spawnEntities()
+  });
 		const projDurInput = document.createElement("input");
 		projDurInput.value = point1.projectile_duration;
 		projDurInput.step=1;
@@ -501,6 +508,7 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.quicksand_radius"), aura15Input, "number"),
 		createProperty(formatString(curLang,"editor.property.experience_drain_radius"), aura16Input, "number"),
 		createProperty(formatString(curLang,"editor.property.reducing_radius"), aura17Input, "number"),
+		createProperty(formatString(curLang,"editor.property.blocking_radius"), aura18Input, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.cybot"), [
         createProperty(formatString(curLang,"editor.property.hard_mode"), hardInput, "switch", {value: point1.hard_mode}),
@@ -579,7 +587,7 @@ point1.projectile_radius=undefined;
     clone.addEventListener("click", e => {
       Zone.spawner[Zone.spawner.indexOf(point1)];
       const p = cloneSpawner(Zone.spawner[Zone.spawner.indexOf(point1)]);
-      const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion);
+      const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius);
       Zone.spawner.push(spawner);
       createSPAWNERgui(spawner,Zone);
       Zone.spawner[0].element.parentElement.parentElement.children[1].appendChild(spawner.element);
@@ -772,6 +780,7 @@ function cloneSpawner(e){
 		obj.quicksand_radius = e.quicksand_radius,
 		obj.push_direction = e.push_direction
 	);
+	obj.types.includes("blocking") && (obj.blocking_radius = e.blocking_radius);
 	obj.types.includes("freezing") && (obj.freezing_radius = e.freezing_radius);
 	obj.types.includes("reducing") && (obj.reducing_radius = e.reducing_radius);
 	obj.types.includes("disabling") && (obj.disabling_radius = e.disabling_radius);
@@ -910,6 +919,7 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
 		reducing_radius=140,
 		/*gravity enemy*/gravity=6,
 		/*repelling enemy*/repulsion=6,
+		blocking_radius=150,
 	) {
         const point1 = {
             types:[],x,y,turn_acceleration,cone_angle,
@@ -927,7 +937,7 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
             magnetic_reduction_radius,magnetic_nullification_radius,
             freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,
             switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,
-			gravity,repulsion,
+			gravity,repulsion,blocking_radius,
         }
 		if(typeof types == "string")types=[types];
 		types.map(p => {
@@ -947,7 +957,10 @@ function createpoint2(types="normal",point1){
           ['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drain', 'enlarging', 'draining', 'gravity', 'repelling', 'turning', 'sizing', 'sniper', 'freezing', 'teleporting', 'wavy', 'zigzag', 'zoning', 'spiral', 'oscillating', 'switch', 'liquid', 'icicle', 'slippery', 'ice_sniper', 'disabling', 'speed_sniper', 'regen_sniper', 'radiating_bullets', 'immune', 'pumpkin', 'fake_pumpkin', 'tree', 'frost_giant', 'snowman', 'corrosive', 'toxic', 'corrosive_sniper', 'poison_sniper', 'magnetic_nullification', 'magnetic_reduction', 'negative_magnetic_sniper', 'positive_magnetic_sniper', 'residue', 'fire_trail', 'ice_ghost', 'poison_ghost', 'positive_magnetic_ghost', 'negative_magnetic_ghost', 'wind_ghost', 'lunging', 'lava', 'gravity_ghost', 'repelling_ghost', 'star', 'grass', 'seedling', 'flower', 'disabling_ghost', 'glowy', 'firefly', 'mist', 'phantom', 'cybot', 'eabot', 'wabot', 'fibot', 'aibot', 'wind_sniper', 'sand', 'sandrock', 'quicksand', 'crumbling', 'radar', 'barrier', 'speed_ghost', 'regen_ghost', 'cactus', 'cycling', 'icbot', 'elbot', 'plbot', 'mebot', 'libot', 'dabot', 'sparking', 'thunderbolt', 'static', 'electrical', 'prediction_sniper', 'ring_sniper',
            "charging",
            "reducing",
-           "lead_sniper"].map(e=>[formatString(curLang,"editor.enemy."+e),e])
+           "lead_sniper",
+  "blocking",
+  "force_sniper_a",
+  "force_sniper_b",].map(e=>[formatString(curLang,"editor.enemy."+e),e])
 				.sort(),
 				selectType: "text"
             });
