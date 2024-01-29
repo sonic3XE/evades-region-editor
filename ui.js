@@ -178,6 +178,7 @@ var curLang={
   "editor.property.barrier_radius": "Barrier Radius",
   "editor.property.experience_drain_radius": "Experience Drain Radius",
   "editor.property.reducing_radius": "Reducing Radius",
+  "editor.property.blocking_radius": "Blocking Radius",
   "editor.property.switch_interval": "Switch Interval",
   "editor.property.player_detection_radius": "Player Detection Radius",
   "editor.property.circle_size": "Circle Size",
