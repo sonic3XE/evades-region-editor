@@ -1,11 +1,11 @@
-function loadFile(str,fromLocal=!0,socketSend=true) {
+function loadFile(str,fromLocal=!0) {
         current_Area = 0;
         alertMessages=[];
         var e = jsyaml.load(str);
         let obj = e;
-      socketSend&&socket.send(msgpack.encode({content:str,
-        name:obj.name
-      }));
+      //socketSend&&socket.send(msgpack.encode({content:str,
+      //  name:obj.name
+      //}));
   obj.properties=createPropertyObj(obj.properties,"region");
   var objKeys=Object.keys(obj.properties);
         try{

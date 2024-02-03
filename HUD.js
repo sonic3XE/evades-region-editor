@@ -1055,7 +1055,7 @@ class $e7009c797811e935$var$InputLayer {
 			else {
 				if (document.activeElement.nodeName!=="INPUT" && e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_1 && e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_2)
 					return e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_HERO_INFO_KEY ? (evadesRenderer.heroInfoCard.toggleVisibility(),
-					void evadesRenderer.experienceBar.toggleVisibility()) : void (e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MINIMAP_MODE_KEY ? e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_AREA_INFO_KEY && location.search=="?isDev" ? evadesRenderer.areaInfo.toggleVisibility() : e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_CHAT_KEY ? e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_LEADERBOARD_KEY ? e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (console.log($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
+					void evadesRenderer.experienceBar.toggleVisibility()) : void (e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MINIMAP_MODE_KEY ? e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_AREA_INFO_KEY && location.search=="?isDev" ? evadesRenderer.areaInfo.toggleVisibility() : e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_CHAT_KEY ? e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_LEADERBOARD_KEY ? e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
 					e.preventDefault()) : 1 : 2 : evadesRenderer.minimap.toggleMinimapMode());
 				evadesRenderer.minimap.toggleVisibility()
 			}
@@ -1068,10 +1068,10 @@ class $e7009c797811e935$var$InputLayer {
 		}
 	}
 	onKeyUp(e) {
-		this.gameState.initial || e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && this.gameState.keys.keyUp($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
+		//this.gameState.initial || e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && this.gameState.keys.keyUp($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
 	}
 	onBlur(e) {
-		this.gameState.initial || this.gameState.keys.clear($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
+		//this.gameState.initial || this.gameState.keys.clear($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
 	}
 	onMouseMove(e) {
 		const a = this.canvas.getBoundingClientRect();
@@ -1121,7 +1121,7 @@ class $e7009c797811e935$var$InputLayer {
 			const t = this.buttons[a];
 			t.visible && (!r && this.x >= t.x && this.x <= t.x + t.width && this.y >= t.y && this.y <= t.y + t.height ? (this.enteredButtons.add(t),
 			t.mouseOver = !0,
-			t.interactive && (this.down && !t.mouseDown ? (keys.add(t.key),controlPlayer(0,{keys}),
+			t.interactive && (this.down && !t.mouseDown ? (keys.add(t.key),controlPlayer(selfId,{keys}),
 			t.onClick()) : !this.down && t.mouseDown,
 			t.mouseDown = this.down,
 			c = !0),
@@ -2354,8 +2354,8 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		return Math.round(e / a) * a
 	}
 	drawNearbyMinimap(e) {
-		const a = this.roundTo(e.x, this.nearbySize)
-		  , t = this.roundTo(e.y, this.nearbySize)
+		const a = this.roundTo(e.x,this.nearbySize)
+		  , t = this.roundTo(e.y,this.nearbySize)
 		  , r = a - this.nearbySize
 		  , c = t - this.nearbySize
 		  , o = a + this.nearbySize
@@ -2381,14 +2381,15 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		$["TELEPORT"] = [106, 208, 222, 255],
 		$["REMOVAL"] = [255, 249, 186, 255],
 		$["DUMMY"] = [195, 195, 195, 255]);this.zones=[];
-		map.areas.map(e=>{e.zones.map(t=>{this.zones.push({x:e.x+t.x,y:e.y+t.y,width:t.width,height:t.height,type:t.type,backgroundColor:0})})})
+		var mapColor=arrayToInt32(map.properties.background_color);
+		map.areas.map(e=>{var areaColor=arrayToInt32(e.properties.background_color);e.zones.map(t=>{this.zones.push({x:e.x+t.x,y:e.y+t.y,width:t.width,height:t.height,type:t.type,backgroundColor:arrayToInt32(t.properties.background_color)||areaColor||mapColor})})})
 		for (const e of this.zones) {
 			if (e.x > o || e.x + e.width < r || e.y > n || e.y + e.height < c)
 				continue;
 			const a = [e.backgroundColor >> 24 & 255, e.backgroundColor >> 16 & 255, e.backgroundColor >> 8 & 255, 255 & e.backgroundColor]
 			  , t = this.mixColors($[e.type.toUpperCase()], a);
 			this.areaContext.fillStyle = `rgba(${t[0]}, ${t[1]}, ${t[2]}, ${t[3]}`;
-			const d = (e.x - this.x - this.areaCanvasOffset.x) * this.canvasScale
+			const d = (e.x -this.x - this.areaCanvasOffset.x) * this.canvasScale
 			  , i = (e.y - this.y - this.areaCanvasOffset.y) * this.canvasScale;
 			this.areaContext.fillRect(d, i, e.width * this.canvasScale, e.height * this.canvasScale)
 		}
@@ -2503,6 +2504,7 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		t.height = this.minimapHeight / a,
 		t.left = this.self.entity.x+this.area.x - t.width / 2,
 		t.top = this.self.entity.y+this.area.y - t.height / 2,
+		this.x=this.left,this.y=this.top,
 		this.renderBackground(e, t);
 		for (let r = 0; r < this.entities.length; r++) {
 			const c = this.entities[r]
