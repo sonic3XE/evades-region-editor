@@ -445,7 +445,7 @@ canvas.addEventListener("wheel", e => {
   camX = (m * x - x + camX) / m;
   camY = (m * y - y + camY) / m;
   camScale = Math.min(Math.max(1/zoomLimit,camScale),32);
-});
+},{capture:true,passive:true});
 const mousePos={x:0,y:0}
 let mouseEntity={x:mousePos.x / camScale + camX,y:mousePos.y / camScale + camX}
 canvas.addEventListener("mousemove", e => {
