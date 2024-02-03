@@ -8,6 +8,10 @@
 <meta name="google" value="notranslate">
 
 <script>
+function formatDates(time){
+    if(typeof time == "number")time = new Date(time*1e3);
+    return `${time.getMonth()+1}/${time.getDate()}/${time.getYear()%100}, ${(time.getHours()%12)||12}:${time.getMinutes().toString().padStart(2,"0")}:${time.getSeconds().toString().padStart(2,"0")} ${time.getHours()>11?"PM":"AM"}`
+}
 function addRow(name, url, isdir,
     size, size_string, date_modified, date_modified_string) {
   if (name == "." || name == "..")
@@ -41,7 +45,7 @@ function addRow(name, url, isdir,
 
   row.appendChild(file_cell);
   row.appendChild(createCell(size, size_string));
-  row.appendChild(createCell(date_modified, date_modified_string));
+  row.appendChild(createCell(date_modified, formatDates(date_modified)));
 
   tbody.appendChild(row);
 }
