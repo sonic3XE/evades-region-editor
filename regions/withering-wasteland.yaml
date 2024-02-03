@@ -2412,7 +2412,6 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    spawner:
     - count: 10
       radius: 18
       speed: 11

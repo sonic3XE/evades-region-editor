@@ -331,6 +331,7 @@ var defaultValues={
 		barrier_radius:100,
 		experience_drain_radius:150,
 		reducing_radius:140,
+		blocking_radius:150,
 		switch_interval:3000,
 		player_detection_radius:160,
 		circle_size:150,
