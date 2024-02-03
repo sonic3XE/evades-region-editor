@@ -316,15 +316,15 @@ var enemyColors = {
     cactus_enemy: "#5b8e28",
     cycling_enemy: "#91bbff",
   };
-(()=>{
-  var n=new XMLHttpRequest;
-  n.open("GET","world.yaml");
-  n.addEventListener("load",e=>{
-    if(e.target.status==200)return WORLD=YAML.parse(e.target.responseText);
-    if(e.target.status==0)return customAlert(`[No connection]: Please check your internet connection because you might be offline.`,20,"#FFFF00");
-  });
-  n.send();
-})();
+async function loadData(){
+	await fetch("world.yaml").then(e=>{
+		if(e?.status>=400&&!e?.ok)return customAlert(`[Error ${e.target.status}]: Unable to fetch data "${url}"`,20,"#FF0000");
+		if(e?.status>=200&&e?.ok)return e?.text().then(t=>{return WORLD=YAML.parse(t)});
+		console.log("bruh",e);
+	}).catch(e=>{
+		return customAlert(e,1/0,"#FFFF00");
+	});
+};
 importer.addEventListener("input",e=>{
   if(!importer.selectedIndex)return;
   var req=new XMLHttpRequest;
@@ -941,6 +941,9 @@ document.addEventListener("mousemove", e => {
     menu.style.width = Math.max(window.innerWidth - e.pageX - 15, 200) + "px";
   }
 });
+document.addEventListener("DOMContentLoaded",e=>{
+	loadData();
+})
 togglemenu.addEventListener("click", () => {
   menu.classList.toggle("hidden");
 });
