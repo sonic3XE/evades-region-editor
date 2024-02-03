@@ -113,6 +113,7 @@ body {
     position: absolute;
     top: 5px;   
     left: 5px;
+	max-width: 35px;
     padding: 5px;
     display: flex;
     flex-direction: column;
@@ -167,7 +168,18 @@ body {
     transform: translateY(0%);
 }
 #importer{
-  font-family:roboto;
+	background: #00a000;
+	border: none;
+	border-radius: 2px;
+	height: 35px;
+	font-family: roboto;
+	font-weight: bold;
+	text-align: center;
+	-webkit-appearance: unset;
+    transition: background 0.4s;
+}
+#importer:hover {
+    background: #00c000;
 }
 #importLabel {
     position: relative;
@@ -184,7 +196,7 @@ body {
     position: relative;
     background: #00a000;
     border: none;
-    border-radius: 2px 2px 2px 2px;
+    border-radius: 2px;
     padding: 5px;
     width: 35px;
     height: 35px;
