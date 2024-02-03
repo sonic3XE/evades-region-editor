@@ -950,7 +950,10 @@ downloadBtn.addEventListener("click", () => {
 importInput.addEventListener("input", () => {
   if (importInput.files.length) importInput.files[0].text()
     .then(value => loadFile(value))
-    .catch(e => console.error("OH SHIT!!\n",e));
+    .catch(e => {
+		customAlert(e,1/0,"#FF0000");
+		console.error("OH SHIT!!\n",e)
+	});
 });
 
 window.addEventListener("beforeunload", e => {
