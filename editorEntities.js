@@ -188,6 +188,9 @@ this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.abilityOne={abilityType:0};
 this.abilityTwo={abilityType:1};
+this.abilityThree={abilityType:2};
+this.harden = false;
+this.flow = false;
 this.isBandaged=false;
 this.isUnbandaging=false;
 this.fusionActivated=false;
@@ -232,11 +235,6 @@ this.continuousReviveTimeLeft=0;
     this.deathTimerTotal=0;
     this.color=color;
     this.name=username;
-    this.abilityStates=[
-      null,
-      null,
-      null,
-    ];
 this.distance_moved_previously = [0,0];
     this.speed=5;
     this.energy=30;
@@ -271,10 +269,112 @@ this.area=0;
     this.d_y = 0;
 this.isGuest=!1;
   }
-	controlActions(input){
+	handleAbility(ability,kind=1,delta,others,force=false){
+	if(ability.locked||ability.disabled||ability.level==void 0||this.deathTimer!=-1){
+		switch(kind){
+			case 1:this.firstAbilityActivated=false;break;
+			case 2:this.secondAbilityActivated=false;break;
+			case 3:this.thirdAbilityActivated=false;break;
+		}
+		return;
+	};
+	var abilityActive;
+	var mask=7&(2**kind);
+	switch(kind){
+		case 1:abilityActive=this.firstAbilityActivated;break;
+		case 2:abilityActive=this.secondAbilityActivated;break;
+		case 3:abilityActive=this.thirdAbilityActivated;break;
+	}
+	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
+	var finalTrigger=force;
+	ability.continuous&&abilityActive&&ability.cooldown==0&&(this.energyRate-=ability.energyCost);
+	if(Math.min(this.energy+this.energyRate*delta/1e3,this.maxEnergy)<=0&&abilityActive){
+		switch(kind){
+			case 1:{
+				this.firstAbility=true;
+				this.firstAbilityActivated=false;
+				finalTrigger=this.firstAbility;
+			};break;
+			case 2:{
+				this.secondAbility=true;
+				this.secondAbilityActivated=false;
+				finalTrigger=this.secondAbility;
+			};break;
+			case 3:{
+				this.thirdAbility=true;
+				this.thirdAbilityActivated=false;
+				finalTrigger=this.thirdAbility;
+			};break;
+		}
+		abilityActive=false;
+		this.energyRate=this.energyRegen+this.regenAdditioner;
+	}
+	ability.totalCooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+	switch(ability.abilityType){
+		case 0:{
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+				this.speedMultiplier*=abilityLevels[ability.level-1].slow??1;
+				this.speedAdditioner+=abilityLevels[ability.level-1].boost??0;
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 1:{
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+				this.speedMultiplier*=0;
+				this.invulnerable=true;
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
+				this.invulnerable=false;
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 2:{
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				this.x+=Math.cos(this.input_angle)*abilityLevels[ability.level-1]?.distance;
+				this.y+=Math.sin(this.input_angle)*abilityLevels[ability.level-1]?.distance;
+				var area=map.areas[this.area];
+				if(this.y<area.BoundingBox.top+this.radius){this.velY=0,this.y=this.radius};
+				if(this.y>area.BoundingBox.bottom-this.radius){this.velY=0,this.y=map.areas[this.area].BoundingBox.bottom-this.radius};
+				if(this.x<area.BoundingBox.left+this.radius){this.velX=0,this.x=this.radius};
+				if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.area].BoundingBox.right-this.radius};
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+	}
+	}
+	controlActions(input,delta){
     if (input.keys) {
       this.firstAbility = false;
       this.secondAbility = false;
+      this.thirdAbility = false;
       if ((input.keys.has(controls.USE_ABILITY_ONE[0]) || input.keys.has(controls.USE_ABILITY_ONE[1])) && !this.firstAbilityPressed && !this.disabling) {
         this.firstAbility = true;
         this.firstAbilityPressed = true;
@@ -283,12 +383,117 @@ this.isGuest=!1;
         this.secondAbility = true;
         this.secondAbilityPressed = true;
       }
+      if ((input.keys.has(controls.USE_ABILITY_THREE[0]) || input.keys.has(controls.USE_ABILITY_THREE[1])) && !this.thirdAbilityPressed && !this.disabling) {
+        this.thirdAbility = true;
+        this.thirdAbilityPressed = true;
+      }
       if (!(input.keys.has(controls.USE_ABILITY_ONE[0]) || input.keys.has(controls.USE_ABILITY_ONE[1]))) {
         this.firstAbilityPressed = false;
       }
       if (!(input.keys.has(controls.USE_ABILITY_TWO[0]) || input.keys.has(controls.USE_ABILITY_TWO[1]))) {
         this.secondAbilityPressed = false;
       }
+      if (!(input.keys.has(controls.USE_ABILITY_THREE[0]) || input.keys.has(controls.USE_ABILITY_THREE[1]))) {
+        this.thirdAbilityPressed = false;
+      }
+	  var activ=[0,0,0];
+	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
+	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
+	  var ab3=evadesRenderer.heroInfoCard.abilityThree;
+	if(this.firstAbility&&ab1.cooldown==0){
+		this.firstAbilityActivated = !this.firstAbilityActivated;
+		activ[0]=this.firstAbilityActivated;
+	}
+	if(this.secondAbility&&ab2.cooldown==0){
+		this.secondAbilityActivated = !this.secondAbilityActivated;
+		activ[1]=this.secondAbilityActivated;
+	}
+	if(this.thirdAbility&&ab3.cooldown==0){
+		this.thirdAbilityActivated = !this.thirdAbilityActivated;
+		activ[2]=this.thirdAbilityActivated;
+	}
+	
+	  var flow=false;
+	  var harden=false;
+	  var forceOff=[0,0,0];
+	  if(this.deathTimer!=-1){
+		  this.firstAbilityActivated=false;
+		  this.secondAbilityActivated=false;
+		  this.thirdAbilityActivated=false;
+	  }
+	if(this.firstAbilityActivated&&ab1.abilityType==0||this.secondAbilityActivated&&ab2.abilityType==0||this.thirdAbilityActivated&&ab3.abilityType==0)flow=true;
+	if(this.firstAbilityActivated&&ab1.abilityType==1||this.secondAbilityActivated&&ab2.abilityType==1||this.thirdAbilityActivated&&ab3.abilityType==1)harden=true;
+	this.energyRate=this.energyRegen+this.regenAdditioner;
+	if(flow&&this.firstAbility&&ab1.abilityType==0){
+		harden=false;
+		if(ab2.abilityType==1&&this.secondAbilityActivated){
+			this.secondAbilityActivated=false;
+			forceOff[1]=1;
+		}
+		if(ab3.abilityType==1&&this.thirdAbilityActivated){
+			this.thirdAbilityActivated=false;
+			forceOff[2]=1;
+		}
+	}
+	if(flow&&this.secondAbility&&ab2.abilityType==0){
+		harden=false;
+		if(ab1.abilityType==1&&this.firstAbilityActivated){
+			this.firstAbilityActivated=false;
+			forceOff[0]=1;
+		}
+		if(ab3.abilityType==1&&this.thirdAbilityActivated){
+			this.thirdAbilityActivated=false;
+			forceOff[2]=1;
+		}
+	}
+	if(flow&&this.thirdAbility&&ab3.abilityType==0){
+		harden=false;
+		if(ab1.abilityType==1&&this.firstAbilityActivated){
+			this.firstAbilityActivated=false;
+			forceOff[1]=1;
+		}
+		if(ab2.abilityType==1&&this.secondAbilityActivated){
+			this.secondAbilityActivated=false;
+			forceOff[2]=1;
+		}
+	}
+	if(harden&&this.firstAbility&&ab1.abilityType==1){
+		flow=false;
+		if(ab2.abilityType==0&&this.secondAbilityActivated){
+			this.secondAbilityActivated=false;
+			forceOff[1]=1;
+		}
+		if(ab3.abilityType==0&&this.thirdAbilityActivated){
+			this.thirdAbilityActivated=false;
+			forceOff[2]=1;
+		}
+	}
+	if(harden&&this.secondAbility&&ab2.abilityType==1){
+		flow=false;
+		if(ab1.abilityType==0&&this.firstAbilityActivated){
+			this.firstAbilityActivated=false;
+			forceOff[0]=1;
+		}
+		if(ab3.abilityType==0&&this.thirdAbilityActivated){
+			this.thirdAbilityActivated=false;
+			forceOff[2]=1;
+		}
+	}
+	if(harden&&this.thirdAbility&&ab3.abilityType==1){
+		flow=false;
+		if(ab1.abilityType==0&&this.firstAbilityActivated){
+			this.firstAbilityActivated=false;
+			forceOff[1]=1;
+		}
+		if(ab2.abilityType==0&&this.secondAbilityActivated){
+			this.secondAbilityActivated=false;
+			forceOff[2]=1;
+		}
+	}
+	this.handleAbility(ab1,1,delta,{ab2,ab3},forceOff[0]||this.firstAbility);
+	this.handleAbility(ab2,2,delta,{ab1,ab3},forceOff[1]||this.secondAbility);
+	this.handleAbility(ab3,3,delta,{ab1,ab2},forceOff[2]||this.thirdAbility);
+	
       if (!this.prevSlippery||this.collides||(this.d_x == 0 && this.d_y == 0)) {
         if (this.slippery&&!this.prevSlippery) {
           if (!(
@@ -325,6 +530,27 @@ input.keys.has(controls.RIGHT[1]))) {
             this.upgradePoints--;
           }
         }
+        if (input.keys.has(controls.UPGRADE_ABILITY_ONE[0])||input.keys.has(controls.UPGRADE_ABILITY_ONE[1])) {
+          if (evadesRenderer.heroInfoCard.abilityOne.level < evadesRenderer.heroInfoCard.abilityOne.maxLevel && this.upgradePoints > 0) {
+			evadesRenderer.heroInfoCard.abilityOne.level++;
+			evadesRenderer.heroInfoCard.abilityOne.locked=evadesRenderer.heroInfoCard.abilityOne.level==0;
+            this.upgradePoints--;
+          }
+        }
+        if (input.keys.has(controls.UPGRADE_ABILITY_TWO[0])||input.keys.has(controls.UPGRADE_ABILITY_TWO[1])) {
+          if (evadesRenderer.heroInfoCard.abilityTwo.level < evadesRenderer.heroInfoCard.abilityTwo.maxLevel && this.upgradePoints > 0) {
+			evadesRenderer.heroInfoCard.abilityTwo.level++;
+			evadesRenderer.heroInfoCard.abilityTwo.locked=evadesRenderer.heroInfoCard.abilityTwo.level==0;
+            this.upgradePoints--;
+          }
+        }
+        if (input.keys.has(controls.UPGRADE_ABILITY_THREE[0])||input.keys.has(controls.UPGRADE_ABILITY_THREE[1])) {
+          if (evadesRenderer.heroInfoCard.abilityThree && evadesRenderer.heroInfoCard.abilityThree.level < evadesRenderer.heroInfoCard.abilityThree.maxLevel && this.upgradePoints > 0) {
+			evadesRenderer.heroInfoCard.abilityThree.level++;
+			evadesRenderer.heroInfoCard.abilityThree.locked=evadesRenderer.heroInfoCard.abilityThree.level==0;
+            this.upgradePoints--;
+          }
+        }
         if (this.energy-1>0 && !this.disabling && !this.magnetAbilityPressed && (this.magnet||this.flashlight) && (input.keys.has(controls.USE_ABILITY_THREE[0])||input.keys.has(controls.USE_ABILITY_THREE[1]))) {
           if(this.magnetDirection=="Down"){this.magnetDirection = "Up"}
           else if(this.magnetDirection=="Up"){this.magnetDirection = "Down"}
@@ -356,16 +582,6 @@ input.keys.has(controls.RIGHT[1]))) {
         if (this.freezing) {
           this.speedMultiplier *= (1-this.effectImmune*(1-0.2))*this.effectReplayer;
         }
-        if (this.cobweb && this.web){
-          this.speedMultiplier *= Math.min(1-(this.webstickness),(1-this.effectImmune*(this.webstickness))*this.effectReplayer)
-        } else if (this.cobweb) {
-          this.speedMultiplier *= 1-(this.webstickness)
-        } else if (this.web) {
-          this.speedMultiplier *= (1-this.effectImmune*(this.webstickness))*this.effectReplayer;
-        }
-        if(this.sticky || this.stickness>0){
-          this.speedMultiplier *= (1-this.effectImmune*(1-0.2))*this.effectReplayer;
-        }
         this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
         this.mouseActive = false;
           if (input.isMouse&&!this.cent_is_moving&&!(input.keys[87] || input.keys[38]||input.keys[65] || input.keys[37]||input.keys[83] || input.keys[40]||input.keys[68] || input.keys[39])) {
@@ -390,7 +606,6 @@ input.keys.has(controls.RIGHT[1]))) {
               this.d_x = this.distance_movement*Math.cos(this.mouse_angle)
               this.d_y = this.distance_movement*Math.sin(this.mouse_angle)
             }
-
             if(this.className!="Cent"){this.velX = this.dirX * this.speed / this.mouse_distance_full_strenght;
             this.addX = this.dirX * this.speedAdditioner/this.mouse_distance_full_strenght;
             this.addY = this.dirY * this.speedAdditioner/this.mouse_distance_full_strenght;
@@ -444,6 +659,7 @@ input.keys.has(controls.RIGHT[1])) {
         else if(this.moving&&!input.isMouse&&this.className!="Cent") {
           this.d_x = this.distance_movement * this.dirX;
           this.d_y = this.distance_movement * this.dirY;
+		  this.input_angle=Math.atan2(this.dirY,this.dirX);
         }
         //this.speed-=this.speedAdditioner;
         this.speed=this.statSpeed;
@@ -455,6 +671,21 @@ input.keys.has(controls.RIGHT[1])) {
                 }
 	update(delta){
 let timeFix=1;
+	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
+	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
+	  var ab3=evadesRenderer.heroInfoCard.abilityThree;
+			if(ab1.cooldown!==void 0&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
+				ab1.cooldown-=delta/1e3;
+				ab1.cooldown=Math.max(ab1.cooldown,0);
+			}
+			if(ab2.cooldown!==void 0&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
+				ab2.cooldown-=delta/1e3;
+				ab2.cooldown=Math.max(ab2.cooldown,0);
+			}
+			if(ab3.cooldown!==void 0&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
+				ab3.cooldown-=delta/1e3;
+				ab3.cooldown=Math.max(ab3.cooldown,0);
+			}
 		let area=map.areas[this.area];
       this.safeZone = true;
       this.minimum_speed = 1;
@@ -621,22 +852,9 @@ let timeFix=1;
       }
     }
     if(this.disabling) {
-      this.firstAbilityPressed = false;
-      this.secondAbilityPressed = false;
-      this.firstAbility = false;
-      this.secondAbility = false;
-      this.firstAbilityActivated = false;
-      this.secondAbilityActivated = false;
-      this.flashlight_active = false;
-      this.flow = false;
-      this.harden = false;
-      this.paralysis = false;
-      this.stomp = false;
-      this.distort = false;
-      this.aura = false;
-      this.sugar_rush = false;
     }
-    this.energy += (this.energyRegen+this.regenAdditioner) * delta / 1000;
+
+    this.energy += this.energyRate * delta / 1000;
     if (this.energy > this.maxEnergy) {
       this.energy = this.maxEnergy;
     }

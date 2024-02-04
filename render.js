@@ -45,10 +45,10 @@ function arrow(e, a, t, r, c, o=2, n=15, $="#cc000088", _="#FF0000") {
     e.lineWidth = preserved
 }
 let playtesting=false;
-function controlPlayer(id,input){
+function controlPlayer(id,input,delta){
 	var player=map.players.filter(e=>e.id==id)[0];
 	if(!player)return;
-	player.controlActions(input);
+	player.controlActions(input,delta);
 }
   function arrayToInt32(s){
     return s[0]<<24|s[1]<<16|s[2]<<8|s[3]<<0
@@ -172,7 +172,7 @@ else {
   input.keys=keysDown;
   input.mouse={x:0,y:0};
   input.isMouse=false;
-  (realTime.checked&&isActive&&ti>1e3/50)&&(controlPlayer(selfId,input),
+  (realTime.checked&&isActive&&ti>1e3/50)&&(controlPlayer(selfId,input,1e3/30),
   map.players.map(e=>{e.update(1e3/30)}),map.areas[current_Area].entities.map(e=>e.update(1e3/30)),ti=0);
   }catch(e){customAlert(e,1/0,"#FF0000");enemyError=true}
   ctx.drawImage(canvasEnemyLayer,0,0);
