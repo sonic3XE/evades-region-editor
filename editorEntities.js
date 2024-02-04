@@ -270,7 +270,8 @@ this.area=0;
 this.isGuest=!1;
   }
 	handleAbility(ability,kind=1,delta,others,force=false){
-	if(ability.locked||ability.disabled||ability.level==void 0||this.deathTimer!=-1){
+	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
+	if(ability.locked||ability.disabled||ability.level==void 0||this.deathTimer!=-1||this.energy<ability.energyCost){
 		switch(kind){
 			case 1:this.firstAbilityActivated=false;break;
 			case 2:this.secondAbilityActivated=false;break;
@@ -285,7 +286,6 @@ this.isGuest=!1;
 		case 2:abilityActive=this.secondAbilityActivated;break;
 		case 3:abilityActive=this.thirdAbilityActivated;break;
 	}
-	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
 	var finalTrigger=force;
 	ability.continuous&&abilityActive&&ability.cooldown==0&&(this.energyRate-=ability.energyCost);
 	if(Math.min(this.energy+this.energyRate*delta/1e3,this.maxEnergy)<=0&&abilityActive){
