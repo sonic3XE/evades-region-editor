@@ -962,7 +962,7 @@ if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.
 		this.isDowned() && !$ && (e.font = `16px Tah`,
 		e.textAlign = "center",
 		e.fillStyle = "red",
-		e.fillText((this.deathTimer / 1e3).toFixed(0), t, r + 6*camScale))
+		e.fillText((this.deathTimer / 1e3).toFixed(0), t, r + 6))
 	}
 	renderIcedEffect(e, a, t) {
 		if (!this.isIced)
