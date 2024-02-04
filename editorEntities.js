@@ -959,7 +959,7 @@ if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.
 			e.strokeRect(t + 32, r - this.radius - 13.5, 7, 7)))
 		}
 		e.globalAlpha = 1,
-		this.isDowned() && !$ && (e.font = `${16*camScale}px Tah`,
+		this.isDowned() && !$ && (e.font = `16px Tah`,
 		e.textAlign = "center",
 		e.fillStyle = "red",
 		e.fillText((this.deathTimer / 1e3).toFixed(0), t, r + 6*camScale))

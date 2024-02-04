@@ -560,7 +560,7 @@ function $f36928166e04fda7$var$multilineText(e, a, t, r, c) {
 	void 0 === c && (c = {
 		stroke: !1,
 		fill: !0,
-		lineHeight: 20,
+		lineHeight: 20*camScale,
 		fromTop: !0
 	});
 	const o = a.split("\n")
@@ -1454,7 +1454,7 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		e.textAlign = "center",
 		e.fillStyle = "white",
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(22),
-		e.fillText(a.name, t + c / 2, r + 25),
+		e.fillText(a.name, t + c / 2, r + 25*camScale),
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16),
 		$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e, a.description, t + c / 2, r + 50*camScale)
 	}
