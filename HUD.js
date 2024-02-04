@@ -2494,7 +2494,7 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		}
 	}
 	renderPlayerCentered(e) {
-		const a = .1;
+		const a = .1*camScale;
 		this.minimapWidth = this.maxWidth,
 		this.minimapHeight = this.maxHeight;
 		const t = {};
