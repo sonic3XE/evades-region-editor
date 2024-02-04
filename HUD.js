@@ -2468,7 +2468,7 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		a.centerY = this.area.y + this.area.BoundingBox.height / 2,
 		a.width = this.area.BoundingBox.width,
 		a.height = this.area.BoundingBox.height,
-		this.x=this.area.x,this.y=this.area.y,
+		this.x=0,this.y=0,
 		a.left = this.area.x,
 		a.top = this.area.y;
 		let t = this.maxWidth / a.width
