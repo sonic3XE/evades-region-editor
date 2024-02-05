@@ -670,7 +670,7 @@ input.keys.has(controls.RIGHT[1])) {
                   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
                 }
 	update(delta){
-let timeFix=1;
+let timeFix=delta/(1e3/30);
 	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
 	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
 	  var ab3=evadesRenderer.heroInfoCard.abilityThree;
