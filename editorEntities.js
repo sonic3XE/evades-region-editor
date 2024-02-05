@@ -271,7 +271,7 @@ this.isGuest=!1;
   }
 	handleAbility(ability,kind=1,delta,others,force=false){
 	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
-	if(ability.locked||ability.disabled||ability.level==void 0||this.deathTimer!=-1||this.energy<ability.energyCost){
+	if(ability.locked||ability.disabled||ability.level==void 0||this.deathTimer!=-1||(!ability.continuous&&this.energy<ability.energyCost)){
 		switch(kind){
 			case 1:this.firstAbilityActivated=false;break;
 			case 2:this.secondAbilityActivated=false;break;
