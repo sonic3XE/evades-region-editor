@@ -175,7 +175,7 @@ else {
   if(!dosandbox.checked){
   (realTime.checked&&isActive&&ti>1e3/50)&&(controlPlayer(selfId,input,1e3/30),
   map.players.map(e=>{e.update(1e3/30)}),map.areas[current_Area].entities.map(e=>e.update(1e3/30)),ti=0);
-  }else{
+  }else if(isActive&&realTime.checked){
   controlPlayer(selfId,input,delta),
   map.players.map(e=>{e.update(delta)}),
   map.areas[current_Area].entities.map(e=>e.update(delta));
