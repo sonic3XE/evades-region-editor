@@ -172,8 +172,14 @@ else {
   input.keys=keysDown;
   input.mouse={x:0,y:0};
   input.isMouse=false;
+  if(!dosandbox.checked){
   (realTime.checked&&isActive&&ti>1e3/50)&&(controlPlayer(selfId,input,1e3/30),
   map.players.map(e=>{e.update(1e3/30)}),map.areas[current_Area].entities.map(e=>e.update(1e3/30)),ti=0);
+  }else{
+  controlPlayer(selfId,input,delta),
+  map.players.map(e=>{e.update(delta)}),
+  map.areas[current_Area].entities.map(e=>e.update(delta));
+  }
   }catch(e){customAlert(e,1/0,"#FF0000");enemyError=true}
   ctx.drawImage(canvasEnemyLayer,0,0);
   for (let k in map.areas[current_Area].assets) {

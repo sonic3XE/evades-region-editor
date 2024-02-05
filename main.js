@@ -739,6 +739,9 @@ snapX.addEventListener("input",(e)=>{
 realTime.addEventListener("input",(e)=>{
   localStorage.realTime=e.target.checked;
 })
+dosandbox.addEventListener("input",(e)=>{
+  localStorage.dosandbox=e.target.checked;
+})
 enemyOutline.addEventListener("input",(e)=>{
   localStorage.enemyOutline=e.target.checked;
 })
@@ -1437,6 +1440,9 @@ localStorage.getItem("enemyOutline")&&(
 );
 localStorage.getItem("tileMode")&&(
   tileMode.selectedIndex=localStorage.tileMode
+);
+localStorage.getItem("dosandbox")&&(
+  dosandbox.checked=localStorage.dosandbox=="true"
 );
 /**
         <p id="objectFocus" class="obj_area">
