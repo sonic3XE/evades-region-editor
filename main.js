@@ -178,10 +178,14 @@ function createOffscreenCanvas(t, e) {
 }
 var abilities=loadImage("abilities.png");
 var txtr_abilities=[
-	{x:53,y:715,w:50,h:50},
+	{x: 53,y:715,w:50,h:50},
 	{x:157,y:573,w:50,h:50},
 	{x:209,y:157,w:50,h:50},
-]
+	{x:157,y:521,w:50,h:50},
+	{x:313,y:313,w:50,h:50},
+	{x:105,y: 53,w:50,h:50},
+];
+txtr_abilities[-1]={x:  1,y:923,w:50,h:50};
 var zoneconsts = {
   normal: {
     active: createOffscreenCanvas(128, 128),
@@ -393,63 +397,18 @@ canvas.addEventListener("mousedown", e => {
     var temp={width:target.width,height:target.height,
 x:target.x,y:target.y};
     if (selectedObject && "element" in selectedObject) selectedObject.element.remove();
-    if (target.type === "rotLavaPoint") {
-      selectedObject = target.rotLava;
-      objectmenu.appendChild(selectedObject.element);
-    } else if (target.type === "turretRegion") {
-      selectedObject = target.turret;
-      objectmenu.appendChild(selectedObject.element);
-    } else {
-      selectedObject = target;
-      if(target.isAsset){
-        customASSETgui(target);
-      }else{
-        customZONEgui(target);
-      }
-      objectmenu.appendChild(selectedObject.element);
+    selectedObject = target;
+    if(target.isAsset){
+      customASSETgui(target);
+    }else{
+      customZONEgui(target);
     }
+    objectmenu.appendChild(selectedObject.element);
     const { x: posX, y: posY, width: sizeX, height: sizeY } = target ?? target;
     const mouseX = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
     const mouseY = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
 
-    if (target.type === "rotLavaPoint") {
-      let rotLava = target.rotLava;
-      resize = e => {
-        let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
-        let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
-
-        rotLava.inputs.pX.value = target.x = Math.round(x - mouseX + posX);
-        rotLava.inputs.pY.value = target.y = Math.round(y - mouseY + posY);
-      }
-    } else if (target.type === "turret") {
-      if (selectMode === "m") {
-        const region = target.region;
-        const { x: rX, y: rY } = region.pos;
-        resize = e => {
-          let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
-          let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
-
-          target.inputs.x.value = target.x = x - mouseX + posX;
-          target.inputs.y.value = target.y = y - mouseY + posY;
-          target.inputs.rX.value = region.x = x - mouseX + rX;
-          target.inputs.rY.value = region.y = y - mouseY + rY;
-        }
-      }
-    } else if (target.type === "turretRegion") {
-      if (selectMode === "m") {
-        const { x: rX, y: rY } = target.pos;
-        const turret = target.turret;
-        resize = e => {
-          let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
-          let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
-
-          turret.inputs.x.value = target.x = x - mouseX + posX;
-          turret.inputs.y.value = target.y = y - mouseY + posY;
-          turret.inputs.rX.value = target.x = x - mouseX + rX;
-          turret.inputs.rY.value = target.y = y - mouseY + rY;
-        }
-      }
-    } else {
+    {
       var snap={x:localStorage.getItem("snapX")||16,y:localStorage.getItem("snapY")||16}
       switch (selectMode) {
         case "u":
@@ -1267,90 +1226,7 @@ contextBtns.deleteArea.addEventListener("click", () => {
     updateMap();
   }
 });
-loadFile(`name: First Map
-areas:
-- x: var x
-  y: var y
-  zones:
-  - type: safe
-    x: 0
-    y: 0
-    width: 320
-    height: 480
-    properties:
-      minimum_speed: 10
-  - type: active
-    x: last_right
-    y: last_y
-    width: 2560
-    height: last_height
-    spawner:
-    - types:
-      - normal
-      count: 15
-      radius: 12
-      speed: 5
-  - type: safe
-    x: last_right
-    y: last_y
-    width: 256
-    height: last_height
-  - type: exit
-    x: last_right
-    y: last_y
-    width: 64
-    height: last_height
-    translate:
-      x: 160
-      y: 0
-- x: last_right
-  y: last_y
-  zones:
-  - type: exit
-    x: 0
-    y: 0
-    width: 64
-    height: 480
-    translate:
-      x: -160
-      y: 0
-  - type: safe
-    x: last_right
-    y: last_y
-    width: 256
-    height: last_height
-  - type: active
-    x: last_right
-    y: last_y
-    width: 2080
-    height: last_height
-    spawner:
-    - types:
-      - slowing
-      - draining
-      count: 25
-      radius: 12
-      speed: 5
-  - type: safe
-    x: last_right
-    y: last_y
-    width: 256
-    height: last_height
-  - type: exit
-    x: last_right
-    y: last_y
-    width: 64
-    height: last_height
-    translate:
-      x: 160
-      y: 0
-properties:
-  friction: 0.75
-  background_color:
-  - 81
-  - 102
-  - 124
-  - 75`,false,false);
+loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: last_right\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: last_right\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
 // Start rendering
 (function run() {
   render();
