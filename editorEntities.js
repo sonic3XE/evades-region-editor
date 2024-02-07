@@ -1449,12 +1449,6 @@ class SimulatorEntity{
   }
   collision(){
     let collided=false;
-    for(var i in map.players){
-      var player = map.players[i];
-      if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
-        this.playerInteraction(player);
-      }
-    }
     if(this.x<this.boundary.left+this.radius){
       this.x=this.boundary.left+this.radius;
       this.velX=Math.abs(this.velX);
@@ -1477,6 +1471,12 @@ class SimulatorEntity{
     }
     if(this.assetCollision())collided=true;
     if(collided)this.onCollide();
+    for(var i in map.players){
+      var player = map.players[i];
+      if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
+        this.playerInteraction(player);
+      }
+    }
   }
   onCollide(){
     
