@@ -122,11 +122,20 @@ function saveToStorage(slot){
 function download(exportName = "map") {
     customAlert("Exporting region...",1);
     // Copied from stackoverflow
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(YAML.stringify(JSON.parse(mapToJSON(map))));
+	let dataStr;
+	if(ExportFormatType.selectedIndex==0){
+		dataStr = "data:text/yaml;charset=utf-8," + encodeURIComponent(YAML.stringify(JSON.parse(mapToJSON(map))));
+	}else if(ExportFormatType.selectedIndex==1){
+		dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(mapToJSON(map));
+	}
 
     const a = document.createElement('a');
     a.setAttribute("href", dataStr);
-    a.setAttribute("download", exportName.replace(/ /g,"-").toLowerCase() + ".yaml");
+	if(ExportFormatType.selectedIndex==0){
+		a.setAttribute("download", exportName.replace(/ /g,"-").toLowerCase() + ".yaml");
+	}else if(ExportFormatType.selectedIndex==1){
+		a.setAttribute("download", exportName.replace(/ /g,"-").toLowerCase() + ".json");
+	}
 
     document.body.appendChild(a); // required for firefox
     a.click();

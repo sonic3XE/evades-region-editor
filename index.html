@@ -105,6 +105,12 @@
                     />
                 </svg>
             </button>
+          <Select id="ExportFormatType" title="Format">
+            <option>YAML</option>
+            <option>JSON</option>
+          </Select>
+			<!-- Spacer -->
+			<div style="height:10px;"></div>
             <label id="importLabel" for="import" title="Import Map">
                 <svg width="25" height="25">
                     <!-- Taken from IcoFont -->
@@ -115,8 +121,6 @@
                 </svg>
                 <input type="file" id="import" accept=".json,.yaml,.txt,.yml" />
             </label>
-			<!-- Spacer -->
-			<div style="height:10px;"></div>
           <Select id="importer" title="Select a region.">
             <option></option>
             <option>AA</option>
