@@ -1008,6 +1008,7 @@ let timeFix=delta/(1e3/30);
 	this.toxic=false;
 	this.experienceDraining=false;
 	this.reducing = false;
+	this.enlarging = false;
     this.draining = false;
     this.speedghost = false;
     this.regenghost = false;
