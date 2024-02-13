@@ -57,6 +57,7 @@ function spawnEntities(area=current_Area){
       map.areas[area].entities.push(pellet);
     }
   }
+  var quicksandDir=Math.floor(Math.random()*4)*90;
   var activeZones=map.areas[area].zones.filter(e=>e.type=="active");
   for(var x in activeZones){
     var activeZone=activeZones[x];
@@ -124,6 +125,64 @@ function spawnEntities(area=current_Area){
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
+          case "gravity":
+          entity=new GravityEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].gravity_radius,
+			activeZone.spawner[i].gravity,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "quicksand":
+          entity=new QuicksandEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].quicksand_radius,
+			activeZone.spawner[i].push_direction??quicksandDir,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "slippery":
+          entity=new SlipperyEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].slippery_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "barrier":
+          entity=new BarrierEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].barrier_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "repelling":
+          entity=new RepellingEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].repelling_radius,
+			activeZone.spawner[i].repulsion,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
           case "draining":
           entity=new DrainingEnemy(
             enemyX,
@@ -187,6 +246,17 @@ function spawnEntities(area=current_Area){
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
 			activeZone.spawner[i].enlarging_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "disabling":
+          entity=new DisablingEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].disabling_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -320,6 +390,7 @@ this.underLibotEffect=false;
 this.underDabotEffect=false;
 this.leadTime=0;
 this.ictosInvulnerability=false;
+this.quicksand=[0,0];
 this.continuousRevive=false;
 this.continuousReviveTime=0;
 this.continuousReviveTimeLeft=0;
@@ -942,14 +1013,10 @@ let timeFix=delta/(1e3/30);
 	  this.radiusMultiplier*=1-this.reducingTime/2e3;
     }
 
-    if(this.quicksand && !invulnerable(this)){
-      switch(this.quicksand){
-        case 1: this.y -= 5/32 * timeFix; break;
-        case 2: this.x -= 5/32 * timeFix; break;
-        case 3: this.y += 5/32 * timeFix; break;
-        case 4: this.x += 5/32 * timeFix; break;
-      }
-      this.quicksand = false;
+    if(this.quicksand[0]&&!this.invulnerable){
+      this.x -= Math.cos(this.quicksand[1] * (Math.PI/180)) * 5 * timeFix;
+      this.y -= Math.sin(this.quicksand[1] * (Math.PI/180)) * 5 * timeFix;
+      this.quicksand[0] = false;
     }
 
     this.energy += this.energyRate * delta / 1000;
@@ -968,8 +1035,8 @@ let timeFix=delta/(1e3/30);
     this.slide_x = this.distance_moved_previously[0];
     this.slide_y = this.distance_moved_previously[1];
 
-    this.slide_x *= 1-((1-friction_factor)*timeFix);
-    this.slide_y *= 1-((1-friction_factor)*timeFix);
+    this.slide_x *= friction_factor;
+    this.slide_y *= friction_factor;
 
     this.d_x += this.slide_x;
     this.d_y += this.slide_y;
@@ -1000,6 +1067,9 @@ let timeFix=delta/(1e3/30);
     this.distance_moved_previously = [this.d_x,this.d_y]
       this.velX=this.d_x;
       this.velY=this.d_y;
+	evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling;
+	evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling;
+	evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling;
     this.slowing = false;
     this.freezing = false;
     this.web = false;
@@ -1010,13 +1080,13 @@ let timeFix=delta/(1e3/30);
 	this.reducing = false;
 	this.enlarging = false;
     this.draining = false;
+    this.lava = false;
     this.speedghost = false;
     this.regenghost = false;
     this.inEnemyBarrier = false;
-    this.lava = false;
     this.slippery = false;
     this.tempColor=this.color;
-    this.disabling = false;
+    this.disabling=false;
     var vel;
     var magneticSpeed = (this.vertSpeed == -1) ? 10 : this.vertSpeed;
     var yaxis = (this.velY>=0)?1:-1;
@@ -1085,10 +1155,11 @@ let timeFix=delta/(1e3/30);
           area=map.areas[this.area];
 this.areaNumber=this.area+1;
 this.regionName=map.name;
-if(this.y<area.BoundingBox.top+this.radius){this.velY=0,this.y=this.radius};
-if(this.y>area.BoundingBox.bottom-this.radius){this.velY=0,this.y=map.areas[this.area].BoundingBox.bottom-this.radius};
-if(this.x<area.BoundingBox.left+this.radius){this.velX=0,this.x=this.radius};
-if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.area].BoundingBox.right-this.radius};
+this.collides=false;
+if(this.y<area.BoundingBox.top+this.radius){this.velY=0,this.y=this.radius;this.collides=true};
+if(this.y>area.BoundingBox.bottom-this.radius){this.velY=0,this.y=map.areas[this.area].BoundingBox.bottom-this.radius;this.collides=true};
+if(this.x<area.BoundingBox.left+this.radius){this.velX=0,this.x=this.radius;this.collides=true};
+if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.area].BoundingBox.right-this.radius;this.collides=true};
     if(this.deathTimer<=delta&&this.deathTimer>=0){
       map.players.splice(map.players.indexOf(this));
     }
@@ -1537,7 +1608,7 @@ class SimulatorEntity{
     this.velY=Math.sin(this.angle)*this.speed;
   }
   playerInteraction(player){
-    this.isEnemy&&(EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,this.isBarrier));
+    this.isEnemy&&(EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier));
   }
   auraEffect(player,delta){
   }
@@ -2020,10 +2091,11 @@ class NormalEnemy extends Enemy{
     super(x,y,radius,speed,angle,"#939393","normal",boundary);
   }
 }
+
 //Aura Enemies
 class ExperienceDrainEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,"#b19cd9","experience_drain",boundary,auraColors.experience_drain,aura_radius);
+    super(x,y,radius,speed,angle,enemyConfig.experience_drain_enemy.color,"experience_drain",boundary,auraColors.experience_drain,aura_radius);
   }
   auraEffect(player,delta){
 	if(!player.experienceDraining){
@@ -2042,7 +2114,7 @@ class ExperienceDrainEnemy extends Enemy{
 }
 class SlowingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,"#FF0000","slowing",boundary,auraColors.slowing,aura_radius);
+    super(x,y,radius,speed,angle,enemyConfig.slowing_enemy.color,"slowing",boundary,auraColors.slowing,aura_radius);
   }
   auraEffect(player,delta){
 	if(!player.slowing){
@@ -2053,7 +2125,7 @@ class SlowingEnemy extends Enemy{
 }
 class FreezingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,"#64c1b9","freezing",boundary,auraColors.freezing,aura_radius);
+    super(x,y,radius,speed,angle,enemyConfig.freezing_enemy.color,"freezing",boundary,auraColors.freezing,aura_radius);
   }
   auraEffect(player,delta){
 	if(!player.freezing){
@@ -2064,7 +2136,7 @@ class FreezingEnemy extends Enemy{
 }
 class DrainingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,"#0000FF","draining",boundary,auraColors.draining,aura_radius);
+    super(x,y,radius,speed,angle,enemyConfig.draining_enemy.color,"draining",boundary,auraColors.draining,aura_radius);
   }
   auraEffect(player,delta){
 	if(!player.draining){
@@ -2076,7 +2148,7 @@ class DrainingEnemy extends Enemy{
 }
 class LavaEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,"#f78306","lava",boundary,auraColors.lava,aura_radius);
+    super(x,y,radius,speed,angle,enemyConfig.lava_enemy.color,"lava",boundary,auraColors.lava,aura_radius);
   }
   auraEffect(player,delta){
 	if(!player.lava){
@@ -2108,7 +2180,7 @@ class LavaEnemy extends Enemy{
 }
 class ToxicEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,"#00c700","toxic",boundary,auraColors.toxic,aura_radius);
+    super(x,y,radius,speed,angle,enemyConfig.toxic_enemy.color,"toxic",boundary,auraColors.toxic,aura_radius);
   }
   auraEffect(player,delta){
 	if(!player.toxic){
@@ -2119,7 +2191,7 @@ class ToxicEnemy extends Enemy{
 }
 class EnlargingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,"#4d0163","enlarging",boundary,auraColors.enlarging,aura_radius);
+    super(x,y,radius,speed,angle,enemyConfig.enlarging_enemy.color,"enlarging",boundary,auraColors.enlarging,aura_radius);
   }
   auraEffect(player,delta){
 	if(!player.enlarging){
@@ -2130,13 +2202,85 @@ class EnlargingEnemy extends Enemy{
 }
 class ReducingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,"rgb(45, 50, 55)","reducing",boundary,auraColors.reducing,aura_radius);
+    super(x,y,radius,speed,angle,enemyConfig.reducing_enemy.color,"reducing",boundary,auraColors.reducing,aura_radius);
   }
   auraEffect(player,delta){
 	if(!player.reducing){
 	  player.reducing=true;
 	  player.reducingTime+=delta;
 	}
+  }
+}
+class SlipperyEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.slippery_enemy.color,"slippery",boundary,auraColors.slippery,aura_radius);
+  }
+  auraEffect(player,delta){
+	player.slippery=true;
+  }
+}
+class BarrierEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.barrier_enemy.color,"barrier",boundary,auraColors.barrier,aura_radius);
+	this.immune=true;
+  }
+  auraEffect(player,delta){
+	player.inEnemyBarrier=true;
+  }
+}
+class GravityEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,gravity,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.gravity_enemy.color,"gravity",boundary,auraColors.gravity,aura_radius);
+	this.gravity=gravity;
+  }
+  auraEffect(player,delta){
+	if (!player.invulnerable) {
+      var dx = player.x - this.x;
+      var dy = player.y - this.y;
+      var dist = distance({x:0,y:0},{x:dx,y:dy});
+      var attractionAmplitude = Math.pow(2, -(dist / 100));
+      var moveDist = (this.gravity * attractionAmplitude);
+      var angleToPlayer = Math.atan2(dy, dx);
+      player.x -= (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
+      player.y -= (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+    }
+  }
+}
+class RepellingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,repulsion,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.repelling_enemy.color,"repelling",boundary,auraColors.repelling,aura_radius);
+	this.repulsion=repulsion;
+  }
+  auraEffect(player,delta){
+	if (!player.invulnerable) {
+      var dx = player.x - this.x;
+      var dy = player.y - this.y;
+      var dist = distance({x:0,y:0},{x:dx,y:dy});
+      var attractionAmplitude = Math.pow(2, -(dist / 100));
+      var moveDist = (this.repulsion * attractionAmplitude);
+      var angleToPlayer = Math.atan2(dy, dx);
+      player.x += (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
+      player.y += (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+    }
+  }
+}
+class DisablingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.disabling_enemy.color,"disabling",boundary,auraColors.disabling,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.disabling){
+	  player.disabling=true;
+	}
+  }
+}
+class QuicksandEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,direction,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.quicksand_enemy.color,"quicksand",boundary,auraColors.quicksand,aura_radius);
+	this.push_direction=direction;
+  }
+  auraEffect(player,delta){
+	player.quicksand=[true,this.push_direction];
   }
 }
 
