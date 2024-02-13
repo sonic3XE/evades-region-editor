@@ -113,6 +113,94 @@ function spawnEntities(area=current_Area){
           );
 			}
           break;
+          case "experience_drain":
+          entity=new ExperienceDrainEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].experience_drain_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "draining":
+          entity=new DrainingEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].draining_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "slowing":
+          entity=new SlowingEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].slowing_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "freezing":
+          entity=new FreezingEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].freezing_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "lava":
+          entity=new LavaEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].lava_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "toxic":
+          entity=new ToxicEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].toxic_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "enlarging":
+          entity=new EnlargingEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].enlarging_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "reducing":
+          entity=new ReducingEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].reducing_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise)
           break;
@@ -164,7 +252,10 @@ this.previousPos={x:this.x,y:this.y};
     this.velY=0;
     this.level=1;
     this.nextLevelExperience=4;
+    this.tempNextExperience=4;
+    this.tempPrevExperience=0;
     this.experience=0;
+	this.reducingTime=0;
     this.upgradePoints=0;
     this.touchingActiveZone=false;
     this.previousLevelExperience=0;
@@ -576,12 +667,6 @@ input.keys.has(controls.RIGHT[1]))) {
         if (this.fusion) {
           this.speedMultiplier *= 0.7;
         }
-        if (this.slowing) {
-          this.speedMultiplier *= (1-this.effectImmune*(1-0.7))*this.effectReplayer;
-        }
-        if (this.freezing) {
-          this.speedMultiplier *= (1-this.effectImmune*(1-0.2))*this.effectReplayer;
-        }
         this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
         this.mouseActive = false;
           if (input.isMouse&&!this.cent_is_moving&&!(input.keys[87] || input.keys[38]||input.keys[65] || input.keys[37]||input.keys[83] || input.keys[40]||input.keys[68] || input.keys[39])) {
@@ -700,7 +785,7 @@ let timeFix=delta/(1e3/30);
             rect1.x + rect1.width > rect2.x &&
             rect1.y < rect2.y + rect2.height &&
             rect1.y + rect1.height > rect2.y) {
-              if(zone.type=="active")this.touchingActiveZone=true;
+              if(zone.type=="active")this.safeZone=false;
               this.minimum_speed=zone.minimum_speed;
           }
         }
@@ -812,12 +897,6 @@ let timeFix=delta/(1e3/30);
       this.frozen = false;
       this.frozenTimeLeft = 0;
     }
-    if (this.draining) {
-      this.energy -= (15 * delta / 1000)*this.effectImmune/this.effectReplayer;
-      if (this.energy < 0) {
-        this.energy = 0;
-      }
-    }
 
     if(this.speedghost){
       this.speed-=(0.1*this.effectImmune)/this.effectReplayer*timeFix;
@@ -834,6 +913,34 @@ let timeFix=delta/(1e3/30);
     if (this.inEnemyBarrier){
       this.inBarrier = true;
     }
+    if (this.reducingTime>0&&!this.reducing){
+      this.reducingTime-=delta;
+	  this.radiusMultiplier*=1-this.reducingTime/2e3;
+    }
+    if (this.reducingTime>0&&this.reducing){
+	  if(this.reducingTime>2e3){
+		this.reducingTime=2e3;
+		switch(this.area){
+		case 0:this.deathTimer=this.deathTimerTotal=10000;break;
+		case 1:this.deathTimer=this.deathTimerTotal=15000;break;
+		case 2:this.deathTimer=this.deathTimerTotal=15000;break;
+		case 3:this.deathTimer=this.deathTimerTotal=20000;break;
+		case 4:this.deathTimer=this.deathTimerTotal=20000;break;
+		case 5:this.deathTimer=this.deathTimerTotal=20000;break;
+		case 6:this.deathTimer=this.deathTimerTotal=25000;break;
+		case 7:this.deathTimer=this.deathTimerTotal=25000;break;
+		case 8:this.deathTimer=this.deathTimerTotal=30000;break;
+		case 9:this.deathTimer=this.deathTimerTotal=30000;break;
+		default:this.deathTimer=this.deathTimerTotal=60000;break;
+		}
+		if(map.areas[this.area].properties.death_timer!==void 0){
+		this.deathTimer=this.deathTimerTotal=map.areas[this.area].properties.death_timer;
+		}else if(map.properties.death_timer!==void 0){
+		this.deathTimer=this.deathTimerTotal=map.properties.death_timer;
+		}
+	  }
+	  this.radiusMultiplier*=1-this.reducingTime/2e3;
+    }
 
     if(this.quicksand && !invulnerable(this)){
       switch(this.quicksand){
@@ -843,15 +950,6 @@ let timeFix=delta/(1e3/30);
         case 4: this.x += 5/32 * timeFix; break;
       }
       this.quicksand = false;
-    }
-
-    if (this.charging) {
-      this.energy += (15 * delta / 1000)*this.effectImmune/this.effectReplayer;
-      if (this.energy > this.maxEnergy) {
-        this.energy = this.maxEnergy;
-      }
-    }
-    if(this.disabling) {
     }
 
     this.energy += this.energyRate * delta / 1000;
@@ -907,12 +1005,14 @@ let timeFix=delta/(1e3/30);
     this.web = false;
     this.cobweb = false;
     this.sticky = false;
+	this.toxic=false;
+	this.experienceDraining=false;
+	this.reducing = false;
     this.draining = false;
     this.speedghost = false;
     this.regenghost = false;
     this.inEnemyBarrier = false;
-    this.charging = false;
-    this.burning = false;
+    this.lava = false;
     this.slippery = false;
     this.tempColor=this.color;
     this.disabling = false;
@@ -1438,6 +1538,8 @@ class SimulatorEntity{
   playerInteraction(player){
     this.isEnemy&&(EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,this.isBarrier));
   }
+  auraEffect(player,delta){
+  }
   velangle(){
     this.angle=Math.atan2(this.velY,this.velX);
   }
@@ -1445,9 +1547,9 @@ class SimulatorEntity{
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
     this.speedMultiplier=1;
-    this.collision();
+    this.collision(delta);
   }
-  collision(){
+  collision(delta){
     let collided=false;
     if(this.x<this.boundary.left+this.radius){
       this.x=this.boundary.left+this.radius;
@@ -1473,8 +1575,11 @@ class SimulatorEntity{
     if(collided)this.onCollide();
     for(var i in map.players){
       var player = map.players[i];
-      if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
+      if(!player.safeZone&&player.deathTimer==-1&&Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
         this.playerInteraction(player);
+      }
+      if(!player.safeZone&&player.deathTimer==-1&&Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.auraRadius+player.radius)){
+        this.auraEffect(player,delta);
       }
     }
   }
@@ -1723,14 +1828,14 @@ function speedparts(direction,speed){
 }
 //BASE ENEMY
 class Enemy extends SimulatorEntity{
-  constructor(x,y,radius,speed,angle,color,type,boundary){
-    super(x,y,color,radius,type,speed,angle,null,null,boundary);
+  constructor(x,y,radius,speed,angle,color,type,boundary,aura_color,aura_radius){
+    super(x,y,color,radius,type,speed,angle,aura_radius,aura_color,boundary);
     this.isEnemy=true;
   }
   update(delta){
     this.x+=this.velX*delta/(1e3/30);
     this.y+=this.velY*delta/(1e3/30);
-    this.collision();
+    this.collision(delta);
   }
 }
 function distance(a,b){
@@ -1753,7 +1858,7 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
       setTimeout(()=>{player.isUnbandaging=player.invulnerable=false;},900)
     }
   }
-  if((((inBarrier&&player.inBarrier)||player.invulnerable)&&!corrosive)||harmless){
+  if((((inBarrier&&player.inBarrier)||player.invulnerable)&&!corrosive)||harmless||enemy.radius<1){
     dead=false;
   }
   if(player.deathTimer==-1&&dead){console.log("mega dead shit")
@@ -1815,8 +1920,11 @@ this.x=Math.random()*(randZone.width-16)+randZone.x+8;
 this.y=Math.random()*(randZone.height-16)+randZone.y+8;
       player.experience+=Math.floor(1+player.area/3)*map.properties.pellet_multiplier;
       while(player.experience>=player.nextLevelExperience){
-        player.previousLevelExperience+=this.getLevelExperience(player.level)
-        player.nextLevelExperience+=this.getLevelExperience(++player.level)
+		player.experience-=player.tempPrevExperience-player.previousLevelExperience;
+        player.tempPrevExperience+=this.getLevelExperience(player.level)
+        player.tempNextExperience+=this.getLevelExperience(++player.level)
+        player.nextLevelExperience=player.tempNextExperience;
+		player.previousLevelExperience=player.tempPrevExperience;
         player.upgradePoints++;
       }
   }
@@ -1911,6 +2019,126 @@ class NormalEnemy extends Enemy{
     super(x,y,radius,speed,angle,"#939393","normal",boundary);
   }
 }
+//Aura Enemies
+class ExperienceDrainEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,"#b19cd9","experience_drain",boundary,auraColors.experience_drain,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.experienceDraining){
+	  player.experienceDraining=true;
+	  player.experience-=2*player.level*delta/1e3;
+	  player.experience=Math.max(0,player.experience);
+	  if(player.experience<player.previousLevelExperience){
+		var diff=player.previousLevelExperience-player.experience;
+		player.previousLevelExperience-=diff;
+		player.nextLevelExperience+=diff;
+		player.previousLevelExperience=Number(player.previousLevelExperience.toFixed(5));
+		player.nextLevelExperience=Number(player.nextLevelExperience.toFixed(5));
+	  }
+	}
+  }
+}
+class SlowingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,"#FF0000","slowing",boundary,auraColors.slowing,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.slowing){
+	  player.slowing=true;
+	  player.speedMultiplier*=0.7;
+	}
+  }
+}
+class FreezingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,"#64c1b9","freezing",boundary,auraColors.freezing,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.freezing){
+	  player.freezing=true;
+	  player.speedMultiplier*=0.15;
+	}
+  }
+}
+class DrainingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,"#0000FF","draining",boundary,auraColors.draining,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.draining){
+	  player.draining=true;
+	  player.energy-=15*delta/1e3;
+	  player.energy=Math.max(0,player.energy);
+	}
+  }
+}
+class LavaEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,"#f78306","lava",boundary,auraColors.lava,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.lava){
+	  player.lava=true;
+	  player.energy+=15*delta/1e3;
+	  if(player.energy>=player.maxEnergy){
+		switch(player.area){
+		case 0:player.deathTimer=player.deathTimerTotal=10000;break;
+		case 1:player.deathTimer=player.deathTimerTotal=15000;break;
+		case 2:player.deathTimer=player.deathTimerTotal=15000;break;
+		case 3:player.deathTimer=player.deathTimerTotal=20000;break;
+		case 4:player.deathTimer=player.deathTimerTotal=20000;break;
+		case 5:player.deathTimer=player.deathTimerTotal=20000;break;
+		case 6:player.deathTimer=player.deathTimerTotal=25000;break;
+		case 7:player.deathTimer=player.deathTimerTotal=25000;break;
+		case 8:player.deathTimer=player.deathTimerTotal=30000;break;
+		case 9:player.deathTimer=player.deathTimerTotal=30000;break;
+		default:player.deathTimer=player.deathTimerTotal=60000;break;
+		}
+		if(map.areas[player.area].properties.death_timer!==void 0){
+		player.deathTimer=player.deathTimerTotal=map.areas[player.area].properties.death_timer;
+		}else if(map.properties.death_timer!==void 0){
+		player.deathTimer=player.deathTimerTotal=map.properties.death_timer;
+		}
+		player.energy=0;
+	  }
+	}
+  }
+}
+class ToxicEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,"#00c700","toxic",boundary,auraColors.toxic,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.toxic){
+	  player.toxic=true;
+	  player.energy=Math.min(player.energy,player.maxEnergy*0.7);
+	}
+  }
+}
+class EnlargingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,"#4d0163","enlarging",boundary,auraColors.enlarging,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.enlarging){
+	  player.enlarging=true;
+	  player.radiusMultiplier*=5/3;
+	}
+  }
+}
+class ReducingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,"rgb(45, 50, 55)","reducing",boundary,auraColors.reducing,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.reducing){
+	  player.reducing=true;
+	  player.reducingTime+=delta;
+	}
+  }
+}
+
 class HomingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"#966e14","homing",boundary);
