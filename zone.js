@@ -339,7 +339,7 @@ function createSPAWNERgui(point1,Zone){
   aura17Input.value = point1.reducing_radius;
   aura17Input.step=1;
   aura17Input.addEventListener("input", () => {
-    aura16Input.value = Math.max(Number(aura17Input.value),0);
+    aura17Input.value = Math.max(Number(aura17Input.value),0);
     point1.reducing_radius = Math.max(Number(aura17Input.value),0);spawnEntities()
   });
   const aura18Input = document.createElement("input");
