@@ -827,6 +827,7 @@ input.keys.has(controls.RIGHT[1])) {
                 }
 	update(delta){
 let timeFix=delta/(1e3/30);
+    this.inBarrier = false;
 	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
 	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
 	  var ab3=evadesRenderer.heroInfoCard.abilityThree;
@@ -1083,7 +1084,7 @@ let timeFix=delta/(1e3/30);
     this.lava = false;
     this.speedghost = false;
     this.regenghost = false;
-    this.inEnemyBarrier = false;
+    this.inEnemyBarrier=false;
     this.slippery = false;
     this.tempColor=this.color;
     this.disabling=false;
