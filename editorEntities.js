@@ -952,14 +952,14 @@ let timeFix=delta/(1e3/30);
     }
     this.magnet = false;
     this.radius = this.defaultRadius;
-    this.radius *= this.radiusMultiplier;
-    this.radiusMultiplier = 1;
     if(this.magnet&&!this.safeZone){
       var magneticSpeed = (this.vertSpeed == -1) ? 10 : this.vertSpeed
       if(this.magnetDirection == "Down"){this.d_y = magneticSpeed;}
       else if(this.magnetDirection == "Up"){this.d_y = -magneticSpeed;}
     }
-    if(this.radiusAdditioner!=0){this.radius=this.radiusAdditioner}
+    if(this.radiusAdditioner!=0){this.radius+=this.radiusAdditioner}
+    this.radius *= this.radiusMultiplier;
+    this.radiusMultiplier = 1;
     this.radiusAdditioner = 0;
     this.wasFrozen = this.frozen;
     if (this.frozen) {
@@ -2197,7 +2197,7 @@ class EnlargingEnemy extends Enemy{
   auraEffect(player,delta){
 	if(!player.enlarging){
 	  player.enlarging=true;
-	  player.radiusMultiplier*=5/3;
+	  player.radiusAdditioner+=10;
 	}
   }
 }
