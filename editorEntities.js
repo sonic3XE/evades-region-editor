@@ -1992,14 +1992,23 @@ class PelletEntity extends SimulatorEntity{
 this.x=Math.random()*(randZone.width-16)+randZone.x+8;
 this.y=Math.random()*(randZone.height-16)+randZone.y+8;
       player.experience+=Math.floor(1+player.area/3)*map.properties.pellet_multiplier;
-      while(player.experience>=player.nextLevelExperience){
+      if(player.experience>=player.nextLevelExperience){
 		player.experience-=player.tempPrevExperience-player.previousLevelExperience;
-        player.tempPrevExperience=this.calculateExperience(player.level)
-        player.tempNextExperience=this.calculateExperience(++player.level)
+		var newLevel=Math.floor(this.calculateLevel(player.experience))
+		var diff=newLevel-player.level;
+        player.tempPrevExperience=this.calculateExperience(newLevel-1)
+        player.tempNextExperience=this.calculateExperience(newLevel)
         player.nextLevelExperience=player.tempNextExperience;
 		player.previousLevelExperience=player.tempPrevExperience;
-        player.upgradePoints++;
+        player.level+=diff;
+        player.upgradePoints+=diff;
       }
+  }
+  calculateLevel(Experience){
+  var sqrt=Math.sqrt;
+  return (Experience<=20200)?(((sqrt(2*Experience+1)-1)/2)+1):
+  (Math.cbrt(3)/6*Math.cbrt(Math.sqrt(3)*Math.sqrt(388800*Experience**2-11559412800*Experience+84658163536799)+1080*Experience-16054740)+
+  	10801/(2*Math.cbrt(3)*Math.cbrt(Math.sqrt(3)*Math.sqrt(388800*Experience**2-11559412800*Experience+84658163536799)+1080*Experience-16054740))+61/2)
   }
   calculateExperience(HeroLevel){
 	  return Math.floor(Math.min(HeroLevel,100)*Math.min(HeroLevel+1,101)*2+Math.max(0,HeroLevel*(HeroLevel+1)*(2*HeroLevel-179)/60-3535))
