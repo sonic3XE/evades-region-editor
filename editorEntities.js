@@ -1015,8 +1015,8 @@ let timeFix=delta/(1e3/30);
     }
 
     if(this.quicksand[0]&&!this.invulnerable){
-      this.x -= Math.cos(this.quicksand[1] * (Math.PI/180)) * 5 * timeFix;
-      this.y -= Math.sin(this.quicksand[1] * (Math.PI/180)) * 5 * timeFix;
+      this.x += Math.cos(this.quicksand[1] * (Math.PI/180)) * 5 * timeFix;
+      this.y += Math.sin(this.quicksand[1] * (Math.PI/180)) * 5 * timeFix;
       this.quicksand[0] = false;
     }
 
