@@ -571,7 +571,7 @@ point1.projectile_radius=undefined;
       createFolder(formatString(curLang,"editor.category.wind_ghost"), [
         createProperty(formatString(curLang,"editor.property.ignore_invulnerability"), ignInput, "switch", {value: point1.ignore_invulnerability}),
       ],!0),
-    ]);
+    ],!0);
     li.children[0].classList.add("counter");
     const remove = document.createElement("button");
     remove.classList.add("remove");
