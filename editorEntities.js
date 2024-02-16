@@ -2299,7 +2299,7 @@ class HomingEnemy extends Enemy{
   update(delta){
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
-      information = map.players.filter(e=>{return !e.isDowned()&&e.touchingActiveZone});
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone});
     }else{
       information = [mouseEntity];
     }
