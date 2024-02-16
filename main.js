@@ -62,13 +62,7 @@ const downloadBtn = document.getElementById("download");
 const importInput = document.getElementById("import");
 const contextmenu = document.getElementById("contextmenu");
 const contextBtns = {
-  activeZone: document.getElementById("createActiveZone"),
-  safeZone: document.getElementById("createSafeZone"),
-  exitZone: document.getElementById("createExitZone"),
-  teleportZone: document.getElementById("createTeleportZone"),
-  victoryZone: document.getElementById("createVictoryZone"),
-  removalZone: document.getElementById("createRemovalZone"),
-  dummyZone: document.getElementById("createDummyZone"),
+  zone: document.getElementById("createZone"),
   wallAsset: document.getElementById("createWall"),
   lightRegion: document.getElementById("createLightRegion"),
   flashlightSpawner: document.getElementById("createFlashlightSpawner"),
@@ -1125,13 +1119,7 @@ if(t=="region"){
   map.inputs = {name:nameInput};
 }
 
-contextBtns.activeZone.addEventListener("click", e => addZone("active"));
-contextBtns.safeZone.addEventListener("click", e => addZone("safe"));
-contextBtns.exitZone.addEventListener("click", e => addZone("exit"));
-contextBtns.teleportZone.addEventListener("click", e => addZone("teleport"));
-contextBtns.victoryZone.addEventListener("click", e => addZone("victory"));
-contextBtns.removalZone.addEventListener("click", e => addZone("removal"));
-contextBtns.dummyZone.addEventListener("click", e => addZone("dummy"));
+contextBtns.zone.addEventListener("click", e => addZone("active"));
 contextBtns.wallAsset.addEventListener("click", e => addAsset("wall"));
 contextBtns.lightRegion.addEventListener("click", e => addAsset("light_region"));
 contextBtns.flashlightSpawner.addEventListener("click", e => addAsset("flashlight_spawner"));
