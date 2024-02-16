@@ -1994,19 +1994,15 @@ this.y=Math.random()*(randZone.height-16)+randZone.y+8;
       player.experience+=Math.floor(1+player.area/3)*map.properties.pellet_multiplier;
       while(player.experience>=player.nextLevelExperience){
 		player.experience-=player.tempPrevExperience-player.previousLevelExperience;
-        player.tempPrevExperience+=this.getLevelExperience(player.level)
-        player.tempNextExperience+=this.getLevelExperience(++player.level)
+        player.tempPrevExperience=this.calculateExperience(player.level)
+        player.tempNextExperience=this.calculateExperience(++player.level)
         player.nextLevelExperience=player.tempNextExperience;
 		player.previousLevelExperience=player.tempPrevExperience;
         player.upgradePoints++;
       }
   }
-  getLevelExperience(x){
-    if(x<1)return 0;
-    return Math.min(x*4,400)+
-    80*Math.max(0,Math.floor(x/20-2)*Math.floor(x/20-1)/2-6)+
-    (14+4*Math.floor(x/20-5))*(Math.max(x-100,0)%20)+
-    Math.max(0,Math.min(x-100,1))*[0,0,0,1,2,2,4,5,6,8,10,12,15,16,20,23,25,29,32,37][x%20]
+  calculateExperience(HeroLevel){
+	  return Math.floor(Math.min(HeroLevel,100)*Math.min(HeroLevel+1,101)*2+Math.max(0,HeroLevel*(HeroLevel+1)*(2*HeroLevel-179)/60-3535))
   }
   update(delta){
     this.collision();
