@@ -535,7 +535,6 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.powered"), powInput, "switch", {value: point1.powered}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.gravity"), [
-        createProperty(formatString(curLang,"editor.property.pause_duration"), pdInput, "number"),
 		createProperty(formatString(curLang,"editor.property.gravity"), gravInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.icicle"),[
