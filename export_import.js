@@ -121,7 +121,7 @@ function saveToStorage(slot){
  * @param {string} exportName 
  */
 function download(exportName = "map") {
-    customAlert("Exporting region...",1);
+    try{customAlert("Exporting region...",1);
     // Copied from stackoverflow
 	let dataStr;
 	if(ExportFormatType.selectedIndex==0){
@@ -140,7 +140,10 @@ function download(exportName = "map") {
 
     document.body.appendChild(a); // required for firefox
     a.click();
-    a.remove();
+    a.remove();}catch(e){
+		customAlert("Export error.",60);
+		customAlert(e,60);
+	}
 }
 
 function deepEquals(obj1, obj2, parents1, parents2) {
@@ -264,7 +267,7 @@ function activeToJSON(e) {
   var res={};
   var props=Object.keys(e.properties);
   for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
+    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
     }
@@ -275,7 +278,7 @@ function safeToJSON(e) {
   var res={};
   var props=Object.keys(e.properties);
   for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
+    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
     }
@@ -286,7 +289,7 @@ function exitToJSON(e) {
   var res={};
   var props=Object.keys(e.properties);
   for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
+    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
     }
@@ -297,7 +300,7 @@ function victoryToJSON(e) {
   var res={};
   var props=Object.keys(e.properties);
   for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
+    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
     }
@@ -308,7 +311,7 @@ function removalToJSON(e) {
   var res={};
   var props=Object.keys(e.properties);
   for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
+    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
     }
@@ -319,7 +322,7 @@ function dummyToJSON(e) {
   var res={};
   var props=Object.keys(e.properties);
   for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
+    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
     }
