@@ -121,7 +121,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].experience_drain_radius,
+			activeZone.spawner[i].experience_drain_radius??defaultValues.spawner.experience_drain_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -132,8 +132,8 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].gravity_radius,
-			activeZone.spawner[i].gravity,
+			activeZone.spawner[i].gravity_radius??defaultValues.spawner.gravity_radius,
+			activeZone.spawner[i].gravity??defaultValues.spawner.gravity,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -144,8 +144,8 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].quicksand_radius,
-			activeZone.spawner[i].push_direction??quicksandDir,
+			activeZone.spawner[i].quicksand_radius??defaultValues.spawner.quicksand_radius,
+			activeZone.spawner[i].push_direction??defaultValues.spawner.push_direction??quicksandDir,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -156,7 +156,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].slippery_radius,
+			activeZone.spawner[i].slippery_radius??defaultValues.spawner.slippery_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -167,7 +167,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].barrier_radius,
+			activeZone.spawner[i].barrier_radius??defaultValues.spawner.barrier_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -178,8 +178,8 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].repelling_radius,
-			activeZone.spawner[i].repulsion,
+			activeZone.spawner[i].repelling_radius??defaultValues.spawner.repelling_radius,
+			activeZone.spawner[i].repulsion??defaultValues.spawner.repulsion,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -190,7 +190,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].draining_radius,
+			activeZone.spawner[i].draining_radius??defaultValues.spawner.draining_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -201,7 +201,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].slowing_radius,
+			activeZone.spawner[i].slowing_radius??defaultValues.spawner.slowing_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -212,7 +212,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].freezing_radius,
+			activeZone.spawner[i].freezing_radius??defaultValues.spawner.freezing_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -223,7 +223,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].lava_radius,
+			activeZone.spawner[i].lava_radius??defaultValues.spawner.lava_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -234,7 +234,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].toxic_radius,
+			activeZone.spawner[i].toxic_radius??defaultValues.spawner.toxic_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -245,7 +245,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].enlarging_radius,
+			activeZone.spawner[i].enlarging_radius??defaultValues.spawner.enlarging_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -256,7 +256,7 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].disabling_radius,
+			activeZone.spawner[i].disabling_radius??defaultValues.spawner.disabling_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -267,12 +267,12 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].reducing_radius,
+			activeZone.spawner[i].reducing_radius??defaultValues.spawner.reducing_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
           case "wall":
-            entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise)
+            entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
           case "normal":
           case "dasher":

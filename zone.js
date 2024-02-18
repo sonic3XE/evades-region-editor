@@ -85,14 +85,14 @@ let ActiveZone = createZone(posX,posY, 160, 160,void 0,void 0,void 0,type);
  */
 function createSPAWNERgui(point1,Zone){
         const countInput = document.createElement("input");
-        countInput.value = point1.count;
+        countInput.value = point1.count ?? defaultValues.spawner.count;
         countInput.addEventListener("input", () => {
             countInput.value = Math.max(countInput.value,0);
             point1.count = Math.max(Number(countInput.value),0);spawnEntities()
         });
 
         const xInput = document.createElement("input");
-        xInput.value = point1.x??"";
+        xInput.value = point1.x ?? defaultValues.spawner.x ?? "";
         xInput.addEventListener("input", () => {
           if(xInput.value==""){
             point1.x = undefined;
@@ -106,7 +106,7 @@ function createSPAWNERgui(point1,Zone){
           }spawnEntities()
         });
         const yInput = document.createElement("input");
-        yInput.value = point1.y??"";
+        yInput.value = point1.y ?? defaultValues.spawner.y ?? "";
         yInput.addEventListener("input", () => {
           if(yInput.value==""){
             point1.y = undefined;
@@ -120,42 +120,42 @@ function createSPAWNERgui(point1,Zone){
           }spawnEntities()
         });
         const tsInput = document.createElement("input");
-        tsInput.value = point1.turn_speed;
+        tsInput.value = point1.turn_speed ?? defaultValues.spawner.turn_speed;
 		tsInput.step=0.01;
         tsInput.addEventListener("input", () => {
             tsInput.value = Number(tsInput.value);
             point1.turn_speed = Number(tsInput.value);spawnEntities()
         });
         const taInput = document.createElement("input");
-        taInput.value = point1.turn_acceleration;
+        taInput.value = point1.turn_acceleration ?? defaultValues.spawner.turn_acceleration;
 		taInput.step=0.01;
         taInput.addEventListener("input", () => {
             taInput.value = Math.max(Number(taInput.value),0);
             point1.turn_acceleration = Math.max(Number(taInput.value),0);spawnEntities()
         });
         const siInput = document.createElement("input");
-        siInput.value = point1.shot_interval;
+        siInput.value = point1.shot_interval ?? defaultValues.spawner.shot_interval;
 		siInput.step=5;
         siInput.addEventListener("input", () => {
             siInput.value = Number(siInput.value);
             point1.shot_interval = Number(siInput.value);spawnEntities()
         });
         const saInput = document.createElement("input");
-        saInput.value = point1.shot_acceleration;
+        saInput.value = point1.shot_acceleration ?? defaultValues.spawner.shot_acceleration;
 		saInput.step=0.01;
         saInput.addEventListener("input", () => {
             saInput.value = Math.max(Number(saInput.value),0);
             point1.shot_acceleration = Math.max(Number(saInput.value),0);spawnEntities()
         });
         const piInput = document.createElement("input");
-        piInput.value = point1.pause_interval;
+        piInput.value = point1.pause_interval ?? defaultValues.spawner.pause_interval;
 		piInput.step=5;
         piInput.addEventListener("input", () => {
             piInput.value = Number(piInput.value);
             point1.pause_interval = Number(piInput.value);spawnEntities()
         });
         const pdInput = document.createElement("input");
-        pdInput.value = point1.pause_duration;
+        pdInput.value = point1.pause_duration ?? defaultValues.spawner.pause_duration;
 		pdInput.step=5;
         pdInput.addEventListener("input", () => {
             pdInput.value = Math.max(Number(pdInput.value),1);
@@ -163,7 +163,7 @@ function createSPAWNERgui(point1,Zone){
         });
 
         const angleInput = document.createElement("input");
-        angleInput.value = point1.angle??"";
+        angleInput.value = point1.angle ?? defaultValues.spawner.angle;
         angleInput.addEventListener("input", () => {
           if(angleInput.value==""){
             point1.angle = undefined;
@@ -173,7 +173,7 @@ function createSPAWNERgui(point1,Zone){
           }spawnEntities()
         });
         const pushDirInput = document.createElement("input");
-        pushDirInput.value = point1.push_direction??"";
+        pushDirInput.value = point1.push_direction ?? defaultValues.spawner.push_direction;
         pushDirInput.addEventListener("input", () => {
           if(pushDirInput.value==""){
             point1.push_direction = undefined;
@@ -184,29 +184,29 @@ function createSPAWNERgui(point1,Zone){
         });
 
         const coneAngleInput = document.createElement("input");
-        coneAngleInput.value = point1.cone_angle;
+        coneAngleInput.value = point1.cone_angle ?? defaultValues.spawner.cone_angle;
         coneAngleInput.addEventListener("input", () => {
             coneAngleInput.value = Number(coneAngleInput.value)%360;
             point1.cone_angle = Number(coneAngleInput.value)%360;spawnEntities()
         });
         const powInput = document.createElement("input");
-        powInput.checked = point1.powered;
+        powInput.checked = point1.powered ?? defaultValues.spawner.powered;
         powInput.addEventListener("input", () => {
             point1.powered=powInput.checked;spawnEntities()
         });
   const ignInput = document.createElement("input");
-  ignInput.checked = point1.ignore_invulnerability;
+  ignInput.checked = point1.ignore_invulnerability ?? defaultValues.spawner.ignore_invulnerability;
   ignInput.addEventListener("input", () => {
       point1.ignore_invulnerability=ignInput.checked;spawnEntities()
   });
   const hardInput = document.createElement("input");
-    hardInput.checked = point1.hard_mode;
+    hardInput.checked = point1.hard_mode ?? defaultValues.spawner.hard_mode;
     hardInput.addEventListener("input", () => {
       point1.hard_mode=hardInput.checked;spawnEntities()
   });
 
 		const speedInput = document.createElement("input");
-		speedInput.value = isNaN(point1.speed)?0:point1.speed;
+		speedInput.value = isNaN(point1.speed ?? defaultValues.spawner.speed)?0:(point1.speed ?? defaultValues.spawner.speed);
 		speedInput.step=0.1;
 		speedInput.addEventListener("input", () => {
 			speedInput.value = Number(speedInput.value);
@@ -214,7 +214,7 @@ function createSPAWNERgui(point1,Zone){
 		});
 
 		const radiusInput = document.createElement("input");
-		radiusInput.value = point1.radius??"";
+		radiusInput.value = point1.radius ?? defaultValues.spawner.radius;
 		radiusInput.step=1;
 		radiusInput.addEventListener("input", () => {
           if(radiusInput.value==""){
@@ -224,140 +224,140 @@ function createSPAWNERgui(point1,Zone){
 			point1.radius = Math.max(Number(radiusInput.value),0);}spawnEntities()
 		});
 		const aura1Input = document.createElement("input");
-		aura1Input.value = point1.slowing_radius;
+		aura1Input.value = point1.slowing_radius ?? defaultValues.spawner.slowing_radius;
 		aura1Input.step=1;
 		aura1Input.addEventListener("input", () => {
 			aura1Input.value = Math.max(Number(aura1Input.value),0);
 			point1.slowing_radius = Math.max(Number(aura1Input.value),0);spawnEntities()
 		});
     const aura2Input = document.createElement("input");
-		aura2Input.value = point1.draining_radius;
+		aura2Input.value = point1.draining_radius ?? defaultValues.spawner.draining_radius;
 		aura2Input.step=1;
 		aura2Input.addEventListener("input", () => {
 			aura2Input.value = Math.max(Number(aura2Input.value),0);
 			point1.draining_radius = Math.max(Number(aura2Input.value),0);spawnEntities()
 		});
 		const aura3Input = document.createElement("input");
-		aura3Input.value = point1.freezing_radius;
+		aura3Input.value = point1.freezing_radius ?? defaultValues.spawner.freezing_radius;
 		aura3Input.step=1;
 		aura3Input.addEventListener("input", () => {
 			aura3Input.value = Math.max(Number(aura3Input.value),0);
 			point1.freezing_radius = Math.max(Number(aura3Input.value),0);spawnEntities()
 		});
 		const aura4Input = document.createElement("input");
-		aura4Input.value = point1.slippery_radius;
+		aura4Input.value = point1.slippery_radius ?? defaultValues.spawner.slippery_radius;
 		aura4Input.step=1;
 		aura4Input.addEventListener("input", () => {
 			aura4Input.value = Math.max(Number(aura4Input.value),0);
 			point1.slippery_radius = Math.max(Number(aura4Input.value),0);spawnEntities()
 		});
 		const aura5Input = document.createElement("input");
-		aura5Input.value = point1.enlarging_radius;
+		aura5Input.value = point1.enlarging_radius ?? defaultValues.spawner.enlarging_radius;
 		aura5Input.step=1;
 		aura5Input.addEventListener("input", () => {
 			aura5Input.value = Math.max(Number(aura5Input.value),0);
 			point1.enlarging_radius = Math.max(Number(aura5Input.value),0);spawnEntities()
 		});
 		const aura6Input = document.createElement("input");
-		aura6Input.value = point1.gravity_radius;
+		aura6Input.value = point1.gravity_radius ?? defaultValues.spawner.gravity_radius;
 		aura6Input.step=1;
 		aura6Input.addEventListener("input", () => {
 			aura6Input.value = Math.max(Number(aura6Input.value),0);
 			point1.gravity_radius = Math.max(Number(aura6Input.value),0);spawnEntities()
 		});
 		const aura7Input = document.createElement("input");
-		aura7Input.value = point1.repelling_radius;
+		aura7Input.value = point1.repelling_radius ?? defaultValues.spawner.repelling_radius;
 		aura7Input.step=1;
 		aura7Input.addEventListener("input", () => {
 			aura7Input.value = Math.max(Number(aura7Input.value),0);
 			point1.repelling_radius = Math.max(Number(aura7Input.value),0);spawnEntities()
 		});
 		const aura8Input = document.createElement("input");
-		aura8Input.value = point1.lava_radius;
+		aura8Input.value = point1.lava_radius ?? defaultValues.spawner.lava_radius;
 		aura8Input.step=1;
 		aura8Input.addEventListener("input", () => {
 			aura8Input.value = Math.max(Number(aura8Input.value),0);
 			point1.lava_radius = Math.max(Number(aura8Input.value),0);spawnEntities()
 		});
 		const aura9Input = document.createElement("input");
-		aura9Input.value = point1.magnetic_reduction_radius;
+		aura9Input.value = point1.magnetic_reduction_radius ?? defaultValues.spawner.magnetic_reduction_radius;
 		aura9Input.step=1;
 		aura9Input.addEventListener("input", () => {
 			aura9Input.value = Math.max(Number(aura9Input.value),0);
 			point1.magnetic_reduction_radius = Math.max(Number(aura9Input.value),0);spawnEntities()
 		});
 		const aura10Input = document.createElement("input");
-		aura10Input.value = point1.magnetic_nullification_radius;
+		aura10Input.value = point1.magnetic_nullification_radius ?? defaultValues.spawner.magnetic_nullification_radius;
 		aura10Input.step=1;
 		aura10Input.addEventListener("input", () => {
 			aura10Input.value = Math.max(Number(aura10Input.value),0);
 			point1.magnetic_nullification_radius = Math.max(Number(aura10Input.value),0);spawnEntities()
 		});
 		const aura11Input = document.createElement("input");
-		aura11Input.value = point1.disabling_radius;
+		aura11Input.value = point1.disabling_radius ?? defaultValues.spawner.disabling_radius;
 		aura11Input.step=1;
 		aura11Input.addEventListener("input", () => {
 			aura11Input.value = Math.max(Number(aura11Input.value),0);
 			point1.disabling_radius = Math.max(Number(aura11Input.value),0);spawnEntities()
 		});
 		const aura12Input = document.createElement("input");
-		aura12Input.value = point1.toxic_radius;
+		aura12Input.value = point1.toxic_radius ?? defaultValues.spawner.toxic_radius;
 		aura12Input.step=1;
 		aura12Input.addEventListener("input", () => {
 			aura12Input.value = Math.max(Number(aura12Input.value),0);
 			point1.toxic_radius = Math.max(Number(aura12Input.value),0);spawnEntities()
 		});
 		const aura13Input = document.createElement("input");
-		aura13Input.value = point1.radar_radius;
+		aura13Input.value = point1.radar_radius ?? defaultValues.spawner.radar_radius;
 		aura13Input.step=1;
 		aura13Input.addEventListener("input", () => {
 			aura13Input.value = Math.max(Number(aura13Input.value),0);
 			point1.radar_radius = Math.max(Number(aura13Input.value),0);spawnEntities()
 		});
 		const aura14Input = document.createElement("input");
-		aura14Input.value = point1.barrier_radius;
+		aura14Input.value = point1.barrier_radius ?? defaultValues.spawner.barrier_radius;
 		aura14Input.step=1;
 		aura14Input.addEventListener("input", () => {
 			aura14Input.value = Math.max(Number(aura14Input.value),0);
 			point1.barrier_radius = Math.max(Number(aura14Input.value),0);spawnEntities()
 		});
 		const aura15Input = document.createElement("input");
-		aura15Input.value = point1.quicksand_radius;
+		aura15Input.value = point1.quicksand_radius ?? defaultValues.spawner.quicksand;
 		aura15Input.step=1;
 		aura15Input.addEventListener("input", () => {
 			aura15Input.value = Math.max(Number(aura15Input.value),0);
 			point1.quicksand_radius = Math.max(Number(aura15Input.value),0);spawnEntities()
 		});
   const aura16Input = document.createElement("input");
-  aura16Input.value = point1.experience_drain_radius;
+  aura16Input.value = point1.experience_drain_radius ?? defaultValues.spawner.experience_drain_radius;
   aura16Input.step=1;
   aura16Input.addEventListener("input", () => {
     aura16Input.value = Math.max(Number(aura16Input.value),0);
     point1.experience_drain_radius = Math.max(Number(aura16Input.value),0);spawnEntities()
   });
   const aura17Input = document.createElement("input");
-  aura17Input.value = point1.reducing_radius;
+  aura17Input.value = point1.reducing_radius ?? defaultValues.spawner.reducing_radius;
   aura17Input.step=1;
   aura17Input.addEventListener("input", () => {
     aura17Input.value = Math.max(Number(aura17Input.value),0);
     point1.reducing_radius = Math.max(Number(aura17Input.value),0);spawnEntities()
   });
   const aura18Input = document.createElement("input");
-  aura18Input.value = point1.blocking_radius;
+  aura18Input.value = point1.blocking_radius ?? defaultValues.spawner.blocking_radius;
   aura18Input.step=1;
   aura18Input.addEventListener("input", () => {
     aura18Input.value = Math.max(Number(aura18Input.value),0);
     point1.blocking_radius = Math.max(Number(aura18Input.value),0);spawnEntities()
   });
 		const projDurInput = document.createElement("input");
-		projDurInput.value = point1.projectile_duration;
+		projDurInput.value = point1.projectile_duration ?? defaultValues.spawner.projectile_duration;
 		projDurInput.step=1;
 		projDurInput.addEventListener("input", () => {
 			projDurInput.value = Math.max(Number(projDurInput.value),0);
 			point1.projectile_duration = Math.max(Number(projDurInput.value),0);spawnEntities()
 		});
 		const projSpdInput = document.createElement("input");
-		projSpdInput.value = point1.projectile_speed??"";
+		projSpdInput.value = point1.projectile_speed ?? defaultValues.spawner.projectile_speed;
 		projSpdInput.step=0.01;
 		projSpdInput.addEventListener("input", () => {
       if(projSpdInput.value==""){
@@ -367,7 +367,7 @@ point1.projectile_speed=undefined;
 			point1.projectile_speed = Number(projSpdInput.value);}spawnEntities()
 		});
 		const projRadInput = document.createElement("input");
-		projRadInput.value = point1.projectile_radius??"";
+		projRadInput.value = point1.projectile_radius ?? defaultValues.spawner.projectile_radius;
 		projRadInput.step=1;
 		projRadInput.addEventListener("input", () => {
       if(projRadInput.value==""){
@@ -377,7 +377,7 @@ point1.projectile_radius=undefined;
 			point1.projectile_radius = Math.max(Number(projRadInput.value),0);}spawnEntities()
 		});
 		const groInput = document.createElement("input");
-		groInput.value = point1.growth_multiplier;
+		groInput.value = point1.growth_multiplier ?? defaultValues.spawner.growth_multiplier;
 		groInput.step=0.01;
 		groInput.addEventListener("input", () => {
 			groInput.value = Math.max(Number(groInput.value),1);
@@ -392,28 +392,28 @@ point1.projectile_radius=undefined;
 			point1.move_clockwise= ckwsInput.checked;spawnEntities()
 		});
         const splsInput = document.createElement("input");
-        splsInput.value = point1.speed_loss;
+        splsInput.value = point1.speed_loss ?? defaultValues.spawner.speed_loss;
 		splsInput.step=0.01;
 		splsInput.addEventListener("input", () => {
 			splsInput.value = Number(splsInput.value);
 			point1.speed_loss = Number(splsInput.value);spawnEntities()
 		});
         const rglsInput = document.createElement("input");
-        rglsInput.value = point1.regen_loss;
+        rglsInput.value = point1.regen_loss ?? defaultValues.spawner.regen_loss;
 		rglsInput.step=0.01;
 		rglsInput.addEventListener("input", () => {
 			rglsInput.value = Number(rglsInput.value);
 			point1.regen_loss = Number(rglsInput.value);spawnEntities()
 		});
         const reinInput = document.createElement("input");
-        reinInput.value = point1.release_interval;
+        reinInput.value = point1.release_interval ?? defaultValues.spawner.release_interval;
 		reinInput.step=1;
 		reinInput.addEventListener("input", () => {
 			reinInput.value = Math.max(Number(reinInput.value),0);
 			point1.release_interval = Math.max(Number(reinInput.value),0);spawnEntities()
 		});
         const retiInput = document.createElement("input");
-        retiInput.value = point1.release_time??"";
+        retiInput.value = point1.release_time ?? defaultValues.spawner.release_time;
 		retiInput.step=1;
 		retiInput.addEventListener("input", () => {
 		if(retiInput.value==""){
@@ -423,34 +423,34 @@ point1.projectile_radius=undefined;
 			point1.release_time = Math.max(Number(retiInput.value),0);}spawnEntities()
 		});
         const pdrInput = document.createElement("input");
-        pdrInput.value = point1.player_detection_radius;
+        pdrInput.value = point1.player_detection_radius ?? defaultValues.spawner.player_detection_radius;
 		pdrInput.step=1;
 		pdrInput.addEventListener("input", () => {
 			pdrInput.value = Math.max(Number(pdrInput.value),0);
 			point1.player_detection_radius = Math.max(Number(pdrInput.value),0);spawnEntities()
 		});
         const csInput = document.createElement("input");
-        csInput.value = point1.circle_size;
+        csInput.value = point1.circle_size ?? defaultValues.spawner.circle_size;
 		csInput.step=1;
 		csInput.addEventListener("input", () => {
 			point1.circle_size = Number(csInput.value);spawnEntities()
 		});
         const switchintInput = document.createElement("input");
-        switchintInput.value = point1.switch_interval;
+        switchintInput.value = point1.switch_interval ?? defaultValues.spawner.switch_interval;
 		switchintInput.step=1;
 		switchintInput.addEventListener("input", () => {
 			switchintInput.value = Math.max(Number(switchintInput.value),0);
 			point1.switch_interval = Math.max(Number(switchintInput.value),0);spawnEntities()
 		});
         const gravInput = document.createElement("input");
-        gravInput.value = point1.gravity;
+        gravInput.value = point1.gravity ?? defaultValues.spawner.gravity;
 		gravInput.step=1;
 		gravInput.addEventListener("input", () => {
 			gravInput.value = Number(gravInput.value);
 			point1.gravity = Number(gravInput.value);spawnEntities()
 		});
         const repelInput = document.createElement("input");
-        repelInput.value = point1.repulsion;
+        repelInput.value = point1.repulsion ?? defaultValues.spawner.repulsion;
 		repelInput.step=1;
 		repelInput.addEventListener("input", () => {
 			repelInput.value = Number(repelInput.value);
@@ -458,7 +458,7 @@ point1.projectile_radius=undefined;
 		});
 
 		const dirInput = document.createElement("input");
-		dirInput.value=point1.direction;
+		dirInput.value=point1.direction ?? defaultValues.spawner.direction;
 		dirInput.addEventListener("input", () => {
 			dirInput.value = Math.max(Math.min(Number(dirInput.value),1),-1);
 			point1.direction = Math.max(Math.min(Number(dirInput.value),1),-1);spawnEntities()
@@ -511,7 +511,7 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.blocking_radius"), aura18Input, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.cybot"), [
-        createProperty(formatString(curLang,"editor.property.hard_mode"), hardInput, "switch", {value: point1.hard_mode}),
+        createProperty(formatString(curLang,"editor.property.hard_mode"), hardInput, "switch", {value: point1.hard_mode ?? defaultValues.spawner.hard_mode}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.flower"), [
 			  createProperty(formatString(curLang,"editor.property.growth_multiplier"), groInput, "number"),
@@ -527,18 +527,18 @@ point1.projectile_radius=undefined;
         createProperty(formatString(curLang,"editor.property.projectile_duration"), projDurInput, "number"),
         createProperty(formatString(curLang,"editor.property.projectile_speed"), projSpdInput, "number"),
         createProperty(formatString(curLang,"editor.property.projectile_radius"), projRadInput, "number"),
-        createProperty(formatString(curLang,"editor.property.immune"), immInput, "switch", {value:point1.immune}),
-		createProperty(formatString(curLang,"editor.property.pattern"), null, "select", {value:point1.pattern,event:e=>{point1.pattern=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.pattern.none"),void 0],...['spiral', 'twinspiral', 'quadspiral', 'cone', 'twincone', 'cone_edges', 'twin', 'singlebig'].map(e=>[formatString(curLang,"editor.pattern."+e),e])],selectType: "text"}),
+        createProperty(formatString(curLang,"editor.property.immune"), immInput, "switch", {value:point1.immune ?? defaultValues.spawner.immune}),
+		createProperty(formatString(curLang,"editor.property.pattern"), null, "select", {value:point1.pattern ?? defaultValues.spawner.pattern,event:e=>{point1.pattern=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.pattern.none"),void 0],...['spiral', 'twinspiral', 'quadspiral', 'cone', 'twincone', 'cone_edges', 'twin', 'singlebig'].map(e=>[formatString(curLang,"editor.pattern."+e),e])],selectType: "text"}),
 		createProperty(formatString(curLang,"editor.property.cone_angle"), coneAngleInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.grass"), [
-		createProperty(formatString(curLang,"editor.property.powered"), powInput, "switch", {value: point1.powered}),
+		createProperty(formatString(curLang,"editor.property.powered"), powInput, "switch", {value: point1.powered ?? defaultValues.spawner.powered}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.gravity"), [
 		createProperty(formatString(curLang,"editor.property.gravity"), gravInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.icicle"),[
-        createProperty(formatString(curLang,"editor.property.horizontal"), hInput, "switch", {value: point1.horizontal}),
+        createProperty(formatString(curLang,"editor.property.horizontal"), hInput, "switch", {value: point1.horizontal ?? defaultValues.spawner.horizontal}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.liquid"),[
 		createProperty(formatString(curLang,"editor.property.player_detection_radius"), pdrInput, "number"),
@@ -566,10 +566,10 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.circle_size"), csInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.wall"),[
-		createProperty(formatString(curLang,"editor.property.move_clockwise"), ckwsInput, "switch", {value: point1.move_clockwise}),
+		createProperty(formatString(curLang,"editor.property.move_clockwise"), ckwsInput, "switch", {value: point1.move_clockwise ?? defaultValues.spawner.move_clockwise}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.wind_ghost"), [
-        createProperty(formatString(curLang,"editor.property.ignore_invulnerability"), ignInput, "switch", {value: point1.ignore_invulnerability}),
+        createProperty(formatString(curLang,"editor.property.ignore_invulnerability"), ignInput, "switch", {value: point1.ignore_invulnerability ?? defaultValues.spawner.ignore_invulnerability}),
       ],!0),
     ],!0);
     li.children[0].classList.add("counter");
@@ -789,7 +789,7 @@ function cloneSpawner(e){
 	obj.types.includes("wall") && (obj.move_clockwise = e.move_clockwise);
 	obj.types.includes("grass") && (obj.powered = e.powered);
 	obj.types.includes("flower") && (obj.growth_multiplier = e.growth_multiplier);
-	obj.types.includes("wind_ghost") && (obj.ignore_invulnerablility = e.ignore_invulnerablility);
+	obj.types.includes("wind_ghost") && (obj.ignore_invulnerability = e.ignore_invulnerability);
 	obj.types.includes("switch") && (obj.switch_interval = e.switch_interval);
 	obj.types.includes("cybot") && (obj.hard_mode = e.hard_mode);
 	obj.types.includes("frost_giant") && (
@@ -864,8 +864,8 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
 
     function createPoint(
 		/*global*/
-    count=1,
-		speed=0,
+		count=1,
+		speed=5,
 		radius,
 		types=["normal"],
 		/*icicle enemy*/horizontal=false,
@@ -921,23 +921,16 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
 		blocking_radius=150,
 	) {
         const point1 = {
-            types:[],x,y,turn_acceleration,cone_angle,
-            count,turn_speed,shot_acceleration,
-            speed,shot_interval,pause_duration,
-            radius,angle,pause_interval,
-			horizontal,immune,move_clockwise,
-			pattern,direction,projectile_duration,
-            projectile_radius,projectile_speed,
-            growth_multiplier,powered,ignore_invulnerability,
-            speed_loss,regen_loss,release_interval,release_time,
-            slippery_radius,slowing_radius,enlarging_radius,
-            draining_radius,gravity_radius,radar_radius,
-            repelling_radius,disabling_radius,toxic_radius,lava_radius,
-            magnetic_reduction_radius,magnetic_nullification_radius,
-            freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,
-            switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,
-			gravity,repulsion,blocking_radius,
+            types:[],
         }
+		var arr=`x,y,turn_acceleration,cone_angle,count,turn_speed,shot_acceleration,speed,shot_interval,pause_duration,radius,angle,pause_interval,horizontal,immune,move_clockwise,pattern,direction,projectile_duration,projectile_radius,projectile_speed,growth_multiplier,powered,ignore_invulnerability,speed_loss,regen_loss,release_interval,release_time,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius`.split(",")
+		arr.map(e=>{
+			var orders=`count,speed,radius,types,horizontal,move_clockwise,x,y,angle,pattern,cone_angle,direction,immune,turn_speed,shot_interval,pause_interval,pause_duration,turn_acceleration,shot_acceleration,projectile_duration,projectile_radius,projectile_speed,powered,growth_multiplier,ignore_invulnerability,speed_loss,regen_loss,release_time,release_interval,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius`.split(","),
+			order=orders.indexOf(e);
+			if(defaultValues.spawner[e]!=arguments[order]&&order!==3&&arguments[order]!=undefined){
+				point1[e]=arguments[order];
+			}
+		})
 		if(typeof types == "string")types=[types];
 		types.map(p => {
 			const pointe = createpoint2(p,point1);
