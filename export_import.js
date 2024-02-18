@@ -6,7 +6,7 @@ function loadFile(str,fromLocal=!0) {
       //socketSend&&socket.send(msgpack.encode({content:str,
       //  name:obj.name
       //}));
-  obj.properties=createPropertyObj(obj.properties,"region");
+  obj.properties=createPropertyObj({...defaultValues.properties,...obj.properties},"region");
   var objKeys=Object.keys(obj.properties);
         try{
         map.inputs.name.value = map.name = obj.name;
