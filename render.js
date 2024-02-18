@@ -129,9 +129,9 @@ else {
     map.areas[current_Area].zones[j].width>>=0;
     map.areas[current_Area].zones[j].height>>=0;
     var texture="normal";
-    if(map.areas[current_Area].zones[j].properties.texture!="normal")texture=map.areas[current_Area].zones[j].properties.texture;
-    else if(map.areas[current_Area].properties.texture!="normal")texture=map.areas[current_Area].properties.texture;
-    else texture=map.properties.texture;
+    if(map.areas[current_Area].zones[j].properties.texture!="normal")texture=map.areas[current_Area].zones[j].properties.texture ?? defaultValues.properties.texture;
+    else if(map.areas[current_Area].properties.texture!="normal")texture=map.areas[current_Area].properties.texture ?? defaultValues.properties.texture;
+    else texture=map.properties.texture ?? defaultValues.properties.texture;
     var p = ctx.createPattern(zoneconsts[texture][map.areas[current_Area].zones[j].type], null)
     ctx.beginPath();
     ctx.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
@@ -145,12 +145,12 @@ else {
     );
     ctx.fill();
     ctx.resetTransform();
-    if (arrayToInt32(map.areas[current_Area].zones[j].properties.background_color)!=0) {
-      ctx.fillStyle = RGBAtoHex(map.areas[current_Area].zones[j].properties.background_color)
-    } else if (arrayToInt32(map.areas[current_Area].properties.background_color)!=0) { 
-      ctx.fillStyle = RGBAtoHex(map.areas[current_Area].properties.background_color) 
+    if (arrayToInt32(map.areas[current_Area].zones[j].properties.background_color ?? defaultValues.properties.background_color)!=0) {
+      ctx.fillStyle = RGBAtoHex(map.areas[current_Area].zones[j].properties.background_color ?? defaultValues.properties.background_color)
+    } else if (arrayToInt32(map.areas[current_Area].properties.background_color ?? defaultValues.properties.background_color)!=0) { 
+      ctx.fillStyle = RGBAtoHex(map.areas[current_Area].properties.background_color ?? defaultValues.properties.background_color) 
     } else { 
-      ctx.fillStyle = RGBAtoHex(map.properties.background_color) 
+      ctx.fillStyle = RGBAtoHex(map.properties.background_color ?? defaultValues.properties.background_color) 
     };
     ctx.fillRect(
       canvas.width / 2 + (map.areas[current_Area].zones[j].x - camX) * camScale,

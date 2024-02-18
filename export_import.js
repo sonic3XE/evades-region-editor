@@ -10,6 +10,7 @@ function loadFile(str,fromLocal=!0) {
   var objKeys=Object.keys(obj.properties);
         try{
         map.inputs.name.value = map.name = obj.name;
+map.properties.background_color??=[0,0,0,0];
 try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.round(obj.properties.background_color[3]);
 }catch(e){map.properties.inputs.opacity.value=map.properties.background_color[3]=0}
 

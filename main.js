@@ -865,8 +865,7 @@ socket.addEventListener("close",socketclosed);*/
 /** 
  * @param {Properties} obj
 */
-function createPropertyObj(obj,t="region") {
-  obj={...defaultValues.properties,...obj}
+function createPropertyObj(obj={},t="region") {
   delete obj.inputs,delete obj.element;
   var arrayCheck=Object.keys(obj);
   var arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
@@ -955,29 +954,30 @@ all_enemies_immune = False
   _allow_solo_with_group.addEventListener("input", () => {
     properties.allow_solo_with_group = _allow_solo_with_group.checked;
   });
+  //TIEM TO GET THIM OVERHALLED
   const _lighting = document.createElement("input");
-  _lighting.value = Math.max(Math.min(properties.lighting,1),0).toFixed(2);
+  _lighting.value = Math.max(Math.min(properties.lighting??defaultValues.properties.lighting,1),0).toFixed(2);
   _lighting.step = 0.01;
   _lighting.addEventListener("input", () => {
   _lighting.value = Math.max(Math.min(_lighting.value,1),0).toFixed(2);
     properties.lighting = Number(_lighting.value);
   });
   const _snow = document.createElement("input");
-  _snow.value = Math.max(Math.min(properties.snow,1),0).toFixed(2);
+  _snow.value = Math.max(Math.min(properties.snow??defaultValues.properties.snow,1),0).toFixed(2);
   _snow.step = 0.01;
   _snow.addEventListener("input", () => {
     _snow.value = Math.max(Math.min(_snow.value,1),0).toFixed(2);
     properties.snow = Number(_snow.value);
   });
   const _max_level = document.createElement("input");
-  _max_level.value = properties.max_level;
+  _max_level.value = properties.max_level??defaultValues.properties.max_level;
   _max_level.step = 1;
   _max_level.addEventListener("input", () => {
     _max_level.value = Number(_max_level.value);
     properties.max_level = Number(_max_level.value);
   });
   const _minimum_speed = document.createElement("input");
-  _minimum_speed.value = properties.minimum_speed ?? "";
+  _minimum_speed.value = properties.minimum_speed ?? defaultValues.properties.minimum_speed;
   _minimum_speed.addEventListener("input", () => {
     if (_minimum_speed.value == "") {
       properties.minimum_speed = undefined;
@@ -987,7 +987,7 @@ all_enemies_immune = False
   });
   const _death_timer = document.createElement("input");
   _death_timer.title = "in milliseconds";
-  _death_timer.value = properties.death_timer ?? "";
+  _death_timer.value = properties.death_timer ?? defaultValues.properties.death_timer;
   _death_timer.addEventListener("input", () => {
     if (_death_timer.value == "") {
       properties.death_timer = undefined;
@@ -997,7 +997,7 @@ all_enemies_immune = False
   });
 
   const _pellet_count = document.createElement("input");
-  _pellet_count.value = properties.pellet_count;
+  _pellet_count.value = properties.pellet_count ?? defaultValues.properties.pellet_count;
   _pellet_count.min = 0;
   _pellet_count.step = 1;
   _pellet_count.addEventListener("input", () => {
@@ -1007,14 +1007,14 @@ all_enemies_immune = False
   });
 
   const _pellet_multiplier = document.createElement("input");
-  _pellet_multiplier.value = properties.pellet_multiplier;
+  _pellet_multiplier.value = properties.pellet_multiplier ?? defaultValues.properties.pellet_multiplier;
   _pellet_multiplier.addEventListener("input", () => {
     _pellet_multiplier.value = Number(_pellet_multiplier.value);
     properties.pellet_multiplier = Number(_pellet_multiplier.value);
   });
 
   const _friction = document.createElement("input");
-  _friction.value = properties.friction;
+  _friction.value = properties.friction ?? defaultValues.properties.friction;
   _friction.step = 0.01;
   _friction.addEventListener("input", () => {
     properties.friction = Number(_friction.value);
@@ -1022,17 +1022,19 @@ all_enemies_immune = False
 
   const colorInput = document.createElement("input");
   const opacityInput = document.createElement("input");
-
-  colorInput.value = arrtoHex(properties.background_color);
+var col=properties.background_color ?? defaultValues.properties.background_color;
+  colorInput.value = arrtoHex(col);
   colorInput.addEventListener("input", () => {
+	properties.background_color??=[...defaultValues.properties.background_color];
     properties.background_color[0] = hexToArr(colorInput.value)[0];
     properties.background_color[1] = hexToArr(colorInput.value)[1];
     properties.background_color[2] = hexToArr(colorInput.value)[2];
   });
 
-  opacityInput.value = properties.background_color[3];
+  opacityInput.value = col[3];
   opacityInput.addEventListener("input", () => {
     opacityInput.value = Math.max(Math.min(Number(opacityInput.value), 255), 0);
+	properties.background_color??=[...defaultValues.properties.background_color];
     properties.background_color[3] = Number(opacityInput.value);
   });
 if(t=="region"){
@@ -1043,7 +1045,7 @@ if(t=="region"){
     ]),
     createProperty(formatString(curLang,"editor.property.friction"), _friction, "number"),
     createProperty(formatString(curLang,"editor.property.texture"), null, "select", {
-      value: properties.texture, event: (e) => { properties.texture = e },
+      value: properties.texture ?? defaultValues.properties.texture, event: (e) => { properties.texture = e },
       selectOptions: ["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e]),
       selectType: "text"
     }),
@@ -1052,16 +1054,16 @@ if(t=="region"){
     createProperty(formatString(curLang,"editor.property.minimum_speed"), _minimum_speed, "number"),
     createProperty(formatString(curLang,"editor.property.max_level"), _max_level, "number"),
     createProperty(formatString(curLang,"editor.property.death_timer"), _death_timer, "number"),
-    createProperty(formatString(curLang,"editor.property.applies_lantern"), _applies_lantern, "switch", { value: properties.applies_lantern }),
-    createProperty(formatString(curLang,"editor.property.all_enemies_immune"), _all_enemies_immune, "switch", { value: properties.all_enemies_immune }),
-    createProperty(formatString(curLang,"editor.property.warping_disabled"), _warping_disabled, "switch", { value: properties.warping_disabled }),
-    createProperty(formatString(curLang,"editor.property.allow_solo_with_group"), _allow_solo_with_group, "switch", { value: properties.allow_solo_with_group }),
-    createProperty(formatString(curLang,"editor.property.crumble_reduced"), _crumble_reduced, "switch", { value: properties.crumble_reduced }),
-    createProperty(formatString(curLang,"editor.property.radioactive_gloop_reduced"), _radioactive_gloop_reduced, "switch", { value: properties.radioactive_gloop_reduced }),
-    createProperty(formatString(curLang,"editor.property.sticky_coat_distort_reduced"), _sticky_coat_distort_reduced, "switch", { value: properties.sticky_coat_distort_reduced }),
-    createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"), _wind_ghosts_do_not_push_while_downed, "switch", { value: properties.wind_ghosts_do_not_push_while_downed }),
-    createProperty(formatString(curLang,"editor.property.magnetism"), _magnetism, "switch", { value: properties.magnetism }),
-    createProperty(formatString(curLang,"editor.property.partial_magnetism"), _partial_magnetism, "switch", { value: properties.partial_magnetism }),
+    createProperty(formatString(curLang,"editor.property.applies_lantern"), _applies_lantern, "switch", { value: properties.applies_lantern ?? defaultValues.properties.applies_lantern }),
+    createProperty(formatString(curLang,"editor.property.all_enemies_immune"), _all_enemies_immune, "switch", { value: properties.all_enemies_immune ?? defaultValues.properties.all_enemies_immune }),
+    createProperty(formatString(curLang,"editor.property.warping_disabled"), _warping_disabled, "switch", { value: properties.warping_disabled ?? defaultValues.properties.warping_disabled }),
+    createProperty(formatString(curLang,"editor.property.allow_solo_with_group"), _allow_solo_with_group, "switch", { value: properties.allow_solo_with_group ?? defaultValues.properties.allow_solo_with_group }),
+    createProperty(formatString(curLang,"editor.property.crumble_reduced"), _crumble_reduced, "switch", { value: properties.crumble_reduced ?? defaultValues.properties.crumble_reduced }),
+    createProperty(formatString(curLang,"editor.property.radioactive_gloop_reduced"), _radioactive_gloop_reduced, "switch", { value: properties.radioactive_gloop_reduced ?? defaultValues.properties.radioactive_gloop_reduced }),
+    createProperty(formatString(curLang,"editor.property.sticky_coat_distort_reduced"), _sticky_coat_distort_reduced, "switch", { value: properties.sticky_coat_distort_reduced ?? defaultValues.properties.sticky_coat_distort_reduced }),
+    createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"), _wind_ghosts_do_not_push_while_downed, "switch", { value: properties.wind_ghosts_do_not_push_while_downed ?? defaultValues.properties.wind_ghosts_do_not_push_while_downed }),
+    createProperty(formatString(curLang,"editor.property.magnetism"), _magnetism, "switch", { value: properties.magnetism ?? defaultValues.properties.magnetism }),
+    createProperty(formatString(curLang,"editor.property.partial_magnetism"), _partial_magnetism, "switch", { value: properties.partial_magnetism ?? defaultValues.properties.partial_magnetism }),
     createProperty(formatString(curLang,"editor.property.pellet_count"), _pellet_count, "number"),
     createProperty(formatString(curLang,"editor.property.pellet_multiplier"), _pellet_multiplier, "number")
   ]);
@@ -1074,7 +1076,7 @@ if(t=="zone"){
     ]),
     createProperty(formatString(curLang,"editor.property.friction"), _friction, "number"),
     createProperty(formatString(curLang,"editor.property.texture"), null, "select", {
-      value: properties.texture, event: (e) => { properties.texture = e },
+      value: properties.texture ?? defaultValues.properties.texture, event: (e) => { properties.texture = e },
       selectOptions: ["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e]),
       selectType: "text"
     }),
