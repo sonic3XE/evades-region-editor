@@ -2383,8 +2383,8 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		$["TELEPORT"] = [106, 208, 222, 255],
 		$["REMOVAL"] = [255, 249, 186, 255],
 		$["DUMMY"] = [195, 195, 195, 255]);this.zones=[];
-		var mapColor=arrayToInt32(map.properties.background_color);
-		map.areas.map(e=>{var areaColor=arrayToInt32(e.properties.background_color);e.zones.map(t=>{this.zones.push({x:e.x+t.x,y:e.y+t.y,width:t.width,height:t.height,type:t.type,backgroundColor:arrayToInt32(t.properties.background_color)||areaColor||mapColor})})})
+		var mapColor=arrayToInt32(map.properties.background_color ?? [...defaultValues.properties.background_color]);
+		map.areas.map(e=>{var areaColor=arrayToInt32(e.properties.background_color ?? [...defaultValues.properties.background_color]);e.zones.map(t=>{this.zones.push({x:e.x+t.x,y:e.y+t.y,width:t.width,height:t.height,type:t.type,backgroundColor:arrayToInt32(t.properties.background_color ?? [...defaultValues.properties.background_color])||areaColor||mapColor})})})
 		for (const e of this.zones) {
 			if (e.x > o || e.x + e.width < r || e.y > n || e.y + e.height < c)
 				continue;
