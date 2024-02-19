@@ -213,6 +213,7 @@ var curLang={
   "editor.property.wind_ghosts_do_not_push_while_downed":"Wind Ghosts Do Not Push While Downed",
   "editor.property.magnetism":"Magnetism",
   "editor.property.partial_magnetism":"Partial Magnetism",
+  "editor.property.charge_reduced":"Charge Reduced",
   "editor.property.pellet_count":"Pellet Count",
   "editor.property.pellet_multiplier":"Pellet Multiplier",
   "editor.region":"Region Properties",
@@ -366,6 +367,7 @@ var defaultValues={
 		sticky_coat_distort_reduced:false,
 		allow_solo_with_group:false,
 		all_enemies_immune:false,
+		charge_reduced:false,
 	},
 }
 function createLI(_class = "", id = "") {

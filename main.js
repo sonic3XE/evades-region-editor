@@ -870,7 +870,7 @@ function createPropertyObj(obj={},t="region") {
   var arrayCheck=Object.keys(obj);
   var arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
 if(t=="region"){
-arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
+arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
 }
 if(t=="zone"){
 arr="background_color,friction,texture,minimum_speed".split(",");
@@ -905,6 +905,7 @@ applies_lantern = False
 sticky_coat_distort_reduced = False
 allow_solo_with_group = False
 all_enemies_immune = False
+charge_reduced = False
 */
   const properties = {...obj};
   properties.background_color&&(properties.background_color=[...properties.background_color].map(e=>Math.ceil(e)));
@@ -953,6 +954,10 @@ all_enemies_immune = False
   const _allow_solo_with_group = document.createElement("input");
   _allow_solo_with_group.addEventListener("input", () => {
     properties.allow_solo_with_group = _allow_solo_with_group.checked;
+  });
+  const _charge_reduced = document.createElement("input");
+  _charge_reduced.addEventListener("input", () => {
+    properties.charge_reduced = _charge_reduced.checked;
   });
   //TIEM TO GET THIM OVERHALLED
   const _lighting = document.createElement("input");
@@ -1064,6 +1069,7 @@ if(t=="region"){
     createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"), _wind_ghosts_do_not_push_while_downed, "switch", { value: properties.wind_ghosts_do_not_push_while_downed ?? defaultValues.properties.wind_ghosts_do_not_push_while_downed }),
     createProperty(formatString(curLang,"editor.property.magnetism"), _magnetism, "switch", { value: properties.magnetism ?? defaultValues.properties.magnetism }),
     createProperty(formatString(curLang,"editor.property.partial_magnetism"), _partial_magnetism, "switch", { value: properties.partial_magnetism ?? defaultValues.properties.partial_magnetism }),
+    createProperty(formatString(curLang,"editor.property.charge_reduced"), _charge_reduced, "switch", { value: properties.charge_reduced ?? defaultValues.properties.charge_reduced }),
     createProperty(formatString(curLang,"editor.property.pellet_count"), _pellet_count, "number"),
     createProperty(formatString(curLang,"editor.property.pellet_multiplier"), _pellet_multiplier, "number")
   ]);
@@ -1103,6 +1109,7 @@ if(t=="region"){
     allow_solo_with_group:_allow_solo_with_group,
     magnetism: _magnetism,
     partial_magnetism: _partial_magnetism,
+    charge_reduced:_charge_reduced,
     pellet_count: _pellet_count,
     pellet_multiplier: _pellet_multiplier
   };
