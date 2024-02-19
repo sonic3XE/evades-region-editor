@@ -923,10 +923,10 @@ charge_reduced = False
   _magnetism.addEventListener("input", () => {
     properties.magnetism = _magnetism.checked;
   });
-  const _radioactive_gloop_reduced = document.createElement("input");
+  /*const _radioactive_gloop_reduced = document.createElement("input");
   _radioactive_gloop_reduced.addEventListener("input", () => {
     properties.radioactive_gloop_reduced = _radioactive_gloop_reduced.checked;
-  });
+  });*/
   const _wind_ghosts_do_not_push_while_downed = document.createElement("input");
   _wind_ghosts_do_not_push_while_downed.addEventListener("input", () => {
     properties.wind_ghosts_do_not_push_while_downed = _wind_ghosts_do_not_push_while_downed.checked;
@@ -951,10 +951,10 @@ charge_reduced = False
   _applies_lantern.addEventListener("input", () => {
     properties.all_enemies_immune = _all_enemies_immune.checked;
   });
-  const _allow_solo_with_group = document.createElement("input");
+  /*const _allow_solo_with_group = document.createElement("input");
   _allow_solo_with_group.addEventListener("input", () => {
     properties.allow_solo_with_group = _allow_solo_with_group.checked;
-  });
+  });*/
   const _charge_reduced = document.createElement("input");
   _charge_reduced.addEventListener("input", () => {
     properties.charge_reduced = _charge_reduced.checked;
@@ -1062,9 +1062,9 @@ if(t=="region"){
     createProperty(formatString(curLang,"editor.property.applies_lantern"), _applies_lantern, "switch", { value: properties.applies_lantern ?? defaultValues.properties.applies_lantern }),
     createProperty(formatString(curLang,"editor.property.all_enemies_immune"), _all_enemies_immune, "switch", { value: properties.all_enemies_immune ?? defaultValues.properties.all_enemies_immune }),
     createProperty(formatString(curLang,"editor.property.warping_disabled"), _warping_disabled, "switch", { value: properties.warping_disabled ?? defaultValues.properties.warping_disabled }),
-    createProperty(formatString(curLang,"editor.property.allow_solo_with_group"), _allow_solo_with_group, "switch", { value: properties.allow_solo_with_group ?? defaultValues.properties.allow_solo_with_group }),
+    //createProperty(formatString(curLang,"editor.property.allow_solo_with_group"), _allow_solo_with_group, "switch", { value: properties.allow_solo_with_group ?? defaultValues.properties.allow_solo_with_group }),
     createProperty(formatString(curLang,"editor.property.crumble_reduced"), _crumble_reduced, "switch", { value: properties.crumble_reduced ?? defaultValues.properties.crumble_reduced }),
-    createProperty(formatString(curLang,"editor.property.radioactive_gloop_reduced"), _radioactive_gloop_reduced, "switch", { value: properties.radioactive_gloop_reduced ?? defaultValues.properties.radioactive_gloop_reduced }),
+    //createProperty(formatString(curLang,"editor.property.radioactive_gloop_reduced"), _radioactive_gloop_reduced, "switch", { value: properties.radioactive_gloop_reduced ?? defaultValues.properties.radioactive_gloop_reduced }),
     createProperty(formatString(curLang,"editor.property.sticky_coat_distort_reduced"), _sticky_coat_distort_reduced, "switch", { value: properties.sticky_coat_distort_reduced ?? defaultValues.properties.sticky_coat_distort_reduced }),
     createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"), _wind_ghosts_do_not_push_while_downed, "switch", { value: properties.wind_ghosts_do_not_push_while_downed ?? defaultValues.properties.wind_ghosts_do_not_push_while_downed }),
     createProperty(formatString(curLang,"editor.property.magnetism"), _magnetism, "switch", { value: properties.magnetism ?? defaultValues.properties.magnetism }),
