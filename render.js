@@ -129,8 +129,8 @@ else {
     map.areas[current_Area].zones[j].width>>=0;
     map.areas[current_Area].zones[j].height>>=0;
     var texture="normal";
-    if(map.areas[current_Area].zones[j].properties.texture!="normal")texture=map.areas[current_Area].zones[j].properties.texture ?? defaultValues.properties.texture;
-    else if(map.areas[current_Area].properties.texture!="normal")texture=map.areas[current_Area].properties.texture ?? defaultValues.properties.texture;
+    if((map.areas[current_Area].zones[j].properties.texture ?? defaultValues.properties.texture)!=defaultValues.properties.texture)texture=map.areas[current_Area].zones[j].properties.texture ?? defaultValues.properties.texture;
+    else if((map.areas[current_Area].properties.texture ?? defaultValues.properties.texture)!=defaultValues.properties.texture)texture=map.areas[current_Area].properties.texture ?? defaultValues.properties.texture;
     else texture=map.properties.texture ?? defaultValues.properties.texture;
     var p = ctx.createPattern(zoneconsts[texture][map.areas[current_Area].zones[j].type], null)
     ctx.beginPath();
