@@ -1392,6 +1392,7 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	}
 	renderAbility(e, a, t, r, c, o, n, $) {
 		var ab=txtr_abilities[a.abilityType];
+		a.maxLevel=abilityConfig[a.abilityType].levels.length;
 		if (t += 41*camScale - $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE / 2*camScale,
 		n.interactive = !0,
 		a.locked ? (e.drawImage(abilities,ab.x,ab.y,ab.w,ab.h, t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale),

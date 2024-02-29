@@ -12,7 +12,7 @@ function $01bb7fd9b3660a1e$export$304370d6b87d514e(e, a, t) {
 }
 
 function $01bb7fd9b3660a1e$export$a1dfcc7b3a7a0b52(e) {
-return $3d7c57289a41f86c$exports.abilities[e];
+return abilityConfig[e];
 }
 function $01bb7fd9b3660a1e$export$6ca246516fec3cbe(e) {
 	let a = "";
@@ -102,7 +102,7 @@ function spawnEntities(area=current_Area){
         switch(activeZone.spawner[i].types[randType].i){
           default:
 			try{
-            entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].color,radius,activeZone.spawner[i].types[randType].i,activeZone.spawner[i].speed,activeZone.spawner[i].angle,activeZone.spawner[i][`${activeZone.spawner[i].types[randType].i}_radius`],auraColor,{left,right,bottom,top,width:activeZone.width,height:activeZone.height});entity.isEnemy=true
+            entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].color,radius,activeZone.spawner[i].types[randType].i,activeZone.spawner[i].speed,activeZone.spawner[i].angle,activeZone.spawner[i][`${activeZone.spawner[i].types[randType].i}_radius`]??defaultValues.spawner[`${activeZone.spawner[i].types[randType].i}_radius`],auraColor,{left,right,bottom,top,width:activeZone.width,height:activeZone.height});entity.isEnemy=true
 			}catch(e){
           entity=new NormalEnemy(
             enemyX,
@@ -122,6 +122,17 @@ function spawnEntities(area=current_Area){
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
 			activeZone.spawner[i].experience_drain_radius??defaultValues.spawner.experience_drain_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "blocking":
+          entity=new BlockingEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].blocking_radius??defaultValues.spawner.blocking_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -202,6 +213,28 @@ function spawnEntities(area=current_Area){
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
 			activeZone.spawner[i].slowing_radius??defaultValues.spawner.slowing_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "magnetic_reduction":
+          entity=new MagneticReductionEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].magnetic_reduction_radius??defaultValues.spawner.magnetic_reduction_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
+          case "magnetic_nullification":
+          entity=new MagneticNullificationEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			activeZone.spawner[i].magnetic_nullification_radius??defaultValues.spawner.magnetic_nullification_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -347,9 +380,10 @@ this.isSnowballed=false;
 this.snowballedTime=2500;
 this.snowballedTimeLeft=2500;
 this.isDeparted=false;
+this.magnetDirection="DOWN";
 this.abilityOne={abilityType:0};
 this.abilityTwo={abilityType:1};
-this.abilityThree={abilityType:2};
+this.abilityThree={abilityType:98};
 this.harden = false;
 this.flow = false;
 this.isBandaged=false;
@@ -530,6 +564,58 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
+		case 98:{
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				this.magnetDirection="UP";
+				abilityActive=false;
+				switch(kind){
+					case 1:{
+						this.firstAbilityActivated=false;
+						this.abilityOne.abilityType=99;
+						this.abilityOne.name=abilityConfig[this.abilityOne.abilityType].name;
+					}break;
+					case 2:{
+						this.secondAbilityActivated=false;
+						this.abilityTwo.abilityType=99;
+						this.abilityTwo.name=abilityConfig[this.abilityTwo.abilityType].name;
+					}break;
+					case 3:{
+						this.thirdAbilityActivated=false;
+						this.abilityThree.abilityType=99;
+						this.abilityThree.name=abilityConfig[this.abilityThree.abilityType].name;
+					}break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		}
+		case 99:{
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				this.magnetDirection="DOWN";
+				abilityActive=false;
+				switch(kind){
+					case 1:{
+						this.firstAbilityActivated=false;
+						this.abilityOne.abilityType=98;
+						this.abilityOne.name=abilityConfig[this.abilityOne.abilityType].name;
+					}break;
+					case 2:{
+						this.secondAbilityActivated=false;
+						this.abilityTwo.abilityType=98;
+						this.abilityTwo.name=abilityConfig[this.abilityTwo.abilityType].name;
+					}break;
+					case 3:{
+						this.thirdAbilityActivated=false;
+						this.abilityThree.abilityType=98;
+						this.abilityThree.name=abilityConfig[this.abilityThree.abilityType].name;
+					}break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		}
 	}
 	}
 	controlActions(input,delta){
@@ -713,17 +799,6 @@ input.keys.has(controls.RIGHT[1]))) {
             this.upgradePoints--;
           }
         }
-        if (this.energy-1>0 && !this.disabling && !this.magnetAbilityPressed && (this.magnet||this.flashlight) && (input.keys.has(controls.USE_ABILITY_THREE[0])||input.keys.has(controls.USE_ABILITY_THREE[1]))) {
-          if(this.magnetDirection=="Down"){this.magnetDirection = "Up"}
-          else if(this.magnetDirection=="Up"){this.magnetDirection = "Down"}
-          this.magnetAbilityPressed = true;
-          this.flashlight_active = !this.flashlight_active
-          if(this.magnet)this.energy -= 1;
-        }
-
-        if (!(input.keys.has(controls.USE_ABILITY_THREE[0])||input.keys.has(controls.USE_ABILITY_THREE[1]))) {
-          this.magnetAbilityPressed = false;
-        }
         this.statSpeed = this.speed+0;
         this.addX = 0; this.addY =0;
         this.d_x=0; this.d_y=0;
@@ -816,6 +891,8 @@ input.keys.has(controls.RIGHT[1])) {
           this.d_x = this.distance_movement * this.dirX;
           this.d_y = this.distance_movement * this.dirY;
 		  this.input_angle=Math.atan2(this.dirY,this.dirX);
+		  this.dx=this.d_x;
+		  this.dy=this.d_y;
         }
         //this.speed-=this.speedAdditioner;
         this.speed=this.statSpeed;
@@ -950,13 +1027,20 @@ let timeFix=delta/(1e3/30);
     if (Math.abs(this.velY)<1/32) {
       this.velY = 0;
     }
-    this.magnet = false;
     this.radius = this.defaultRadius;
-    if(this.magnet&&!this.safeZone){
-      var magneticSpeed = (this.vertSpeed == -1) ? 10 : this.vertSpeed
-      if(this.magnetDirection == "Down"){this.d_y = magneticSpeed;}
-      else if(this.magnetDirection == "Up"){this.d_y = -magneticSpeed;}
+	var velY=this.velY;
+    if((
+	map.properties?.magnetism||
+	map.properties?.partial_magnetism||
+	map.areas[this.area].properties?.magnetism||
+	map.areas[this.area].properties?.partial_magnetism
+	)&&!this.safeZone){
+		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
+      var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):10)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
+      if(this.magnetDirection.toLowerCase() == "down"){this.y += (magneticSpeed+this.dy*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
+      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (-magneticSpeed+this.dy*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
     }
+	this.dy=0;
     if(this.radiusAdditioner!=0){this.radius+=this.radiusAdditioner}
     this.radius *= this.radiusMultiplier;
     this.radiusMultiplier = 1;
@@ -1071,6 +1155,11 @@ let timeFix=delta/(1e3/30);
 	evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling;
 	evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling;
 	evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling;
+	this.enemyEffects=[
+		this.slowing,this.freezing,this.toxic,this.experienceDraining,
+		this.reducing,this.enlarging,this.draining,this.lava,this.slippery,
+		this.disabling,this.inEnemyBarrier,this.magneticReduction,this.magneticNullification,
+	]
     this.slowing = false;
     this.freezing = false;
     this.web = false;
@@ -1089,18 +1178,22 @@ let timeFix=delta/(1e3/30);
     this.tempColor=this.color;
     this.disabling=false;
     var vel;
-    var magneticSpeed = (this.vertSpeed == -1) ? 10 : this.vertSpeed;
+		var isMagnet=Boolean(map.properties?.magnetism)||Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
+		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
+      var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):10)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
     var yaxis = (this.velY>=0)?1:-1;
-    if(!this.magnet){magneticSpeed*=yaxis;}
-    if(this.magnetDirection == "Up"){magneticSpeed=-magneticSpeed}
-    if((this.magnet||this.vertSpeed != -1)&&!this.safeZone){vel = {x:this.velX, y:magneticSpeed};}
+    if(!isMagnet){magneticSpeed*=yaxis;}
+    if(this.magnetDirection.toLowerCase() == "up"){magneticSpeed=-magneticSpeed}
+    if((isMagnet||this.vertSpeed != -1)&&!this.safeZone){vel = {x:this.velX, y:this.velY*this.magneticNullification};}
     else{vel = {x:this.velX, y:this.velY};}
     this.vertSpeed = -1;
+	this.magneticReduction=false;
+	this.magneticNullification=false;
     if (!this.wasFrozen&&!this.isDowned()) {
       this.x += vel.x* timeFix;
       this.y += vel.y * timeFix;
     }
-    if(this.frozen&&this.magnet){this.y += vel.y * timeFix;}
+    if(this.frozen&&isMagnet){this.y += vel.y * timeFix;}
     this.speedMultiplier = 1;
     this.speedAdditioner = 0;
     this.regenAdditioner = 0;
@@ -2118,6 +2211,81 @@ class ExperienceDrainEnemy extends Enemy{
 	}
   }
 }
+class BlockingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.blocking_enemy.color,"blocking",boundary,auraColors.blocking,aura_radius);
+  }
+  auraEffect(player,delta){
+	if(!player.slowing&&player.enemyEffects[0]){
+	  player.slowing=player.enemyEffects[0];
+	  player.speedMultiplier*=0.7;
+	}
+	if(!player.freezing&&player.enemyEffects[1]){
+	  player.freezing=player.enemyEffects[1];
+	  player.speedMultiplier*=0.15;
+	}
+	if(!player.draining&&player.enemyEffects[6]){
+	  player.draining=player.enemyEffects[6];
+	  player.energy-=15*delta/1e3;
+	  player.energy=Math.max(0,player.energy);
+	}
+	if(!player.lava&&player.enemyEffects[7]){
+	  player.lava=player.enemyEffects[7];
+	  player.energy+=15*delta/1e3;
+	  if(player.energy>=player.maxEnergy){
+		switch(player.area){
+		case 0:player.deathTimer=player.deathTimerTotal=10000;break;
+		case 1:player.deathTimer=player.deathTimerTotal=15000;break;
+		case 2:player.deathTimer=player.deathTimerTotal=15000;break;
+		case 3:player.deathTimer=player.deathTimerTotal=20000;break;
+		case 4:player.deathTimer=player.deathTimerTotal=20000;break;
+		case 5:player.deathTimer=player.deathTimerTotal=20000;break;
+		case 6:player.deathTimer=player.deathTimerTotal=25000;break;
+		case 7:player.deathTimer=player.deathTimerTotal=25000;break;
+		case 8:player.deathTimer=player.deathTimerTotal=30000;break;
+		case 9:player.deathTimer=player.deathTimerTotal=30000;break;
+		default:player.deathTimer=player.deathTimerTotal=60000;break;
+		}
+		if(map.areas[player.area].properties.death_timer!==void 0){
+		player.deathTimer=player.deathTimerTotal=map.areas[player.area].properties.death_timer;
+		}else if(map.properties.death_timer!==void 0){
+		player.deathTimer=player.deathTimerTotal=map.properties.death_timer;
+		}
+		player.energy=0;
+	  }
+	}
+	if(!player.toxic&&player.enemyEffects[2]){
+	  player.toxic=player.enemyEffects[2];
+	  player.energy=Math.min(player.energy,player.maxEnergy*0.7);
+	}
+	if(!player.enlarging&&player.enemyEffects[5]){
+	  player.enlarging=player.enemyEffects[5];
+	  player.radiusAdditioner+=10;
+	}
+	if(!player.reducing&&player.enemyEffects[4]){
+	  player.reducing=player.enemyEffects[4];
+	  player.reducingTime+=delta;
+	}
+	player.slippery=player.enemyEffects[8];
+	player.disabling=player.enemyEffects[9];
+	player.inEnemyBarrier=player.enemyEffects[10];
+	player.magneticReduction=player.enemyEffects[11];
+	player.magneticNullification=player.enemyEffects[12];
+
+	if(!player.experienceDraining&&player.enemyEffects[3]){
+	  player.experienceDraining=player.experienceDraining=player.enemyEffects[3];
+	  player.experience-=2*player.level*delta/1e3;
+	  player.experience=Math.max(0,player.experience);
+	  if(player.experience<player.previousLevelExperience){
+		var diff=player.previousLevelExperience-player.experience;
+		player.previousLevelExperience-=diff;
+		player.nextLevelExperience+=diff;
+		player.previousLevelExperience=Number(player.previousLevelExperience.toFixed(5));
+		player.nextLevelExperience=Number(player.nextLevelExperience.toFixed(5));
+	  }
+	}
+  }
+}
 class SlowingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.slowing_enemy.color,"slowing",boundary,auraColors.slowing,aura_radius);
@@ -2127,6 +2295,22 @@ class SlowingEnemy extends Enemy{
 	  player.slowing=true;
 	  player.speedMultiplier*=0.7;
 	}
+  }
+}
+class MagneticReductionEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.magnetic_reduction_enemy.color,"magnetic_reduction",boundary,auraColors.magnetic_reduction,aura_radius);
+  }
+  auraEffect(player,delta){
+	player.magneticReduction=true
+  }
+}
+class MagneticNullificationEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.magnetic_nullification_enemy.color,"magnetic_nullification",boundary,auraColors.magnetic_nullification,aura_radius);
+  }
+  auraEffect(player,delta){
+	player.magneticNullification=true
   }
 }
 class FreezingEnemy extends Enemy{
