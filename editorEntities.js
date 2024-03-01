@@ -348,6 +348,7 @@ class SimulatedPlayer{
   constructor(x,y,color,username="Local Player") {
     this.x=x;
     this.y=y;
+this.onTele=true;
 this.oldPos={x:this.x,y:this.y};
 this.previousPos={x:this.x,y:this.y};
     this.velX=0;

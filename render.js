@@ -100,7 +100,7 @@ var selfPlayer=map.players.filter(e=>e.id==window.selfId)[0];
     camY += camSpeed / camScale * (keysDown.has(controls.CAM_DOWN) - keysDown.has(controls.CAM_UP));
   }else{
   if(!selfPlayer&&!window.selfId){
-var player=new SimulatedPlayer(160,240,"#FF0000");
+var player=new SimulatedPlayer(map.areas[0].zones.filter(e=>e.type=="safe")[0].x+16+(map.areas[0].zones.filter(e=>e.type=="safe")[0].width-32)*Math.random(),map.areas[0].zones.filter(e=>e.type=="safe")[0].y+16+(map.areas[0].zones.filter(e=>e.type=="safe")[0].height-32)*Math.random(),"#FF0000");
 selfPlayer=player;
 window.selfId=player.id;
 map.players.push(player)
