@@ -54,8 +54,8 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
         selectedObject = null;
         for (var areas in obj.areas) {
             let area=obj.areas[areas];
-            if(area.x=="var x")area.x=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)??"var x";
-            if(area.y=="var y")area.y=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)??"var y";
+            if(area.x=="var x")area.x=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].x??"var x";
+            if(area.y=="var y")area.y=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].y??"var y";
             var maxRight=0;
             var maxBottom=0;
             for(var zone in area.zones){
