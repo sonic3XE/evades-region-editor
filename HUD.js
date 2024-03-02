@@ -2547,7 +2547,7 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			if (e.fillStyle = n,
 			e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(9),
 			a.rescueable) {
-				let o = r - 8;
+				let o = r - 8*camScale;
 				r < this.top + 16*camScale + c && (o = r + 16*camScale),
 				e.fillText((a.deathTimer / 1e3).toFixed(0), t, o)
 			}
