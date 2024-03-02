@@ -927,7 +927,7 @@ input.keys.has(controls.RIGHT[1])) {
 	update(delta){
 let timeFix=delta/(1e3/30);
 this.chronoPos.push([this.x,this.y,this.deathTimer]);
-this.chronoPos.length>Math.round(75/timeFix)&&(this.chronoPos.shift());
+this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     this.inBarrier = false;
 	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
 	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
