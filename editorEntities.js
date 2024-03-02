@@ -383,7 +383,7 @@ this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
 this.abilityOne={abilityType:0};
-this.abilityTwo={abilityType:1};
+this.abilityTwo={abilityType:18};
 this.abilityThree={abilityType:98};
 this.harden = false;
 this.flow = false;
@@ -432,6 +432,7 @@ this.continuousReviveTimeLeft=0;
     this.deathTimerTotal=0;
     this.color=color;
     this.name=username;
+	this.chronoPos=[];
 this.distance_moved_previously = [0,0];
     this.speed=5;
     this.energy=30;
@@ -468,13 +469,11 @@ this.isGuest=!1;
   }
 	handleAbility(ability,kind=1,delta,others,force=false){
 	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
-	if(ability.locked||ability.disabled||ability.level==void 0||this.deathTimer!=-1||(!ability.continuous&&this.energy<ability.energyCost)){
-		switch(kind){
-			case 1:this.firstAbilityActivated=false;break;
-			case 2:this.secondAbilityActivated=false;break;
-			case 3:this.thirdAbilityActivated=false;break;
-		}
-		return;
+	if(ability.locked||(this.deathTimer!=-1&&ability.abilityType!=18)||ability.disabled||ability.level==void 0||(!ability.continuous&&this.energy<ability.energyCost)){
+			if(kind==1)this.firstAbilityActivated=false;
+			else if(kind==2)this.secondAbilityActivated=false;
+			else if(kind==3)this.thirdAbilityActivated=false;
+			return;
 	};
 	var abilityActive;
 	var mask=7&(2**kind);
@@ -551,6 +550,28 @@ this.isGuest=!1;
 				this.energy-=ability.energyCost;
 				this.x+=Math.cos(this.input_angle)*abilityLevels[ability.level-1]?.distance;
 				this.y+=Math.sin(this.input_angle)*abilityLevels[ability.level-1]?.distance;
+				var area=map.areas[this.area];
+				if(this.y<area.BoundingBox.top+this.radius){this.velY=0,this.y=this.radius};
+				if(this.y>area.BoundingBox.bottom-this.radius){this.velY=0,this.y=map.areas[this.area].BoundingBox.bottom-this.radius};
+				if(this.x<area.BoundingBox.left+this.radius){this.velX=0,this.x=this.radius};
+				if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.area].BoundingBox.right-this.radius};
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 18:{
+			abilityActive&&console.log(abilityActive);
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				this.x=this.chronoPos[0][0];
+				this.y=this.chronoPos[0][1];
+				this.deathTimer=this.chronoPos[0][2];
 				var area=map.areas[this.area];
 				if(this.y<area.BoundingBox.top+this.radius){this.velY=0,this.y=this.radius};
 				if(this.y>area.BoundingBox.bottom-this.radius){this.velY=0,this.y=map.areas[this.area].BoundingBox.bottom-this.radius};
@@ -666,9 +687,9 @@ this.isGuest=!1;
 	  var harden=false;
 	  var forceOff=[0,0,0];
 	  if(this.deathTimer!=-1){
-		  this.firstAbilityActivated=false;
-		  this.secondAbilityActivated=false;
-		  this.thirdAbilityActivated=false;
+		  this.abilityOne.abilityType!=18&&(this.firstAbilityActivated=false);
+		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
+		  this.abilityThree.abilityType!=18&&(this.thirdAbilityActivated=false);
 	  }
 	if(this.firstAbilityActivated&&ab1.abilityType==0||this.secondAbilityActivated&&ab2.abilityType==0||this.thirdAbilityActivated&&ab3.abilityType==0)flow=true;
 	if(this.firstAbilityActivated&&ab1.abilityType==1||this.secondAbilityActivated&&ab2.abilityType==1||this.thirdAbilityActivated&&ab3.abilityType==1)harden=true;
@@ -905,6 +926,8 @@ input.keys.has(controls.RIGHT[1])) {
                 }
 	update(delta){
 let timeFix=delta/(1e3/30);
+this.chronoPos.push([this.x,this.y,this.deathTimer]);
+this.chronoPos.length>Math.round(75/timeFix)&&(this.chronoPos.shift());
     this.inBarrier = false;
 	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
 	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
@@ -1233,6 +1256,7 @@ let timeFix=delta/(1e3/30);
           map.areas[this.area].entities=[];
           this.area = maxArea;
           spawnEntities(this.area);
+		  this.chronoPos=[];
           }
         }
         if(zone.type=="removal"){
