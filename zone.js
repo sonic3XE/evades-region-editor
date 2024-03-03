@@ -449,6 +449,13 @@ point1.projectile_radius=undefined;
 			gravInput.value = Number(gravInput.value);
 			point1.gravity = Number(gravInput.value);spawnEntities()
 		});
+        const quicksandStrengthInput = document.createElement("input");
+        quicksandStrengthInput.value = point1.quicksand_strength ?? defaultValues.spawner.quicksand_strength;
+		quicksandStrengthInput.step=0.01;
+		quicksandStrengthInput.addEventListener("input", () => {
+			quicksandStrengthInput.value = Number(quicksandStrengthInput.value);
+			point1.quicksand_strength = Number(quicksandStrengthInput.value);spawnEntities()
+		});
         const repelInput = document.createElement("input");
         repelInput.value = point1.repulsion ?? defaultValues.spawner.repulsion;
 		repelInput.step=1;
@@ -544,6 +551,7 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.player_detection_radius"), pdrInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.quicksand"), [
+		createProperty(formatString(curLang,"editor.property.quicksand_strength"), quicksandStrengthInput, "number"),
 		createProperty(formatString(curLang,"editor.property.push_direction"), pushDirInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.radiating_bullets"),[

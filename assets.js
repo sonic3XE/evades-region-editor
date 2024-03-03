@@ -32,7 +32,7 @@ hProp=createProperty(formatString(curLang,"editor.property.height"), hInput, "nu
 var upsidedown=createProperty(formatString(curLang,"editor.property.upside_down"), updnInput, "switch", {value:wall.upside_down});
 var texture=createProperty(formatString(curLang,"editor.property.texture"),null,"select",{
 			value:wall.texture,event:(e)=>{wall.texture=e},
-			selectOptions:[["???",undefined],...["normal","leaves","wooden","baguette","ice"].map(e=>[formatString(curLang,"editor.texture."+e),e])],
+			selectOptions:["normal","leaves","wooden","baguette","ice",null].map(e=>[formatString(curLang,"editor.texture."+e),e]),
 			selectType:"text"});
 	
 				if(wall.type=="wall"){

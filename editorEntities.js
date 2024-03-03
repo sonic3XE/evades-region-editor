@@ -157,6 +157,7 @@ function spawnEntities(area=current_Area){
             activeZone.spawner[i].angle,
 			activeZone.spawner[i].quicksand_radius??defaultValues.spawner.quicksand_radius,
 			activeZone.spawner[i].push_direction??defaultValues.spawner.push_direction??quicksandDir,
+			activeZone.spawner[i].quicksand_strength??defaultValues.spawner.quicksand_strength,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
@@ -425,7 +426,7 @@ this.underLibotEffect=false;
 this.underDabotEffect=false;
 this.leadTime=0;
 this.ictosInvulnerability=false;
-this.quicksand=[0,0];
+this.quicksand=[0,0,5];
 this.continuousRevive=false;
 this.continuousReviveTime=0;
 this.continuousReviveTimeLeft=0;
@@ -1123,8 +1124,8 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     }
 
     if(this.quicksand[0]&&!this.invulnerable){
-      this.x += Math.cos(this.quicksand[1] * (Math.PI/180)) * 5 * timeFix;
-      this.y += Math.sin(this.quicksand[1] * (Math.PI/180)) * 5 * timeFix;
+      this.x += Math.cos(this.quicksand[1] * (Math.PI/180)) * this.quicksand[2] * timeFix;
+      this.y += Math.sin(this.quicksand[1] * (Math.PI/180)) * this.quicksand[2] * timeFix;
       this.quicksand[0] = false;
     }
 
@@ -2490,12 +2491,13 @@ class DisablingEnemy extends Enemy{
   }
 }
 class QuicksandEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,direction,boundary){
+  constructor(x,y,radius,speed,angle,aura_radius,direction,strength,boundary){
     super(x,y,radius,speed,angle,enemyConfig.quicksand_enemy.color,"quicksand",boundary,auraColors.quicksand,aura_radius);
 	this.push_direction=direction;
+	this.quicksand_strength=strength;
   }
   auraEffect(player,delta){
-	player.quicksand=[true,this.push_direction];
+	player.quicksand=[true,this.push_direction,this.quicksand_strength];
   }
 }
 
