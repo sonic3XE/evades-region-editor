@@ -950,7 +950,7 @@ function createpoint2(types="normal",point1){
            "charging",
            "reducing",
            "lead_sniper",
-  "blocking",
+  "blocking","stalactite",
   "force_sniper_a",
   "force_sniper_b",].map(e=>[formatString(curLang,"editor.enemy."+e),e])
 				.sort(),

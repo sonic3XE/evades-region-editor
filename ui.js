@@ -120,6 +120,7 @@ var curLang={
   "editor.enemy.reducing": "Reducing",
   "editor.enemy.charging": "Charging",
   "editor.enemy.blocking": "Blocking",
+  "editor.enemy.stalactite": "Stalactite",
   "editor.enemy.force_sniper_a": "Force Sniper A",
   "editor.enemy.force_sniper_b": "Force Sniper B",
   "editor.pattern.none":"None",
