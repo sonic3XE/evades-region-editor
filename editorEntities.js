@@ -383,7 +383,7 @@ this.snowballedTime=2500;
 this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
-this.abilityOne={abilityType:0};
+this.abilityOne={abilityType:31};
 this.abilityTwo={abilityType:18};
 this.abilityThree={abilityType:98};
 this.harden = false;
@@ -566,7 +566,6 @@ this.isGuest=!1;
 			}
 		};break;
 		case 18:{
-			abilityActive&&console.log(abilityActive);
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
@@ -585,6 +584,14 @@ this.isGuest=!1;
 					case 3:this.thirdAbilityActivated=false;break;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 31:{
+			for(var entity of map.areas[this.area].entities){
+				if(entity.isEnemy&&this.distance(this,entity)<abilityConfig[ability.abilityType].radius&&!entity.immune){
+					entity.speedMultiplier*=abilityLevels[ability.level-1]?.slow;
+					entity.decayed=true;
+				}
 			}
 		};break;
 		case 98:{
@@ -2004,6 +2011,7 @@ class SimulatorEntity{
           ctxL.fillStyle = r,
           ctxL.closePath(),
           ctxL.fill()
+    this.decayed=false;
   }
 }
 //UTILS
@@ -2025,8 +2033,9 @@ class Enemy extends SimulatorEntity{
     this.isEnemy=true;
   }
   update(delta){
-    this.x+=this.velX*delta/(1e3/30);
-    this.y+=this.velY*delta/(1e3/30);
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier=1;
     this.collision(delta);
   }
 }
@@ -2557,6 +2566,7 @@ class HomingEnemy extends Enemy{
     }
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier=1;
     this.collision();
   }
   onCollide(){
@@ -2647,6 +2657,7 @@ class DasherEnemy extends Enemy{
     }
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier=1;
     this.collision();
   }
   onCollide(){
