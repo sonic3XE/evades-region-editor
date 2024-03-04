@@ -341,6 +341,7 @@ var defaultValues={
 		circle_size:150,
 		hard_mode:false,
 		gravity:6,
+		quicksand_strength:5,
 		repulsion:6,
 		push_direction:void 0,
 		x:void 0,
