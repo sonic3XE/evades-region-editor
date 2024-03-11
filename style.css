@@ -21,6 +21,12 @@ a:active {
 .pull_request:hover>span{
 	display:block;
 }
+.discussions>span{
+	display:none;
+}
+.discussions:hover>span{
+	display:block;
+}
 .hero-select-question {
     float: right;
     display: inline-block;

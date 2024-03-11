@@ -2301,12 +2301,11 @@ class BlockingEnemy extends Enemy{
 	  player.reducing=player.enemyEffects[4];
 	  player.reducingTime+=delta;
 	}
-	player.slippery=player.enemyEffects[8];
-	player.disabling=player.enemyEffects[9];
-	player.inEnemyBarrier=player.enemyEffects[10];
-	player.magneticReduction=player.enemyEffects[11];
-	player.magneticNullification=player.enemyEffects[12];
-
+	if(!player.slippery&&player.enemyEffects[8]){player.slippery=player.enemyEffects[8]}
+	if(!player.disabling&&player.enemyEffects[9]){player.disabling=player.enemyEffects[9]}
+	if(!player.inEnemyBarrier&&player.enemyEffects[10]){player.inEnemyBarrier=player.enemyEffects[10]}
+	if(!player.magneticReduction&&player.enemyEffects[11]){player.magneticReduction=player.enemyEffects[11]}
+	if(!player.magneticNullification&&player.enemyEffects[12]){player.magneticNullification=player.enemyEffects[12]}
 	if(!player.experienceDraining&&player.enemyEffects[3]){
 	  player.experienceDraining=player.experienceDraining=player.enemyEffects[3];
 	  player.experience-=2*player.level*delta/1e3;
