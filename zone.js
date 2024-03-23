@@ -961,7 +961,21 @@ function createpoint2(types="normal",point1){
            "lead_sniper",
   "blocking","stalactite",
   "force_sniper_a",
-  "force_sniper_b",].map(e=>[formatString(curLang,"editor.enemy."+e),e])
+  "force_sniper_b",
+    "slooming",
+    "particulate",
+    "water_trail",
+    "nightshade",
+    "riptide",
+    "cloud",
+    "rain",
+    "storm",
+    "airburst",
+    "param_test",
+    "rotor",
+    "radioactive_sniper",
+
+].map(e=>[formatString(curLang,"editor.enemy."+e),e])
 				.sort(),
 				selectType: "text"
             });
