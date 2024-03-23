@@ -25,6 +25,8 @@ var curLang={
   "editor.category.radiating_bullets": "Radiating Bullets Enemy",
   "editor.category.wall": "Wall Enemy",
   "editor.category.quicksand": "Quicksand Enemy",
+  "editor.category.rotor": "Rotor Enemy",
+  "editor.category.param_test": "Param Test Enemy",
   "editor.enemy.wall": "Wall",
   "editor.enemy.normal": "Normal",
   "editor.enemy.homing": "Homing",
