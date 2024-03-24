@@ -2716,8 +2716,6 @@ class RotorEnemy extends Enemy{
         var branch_angle = this.angle_btwn_branches * n + (l % ((this.layer_reverse_interval) * 2) < this.layer_reverse_interval ? -this.rotation : this.rotation) + this.offset_per_layer * l;
         var nodeX = dist_from_center * Math.cos(branch_angle * (Math.PI/180));
         var nodeY = dist_from_center * Math.sin(branch_angle * (Math.PI/180));
-        console.log(`dfc: ${dist_from_center}`);
-        console.log(`brangle: ${branch_angle}`);
         this.renderNode(nodeX, nodeY, e);
       } 
     }
