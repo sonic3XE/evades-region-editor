@@ -941,6 +941,18 @@ input:checked+.switchSpan::after {
 .array .add::after {
     content: "Add Item";
 }
+.array .centerX::after {
+    content: "Center Spawner X";
+}
+.array .centerY::after {
+    content: "Center Spawner Y";
+}
+.array .centerX:focus {
+    outline: none;
+}
+.array .centerY:focus {
+    outline: none;
+}
 .array .add:focus {
     outline: none;
 }

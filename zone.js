@@ -553,8 +553,12 @@ point1.projectile_radius=undefined;
     const point2El = createFolder(formatString(curLang,"editor.property.types"), point1.types.map(e=>e.element));
       
     const addBtn = document.createElement("button");
+    const centerXbtn = document.createElement("button");
+    const centerYbtn = document.createElement("button");
     point2El.classList.add("array");
     addBtn.classList.add("add");
+    centerXbtn.classList.add("centerX");
+    centerYbtn.classList.add("centerY");
     addBtn.addEventListener("click", () => {
         let point3 = createpoint2(void 0,point1);
         point1.types.push(point3);
@@ -562,7 +566,19 @@ point1.projectile_radius=undefined;
         point2El.classList.remove("min");
       spawnEntities()
     });
+    centerXbtn.addEventListener("click", () => {
+      var center = Zone.x + Zone.rw / 2;
+      point1.x = center;
+      spawnEntities();
+    });
+    centerYbtn.addEventListener("click", () => {
+      var center = Zone.y + Zone.rh / 2;
+      point1.y = center;
+      spawnEntities();
+    });
     point2El.appendChild(addBtn);
+    point2El.appendChild(centerXbtn);
+    point2El.appendChild(centerYbtn);
     
     if (point1.types.length < 2) point2El.classList.add("min");
 		li = createFolder(formatString(curLang,"editor.spawner"), [
@@ -1076,23 +1092,23 @@ function createpoint2(types="normal",point1){
            "charging",
            "reducing",
            "lead_sniper",
-  "blocking","stalactite",
-  "force_sniper_a",
-  "force_sniper_b",
-    "slooming",
-    "particulate",
-    "water_trail",
-    "nightshade",
-    "riptide",
-    "cloud",
-    "rain",
-    "storm",
-    "airburst",
-    "param_test",
-    "rotor",
-    "radioactive_sniper",
-    "vine",
-    "disc",
+          "blocking","stalactite",
+          "force_sniper_a",
+          "force_sniper_b",
+            "slooming",
+            "particulate",
+            "water_trail",
+            "nightshade",
+            "riptide",
+            "cloud",
+            "rain",
+            "storm",
+            "airburst",
+            "param_test",
+            "rotor",
+            "radioactive_sniper",
+            "vine",
+            "disc",
 
 ].map(e=>[formatString(curLang,"editor.enemy."+e),e])
 				.sort(),
