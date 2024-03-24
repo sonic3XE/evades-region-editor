@@ -112,5 +112,6 @@ function getEnemyConfig() {
     radioactive_sniper_enemy: { radius: 18, color: "#c8f542" },
     vine_enemy: { radius: 18, color: "#5fa372" },
     disc_enemy: { radius: 18, color: "#1049a3" },
+    swamp_enemy: { radius: 18, color: "#0b360b" },
   };
 }

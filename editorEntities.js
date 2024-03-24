@@ -324,7 +324,29 @@ function spawnEntities(area=current_Area){
               activeZone.spawner[i].rotor_layer_reverse_interval ?? defaultValues.spawner.rotor_layer_reverse_interval,
               {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
             );
-		  break;
+		      break;
+          case "riptide":
+          entity=new RiptideEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			      activeZone.spawner[i].riptide_radius??defaultValues.spawner.riptide_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+          break;
+          case "swamp":
+          entity=new SwampEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			      activeZone.spawner[i].swamp_radius??defaultValues.spawner.swamp_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+          break;
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
@@ -2530,6 +2552,23 @@ class QuicksandEnemy extends Enemy{
   }
   auraEffect(player,delta){
 	player.quicksand=[true,this.push_direction,this.quicksand_strength];
+  }
+}
+
+class RiptideEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.riptide_enemy.color,"riptide",boundary,auraColors.riptide,aura_radius);
+  }
+  auraEffect(player,delta){
+    //add later
+  }
+}
+class SwampEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.swamp_enemy.color,"swamp",boundary,auraColors.swamp,aura_radius);
+  }
+  auraEffect(player,delta){
+    //add later
   }
 }
 

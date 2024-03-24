@@ -242,6 +242,8 @@ const auraColors={
   "barrier":"rgba(41, 255, 198, 0.3)",
   "reducing":"rgba(45, 50, 55, 0.15)",
   "blocking":"rgba(191, 82, 19, 0.3)",
+  "swamp":"rgba(11, 54, 11, 0.25)",
+  "riptide":"rgba(30, 100, 120, 0.15)",
 };
 const enemyConfig=getEnemyConfig();
 async function loadData(){
