@@ -1092,6 +1092,7 @@ function createpoint2(types="normal",point1){
     "rotor",
     "radioactive_sniper",
     "vine",
+    "disc",
 
 ].map(e=>[formatString(curLang,"editor.enemy."+e),e])
 				.sort(),

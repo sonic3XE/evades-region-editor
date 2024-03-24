@@ -138,6 +138,7 @@ var curLang={
   "editor.enemy.rotor": "Rotor",
   "editor.enemy.radioactive_sniper": "Radioactive Sniper",
   "editor.enemy.vine": "Vine",
+  "editor.enemy.disc": "Disc",
   "editor.pattern.none":"None",
   "editor.pattern.spiral": "Spiral",
   "editor.pattern.twinspiral": "Twin Spiral",
