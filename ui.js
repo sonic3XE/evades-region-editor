@@ -137,6 +137,7 @@ var curLang={
   "editor.enemy.param_test": "Param Test",
   "editor.enemy.rotor": "Rotor",
   "editor.enemy.radioactive_sniper": "Radioactive Sniper",
+  "editor.enemy.vine": "Vine",
   "editor.pattern.none":"None",
   "editor.pattern.spiral": "Spiral",
   "editor.pattern.twinspiral": "Twin Spiral",

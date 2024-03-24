@@ -913,9 +913,7 @@ function cloneSpawner(e){
 	);
   obj.types.includes("param_test") && (obj.test_param = e.test_param);
   obj.types.includes("rotor") && (
-    console.log(e.rotor_branch_count),
     obj.rotor_branch_count = e.rotor_branch_count,
-    console.log(obj.rotor_branch_count),
     obj.rotor_node_count = e.rotor_node_count,
     obj.rotor_node_radius = e.rotor_node_radius,
     obj.rotor_rot_speed = e.rotor_rot_speed,
@@ -1093,6 +1091,7 @@ function createpoint2(types="normal",point1){
     "param_test",
     "rotor",
     "radioactive_sniper",
+    "vine",
 
 ].map(e=>[formatString(curLang,"editor.enemy."+e),e])
 				.sort(),
