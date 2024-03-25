@@ -1,4 +1,4 @@
-alert("enemy property saving is bugged, do not use this editor if you want to change enemy properties from their default value. Use sonic3xe.github.io/evades-region-editor instead.")
+alert("enemy property saving is bugged, do not use this editor if you want to change enemy properties from their default value or are editing a map that does. Use sonic3xe.github.io/evades-region-editor instead.")
 
 var global = typeof window != 'undefined' && window.Math == Math
   ? window : typeof self != 'undefined' && self.Math == Math ? self
