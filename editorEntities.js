@@ -322,6 +322,7 @@ function spawnEntities(area=current_Area){
               activeZone.spawner[i].rotor_branch_dist ?? defaultValues.spawner.rotor_branch_dist,
               activeZone.spawner[i].rotor_offset_per_layer ?? defaultValues.spawner.rotor_offset_per_layer,
               activeZone.spawner[i].rotor_layer_reverse_interval ?? defaultValues.spawner.rotor_layer_reverse_interval,
+              activeZone.spawner[i].rotor_corrosive ?? defaultValues.spawner.rotor_corrosive,
               {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
             );
 		      break;
@@ -2729,7 +2730,7 @@ class DasherEnemy extends Enemy{
 
 
 class RotorEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,rotor_branch_count = 2,rotor_node_count = 2,rotor_node_radius = 16,rotor_rot_speed = 5,rotor_reversed = false,rotor_branch_offset = 0, rotor_node_dist = 0, rotor_branch_dist = 0, rotor_offset_per_layer = 0, rotor_layer_reverse_interval = 0, boundary){
+  constructor(x,y,radius,speed,angle,rotor_branch_count = 2,rotor_node_count = 2,rotor_node_radius = 16,rotor_rot_speed = 5,rotor_reversed = false,rotor_branch_offset = 0, rotor_node_dist = 0, rotor_branch_dist = 0, rotor_offset_per_layer = 0, rotor_layer_reverse_interval = 0, rotor_corrosive = false, boundary){
     super(x,y,radius,speed,angle,"#4d6f2b","rotor",boundary);
     this.branch_count = rotor_branch_count;
     this.node_count = rotor_node_count;
@@ -2741,6 +2742,7 @@ class RotorEnemy extends Enemy{
     this.branch_dist = rotor_branch_dist; 
     this.offset_per_layer = rotor_offset_per_layer; 
     this.layer_reverse_interval = rotor_layer_reverse_interval;
+    this.corrosive = rotor_corrosive;
     this.rotation = this.branch_offset;
     this.angle_btwn_branches = 360 / this.branch_count;
   }

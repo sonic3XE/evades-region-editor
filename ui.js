@@ -276,6 +276,7 @@ var curLang={
     "editor.property.rotor_branch_dist": "Branch Distance",
     "editor.property.rotor_offset_per_layer": "Offset Per Layer",
     "editor.property.rotor_layer_reverse_interval": "Layer Reverse Interval",
+    "editor.property.rotor_corrosive": "Corrosive",
 };
 document.getElementsByClassName("settings-launcher")[0].addEventListener("click",e=>{
   tip.hidden=false;
@@ -383,6 +384,7 @@ var defaultValues={
         rotor_branch_dist: 0,
         rotor_offset_per_layer: 0,
         rotor_layer_reverse_interval: 0,
+        rotor_corrosive: false,
 		hard_mode:false,
 		gravity:6,
 		quicksand_strength:5,
