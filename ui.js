@@ -138,6 +138,7 @@ var curLang={
   "editor.enemy.param_test": "Param Test",
   "editor.enemy.rotor": "Rotor",
   "editor.enemy.radioactive_sniper": "Radioactive Sniper",
+  "editor.enemy.sap_sniper": "Sap Sniper",
   "editor.enemy.vine": "Vine",
   "editor.enemy.disc": "Disc",
   "editor.pattern.none":"None",

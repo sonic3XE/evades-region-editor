@@ -1135,6 +1135,7 @@ function createpoint2(types="normal",point1){
             "param_test",
             "rotor",
             "radioactive_sniper",
+            "sap_sniper",
             "vine",
             "disc",
             "swamp",

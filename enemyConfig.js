@@ -110,6 +110,7 @@ function getEnemyConfig() {
     param_test_enemy: { radius: 18, color: "#ff00ff" },
     rotor_enemy: { radius: 18, color: "#43701e" },
     radioactive_sniper_enemy: { radius: 18, color: "#c8f542" },
+    sap_sniper_enemy: { radius: 18, color: "#d6ac42" },
     vine_enemy: { radius: 18, color: "#5fa372" },
     disc_enemy: { radius: 18, color: "#1049a3" },
     swamp_enemy: { radius: 18, color: "#0b360b" },
