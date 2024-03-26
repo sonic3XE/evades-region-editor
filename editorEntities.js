@@ -311,6 +311,36 @@ function spawnEntities(area=current_Area){
           case "normal":
           case "dasher":
           case "homing":
+          case "teleporting":
+          case "star":
+          case "oscillating":
+          case "zigzag":
+          case "zoning":
+          /* enemies to do:
+          vv: case "turning": (turning has a parameter so this won't actually be in the switch)
+          ww: case "spiral":
+          ww: case "switch":
+          gg: case "icicle":
+          ff: case "snowman": (this sounds really stupid to add)
+          ff: case "frost_giant": (its a stretch, while it is nice to have it will be tedious to add)
+        */
+        /* enemies that detect player (use mouse as player position substitute):
+          gg: case "liquid":
+          dd: case "radiating_bullets":
+          hh2: case "pumpkin":
+          hh2: case "tree":
+          bbh: case "lunging":
+          every sniper in the game
+        */
+        /* enemies that make me suffer
+          ww: case "wavy":
+          I cannot get wavy enemies to move correctly. It has exclusively been suffering and I don't even have any idea of how they
+          are intended to work in game. They don't even initially move downwards like they do in the sandbox and from looking at 
+          videos they've never done this, but I swear they have. I'm questioning my own sanity. This is now my least favorite enemy 
+          in the game. If you know how to implement wavy enemies correctly please do it but for my own mental health i will not 
+          touch these sinister crimson demons.
+        */
+          //mm3 invisibles too but add general support for that first
           entity=new (eval(capitalize(activeZone.spawner[i].types[randType].i)+"Enemy"))(
             enemyX,
             enemyY,
@@ -2663,4 +2693,128 @@ class DasherEnemy extends Enemy{
     this.velangle();
   }
 }
+
+class TeleportingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#ecc4ef","teleporting",boundary);
+    this.clock = 0;
+  }
+  update(delta){
+    this.clock += delta
+    this.speedMultiplier = 0
+    if (this.clock > 800) {
+      this.speedMultiplier = 1;
+      this.clock = this.clock % 800;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
+class StarEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#faf46e","star",boundary);
+    this.clock = 0;
+    this.starPos = 1;
+  }
+  update(delta){
+    this.clock += delta
+    this.speedMultiplier = 0
+    if (this.clock > 400) {
+      this.speedMultiplier = 1;
+      this.starPos *= -1;
+      this.velX *= -1;
+      this.velY *= -1;
+      this.clock = this.clock % 400;
+    }
+    /*i have no idea why we're multiplying speed by 4 here. Ravel code multiplied it by 2 but i compared
+    it to the actual speed of the enemies in eeh and multiplying by 4 got it to look very similar to the
+    distance of the enemies in real eeh so it seems appropriate for now.*/
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30) * 4;
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30) * 4;
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
+class OscillatingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#869e0f","oscillating",boundary);
+    this.clock = 0;
+  }
+  update(delta){
+    this.clock += delta
+    if (this.clock > 1000) {
+      this.velX *= -1;
+      this.velY *= -1;
+      this.clock = this.clock % 1000;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
+class ZigzagEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#b371f2","zigzag",boundary);
+    this.switchInterval = 500;
+    this.switchTime = 500;
+    this.switchAdd = false;
+    this.turnAngle = Math.PI / 2;
+  }
+  update(delta){
+    if (this.switchTime > 0) {
+      this.switchTime -= delta;
+    } else {
+      this.switchTime = this.switchInterval
+      if (!this.switchAdd) {
+        this.angle = Math.atan2(this.velY, this.velX);
+        this.angle -= this.turnAngle;
+        this.velX = Math.cos(this.angle) * this.speed;
+        this.velY = Math.sin(this.angle) * this.speed;
+        this.switchAdd = true;
+      } else {
+        this.angle = Math.atan2(this.velY, this.velX);
+        this.angle += this.turnAngle
+        this.velX = Math.cos(this.angle) * this.speed;
+        this.velY = Math.sin(this.angle) * this.speed;
+        this.switchAdd = false;
+      }
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
+class ZoningEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#a03811","zoning",boundary);
+    this.switchInterval = 1000;
+    this.switchTime = Math.random() * this.switchInterval;
+    this.turnAngle = Math.PI / 2
+    this.turnAngle *= (Math.floor(Math.random() * 2) * 2) - 1
+  }
+  update(delta){
+    if (this.switchTime > 0) {
+      this.switchTime -= delta
+    } else {
+      this.switchTime = this.switchInterval;
+      this.angle = Math.atan2(this.velY, this.velX);
+      this.angle += this.turnAngle;
+      this.velX = Math.cos(this.angle) * this.speed;
+      this.velY = Math.sin(this.angle) * this.speed;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
 window.warnin=false;
