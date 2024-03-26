@@ -2701,11 +2701,12 @@ class TeleportingEnemy extends Enemy{
   }
   update(delta){
     this.clock += delta
-    this.speedMultiplier *= 0;
     if (this.clock >= 22e3/30) {
       this.speedMultiplier *= 1;
       this.clock = this.clock % 22e3/30;
-    }
+    }else{
+	  this.speedMultiplier *= 0;
+	}
     this.x+=this.velX*this.speedMultiplier;
     this.y+=this.velY*this.speedMultiplier;
 	this.speedMultiplier=1;
@@ -2721,14 +2722,15 @@ class StarEnemy extends Enemy{
   }
   update(delta){
     this.clock += delta
-    this.speedMultiplier *= 0
     if (this.clock >= 400) {
       this.speedMultiplier *= 1;
       this.starPos *= -1;
       this.velX *= -1;
       this.velY *= -1;
       this.clock = this.clock % 400;
-    }
+    }else{
+	  this.speedMultiplier *= 0;
+	}
     this.x+=this.velX*this.speedMultiplier*2;
     this.y+=this.velY*this.speedMultiplier*2;
 	this.speedMultiplier=1;
