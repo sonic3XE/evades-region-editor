@@ -114,8 +114,10 @@ function getEnemyConfig() {
     vine_enemy: { radius: 18, color: "#5fa372" },
     disc_enemy: { radius: 18, color: "#1049a3" },
     swamp_enemy: { radius: 18, color: "#0b360b" },
-    sticky_sniper_enemy:{"radius":18,"color":"#000037"},
-    burning_enemy:{"radius":18,"color":"#FFA500"},
-
+    sticky_sniper_enemy: { radius: 18, color: "#000037" },
+    burning_enemy: { radius: 18, color: "#FFA500" },
+    web_enemy: { radius: 18, color: "#4a4a4a" },
+    cobweb_enemy: { radius: 18, color: "#e4e4e4" },
+    defender_enemy: { radius: 18, color: "#312f40" },
   };
 }
