@@ -114,5 +114,8 @@ function getEnemyConfig() {
     vine_enemy: { radius: 18, color: "#5fa372" },
     disc_enemy: { radius: 18, color: "#1049a3" },
     swamp_enemy: { radius: 18, color: "#0b360b" },
+    sticky_sniper_enemy:{"radius":18,"color":"#000037"},
+    burning_enemy:{"radius":18,"color":"#FFA500"},
+
   };
 }
