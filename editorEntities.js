@@ -311,6 +311,7 @@ function spawnEntities(area=current_Area){
           case "normal":
           case "dasher":
           case "homing":
+          case "teleporting":
           entity=new (eval(capitalize(activeZone.spawner[i].types[randType].i)+"Enemy"))(
             enemyX,
             enemyY,
@@ -2663,4 +2664,25 @@ class DasherEnemy extends Enemy{
     this.velangle();
   }
 }
+
+class TeleportingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#ecc4ef","teleporting",boundary);
+    this.clock = 0;
+  }
+  update(delta){
+    this.clock += delta
+    console.log(this.clock);
+    this.speedMultiplier = 0
+    if (this.clock > 800) {
+      this.speedMultiplier = 1;
+      this.clock = this.clock % 800;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
 window.warnin=false;
