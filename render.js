@@ -503,12 +503,14 @@ if(playtesting){
   ctx.strokeStyle="#000";
   ctx.lineWidth = 4;
   ctx.font="bold 20px tah";
-  ctx.textAlign="right";
-  ctx.fillStyle="white";
-  ctx.globalAlpha=0.1;
-  ctx.strokeText("Made by Sonic3XE", canvas.width-10, canvas.height-52)
+  if(isForked){
+    ctx.textAlign="right";
+    ctx.fillStyle="white";
+    ctx.globalAlpha=0.1;
+    ctx.strokeText("Made by Sonic3XE", canvas.width-10, canvas.height-52)
     ctx.fillText("Made by Sonic3XE", canvas.width-10, canvas.height-52)
-  ctx.globalAlpha=1;
+    ctx.globalAlpha=1;
+  }
   ctx.textAlign="left";
   alertMessages.map((e,t,a)=>{
       ctx.fillStyle=e.color;
