@@ -627,7 +627,7 @@ point1.projectile_radius=undefined;
       Zone.spawner[Zone.spawner.indexOf(point1)];
       const p = cloneSpawner(Zone.spawner[Zone.spawner.indexOf(point1)]);
       const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius
-	  ,p.burning_radius,p.burning_radius,p.burning_radius);
+	  ,p.burning_radius,p.defender_radius,p.web_radius);
       Zone.spawner.push(spawner);
       createSPAWNERgui(spawner,Zone);
       Zone.spawner[0].element.parentElement.parentElement.children[1].appendChild(spawner.element);
