@@ -313,6 +313,34 @@ function spawnEntities(area=current_Area){
           case "homing":
           case "teleporting":
           case "star":
+          case "oscillating":
+          /* enemies to do:
+          vv: case "turning": (turning has a parameter so this won't actually be in the switch)
+          ww: case "zigzag":
+          ww: case "spiral":
+          ww: case "zoning":
+          ww: case "switch":
+          gg: case "icicle":
+          ff: case "snowman": (this sounds really stupid to add)
+          ff: case "frost_giant": (its a stretch, while it is nice to have it will be tedious to add)
+        */
+        /* enemies that detect player (use mouse as player position substitute):
+          gg: case "liquid":
+          dd: case "radiating_bullets":
+          hh2: case "pumpkin":
+          hh2: case "tree":
+          bbh: case "lunging":
+          every sniper in the game
+        */
+        /* enemies that make me suffer
+          ww: case "wavy":
+          I cannot get wavy enemies to move correctly. It has exclusively been suffering and I don't even have any idea of how they
+          are intended to work in game. They don't even initially move downwards like they do in the sandbox and from looking at 
+          videos they've never done this, but I swear they have. I'm questioning my own sanity. This is now my least favorite enemy 
+          in the game. If you know how to implement wavy enemies correctly please do it but for my own mental health i will not 
+          touch these sinister crimson demons.
+        */
+          //mm3 invisibles too but add general support for that first
           entity=new (eval(capitalize(activeZone.spawner[i].types[randType].i)+"Enemy"))(
             enemyX,
             enemyY,
@@ -2706,6 +2734,25 @@ class StarEnemy extends Enemy{
     distance of the enemies in real eeh so it seems appropriate for now.*/
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30) * 4;
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30) * 4;
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
+class OscillatingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#869e0f","oscillating",boundary);
+    this.clock = 0;
+  }
+  update(delta){
+    this.clock += delta
+    if (this.clock > 1000) {
+      this.velX *= -1;
+      this.velY *= -1;
+      this.clock = this.clock % 1000;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	  this.speedMultiplier=1;
     this.collision(delta);
   }
