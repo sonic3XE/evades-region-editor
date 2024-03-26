@@ -8,6 +8,7 @@ const config={get isImagesLoaded(){
   //fetch("/EvadesRegionEditorTileMap").then(e=>e.arrayBuffer().then(t=>global.tileMap=QOItoPNG(bz2.decompress(new Uint8Array(t).slice(12)))))
 	return true;
 }};
+const isForked=location.href!=="https://sonic3xe.github.io/evades-region-editor/";
 const reloadPage=location.reload.bind(location);
 function manageExtensions(str){
 	if(activated_extensions.indexOf(str)==-1)
