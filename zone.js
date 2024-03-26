@@ -363,6 +363,20 @@ function createSPAWNERgui(point1,Zone){
     PifaryAuraInput.value = Math.max(Number(PifaryAuraInput.value),0);
     point1.burning_radius = Math.max(Number(PifaryAuraInput.value),0);spawnEntities()
   });
+  const PifaryAura2Input = document.createElement("input");
+  PifaryAura2Input.value = point1.defender_radius ?? defaultValues.spawner.defender_radius;
+  PifaryAura2Input.step=1;
+  PifaryAura2Input.addEventListener("input", () => {
+    PifaryAura2Input.value = Math.max(Number(PifaryAura2Input.value),0);
+    point1.defender_radius = Math.max(Number(PifaryAura2Input.value),0);spawnEntities()
+  });
+  const PifaryAura3Input = document.createElement("input");
+  PifaryAura3Input.value = point1.web_radius ?? defaultValues.spawner.web_radius;
+  PifaryAura3Input.step=1;
+  PifaryAura3Input.addEventListener("input", () => {
+    PifaryAura3Input.value = Math.max(Number(PifaryAura3Input.value),0);
+    point1.web_radius = Math.max(Number(PifaryAura3Input.value),0);spawnEntities()
+  });
 		const projDurInput = document.createElement("input");
 		projDurInput.value = point1.projectile_duration ?? defaultValues.spawner.projectile_duration;
 		projDurInput.step=1;
@@ -501,6 +515,8 @@ point1.projectile_radius=undefined;
     });
     point2El.appendChild(addBtn);
     PifaryAuraInput.disabled=!usingPifary;
+    PifaryAura2Input.disabled=!usingPifary;
+    PifaryAura3Input.disabled=!usingPifary;
     if (point1.types.length < 2) point2El.classList.add("min");
 		li = createFolder(formatString(curLang,"editor.spawner"), [
   		point2El, //Types
@@ -530,6 +546,8 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.reducing_radius"), aura17Input, "number"),
 		createProperty(formatString(curLang,"editor.property.blocking_radius"), aura18Input, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.burning_radius"), PifaryAuraInput, "number"),
+		createProperty(formatString(curLang,"pifary-dev.property.defender_radius"), PifaryAura2Input, "number"),
+		createProperty(formatString(curLang,"pifary-dev.property.web_radius"), PifaryAura3Input, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.cybot"), [
         createProperty(formatString(curLang,"editor.property.hard_mode"), hardInput, "switch", {value: point1.hard_mode ?? defaultValues.spawner.hard_mode}),
@@ -608,7 +626,8 @@ point1.projectile_radius=undefined;
     clone.addEventListener("click", e => {
       Zone.spawner[Zone.spawner.indexOf(point1)];
       const p = cloneSpawner(Zone.spawner[Zone.spawner.indexOf(point1)]);
-      const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius,p.burning_radius);
+      const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius
+	  ,p.burning_radius,p.burning_radius,p.burning_radius);
       Zone.spawner.push(spawner);
       createSPAWNERgui(spawner,Zone);
       Zone.spawner[0].element.parentElement.parentElement.children[1].appendChild(spawner.element);
@@ -803,6 +822,8 @@ function cloneSpawner(e){
 	);
 	obj.types.includes("blocking") && (obj.blocking_radius = e.blocking_radius);
 	obj.types.includes("burning") && (obj.burning_radius = e.burning_radius);
+	obj.types.includes("defender") && (obj.defender_radius = e.defender_radius);
+	obj.types.includes("web") && (obj.web_radius = e.web_radius);
 	obj.types.includes("freezing") && (obj.freezing_radius = e.freezing_radius);
 	obj.types.includes("reducing") && (obj.reducing_radius = e.reducing_radius);
 	obj.types.includes("disabling") && (obj.disabling_radius = e.disabling_radius);
@@ -841,8 +862,8 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
     const Zone = {x, y, rx:x,ry:y,width,rw:width,height,rh:height, type, properties,spawner:[], translate:{x:tx,y:ty},requirements};
     // Create inputs/labels
   spawner.map(p => {
-    const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius);
-	var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius'];
+    const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius,p.burning_radius,p.defender_radius,p.web_radius);
+	var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','burning_radius','defender_radius','web_radius'];
 	for(var i in p){
 		if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
 	}
@@ -944,13 +965,15 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
 		blocking_radius=150,
 		quicksand_strength=5,
 		burning_radius=120,
+		defender_radius=150,
+		web_radius=110,
 	) {
         const point1 = {
             types:[],
         }
-		var arr=`x,y,turn_acceleration,cone_angle,count,turn_speed,shot_acceleration,speed,shot_interval,pause_duration,radius,angle,pause_interval,horizontal,immune,move_clockwise,pattern,direction,projectile_duration,projectile_radius,projectile_speed,growth_multiplier,powered,ignore_invulnerability,speed_loss,regen_loss,release_interval,release_time,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius,quicksand_strength,burning_radius`.split(",")
+		var arr=`x,y,turn_acceleration,cone_angle,count,turn_speed,shot_acceleration,speed,shot_interval,pause_duration,radius,angle,pause_interval,horizontal,immune,move_clockwise,pattern,direction,projectile_duration,projectile_radius,projectile_speed,growth_multiplier,powered,ignore_invulnerability,speed_loss,regen_loss,release_interval,release_time,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius,quicksand_strength,burning_radius,web_radius,defender_radius`.split(",")
 		arr.map(e=>{
-			var orders=`count,speed,radius,types,horizontal,move_clockwise,x,y,angle,pattern,cone_angle,direction,immune,turn_speed,shot_interval,pause_interval,pause_duration,turn_acceleration,shot_acceleration,projectile_duration,projectile_radius,projectile_speed,powered,growth_multiplier,ignore_invulnerability,speed_loss,regen_loss,release_time,release_interval,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius,quicksand_strength,burning_radius`.split(","),
+			var orders=`count,speed,radius,types,horizontal,move_clockwise,x,y,angle,pattern,cone_angle,direction,immune,turn_speed,shot_interval,pause_interval,pause_duration,turn_acceleration,shot_acceleration,projectile_duration,projectile_radius,projectile_speed,powered,growth_multiplier,ignore_invulnerability,speed_loss,regen_loss,release_time,release_interval,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius,quicksand_strength,burning_radius,web_radius,defender_radius`.split(","),
 			order=orders.indexOf(e);
 			if(defaultValues.spawner[e]!=arguments[order]&&order!==3&&arguments[order]!=undefined){
 				point1[e]=arguments[order];
@@ -974,7 +997,7 @@ var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drai
   "blocking","stalactite",
   "force_sniper_a",
   "force_sniper_b"].map(e=>[formatString(curLang,"editor.enemy."+e),e]);
-if(usingPifary)enemyList.push(...["burning","sticky_sniper"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
+if(usingPifary)enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
   var li = createProperty("",null, "select",{
               value:point2.i,
 				event: e => {point2.i = e;spawnEntities();console.log(e)},

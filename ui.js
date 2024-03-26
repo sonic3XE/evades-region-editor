@@ -246,8 +246,13 @@ var curLang={
   "editor.zone.removal":"Removal",
   "editor.zone.dummy":"Dummy",
   "pifary-dev.enemy.burning": "Burning",
-  "pifary-dev.property.burning_radius": "Burning Radius",
   "pifary-dev.enemy.sticky_sniper": "Sticky Sniper",
+  "pifary-dev.enemy.defender": "Defender",
+  "pifary-dev.enemy.web": "Web",
+  "pifary-dev.enemy.cobweb": "Cobweb",
+  "pifary-dev.property.burning_radius": "Burning Radius",
+  "pifary-dev.property.defender_radius": "Defender Radius",
+  "pifary-dev.property.web_radius": "Web Radius",
 };
 document.getElementsByClassName("settings-launcher")[0].addEventListener("click",e=>{
   tip.hidden=false;
@@ -331,7 +336,6 @@ var defaultValues={
 		disabling_radius:150,
 		toxic_radius:150,
 		lava_radius:150,
-		burning_radius:120,
 		magnetic_reduction_radius:125,
 		magnetic_nullification_radius:125,
 		freezing_radius:100,
@@ -340,6 +344,9 @@ var defaultValues={
 		experience_drain_radius:150,
 		reducing_radius:140,
 		blocking_radius:150,
+		burning_radius:120,
+		defender_radius:150,
+		web_radius:110,
 		switch_interval:3000,
 		player_detection_radius:160,
 		circle_size:150,
