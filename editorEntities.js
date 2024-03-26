@@ -2816,14 +2816,15 @@ class TeleportingEnemy extends Enemy{
   }
   update(delta){
     this.clock += delta
-    this.speedMultiplier = 0
-    if (this.clock > 800) {
-      this.speedMultiplier = 1;
-      this.clock = this.clock % 800;
-    }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier=1;
+    if (this.clock >= 22e3/30) {
+      this.speedMultiplier *= 1;
+      this.clock = this.clock % 22e3/30;
+    }else{
+	  this.speedMultiplier *= 0;
+	}
+    this.x+=this.velX*this.speedMultiplier;
+    this.y+=this.velY*this.speedMultiplier;
+	this.speedMultiplier=1;
     this.collision(delta);
   }
 }
@@ -2836,20 +2837,18 @@ class StarEnemy extends Enemy{
   }
   update(delta){
     this.clock += delta
-    this.speedMultiplier = 0
-    if (this.clock > 400) {
-      this.speedMultiplier = 1;
+    if (this.clock >= 400) {
+      this.speedMultiplier *= 1;
       this.starPos *= -1;
       this.velX *= -1;
       this.velY *= -1;
       this.clock = this.clock % 400;
-    }
-    /*i have no idea why we're multiplying speed by 4 here. Ravel code multiplied it by 2 but i compared
-    it to the actual speed of the enemies in eeh and multiplying by 4 got it to look very similar to the
-    distance of the enemies in real eeh so it seems appropriate for now.*/
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30) * 4;
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30) * 4;
-	  this.speedMultiplier=1;
+    }else{
+	  this.speedMultiplier *= 0;
+	}
+    this.x+=this.velX*this.speedMultiplier*2;
+    this.y+=this.velY*this.speedMultiplier*2;
+	this.speedMultiplier=1;
     this.collision(delta);
   }
 }
