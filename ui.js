@@ -245,6 +245,9 @@ var curLang={
   "editor.zone.victory":"Victory",
   "editor.zone.removal":"Removal",
   "editor.zone.dummy":"Dummy",
+  "pifary-dev.enemy.burning": "Burning",
+  "pifary-dev.property.burning_radius": "Burning Radius",
+  "pifary-dev.enemy.sticky_sniper": "Sticky Sniper",
 };
 document.getElementsByClassName("settings-launcher")[0].addEventListener("click",e=>{
   tip.hidden=false;
@@ -328,6 +331,7 @@ var defaultValues={
 		disabling_radius:150,
 		toxic_radius:150,
 		lava_radius:150,
+		burning_radius:120,
 		magnetic_reduction_radius:125,
 		magnetic_nullification_radius:125,
 		freezing_radius:100,
