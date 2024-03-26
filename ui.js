@@ -265,9 +265,8 @@ var curLang={
   "editor.zone.victory":"Victory",
   "editor.zone.removal":"Removal",
   "editor.zone.dummy":"Dummy",
-
   "editor.property.test_param": "Test Param",
-  "editor.property.rotor_branch_count": "Branch Count",
+    "editor.property.rotor_branch_count": "Branch Count",
     "editor.property.rotor_node_count": "Node Count",
     "editor.property.rotor_node_radius": "Node Radius",
     "editor.property.rotor_rot_speed": "Rotation Speed",
@@ -278,6 +277,9 @@ var curLang={
     "editor.property.rotor_offset_per_layer": "Offset Per Layer",
     "editor.property.rotor_layer_reverse_interval": "Layer Reverse Interval",
     "editor.property.rotor_corrosive": "Corrosive",
+  "pifary-dev.enemy.burning": "Burning",
+  "pifary-dev.property.burning_radius": "Burning Radius",
+  "pifary-dev.enemy.sticky_sniper": "Sticky Sniper",
 };
 document.getElementsByClassName("settings-launcher")[0].addEventListener("click",e=>{
   tip.hidden=false;
@@ -361,6 +363,7 @@ var defaultValues={
 		disabling_radius:150,
 		toxic_radius:150,
 		lava_radius:150,
+		burning_radius:120,
 		magnetic_reduction_radius:125,
 		magnetic_nullification_radius:125,
 		freezing_radius:100,

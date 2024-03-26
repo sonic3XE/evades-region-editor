@@ -33,8 +33,15 @@
             <label for="realTime" style="cursor:help;text-decoration:underline dotted;" title="We are not interested in giving out enemy files. - PotatoNuke">Update area in real time (less fps) <input id="realTime" type="checkbox"></label>
             <label for="enemyOutline">Enemy Outlines <input id="enemyOutline" type="checkbox"></label>
             <label for="dosandbox">60FPS <input id="dosandbox" type="checkbox"></label>
-          <label for="tileMode">Tiles <select id="tileMode"><option>Tiles</option><option>No Tiles</option><option>Tiles Dark</option><option>No Tiles Dark</option></select></label>
-  <button onclick="tip.hidden=true;document.getElementsByClassName('settings-launcher')[0].hidden=false;" style="position:absolute;right:0;top:0;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
+            <button onclick="extensionPage.hidden=false">View addons</button>
+			<label for="tileMode">Tiles <select id="tileMode"><option>Tiles</option><option>No Tiles</option><option>Tiles Dark</option><option>No Tiles Dark</option></select></label>
+			<button onclick="tip.hidden=true;document.getElementsByClassName('settings-launcher')[0].hidden=false;" style="position:absolute;right:0;top:0;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
+        </p>
+        <p id="extensionPage" hidden style="top:50%;left:50%;transform:translate(-50%,-50%)" onmouseover="dragElement(event.target);">
+            <titleheader style="font:bold 32px tah;display:block;width:100%;text-align:center">Addons</titleheader>
+            <label for="pifary-dev">Pifary-dev <input id="pifary-dev" type="checkbox" onclick="manageExtensions('pifary-dev')"></label>
+            <button onclick='customAlert("you need to refresh to apply changes.",1/0,"#FF0000");reloadPage();' style="position:absolute;right:0;bottom:0;border:none;background:rgb(255,255,255);color:black;width:100px;height:20px;">Apply</button>
+            <button onclick="extensionPage.hidden=true;" style="position:absolute;right:0;top:0;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
         </p>
       <p id="regionProp" hidden style="top:10px;left:10px;" onmouseover="dragElement(event.target);">
           <button onclick="regionProp.hidden=true;document.getElementsByClassName('regional')[0].hidden=false" style="position:absolute;right:0px;top:0px;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>

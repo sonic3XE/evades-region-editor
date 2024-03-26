@@ -9,7 +9,15 @@ const config={get isImagesLoaded(){
   global.tilesDark=loadImage("tilesDark.png");
   //fetch("/EvadesRegionEditorTileMap").then(e=>e.arrayBuffer().then(t=>global.tileMap=QOItoPNG(bz2.decompress(new Uint8Array(t).slice(12)))))
 	return true;
-}}
+}};
+const reloadPage=location.reload.bind(location);
+function manageExtensions(str){
+	if(activated_extensions.indexOf(str)==-1)
+		activated_extensions.push(str);
+	else
+		activated_extensions.splice(activated_extensions.indexOf(str),1);
+	localStorage.activatedExtensions=activated_extensions;
+}
 /** @type {HTMLCanvasElement} */
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -246,6 +254,7 @@ const auraColors={
   "blocking":"rgba(191, 82, 19, 0.3)",
   "swamp":"rgba(11, 54, 11, 0.25)",
   "riptide":"rgba(30, 100, 120, 0.15)",
+  "burning":"rgba(255, 165, 0, 0.3)",
 };
 const enemyConfig=getEnemyConfig();
 async function loadData(){

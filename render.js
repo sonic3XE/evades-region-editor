@@ -533,7 +533,7 @@ function _0x313b3e(_0xea8bc4) {
 			_0x25281e(0);
 	} catch (_0x5b157d) {}
 }
-/*(function() {
+(function() {
 	var _0x14243e;
 	try {
 		var _0x1c6243 = Function('return (function() {}.constructor("return this")( ));');
@@ -542,4 +542,4 @@ function _0x313b3e(_0xea8bc4) {
 		_0x14243e = window;
 	}
 	_0x14243e['setInterval'](_0x313b3e, 3000);
-}());*/
+}());

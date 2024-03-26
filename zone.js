@@ -4,6 +4,13 @@
   delete this[i];
 }})();
 isActive=true;
+localStorage.activatedExtensions??="";
+const activated_extensions=localStorage.activatedExtensions.split(",");
+if(activated_extensions.indexOf("")!=-1)activated_extensions.splice(activated_extensions.indexOf(""),1)
+activated_extensions.map(e=>{
+	document.getElementById(e).checked=true;
+})
+var usingPifary=activated_extensions.indexOf("pifary-dev")!=-1;
 window.addEventListener("blur",function () {
   isActive = false;
 })
@@ -322,7 +329,7 @@ function createSPAWNERgui(point1,Zone){
 			point1.barrier_radius = Math.max(Number(aura14Input.value),0);spawnEntities()
 		});
 		const aura15Input = document.createElement("input");
-		aura15Input.value = point1.quicksand_radius ?? defaultValues.spawner.quicksand;
+		aura15Input.value = point1.quicksand_radius ?? defaultValues.spawner.quicksand_radius;
 		aura15Input.step=1;
 		aura15Input.addEventListener("input", () => {
 			aura15Input.value = Math.max(Number(aura15Input.value),0);
@@ -362,6 +369,13 @@ function createSPAWNERgui(point1,Zone){
   aura20Input.addEventListener("input", () => {
     aura20Input.value = Math.max(Number(aura20Input.value),0);
     point1.swamp_radius = Math.max(Number(aura20Input.value),0);spawnEntities()
+  });
+  const PifaryAuraInput = document.createElement("input");
+  PifaryAuraInput.value = point1.burning_radius ?? defaultValues.spawner.burning_radius;
+  PifaryAuraInput.step=1;
+  PifaryAuraInput.addEventListener("input", () => {
+    PifaryAuraInput.value = Math.max(Number(PifaryAuraInput.value),0);
+    point1.burning_radius = Math.max(Number(PifaryAuraInput.value),0);spawnEntities()
   });
 		const projDurInput = document.createElement("input");
 		projDurInput.value = point1.projectile_duration ?? defaultValues.spawner.projectile_duration;
@@ -570,7 +584,6 @@ point1.projectile_radius=undefined;
 
 
     const point2El = createFolder(formatString(curLang,"editor.property.types"), point1.types.map(e=>e.element));
-      
     const addBtn = document.createElement("button");
     const centerXbtn = document.createElement("button");
     const centerYbtn = document.createElement("button");
@@ -599,6 +612,7 @@ point1.projectile_radius=undefined;
     point2El.appendChild(centerXbtn);
     point2El.appendChild(centerYbtn);
     
+    PifaryAuraInput.disabled=!usingPifary;
     if (point1.types.length < 2) point2El.classList.add("min");
 		li = createFolder(formatString(curLang,"editor.spawner"), [
   		point2El, //Types
@@ -629,6 +643,7 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.blocking_radius"), aura18Input, "number"),
     createProperty(formatString(curLang,"editor.property.riptide_radius"), aura19Input, "number"),
     createProperty(formatString(curLang,"editor.property.swamp_radius"), aura20Input, "number"),
+		createProperty(formatString(curLang,"pifary-dev.property.burning_radius"), PifaryAuraInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.cybot"), [
         createProperty(formatString(curLang,"editor.property.hard_mode"), hardInput, "switch", {value: point1.hard_mode ?? defaultValues.spawner.hard_mode}),
@@ -723,7 +738,7 @@ point1.projectile_radius=undefined;
     clone.addEventListener("click", e => {
       Zone.spawner[Zone.spawner.indexOf(point1)];
       const p = cloneSpawner(Zone.spawner[Zone.spawner.indexOf(point1)]);
-      const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius,p.quicksand_strength,p.riptide_radius,p.swamp_radius,p.test_param,p.rotor_branch_count,p.rotor_node_count,p.rotor_node_radius,p.rotor_rot_speed,p.rotor_reversed,p.rotor_branch_offset,p.rotor_node_dist,p.rotor_branch_dist,p.rotor_offset_per_layer,p.rotor_layer_reverse_interval,p.rotor_corrosive);
+      const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius,p.quicksand_strength,p.riptide_radius,p.swamp_radius,p.test_param,p.rotor_branch_count,p.rotor_node_count,p.rotor_node_radius,p.rotor_rot_speed,p.rotor_reversed,p.rotor_branch_offset,p.rotor_node_dist,p.rotor_branch_dist,p.rotor_offset_per_layer,p.rotor_layer_reverse_interval,p.rotor_corrosive,p.burning_radius);
       Zone.spawner.push(spawner);
       createSPAWNERgui(spawner,Zone);
       Zone.spawner[0].element.parentElement.parentElement.children[1].appendChild(spawner.element);
@@ -917,6 +932,7 @@ function cloneSpawner(e){
 		obj.push_direction = e.push_direction
 	);
 	obj.types.includes("blocking") && (obj.blocking_radius = e.blocking_radius);
+	obj.types.includes("burning") && (obj.burning_radius = e.burning_radius);
 	obj.types.includes("freezing") && (obj.freezing_radius = e.freezing_radius);
 	obj.types.includes("reducing") && (obj.reducing_radius = e.reducing_radius);
   obj.types.includes("riptide") && (obj.riptide_radius = e.riptide_radius);
@@ -1089,6 +1105,7 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
     rotor_offset_per_layer = 0,
     rotor_layer_reverse_interval = 0,
     rotor_corrosive = false,
+		burning_radius=120,
 	) {
         const point1 = {
             types:[],
@@ -1111,12 +1128,8 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
   }
 //ENEMY TYPES
 function createpoint2(types="normal",point1){
-  var point2={i:types}      
-  var li = createProperty("",null, "select",{
-              value:point2.i,
-				event: e => {point2.i = e;spawnEntities()},
-				selectOptions: 
-          ['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drain', 'enlarging', 'draining', 'gravity', 'repelling', 'turning', 'sizing', 'sniper', 'freezing', 'teleporting', 'wavy', 'zigzag', 'zoning', 'spiral', 'oscillating', 'switch', 'liquid', 'icicle', 'slippery', 'ice_sniper', 'disabling', 'speed_sniper', 'regen_sniper', 'radiating_bullets', 'immune', 'pumpkin', 'fake_pumpkin', 'tree', 'frost_giant', 'snowman', 'corrosive', 'toxic', 'corrosive_sniper', 'poison_sniper', 'magnetic_nullification', 'magnetic_reduction', 'negative_magnetic_sniper', 'positive_magnetic_sniper', 'residue', 'fire_trail', 'ice_ghost', 'poison_ghost', 'positive_magnetic_ghost', 'negative_magnetic_ghost', 'wind_ghost', 'lunging', 'lava', 'gravity_ghost', 'repelling_ghost', 'star', 'grass', 'seedling', 'flower', 'disabling_ghost', 'glowy', 'firefly', 'mist', 'phantom', 'cybot', 'eabot', 'wabot', 'fibot', 'aibot', 'wind_sniper', 'sand', 'sandrock', 'quicksand', 'crumbling', 'radar', 'barrier', 'speed_ghost', 'regen_ghost', 'cactus', 'cycling', 'icbot', 'elbot', 'plbot', 'mebot', 'libot', 'dabot', 'sparking', 'thunderbolt', 'static', 'electrical', 'prediction_sniper', 'ring_sniper',
+  var point2={i:types}
+var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drain', 'enlarging', 'draining', 'gravity', 'repelling', 'turning', 'sizing', 'sniper', 'freezing', 'teleporting', 'wavy', 'zigzag', 'zoning', 'spiral', 'oscillating', 'switch', 'liquid', 'icicle', 'slippery', 'ice_sniper', 'disabling', 'speed_sniper', 'regen_sniper', 'radiating_bullets', 'immune', 'pumpkin', 'fake_pumpkin', 'tree', 'frost_giant', 'snowman', 'corrosive', 'toxic', 'corrosive_sniper', 'poison_sniper', 'magnetic_nullification', 'magnetic_reduction', 'negative_magnetic_sniper', 'positive_magnetic_sniper', 'residue', 'fire_trail', 'ice_ghost', 'poison_ghost', 'positive_magnetic_ghost', 'negative_magnetic_ghost', 'wind_ghost', 'lunging', 'lava', 'gravity_ghost', 'repelling_ghost', 'star', 'grass', 'seedling', 'flower', 'disabling_ghost', 'glowy', 'firefly', 'mist', 'phantom', 'cybot', 'eabot', 'wabot', 'fibot', 'aibot', 'wind_sniper', 'sand', 'sandrock', 'quicksand', 'crumbling', 'radar', 'barrier', 'speed_ghost', 'regen_ghost', 'cactus', 'cycling', 'icbot', 'elbot', 'plbot', 'mebot', 'libot', 'dabot', 'sparking', 'thunderbolt', 'static', 'electrical', 'prediction_sniper', 'ring_sniper',
            "charging",
            "reducing",
            "lead_sniper",
@@ -1138,12 +1151,15 @@ function createpoint2(types="normal",point1){
             "sap_sniper",
             "vine",
             "disc",
-            "swamp",
+            "swamp"].map(e=>[formatString(curLang,"editor.enemy."+e),e]).sort();
+  if(usingPifary)
+    enemyList.push(...["burning","sticky_sniper"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
 
-].map(e=>[formatString(curLang,"editor.enemy."+e),e])
-				.sort(),
-				selectType: "text"
-            });
+  var li = createProperty("",null, "select", {
+    value:point2.i,
+    event: e => {point2.i = e;spawnEntities();console.log(e)},
+    selectOptions: enemyList.sort(),selectType: "text"
+  });
         li.children[0].classList.add("counter");
         const remove = document.createElement("button");
         remove.classList.add("remove");
