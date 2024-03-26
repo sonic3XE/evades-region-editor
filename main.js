@@ -1,5 +1,3 @@
-versionId = "sapSniper"
-console.log(`version id: ${versionId}`)
 var global = typeof window != 'undefined' && window.Math == Math
   ? window : typeof self != 'undefined' && self.Math == Math ? self
   : Function('return this')();
