@@ -314,11 +314,11 @@ function spawnEntities(area=current_Area){
           case "teleporting":
           case "star":
           case "oscillating":
+          case "zigzag":
+          case "zoning":
           /* enemies to do:
           vv: case "turning": (turning has a parameter so this won't actually be in the switch)
-          ww: case "zigzag":
           ww: case "spiral":
-          ww: case "zoning":
           ww: case "switch":
           gg: case "icicle":
           ff: case "snowman": (this sounds really stupid to add)
@@ -2750,6 +2750,40 @@ class OscillatingEnemy extends Enemy{
       this.velX *= -1;
       this.velY *= -1;
       this.clock = this.clock % 1000;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
+class ZigzagEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#b371f2","zigzag",boundary);
+    this.switchInterval = 500;
+    this.switchTime = 500;
+    this.switchAdd = false;
+    this.turnAngle = Math.PI / 2;
+  }
+  update(delta){
+    if (this.switchTime > 0) {
+      this.switchTime -= delta;
+    } else {
+      this.switchTime = this.switchInterval
+      if (!this.switchAdd) {
+        this.angle = Math.atan2(this.velY, this.velX);
+        this.angle -= this.turnAngle;
+        this.velX = Math.cos(this.angle) * this.speed;
+        this.velY = Math.sin(this.angle) * this.speed;
+        this.switchAdd = true;
+      } else {
+        this.angle = Math.atan2(this.velY, this.velX);
+        this.angle += this.turnAngle
+        this.velX = Math.cos(this.angle) * this.speed;
+        this.velY = Math.sin(this.angle) * this.speed;
+        this.switchAdd = false;
+      }
     }
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
