@@ -2792,4 +2792,29 @@ class ZigzagEnemy extends Enemy{
   }
 }
 
+class ZoningEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#a03811","zoning",boundary);
+    this.switchInterval = 1000;
+    this.switchTime = Math.random() * this.switchInterval;
+    this.turnAngle = Math.PI / 2
+    this.turnAngle *= (Math.floor(Math.random() * 2) * 2) - 1
+  }
+  update(delta){
+    if (this.switchTime > 0) {
+      this.switchTime -= delta
+    } else {
+      this.switchTime = this.switchInterval;
+      this.angle = Math.atan2(this.velY, this.velX);
+      this.angle += this.turnAngle;
+      this.velX = Math.cos(this.angle) * this.speed;
+      this.velY = Math.sin(this.angle) * this.speed;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
 window.warnin=false;
