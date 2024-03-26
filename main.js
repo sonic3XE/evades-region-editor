@@ -253,6 +253,8 @@ const auraColors={
   "swamp":"rgba(11, 54, 11, 0.25)",
   "riptide":"rgba(30, 100, 120, 0.15)",
   "burning":"rgba(255, 165, 0, 0.3)",
+  "defender":"rgba(0, 0, 0, 0.2)",
+  "web":"rgba(255, 255, 255, 0.6)",
 };
 const enemyConfig=getEnemyConfig();
 async function loadData(){
