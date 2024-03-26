@@ -312,6 +312,7 @@ function spawnEntities(area=current_Area){
           case "dasher":
           case "homing":
           case "teleporting":
+          case "star":
           entity=new (eval(capitalize(activeZone.spawner[i].types[randType].i)+"Enemy"))(
             enemyX,
             enemyY,
@@ -2672,7 +2673,6 @@ class TeleportingEnemy extends Enemy{
   }
   update(delta){
     this.clock += delta
-    console.log(this.clock);
     this.speedMultiplier = 0
     if (this.clock > 800) {
       this.speedMultiplier = 1;
@@ -2680,6 +2680,32 @@ class TeleportingEnemy extends Enemy{
     }
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
+class StarEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#faf46e","star",boundary);
+    this.clock = 0;
+    this.starPos = 1;
+  }
+  update(delta){
+    this.clock += delta
+    this.speedMultiplier = 0
+    if (this.clock > 400) {
+      this.speedMultiplier = 1;
+      this.starPos *= -1;
+      this.velX *= -1;
+      this.velY *= -1;
+      this.clock = this.clock % 400;
+    }
+    /*i have no idea why we're multiplying speed by 4 here. Ravel code multiplied it by 2 but i compared
+    it to the actual speed of the enemies in eeh and multiplying by 4 got it to look very similar to the
+    distance of the enemies in real eeh so it seems appropriate for now.*/
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30) * 4;
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30) * 4;
 	  this.speedMultiplier=1;
     this.collision(delta);
   }
