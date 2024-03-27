@@ -2942,12 +2942,12 @@ class SizingEnemy extends Enemy{
   }
   update(delta){
     if (this.growing) {
-      this.radius += ((delta / (1000 / 30)) * 0.08) * this.minRadius;
+      this.radius += ((delta / (1000 / 30)) * 0.1) * this.minRadius;
       if (this.radius > this.maxRadius) {
         this.growing = false;
       }
     } else {
-      this.radius -= ((delta / 30) * 0.08) * this.minRadius;
+      this.radius -= ((delta / (1000 / 30)) * 0.1) * this.minRadius;
       if (this.radius < this.minRadius) {
         this.growing = true;
       }
