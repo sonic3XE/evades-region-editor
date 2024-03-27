@@ -739,7 +739,7 @@ point1.projectile_radius=undefined;
       ],!0),
     ],!0);
     var foldersInjectedByAddon = [];
-    //if pifary were to have an enemy with a custom property, similar code to the code below would be put here.
+    //if pifary were to have an enemy with a custom (non aura radius) property, similar code to the code below would be put here.
     if (usingPncl9500){
       //add custom enemies from pncl9500 addon to foldersInjectedByAddon
       foldersInjectedByAddon = foldersInjectedByAddon.concat([
