@@ -359,6 +359,7 @@ function spawnEntities(area=current_Area){
           case "oscillating":
           case "zigzag":
           case "zoning":
+          case "sizing":
           /* enemies to do:
           vv: case "turning": (turning has a parameter so this won't actually be in the switch)
           ww: case "spiral":
@@ -2932,5 +2933,31 @@ class ZoningEnemy extends Enemy{
   }
 }
 
+class SizingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#f27743","sizing",boundary);
+    this.growing = true;
+    this.maxRadius = this.radius * 2.5;
+    this.minRadius = this.radius / 2.5;
+	this.radius=this.minRadius;
+  }
+  update(delta){
+    if (this.growing) {
+      this.radius += ((delta / (1000 / 30)) * 0.1) * this.minRadius;
+      if (this.radius > this.maxRadius) {
+        this.growing = false;
+      }
+    } else {
+      this.radius -= ((delta / (1000 / 30)) * 0.1) * this.minRadius;
+      if (this.radius < this.minRadius) {
+        this.growing = true;
+      }
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
 
 window.warnin=false;
