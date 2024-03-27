@@ -62,7 +62,7 @@ function spawnEntities(area=current_Area){
   for(var x in activeZones){
     var activeZone=activeZones[x];
     for (var i in activeZone.spawner) {
-      for (var j=0;j<activeZone.spawner[i].count;j++) {
+      for (var j=0;j<(activeZone.spawner[i].count ?? defaultValues.spawner.count);j++) {
         if(activeZone.spawner[i].count>1024){console.warn("Too many spawner entities to be displayed");continue};
         var left=activeZone.x;
         var right=activeZone.x+activeZone.width;
