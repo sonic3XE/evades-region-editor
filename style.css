@@ -954,7 +954,7 @@ input:checked+.switchSpan::after {
     outline: none;
 }
 /* i have no idea how css works so im boilerplating this */
-.array .centerX {
+.array .centerY, .array .centerX {
     width: 50%;
     font: 11px Consolas, monospace;
     line-height: 20px;
@@ -965,17 +965,7 @@ input:checked+.switchSpan::after {
     cursor: pointer;
     border-bottom: 1px solid #303030;
 }
-.array .centerY {
-    width: 50%;
-    font: 11px Consolas, monospace;
-    line-height: 20px;
-    background: #000000;
-    border: none;
-    color: #ffffff;
-    text-align: center;
-    cursor: pointer;
-    border-bottom: 1px solid #303030;
-}
+
 .array .add:focus {
     outline: none;
 }
@@ -1095,6 +1085,11 @@ input:checked+.switchSpan::after {
         color: #000000;
     }
     .array .add {
+        background: #c0c0c0;
+        color: #000000;
+        border-bottom-color: #b0b0b0;
+    }
+    .array .centerY, .array .centerX {
         background: #c0c0c0;
         color: #000000;
         border-bottom-color: #b0b0b0;
