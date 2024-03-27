@@ -11,6 +11,12 @@ activated_extensions.map(e=>{
 	document.getElementById(e).checked=true;
 })
 var usingPifary=activated_extensions.indexOf("pifary-dev")!=-1;
+var usingPncl9500=activated_extensions.indexOf("pncl9500")!=-1;
+var usingAutomationTools=activated_extensions.indexOf("automationTools")!=-1;
+//usingVanillaEnemySet should be set to false when a custom enemy type (from a sandbox, not in evades.io) is added.
+//causes the addon enemy properties folder to show up (even if there are no properties in the folder, but its probably fine)
+var usingVanillaEnemySet = !(usingPifary || usingPncl9500);
+
 window.addEventListener("blur",function () {
   isActive = false;
 })
@@ -356,19 +362,19 @@ function createSPAWNERgui(point1,Zone){
     aura18Input.value = Math.max(Number(aura18Input.value),0);
     point1.blocking_radius = Math.max(Number(aura18Input.value),0);spawnEntities()
   });
-  const aura19Input = document.createElement("input");
-  aura19Input.value = point1.riptide_radius ?? defaultValues.spawner.riptide_radius;
-  aura19Input.step=1;
-  aura19Input.addEventListener("input", () => {
-    aura19Input.value = Math.max(Number(aura19Input.value),0);
-    point1.riptide_radius = Math.max(Number(aura19Input.value),0);spawnEntities()
+  const pnclAura1Input = document.createElement("input");
+  pnclAura1Input.value = point1.riptide_radius ?? defaultValues.spawner.riptide_radius;
+  pnclAura1Input.step=1;
+  pnclAura1Input.addEventListener("input", () => {
+    pnclAura1Input.value = Math.max(Number(pnclAura1Input.value),0);
+    point1.riptide_radius = Math.max(Number(pnclAura1Input.value),0);spawnEntities()
   });
-  const aura20Input = document.createElement("input");
-  aura20Input.value = point1.swamp_radius ?? defaultValues.spawner.swamp_radius;
-  aura20Input.step=1;
-  aura20Input.addEventListener("input", () => {
-    aura20Input.value = Math.max(Number(aura20Input.value),0);
-    point1.swamp_radius = Math.max(Number(aura20Input.value),0);spawnEntities()
+  const pnclAura2Input = document.createElement("input");
+  pnclAura2Input.value = point1.swamp_radius ?? defaultValues.spawner.swamp_radius;
+  pnclAura2Input.step=1;
+  pnclAura2Input.addEventListener("input", () => {
+    pnclAura2Input.value = Math.max(Number(pnclAura2Input.value),0);
+    point1.swamp_radius = Math.max(Number(pnclAura2Input.value),0);spawnEntities()
   });
   const PifaryAuraInput = document.createElement("input");
   PifaryAuraInput.value = point1.burning_radius ?? defaultValues.spawner.burning_radius;
@@ -623,12 +629,16 @@ point1.projectile_radius=undefined;
       spawnEntities();
     });
     point2El.appendChild(addBtn);
-    point2El.appendChild(centerXbtn);
-    point2El.appendChild(centerYbtn);
+    if (usingAutomationTools){
+      point2El.appendChild(centerXbtn);
+      point2El.appendChild(centerYbtn);
+    }
     
     PifaryAuraInput.disabled=!usingPifary;
     PifaryAura2Input.disabled=!usingPifary;
     PifaryAura3Input.disabled=!usingPifary;
+    pnclAura1Input.disabled=!usingPncl9500;
+    pnclAura2Input.disabled=!usingPncl9500;
     if (point1.types.length < 2) point2El.classList.add("min");
 		li = createFolder(formatString(curLang,"editor.spawner"), [
   		point2El, //Types
@@ -657,8 +667,8 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.experience_drain_radius"), aura16Input, "number"),
 		createProperty(formatString(curLang,"editor.property.reducing_radius"), aura17Input, "number"),
 		createProperty(formatString(curLang,"editor.property.blocking_radius"), aura18Input, "number"),
-    createProperty(formatString(curLang,"editor.property.riptide_radius"), aura19Input, "number"),
-    createProperty(formatString(curLang,"editor.property.swamp_radius"), aura20Input, "number"),
+    createProperty(formatString(curLang,"pncl9500.property.riptide_radius"), pnclAura1Input, "number"),
+    createProperty(formatString(curLang,"pncl9500.property.swamp_radius"), pnclAura2Input, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.burning_radius"), PifaryAuraInput, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.defender_radius"), PifaryAura2Input, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.web_radius"), PifaryAura3Input, "number"),
@@ -725,23 +735,31 @@ point1.projectile_radius=undefined;
       createFolder(formatString(curLang,"editor.category.wind_ghost"), [
         createProperty(formatString(curLang,"editor.property.ignore_invulnerability"), ignInput, "switch", {value: point1.ignore_invulnerability ?? defaultValues.spawner.ignore_invulnerability}),
       ],!0),
-      createFolder(formatString(curLang,"editor.category.param_test"),[
-        createProperty(formatString(curLang,"editor.property.test_param"), testParamInput, "number"),
-      ],!0),
-      createFolder(formatString(curLang,"editor.category.rotor"), [
-        createProperty(formatString(curLang,"editor.property.rotor_branch_count"), rotorBranchCountInput, "number"),
-        createProperty(formatString(curLang,"editor.property.rotor_node_count"), rotorNodeCountInput, "number"),
-        createProperty(formatString(curLang,"editor.property.rotor_node_radius"), rotorNodeRadiusInput, "number"),
-        createProperty(formatString(curLang,"editor.property.rotor_rot_speed"), rotorRotSpeedInput, "number"),
-        createProperty(formatString(curLang,"editor.property.rotor_reversed"), rotorReversedInput, "switch", {value:point1.rotor_reversed ?? defaultValues.spawner.rotor_reversed}),
-        createProperty(formatString(curLang,"editor.property.rotor_branch_offset"), rotorBranchOffsetInput, "number"),
-        createProperty(formatString(curLang,"editor.property.rotor_node_dist"), rotorNodeDistInput, "number"),
-        createProperty(formatString(curLang,"editor.property.rotor_branch_dist"), rotorBranchDistInput, "number"),
-        createProperty(formatString(curLang,"editor.property.rotor_offset_per_layer"), rotorOffsetPerLayerInput, "number"),
-        createProperty(formatString(curLang,"editor.property.rotor_layer_reverse_interval"), rotorLayerReverseIntervalInput, "number"),
-        createProperty(formatString(curLang,"editor.property.rotor_corrosive"), rotorCorrosiveInput, "switch", {value:point1.rotor_corrosive ?? defaultValues.spawner.rotor_corrosive}),
-      ],!0),
     ],!0);
+    var foldersInjectedByAddon = [];
+    //if pifary were to have an enemy with a custom property, similar code to the code below would be put here.
+    if (usingPncl9500){
+      //add custom enemies from pncl9500 addon to foldersInjectedByAddon
+      foldersInjectedByAddon = foldersInjectedByAddon.concat([
+        createFolder(formatString(curLang,"pncl9500.category.param_test"),[
+          createProperty(formatString(curLang,"pncl9500.property.test_param"), testParamInput, "number"),],!0),
+        createFolder(formatString(curLang,"pncl9500.category.rotor"), [
+          createProperty(formatString(curLang,"pncl9500.property.rotor_branch_count"), rotorBranchCountInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_node_count"), rotorNodeCountInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_node_radius"), rotorNodeRadiusInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_rot_speed"), rotorRotSpeedInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_reversed"), rotorReversedInput, "switch", {value:point1.rotor_reversed ?? defaultValues.spawner.rotor_reversed}),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_branch_offset"), rotorBranchOffsetInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_node_dist"), rotorNodeDistInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_branch_dist"), rotorBranchDistInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_offset_per_layer"), rotorOffsetPerLayerInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_layer_reverse_interval"), rotorLayerReverseIntervalInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_corrosive"), rotorCorrosiveInput, "switch", {value:point1.rotor_corrosive ?? defaultValues.spawner.rotor_corrosive}),],!0),
+      ]);
+    }
+    for (var i = 0; i < foldersInjectedByAddon.length; i++){
+      li.lastElementChild.appendChild(foldersInjectedByAddon[i]);
+    }
     li.children[0].classList.add("counter");
     const remove = document.createElement("button");
     remove.classList.add("remove");
@@ -1158,24 +1176,12 @@ var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drai
           "blocking","stalactite",
           "force_sniper_a",
           "force_sniper_b",
-            "slooming",
-            "particulate",
-            "water_trail",
-            "nightshade",
-            "riptide",
-            "cloud",
-            "rain",
-            "storm",
-            "airburst",
-            "param_test",
-            "rotor",
-            "radioactive_sniper",
-            "sap_sniper",
-            "vine",
-            "disc",
-            "swamp"].map(e=>[formatString(curLang,"editor.enemy."+e),e]).sort();
+        ]
+            .map(e=>[formatString(curLang,"editor.enemy."+e),e]).sort();
   if(usingPifary)
     enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
+  if(usingPncl9500)
+    enemyList.push(...["slooming","particulate","water_trail","nightshade","riptide","cloud","rain","storm","airburst","param_test","rotor","radioactive_sniper","sap_sniper","vine","disc","swamp"].map(e=>[formatString(curLang,"pncl9500.enemy."+e),e]));
 
   var li = createProperty("",null, "select", {
     value:point2.i,

@@ -40,6 +40,9 @@
         <p id="extensionPage" hidden style="top:50%;left:50%;transform:translate(-50%,-50%)" onmouseover="dragElement(event.target);">
             <titleheader style="font:bold 32px tah;display:block;width:100%;text-align:center">Addons</titleheader>
             <label for="pifary-dev">Pifary-dev <input id="pifary-dev" type="checkbox" onclick="manageExtensions('pifary-dev')"></label>
+            <br>
+            <label for="pncl9500">Pncl9500 <input id="pncl9500" type="checkbox" onclick="manageExtensions('pncl9500')"></label><br>
+            <label for="automationTools">automationTools <input id="automationTools" type="checkbox" onclick="manageExtensions('automationTools')"></label><br>
             <button onclick='customAlert("you need to refresh to apply changes.",1/0,"#FF0000");reloadPage();' style="position:absolute;right:0;bottom:0;border:none;background:rgb(255,255,255);color:black;width:100px;height:20px;">Apply</button>
             <button onclick="extensionPage.hidden=true;" style="position:absolute;right:0;top:0;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
         </p>
