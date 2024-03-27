@@ -621,11 +621,13 @@ point1.projectile_radius=undefined;
     centerXbtn.addEventListener("click", () => {
       var center = Zone.x + Zone.width / 2;
       point1.x = center;
+	  xInput.value=point1.x;
       spawnEntities();
     });
     centerYbtn.addEventListener("click", () => {
       var center = Zone.y + Zone.height / 2;
       point1.y = center;
+	  yInput.value=point1.y;
       spawnEntities();
     });
     point2El.appendChild(addBtn);
