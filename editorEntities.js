@@ -2939,6 +2939,7 @@ class SizingEnemy extends Enemy{
     this.growing = true;
     this.maxRadius = this.radius * 2.5;
     this.minRadius = this.radius / 2.5;
+	this.radius=this.minRadius;
   }
   update(delta){
     if (this.growing) {
