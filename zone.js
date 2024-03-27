@@ -619,12 +619,12 @@ point1.projectile_radius=undefined;
       spawnEntities()
     });
     centerXbtn.addEventListener("click", () => {
-      var center = Zone.x + Zone.rw / 2;
+      var center = Zone.x + Zone.width / 2;
       point1.x = center;
       spawnEntities();
     });
     centerYbtn.addEventListener("click", () => {
-      var center = Zone.y + Zone.rh / 2;
+      var center = Zone.y + Zone.height / 2;
       point1.y = center;
       spawnEntities();
     });
