@@ -85,7 +85,7 @@ function spawnEntities(area=current_Area){
             enemyX=activeZone.spawner[i].x;
           }
         }else{
-          enemyX=Math.random()*(activeZone.width-radius*2)+left+radius;
+          enemyX=Math.random()*(activeZone.width-radius*2*2.5**-(randType=="sizing"))+left+radius*2.5**-(randType=="sizing");
         }
         var enemyY;
         if(activeZone.spawner[i].y!=undefined){
@@ -97,7 +97,7 @@ function spawnEntities(area=current_Area){
             enemyY=activeZone.spawner[i].y;
           }
         }else{
-          enemyY=Math.random()*(activeZone.height-radius*2)+top+radius;
+          enemyY=Math.random()*(activeZone.height-radius*2*2.5**-(randType=="sizing"))+top+radius*2.5**-(randType=="sizing");
         }
         switch(activeZone.spawner[i].types[randType].i){
           default:
