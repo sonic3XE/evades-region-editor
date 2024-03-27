@@ -301,10 +301,53 @@ function spawnEntities(area=current_Area){
             radius,
             activeZone.spawner[i].speed,
             activeZone.spawner[i].angle,
-			activeZone.spawner[i].reducing_radius??defaultValues.spawner.reducing_radius,
+			      activeZone.spawner[i].reducing_radius??defaultValues.spawner.reducing_radius,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
-		  break;
+          break;
+          case "rotor":
+            entity=new RotorEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].angle,
+              activeZone.spawner[i].rotor_branch_count ?? defaultValues.spawner.rotor_branch_count,
+              activeZone.spawner[i].rotor_node_count ?? defaultValues.spawner.rotor_node_count,
+              activeZone.spawner[i].rotor_node_radius ?? defaultValues.spawner.rotor_node_radius,
+              activeZone.spawner[i].rotor_rot_speed ?? defaultValues.spawner.rotor_rot_speed,
+              activeZone.spawner[i].rotor_reversed ?? defaultValues.spawner.rotor_reversed,
+              activeZone.spawner[i].rotor_branch_offset ?? defaultValues.spawner.rotor_branch_offset,
+              activeZone.spawner[i].rotor_node_dist ?? defaultValues.spawner.rotor_node_dist,
+              activeZone.spawner[i].rotor_branch_dist ?? defaultValues.spawner.rotor_branch_dist,
+              activeZone.spawner[i].rotor_offset_per_layer ?? defaultValues.spawner.rotor_offset_per_layer,
+              activeZone.spawner[i].rotor_layer_reverse_interval ?? defaultValues.spawner.rotor_layer_reverse_interval,
+              activeZone.spawner[i].rotor_corrosive ?? defaultValues.spawner.rotor_corrosive,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+            );
+		      break;
+          case "riptide":
+          entity=new RiptideEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			      activeZone.spawner[i].riptide_radius??defaultValues.spawner.riptide_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+          break;
+          case "swamp":
+          entity=new SwampEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			      activeZone.spawner[i].swamp_radius??defaultValues.spawner.swamp_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+          break;
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
@@ -1958,6 +2001,9 @@ class SimulatorEntity{
 			o(d - l * d, Math.min(this.radius, Math.max($, this.radius * l)), 3, 5 - 3 * l)
 		}
 	}
+  renderExtra(e, ctxL){
+
+  }
   render(e,ctxL) {
     var a={x:0,y:0};
     e.beginPath();
@@ -2042,6 +2088,7 @@ class SimulatorEntity{
           ctxL.closePath(),
           ctxL.fill()
     this.decayed=false;
+    this.renderExtra(e,ctxL);
   }
 }
 //UTILS
@@ -2539,6 +2586,23 @@ class QuicksandEnemy extends Enemy{
   }
 }
 
+class RiptideEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.riptide_enemy.color,"riptide",boundary,auraColors.riptide,aura_radius);
+  }
+  auraEffect(player,delta){
+    //add later
+  }
+}
+class SwampEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.swamp_enemy.color,"swamp",boundary,auraColors.swamp,aura_radius);
+  }
+  auraEffect(player,delta){
+    //add later
+  }
+}
+
 class HomingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"#966e14","homing",boundary);
@@ -2694,6 +2758,57 @@ class DasherEnemy extends Enemy{
   }
 }
 
+
+class RotorEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,rotor_branch_count = 2,rotor_node_count = 2,rotor_node_radius = 16,rotor_rot_speed = 5,rotor_reversed = false,rotor_branch_offset = 0, rotor_node_dist = 0, rotor_branch_dist = 0, rotor_offset_per_layer = 0, rotor_layer_reverse_interval = 0, rotor_corrosive = false, boundary){
+    super(x,y,radius,speed,angle,"#4d6f2b","rotor",boundary);
+    this.branch_count = rotor_branch_count;
+    this.node_count = rotor_node_count;
+    this.node_radius = rotor_node_radius;
+    this.rot_speed = rotor_rot_speed;
+    this.reverse = rotor_reversed ? -1 : 1;
+    this.branch_offset = rotor_branch_offset; 
+    this.node_dist = rotor_node_dist; 
+    this.branch_dist = rotor_branch_dist; 
+    this.offset_per_layer = rotor_offset_per_layer; 
+    this.layer_reverse_interval = rotor_layer_reverse_interval;
+    this.corrosive = rotor_corrosive;
+    this.rotation = this.branch_offset;
+    this.angle_btwn_branches = 360 / this.branch_count;
+  }
+  renderExtra(e, ctxL){
+    if (this.node_count * this.branch_count > 300){
+      console.warn("rotor enemy over 300 nodes. nodes will not be rendered.")
+      return;
+    }
+    for (var l = 0; l < this.node_count; l++){
+      for (var n = 0; n < this.branch_count; n++){
+        var dist_from_center = l * (this.node_radius * 2) + this.radius + (this.branch_dist * 2) + (this.node_dist * l * 2) + this.node_radius;
+        var branch_angle = this.angle_btwn_branches * n + (l % ((this.layer_reverse_interval) * 2) < this.layer_reverse_interval ? -this.rotation : this.rotation) + this.offset_per_layer * l;
+        var nodeX = dist_from_center * Math.cos(branch_angle * (Math.PI/180));
+        var nodeY = dist_from_center * Math.sin(branch_angle * (Math.PI/180));
+        this.renderNode(nodeX, nodeY, e);
+      } 
+    }
+  }
+  renderNode(offx, offy, e){
+    e.beginPath(),
+    e.arc(this.x + offx, this.y + offy, this.node_radius, 0, 2 * Math.PI, !1),
+    e.fillStyle = "rgba(49, 83, 21, 1)",
+    e.fill(),
+    e.lineWidth = 2,
+    e.strokeStyle = "black",
+    e.stroke(),
+    e.closePath()
+  }
+  update(delta){
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+    this.rotation += this.reverse * (delta / 60 / (1000 / 60)) * this.rot_speed * 15;
+  }
+}
 class TeleportingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"#ecc4ef","teleporting",boundary);
@@ -2813,7 +2928,9 @@ class ZoningEnemy extends Enemy{
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	  this.speedMultiplier=1;
     this.collision(delta);
+    
   }
 }
+
 
 window.warnin=false;

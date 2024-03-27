@@ -353,7 +353,7 @@ grid-row-gap: 0px;
     position: absolute;
   margin:0;
     user-select: none;
-    background: #2f3ab080;
+    background: #2f3ab0dd;
     padding: 10px;
   border-radius:10px;
   align-items: center;justify-items: center;justify-content: center;align-content: center;
@@ -940,6 +940,41 @@ input:checked+.switchSpan::after {
 }
 .array .add::after {
     content: "Add Item";
+}
+.array .centerX::after {
+    content: "Center Spawner X";
+}
+.array .centerY::after {
+    content: "Center Spawner Y";
+}
+.array .centerX:focus {
+    outline: none;
+}
+.array .centerY:focus {
+    outline: none;
+}
+/* i have no idea how css works so im boilerplating this */
+.array .centerX {
+    width: 50%;
+    font: 11px Consolas, monospace;
+    line-height: 20px;
+    background: #000000;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid #303030;
+}
+.array .centerY {
+    width: 50%;
+    font: 11px Consolas, monospace;
+    line-height: 20px;
+    background: #000000;
+    border: none;
+    color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid #303030;
 }
 .array .add:focus {
     outline: none;

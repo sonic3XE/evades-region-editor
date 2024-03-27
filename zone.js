@@ -11,6 +11,12 @@ activated_extensions.map(e=>{
 	document.getElementById(e).checked=true;
 })
 var usingPifary=activated_extensions.indexOf("pifary-dev")!=-1;
+var usingPncl9500=activated_extensions.indexOf("pncl9500")!=-1;
+var usingAutomationTools=activated_extensions.indexOf("automationTools")!=-1;
+//usingVanillaEnemySet should be set to false when a custom enemy type (from a sandbox, not in evades.io) is added.
+//causes the addon enemy properties folder to show up (even if there are no properties in the folder, but its probably fine)
+var usingVanillaEnemySet = !(usingPifary || usingPncl9500);
+
 window.addEventListener("blur",function () {
   isActive = false;
 })
@@ -356,6 +362,20 @@ function createSPAWNERgui(point1,Zone){
     aura18Input.value = Math.max(Number(aura18Input.value),0);
     point1.blocking_radius = Math.max(Number(aura18Input.value),0);spawnEntities()
   });
+  const pnclAura1Input = document.createElement("input");
+  pnclAura1Input.value = point1.riptide_radius ?? defaultValues.spawner.riptide_radius;
+  pnclAura1Input.step=1;
+  pnclAura1Input.addEventListener("input", () => {
+    pnclAura1Input.value = Math.max(Number(pnclAura1Input.value),0);
+    point1.riptide_radius = Math.max(Number(pnclAura1Input.value),0);spawnEntities()
+  });
+  const pnclAura2Input = document.createElement("input");
+  pnclAura2Input.value = point1.swamp_radius ?? defaultValues.spawner.swamp_radius;
+  pnclAura2Input.step=1;
+  pnclAura2Input.addEventListener("input", () => {
+    pnclAura2Input.value = Math.max(Number(pnclAura2Input.value),0);
+    point1.swamp_radius = Math.max(Number(pnclAura2Input.value),0);spawnEntities()
+  });
   const PifaryAuraInput = document.createElement("input");
   PifaryAuraInput.value = point1.burning_radius ?? defaultValues.spawner.burning_radius;
   PifaryAuraInput.step=1;
@@ -502,10 +522,95 @@ point1.projectile_radius=undefined;
 		immInput.addEventListener("input", () => {
 			point1.immune = immInput.checked;spawnEntities()
 		});
+
+    const testParamInput = document.createElement("input");
+        testParamInput.value = point1.test_param ?? defaultValues.spawner.test_param;
+		testParamInput.step=1;
+		testParamInput.addEventListener("input", () => {
+			point1.test_param = Number(testParamInput.value);spawnEntities()
+		});
+    const rotorBranchCountInput = document.createElement("input");
+        rotorBranchCountInput.value = point1.rotor_branch_count ?? defaultValues.spawner.rotor_branch_count;
+		rotorBranchCountInput.step=1;
+		rotorBranchCountInput.addEventListener("input", () => {
+			point1.rotor_branch_count = Number(rotorBranchCountInput.value);spawnEntities()
+		});
+    const rotorNodeCountInput = document.createElement("input");
+        rotorNodeCountInput.value = point1.rotor_node_count ?? defaultValues.spawner.rotor_node_count;
+		rotorNodeCountInput.step=1;
+		rotorNodeCountInput.addEventListener("input", () => {
+			point1.rotor_node_count = Number(rotorNodeCountInput.value);spawnEntities()
+		});
+    const rotorNodeRadiusInput = document.createElement("input");
+        rotorNodeRadiusInput.value = point1.rotor_node_radius ?? defaultValues.spawner.rotor_node_radius;
+		rotorNodeRadiusInput.step=1;
+		rotorNodeRadiusInput.addEventListener("input", () => {
+			point1.rotor_node_radius = Number(rotorNodeRadiusInput.value);spawnEntities()
+		});
+    const rotorRotSpeedInput = document.createElement("input");
+        rotorRotSpeedInput.value = point1.rotor_rot_speed ?? defaultValues.spawner.rotor_rot_speed;
+		rotorRotSpeedInput.step=1;
+		rotorRotSpeedInput.addEventListener("input", () => {
+			point1.rotor_rot_speed = Number(rotorRotSpeedInput.value);spawnEntities()
+		});
+    const rotorReversedInput = document.createElement("input");
+		rotorReversedInput.addEventListener("input", () => {
+			point1.rotor_reversed = rotorReversedInput.checked;spawnEntities()
+		});
+    const rotorBranchOffsetInput = document.createElement("input");
+        rotorBranchOffsetInput.value = point1.rotor_branch_offset ?? defaultValues.spawner.rotor_branch_offset;
+		rotorBranchOffsetInput.step=1;
+		rotorBranchOffsetInput.addEventListener("input", () => {
+			point1.rotor_branch_offset = Number(rotorBranchOffsetInput.value);spawnEntities()
+		});
+    const rotorNodeDistInput = document.createElement("input");
+        rotorNodeDistInput.value = point1.rotor_node_dist ?? defaultValues.spawner.rotor_node_dist;
+		rotorNodeDistInput.step=1;
+		rotorNodeDistInput.addEventListener("input", () => {
+			point1.rotor_node_dist = Number(rotorNodeDistInput.value);spawnEntities()
+		});
+    const rotorBranchDistInput = document.createElement("input");
+        rotorBranchDistInput.value = point1.rotor_branch_dist ?? defaultValues.spawner.rotor_branch_dist;
+		rotorBranchDistInput.step=1;
+		rotorBranchDistInput.addEventListener("input", () => {
+			point1.rotor_branch_dist = Number(rotorBranchDistInput.value);spawnEntities()
+		});
+    const rotorOffsetPerLayerInput = document.createElement("input");
+        rotorOffsetPerLayerInput.value = point1.rotor_offset_per_layer ?? defaultValues.spawner.rotor_offset_per_layer;
+		rotorOffsetPerLayerInput.step=1;
+		rotorOffsetPerLayerInput.addEventListener("input", () => {
+			point1.rotor_offset_per_layer = Number(rotorOffsetPerLayerInput.value);spawnEntities()
+		});
+    const rotorLayerReverseIntervalInput = document.createElement("input");
+        rotorLayerReverseIntervalInput.value = point1.rotor_layer_reverse_interval ?? defaultValues.spawner.rotor_layer_reverse_interval;
+		rotorLayerReverseIntervalInput.step=1;
+		rotorLayerReverseIntervalInput.addEventListener("input", () => {
+			point1.rotor_layer_reverse_interval = Number(rotorLayerReverseIntervalInput.value);spawnEntities()
+		});
+    const rotorCorrosiveInput = document.createElement("input");
+		rotorCorrosiveInput.addEventListener("input", () => {
+			point1.rotor_corrosive = rotorCorrosiveInput.checked;spawnEntities()
+		});
+    
+
+
+
+
+
+
+
+
+
+
+
     const point2El = createFolder(formatString(curLang,"editor.property.types"), point1.types.map(e=>e.element));
     const addBtn = document.createElement("button");
+    const centerXbtn = document.createElement("button");
+    const centerYbtn = document.createElement("button");
     point2El.classList.add("array");
     addBtn.classList.add("add");
+    centerXbtn.classList.add("centerX");
+    centerYbtn.classList.add("centerY");
     addBtn.addEventListener("click", () => {
         let point3 = createpoint2(void 0,point1);
         point1.types.push(point3);
@@ -513,10 +618,27 @@ point1.projectile_radius=undefined;
         point2El.classList.remove("min");
       spawnEntities()
     });
+    centerXbtn.addEventListener("click", () => {
+      var center = Zone.x + Zone.rw / 2;
+      point1.x = center;
+      spawnEntities();
+    });
+    centerYbtn.addEventListener("click", () => {
+      var center = Zone.y + Zone.rh / 2;
+      point1.y = center;
+      spawnEntities();
+    });
     point2El.appendChild(addBtn);
+    if (usingAutomationTools){
+      point2El.appendChild(centerXbtn);
+      point2El.appendChild(centerYbtn);
+    }
+    
     PifaryAuraInput.disabled=!usingPifary;
     PifaryAura2Input.disabled=!usingPifary;
     PifaryAura3Input.disabled=!usingPifary;
+    pnclAura1Input.disabled=!usingPncl9500;
+    pnclAura2Input.disabled=!usingPncl9500;
     if (point1.types.length < 2) point2El.classList.add("min");
 		li = createFolder(formatString(curLang,"editor.spawner"), [
   		point2El, //Types
@@ -545,6 +667,8 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.experience_drain_radius"), aura16Input, "number"),
 		createProperty(formatString(curLang,"editor.property.reducing_radius"), aura17Input, "number"),
 		createProperty(formatString(curLang,"editor.property.blocking_radius"), aura18Input, "number"),
+    createProperty(formatString(curLang,"pncl9500.property.riptide_radius"), pnclAura1Input, "number"),
+    createProperty(formatString(curLang,"pncl9500.property.swamp_radius"), pnclAura2Input, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.burning_radius"), PifaryAuraInput, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.defender_radius"), PifaryAura2Input, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.web_radius"), PifaryAura3Input, "number"),
@@ -612,6 +736,30 @@ point1.projectile_radius=undefined;
         createProperty(formatString(curLang,"editor.property.ignore_invulnerability"), ignInput, "switch", {value: point1.ignore_invulnerability ?? defaultValues.spawner.ignore_invulnerability}),
       ],!0),
     ],!0);
+    var foldersInjectedByAddon = [];
+    //if pifary were to have an enemy with a custom property, similar code to the code below would be put here.
+    if (usingPncl9500){
+      //add custom enemies from pncl9500 addon to foldersInjectedByAddon
+      foldersInjectedByAddon = foldersInjectedByAddon.concat([
+        createFolder(formatString(curLang,"pncl9500.category.param_test"),[
+          createProperty(formatString(curLang,"pncl9500.property.test_param"), testParamInput, "number"),],!0),
+        createFolder(formatString(curLang,"pncl9500.category.rotor"), [
+          createProperty(formatString(curLang,"pncl9500.property.rotor_branch_count"), rotorBranchCountInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_node_count"), rotorNodeCountInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_node_radius"), rotorNodeRadiusInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_rot_speed"), rotorRotSpeedInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_reversed"), rotorReversedInput, "switch", {value:point1.rotor_reversed ?? defaultValues.spawner.rotor_reversed}),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_branch_offset"), rotorBranchOffsetInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_node_dist"), rotorNodeDistInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_branch_dist"), rotorBranchDistInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_offset_per_layer"), rotorOffsetPerLayerInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_layer_reverse_interval"), rotorLayerReverseIntervalInput, "number"),
+          createProperty(formatString(curLang,"pncl9500.property.rotor_corrosive"), rotorCorrosiveInput, "switch", {value:point1.rotor_corrosive ?? defaultValues.spawner.rotor_corrosive}),],!0),
+      ]);
+    }
+    for (var i = 0; i < foldersInjectedByAddon.length; i++){
+      li.lastElementChild.appendChild(foldersInjectedByAddon[i]);
+    }
     li.children[0].classList.add("counter");
     const remove = document.createElement("button");
     remove.classList.add("remove");
@@ -626,8 +774,7 @@ point1.projectile_radius=undefined;
     clone.addEventListener("click", e => {
       Zone.spawner[Zone.spawner.indexOf(point1)];
       const p = cloneSpawner(Zone.spawner[Zone.spawner.indexOf(point1)]);
-      const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius
-	  ,p.burning_radius,p.defender_radius,p.web_radius);
+      const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius,p.quicksand_strength,p.riptide_radius,p.swamp_radius,p.test_param,p.rotor_branch_count,p.rotor_node_count,p.rotor_node_radius,p.rotor_rot_speed,p.rotor_reversed,p.rotor_branch_offset,p.rotor_node_dist,p.rotor_branch_dist,p.rotor_offset_per_layer,p.rotor_layer_reverse_interval,p.rotor_corrosive,p.burning_radius,p.defender_radius,p.web_radius);
       Zone.spawner.push(spawner);
       createSPAWNERgui(spawner,Zone);
       Zone.spawner[0].element.parentElement.parentElement.children[1].appendChild(spawner.element);
@@ -826,6 +973,8 @@ function cloneSpawner(e){
 	obj.types.includes("web") && (obj.web_radius = e.web_radius);
 	obj.types.includes("freezing") && (obj.freezing_radius = e.freezing_radius);
 	obj.types.includes("reducing") && (obj.reducing_radius = e.reducing_radius);
+  obj.types.includes("riptide") && (obj.riptide_radius = e.riptide_radius);
+  obj.types.includes("swamp") && (obj.swamp_radius = e.swamp_radius);
 	obj.types.includes("disabling") && (obj.disabling_radius = e.disabling_radius);
 	obj.types.includes("lava") && (obj.lava_radius = e.lava_radius);
 	obj.types.includes("barrier") && (obj.barrier_radius = e.barrier_radius);
@@ -856,14 +1005,28 @@ function cloneSpawner(e){
 		obj.release_time = e.release_time,
 		obj.release_interval = e.release_interval
 	);
+  obj.types.includes("param_test") && (obj.test_param = e.test_param);
+  obj.types.includes("rotor") && (
+    obj.rotor_branch_count = e.rotor_branch_count,
+    obj.rotor_node_count = e.rotor_node_count,
+    obj.rotor_node_radius = e.rotor_node_radius,
+    obj.rotor_rot_speed = e.rotor_rot_speed,
+    obj.rotor_reversed = e.rotor_reversed,
+    obj.rotor_branch_offset = e.rotor_branch_offset,
+    obj.rotor_node_dist = e.rotor_node_dist,
+    obj.rotor_branch_dist = e.rotor_branch_dist,
+    obj.rotor_offset_per_layer = e.rotor_offset_per_layer,
+    obj.rotor_layer_reverse_interval = e.rotor_layer_reverse_interval,
+    obj.rotor_corrosive = e.rotor_corrosive
+  );
 	return obj;
 }
 function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,properties={},type="active",requirements=[],spawner=[]) {
     const Zone = {x, y, rx:x,ry:y,width,rw:width,height,rh:height, type, properties,spawner:[], translate:{x:tx,y:ty},requirements};
     // Create inputs/labels
   spawner.map(p => {
-    const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius,p.burning_radius,p.defender_radius,p.web_radius);
-	var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','burning_radius','defender_radius','web_radius'];
+    const spawner = createPoint(p.count,p.speed,p.radius,p.types,p.horizontal,p.move_clockwise,p.x,p.y,p.angle,p.pattern,p.cone_angle,p.direction,p.immune,p.turn_speed,p.shot_interval,p.pause_interval,p.pause_duration,p.turn_acceleration,p.shot_acceleration,p.projectile_duration,p.projectile_radius,p.projectile_speed,p.powered,p.growth_multiplier,p.ignore_invulnerability,p.speed_loss,p.regen_loss,p.release_time,p.release_interval,p.slippery_radius,p.slowing_radius,p.enlarging_radius,p.draining_radius,p.gravity_radius,p.radar_radius,p.repelling_radius,p.disabling_radius,p.toxic_radius,p.lava_radius,p.magnetic_reduction_radius,p.magnetic_nullification_radius,p.freezing_radius,p.quicksand_radius,p.barrier_radius,p.experience_drain_radius,p.switch_interval,p.player_detection_radius,p.circle_size,p.push_direction,p.hard_mode,p.reducing_radius,p.gravity,p.repulsion,p.blocking_radius,p.quicksand_strength,p.riptide_radius,p.swamp_radius,p.test_param,p.rotor_branch_count,p.rotor_node_count,p.rotor_node_radius,p.rotor_rot_speed,p.rotor_reversed,p.rotor_branch_offset,p.rotor_node_dist,p.rotor_branch_dist,p.rotor_offset_per_layer,p.rotor_layer_reverse_interval,p.rotor_corrosive,p.burning_radius,p.defender_radius,p.web_radius);
+	var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','riptide_radius', 'swamp_radius','test_param','rotor_branch_count','rotor_node_count','rotor_node_radius','rotor_rot_speed','rotor_reversed','rotor_branch_offset','rotor_node_dist','rotor_branch_dist','rotor_offset_per_layer','rotor_layer_reverse_interval','rotor_corrosive','burning_radius','defender_radius','web_radius'];
 	for(var i in p){
 		if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
 	}
@@ -964,6 +1127,22 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
 		/*repelling enemy*/repulsion=6,
 		blocking_radius=150,
 		quicksand_strength=5,
+    /*its a mystery*/
+    riptide_radius=180,
+    swamp_radius=150,
+    test_param = 2000,
+    /*rotor enemy*/
+    rotor_branch_count = 2,
+    rotor_node_count = 2,
+    rotor_node_radius = 16,
+    rotor_rot_speed = 5,
+    rotor_reversed = false,
+    rotor_branch_offset = 0,
+    rotor_node_dist = 0,
+    rotor_branch_dist = 0,
+    rotor_offset_per_layer = 0,
+    rotor_layer_reverse_interval = 0,
+    rotor_corrosive = false,
 		burning_radius=120,
 		defender_radius=150,
 		web_radius=110,
@@ -971,9 +1150,9 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
         const point1 = {
             types:[],
         }
-		var arr=`x,y,turn_acceleration,cone_angle,count,turn_speed,shot_acceleration,speed,shot_interval,pause_duration,radius,angle,pause_interval,horizontal,immune,move_clockwise,pattern,direction,projectile_duration,projectile_radius,projectile_speed,growth_multiplier,powered,ignore_invulnerability,speed_loss,regen_loss,release_interval,release_time,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius,quicksand_strength,burning_radius,web_radius,defender_radius`.split(",")
+		var arr=`x,y,turn_acceleration,cone_angle,count,turn_speed,shot_acceleration,speed,shot_interval,pause_duration,radius,angle,pause_interval,horizontal,immune,move_clockwise,pattern,direction,projectile_duration,projectile_radius,projectile_speed,growth_multiplier,powered,ignore_invulnerability,speed_loss,regen_loss,release_interval,release_time,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius,quicksand_strength,riptide_radius,swamp_radius,rotor_branch_count,rotor_node_count,rotor_node_radius,rotor_rot_speed,rotor_reversed,rotor_branch_offset,rotor_node_dist,rotor_branch_dist,rotor_offset_per_layer,rotor_layer_reverse_interval,rotor_corrosive,burning_radius,defender_radius,web_radius,`.split(",")
 		arr.map(e=>{
-			var orders=`count,speed,radius,types,horizontal,move_clockwise,x,y,angle,pattern,cone_angle,direction,immune,turn_speed,shot_interval,pause_interval,pause_duration,turn_acceleration,shot_acceleration,projectile_duration,projectile_radius,projectile_speed,powered,growth_multiplier,ignore_invulnerability,speed_loss,regen_loss,release_time,release_interval,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius,quicksand_strength,burning_radius,web_radius,defender_radius`.split(","),
+			var orders=`count,speed,radius,types,horizontal,move_clockwise,x,y,angle,pattern,cone_angle,direction,immune,turn_speed,shot_interval,pause_interval,pause_duration,turn_acceleration,shot_acceleration,projectile_duration,projectile_radius,projectile_speed,powered,growth_multiplier,ignore_invulnerability,speed_loss,regen_loss,release_time,release_interval,slippery_radius,slowing_radius,enlarging_radius,draining_radius,gravity_radius,radar_radius,repelling_radius,disabling_radius,toxic_radius,lava_radius,magnetic_reduction_radius,magnetic_nullification_radius,freezing_radius,quicksand_radius,barrier_radius,experience_drain_radius,switch_interval,player_detection_radius,circle_size,push_direction,hard_mode,reducing_radius,gravity,repulsion,blocking_radius,quicksand_strength,riptide_radius,swamp_radius,test_param,rotor_branch_count,rotor_node_count,rotor_node_radius,rotor_rot_speed,rotor_reversed,rotor_branch_offset,rotor_node_dist,rotor_branch_dist,rotor_offset_per_layer,rotor_layer_reverse_interval,rotor_corrosive,burning_radius,defender_radius,web_radius,`.split(","),
 			order=orders.indexOf(e);
 			if(defaultValues.spawner[e]!=arguments[order]&&order!==3&&arguments[order]!=undefined){
 				point1[e]=arguments[order];
@@ -994,16 +1173,21 @@ var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drai
            "charging",
            "reducing",
            "lead_sniper",
-  "blocking","stalactite",
-  "force_sniper_a",
-  "force_sniper_b"].map(e=>[formatString(curLang,"editor.enemy."+e),e]);
-if(usingPifary)enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
-  var li = createProperty("",null, "select",{
-              value:point2.i,
-				event: e => {point2.i = e;spawnEntities();console.log(e)},
-				selectOptions: enemyList.sort(),
-				selectType: "text"
-            });
+          "blocking","stalactite",
+          "force_sniper_a",
+          "force_sniper_b",
+        ]
+            .map(e=>[formatString(curLang,"editor.enemy."+e),e]).sort();
+  if(usingPifary)
+    enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
+  if(usingPncl9500)
+    enemyList.push(...["slooming","particulate","water_trail","nightshade","riptide","cloud","rain","storm","airburst","param_test","rotor","radioactive_sniper","sap_sniper","vine","disc","swamp"].map(e=>[formatString(curLang,"pncl9500.enemy."+e),e]));
+
+  var li = createProperty("",null, "select", {
+    value:point2.i,
+    event: e => {point2.i = e;spawnEntities();console.log(e)},
+    selectOptions: enemyList.sort(),selectType: "text"
+  });
         li.children[0].classList.add("counter");
         const remove = document.createElement("button");
         remove.classList.add("remove");
@@ -1023,3 +1207,5 @@ li.remove()
           point2.element=li;
           return point2
 }
+
+
