@@ -376,7 +376,6 @@ function spawnEntities(area=current_Area){
               activeZone.spawner[i].speed,
               activeZone.spawner[i].angle,
               activeZone.spawner[i].switch_interval ?? defaultValues.spawner.switch_interval,
-              j,
               {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
               break;
           case "wall":
@@ -3042,7 +3041,7 @@ class SpiralEnemy extends Enemy{
     this.anglevel();
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier=1;
+	this.speedMultiplier=1;
     this.collision(delta);
   }
   onCollide(){
@@ -3054,11 +3053,12 @@ class FakePumpkinEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"#e26110","fake_pumpkin",boundary);
     this.speedMultiplier = 0;
+	this.isEnemy=false;
   }
   update(delta) {
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier = 0;
+	this.speedMultiplier = 0;
     this.collision(delta);
   }
 }
@@ -3067,7 +3067,6 @@ class LiquidEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,player_detection_radius,boundary){
     super(x,y,radius,speed,angle,"#6789ef","liquid",boundary);
     this.player_detection_radius = player_detection_radius;
-    console.log(this);
   }
   update(delta) {
     var closest_entity,closest_entity_distance,information;
@@ -3097,17 +3096,17 @@ class LiquidEnemy extends Enemy{
     }
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier = 1;
+	this.speedMultiplier = 1;
     this.collision(delta);
   }
 }
 
 class SwitchEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,switch_inverval,index,boundary){
+  constructor(x,y,radius,speed,angle,switch_inverval,boundary){
     super(x,y,radius,speed,angle,"#565656","switch",boundary);
     this.switch_inverval = switch_inverval;
     this.disabled = false;
-    if (index % 2 === 1) {
+    if (Math.round(Math.random()) === 1) {
       this.disabled = true;
     }
     this.isHarmless = this.disabled;
