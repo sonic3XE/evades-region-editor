@@ -348,6 +348,37 @@ function spawnEntities(area=current_Area){
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
           break;
+          case "turning":
+            entity=new TurningEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].angle,
+              activeZone.spawner[i].circle_size ?? defaultValues.spawner.circle_size,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
+          case "liquid":
+            entity=new LiquidEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].angle,
+              activeZone.spawner[i].player_detection_radius ?? defaultValues.spawner.player_detection_radius,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
+          case "switch":
+            entity=new SwitchEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].angle,
+              activeZone.spawner[i].switch_interval ?? defaultValues.spawner.switch_interval,
+              j,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
@@ -360,21 +391,23 @@ function spawnEntities(area=current_Area){
           case "zigzag":
           case "zoning":
           case "sizing":
+          case "spiral":
+          case "fake_pumpkin":
           /* enemies to do:
-          vv: case "turning": (turning has a parameter so this won't actually be in the switch)
-          ww: case "spiral":
           ww: case "switch":
           gg: case "icicle":
           ff: case "snowman": (this sounds really stupid to add)
           ff: case "frost_giant": (its a stretch, while it is nice to have it will be tedious to add)
+          probably more i'm forgetting
         */
         /* enemies that detect player (use mouse as player position substitute):
           gg: case "liquid":
-          dd: case "radiating_bullets":
+          dd: case "radiating_bullets": <- radiating bullets does not detect the player! but it still should have a preview
           hh2: case "pumpkin":
           hh2: case "tree":
           bbh: case "lunging":
           every sniper in the game
+          probably more i'm forgetting
         */
         /* enemies that make me suffer
           ww: case "wavy":
@@ -2956,6 +2989,141 @@ class SizingEnemy extends Enemy{
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+}
+
+class TurningEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,circle_size,boundary){
+    super(x,y,radius,speed,angle,"#336600","turning",boundary);
+    this.circle_size = circle_size;
+    this.dir = speed / circle_size;
+  }
+  update(delta) {
+    this.velangle()
+    this.angle += this.dir * (delta / 30);
+    this.anglevel();
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  onCollide(){
+    this.dir *= -1; 
+  }
+}
+
+class SpiralEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#e8b500","spiral",boundary);
+    this.angleIncrement = 0.15;
+    this.angleIncrementChange = 0.004;
+    this.angleAdd = false;
+    this.dir = 1
+  }
+  update(delta) {
+    if (this.angleIncrement < 0.001) {
+      this.angleAdd = true;
+    } else if (this.angleIncrement > 0.35) {
+      this.angleAdd = false;
+    }
+    if (this.angleIncrement < 0.05) {
+      this.angleIncrementChange = 0.0022;
+    } else {
+      this.angleIncrementChange = 0.004;
+    }
+    if (this.angleAdd) {
+      this.angleIncrement += this.angleIncrementChange * (delta / (1000 / 30));
+    } else {
+      this.angleIncrement -= this.angleIncrementChange * (delta / (1000 / 30));
+    }
+    this.velangle();
+    this.angle += this.angleIncrement * this.dir * (delta / (1000 / 30));
+    this.anglevel();
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  onCollide(){
+    this.dir *= -1; 
+  }
+}
+
+class FakePumpkinEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#e26110","fake_pumpkin",boundary);
+    this.speedMultiplier = 0;
+  }
+  update(delta) {
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier = 0;
+    this.collision(delta);
+  }
+}
+
+class LiquidEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,player_detection_radius,boundary){
+    super(x,y,radius,speed,angle,"#6789ef","liquid",boundary);
+    this.player_detection_radius = player_detection_radius;
+    console.log(this);
+  }
+  update(delta) {
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > this.player_detection_radius**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      this.speedMultiplier *= 5;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+
+class SwitchEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,switch_inverval,index,boundary){
+    super(x,y,radius,speed,angle,"#565656","switch",boundary);
+    this.switch_inverval = switch_inverval;
+    this.disabled = false;
+    if (index % 2 === 1) {
+      this.disabled = true;
+    }
+    this.isHarmless = this.disabled;
+    this.clock = 0;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock > this.switch_inverval) {
+      this.disabled = !this.disabled;
+      this.isHarmless = this.disabled
+    }
+    this.clock = this.clock % this.switch_inverval;
+
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier = 1;
     this.collision(delta);
   }
 }
