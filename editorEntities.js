@@ -348,6 +348,16 @@ function spawnEntities(area=current_Area){
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
           break;
+          case "turning":
+            entity=new TurningEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].angle,
+              activeZone.spawner[i].circle_size ?? defaultValues.spawner.circle_size,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
@@ -2957,6 +2967,26 @@ class SizingEnemy extends Enemy{
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	  this.speedMultiplier=1;
     this.collision(delta);
+  }
+}
+
+class TurningEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,circle_size,boundary){
+    super(x,y,radius,speed,angle,"#336600","turning",boundary);
+    this.circle_size = circle_size;
+    this.dir = speed / circle_size;
+  }
+  update(delta) {
+    this.velangle()
+    this.angle += this.dir * (delta / 30);
+    this.anglevel();
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  onCollide(){
+    this.dir *= -1; 
   }
 }
 
