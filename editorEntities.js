@@ -358,6 +358,16 @@ function spawnEntities(area=current_Area){
               activeZone.spawner[i].circle_size ?? defaultValues.spawner.circle_size,
               {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
               break;
+          case "liquid":
+            entity=new LiquidEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].angle,
+              activeZone.spawner[i].player_detection_radius ?? defaultValues.spawner.player_detection_radius,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
@@ -3038,6 +3048,45 @@ class FakePumpkinEnemy extends Enemy{
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	  this.speedMultiplier = 0;
+    this.collision(delta);
+  }
+}
+
+class LiquidEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,player_detection_radius,boundary){
+    super(x,y,radius,speed,angle,"#6789ef","liquid",boundary);
+    this.player_detection_radius = player_detection_radius;
+    console.log(this);
+  }
+  update(delta) {
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > this.player_detection_radius**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      this.speedMultiplier *= 5;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier = 1;
     this.collision(delta);
   }
 }
