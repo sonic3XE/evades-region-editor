@@ -408,6 +408,7 @@ var defaultValues={
 		x:void 0,
 		y:void 0,
 		speed:0,
+		count:1,
 		radius:void 0,
 		angle:void 0,
 	},
