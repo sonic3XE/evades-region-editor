@@ -370,21 +370,23 @@ function spawnEntities(area=current_Area){
           case "zigzag":
           case "zoning":
           case "sizing":
+          case "spiral":
           /* enemies to do:
-          vv: case "turning": (turning has a parameter so this won't actually be in the switch)
-          ww: case "spiral":
           ww: case "switch":
           gg: case "icicle":
           ff: case "snowman": (this sounds really stupid to add)
           ff: case "frost_giant": (its a stretch, while it is nice to have it will be tedious to add)
+          probably more i'm forgetting
         */
         /* enemies that detect player (use mouse as player position substitute):
           gg: case "liquid":
-          dd: case "radiating_bullets":
+          dd: case "radiating_bullets": <- radiating bullets does not detect the player! but it still should have a preview
           hh2: case "pumpkin":
           hh2: case "tree":
+          hh2: case "fake_pumpkin": <- this should be easy, just make it not move.
           bbh: case "lunging":
           every sniper in the game
+          probably more i'm forgetting
         */
         /* enemies that make me suffer
           ww: case "wavy":
@@ -2979,6 +2981,43 @@ class TurningEnemy extends Enemy{
   update(delta) {
     this.velangle()
     this.angle += this.dir * (delta / 30);
+    this.anglevel();
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  onCollide(){
+    this.dir *= -1; 
+  }
+}
+
+class SpiralEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#e8b500","spiral",boundary);
+    this.angleIncrement = 0.15;
+    this.angleIncrementChange = 0.004;
+    this.angleAdd = false;
+    this.dir = 1
+  }
+  update(delta) {
+    if (this.angleIncrement < 0.001) {
+      this.angleAdd = true;
+    } else if (this.angleIncrement > 0.35) {
+      this.angleAdd = false;
+    }
+    if (this.angleIncrement < 0.05) {
+      this.angleIncrementChange = 0.0022;
+    } else {
+      this.angleIncrementChange = 0.004;
+    }
+    if (this.angleAdd) {
+      this.angleIncrement += this.angleIncrementChange * (delta / (1000 / 30));
+    } else {
+      this.angleIncrement -= this.angleIncrementChange * (delta / (1000 / 30));
+    }
+    this.velangle();
+    this.angle += this.angleIncrement * this.dir * (delta / (1000 / 30));
     this.anglevel();
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
