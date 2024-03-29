@@ -384,7 +384,6 @@ function spawnEntities(area=current_Area){
           dd: case "radiating_bullets": <- radiating bullets does not detect the player! but it still should have a preview
           hh2: case "pumpkin":
           hh2: case "tree":
-          hh2: case "fake_pumpkin": <- this should be easy, just make it not move.
           bbh: case "lunging":
           every sniper in the game
           probably more i'm forgetting
