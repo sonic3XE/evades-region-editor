@@ -368,6 +368,17 @@ function spawnEntities(area=current_Area){
               activeZone.spawner[i].player_detection_radius ?? defaultValues.spawner.player_detection_radius,
               {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
               break;
+          case "switch":
+            entity=new SwitchEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].angle,
+              activeZone.spawner[i].switch_interval ?? defaultValues.spawner.switch_interval,
+              j,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
@@ -3084,6 +3095,32 @@ class LiquidEnemy extends Enemy{
     if(closest_entity!=void 0){
       this.speedMultiplier *= 5;
     }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+
+class SwitchEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,switch_inverval,index,boundary){
+    super(x,y,radius,speed,angle,"#565656","switch",boundary);
+    this.switch_inverval = switch_inverval;
+    this.disabled = false;
+    if (index % 2 === 1) {
+      this.disabled = true;
+    }
+    this.isHarmless = this.disabled;
+    this.clock = 0;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock > this.switch_inverval) {
+      this.disabled = !this.disabled;
+      this.isHarmless = this.disabled
+    }
+    this.clock = this.clock % this.switch_inverval;
+
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	  this.speedMultiplier = 1;
