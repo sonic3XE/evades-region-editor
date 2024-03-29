@@ -371,6 +371,7 @@ function spawnEntities(area=current_Area){
           case "zoning":
           case "sizing":
           case "spiral":
+          case "fake_pumpkin":
           /* enemies to do:
           ww: case "switch":
           gg: case "icicle":
@@ -3026,6 +3027,19 @@ class SpiralEnemy extends Enemy{
   }
   onCollide(){
     this.dir *= -1; 
+  }
+}
+
+class FakePumpkinEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#e26110","fake_pumpkin",boundary);
+    this.speedMultiplier = 0;
+  }
+  update(delta) {
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier = 0;
+    this.collision(delta);
   }
 }
 
