@@ -45,6 +45,14 @@ function arrow(e, a, t, r, c, o=2, n=15, $="#cc000088", _="#FF0000") {
     e.closePath(),
     e.lineWidth = preserved
 }
+function createOffscreenCanvas(t, e) {
+  var o = document.createElement("canvas");
+  return o.width = t,
+    o.height = e,
+    o
+}
+let canvasEntityLayer = createOffscreenCanvas(window.innerWidth, window.innerHeight);
+let canvasLighting = createOffscreenCanvas(window.innerWidth, window.innerHeight);
 let playtesting=false;
 function controlPlayer(id,input,delta){
 	var player=map.players.filter(e=>e.id==id)[0];
@@ -81,12 +89,19 @@ $e7009c797811e935$export$2e2bcd8739ae039.update({});
       }
     }
   }
-  canvas.width != window.innerWidth&&(canvas.width = window.innerWidth);
-  canvas.height != window.innerHeight&&(canvas.height = window.innerHeight);
-  var canvasEnemyLayer = createOffscreenCanvas(window.innerWidth, window.innerHeight);
-  var canvaslighting = createOffscreenCanvas(window.innerWidth, window.innerHeight);
-  var ctxL = canvaslighting.getContext("2d");
-  var ctxE = canvasEnemyLayer.getContext("2d");
+  canvas.width != window.innerWidth&&(
+	canvas.width = window.innerWidth,
+	canvasEntityLayer.width = canvas.width,
+	canvasLighting.width = canvas.width
+  );
+  canvas.height != window.innerHeight&&(
+	canvas.height = window.innerHeight,
+	canvasEntityLayer.height = canvas.height,
+	canvasLighting.height = canvas.height
+  );
+  var ctxL = canvasLighting.getContext("2d");
+  var ctxE = canvasEntityLayer.getContext("2d");
+  [ctxE,ctxL].map(e=>e.clearRect(0,0,innerWidth,innerHeight));
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.lineCap = playtesting?"butt":"round";
@@ -164,43 +179,28 @@ else {
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
   map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
+  map.areas[current_Area].entities.map(e=>{
+	e.renderFirst && e.render(ctxE,ctxL,delta)
+  });
   map.players.map(e=>{e.render(ctxE)});
-  map.areas[current_Area].entities.map(e=>{e.render(ctxE,ctxL,delta)});
-  ctxE.resetTransform();
-  var enemyError=false;
-  try{
-  const input={};
-  input.keys=keysDown;
-  input.mouse={x:0,y:0};
-  input.isMouse=false;
-  if(!dosandbox.checked){
-  (realTime.checked&&isActive&&ti>(1e3/30-delta/2))&&(controlPlayer(selfId,input,1e3/30),
-  map.players.map(e=>{e.update(1e3/30)}),map.areas[current_Area].entities.map(e=>e.update(1e3/30)),ti=0);
-  }else if(isActive&&realTime.checked){
-  controlPlayer(selfId,input,delta),
-  map.players.map(e=>{e.update(delta)}),
-  map.areas[current_Area].entities.map(e=>e.update(delta));
-  }
-  }catch(e){customAlert(e,1/0,"#FF0000");enemyError=true}
-  ctx.drawImage(canvasEnemyLayer,0,0);
   for (let k in map.areas[current_Area].assets) {
     switch (map.areas[current_Area].assets[k].type) {
       case "wall": {
         if(!zoneconsts[map.areas[current_Area].assets[k].texture])break;
-        var q = ctx.createPattern(zoneconsts[map.areas[current_Area].assets[k].texture].active, null)
-        ctx.beginPath();
-        ctx.translate(canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale, canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY) * camScale);
-        ctx.scale(camScale, camScale);
-        ctx.fillStyle = ((tileMode.selectedIndex&1)&&map.areas[current_Area].assets[k].texture=="normal")?zoneColors[tileMode.selectedIndex>>1].active:q;
-        ctx.rect(
+        var q = ctxE.createPattern(zoneconsts[map.areas[current_Area].assets[k].texture].active, null)
+        ctxE.save();
+        ctxE.beginPath();
+        ctxE.translate(map.areas[current_Area].assets[k].x,map.areas[current_Area].assets[k].y);
+        ctxE.fillStyle = ((tileMode.selectedIndex&1)&&map.areas[current_Area].assets[k].texture=="normal")?zoneColors[tileMode.selectedIndex>>1].active:q;
+        ctxE.rect(
           0,
           0,
           map.areas[current_Area].assets[k].width,
           map.areas[current_Area].assets[k].height
         );
-        ctx.fill();
-        ctx.resetTransform();
-        ctx.closePath();
+        ctxE.fill();
+        ctxE.restore();
+        ctxE.closePath();
         break;
       }
       case "light_region": {
@@ -220,8 +220,8 @@ else {
         break;
       }
       case "flashlight_spawner": {
-        ctx.fillStyle = "#bd5400";
-        ctx.drawImage(
+        ctxE.fillStyle = "#bd5400";
+        ctxE.drawImage(
           tileMap,646,604,32,16,
           canvas.width / 2 + (map.areas[current_Area].assets[k].x - 16 - camX) * camScale,
           canvas.height / 2 + (map.areas[current_Area].assets[k].y - 8 - camY) * camScale,
@@ -231,8 +231,8 @@ else {
         break;
       }
       case "torch": {
-        ctx.fillStyle = "#cccc00";
-        ctx.drawImage(
+        ctxE.fillStyle = "#cccc00";
+        ctxE.drawImage(
           tileMap,map.areas[current_Area].assets[k].upside_down?682:699,604,13,36,
           canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale,
           canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY) * camScale,
@@ -254,7 +254,7 @@ else {
         break;
       }
       case "gate": {
-        ctx.drawImage(
+        ctxE.drawImage(
           tileMap,646,2,134,598,
           canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale,
           canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY) * camScale,
@@ -265,10 +265,30 @@ else {
       }
     }
   }
+  map.areas[current_Area].entities.map(e=>{
+	!e.renderFirst && e.render(ctxE,ctxL,delta)
+  });
+  ctxE.resetTransform();
+  var enemyError=false;
+  try{
+  const input={};
+  input.keys=keysDown;
+  input.mouse={x:0,y:0};
+  input.isMouse=false;
+  if(!dosandbox.checked){
+  (realTime.checked&&isActive&&ti>(1e3/30-delta/2))&&(controlPlayer(selfId,input,1e3/30),
+  map.players.map(e=>{e.update(1e3/30)}),map.areas[current_Area].entities.map(e=>e.update(1e3/30)),ti=0);
+  }else if(isActive&&realTime.checked){
+  controlPlayer(selfId,input,delta),
+  map.players.map(e=>{e.update(delta)}),
+  map.areas[current_Area].entities.map(e=>e.update(delta));
+  }
+  }catch(e){customAlert(e,1/0,"#FF0000");enemyError=true}
+  ctx.drawImage(canvasEntityLayer,0,0);
   ctxL.fillStyle = `rgba(0,0,0,${map.areas[current_Area].properties.lighting})`;
-  ctxL.fillRect(0, 0, canvaslighting.width, canvaslighting.height);
+  ctxL.fillRect(0, 0, canvasLighting.width, canvasLighting.height);
   ctx.globalCompositeOperation = "destination-in";
-  ctx.drawImage(canvaslighting, 0, 0);
+  ctx.drawImage(canvasLighting, 0, 0);
   ctx.globalCompositeOperation = "source-over";
   c.update(`{"snow":${map.areas[current_Area].properties.snow},"area":${current_Area}}`, ctx, { x: -camX * camScale, y: -camY * camScale })
   c.render(ctx)

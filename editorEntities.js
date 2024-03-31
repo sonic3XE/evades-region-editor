@@ -69,10 +69,7 @@ function spawnEntities(area=current_Area){
         var bottom=activeZone.y+activeZone.height;
         var top=activeZone.y;
         var randType=Math.floor(Math.random()*activeZone.spawner[i].types.length);
-        var radius;
-		try{radius=activeZone.spawner[i].radius??enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].radius}catch(e){
-			radius=activeZone.spawner[i].radius??enemyConfig.normal_enemy.radius;
-		}
+        var radius=activeZone.spawner[i].radius;
         var auraColor=auraColors[activeZone.spawner[i].types[randType].i];
         let entity;
         var enemyX;
@@ -1835,6 +1832,7 @@ class SimulatorEntity{
     this.radiusMultiplier=1;
     this.speedMultiplier=1;
     this.boundary=boundary;
+	this.renderFirst=true;
   }
   anglevel(){
     this.velX=Math.cos(this.angle)*this.speed;
@@ -2141,6 +2139,7 @@ class Enemy extends SimulatorEntity{
   constructor(x,y,radius,speed,angle,color,type,boundary,aura_color,aura_radius){
     super(x,y,color,radius,type,speed,angle,aura_radius,aura_color,boundary);
     this.isEnemy=true;
+	this.renderFirst=false;
   }
   update(delta){
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
@@ -2217,6 +2216,7 @@ class PelletEntity extends SimulatorEntity{
     this.colors = ["#b84dd4", "#a32dd8", "#3b96fd", "#43c59b", "#f98f6b", "#61c736", "#d192bd"];
 		this.scaleOscillator = new $4e83b777e56fdf48$export$2e2bcd8739ae039(1.1,1.1,1.2,.005,!0);
     this.color=this.colors[Math.floor((Math.abs(this.x) + Math.abs(this.y)) % this.colors.length)];
+	this.renderFirst=true;
   }
   playerInteraction(player){
   var victoryZones=map.areas[player.area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
@@ -3054,6 +3054,7 @@ class FakePumpkinEnemy extends Enemy{
     super(x,y,radius,speed,angle,"#e26110","fake_pumpkin",boundary);
     this.speedMultiplier = 0;
 	this.isEnemy=false;
+	this.renderFirst=true;
   }
   update(delta) {
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
