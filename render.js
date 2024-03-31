@@ -180,7 +180,8 @@ else {
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
   map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
   map.areas[current_Area].entities.map(e=>{
-	e.renderFirst && e.render(ctxE,ctxL,delta)
+	e.render(ctxE,ctxL,delta,"aura");
+	e.render(ctxE,ctxL,delta,0);
   });
   map.players.map(e=>{e.render(ctxE)});
   for (let k in map.areas[current_Area].assets) {
@@ -266,7 +267,7 @@ else {
     }
   }
   map.areas[current_Area].entities.map(e=>{
-	!e.renderFirst && e.render(ctxE,ctxL,delta)
+	e.render(ctxE,ctxL,delta,1)
   });
   ctxE.resetTransform();
   var enemyError=false;

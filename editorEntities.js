@@ -1878,7 +1878,7 @@ class SimulatorEntity{
     if(collided)this.onCollide();
     for(var i in map.players){
       var player = map.players[i];
-      if(!player.safeZone&&player.deathTimer==-1&&Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
+      if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
         this.playerInteraction(player);
       }
       if(!player.safeZone&&player.deathTimer==-1&&Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.auraRadius+player.radius)){
@@ -2035,13 +2035,17 @@ class SimulatorEntity{
   renderExtra(e, ctxL){
 
   }
-  render(e,ctxL) {
+  render(e,ctxL,delta,renderType) {
     var a={x:0,y:0};
-    e.beginPath();
-    e.fillStyle=this.auraColor;
-    e.arc(this.x,this.y,this.auraRadius,0,Math.PI*2,!1);
-    e.fill();
-    e.closePath();
+	if(renderType=="aura"){
+		e.beginPath();
+		e.fillStyle=this.auraColor;
+		e.arc(this.x,this.y,this.auraRadius,0,Math.PI*2,!1);
+		e.fill();
+		e.closePath();
+		return;
+	}
+	if(renderType!=this.renderFirst){
     if (this.isHarmless && !this.isDestroyed && (e.globalAlpha = .4),
     this.duration < 500 && (e.globalAlpha = Math.min(e.globalAlpha, this.duration / 500)),
     this.grassTime < 1e3 ? e.globalAlpha = Math.max(.4, this.grassTime / 1e3) : 1e3 === this.grassTime && this.grassHarmless && (e.globalAlpha = .4),
@@ -2120,7 +2124,7 @@ class SimulatorEntity{
           ctxL.fill()
     this.decayed=false;
     this.renderExtra(e,ctxL);
-  }
+  }}
 }
 //UTILS
 function modulus(x,y){
@@ -2254,7 +2258,8 @@ this.y=Math.random()*(randZone.height-16)+randZone.y+8;
   update(delta){
     this.collision();
   }
-  render(ctx,ctxL,delta) {
+  render(ctx,ctxL,delta,renderType) {
+	  if(this.renderFirst!=renderType)return;
     ctx.beginPath();
     ctx.fillStyle=this.color;
     ctx.arc(this.x,this.y,this.radius * this.scaleOscillator.value,0,Math.PI*2,!1);
