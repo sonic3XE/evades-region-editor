@@ -2,6 +2,10 @@ a {
 	text-decoration: none;
 	color: #fff
 }
+.canvas-overlay{
+	position:absolute;
+	z-index:9999;
+}
 a:hover {
 	color: #a0c5ff
 }

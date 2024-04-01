@@ -544,6 +544,7 @@ if(playtesting){
   if(cons.ended||!cons.paused){
 	  ctx.drawImage(cons,0,0,ctx.canvas.width,ctx.canvas.height);
 	  canvas.style.cursor="none";
+	  canvas.setAttribute("class","canvas-overlay");
   }
   //if(enemyError)throw "Something went wrong.";
 };

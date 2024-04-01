@@ -1,6 +1,5 @@
 function loadFile(str,fromLocal=!0) {
 		if(useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
-			document.title="Your access to this site has been permanently restricted.";
 			return cons.play();
 		}
         current_Area = 0;
