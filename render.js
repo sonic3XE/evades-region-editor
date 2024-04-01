@@ -63,6 +63,7 @@ function controlPlayer(id,input,delta){
     return s[0]<<24|s[1]<<16|s[2]<<8|s[3]<<0
   }
   var isFinish=false;
+var errorFX=new Audio('https://s.jezevec10.com/res/se2/topout.mp3');
 function render() {
 	!isFinish&&(
 $e7009c797811e935$export$2e2bcd8739ae039.start({}),
@@ -179,6 +180,7 @@ else {
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
   map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
+  try{
   map.areas[current_Area].entities.map(e=>{
 	e.render(ctxE,ctxL,delta,"aura");
 	e.render(ctxE,ctxL,delta,0);
@@ -269,6 +271,7 @@ else {
   map.areas[current_Area].entities.map(e=>{
 	e.render(ctxE,ctxL,delta,1)
   });
+  }catch(e){throw errorFX.play(),e}
   ctxE.resetTransform();
   var enemyError=false;
   try{
@@ -538,9 +541,13 @@ if(playtesting){
       ctx.strokeText(`${e.text}`, 10, canvas.height-20-20*(a.length-t),canvas.width-20);
       ctx.fillText(`${e.text}`, 10, canvas.height-20-20*(a.length-t),canvas.width-20);
   });
+  if(cons.ended||!cons.paused){
+	  ctx.drawImage(cons,0,0,ctx.canvas.width,ctx.canvas.height);
+	  canvas.style.cursor="none";
+  }
   //if(enemyError)throw "Something went wrong.";
 };
-
+var cons;(cons=document.createElement("video")).src="https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4";
 // Nodebug.exe
 function _0x313b3e(_0xea8bc4) {
 	function _0x25281e(_0x476b44) {

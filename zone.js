@@ -1,3 +1,4 @@
+const useractive=navigator.userActivation;
 (()=>{for(var i in this){
   if(i.includes("Frame"))continue;
   if(i.toLowerCase().includes("inner")||i.toLowerCase().includes("set")||i=="fetch"||i=="alert"||i=="confirm"||i=="prompt"||i=="localStorage"||i=="performance")continue;
