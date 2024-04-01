@@ -129,6 +129,9 @@ function saveToStorage(slot){
  * @param {string} exportName 
  */
 function download(exportName = "map") {
+	if(!cons.ended && cons.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
+		return cons.play();
+	}
     try{customAlert("Exporting region...",1);
     // Copied from stackoverflow
 	let dataStr;
