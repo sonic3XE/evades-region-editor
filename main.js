@@ -747,7 +747,7 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
 		if(!cons.ended && cons.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()<=2){
 			cons.play();
-			document.body.requestFullScreen();
+			document.body.requestFullscreen();
 		}
 		return true;
 	}
