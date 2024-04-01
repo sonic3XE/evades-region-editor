@@ -746,7 +746,7 @@ areas:
 Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
 		if(!cons.ended && cons.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()<=2){
-			return cons.play();
+			return cons.play(),true;
 		}
 	}
 });
@@ -754,7 +754,7 @@ document.addEventListener("keydown", e => {
   var camera = { x: camX, y: camY }
   if (e.target instanceof HTMLInputElement) return;
   if (e.which === controls.PLAYTEST){
-	consumed_by_ink_demon;
+	if(consumed_by_ink_demon)return;
     playtesting=!playtesting;
     tl.hidden=playtesting;
     menu.hidden=playtesting;

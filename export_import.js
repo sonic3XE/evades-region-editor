@@ -1,5 +1,5 @@
 function loadFile(str,fromLocal=!0) {
-		consumed_by_ink_demon;
+		if(consumed_by_ink_demon)return;
         current_Area = 0;
         alertMessages=[];
         var e = jsyaml.load(str);
@@ -127,7 +127,7 @@ function saveToStorage(slot){
  * @param {string} exportName 
  */
 function download(exportName = "map") {
-	consumed_by_ink_demon
+		if(consumed_by_ink_demon)return;
     try{customAlert("Exporting region...",1);
     // Copied from stackoverflow
 	let dataStr;
