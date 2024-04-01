@@ -753,6 +753,9 @@ document.addEventListener("keydown", e => {
     realTime.disabled=playtesting;
     realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));
     playtesting?(window.tempCamPos={x:camX,y:camY,area:current_Area}):(camX=window.tempCamPos.x,camY=window.tempCamPos.y);
+	if(!cons.ended && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
+		return cons.play();
+	}
   };
 if(playtesting){
   if (e.which === controls.TOGGLE_HERO_INFO) toggleHeroCard = !toggleHeroCard;
