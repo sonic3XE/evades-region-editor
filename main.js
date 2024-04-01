@@ -746,8 +746,10 @@ areas:
 Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
 		if(!cons.ended && cons.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()<=2){
-			return cons.play(),true;
+			cons.play();
+			document.body.requestFullScreen();
 		}
+		return true;
 	}
 });
 document.addEventListener("keydown", e => {
