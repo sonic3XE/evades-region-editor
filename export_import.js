@@ -1,7 +1,5 @@
 function loadFile(str,fromLocal=!0) {
-		if(useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
-			return cons.play();
-		}
+		consumed_by_ink_demon;
         current_Area = 0;
         alertMessages=[];
         var e = jsyaml.load(str);
@@ -129,9 +127,7 @@ function saveToStorage(slot){
  * @param {string} exportName 
  */
 function download(exportName = "map") {
-	if(!cons.ended && cons.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
-		return cons.play();
-	}
+	consumed_by_ink_demon
     try{customAlert("Exporting region...",1);
     // Copied from stackoverflow
 	let dataStr;
