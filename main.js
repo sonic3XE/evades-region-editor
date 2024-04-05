@@ -746,9 +746,13 @@ areas:
 })
 Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
-		if(!cons.ended && cons.paused && useractive.hasBeenActive && new Date().getMonth()==3 && (new Date().getDate()<=7||new Date().getDate()==14)){
+		if(!prec.ended && prec.paused && useractive.hasBeenActive && new Date().getMonth()==3 && (new Date().getDate()<=7||new Date().getDate()==14)){
+			global.a=1;
+			prec.play();
+			setTimeout(()=>{
 			cons.play();
 			document.body.requestFullscreen();
+			},2e3);
 		}
 		return true;
 	}

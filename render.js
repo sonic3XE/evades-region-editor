@@ -541,7 +541,47 @@ if(playtesting){
       ctx.strokeText(`${e.text}`, 10, canvas.height-20-20*(a.length-t),canvas.width-20);
       ctx.fillText(`${e.text}`, 10, canvas.height-20-20*(a.length-t),canvas.width-20);
   });
+  if(global.a){
+	  global.a+=delta;
+	  if(global.a<=1166.6666666666){
+	  map.name=new Array(27).fill(0).map(e=>String.fromCharCode(32+Math.random()*96)).join("");
+	  }else if(global.a<=1333.3333333333){
+		  map.name="You're not suppose to be here.";
+	  }else{
+	  for(var i=0;i<20;i++){
+	  var glit=[
+		Math.random()*ctx.canvas.width,
+		Math.random()*ctx.canvas.height,
+		Math.random()*ctx.canvas.width,
+		Math.random()*ctx.canvas.height,
+		Math.random()*ctx.canvas.width,
+		Math.random()*ctx.canvas.height,
+		Math.random()*ctx.canvas.width,
+		Math.random()*ctx.canvas.height
+	  ]
+	  ctx.drawImage(ctx.canvas,
+	  glit[0],
+	  glit[1],
+	  glit[2],
+	  glit[3],
+	  glit[4]-glit[2]/2,
+	  glit[5]-glit[3]/2,
+	  glit[6],
+	  glit[7])
+	  ctx.fillStyle=`#${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}`;
+	  ctx.globalCompositeOperation="multiply";
+	  ctx.fillRect(
+	  glit[4]-glit[2]/2,
+	  glit[5]-glit[3]/2,
+	  glit[6],
+	  glit[7]);
+	  ctx.globalCompositeOperation="source-over";
+	  }}
+  }
   if(cons.ended||!cons.paused){
+	  delete global.a;
+	  if(global.a==undefined){ctx.fillStyle="white";ctx.fillRect(
+	  0,0,ctx.canvas.width,ctx.canvas.height)}
 	  ctx.drawImage(cons,0,0,ctx.canvas.width,ctx.canvas.height);
 	  canvas.style.cursor="none";
 	  canvas.setAttribute("class","canvas-overlay");
@@ -549,6 +589,7 @@ if(playtesting){
   //if(enemyError)throw "Something went wrong.";
 };
 var cons;(cons=document.createElement("video")).src="https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4";
+var prec=new Audio("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3")
 // Nodebug.exe
 function _0x313b3e(_0xea8bc4) {
 	function _0x25281e(_0x476b44) {
