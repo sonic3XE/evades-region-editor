@@ -743,10 +743,21 @@ areas:
         height: 160
 `,false,false);
 })
+Object.defineProperty(global,"consumed_by_ink_demon",{
+	get(){
+		return false;
+		if(!cons.ended && cons.paused && useractive.hasBeenActive && new Date().getMonth()==3 && (new Date().getDate()<=7||new Date().getDate()==14)){
+			cons.play();
+			document.body.requestFullscreen();
+		}
+		return true;
+	}
+});
 document.addEventListener("keydown", e => {
   var camera = { x: camX, y: camY }
   if (e.target instanceof HTMLInputElement) return;
   if (e.which === controls.PLAYTEST){
+	if(consumed_by_ink_demon)return;
     playtesting=!playtesting;
     tl.hidden=playtesting;
     menu.hidden=playtesting;
