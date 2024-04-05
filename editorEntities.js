@@ -345,6 +345,17 @@ function spawnEntities(area=current_Area){
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
           break;
+          case "drowning":
+          entity=new DrowningEnemy(
+            enemyX,
+            enemyY,
+            radius,
+            activeZone.spawner[i].speed,
+            activeZone.spawner[i].angle,
+			      activeZone.spawner[i].drowning_radius??defaultValues.spawner.drowning_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+          break;
           case "turning":
             entity=new TurningEnemy(
               enemyX,
@@ -2641,6 +2652,14 @@ class SwampEnemy extends Enemy{
   }
 }
 
+class DrowningEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.drowning_enemy.color,"drowning",boundary,auraColors.drowning,aura_radius);
+  }
+  auraEffect(player,delta){
+    //add later
+  }
+}
 class HomingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"#966e14","homing",boundary);

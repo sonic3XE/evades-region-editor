@@ -119,5 +119,8 @@ function getEnemyConfig() {
     web_enemy: { radius: 18, color: "#4a4a4a" },
     cobweb_enemy: { radius: 18, color: "#e4e4e4" },
     defender_enemy: { radius: 18, color: "#312f40" },
+    drowning_enemy: { radius: 18, color: "#174799" },
+    pull_sniper_enemy: { radius: 18, color: "#d494c5" },
+    puffing_enemy: { radius: 18, color: "#e8dfae" },
   };
 }

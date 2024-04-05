@@ -270,9 +270,13 @@ var curLang={
   "pncl9500.enemy.sap_sniper": "Sap Sniper",
   "pncl9500.enemy.vine": "Vine",
   "pncl9500.enemy.disc": "Disc",
+  "pncl9500.enemy.drowning": "Drowning",
+  "pncl9500.enemy.pull_sniper": "Pull Sniper",
+  "pncl9500.enemy.puffing": "Puffing",
 
   "pncl9500.property.riptide_radius": "Riptide Radius",
   "pncl9500.property.swamp_radius": "Swamp Radius",
+  "pncl9500.property.drowning_radius": "Drowning Radius",
 
   "pncl9500.property.test_param": "Test Param",
   "pncl9500.property.rotor_branch_count": "Branch Count",
@@ -381,6 +385,7 @@ var defaultValues={
 		reducing_radius:140,
         riptide_radius:180,
         swamp_radius:150,
+        drowning_radius:150,
 		blocking_radius:150,
 		burning_radius:120,
 		defender_radius:150,
