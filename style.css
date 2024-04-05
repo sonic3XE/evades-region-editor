@@ -13,6 +13,12 @@ a:active {
 	color: #7aadff
 }
 
+.mydomain>span{
+	display:none;
+}
+.mydomain:hover>span{
+	display:block;
+}
 .issues>span{
 	display:none;
 }
