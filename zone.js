@@ -378,6 +378,13 @@ function createSPAWNERgui(point1,Zone){
     pnclAura2Input.value = Math.max(Number(pnclAura2Input.value),0);
     point1.swamp_radius = Math.max(Number(pnclAura2Input.value),0);spawnEntities()
   });
+  const pnclAura3Input = document.createElement("input");
+  pnclAura3Input.value = point1.drowning_radius ?? defaultValues.spawner.drowning_radius;
+  pnclAura3Input.step=1;
+  pnclAura3Input.addEventListener("input", () => {
+    pnclAura3Input.value = Math.max(Number(pnclAura3Input.value),0);
+    point1.drowning_radius = Math.max(Number(pnclAura3Input.value),0);spawnEntities()
+  });
   const PifaryAuraInput = document.createElement("input");
   PifaryAuraInput.value = point1.burning_radius ?? defaultValues.spawner.burning_radius;
   PifaryAuraInput.step=1;
@@ -661,6 +668,7 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.blocking_radius"), aura18Input, "number"),
     createProperty(formatString(curLang,"pncl9500.property.riptide_radius"), pnclAura1Input, "number"),
     createProperty(formatString(curLang,"pncl9500.property.swamp_radius"), pnclAura2Input, "number"),
+    createProperty(formatString(curLang,"pncl9500.property.drowning_radius"), pnclAura3Input, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.burning_radius"), PifaryAuraInput, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.defender_radius"), PifaryAura2Input, "number"),
 		createProperty(formatString(curLang,"pifary-dev.property.web_radius"), PifaryAura3Input, "number"),
@@ -729,7 +737,7 @@ point1.projectile_radius=undefined;
       ],!0),
     ],!0);
     var foldersInjectedByAddon = [];
-    //if pifary were to have an enemy with a custom property, similar code to the code below would be put here.
+    //if pifary were to have an enemy with a custom (non aura radius) property, similar code to the code below would be put here.
     if (usingPncl9500){
       //add custom enemies from pncl9500 addon to foldersInjectedByAddon
       foldersInjectedByAddon = foldersInjectedByAddon.concat([
@@ -967,6 +975,7 @@ function cloneSpawner(e){
 	obj.types.includes("reducing") && (obj.reducing_radius = e.reducing_radius);
   obj.types.includes("riptide") && (obj.riptide_radius = e.riptide_radius);
   obj.types.includes("swamp") && (obj.swamp_radius = e.swamp_radius);
+  obj.types.includes("drowning") && (obj.drowning_radius = e.drowning_radius);
 	obj.types.includes("disabling") && (obj.disabling_radius = e.disabling_radius);
 	obj.types.includes("lava") && (obj.lava_radius = e.lava_radius);
 	obj.types.includes("barrier") && (obj.barrier_radius = e.barrier_radius);
@@ -1018,7 +1027,7 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
     // Create inputs/labels
   spawner.map(p => {
     const spawner = createPoint(p);
-	var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','riptide_radius', 'swamp_radius','test_param','rotor_branch_count','rotor_node_count','rotor_node_radius','rotor_rot_speed','rotor_reversed','rotor_branch_offset','rotor_node_dist','rotor_branch_dist','rotor_offset_per_layer','rotor_layer_reverse_interval','rotor_corrosive','burning_radius','defender_radius','web_radius'];
+	var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','riptide_radius', 'swamp_radius','drowning_radius','test_param','rotor_branch_count','rotor_node_count','rotor_node_radius','rotor_rot_speed','rotor_reversed','rotor_branch_offset','rotor_node_dist','rotor_branch_dist','rotor_offset_per_layer','rotor_layer_reverse_interval','rotor_corrosive','burning_radius','defender_radius','web_radius'];
 	for(var i in p){
 		if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
 	}
@@ -1122,6 +1131,7 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
     /*its a mystery*/
     riptide_radius=180,
     swamp_radius=150,
+    drowning_radius=150,
     test_param = 2000,
     /*rotor enemy*/
     rotor_branch_count = 2,
@@ -1169,7 +1179,7 @@ var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drai
   if(usingPifary)
     enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
   if(usingPncl9500)
-    enemyList.push(...["slooming","particulate","water_trail","nightshade","riptide","cloud","rain","storm","airburst","param_test","rotor","radioactive_sniper","sap_sniper","vine","disc","swamp"].map(e=>[formatString(curLang,"pncl9500.enemy."+e),e]));
+    enemyList.push(...["slooming","particulate","water_trail","nightshade","riptide","cloud","rain","storm","airburst","param_test","rotor","radioactive_sniper","sap_sniper","vine","disc","swamp","drowning","pull_sniper","puffing"].map(e=>[formatString(curLang,"pncl9500.enemy."+e),e]));
 
   var li = createProperty("",null, "select", {
     value:point2.i,
