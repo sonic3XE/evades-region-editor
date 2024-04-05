@@ -3078,6 +3078,8 @@ class FakePumpkinEnemy extends Enemy{
     super(x,y,radius,speed,angle,"#e26110","fake_pumpkin",boundary);
     this.speedMultiplier = 0;
 	this.isEnemy=false;
+	this.image=$31e8cfefa331e399$var$images["entities/pumpkin_off"];
+	this.texture="entities/pumpkin_off";
 	this.renderFirst=true;
   }
   update(delta) {
