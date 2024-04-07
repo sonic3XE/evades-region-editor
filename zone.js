@@ -1179,7 +1179,7 @@ var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drai
   if(usingPifary)
     enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
   if(usingPncl9500)
-    enemyList.push(...["slooming","particulate","water_trail","nightshade","riptide","cloud","rain","storm","airburst","param_test","rotor","radioactive_sniper","sap_sniper","vine","disc","swamp","drowning","pull_sniper","puffing"].map(e=>[formatString(curLang,"pncl9500.enemy."+e),e]));
+    enemyList.push(...["slooming","particulate","water_trail","nightshade","riptide","cloud","rain","storm","airburst","param_test","rotor","radioactive_sniper","sap_sniper","vine","disc","swamp","drowning","pull_sniper","puffing","bubble"].map(e=>[formatString(curLang,"pncl9500.enemy."+e),e]));
 
   var li = createProperty("",null, "select", {
     value:point2.i,

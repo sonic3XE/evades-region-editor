@@ -122,5 +122,6 @@ function getEnemyConfig() {
     drowning_enemy: { radius: 18, color: "#174799" },
     pull_sniper_enemy: { radius: 18, color: "#d494c5" },
     puffing_enemy: { radius: 18, color: "#e8dfae" },
+    bubble_enemy: { radius: 18, color: "rgba(190, 255, 255, 0.7)" },
   };
 }

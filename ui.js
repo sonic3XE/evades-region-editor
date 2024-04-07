@@ -273,6 +273,7 @@ var curLang={
   "pncl9500.enemy.drowning": "Drowning",
   "pncl9500.enemy.pull_sniper": "Pull Sniper",
   "pncl9500.enemy.puffing": "Puffing",
+  "pncl9500.enemy.bubble": "Bubble",
 
   "pncl9500.property.riptide_radius": "Riptide Radius",
   "pncl9500.property.swamp_radius": "Swamp Radius",
