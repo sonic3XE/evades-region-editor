@@ -39,6 +39,9 @@ function spawnEntities(area=current_Area){
   var boundary=map.areas[area].BoundingBox;
   var victoryZones=map.areas[area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
   map.areas[area].entities=[];
+  map.areas[area].assets.filter(e=>e.type=="flashlight_spawner").map(e=>{
+	 map.areas[area].entities.push(new FlashlightSpawner(e.x,e.y,{left:boundary.left,right:boundary.right,bottom:boundary.bottom,top:boundary.top,width:boundary.width,height:boundary.height}))
+  })
   if(victoryZones.length){
     var areaofzone=victoryZones.map(e=>e.width*e.height);
     for(var it in areaofzone){
@@ -470,6 +473,7 @@ this.previousPos={x:this.x,y:this.y};
     this.heroType=0;
     this.velY=0;
     this.level=1;
+	this.effects=[];
     this.nextLevelExperience=4;
     this.tempNextExperience=4;
     this.tempPrevExperience=0;
@@ -520,6 +524,8 @@ this.canCling=false;
 this.isEmber=false;
 this.shadowedInvulnerability=false;
 this.shadowedTime=0;
+this.inputAngle=0;
+this.lastAngle=0;
 this.shadowedTimeLeft=0;
 this.isWormhole=false;
 this.stickyCoatDisabled=true;
@@ -547,6 +553,7 @@ this.continuousReviveTimeLeft=0;
     this.deathTimerTotal=0;
     this.color=color;
     this.name=username;
+	this.flashlight=false;
 	this.chronoPos=[];
 this.distance_moved_previously = [0,0];
     this.speed=5;
@@ -663,8 +670,8 @@ this.isGuest=!1;
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
-				this.x+=Math.cos(this.input_angle)*abilityLevels[ability.level-1]?.distance;
-				this.y+=Math.sin(this.input_angle)*abilityLevels[ability.level-1]?.distance;
+				this.x+=Math.cos(this.inputAngle)*abilityLevels[ability.level-1]?.distance;
+				this.y+=Math.sin(this.inputAngle)*abilityLevels[ability.level-1]?.distance;
 				var area=map.areas[this.area];
 				if(this.y<area.BoundingBox.top+this.radius){this.velY=0,this.y=this.radius};
 				if(this.y>area.BoundingBox.bottom-this.radius){this.velY=0,this.y=map.areas[this.area].BoundingBox.bottom-this.radius};
@@ -708,6 +715,15 @@ this.isGuest=!1;
 				}
 			}
 		};break;
+		case 96:{
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+				this.flashlight=true;
+			}
+			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
+				this.flashlight=false;
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		}
 		case 98:{
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
@@ -809,6 +825,8 @@ this.isGuest=!1;
 	  var harden=false;
 	  var forceOff=[0,0,0];
 	  if(this.deathTimer!=-1){
+		  this.flashlight=false;
+		  this.lantern=false;
 		  this.abilityOne.abilityType!=18&&(this.firstAbilityActivated=false);
 		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
 		  this.abilityThree.abilityType!=18&&(this.thirdAbilityActivated=false);
@@ -1034,7 +1052,16 @@ input.keys.has(controls.RIGHT[1])) {
         else if(this.moving&&!input.isMouse&&this.className!="Cent") {
           this.d_x = this.distance_movement * this.dirX;
           this.d_y = this.distance_movement * this.dirY;
-		  this.input_angle=Math.atan2(this.dirY,this.dirX);
+          var angle = this.lastAngle;
+          if(this.dirX>0){angle = 0;}
+          else if(this.dirX<0){angle = 180;}
+          if(this.dirY>0){angle = 90;}
+          else if(this.dirY<0){angle = 270;}
+          if(this.dirX>0&&this.dirY>0){angle = 45}
+          else if(this.dirX>0&&this.dirY<0){angle = 315}
+          else if(this.dirX<0&&this.dirY>0){angle = 135}
+          else if(this.dirX<0&&this.dirY<0){angle = 225}
+          this.inputAngle = angle;
 		  this.dx=this.d_x;
 		  this.dy=this.d_y;
         }
@@ -1405,11 +1432,32 @@ if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.
       map.players.splice(map.players.indexOf(this));
     }
 	}
-	render(e) {
+	render(e,ctxL,delta) {
 		const a = {x:0,y:0};
 		this.fullMapOpacity=this.area==evadesRenderer?.minimap?.self?.entity?.area;
 		if (this.area!=evadesRenderer?.minimap?.self?.entity?.area)
 			return;
+		var rotationSpeed = 15;
+		
+      if(this.inputAngle<0){this.inputAngle+=360}
+      if(this.inputAngle>=360){this.inputAngle-=360}
+      var distanceOne = this.inputAngle - Math.abs(this.lastAngle);
+      if(this.lastAngle<=this.inputAngle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.inputAngle-rotationSpeed*delta/(1e3/30)){}
+      else if(distanceOne<-180){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
+      else if(distanceOne>=180){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
+      else if(distanceOne<0){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
+      else if(distanceOne>0){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
+      if(this.lastAngle>=360)this.lastAngle-=360;
+      if(this.lastAngle<0)this.lastAngle+=360;
+      if(this.lastAngle<=this.inputAngle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.inputAngle-rotationSpeed*delta/(1e3/30)){this.lastAngle = this.inputAngle}
+		var flashlightLightSource={
+			x: this.x,
+			y: this.y,
+			centerDistance: this.radius,
+			directionAngle: this.lastAngle*Math.PI/180,
+			innerAngle: 35*Math.PI/180,
+			distance: 500
+		};
 		localStorage.getItem("confetti")&& this.isDowned() ? (this.drawnConfetti || (this.makeConfetti(),
 		this.drawnConfetti = !0),
 		this.animateConfetti(),
@@ -1594,6 +1642,35 @@ if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.
 		e.textAlign = "center",
 		e.fillStyle = "red",
 		e.fillText((this.deathTimer / 1e3).toFixed(0), t, r + 6))
+        var rt = ctxL.createRadialGradient(
+          canvas.width / 2 + (this.x - camX) * camScale, 
+          canvas.height / 2 + (this.y - camY) * camScale, 0, 
+          canvas.width / 2 + (this.x - camX) * camScale, 
+          canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
+          rt.addColorStop(0, "rgba(0, 0, 0, 1)"),
+          rt.addColorStop(1, "rgba(0, 0, 0, 0)"),
+          ctxL.beginPath(),
+          ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
+          ctxL.fillStyle = rt,
+          ctxL.closePath(),
+          ctxL.fill()
+		  if(this.flashlight){
+			var ds = ctxL.createRadialGradient(
+			  canvas.width / 2 + (this.x - camX) * camScale, 
+			  canvas.height / 2 + (this.y - camY) * camScale,0, 
+			  canvas.width / 2 + (this.x - camX) * camScale, 
+			  canvas.height / 2 + (this.y - camY) * camScale,
+			  flashlightLightSource.distance * camScale);
+			ds.addColorStop(0, "rgba(0, 0, 0, 1)"),
+			ds.addColorStop(1, "rgba(0, 0, 0, 0)"),
+			ctxL.beginPath(),
+			ctxL.moveTo(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale),
+			ctxL.lineTo(canvas.width / 2 + (this.x - camX) * camScale + flashlightLightSource.distance * Math.cos(this.lastAngle*Math.PI/180 - flashlightLightSource.innerAngle / 2) * camScale, canvas.height / 2 + (this.y - camY) * camScale + flashlightLightSource.distance * Math.sin(this.lastAngle*Math.PI/180 - flashlightLightSource.innerAngle / 2) * camScale),
+			ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, flashlightLightSource.distance * camScale, flashlightLightSource.directionAngle - flashlightLightSource.innerAngle / 2, flashlightLightSource.directionAngle + flashlightLightSource.innerAngle / 2, !1),
+			ctxL.lineTo(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale),
+			ctxL.fillStyle = ds,
+			ctxL.closePath(),
+		  ctxL.fill()}
 	}
 	renderIcedEffect(e, a, t) {
 		if (!this.isIced)
@@ -2270,7 +2347,8 @@ this.y=Math.random()*(randZone.height-16)+randZone.y+8;
     this.collision();
   }
   render(ctx,ctxL,delta,renderType) {
-	  if(this.renderFirst!=renderType)return;
+	  if(renderType=="aura")return;
+	  if(this.renderFirst==renderType)return;
     ctx.beginPath();
     ctx.fillStyle=this.color;
     ctx.arc(this.x,this.y,this.radius * this.scaleOscillator.value,0,Math.PI*2,!1);
@@ -3089,7 +3167,46 @@ class FakePumpkinEnemy extends Enemy{
     this.collision(delta);
   }
 }
-
+class FlashlightSpawner extends SimulatorEntity{
+  constructor(x,y){
+    super(x,y,null,null,"flashlight_spawner",null,null,null,null,null);
+	this.renderFirst=true;
+	this.texture=$31e8cfefa331e399$var$images['entities/flashlight_item'];
+	this.spawnInterval=1e3;
+	this.width=32;
+	this.height=16;
+	this.spawnTime=this.spawnInterval-1e3;
+	this.isSpawned=false;
+  }
+  update(delta){
+	this.spawnTime+=delta * (!this.isSpawned);
+    if(this.spawnTime>=this.spawnInterval){
+		this.isSpawned=true;
+		this.spawnTime%=this.spawnInterval;
+	};
+    for(var i in map.players){
+      var player = map.players[i];
+      if(this.isSpawned&&rectCircleCollision(player.x,player.y,player.radius,this.x-this.width/2,this.y-this.height/2,this.width,this.height).c){
+        this.playerInteraction(player);
+      }
+    }
+  }
+  playerInteraction(player){
+	  if(player.abilityThree.abilityType!=96&&this.isSpawned){
+	  player.abilityThree.abilityType=96;
+	  evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
+	  evadesRenderer.heroInfoCard.abilityThree.afterStateUpdate(abilityConfig[player.abilityThree.abilityType]);
+	  evadesRenderer.heroInfoCard.abilityThree.locked=false;
+	  evadesRenderer.heroInfoCard.abilityThree.level=1;
+	  this.isSpawned=false;
+	  }
+  }
+  render(ctx,ctxL,delta,renderType) {
+	if(this.renderFirst==renderType)return;
+	if(!this.isSpawned)return;
+    ctx.drawImage(this.texture.getImage(),this.x-16,this.y-8,32,16);
+  }
+}
 class LiquidEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,player_detection_radius,boundary){
     super(x,y,radius,speed,angle,"#6789ef","liquid",boundary);

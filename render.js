@@ -102,7 +102,6 @@ $e7009c797811e935$export$2e2bcd8739ae039.update({});
   );
   var ctxL = canvasLighting.getContext("2d");
   var ctxE = canvasEntityLayer.getContext("2d");
-  [ctxE,ctxL].map(e=>e.clearRect(0,0,innerWidth,innerHeight));
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.lineCap = playtesting?"butt":"round";
@@ -120,6 +119,12 @@ var player=new SimulatedPlayer(map.areas[0].zones.filter(e=>e.type=="safe")[0].x
 selfPlayer=player;
 window.selfId=player.id;
 map.players.push(player)
+	  evadesRenderer.heroInfoCard.abilityOne=new $097def8f8d652b17$export$2e2bcd8739ae039;
+	  evadesRenderer.heroInfoCard.abilityOne.afterStateUpdate(abilityConfig[player.abilityOne.abilityType]);
+	  evadesRenderer.heroInfoCard.abilityTwo=new $097def8f8d652b17$export$2e2bcd8739ae039;
+	  evadesRenderer.heroInfoCard.abilityTwo.afterStateUpdate(abilityConfig[player.abilityTwo.abilityType]);
+	  evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
+	  evadesRenderer.heroInfoCard.abilityThree.afterStateUpdate(abilityConfig[player.abilityThree.abilityType]);
 spawnEntities(player.area)
 };
   
@@ -176,6 +181,7 @@ else {
     );
     ctx.closePath();
   }
+  [ctxE,ctxL].map(e=>e.clearRect(0,0,innerWidth,innerHeight));
   ctxE.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
@@ -185,7 +191,7 @@ else {
 	e.render(ctxE,ctxL,delta,"aura");
 	e.render(ctxE,ctxL,delta,0);
   });
-  map.players.map(e=>{e.render(ctxE)});
+  map.players.map(e=>{e.render(ctxE,ctxL,delta)});
   for (let k in map.areas[current_Area].assets) {
     switch (map.areas[current_Area].assets[k].type) {
       case "wall": {
@@ -223,9 +229,8 @@ else {
         break;
       }
       case "flashlight_spawner": {
-        ctxE.fillStyle = "#bd5400";
-        ctxE.drawImage(
-          tileMap,646,604,32,16,
+        ctxE.strokeStyle = "#bd5400";
+        ctxE.strokeRect(
           map.areas[current_Area].assets[k].x - 16,
           map.areas[current_Area].assets[k].y - 8,
           32,
@@ -271,10 +276,6 @@ else {
   map.areas[current_Area].entities.map(e=>{
 	e.render(ctxE,ctxL,delta,1)
   });
-  }catch(e){throw errorFX.play(),e}
-  ctxE.resetTransform();
-  var enemyError=false;
-  try{
   const input={};
   input.keys=keysDown;
   input.mouse={x:0,y:0};
@@ -287,7 +288,9 @@ else {
   map.players.map(e=>{e.update(delta)}),
   map.areas[current_Area].entities.map(e=>e.update(delta));
   }
-  }catch(e){customAlert(e,1/0,"#FF0000");enemyError=true}
+  }catch(e){throw errorFX.play(),e}
+  var enemyError=false;
+  ctxE.resetTransform();
   ctx.drawImage(canvasEntityLayer,0,0);
   ctxL.fillStyle = `rgba(0,0,0,${map.areas[current_Area].properties.lighting})`;
   ctxL.fillRect(0, 0, canvasLighting.width, canvasLighting.height);

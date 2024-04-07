@@ -190,6 +190,7 @@ var txtr_abilities=[
 ];
 txtr_abilities[18]={x:313,y:573,w:50,h:50};
 txtr_abilities[31]={x:313,y:625,w:50,h:50};
+txtr_abilities[96]={x: 53,y:923,w:50,h:50};
 txtr_abilities[98]={x:261,y:937,w:50,h:50};
 txtr_abilities[99]={x:105,y:729,w:50,h:50};
 txtr_abilities[-1]={x:  1,y:923,w:50,h:50};
