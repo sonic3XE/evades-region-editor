@@ -42,6 +42,9 @@ regions:
 - file: regions/dangerous-district-hard.yaml
   x: 270104
   y: 24640
+- file: regions/dusty-depths.yaml
+  x: 70208
+  y: 5456
 - file: regions/elite-expanse.yaml
   x: 1952
   y: 21760
