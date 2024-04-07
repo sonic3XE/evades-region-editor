@@ -2199,17 +2199,17 @@ class SimulatorEntity{
                              }
                              e.globalAlpha = 1
         var r = ctxL.createRadialGradient(
-          canvas.width / 2 + (this.x - camX) * camScale, 
-          canvas.height / 2 + (this.y - camY) * camScale, 0, 
-          canvas.width / 2 + (this.x - camX) * camScale, 
-          canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
-          r.addColorStop(0, "rgba(0, 0, 0, 1)"),
-          r.addColorStop(1, "rgba(0, 0, 0, 0)"),
-          ctxL.beginPath(),
-          ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
-          ctxL.fillStyle = r,
-          ctxL.closePath(),
-          ctxL.fill()
+        canvas.width / 2 + (this.x - camX) * camScale, 
+        canvas.height / 2 + (this.y - camY) * camScale, 0, 
+        canvas.width / 2 + (this.x - camX) * camScale, 
+        canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
+        r.addColorStop(0, "rgba(0, 0, 0, 1)"),
+        r.addColorStop(1, "rgba(0, 0, 0, 0)"),
+        ctxL.beginPath(),
+        ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
+        ctxL.fillStyle = r,
+        ctxL.closePath(),
+        ctxL.fill()
     this.decayed=false;
     this.renderExtra(e,ctxL);
   }}
