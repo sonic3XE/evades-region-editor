@@ -228,16 +228,6 @@ else {
         );
         break;
       }
-      case "flashlight_spawner": {
-        ctxE.strokeStyle = "#bd5400";
-        ctxE.strokeRect(
-          map.areas[current_Area].assets[k].x - 16,
-          map.areas[current_Area].assets[k].y - 8,
-          32,
-          16
-        );
-        break;
-      }
       case "torch": {
         ctxE.fillStyle = "#cccc00";
         ctxE.drawImage(
