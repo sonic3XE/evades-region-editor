@@ -226,10 +226,10 @@ else {
         ctxE.fillStyle = "#bd5400";
         ctxE.drawImage(
           tileMap,646,604,32,16,
-          canvas.width / 2 + (map.areas[current_Area].assets[k].x - 16 - camX) * camScale,
-          canvas.height / 2 + (map.areas[current_Area].assets[k].y - 8 - camY) * camScale,
-          32 * camScale,
-          16 * camScale
+          map.areas[current_Area].assets[k].x - 16,
+          map.areas[current_Area].assets[k].y - 8,
+          32,
+          16
         );
         break;
       }
@@ -237,10 +237,10 @@ else {
         ctxE.fillStyle = "#cccc00";
         ctxE.drawImage(
           tileMap,map.areas[current_Area].assets[k].upside_down?682:699,604,13,36,
-          canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale,
-          canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY) * camScale,
-          13 * camScale,
-          36 * camScale
+          map.areas[current_Area].assets[k].x,
+          map.areas[current_Area].assets[k].y,
+          13,
+          36
         );
         var r = ctxL.createRadialGradient(
           canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale, 
@@ -259,10 +259,10 @@ else {
       case "gate": {
         ctxE.drawImage(
           tileMap,646,2,134,598,
-          canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale,
-          canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY) * camScale,
-          map.areas[current_Area].assets[k].width * camScale,
-          map.areas[current_Area].assets[k].height * camScale
+          map.areas[current_Area].assets[k].x,
+          map.areas[current_Area].assets[k].y,
+          map.areas[current_Area].assets[k].width,
+          map.areas[current_Area].assets[k].height
         );
         break;
       }
