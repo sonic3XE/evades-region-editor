@@ -3204,6 +3204,7 @@ class FlashlightSpawner extends SimulatorEntity{
   render(ctx,ctxL,delta,renderType) {
 	if(this.renderFirst==renderType)return;
 	if(!this.isSpawned)return;
+	ctx.imageSmoothingEnabled = false;
     ctx.drawImage(this.texture.getImage(),this.x-16,this.y-8,32,16);
   }
 }
