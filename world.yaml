@@ -111,8 +111,7 @@ regions:
 - file: regions/ominous-occult-hard.yaml
   x: 135052
   y: 28928
-- file: Content Deleted due to release of Dusty Depths.yaml
-##- file: regions/peculiar-pyramid.yaml
+- file: regions/peculiar-pyramid.yaml
   x: 1952
   y: 4320
 - file: regions/peculiar-pyramid-hard.yaml

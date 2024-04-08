@@ -1046,7 +1046,7 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
 			selectOptions: [[formatString(curLang,"editor.requirement.none"),""],...[
         "mansion_discovered","research_lab_discovered","all_heroes_unlocked",
         "mystery_keycard","cybot_defeated","all_elements_gained","inaccessible",
-        "ten_hard_variants","cybot_hard_mode_defeated","cybot_castle_defeated",
+        "ten_hard_variants","cybot_hard_mode_defeated","cybot_castle_defeated","dusty_depths_found",
       ].map(e=>[formatString(curLang,"editor.requirement."+e),e])],
 			selectType: "text"
   	});

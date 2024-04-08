@@ -230,6 +230,7 @@ var curLang={
   "editor.requirement.ten_hard_variants":"Ten Hard Variants",
   "editor.requirement.cybot_hard_mode_defeated":"Cybot Hard Mode Defeated",
   "editor.requirement.cybot_castle_defeated":"Cybot Castle Defeated",
+  "editor.requirement.dusty_depths_found":"Dusty Depths Found",
   "editor.texture.normal":"Normal",
   "editor.texture.leaves":"Leaves",
   "editor.texture.wooden":"Wooden",
