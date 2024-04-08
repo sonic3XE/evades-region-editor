@@ -2323,6 +2323,10 @@ this.x=Math.random()*(randZone.width-16)+randZone.x+8;
 this.y=Math.random()*(randZone.height-16)+randZone.y+8;
       player.experience+=Math.floor(1+player.area/3)*map.properties.pellet_multiplier;
       if(player.experience>=player.nextLevelExperience){
+		if(player.level < map.properties.max_level){
+			player.experience=player.nextLevelExperience;
+			return;
+		}
 		player.experience-=player.tempPrevExperience-player.previousLevelExperience;
 		var newLevel=Math.floor(this.calculateLevel(player.experience))
 		var diff=newLevel-player.level;
