@@ -758,7 +758,7 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 			return true;
 		}
 		return false;
-	}
+	},
 	set(e){
 		if(!prec.ended && prec.paused && useractive.hasBeenActive && Boolean(e)){
 			global.a=1;
