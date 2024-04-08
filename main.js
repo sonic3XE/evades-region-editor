@@ -906,6 +906,7 @@ function socketclosed(e){
   console.log("socket died, might reconnect after 3 seconds");
   setTimeout(()=>{
     socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
+	socket.binaryType="arraybuffer";
     socket.addEventListener("close",socketclosed);
     socket.addEventListener("message",socketreceive);
   },3e3);
