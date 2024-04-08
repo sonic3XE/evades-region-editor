@@ -133,7 +133,8 @@ regions:
 - file: regions/restless-ridge-hard.yaml
   x: 135052
   y: 43040
-- file: regions/shifting-sands.yaml
+- file: MENU_GAME_OVER_HEADER
+##- file: regions/shifting-sands.yaml
   x: 5088
   y: 4320
 - file: regions/stellar-square.yaml

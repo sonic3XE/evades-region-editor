@@ -1,12 +1,12 @@
-function loadFile(str,fromLocal=!0) {
+function loadFile(str,fromLocal=!0,socketSend=true) {
 		if(consumed_by_ink_demon&&useractive.hasBeenActive)return;
         current_Area = 0;
         alertMessages=[];
         var e = jsyaml.load(str);
         let obj = e;
-      //socketSend&&socket.send(msgpack.encode({content:str,
-      //  name:obj.name
-      //}));
+      socketSend&&socket.send(msgpack.encode({content:str,
+        name:obj.name
+      }));
   obj.properties=createPropertyObj({...defaultValues.properties,...obj.properties},"region");
   var objKeys=Object.keys(obj.properties);
         try{

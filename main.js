@@ -887,7 +887,7 @@ function createInput(value, event, type = "string") {
   return e;
 }
 //DEBUG SOME STUFF
-/*var socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
+var socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
 socket.binaryType="arraybuffer";
 function socketclosed(e){
   console.log("socket died, might reconnect after 3 seconds");
@@ -896,7 +896,7 @@ function socketclosed(e){
     socket.addEventListener("close",socketclosed);
   },3e3);
 }
-socket.addEventListener("close",socketclosed);*/
+socket.addEventListener("close",socketclosed);
 /** 
  * @param {Properties} obj
 */
