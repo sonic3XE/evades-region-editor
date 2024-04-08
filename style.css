@@ -13,6 +13,91 @@ a:active {
 	color: #7aadff
 }
 
+#chat {
+	width: 300px;
+	height: 200px;
+	background-color: #0009;
+	position: fixed;
+	bottom: 0
+}
+
+#chat-window {
+	width: 300px;
+	height: 165px;
+	padding-bottom: 10px;
+	overflow: auto
+}
+
+.chat-message {
+	color: #fff;
+	margin: 5px 10px 0;
+	font: 12px Tahoma,Arial,Verdana,Segoe,sans-serif
+}
+
+.chat-message-sender {
+	cursor: pointer
+}
+
+.chat-message .dev {
+	color: #87ceeb
+}
+
+.chat-message .head-mod {
+	color: #c00000
+}
+
+.chat-message .sr-mod {
+	color: #ff4949
+}
+
+.chat-message .mod {
+	color: #ffb349
+}
+
+.chat-message .jr-mod {
+	color: #ffe049
+}
+
+.chat-message .youtuber {
+	color: #4bfc9a
+}
+
+.chat-message .streamer {
+	color: #9248da
+}
+
+.chat-message .server-warning {
+	color: #ffceb7
+}
+
+.chat-message .server-warning .chat-message-sender {
+	cursor: inherit
+}
+
+.chat-message .server-info {
+	color: #fdfd13
+}
+
+.chat-message .server-info .chat-message-sender {
+	cursor: inherit
+}
+
+.chat-message .private-message {
+	color: #edffdf;
+	background-color: #b587aabd;
+	border-radius: 4px;
+	padding: 2px;
+	display: inline-block
+}
+
+#chat-input {
+	width: 100%;
+	height: 25px;
+	box-sizing: border-box;
+	position: absolute;
+	bottom: 0
+}
+
 .mydomain>span{
 	display:none;
 }

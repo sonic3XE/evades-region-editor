@@ -1063,7 +1063,7 @@ class $e7009c797811e935$var$InputLayer {
 		else if (e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.CHAT_KEY) {
 			if (0 === a.value.length)
 				return void a.blur();
-			this.gameState.chatMessages.push(a.value),
+			socket.send(msgpack.encode({chat:a.value})),
 			a.value = "",
 			a.blur()
 		}

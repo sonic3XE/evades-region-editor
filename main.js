@@ -907,9 +907,25 @@ function socketclosed(e){
   setTimeout(()=>{
     socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
     socket.addEventListener("close",socketclosed);
+    socket.addEventListener("message",socketreceive);
   },3e3);
 }
+function socketreceive(e){
+  console.log("websocket has received a message.");
+  var message=msgpack.decode(new Uint8Array(e.data));
+  if(message.chatmsg){
+    var chatmsg=document.createElement("div");
+    chatmsg.setAttribute("class","chat-message")
+    chatmsg.innerHTML="<b>"+message.id+"</b>: "+message.chatmsg;
+    document.getElementById("chat-window").appendChild(chatmsg);
+    document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
+    if(document.getElementById("chat-window").childNodes.length>100){
+		document.getElementById("chat-window").childNodes[0].remove()
+    }
+  }
+}
 socket.addEventListener("close",socketclosed);
+socket.addEventListener("message",socketreceive);
 /** 
  * @param {Properties} obj
 */
