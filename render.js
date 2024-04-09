@@ -502,8 +502,8 @@ if(!playtesting){
 }else{
 
 }
-  ctx.strokeText(`${Frate.length}FPS`, 200, 80);
-    ctx.fillText(`${Frate.length}FPS`, 200, 80);
+/*  ctx.strokeText(`${Frate.length}FPS`, 200, 80);
+    ctx.fillText(`${Frate.length}FPS`, 200, 80);*/
   ctx.lineWidth = camScale;
   ctx.textBaseline="alphabetic";
 
