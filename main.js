@@ -903,11 +903,20 @@ function createInput(value, event, type = "string") {
 var socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
 socket.binaryType="arraybuffer";
 function socketclosed(e){
-  document.getElementById("chat-window").innerHTML="";
   console.log("socket died, might reconnect after 3 seconds");
+    var chatmsg=document.createElement("div");
+    chatmsg.setAttribute("class","chat-message")
+    chatmsg.setAttribute("style","color:red")
+    chatmsg.innerHTML="<b>Disconnected</b>";
+    document.getElementById("chat-window").appendChild(chatmsg);
+    document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
+    if(document.getElementById("chat-window").childNodes.length>100){
+      document.getElementById("chat-window").childNodes[0].remove()
+    }
   setTimeout(()=>{
     socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
-	socket.binaryType="arraybuffer";
+    socket.binaryType="arraybuffer";
+    document.getElementById("chat-window").innerHTML="";
     socket.addEventListener("close",socketclosed);
     socket.addEventListener("message",socketreceive);
   },3e3);
@@ -926,7 +935,7 @@ function socketreceive(e){
     document.getElementById("chat-window").appendChild(chatmsg);
     document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
     if(document.getElementById("chat-window").childNodes.length>100){
-		document.getElementById("chat-window").childNodes[0].remove()
+      document.getElementById("chat-window").childNodes[0].remove()
     }
   }
   if(message.chathistory){
