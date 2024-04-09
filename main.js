@@ -927,6 +927,19 @@ function socketreceive(e){
 		document.getElementById("chat-window").childNodes[0].remove()
     }
   }
+  if(message.chathistory){
+    var chatmsgs=message.chathistory;
+    chatmsgs.map(t=>{
+    var chatmsg=document.createElement("div");
+    chatmsg.setAttribute("class","chat-message")
+    chatmsg.innerHTML="<b>"+t.id+"</b>: "+t.chatmsg;
+    document.getElementById("chat-window").appendChild(chatmsg);
+    document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
+    if(document.getElementById("chat-window").childNodes.length>100){
+		document.getElementById("chat-window").childNodes[0].remove()
+    }
+    })
+  }
   if(message.nick!==null && message.nick!==undefined){
 	  nickname.value=message.nick;
   }
