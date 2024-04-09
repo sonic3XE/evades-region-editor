@@ -920,6 +920,7 @@ function socketreceive(e){
   if(message.chatmsg){
     var chatmsg=document.createElement("div");
     chatmsg.setAttribute("class","chat-message")
+    chatmsg.setAttribute("style","color:#"+(message.color ?? 16777215).toString(16).padStart(6,"0"))
     chatmsg.innerHTML="<b>"+message.id+"</b>: "+message.chatmsg;
     document.getElementById("chat-window").appendChild(chatmsg);
     document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
@@ -932,6 +933,7 @@ function socketreceive(e){
     chatmsgs.map(t=>{
     var chatmsg=document.createElement("div");
     chatmsg.setAttribute("class","chat-message")
+    chatmsg.setAttribute("style","color:#"+(t.color ?? 16777215).toString(16).padStart(6,"0"))
     chatmsg.innerHTML="<b>"+t.id+"</b>: "+t.chatmsg;
     document.getElementById("chat-window").appendChild(chatmsg);
     document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
