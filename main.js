@@ -903,6 +903,7 @@ function createInput(value, event, type = "string") {
 var socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
 socket.binaryType="arraybuffer";
 function socketclosed(e){
+  document.getElementById("chat-window").innerHTML="";
   console.log("socket died, might reconnect after 3 seconds");
   setTimeout(()=>{
     socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
