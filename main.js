@@ -911,6 +911,9 @@ function socketclosed(e){
     socket.addEventListener("message",socketreceive);
   },3e3);
 }
+nickname.addEventListener("input",e=>{
+	socket.send(msgpack.encode({nick:nickname.value}));
+})
 function socketreceive(e){
   console.log("websocket has received a message.");
   var message=msgpack.decode(new Uint8Array(e.data));
@@ -923,6 +926,9 @@ function socketreceive(e){
     if(document.getElementById("chat-window").childNodes.length>100){
 		document.getElementById("chat-window").childNodes[0].remove()
     }
+  }
+  if(message.nick!==null && message.nick!==undefined){
+	  nickname.value=message.nick;
   }
 }
 socket.addEventListener("close",socketclosed);

@@ -483,6 +483,7 @@ label[for="snapY"] { grid-area: 2 / 2 / 3 / 3; }
 label[for="realTime"] { grid-area: 3 / 1 / 4 / 3; }
 label[for="enemyOutline"] { grid-area: 4 / 1 / 5 / 2; }
 label[for="tileMode"] { grid-area: 4 / 2 / 5 / 3; }
+label[for="nickname"] { grid-area: 5 / 1 / 6 / 3; }
 #objectFocus {
     display: none;
     position: absolute;
