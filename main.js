@@ -273,7 +273,7 @@ importer.addEventListener("input",e=>{
   if(!importer.selectedIndex)return;
   var req=new XMLHttpRequest;
   var url=WORLD.regions[importer.selectedIndex-1].file;
-  if(!url.endsWith(".yaml"))consumed_by_ink_demon=1;
+  if(!url.endsWith(".yaml"))return consumed_by_ink_demon=1;
   req.addEventListener("load", e=>{
     if(e.target.status>=400)return customAlert(`[Error ${e.target.status} (${e.target.statusText})!!1]: Unable to fetch file "${url}"`,20,"#FF0000");
     if(e.target.status>=200)return loadFile(e.target.responseText,false,false);
