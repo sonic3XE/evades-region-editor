@@ -448,7 +448,6 @@ else {
       canvas.width,
       canvas.height
     );
-  ctx.lineWidth = 2;
   /*var bound=map.areas[current_Area].BoundingBox;
   ctx.strokeStyle = "#00FF00FF";
   hitbox&&ctx.strokeRect(
@@ -457,6 +456,7 @@ else {
     bound.width * camScale + ctx.lineWidth * 2,
     bound.height * camScale + ctx.lineWidth * 2
   );*/
+  ctx.lineWidth = 2;
   if(playtesting){
     evadesRenderer.directionalIndicatorHud.update(map.players,{id:selfPlayer.id,entity:selfPlayer},map.areas[selfPlayer.area]);
     evadesRenderer.experienceBar.unionState(selfPlayer);
@@ -476,11 +476,15 @@ else {
   ctx.textBaseline = playtesting?"alphabetic":"middle";
   mouseEntities.map(e=>{
     ctx.fillStyle="#"+e.color.toString(16).padStart(6,"0");
+	ctx.strokeStyle=luma(hexToArr(ctx.fillStyle)) > 128 ? "black" : "white"
     ctx.beginPath();
+    ctx.lineWidth = 5*camScale;
     ctx.font="bold "+(35*camScale)+"px tah";
     ctx.arc(canvas.width / 2 + (e.x - camX) * camScale,canvas.height / 2 + (e.y - camY) * camScale,10*camScale,0,Math.PI*2,!0);
+    ctx.stroke();
     ctx.fill();
     ctx.closePath();
+    ctx.strokeText(e.name,canvas.width / 2 + (e.x - camX) * camScale,canvas.height / 2 + (e.y - camY) * camScale-25*camScale);
     ctx.fillText(e.name,canvas.width / 2 + (e.x - camX) * camScale,canvas.height / 2 + (e.y - camY) * camScale-25*camScale);
   })
   if (arrayToInt32(map.areas[current_Area].properties.background_color)!=0) {
