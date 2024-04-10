@@ -396,6 +396,7 @@ let mouseEntity={x:mousePos.x / camScale + camX,y:mousePos.y / camScale + camX}
 canvas.addEventListener("mousemove", e => {
   mousePos.x=(e.offsetX - canvas.width / 2);
   mousePos.y=(e.offsetY - canvas.height / 2);
+  socket.send(msgpack.encode({mouseEntity}));
 });
 canvas.addEventListener("mousedown", e => {
   if (e.button === 1) e.preventDefault();
@@ -905,6 +906,7 @@ socket.binaryType="arraybuffer";
 function socketclosed(e){
   console.log("socket died, might reconnect after 3 seconds");
     var chatmsg=document.createElement("div");
+    mouseEntities=[];
     chatmsg.setAttribute("class","chat-message")
     chatmsg.setAttribute("style","color:red")
     chatmsg.innerHTML="<b>Disconnected</b>";
@@ -937,6 +939,12 @@ function socketreceive(e){
     if(document.getElementById("chat-window").childNodes.length>100){
       document.getElementById("chat-window").childNodes[0].remove()
     }
+  }
+  if(message.mouseEntity){
+    mouseEntities[message.mouseEntity.id]={color:message.mouseEntity.color,name:message.mouseEntity.name,x:message.mouseEntity.x,y:message.mouseEntity.y}
+  }
+  if(message.deleteMouseEntity){
+    delete mouseEntities[message.deleteMouseEntity]
   }
   if(message.chathistory){
     var chatmsgs=message.chathistory;

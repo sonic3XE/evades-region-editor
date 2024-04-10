@@ -9,6 +9,7 @@ var evadesRenderer={
 	areaInfo: new AreaInfo,
 };
 let Frate=[];
+var mouseEntities=[];
 defaultHighestAreaAchieved={"Central Core":0,"Central Core Hard":0,"Catastrophic Core":0,"Vicious Valley":0,"Vicious Valley Hard":0,"Elite Expanse":0,"Elite Expanse Hard":0,"Wacky Wonderland":0,"Glacial Gorge":0,"Glacial Gorge Hard":0,"Dangerous District":0,"Dangerous District Hard":0,"Peculiar Pyramid":0,"Peculiar Pyramid Hard":0,"Monumental Migration":0,"Monumental Migration Hard":0,"Humongous Hollow":0,"Humongous Hollow Hard":0,"Haunted Halls":0,"Frozen Fjord":0,"Frozen Fjord Hard":0,"Transforming Turbidity":0,"Quiet Quarry":0,"Quiet Quarry Hard":0,"Ominous Occult":0,"Ominous Occult Hard":0,"Restless Ridge":0,"Restless Ridge Hard":0,"Toxic Territory":0,"Toxic Territory Hard":0,"Magnetic Monopole":0,"Magnetic Monopole Hard":0,"Assorted Alcove":0,"Assorted Alcove Hard":0,"Burning Bunker":0,"Burning Bunker Hard":0,"Grand Garden":0,"Grand Garden Hard":0,"Endless Echo":0,"Endless Echo Hard":0,"Mysterious Mansion":0,"Coupled Corridors":0,"Cyber Castle":0,"Cyber Castle Hard":0,"Research Lab":0,"Shifting Sands":0,"Infinite Inferno":0,"Stellar Square":0};
 var toggleHeroCard=false;
 localStorage.getItem("heroCard")&&(toggleHeroCard=eval(localStorage.getItem("heroCard")));
@@ -473,6 +474,15 @@ else {
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
   ctx.textBaseline = playtesting?"alphabetic":"middle";
+  mouseEntities.map(e=>{
+    ctx.fillStyle="#"+e.color.toString(16).padStart(6,"0");
+    ctx.beginPath();
+    ctx.font="bold "+(35*camScale)+"px tah";
+    ctx.arc(canvas.width / 2 + (e.x - camX) * camScale,canvas.height / 2 + (e.y - camY) * camScale,10*camScale,0,Math.PI*2,!0);
+    ctx.fill();
+    ctx.closePath();
+    ctx.fillText(e.name,canvas.width / 2 + (e.x - camX) * camScale,canvas.height / 2 + (e.y - camY) * camScale-25*camScale);
+  })
   if (arrayToInt32(map.areas[current_Area].properties.background_color)!=0) {
     ctx.strokeStyle = arrtoHex(map.areas[current_Area].properties.background_color);
     ctx.fillStyle = luma(map.areas[current_Area].properties.background_color) > 128 ? "black" : "white";
