@@ -478,8 +478,8 @@ else {
     ctx.fillStyle="#"+e.color.toString(16).padStart(6,"0");
     ctx.strokeStyle=luma(hexToArr(ctx.fillStyle)) > 128 ? "black" : "white"
     ctx.beginPath();
-    ctx.lineWidth = 5*camScale;
-    ctx.font="bold "+(35*camScale)+"px tah";
+    ctx.lineWidth = 2*camScale;
+    ctx.font="bold "+(15*camScale)+"px tah";
     ctx.arc(canvas.width / 2 + (e.x - camX) * camScale,canvas.height / 2 + (e.y - camY) * camScale,10*camScale,0,Math.PI*2,!0);
     ctx.stroke();
     ctx.fill();
