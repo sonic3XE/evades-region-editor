@@ -785,6 +785,9 @@ document.addEventListener("keydown", e => {
     realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));
     playtesting?(window.tempCamPos={x:camX,y:camY,area:current_Area}):(camX=window.tempCamPos.x,camY=window.tempCamPos.y);
   };
+  if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
+  localStorage.chat=toggleChat;
+  chat.hidden=toggleChat
 if(playtesting){
   if (e.which === controls.TOGGLE_HERO_INFO) toggleHeroCard = !toggleHeroCard;
   localStorage.heroCard=toggleHeroCard;
@@ -792,8 +795,6 @@ if(playtesting){
   localStorage.leaderboard=toggleLeaderboard;
   if (e.which === controls.TOGGLE_AREA_INFO&&location.search=="?isDev") toggleAreaInfo = !toggleAreaInfo;
   localStorage.areaInfo=toggleAreaInfo;
-  if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
-  localStorage.chat=toggleChat;
   if (e.which === controls.TOGGLE_MAP[0]||e.which === controls.TOGGLE_MAP[1]) toggleMap = !toggleMap,e.preventDefault();
   localStorage.map=toggleMap;
   if (e.which === controls.TOGGLE_MINIMAP_MODE) toggleMinimapMode = !toggleMinimapMode;

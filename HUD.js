@@ -1049,7 +1049,7 @@ class $e7009c797811e935$var$InputLayer {
 		if (window.tsmod && document.activeElement.getAttributeNames().includes("c-lock"))
 			return;
 		e.keyCode === $0372b03b1cca8a43$export$8309310f4f3643db.Tab && e.preventDefault();
-		const a = document.getElementById("chat-input");
+		const a = !chat.hidden && document.getElementById("chat-input");
 		if (document.activeElement.nodeName!=="INPUT")
 			if (a && e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.CHAT_KEY)
 				a.focus();
