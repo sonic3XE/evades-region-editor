@@ -589,6 +589,107 @@ this.area=0;
     this.d_y = 0;
 this.isGuest=!1;
   }
+	  collision(delta){
+    let collided=false;
+	var boundary=map.areas[this.area].BoundingBox;
+    if(this.x<boundary.left+this.radius){
+      this.x=boundary.left+this.radius;
+      collided=true;
+    }
+    if(this.x>boundary.right-this.radius){
+      this.x=boundary.right-this.radius;
+      collided=true;
+    }
+    if(this.y<boundary.top+this.radius){
+      this.y=boundary.top+this.radius;
+      collided=true;
+    }
+    if(this.y>boundary.bottom-this.radius){
+      this.y=boundary.bottom-this.radius;
+      collided=true;
+    }
+    if(this.assetCollision())collided=true;
+  }
+  onCollide(){
+    
+  }
+  assetCollision(){
+    let collided=false;
+    const walls=map.areas[this.area].assets.filter(e=>e.type=="wall");
+    let centerX,centerY,halfWidth,halfHeight;
+    for(var i of walls){
+      halfWidth=i.width/2;
+      halfHeight=i.height/2;
+      centerX=i.x+halfWidth;
+      centerY=i.y+halfHeight;
+      var distX = Math.abs(this.x - centerX);
+      var distY = Math.abs(this.y - centerY);
+      var radius=this.radius;
+      var c=rectCircleCollision(this.x,this.y,radius,i.x,i.y,i.width,i.height);
+      if(c.c){
+        collided=true;
+        var a=Math.atan2(c.y,c.x);
+        var relX = (this.x - centerX) / halfWidth;
+        var relY = (this.y - centerY) / halfHeight;
+        if (Math.abs(relX) > Math.abs(relY)) {
+          // Horizontal collision.
+          if (relX > 0) {
+            //corner collision at right side
+            if(relY*halfHeight > halfHeight){
+              this.x = centerX + halfWidth + this.radius*Math.cos(a);
+              this.y = centerY + halfHeight + this.radius*Math.sin(a);
+            }else if(relY*halfHeight < -halfHeight){
+              this.x = centerX + halfWidth + this.radius*Math.cos(a);
+              this.y = centerY - halfHeight + this.radius*Math.sin(a);
+            }else{
+              // middle right collision
+              this.x = centerX + halfWidth + this.radius;
+            }
+          } else {
+            //corner collision for left side
+            if(relY*halfHeight > halfHeight){
+              this.x = centerX - halfWidth + this.radius*Math.cos(a);
+              this.y = centerY + halfHeight + this.radius*Math.sin(a);
+            }else if(relY*halfHeight < -halfHeight){
+              this.x = centerX - halfWidth + this.radius*Math.cos(a);
+              this.y = centerY - halfHeight + this.radius*Math.sin(a);
+            }else{
+              // middle left collision
+              this.x = centerX - halfWidth - this.radius;
+            }
+          }
+        } else {
+          // Vertical collision
+          if (relY > 0) {
+            //corner collision for bottom side
+            if(relX*halfWidth > halfWidth){
+              this.x = centerX + halfWidth + this.radius*Math.cos(a);
+              this.y = centerY + halfHeight + this.radius*Math.sin(a);
+            }else if(relX*halfWidth < -halfWidth){
+              this.x = centerX - halfWidth + this.radius*Math.cos(a);
+              this.y = centerY + halfHeight + this.radius*Math.sin(a);
+            }else{
+              // middle bottom collision
+              this.y = centerY + halfHeight + this.radius;
+            }
+          } else {
+            //corner collision for top side
+            if(relX*halfWidth > halfWidth){
+              this.x = centerX + halfWidth + this.radius*Math.cos(a);
+              this.y = centerY - halfHeight + this.radius*Math.sin(a);
+            }else if(relX*halfWidth < -halfWidth){
+              this.x = centerX - halfWidth + this.radius*Math.cos(a);
+              this.y = centerY - halfHeight + this.radius*Math.sin(a);
+            }else{
+              // middle top collision
+              this.y = centerY - halfHeight - this.radius;
+            }
+          }
+        }
+      }
+    }
+    return collided;
+  }
 	handleAbility(ability,kind=1,delta,others,force=false){
 	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
 	if(ability.locked||(this.deathTimer!=-1&&ability.abilityType!=18)||ability.disabled||ability.level==void 0||(!ability.continuous&&this.energy<ability.energyCost)){
@@ -673,10 +774,7 @@ this.isGuest=!1;
 				this.x+=Math.cos(this.inputAngle)*abilityLevels[ability.level-1]?.distance;
 				this.y+=Math.sin(this.inputAngle)*abilityLevels[ability.level-1]?.distance;
 				var area=map.areas[this.area];
-				if(this.y<area.BoundingBox.top+this.radius){this.velY=0,this.y=this.radius};
-				if(this.y>area.BoundingBox.bottom-this.radius){this.velY=0,this.y=map.areas[this.area].BoundingBox.bottom-this.radius};
-				if(this.x<area.BoundingBox.left+this.radius){this.velX=0,this.x=this.radius};
-				if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.area].BoundingBox.right-this.radius};
+				this.collision();
 				abilityActive=false;
 				switch(kind){
 					case 1:this.firstAbilityActivated=false;break;
@@ -694,10 +792,7 @@ this.isGuest=!1;
 				this.y=this.chronoPos[0][1];
 				this.deathTimer=this.chronoPos[0][2];
 				var area=map.areas[this.area];
-				if(this.y<area.BoundingBox.top+this.radius){this.velY=0,this.y=this.radius};
-				if(this.y>area.BoundingBox.bottom-this.radius){this.velY=0,this.y=map.areas[this.area].BoundingBox.bottom-this.radius};
-				if(this.x<area.BoundingBox.left+this.radius){this.velX=0,this.x=this.radius};
-				if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.area].BoundingBox.right-this.radius};
+				this.collision();
 				abilityActive=false;
 				switch(kind){
 					case 1:this.firstAbilityActivated=false;break;
@@ -1423,11 +1518,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
           area=map.areas[this.area];
 this.areaNumber=this.area+1;
 this.regionName=map.name;
-this.collides=false;
-if(this.y<area.BoundingBox.top+this.radius){this.velY=0,this.y=this.radius;this.collides=true};
-if(this.y>area.BoundingBox.bottom-this.radius){this.velY=0,this.y=map.areas[this.area].BoundingBox.bottom-this.radius;this.collides=true};
-if(this.x<area.BoundingBox.left+this.radius){this.velX=0,this.x=this.radius;this.collides=true};
-if(this.x>area.BoundingBox.right-this.radius){this.velX=0,this.x=map.areas[this.area].BoundingBox.right-this.radius;this.collides=true};
+this.collides=this.collision();
     if(this.deathTimer<=delta&&this.deathTimer>=0){
       map.players.splice(map.players.indexOf(this));
     }
