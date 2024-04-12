@@ -787,7 +787,7 @@ document.addEventListener("keydown", e => {
   };
   if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
   localStorage.chat=toggleChat;
-  chat.hidden=toggleChat
+  chat.hidden=!toggleChat;
 if(playtesting){
   if (e.which === controls.TOGGLE_HERO_INFO) toggleHeroCard = !toggleHeroCard;
   localStorage.heroCard=toggleHeroCard;
