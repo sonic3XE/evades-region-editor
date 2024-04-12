@@ -474,7 +474,7 @@ else {
   ctx.fillStyle = "white";
   ctx.textAlign = "center";
   ctx.textBaseline = playtesting?"alphabetic":"middle";
-  (!chat.hidden) && mouseEntities.map(e=>{
+  (!chat.hidden&&0) && mouseEntities.map(e=>{
     ctx.fillStyle="#"+e.color.toString(16).padStart(6,"0");
     ctx.strokeStyle=luma(hexToArr(ctx.fillStyle)) > 128 ? "black" : "white"
     ctx.beginPath();
