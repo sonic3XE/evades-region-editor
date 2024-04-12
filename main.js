@@ -1422,6 +1422,9 @@ localStorage.getItem("tileMode")&&(
 localStorage.getItem("dosandbox")&&(
   dosandbox.checked=localStorage.dosandbox=="true"
 );
+localStorage.getItem("chat")&&(
+  chat.hidden=localStorage.chat=="false"
+);
 /**
         <p id="objectFocus" class="obj_area">
             <label for="AreaName">Name: <input id="AreaName" type="text"></label><br>
