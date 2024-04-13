@@ -787,7 +787,9 @@ document.addEventListener("keydown", e => {
   };
   if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
   localStorage.chat=toggleChat;
+  if(global.chat){
   chat.hidden=!toggleChat;
+  }
 if(playtesting){
   if (e.which === controls.TOGGLE_HERO_INFO) toggleHeroCard = !toggleHeroCard;
   localStorage.heroCard=toggleHeroCard;
@@ -935,11 +937,12 @@ function socketreceive(e){
     chatmsg.setAttribute("class","chat-message")
     chatmsg.setAttribute("style","color:#"+(message.color ?? 16777215).toString(16).padStart(6,"0"))
     chatmsg.innerHTML="<b>"+message.id+"</b>: "+message.chatmsg;
-    document.getElementById("chat-window").appendChild(chatmsg);
+    try{
+	document.getElementById("chat-window").appendChild(chatmsg);
     document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
     if(document.getElementById("chat-window").childNodes.length>100){
       document.getElementById("chat-window").childNodes[0].remove()
-    }
+    }}catch(e){}
   }
   if(message.mouseEntity){
     mouseEntities[message.mouseEntity.id]={color:message.mouseEntity.color,name:message.mouseEntity.name,x:message.mouseEntity.x,y:message.mouseEntity.y}
@@ -948,6 +951,7 @@ function socketreceive(e){
     delete mouseEntities[message.deleteMouseEntity]
   }
   if(message.chathistory){
+	try{
     var chatmsgs=message.chathistory;
     chatmsgs.map(t=>{
     var chatmsg=document.createElement("div");
@@ -959,7 +963,7 @@ function socketreceive(e){
     if(document.getElementById("chat-window").childNodes.length>100){
 		document.getElementById("chat-window").childNodes[0].remove()
     }
-    })
+    })}catch(e){}
   }
   if(message.nick!==null && message.nick!==undefined){
 	  nickname.value=message.nick;
@@ -1423,7 +1427,7 @@ localStorage.getItem("dosandbox")&&(
   dosandbox.checked=localStorage.dosandbox=="true"
 );
 localStorage.getItem("chat")&&(
-  chat.hidden=localStorage.chat=="false"
+  global.chat && (chat.hidden=localStorage.chat=="false")
 );
 /**
         <p id="objectFocus" class="obj_area">
