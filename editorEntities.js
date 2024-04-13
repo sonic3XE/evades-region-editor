@@ -463,7 +463,7 @@ var verifiedEntities=[
   "wall","normal","homing","dasher"
 ];
 class SimulatedPlayer{
-  constructor(x,y,color,username="Local Player") {
+  constructor(x,y,color,username=nickname||"Local Player") {
     this.x=x;
     this.y=y;
 this.onTele=true;
