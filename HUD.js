@@ -793,12 +793,12 @@ class AreaInfo extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			return;
 		const t = a.viewportSize;var areaname=String(map.areas[current_Area].name||(current_Area+1));
 		e.strokeStyle = "black";
-		const r = t.height / 2 - this.height / 2
+		const r = t.height / 2 - this.height/2*camScale
 		  , c = 14*camScale
 		  , o = r + 12*camScale
 		  , n = 14;
 		e.fillStyle = "rgba(0, 0, 0, 0.7)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, 10, r, this.width*camScale, this.height*camScale, !0, !1),
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, 10*camScale, r, this.width*camScale, this.height*camScale, !0, !1),
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(n),
 		e.textAlign = "left",
 		e.fillStyle = "#FFFFFF",
