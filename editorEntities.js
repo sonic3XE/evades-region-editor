@@ -40,7 +40,10 @@ function spawnEntities(area=current_Area){
   var victoryZones=map.areas[area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
   map.areas[area].entities=[];
   map.areas[area].assets.filter(e=>e.type=="flashlight_spawner").map(e=>{
-	 map.areas[area].entities.push(new FlashlightSpawner(e.x,e.y,{left:boundary.left,right:boundary.right,bottom:boundary.bottom,top:boundary.top,width:boundary.width,height:boundary.height}))
+	 map.areas[area].entities.push(new FlashlightSpawner(e.x,e.y))
+  })
+  map.areas[area].assets.filter(e=>e.type=="torch").map(e=>{
+	 map.areas[area].entities.push(new Torch(e.x,e.y,e.upside_down))
   })
   if(victoryZones.length){
     var areaofzone=victoryZones.map(e=>e.width*e.height);
@@ -3260,6 +3263,45 @@ class FakePumpkinEnemy extends Enemy{
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	this.speedMultiplier = 0;
     this.collision(delta);
+  }
+}
+class Torch extends SimulatorEntity{
+  constructor(x,y,upside_down){
+    super(x,y,null,null,"torch",null,null,null,null,null);
+	this.image = null,
+	this.baseLightRadius = 100,
+	this.randomFlickerRadius = 10,
+	this.flickerChance = .15,
+	this.lightRadius = this.baseLightRadius
+	this.renderFirst=true;
+	this.flipped=upside_down;
+	this.image=$31e8cfefa331e399$var$images['entities/torch'].clone();
+	this.width=13;
+	this.height=36;
+  }
+  update(){}
+  render(ctx,ctxL,delta,renderType) {
+	  var tf=delta/(1e3/30)
+	if(renderType=="aura")return;
+	if(this.renderFirst==renderType)return;
+		Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
+		this.flipped ? (ctx.translate(this.x + this.width / 2, this.y + this.height / 2),
+		ctx.scale(1, -1),
+		ctx.drawImage(this.image.getImage(tf), -this.width / 2, -this.height / 2, this.width, this.height),
+		ctx.scale(1, -1),
+		ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), this.x, this.y, this.width, this.height)
+        var r = ctxL.createRadialGradient(
+        canvas.width / 2 + (this.x - camX) * camScale, 
+        canvas.height / 2 + (this.y - camY) * camScale, 0, 
+        canvas.width / 2 + (this.x - camX) * camScale, 
+        canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
+        r.addColorStop(0, "rgba(0, 0, 0, 1)"),
+        r.addColorStop(1, "rgba(0, 0, 0, 0)"),
+        ctxL.beginPath(),
+        ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
+        ctxL.fillStyle = r,
+        ctxL.closePath(),
+        ctxL.fill();
   }
 }
 class FlashlightSpawner extends SimulatorEntity{

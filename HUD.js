@@ -2600,8 +2600,8 @@ class $31e8cfefa331e399$var$SimpleImage extends Image {
 	}
 }
 class $31e8cfefa331e399$var$AnimatedImage {
-	getImage(e=!0) {
-		return e && this.nextFrame(),
+	getImage(delta,e=!0) {
+		return e && this.nextFrame(delta),
 		this.frames[this.currentFrame].image
 	}
 	getPreviewImage() {
@@ -2620,8 +2620,9 @@ class $31e8cfefa331e399$var$AnimatedImage {
 		this.currentFrameTime = Math.round(Math.random() * this.frames[this.currentFrame].duration)),
 		e.preview && (this.previewImage = $31e8cfefa331e399$export$93e5c64e4cc246c8(this.initData.prefixPath + "/" + e.preview))
 	}
-	nextFrame() {
-		this.currentFrameTime++,
+	nextFrame(delta) {
+		console.log(this.currentFrameTime);
+		this.currentFrameTime+=delta,
 		this.currentFrameTime >= this.frames[this.currentFrame].duration && (this.currentFrame = (this.currentFrame + 1) % this.frames.length,
 		this.currentFrameTime = 0)
 	}
@@ -2667,12 +2668,15 @@ const $621fe074d84a8c6e$exports = JSON.parse('{"cosmetics":{"sunglasses":{"start
 $8c8b0520d9402d48$exports = {"experiorb_item":"./entities/experiorb_item.png","flashlight_item":"./entities/flashlight_item.png","pumpkin_off":"./entities/pumpkin_off.png","pumpkin_on":"./entities/pumpkin_on.png","snowball_projectile":"./entities/snowball_projectile.png","sweet_tooth_item":"./entities/sweet_tooth_item.png","torch-1":"./entities/torch-1.png","torch-2":"./entities/torch-2.png","torch-3":"./entities/torch-3.png","torch-4":"./entities/torch-4.png","torch-5":"./entities/torch-5.png","torch-6":"./entities/torch-6.png","vengeance_projectile":"./entities/vengeance_projectile.png"};
 /*$31e8cfefa331e399$var$addImages("abilities", $parcel$interopDefault($f50e04d93f2d03ab$exports)),
 $31e8cfefa331e399$var$addImages("accessories", $parcel$interopDefault($0d3671a02396e1e6$exports)),*/
-$31e8cfefa331e399$var$addImages("buttons", ($00741949c3252cd2$exports)),
-$31e8cfefa331e399$var$addImages("entities", ($267958ee7ba6f424$exports));/*,
+$31e8cfefa331e399$var$addImages("buttons", $00741949c3252cd2$exports),
+$31e8cfefa331e399$var$addImages("entities", $267958ee7ba6f424$exports);/*,
 $31e8cfefa331e399$var$addImages("cosmetics", $parcel$interopDefault($86bad78618ce6a0c$exports)),
 $31e8cfefa331e399$var$addImages("maps", $parcel$interopDefault($b3b8ba677f29b0ff$exports)),
 $31e8cfefa331e399$var$addImages("abilities", $parcel$interopDefault($0e72c96dabf2533f$exports)),
 $31e8cfefa331e399$var$addImages("accessories", $parcel$interopDefault($439cce75c9d4cd74$exports)),*/
-$31e8cfefa331e399$var$addImages("buttons", ($f594bd11bce4f0eb$exports));/*,
-$31e8cfefa331e399$var$addImages("entities", $parcel$interopDefault($52de0329024b0d27$exports)),
+$31e8cfefa331e399$var$addImages("buttons", $f594bd11bce4f0eb$exports);/*,
+$31e8cfefa331e399$var$addImages("entities", $52de0329024b0d27$exports);
 $31e8cfefa331e399$var$addImages("cosmetics", $parcel$interopDefault($b1b11c67aebfa575$exports));*/
+for (const [e,t] of Object.entries($621fe074d84a8c6e$exports))
+	for (const [a,r] of Object.entries(t))
+		if(e=="entities")$31e8cfefa331e399$var$images[e + "/" + a] = new $31e8cfefa331e399$var$AnimatedImage(e,r);

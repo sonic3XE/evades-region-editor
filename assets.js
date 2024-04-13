@@ -8,6 +8,7 @@ function customASSETgui(wall){
     const updnInput = document.createElement("input");
     updnInput.addEventListener("input", () => {
         wall.upside_down = updnInput.checked;
+		spawnEntities();
     });
 
     const yInput = document.createElement("input");

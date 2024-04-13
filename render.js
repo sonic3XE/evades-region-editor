@@ -229,29 +229,6 @@ else {
         );
         break;
       }
-      case "torch": {
-        ctxE.fillStyle = "#cccc00";
-        ctxE.drawImage(
-          tileMap,map.areas[current_Area].assets[k].upside_down?682:699,604,13,36,
-          map.areas[current_Area].assets[k].x,
-          map.areas[current_Area].assets[k].y,
-          13,
-          36
-        );
-        var r = ctxL.createRadialGradient(
-          canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale, 
-          canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY) * camScale, 0, 
-          canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale, 
-          canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY) * camScale, 100 * camScale);
-          r.addColorStop(0, "rgba(0, 0, 0, 1)"),
-          r.addColorStop(1, "rgba(0, 0, 0, 0)"),
-          ctxL.beginPath(),
-          ctxL.arc(canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale, canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY) * camScale, 100 * camScale, 0, 2 * Math.PI, !1),
-          ctxL.fillStyle = r,
-          ctxL.closePath(),
-          ctxL.fill()
-        break;
-      }
       case "gate": {
         ctxE.drawImage(
           tileMap,646,2,134,598,
