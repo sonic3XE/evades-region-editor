@@ -8,7 +8,7 @@ const config={get isImagesLoaded(){
   //fetch("/EvadesRegionEditorTileMap").then(e=>e.arrayBuffer().then(t=>global.tileMap=QOItoPNG(bz2.decompress(new Uint8Array(t).slice(12)))))
 	return true;
 }};
-const isForked=location.href!=="https://sonic3xe.github.io/evades-region-editor/";
+const isForked=location.origin+location.pathname!=="https://sonic3xe.github.io/evades-region-editor/";
 const reloadPage=location.reload.bind(location);
 function manageExtensions(str){
 	if(activated_extensions.indexOf(str)==-1)
@@ -740,7 +740,7 @@ areas:
 })
 Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
-		if(!prec.ended && prec.paused && useractive.hasBeenActive && new Date().getMonth()==3 && (new Date().getDate()<7||new Date().getDate()==14)){
+		if(!prec.ended && prec.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
 			global.a=1;
 			prec.play();
 			setTimeout(()=>{
