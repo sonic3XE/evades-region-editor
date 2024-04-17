@@ -2646,6 +2646,7 @@ function $31e8cfefa331e399$export$93e5c64e4cc246c8(e) {
 }
 function $31e8cfefa331e399$var$addImages(e, a) {
 	const t = ()=>{
+		assetsLoaded.count++,
 		$31e8cfefa331e399$var$imagesLoadedCount++,
 		$31e8cfefa331e399$var$imagesLoadedCount >= $31e8cfefa331e399$var$imagesCount && ($31e8cfefa331e399$export$4d6139e2c3698967 = !0)
 	}
@@ -2656,6 +2657,7 @@ function $31e8cfefa331e399$var$addImages(e, a) {
 		$31e8cfefa331e399$var$imagesCount += 1,
 		c.src = a[r],
 		c.onload = t,
+		c.onerror = ()=>{console.log("Something went wrong with loading images.")}
 		$31e8cfefa331e399$var$images[e + "/" + r] = c
 	}
 }

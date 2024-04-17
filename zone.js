@@ -4,6 +4,42 @@ const useractive=navigator.userActivation;
   if(i.toLowerCase().includes("inner")||i.toLowerCase().includes("set")||i=="fetch"||i=="alert"||i=="confirm"||i=="prompt"||i=="localStorage"||i=="performance")continue;
   delete this[i];
 }})();
+
+const assetsLoaded={count:0};
+const loadImage = function(src) {
+  if(typeof src!="string")return;
+  if(src.endsWith(".mp4")){
+    let vid=document.createElement("video");
+    vid.src=src;
+    vid.onerror = () => {
+      console.log("Unable to load video",src);
+    }
+    vid.oncanplaythrough = () => {
+      assetsLoaded.count++;
+    }
+    return vid;
+  }
+  if(src.endsWith(".mp3")){
+    let aud=new Audio();
+    aud.src=src;
+    aud.onerror = () => {
+      console.log("Unable to load audio",src);
+    }
+    aud.oncanplaythrough = () => {
+      assetsLoaded.count++;
+    }
+    return aud;
+  }
+  let image = new Image();
+  image.src = src;
+  image.onerror = () => {
+    console.log("ERROR AT", image.src);
+  }
+  image.onload = () => {
+    assetsLoaded.count++;
+  }
+  return image;
+}
 isActive=true;
 localStorage.activatedExtensions??="";
 const activated_extensions=localStorage.activatedExtensions.split(",");

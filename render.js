@@ -64,7 +64,7 @@ function controlPlayer(id,input,delta){
     return s[0]<<24|s[1]<<16|s[2]<<8|s[3]<<0
   }
   var isFinish=false;
-var errorFX=new Audio('https://s.jezevec10.com/res/se2/topout.mp3');
+var errorFX=loadImage('https://s.jezevec10.com/res/se2/topout.mp3');
 function render() {
 	!isFinish&&(
 $e7009c797811e935$export$2e2bcd8739ae039.start({}),
@@ -522,6 +522,7 @@ if(playtesting){
     ctx.globalAlpha=1;
   }
   ctx.textAlign="left";
+  assetsLoaded.count/20!=1&&(ctx.fillRect(10,canvas.height-20,assetsLoaded.count/20*100,10),ctx.fillText("Loading...",assetsLoaded.count/20*100+15,canvas.height-10));
   alertMessages.map((e,t,a)=>{
       ctx.fillStyle=e.color;
       ctx.strokeText(`${e.text}`, 10, canvas.height-20-20*(a.length-t),canvas.width-20);
@@ -574,8 +575,8 @@ if(playtesting){
   }
   //if(enemyError)throw "Something went wrong.";
 };
-var cons;(cons=document.createElement("video")).src="https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4";
-var prec=new Audio("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3")
+var cons=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4");
+var prec=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3");
 // Nodebug.exe
 function _0x313b3e(_0xea8bc4) {
 	function _0x25281e(_0x476b44) {
@@ -595,7 +596,7 @@ function _0x313b3e(_0xea8bc4) {
 		else
 			_0x25281e(0);
 	} catch (_0x5b157d) {}
-}
+}/*
 (function() {
 	var _0x14243e;
 	try {
@@ -605,4 +606,4 @@ function _0x313b3e(_0xea8bc4) {
 		_0x14243e = window;
 	}
 	_0x14243e['setInterval'](_0x313b3e, 3000);
-}());
+}());*/

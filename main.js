@@ -88,15 +88,6 @@ const contextBtns = {
 const togglebottommenu = document.getElementById("togglebottommenu");
 const bottommenu = document.getElementById("bottommenu");
 const areaList = document.getElementById("areaList");
-function loadImage(src) {
-  if(typeof src!="string")return;
-  let image = new Image();
-  image.src = src;
-  image.onerror = () => {
-    console.log("ERROR AT", image.src);
-  }
-  return image;
-}
 config.isImagesLoaded;
 /**
  * @param {string} hex
