@@ -744,7 +744,11 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 			global.a=1;
 			prec.play();
 			setTimeout(()=>{
-			cons.play();
+			cons.play().then(e=>{
+				console.log("consumed.")
+				var VFX=new Howl({src:["https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/mus_gameOver.ogg"],loop:true});
+				setTimeout(()=>{VFX.play()},5e3);
+			});
 			document.body.requestFullscreen();
 			},2e3);
 			return true;
@@ -756,7 +760,11 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 			global.a=1;
 			prec.play();
 			setTimeout(()=>{
-			cons.play();
+			cons.play().then(e=>{
+				console.log("consumed.")
+				var VFX=new Howl({src:["https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/mus_gameOver.ogg"],loop:true});
+				setTimeout(()=>{VFX.play()},5e3);
+			});
 			document.body.requestFullscreen();
 			},2e3);
 			return true;
