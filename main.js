@@ -268,6 +268,7 @@ importer.addEventListener("input",e=>{
   req.addEventListener("load", e=>{
     if(e.target.status>=400)return customAlert(`[Error ${e.target.status} (${e.target.statusText})!!1]: Unable to fetch file "${url}"`,20,"#FF0000");
     if(e.target.status>=200)return loadFile(e.target.responseText,false,false);
+	console.log("bruh",req);
     if(e.target.status==0)return customAlert(`[No connection]: Please check your internet connection because you might be offline.`,20,"#FFFF00");
   });
   req.open("GET",url)
