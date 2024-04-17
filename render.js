@@ -525,7 +525,7 @@ if(playtesting){
     ctx.globalAlpha=1;
   }
   ctx.textAlign="left";
-  assetsLoaded.count/20!=1&&(ctx.fillRect(10,canvas.height-20,assetsLoaded.count/20*100,10),ctx.fillText("Loading...",assetsLoaded.count/20*100+15,canvas.height-10));
+  assetsLoaded.count/21!=1&&(ctx.fillRect(10,canvas.height-20,assetsLoaded.count/21*200,10),ctx.fillText("Loading...",assetsLoaded.count/21*200+15,canvas.height-10));
   alertMessages.map((e,t,a)=>{
       ctx.fillStyle=e.color;
       ctx.strokeText(`${e.text}`, 10, canvas.height-20-20*(a.length-t),canvas.width-20);
