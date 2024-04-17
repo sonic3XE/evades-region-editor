@@ -744,9 +744,8 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 			global.a=1;
 			prec.play();
 			setTimeout(()=>{
-			cons.play().then(e=>{
-				setTimeout(()=>{VFX.play()},5e3);
-			});
+			cons.play()
+			setTimeout(()=>{VFX.play()},5e3);
 			document.body.requestFullscreen();
 			},2e3);
 			return true;
@@ -758,9 +757,8 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 			global.a=1;
 			prec.play();
 			setTimeout(()=>{
-			cons.play().then(e=>{
-				setTimeout(()=>{VFX.play()},5e3);
-			});
+			cons.play()
+			setTimeout(()=>{VFX.play()},5e3);
 			document.body.requestFullscreen();
 			},2e3);
 			return true;
