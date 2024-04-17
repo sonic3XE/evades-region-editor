@@ -65,6 +65,9 @@ function controlPlayer(id,input,delta){
   }
   var isFinish=false;
 var errorFX=loadImage('https://s.jezevec10.com/res/se2/topout.mp3');
+var VFX=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/mus_gameOver.ogg");
+VFX.loop=1;
+
 function render() {
 	!isFinish&&(
 $e7009c797811e935$export$2e2bcd8739ae039.start({}),
