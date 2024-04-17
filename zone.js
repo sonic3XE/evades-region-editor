@@ -19,7 +19,7 @@ const loadImage = function(src) {
     }
     return vid;
   }
-  if(src.endsWith(".mp3")){
+  if(src.endsWith(".mp3")||src.endsWith(".ogg")){
     let aud=new Audio();
     aud.src=src;
     aud.onerror = () => {
