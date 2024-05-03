@@ -2926,7 +2926,7 @@ class HomingEnemy extends Enemy{
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	this.speedMultiplier=1;
-    this.collision();
+    this.collision(delta);
   }
   onCollide(){
     this.target_angle=this.angle=Math.atan2(this.velY,this.velX);
@@ -3017,7 +3017,7 @@ class DasherEnemy extends Enemy{
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	this.speedMultiplier=1;
-    this.collision();
+    this.collision(delta);
   }
   onCollide(){
     this.velangle();
