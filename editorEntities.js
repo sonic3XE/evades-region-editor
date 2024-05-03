@@ -577,6 +577,7 @@ this.vertSpeed=-1;
     this.effectReplayer = 1;
     this.aura = false;
     this.auraType = -1;
+	this.nightSpeed=0;
     this.collides = false;
 		this.bodyImage = null,
 		this.hatImage = null,
@@ -696,9 +697,6 @@ this.isGuest=!1;
   }
 	handleAbility(ability,kind=1,delta,others,force=false){
 	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
-	if(this.nightActivated&&delta>0){
-		this.speedAdditioner+=abilityLevels[ability.level]?.speed_boost??0
-	}
 	if(ability.locked||(this.deathTimer!=-1&&ability.abilityType!=18)||ability.disabled||ability.level==void 0||(!ability.continuous&&this.energy<ability.energyCost)){
 			if(kind==1)this.firstAbilityActivated=false;
 			else if(kind==2)this.secondAbilityActivated=false;
@@ -796,8 +794,9 @@ this.isGuest=!1;
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
 				this.nightActivated=true;
+				this.nightSpeed=abilityLevels[ability.level-1]?.speed_boost??0;
 				this.nightDuration=(abilityConfig[ability.abilityType]?.duration??0)*1e3;
-				this.speedAdditioner += abilityLevels[ability.level-1]?.speed_boost
+				this.speedAdditioner += this.nightSpeed;
 				abilityActive=false;
 				switch(kind){
 					case 1:this.firstAbilityActivated=false;break;
@@ -1081,6 +1080,13 @@ input.keys.has(controls.RIGHT[1]))) {
         this.statSpeed = this.speed+0;
         this.addX = 0; this.addY =0;
         this.d_x=0; this.d_y=0;
+		if(this.nightDuration>0){
+			this.nightDuration-=delta;
+			this.speedAdditioner+=this.nightSpeed;
+		}else{
+			this.nightActivated=false;
+			this.nightDuration=0;
+		};
         if(this.minimum_speed>this.speed+this.speedAdditioner){this.speed=this.minimum_speed}
         if (this.className!="Cent"&&this.shift == 2) {
           this.speedMultiplier *= 0.5;
@@ -1116,7 +1122,8 @@ input.keys.has(controls.RIGHT[1]))) {
               this.d_x = this.distance_movement*Math.cos(this.mouse_angle)
               this.d_y = this.distance_movement*Math.sin(this.mouse_angle)
             }
-            if(this.className!="Cent"){this.velX = this.dirX * this.speed / this.mouse_distance_full_strenght;
+            if(this.className!="Cent"){
+			this.velX = this.dirX * this.speed / this.mouse_distance_full_strenght;
             this.addX = this.dirX * this.speedAdditioner/this.mouse_distance_full_strenght;
             this.addY = this.dirY * this.speedAdditioner/this.mouse_distance_full_strenght;
             if(!this.magnet||this.magnet&&this.safeZone){if(this.vertSpeed==-1){this.velY = this.dirY * this.speed / this.mouse_distance_full_strenght;}else{this.velY = this.dirY * this.vertSpeed / this.mouse_distance_full_strenght;}} 
@@ -1260,12 +1267,6 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       if (this.freezing) {
         this.speedMultiplier *= (1-this.effectImmune*(1-0.2))*this.effectReplayer;
       }
-if(this.nightDuration>0){
-	this.nightDuration-=delta;
-}else{
-	this.nightActivated=false;
-	this.nightDuration=0;
-}
       if(this.className == "Brute"){
         if(this.energy == this.maxEnergy){
           this.effectImmune = 0;
