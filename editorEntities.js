@@ -507,6 +507,9 @@ this.magnetDirection="DOWN";
 this.abilityOne={abilityType:14};
 this.abilityTwo={abilityType:18};
 this.abilityThree={abilityType:98};
+this.abilityIndex=0;
+this.cachedAbilities=[];
+this.availableAbilities=[0,1,2,14,18,31,96,98];
 this.harden = false;
 this.flow = false;
 this.isBandaged=false;
@@ -735,6 +738,32 @@ this.isGuest=!1;
 	}
 	ability.totalCooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 	switch(ability.abilityType){
+		/*case -1:{
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				if(this.cachedAbilities.indexOf(evadesRenderer.heroInfoCard.abilityOne)==-1){
+					this.cachedAbilities.push(evadesRenderer.heroInfoCard.abilityOne);
+				}
+				if(this.cachedAbilities.indexOf(evadesRenderer.heroInfoCard.abilityTwo)==-1){
+					this.cachedAbilities.push(evadesRenderer.heroInfoCard.abilityTwo);
+				}
+				this.abilityIndex+=1;
+				this.abilityIndex%=this.availableAbilities.length-1;
+				this.abilityOne.abilityType=this.availableAbilities[this.abilityIndex];
+				this.abilityTwo.abilityType=this.availableAbilities[this.abilityIndex+1];
+				evadesRenderer.heroInfoCard.abilityOne=this.cachedAbilities[this.abilityIndex];
+				evadesRenderer.heroInfoCard.abilityTwo=this.cachedAbilities[this.abilityIndex+1] ?? new $097def8f8d652b17$export$2e2bcd8739ae039;
+				if(!this.cachedAbilities[this.abilityIndex+1])evadesRenderer.heroInfoCard.abilityTwo.unionState(this.abilityTwo);
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;*/
 		case 0:{
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 				this.speedMultiplier*=abilityLevels[ability.level-1].slow??1;
@@ -840,7 +869,7 @@ this.isGuest=!1;
 				this.flashlight=false;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
-		}
+		};break;
 		case 98:{
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
@@ -866,7 +895,7 @@ this.isGuest=!1;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
-		}
+		};break;
 		case 99:{
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
@@ -892,7 +921,7 @@ this.isGuest=!1;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
-		}
+		};break;
 	}
 	}
 	controlActions(input,delta){
@@ -946,7 +975,7 @@ this.isGuest=!1;
 		  this.lantern=false;
 		  this.abilityOne.abilityType!=18&&(this.firstAbilityActivated=false);
 		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
-		  this.abilityThree.abilityType!=18&&(this.thirdAbilityActivated=false);
+		  this.abilityThree?.abilityType!=18&&(this.thirdAbilityActivated=false);
 	  }
 	if(this.firstAbilityActivated&&ab1.abilityType==0||this.secondAbilityActivated&&ab2.abilityType==0||this.thirdAbilityActivated&&ab3.abilityType==0)flow=true;
 	if(this.firstAbilityActivated&&ab1.abilityType==1||this.secondAbilityActivated&&ab2.abilityType==1||this.thirdAbilityActivated&&ab3.abilityType==1)harden=true;
@@ -3363,10 +3392,13 @@ class FlashlightSpawner extends SimulatorEntity{
     }
   }
   playerInteraction(player){
+	  if(!player.abilityThree){
+		  player.abilityThree={};
+	  }
 	  if(player.abilityThree.abilityType!=96&&this.isSpawned){
 	  player.abilityThree.abilityType=96;
 	  evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
-	  evadesRenderer.heroInfoCard.abilityThree.afterStateUpdate(abilityConfig[player.abilityThree.abilityType]);
+	  evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[player.abilityThree.abilityType]);
 	  evadesRenderer.heroInfoCard.abilityThree.locked=false;
 	  evadesRenderer.heroInfoCard.abilityThree.level=1;
 	  this.isSpawned=false;

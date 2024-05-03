@@ -114,7 +114,7 @@ var selfPlayer=map.players.filter(e=>e.id==window.selfId)[0];
   let zoneColors =[{ active: "#FFFFFFFF", safe: "#C3C3C3FF", exit: "#FFF46CFF", teleport: "#6AD0DEFF", victory: "#FFF46CFF", removal: "#FFF9BAFF", dummy: "#C3C3C3FF" },
    {active: "#111111ff",safe:"#3c3c3cff",exit:"#948800ff",teleport:"#218795ff",victory:"#948800ff",removal:"#6b630ff",dummy:"#3c3c3cff"}];
   if(!playtesting){
-    map.players.length&&(map.players=[],selfId*=0,current_Area=tempCamPos.area,spawnEntities());
+    map.players.length&&(map.players=[],selfId*=0,current_Area=tempCamPos.area,spawnEntities(),!evadesRenderer.heroInfoCard.abilityThree.noState && (evadesRenderer.experienceBar.abilityThree=void 0,evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039));
     camX += camSpeed / camScale * (keysDown.has(controls.CAM_RIGHT) - keysDown.has(controls.CAM_LEFT));
     camY += camSpeed / camScale * (keysDown.has(controls.CAM_DOWN) - keysDown.has(controls.CAM_UP));
   }else{
@@ -124,15 +124,17 @@ selfPlayer=player;
 window.selfId=player.id;
 map.players.push(player)
 	  evadesRenderer.heroInfoCard.abilityOne=new $097def8f8d652b17$export$2e2bcd8739ae039;
-	  evadesRenderer.heroInfoCard.abilityOne.afterStateUpdate(abilityConfig[player.abilityOne.abilityType]);
 	  evadesRenderer.heroInfoCard.abilityTwo=new $097def8f8d652b17$export$2e2bcd8739ae039;
-	  evadesRenderer.heroInfoCard.abilityTwo.afterStateUpdate(abilityConfig[player.abilityTwo.abilityType]);
 	  evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
-	  evadesRenderer.heroInfoCard.abilityThree.afterStateUpdate(abilityConfig[player.abilityThree.abilityType]);
+	  evadesRenderer.heroInfoCard.abilityOne.afterStateUpdate(abilityConfig[player.abilityOne.abilityType]);
+	  evadesRenderer.heroInfoCard.abilityTwo.afterStateUpdate(abilityConfig[player.abilityTwo.abilityType]);
+	  player.abilityThree && (
+		evadesRenderer.heroInfoCard.abilityThree.afterStateUpdate(abilityConfig[player.abilityThree.abilityType])
+	  );
 spawnEntities(player.area)
 };
   
-  if(!selfPlayer&&window.selfId){playtesting=false;    tl.hidden=playtesting;
+  if(!selfPlayer&&window.selfId){playtesting=false;
     menu.hidden=playtesting;selfId*=0;
     realTime.disabled=playtesting;
     realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));

@@ -774,7 +774,7 @@ document.addEventListener("keydown", e => {
   if (e.which === controls.PLAYTEST){
 	if(consumed_by_ink_demon)return;
     playtesting=!playtesting;
-    tl.hidden=playtesting;
+    tl.style.transform="translate("+(-100*playtesting)+"px, 0)";
     menu.hidden=playtesting;
     realTime.disabled=playtesting;
     realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));
