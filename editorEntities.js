@@ -794,7 +794,7 @@ this.isGuest=!1;
 		case 14:{
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
-				//this.energy-=ability.energyCost;
+				this.energy-=ability.energyCost;
 				this.nightActivated=true;
 				this.nightDuration=(abilityConfig[ability.abilityType]?.duration??0)*1e3;
 				this.speedAdditioner += abilityLevels[ability.level-1]?.speed_boost
@@ -804,7 +804,7 @@ this.isGuest=!1;
 					case 2:this.secondAbilityActivated=false;break;
 					case 3:this.thirdAbilityActivated=false;break;
 				}
-				//ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
 		case 18:{
@@ -2063,8 +2063,8 @@ class SimulatorEntity{
 	if(this.HarmlessTime>0){
 	  this.HarmlessTime-=delta;
 	  this.isHarmless=true;
-	}else if(!this.disabled){
-	  this.isHarmless=false;
+	}else{
+	  this.isHarmless=(!!this.disabled);
 	}
     let collided=false;
     if(this.x<this.boundary.left+this.radius){
@@ -2883,7 +2883,7 @@ class HomingEnemy extends Enemy{
   update(delta){
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
-      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone});
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
     }else{
       information = [mouseEntity];
     }
