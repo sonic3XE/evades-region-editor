@@ -504,7 +504,7 @@ this.snowballedTime=2500;
 this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
-this.abilityOne={abilityType:31};
+this.abilityOne={abilityType:14};
 this.abilityTwo={abilityType:18};
 this.abilityThree={abilityType:98};
 this.harden = false;
@@ -518,6 +518,7 @@ this.sweetToothConsumed=false;
 this.isObscured=false;
 this.isPoisoned=false;
 this.poisonedTime=0;
+this.nightDuration=0;
 this.poisonedTimeLeft=0;
 this.crumbledInvulnerability=false;
 this.crumbledTime=1000;
@@ -695,6 +696,9 @@ this.isGuest=!1;
   }
 	handleAbility(ability,kind=1,delta,others,force=false){
 	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
+	if(this.nightActivated&&delta>0){
+		this.speedAdditioner+=abilityLevels[ability.level]?.speed_boost??0
+	}
 	if(ability.locked||(this.deathTimer!=-1&&ability.abilityType!=18)||ability.disabled||ability.level==void 0||(!ability.continuous&&this.energy<ability.energyCost)){
 			if(kind==1)this.firstAbilityActivated=false;
 			else if(kind==2)this.secondAbilityActivated=false;
@@ -785,6 +789,22 @@ this.isGuest=!1;
 					case 3:this.thirdAbilityActivated=false;break;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 14:{
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				//this.energy-=ability.energyCost;
+				this.nightActivated=true;
+				this.nightDuration=(abilityConfig[ability.abilityType]?.duration??0)*1e3;
+				this.speedAdditioner += abilityLevels[ability.level-1]?.speed_boost
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				//ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
 		case 18:{
@@ -1001,7 +1021,6 @@ this.isGuest=!1;
 	this.handleAbility(ab1,1,delta,{ab2,ab3},forceOff[0]||this.firstAbility);
 	this.handleAbility(ab2,2,delta,{ab1,ab3},forceOff[1]||this.secondAbility);
 	this.handleAbility(ab3,3,delta,{ab1,ab2},forceOff[2]||this.thirdAbility);
-	
       if (!this.prevSlippery||this.collides||(this.d_x == 0 && this.d_y == 0)) {
         if (this.slippery&&!this.prevSlippery) {
           if (!(
@@ -1241,6 +1260,12 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       if (this.freezing) {
         this.speedMultiplier *= (1-this.effectImmune*(1-0.2))*this.effectReplayer;
       }
+if(this.nightDuration>0){
+	this.nightDuration-=delta;
+}else{
+	this.nightActivated=false;
+	this.nightDuration=0;
+}
       if(this.className == "Brute"){
         if(this.energy == this.maxEnergy){
           this.effectImmune = 0;
@@ -2035,6 +2060,12 @@ class SimulatorEntity{
     this.collision(delta);
   }
   collision(delta){
+	if(this.HarmlessTime>0){
+	  this.HarmlessTime-=delta;
+	  this.isHarmless=true;
+	}else if(!this.disabled){
+	  this.isHarmless=false;
+	}
     let collided=false;
     if(this.x<this.boundary.left+this.radius){
       this.x=this.boundary.left+this.radius;
@@ -2342,10 +2373,12 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
   if(harmless===undefined){
     harmless=enemy.isHarmless;
   }
-  if(player.usingNight&&!immune&&!enemy.disabled){
-    player.usingNight=false;
+  if(player.nightActivated&&!immune&&!enemy.isHarmless){
+    player.nightActivated=false;
+    player.nightDuration=0;
     player.speedAdditioner=0;
     enemy.isHarmless=true;
+    enemy.HarmlessTime=2000;
     harmless=true;
   }
   if(enemy.texture=="pumpkinOff"||enemy.radius==0||harmless||enemy.shatterTime>0){

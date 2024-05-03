@@ -179,6 +179,7 @@ var txtr_abilities=[
 	{x:313,y:313,w:50,h:50},
 	{x:105,y: 53,w:50,h:50},
 ];
+txtr_abilities[14]={x:313,y:677,w:50,h:50};
 txtr_abilities[18]={x:313,y:573,w:50,h:50};
 txtr_abilities[31]={x:313,y:625,w:50,h:50};
 txtr_abilities[96]={x: 53,y:923,w:50,h:50};
