@@ -16,6 +16,7 @@ const loadImage = function(src) {
     }
     vid.oncanplaythrough = () => {
       assetsLoaded.count++;
+	  vid.oncanplaythrough=null;
     }
     return vid;
   }
@@ -27,6 +28,7 @@ const loadImage = function(src) {
     }
     aud.oncanplaythrough = () => {
       assetsLoaded.count++;
+	  aud.oncanplaythrough=null;
     }
     return aud;
   }
@@ -37,6 +39,7 @@ const loadImage = function(src) {
   }
   image.onload = () => {
     assetsLoaded.count++;
+	image.onload=null;
   }
   return image;
 }

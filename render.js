@@ -144,7 +144,7 @@ else {
   camX=selfPlayer.x;
   camY=selfPlayer.y;
   current_Area=selfPlayer.area;
-  camScale=Math.max(window.innerHeight/720,window.innerWidth/1280);
+  camScale=Math.min(window.innerHeight/720,window.innerWidth/1280);
 }
   }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -483,8 +483,8 @@ else {
   isNaN(parseInt(areaname)) && (rs = areaname);
   let cs = `${map.name}: ${rs}`;
   map.areas[current_Area].zones.filter(e=>e.type=="victory").length&&(cs=`${map.name}: Victory!`);
-  ctx.strokeText(cs, canvas.width / 2, 20*(!playtesting)+40*(playtesting*camScale));
-  ctx.fillText(cs, canvas.width / 2, 20*(!playtesting)+40*(playtesting*camScale));
+  ctx.strokeText(cs, canvas.width / 2, 20*(!playtesting)+(40*camScale+ctx.canvas.height/2-360*camScale)*playtesting);
+  ctx.fillText(cs, canvas.width / 2, 20*(!playtesting)+(40*camScale+ctx.canvas.height/2-360*camScale)*playtesting);
   ctx.textBaseline = "middle";
   var curTime=Date.now();
 Frate.push(curTime);
@@ -512,7 +512,6 @@ if(playtesting){
   evadesRenderer.minimap.render(ctx,delta);
   evadesRenderer.map.render(ctx,{viewportSize:canvas},{});
   evadesRenderer.areaInfo.render(ctx,{viewportSize:canvas},{});
-
 }
   //ctx.fillText(`${error}`, canvas.width / 2, canvas.height - 20);
   ctx.strokeStyle="#000";
@@ -528,11 +527,28 @@ if(playtesting){
   }
   ctx.textAlign="left";
   assetsLoaded.count/21!=1&&(ctx.fillRect(10,canvas.height-20,assetsLoaded.count/21*200,10),ctx.fillText("Loading...",assetsLoaded.count/21*200+15,canvas.height-10));
-  alertMessages.map((e,t,a)=>{
+  !playtesting&&alertMessages.map((e,t,a)=>{
       ctx.fillStyle=e.color;
       ctx.strokeText(`${e.text}`, 10, canvas.height-20-20*(a.length-t),canvas.width-20);
       ctx.fillText(`${e.text}`, 10, canvas.height-20-20*(a.length-t),canvas.width-20);
   });
+  if(playtesting){
+	cons.currentTime || (cons.currentTime=1/1e6);
+    //vertical bars
+	var horiScale=1920/ctx.canvas.width
+	var barWidth=Math.round(ctx.canvas.width-(ctx.canvas.width/2+640*camScale));
+    ctx.drawImage(cons,1920-barWidth*horiScale,0,barWidth*horiScale,1080,
+	Math.round(ctx.canvas.width/2+640*camScale),0,barWidth,ctx.canvas.height);
+    ctx.drawImage(cons,0,0,barWidth*horiScale,1080,
+	0,0,barWidth,ctx.canvas.height);
+    //horizontal bars
+	var vertScale=1080/ctx.canvas.height
+	var barHeight=Math.round(ctx.canvas.height-(ctx.canvas.height/2+360*camScale));
+	ctx.drawImage(cons,0,1080-barHeight*vertScale,1920,barHeight*vertScale,
+	0,Math.round(ctx.canvas.height/2+360*camScale),ctx.canvas.width,barHeight);
+    ctx.drawImage(cons,0,0,1920,barHeight*vertScale,
+	0,0,ctx.canvas.width,barHeight);
+  }
   if(global.a){
 	  global.a+=delta;
 	  if(global.a<=1166.6666666666){

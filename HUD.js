@@ -30,10 +30,10 @@ class $7bda4ebfc6020375$var$DeathTimerDirectionalIndicator extends $7bda4ebfc602
 	}
 	render(e, a, t) {
 		var area=evadesRenderer.minimap.area;
-		a.left=evadesRenderer.minimap.self.entity.x+area.x-canvas.width/camScale/2;
-		a.right=evadesRenderer.minimap.self.entity.x+area.x+canvas.width/camScale/2;
-		a.top=evadesRenderer.minimap.self.entity.y+area.y-canvas.height/camScale/2;
-		a.bottom=evadesRenderer.minimap.self.entity.y+area.y+canvas.height/camScale/2;
+		a.left=evadesRenderer.minimap.self.entity.x+area.x-640;
+		a.right=evadesRenderer.minimap.self.entity.x+area.x+640;
+		a.top=evadesRenderer.minimap.self.entity.y+area.y-360;
+		a.bottom=evadesRenderer.minimap.self.entity.y+area.y+360;
 		if (this.x >= a.left && this.x <= a.right && this.y >= a.top && this.y <= a.bottom)
 			return;
 		const r = Math.abs(this.x - (t.entity.x+area.x))
@@ -42,14 +42,15 @@ class $7bda4ebfc6020375$var$DeathTimerDirectionalIndicator extends $7bda4ebfc602
 			return;
 		if (c > 480)
 			return;
+		var fixedPos=[a.viewportSize.width/2-640*camScale,a.viewportSize.height/2-360*camScale,camScale];
 		const o = this.x - a.left
 		  , n = this.y - a.top
-		  , $ = Math.max(Math.min(canvas.width/camScale - 10, o), 10)*camScale
-		  , d = Math.max(Math.min(canvas.height/camScale - 10, n), 10)*camScale
-		  , i = Math.atan2(a.viewportSize.height / 2 - n*camScale, a.viewportSize.width / 2 - o*camScale)
-		  , s = $ + 25 * Math.cos(i)*camScale
-		  , f = d + 25 * Math.sin(i)*camScale;
-		$f36928166e04fda7$export$2e2bcd8739ae039.arrow(e, s, f, $, d)
+		  , $ = Math.max(Math.min(1280 - 10, o), 10)
+		  , d = Math.max(Math.min(720 - 10, n), 10)
+		  , i = Math.atan2(720 / 2 - n, 1280 / 2 - o)
+		  , s = $ + 25 * Math.cos(i)
+		  , f = d + 25 * Math.sin(i);
+		$f36928166e04fda7$export$2e2bcd8739ae039.arrow(e, fixedPos[0]+s*camScale, fixedPos[1]+f*camScale, fixedPos[0]+$*camScale, fixedPos[1]+d*camScale)
 	}
 }
 const controls = {
@@ -721,12 +722,12 @@ class ExperienceBar extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		let c;
 		e.fillStyle = `rgba(${r.r}, ${r.g}, ${r.b}, 0.4)`,
 		c = void 0 !== this.abilityThree ? this.width + 80 : this.width,
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t.width / 2 - this.width / 2*camScale, t.height - (this.height + this.expBarOffsetY)*camScale, c*camScale, this.height*camScale, !0, !1);
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t.width / 2 - this.width / 2*camScale, t.height/2 + 360*camScale - (this.height + this.expBarOffsetY)*camScale, c*camScale, this.height*camScale, !0, !1);
 		const o = (this.experience - this.previousLevelExperience) / (this.nextLevelExperience - this.previousLevelExperience);
 		if (o > 0) {
 			e.fillStyle = this.progressColor;
 			let a = c * o;
-			$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t.width / 2 - this.width / 2*camScale, t.height - (this.height + this.expBarOffsetY)*camScale, a*camScale, this.height*camScale, !0, !1)
+			$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t.width / 2 - this.width / 2*camScale, t.height/2 + 360*camScale - (this.height + this.expBarOffsetY)*camScale, a*camScale, this.height*camScale, !0, !1)
 		}
 	}
 	constructor() {
@@ -795,12 +796,13 @@ class AreaInfo extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			return;
 		const t = a.viewportSize;var areaname=String(map.areas[current_Area].name||(current_Area+1));
 		e.strokeStyle = "black";
+		var left=t.width/2-640*camScale;
 		const r = t.height / 2 - this.height/2*camScale
-		  , c = 14*camScale
+		  , c = left+14*camScale
 		  , o = r + 12*camScale
 		  , n = 14,boundary=getAreaBoundary(this.area);
 		e.fillStyle = "rgba(0, 0, 0, 0.7)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, 10*camScale, r, this.width*camScale, this.height*camScale, !0, !1),
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, left+10*camScale, r, this.width*camScale, this.height*camScale, !0, !1),
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(n),
 		e.textAlign = "left",
 		e.fillStyle = "#FFFFFF",
@@ -1255,10 +1257,10 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			return;
 		const r = a.viewportSize
 		  , c = r.width / 2 - this.width / 2*camScale
-		  , o = r.height - this.height*camScale;
+		  , o = r.height/2 + 360*camScale - this.height*camScale;
 		this.x = c,
 		this.y = o;
-		let n, $ = r.width / 2 - this.width / 2*camScale, d = r.height - this.height*camScale;
+		let n, $ = c, d = o;
 		e.strokeStyle = "#000000",
 		e.fillStyle = "rgba(0, 0, 0, 0.8)",
 		n = (void 0 !== this.abilityThree.abilityType ? this.width + 80 : this.width)*camScale,
@@ -1532,7 +1534,7 @@ class BottomText extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	}
 	renderText(e, a, t) {
 		const r = t.width / 2
-		  , c = t.height - 120*camScale;
+		  , c = t.height/2 + 360*camScale - 120*camScale;
 		e.save(),
 		e.font = "bold " + $f36928166e04fda7$export$2e2bcd8739ae039.font(28),
 		e.textAlign = "center",
@@ -2439,7 +2441,9 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.areaCenteredMode = !this.areaCenteredMode
 	}
 	render(e,delta) {
-		this.hidden || (this.top = this.bottom + canvas.height - this.minimapHeight,
+		this.hidden || (
+			this.top = this.bottom + canvas.height/2 + 360*camScale - this.minimapHeight,
+			this.left = canvas.width/2 - 640*camScale,
 		e.save(),
 		this.maxWidth = 370*camScale,
 		this.maxHeight = 100*camScale,
