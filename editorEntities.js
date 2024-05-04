@@ -1436,7 +1436,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     }
     this.oldPos = (this.previousPos.x == this.x && this.previousPos.y == this.y) ? this.oldPos : {x:this.previousPos.x,y:this.previousPos.y}
     this.previousPos = {x:this.x, y:this.y};
-    var dim = (1 - map.properties.friction)**timeFix;
+    var dim = 1 - map.properties.friction;
     if (this.slippery) {
       dim = 0;
     }
@@ -1446,28 +1446,15 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     this.slide_x = this.distance_moved_previously[0];
     this.slide_y = this.distance_moved_previously[1];
 
-    this.slide_x *= friction_factor;
-    this.slide_y *= friction_factor;
+    this.slide_x *= 1-((1-friction_factor)*timeFix);
+    this.slide_y *= 1-((1-friction_factor)*timeFix);
 
+	this.d_x*=timeFix;
+	this.d_y*=timeFix;
     this.d_x += this.slide_x;
     this.d_y += this.slide_y;
     this.abs_d_x = Math.abs(this.d_x)
     this.abs_d_y = Math.abs(this.d_y)
- if(this.className == "Cent"){
-      if(this.abs_d_x > this.cent_max_distance && !this.slippery){
-        this.d_x *= this.cent_max_distance / this.abs_d_x;
-      }
-      if(this.abs_d_y > this.cent_max_distance && !this.slippery){
-        this.d_y *= this.cent_max_distance / this.abs_d_y
-      }
-    } else {
-      if(this.abs_d_x>this.distance_movement&&!this.slippery){
-        this.d_x *= this.distance_movement / this.abs_d_x;
-      }
-      if(this.abs_d_y>this.distance_movement&&!this.slippery){
-        this.d_y *= this.distance_movement / this.abs_d_y
-      }
-    }
     this.prevSlippery = this.slippery;
     if (this.abs_d_x<1/32) {
       this.d_x = 0;
