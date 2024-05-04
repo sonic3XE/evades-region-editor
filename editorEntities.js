@@ -1436,7 +1436,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     }
     this.oldPos = (this.previousPos.x == this.x && this.previousPos.y == this.y) ? this.oldPos : {x:this.previousPos.x,y:this.previousPos.y}
     this.previousPos = {x:this.x, y:this.y};
-    var dim = (1 - map.properties.friction);
+    var dim = (1 - map.properties.friction)**timeFix;
     if (this.slippery) {
       dim = 0;
     }
