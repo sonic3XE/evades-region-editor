@@ -1,13 +1,17 @@
 function loadFile(str,fromLocal=!0,socketSend=true) {
 		if(consumed_by_ink_demon&&useractive.hasBeenActive)return;
+		var noew=performance.now();
         try{
         current_Area = 0;
         alertMessages=[];
         var e = jsyaml.load(str);
         let obj = e;
+		try{
       socketSend&&socket.send(msgpack.encode({content:str,
         name:obj.name
-      }));
+		}));}catch(e){
+			console.log("Unable to send message to socket.", e)
+		};
   obj.properties=createPropertyObj({...defaultValues.properties,...obj.properties},"region");
   var objKeys=Object.keys(obj.properties);
         map.inputs.name.value = map.name = obj.name;
@@ -24,8 +28,6 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
               }
             }
           }
-          map.properties.death_timer==""&&(map.properties.death_timer=void 0);
-          map.properties.minimum_speed==""&&(map.properties.minimum_speed=void 0);
           map.properties.inputs.color.value = RGBtoHex(obj.properties?.background_color||[0,0,0,0]);
         try{
         map.properties.background_color[0]=Math.round(obj.properties?.background_color[0]||0);
@@ -43,7 +45,7 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
         menu.childNodes[3].childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].style.background=
         menu.childNodes[3].childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[0].textContent=RGBtoHex(map.properties.background_color)
         map.areas = [];
-        while (areamenu.firstChild) areamenu.removeChild(areamenu.firstChild);
+        areamenu.firstChild && areamenu.removeChild(areamenu.firstChild);
         if (selectedObject){
           selectedObject.element.remove();
           selectedObject.properties.element.remove();
@@ -53,8 +55,8 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
           delete selectedObject.properties.inputs;
         }
         selectedObject = null;
-        for (var areas in obj.areas) {
-            let area=obj.areas[areas];
+		obj.areas.map((e,t)=>{
+			let area=e;
 			try{
             if(area.x=="var x")area.x=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].x??"var x";
             if(area.y=="var y")area.y=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].y??"var y";
@@ -62,37 +64,7 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
 			}
             var maxRight=0;
             var maxBottom=0;
-            for(var zone in area.zones){
-                var last_height_zone,last_width_zone;
-                var last_bottom_zone,last_x_zone;
-                var last_left_zone,last_y_zone;
-                var last_right_zone,last_top_zone;
-                if(area.zones[zone-1]){
-                    last_left_zone=last_x_zone=area.zones[zone-1].x;
-                    last_top_zone=last_y_zone=area.zones[zone-1].y;
-                    last_height_zone=area.zones[zone-1].height;
-                    last_width_zone=area.zones[zone-1].width;
-                    last_right_zone=area.zones[zone-1].x+area.zones[zone-1].width;
-                    last_bottom_zone=area.zones[zone-1].y+area.zones[zone-1].height;
-                };
-                /*if(area.zones[zone].x=="last_right"){area.zones[zone].x=last_right_zone}
-                if(area.zones[zone].x=="last_left"){area.zones[zone].x=last_left_zone}
-                if(area.zones[zone].x=="last_x"){area.zones[zone].x=last_x_zone}
-                if(area.zones[zone].y=="last_y"){area.zones[zone].y=last_y_zone}
-                if(area.zones[zone].y=="last_top"){area.zones[zone].y=last_top_zone}
-                if(area.zones[zone].y=="last_bottom"){area.zones[zone].y=last_bottom_zone}
-                if(area.zones[zone].width=="last_width"){area.zones[zone].width=last_width_zone}
-                if(area.zones[zone].height=="last_height"){area.zones[zone].height=last_height_zone}*/
-
-              var right=area.zones[zone].x+area.zones[zone].width;
-              var bottom=area.zones[zone].y+area.zones[zone].height;
-              if(right>maxRight){
-                maxRight=right;
-              }
-              if(bottom>maxBottom){
-                maxBottom=bottom;
-              }
-            }
+			console.log(t);
             const parsedArea = createArea(area.name,area.x,area.y,area.properties);
             for(var zone in area.zones){
               if(area.zones[zone].background_color){
@@ -111,10 +83,11 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
               parsedArea.assets.push(wallAsset);
             }
             map.areas.push(parsedArea);
-          }
-          customAREAgui(map.areas[0]);
-          areamenu.appendChild(map.areas[0].element);
-          fromLocal&&customAlert("Successfully imported region.",1);
+
+		})
+        customAREAgui(map.areas[0]);
+        areamenu.appendChild(map.areas[0].element);
+        fromLocal&&customAlert("Successfully imported region in "+(performance.now()-noew)+" ms.",1);
         }catch(err){var rng=Math.random()<0.1;(rng?consumed_by_ink_demon=1:customAlert("Import error. Please check your file to see the problems.",1/0));console.log(err)}
       updateMap();
   if(alertMessages.filter(e=>e.color=="#FF3333").length){throw "Missing properties. T_T"}

@@ -267,15 +267,15 @@ else {
   var enemyError=false;
   ctxE.resetTransform();
   ctx.drawImage(canvasEntityLayer,0,0);
-  ctxL.fillStyle = `rgba(0,0,0,${map.areas[current_Area].properties.lighting})`;
+  ctxL.fillStyle = `rgba(0,0,0,${map.areas[current_Area].properties.lighting??defaultValues.properties.lighting})`;
   ctxL.fillRect(0, 0, canvasLighting.width, canvasLighting.height);
   ctx.globalCompositeOperation = "destination-in";
   ctx.drawImage(canvasLighting, 0, 0);
   ctx.globalCompositeOperation = "source-over";
-  c.update(`{"snow":${map.areas[current_Area].properties.snow},"area":${current_Area}}`, ctx, { x: -camX * camScale, y: -camY * camScale })
+  c.update(`{"snow":${map.areas[current_Area].properties.snow??0},"area":${current_Area}}`, ctx, { x: -camX * camScale, y: -camY * camScale })
   c.render(ctx)
   ctx.lineWidth = 2;
-  ctx.strokeStyle = (map.areas[current_Area].properties.lighting > 0.5&&(tileMode.selectedIndex>>1==0)) ? "black" : "white";
+  ctx.strokeStyle = ((map.areas[current_Area].properties.lighting??defaultValues.properties.lighting) > 0.5&&(tileMode.selectedIndex>>1==0)) ? "black" : "white";
   map.areas[current_Area].zones.length==0&&ctx.strokeRect(canvas.width / 2 - camX * camScale,canvas.height / 2 - camY * camScale,snapX.valueAsNumber*camScale,snapY.valueAsNumber*camScale);
   if (hitbox&&!playtesting) {
     for (let i in map.areas) {
@@ -469,12 +469,12 @@ else {
     ctx.strokeText(e.name,canvas.width / 2 + (e.x - camX) * camScale,canvas.height / 2 + (e.y - camY) * camScale-25*camScale);
     ctx.fillText(e.name,canvas.width / 2 + (e.x - camX) * camScale,canvas.height / 2 + (e.y - camY) * camScale-25*camScale);
   })
-  if (arrayToInt32(map.areas[current_Area].properties.background_color)!=0) {
-    ctx.strokeStyle = arrtoHex(map.areas[current_Area].properties.background_color);
-    ctx.fillStyle = luma(map.areas[current_Area].properties.background_color) > 128 ? "black" : "white";
+  if (arrayToInt32(map.areas[current_Area].properties.background_color ?? defaultValues.properties.background_color)!=0) {
+    ctx.strokeStyle = arrtoHex(map.areas[current_Area].properties.background_color ?? defaultValues.properties.background_color);
+    ctx.fillStyle = luma(map.areas[current_Area].properties.background_color ?? defaultValues.properties.background_color) > 128 ? "black" : "white";
   } else {
-    ctx.strokeStyle = arrtoHex(map.properties.background_color);
-    ctx.fillStyle = luma(map.properties.background_color) > 128 ? "black" : "white";
+    ctx.strokeStyle = arrtoHex(map.properties.background_color ?? defaultValues.properties.background_color);
+    ctx.fillStyle = luma(map.properties.background_color ?? defaultValues.properties.background_color) > 128 ? "black" : "white";
   };
   ctx.font = `bold ${35*(!playtesting)+35*(playtesting*camScale)}px tah`;
   ctx.lineWidth = 6*(!playtesting)+6*(playtesting*camScale);

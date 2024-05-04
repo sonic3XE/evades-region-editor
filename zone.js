@@ -1058,8 +1058,9 @@ function cloneSpawner(e){
   );
 	return obj;
 }
-function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,properties={},type="active",requirements=[],spawner=[]) {
-    const Zone = {x, y, rx:x,ry:y,width,rw:width,height,rh:height, type, properties,spawner:[], translate:{x:tx,y:ty},requirements};
+function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,properties,type="active",requirements=[],spawner=[]) {
+    const Zone = {x, y, rx:x,ry:y,width,rw:width,height,rh:height, type,properties:{},spawner:[], translate:{x:tx,y:ty},requirements};
+	if(properties)Zone.properties={...defaultValues.properties,...properties};
     // Create inputs/labels
   spawner.map(p => {
     const spawner = createPoint(p);

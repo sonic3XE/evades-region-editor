@@ -116,8 +116,7 @@ function customAREAgui(area){
 
 function createArea(name="",x="var x", y="var y",properties,previousArea) {
 	const area = {
-        name,x,y,rx:x,ry:y,previousArea,entities:[],
-		properties:{...defaultValues.properties,...properties},get BoundingBox(){
+        name,x,y,rx:x,ry:y,previousArea,entities:[],get BoundingBox(){
       var minX=1/0;
       var maxX=-1/0;
       var minY=1/0;
@@ -144,6 +143,9 @@ function createArea(name="",x="var x", y="var y",properties,previousArea) {
         zones: [],
 		assets: []
     };
+	if(properties){area.properties={...defaultValues.properties,...properties}}else{
+		area.properties={};
+	};
 
     return area;
 }
