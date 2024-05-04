@@ -819,7 +819,7 @@ if(playtesting){
     current_Area = Math.max(Math.min(current_Area - 1, map.areas.length - 1), 0);
     customAREAgui(map.areas[current_Area]);
     areamenu.appendChild(map.areas[current_Area].element);
-    var bound=map.areas[current_Area].BoundingBox;
+    var bound=getAreaBoundary(map.areas[current_Area]);
     camX = bound.width / 2+bound.left;
     camY = bound.height / 2+bound.top;
     spawnEntities();
@@ -848,7 +848,7 @@ if(playtesting){
     current_Area = Math.max(Math.min(current_Area + 1, map.areas.length - 1), 0);
     customAREAgui(map.areas[current_Area]);
     areamenu.appendChild(map.areas[current_Area].element);
-    var bound=map.areas[current_Area].BoundingBox;
+    var bound=getAreaBoundary(map.areas[current_Area]);
     camX = bound.width / 2+bound.left;
     camY = bound.height / 2+bound.top;
     spawnEntities();
