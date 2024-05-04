@@ -73,6 +73,7 @@ function render() {
 $e7009c797811e935$export$2e2bcd8739ae039.start({}),
 $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);
 $e7009c797811e935$export$2e2bcd8739ae039.update({});
+  cons.currentTime || (cons.currentTime=1/1e6);
   if(!map.areas[current_Area])return requestAnimationFrame(render);
   var delta=performance.now()-lastTime;
   lastTime=performance.now();
@@ -533,7 +534,6 @@ if(playtesting){
       ctx.fillText(`${e.text}`, 10, canvas.height-20-20*(a.length-t),canvas.width-20);
   });
   if(playtesting){
-	cons.currentTime || (cons.currentTime=1/1e6);
     //vertical bars
 	var horiScale=1920/ctx.canvas.width
 	var barWidth=Math.round(ctx.canvas.width-(ctx.canvas.width/2+640*camScale));
