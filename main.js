@@ -693,7 +693,7 @@ canvas.addEventListener("mousemove", e => {
 });
 let updateMouseEntity=true;
 canvas.addEventListener("contextmenu", e => {
-  if (e.target === contextmenu) return;
+  if (e.target === contextmenu || playtesting) return;
   e.preventDefault();
 
   contextmenu.style.left = e.x + 1 + "px";
