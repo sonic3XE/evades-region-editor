@@ -571,7 +571,7 @@ x:target.x,y:target.y};
 		  delete e.element;
 		  delete e.inputs
 	  });
-    }
+    };
     selectedObject = null;
   }
 });
@@ -832,6 +832,15 @@ if(playtesting){
       selectedObject.element.remove();
       delete selectedObject.element;
       delete selectedObject.inputs;
+      selectedObject.spawner&&selectedObject.spawner.map(e=>{
+		  e.types.map(t=>{
+			  t.element.remove();
+			  delete t.element;
+		  });
+		  e.element.remove();
+		  delete e.element;
+		  delete e.inputs
+	  });
       selectedObject=null;
       hide(objectActions);
     };
@@ -861,6 +870,15 @@ if(playtesting){
       selectedObject.element.remove();
       delete selectedObject.element;
       delete selectedObject.inputs;
+      selectedObject.spawner&&selectedObject.spawner.map(e=>{
+		  e.types.map(t=>{
+			  t.element.remove();
+			  delete t.element;
+		  });
+		  e.element.remove();
+		  delete e.element;
+		  delete e.inputs
+	  });
       selectedObject=null;
       hide(objectActions);
     };
