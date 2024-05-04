@@ -32,9 +32,9 @@ function capitalize(s){
 function spawnEntities(area=current_Area){
   if(!map.areas[area])return;
   var isVictory=!!map.areas[area].zones.filter(e=>e.type=="victory").length;
-  var totalPellets=map.areas[area].properties.pellet_count;
+  var totalPellets=map.areas[area].properties.pellet_count ?? defaultValues.properties.pellet_count;
   if(totalPellets==defaultValues.properties.pellet_count){
-    totalPellets=map.properties.pellet_count;
+    totalPellets=map.properties.pellet_count ?? defaultValues.properties.pellet_count;
   }
   var boundary=map.areas[area].BoundingBox;
   var victoryZones=map.areas[area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
