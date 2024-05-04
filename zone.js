@@ -641,7 +641,7 @@ point1.projectile_radius=undefined;
 		rotorCorrosiveInput.addEventListener("input", () => {
 			point1.rotor_corrosive = rotorCorrosiveInput.checked;spawnEntities()
 		});
-    const point2El = createFolder(formatString(curLang,"editor.property.types"), point1.types.map(e=>e.element));
+    const point2El = createFolder(formatString(curLang,"editor.property.types"), point1.types.map(e=>(customTypeGUI(e),e.element)));
     const addBtn = document.createElement("button");
     const centerXbtn = document.createElement("button");
     const centerYbtn = document.createElement("button");
@@ -1141,6 +1141,10 @@ function createZone(e) {
 //ENEMY TYPES
 function createpoint2(types="normal",point1){
   var point2={i:types}
+          return point2
+}
+
+function customTypeGUI(point2,point1){
 var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drain', 'enlarging', 'draining', 'gravity', 'repelling', 'turning', 'sizing', 'sniper', 'freezing', 'teleporting', 'wavy', 'zigzag', 'zoning', 'spiral', 'oscillating', 'switch', 'liquid', 'icicle', 'slippery', 'ice_sniper', 'disabling', 'speed_sniper', 'regen_sniper', 'radiating_bullets', 'immune', 'pumpkin', 'fake_pumpkin', 'tree', 'frost_giant', 'snowman', 'corrosive', 'toxic', 'corrosive_sniper', 'poison_sniper', 'magnetic_nullification', 'magnetic_reduction', 'negative_magnetic_sniper', 'positive_magnetic_sniper', 'residue', 'fire_trail', 'ice_ghost', 'poison_ghost', 'positive_magnetic_ghost', 'negative_magnetic_ghost', 'wind_ghost', 'lunging', 'lava', 'gravity_ghost', 'repelling_ghost', 'star', 'grass', 'seedling', 'flower', 'disabling_ghost', 'glowy', 'firefly', 'mist', 'phantom', 'cybot', 'eabot', 'wabot', 'fibot', 'aibot', 'wind_sniper', 'sand', 'sandrock', 'quicksand', 'crumbling', 'radar', 'barrier', 'speed_ghost', 'regen_ghost', 'cactus', 'cycling', 'icbot', 'elbot', 'plbot', 'mebot', 'libot', 'dabot', 'sparking', 'thunderbolt', 'static', 'electrical', 'prediction_sniper', 'ring_sniper',
            "charging",
            "reducing",
@@ -1154,7 +1158,6 @@ var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drai
     enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
   if(usingPncl9500)
     enemyList.push(...["slooming","particulate","water_trail","nightshade","riptide","cloud","rain","storm","airburst","param_test","rotor","radioactive_sniper","sap_sniper","vine","disc","swamp","drowning","pull_sniper","puffing","bubble"].map(e=>[formatString(curLang,"pncl9500.enemy."+e),e]));
-
   var li = createProperty("",null, "select", {
     value:point2.i,
     event: e => {point2.i = e;spawnEntities();console.log(e)},
@@ -1177,7 +1180,4 @@ li.remove()
         });
         li.children[0].appendChild(remove);
           point2.element=li;
-          return point2
 }
-
-
