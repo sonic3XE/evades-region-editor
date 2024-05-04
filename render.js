@@ -78,7 +78,7 @@ $e7009c797811e935$export$2e2bcd8739ae039.update({});
   var delta=performance.now()-lastTime;
   lastTime=performance.now();
   //Do not update below 24fps
-  delta/1e3**-1<24&&(delta=0);
+  (delta/1e3)**-1<24&&(delta=0);
   ti+=delta;
   updateMouseEntity&&(
   mouseEntity.x=mousePos.x / camScale + camX,
