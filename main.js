@@ -378,6 +378,7 @@ canvas.addEventListener("wheel", e => {
   let m = 0.85 ** (e.deltaY / 125)*speedMultiplier;
   let x = (e.pageX - canvas.width / 2) / camScale + camX;
   let y = (e.pageY - canvas.height / 2) / camScale + camY;
+  if(playtesting)return;
   camScale *= m;
   if(camScale>32||camScale<1/zoomLimit)m=1;
   camX = (m * x - x + camX) / m;

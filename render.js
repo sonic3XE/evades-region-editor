@@ -77,7 +77,8 @@ $e7009c797811e935$export$2e2bcd8739ae039.update({});
   if(!map.areas[current_Area])return requestAnimationFrame(render);
   var delta=performance.now()-lastTime;
   lastTime=performance.now();
-  delta>=1e3&&(delta=0);
+  //Do not update below 24fps
+  delta/1e3**-1<24&&(delta=0);
   ti+=delta;
   updateMouseEntity&&(
   mouseEntity.x=mousePos.x / camScale + camX,
