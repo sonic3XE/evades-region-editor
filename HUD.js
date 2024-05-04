@@ -798,7 +798,7 @@ class AreaInfo extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		const r = t.height / 2 - this.height/2*camScale
 		  , c = 14*camScale
 		  , o = r + 12*camScale
-		  , n = 14;
+		  , n = 14,boundary=getAreaBoundary(this.area);
 		e.fillStyle = "rgba(0, 0, 0, 0.7)",
 		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, 10*camScale, r, this.width*camScale, this.height*camScale, !0, !1),
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(n),
@@ -807,7 +807,7 @@ class AreaInfo extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		e.fillText(`${map.name} ${this.self.entity.area}`, c, o),
 		e.fillText(`Area name: ${areaname}`, c, o + 14*camScale),
 		e.fillText(`Area position: ${this.area.x}, ${this.area.y}`, c, o + 28*camScale),
-		e.fillText(`Area size: ${this.area.BoundingBox.width} x ${this.area.BoundingBox.height}`, c, o + 42*camScale),
+		e.fillText(`Area size: ${boundary.width} x ${boundary.height}`, c, o + 42*camScale),
 		e.fillText(`Zone count: ${this.area.zones.length}`, c, o + 56*camScale),
 		e.fillText(`Self position: ${Math.round(this.self.entity.x+this.area.x)}, ${Math.round(this.self.entity.y+this.area.y)}`, c, o + 84*camScale)
 	}
@@ -2469,10 +2469,11 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	}
 	renderAreaCentered(e) {
 		const a = {};
-		a.centerX = this.area.x + this.area.BoundingBox.width / 2,
-		a.centerY = this.area.y + this.area.BoundingBox.height / 2,
-		a.width = this.area.BoundingBox.width,
-		a.height = this.area.BoundingBox.height,
+		var boundary=getAreaBoundary(this.area);
+		a.centerX = this.area.x + boundary.width / 2,
+		a.centerY = this.area.y + boundary.height / 2,
+		a.width = boundary.width,
+		a.height = boundary.height,
 		this.x=0,this.y=0,
 		a.left = this.area.x,
 		a.top = this.area.y;

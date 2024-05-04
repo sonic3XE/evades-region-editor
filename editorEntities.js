@@ -36,7 +36,7 @@ function spawnEntities(area=current_Area){
   if(totalPellets==defaultValues.properties.pellet_count){
     totalPellets=map.properties.pellet_count ?? defaultValues.properties.pellet_count;
   }
-  var boundary=map.areas[area].BoundingBox;
+  var boundary=getAreaBoundary(map.areas[area]);
   var victoryZones=map.areas[area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
   map.areas[area].entities=[];
   map.areas[area].assets.filter(e=>e.type=="flashlight_spawner").map(e=>{
@@ -599,7 +599,7 @@ this.isGuest=!1;
   }
 	  collision(delta){
     let collided=false;
-	var boundary=map.areas[this.area].BoundingBox;
+	var boundary=getAreaBoundary(map.areas[this.area]);
     if(this.x<boundary.left+this.radius){
       this.x=boundary.left+this.radius;
       collided=true;
@@ -1543,7 +1543,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
           var targetPoint = {x:this.x + zone.translate.x, y:this.y + zone.translate.y};
           for (var j in map.areas) {
             if(j==this.area)continue;
-            var rect = {...map.areas[j].BoundingBox};
+            var rect = getAreaBoundary(map.areas[j]);
             var closest = closestPointToRectangle(targetPoint,
 {x:map.areas[j].x-map.areas[this.area].x, y:map.areas[j].y-map.areas[this.area].y},
 {x:rect.width, y:rect.height})

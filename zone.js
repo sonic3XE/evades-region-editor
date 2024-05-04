@@ -1063,16 +1063,30 @@ function cloneSpawner(e){
   );
 	return obj;
 }
-function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,properties,type="active",requirements=[],spawner=[]) {
-    const Zone = {x, y, rx:x,ry:y,width,rw:width,height,rh:height, type,properties:{},spawner:[], translate:{x:tx,y:ty},requirements};
+function createZone(e) {
+    const Zone = e;
+	Zone.rx=Zone.x;
+	Zone.rw=Zone.width;
+	Zone.ry=Zone.y;
+	Zone.rh=Zone.height;
+	var spawner=Zone.spawner;
+	var requirements=Zone.requirements;
+	var properties=Zone.properties;
+	var translate=Zone.translate;
 	if(properties)Zone.properties={...defaultValues.properties,...properties};
-    // Create inputs/labels
-  spawner.map(p => {
-    const spawner = createPoint(p);
-    Zone.spawner.push(spawner);
-    return;
-  });
-    return Zone;
+	Zone.properties??={};
+	if(!translate){
+		Zone.translate={x:0,y:0};
+	}
+	if(spawner){
+		Zone.spawner=spawner.map(p=>createPoint(p));
+	}
+	Zone.spawner??=[];
+	if(requirements){
+		Zone.requirements=requirements.map(p=>createReq(p,Zone));
+	}
+	Zone.requirements??=[];
+    return e;
 }
 
   //REQUIREMENTS

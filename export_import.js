@@ -55,36 +55,18 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
           delete selectedObject.properties.inputs;
         }
         selectedObject = null;
-		obj.areas.map((e,t)=>{
+		map.areas=obj.areas.map((e,t)=>{
 			let area=e;
 			try{
             if(area.x=="var x")area.x=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].x??"var x";
             if(area.y=="var y")area.y=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].y??"var y";
-			}catch(e){
+			}catch(v){
 			}
             var maxRight=0;
             var maxBottom=0;
 			console.log(t);
-            const parsedArea = createArea(area.name,area.x,area.y,area.properties);
-            for(var zone in area.zones){
-              if(area.zones[zone].background_color){
-                area.zones[zone].properties??={};
-                area.zones[zone].properties.background_color=area.zones[zone].background_color;
-                area.zones[zone].properties.background_color.map((e,t,a)=>{
-                  if(a[t-1]!=undefined)a[t-1]+=e>>8;
-                  a[t]&=255;
-                })
-              }
-              const exitZone=createZone(area.zones[zone].x,area.zones[zone].y,area.zones[zone].width,area.zones[zone].height,area.zones[zone].translate?.x,area.zones[zone].translate?.y,area.zones[zone].properties,area.zones[zone].type,area.zones[zone].requirements,area.zones[zone].spawner);
-              parsedArea.zones.push(exitZone);
-            }
-            for(var asset in area.assets){
-              const wallAsset=createAsset(area.assets[asset].x,area.assets[asset].y,area.assets[asset].width,area.assets[asset].height,area.assets[asset].type,area.assets[asset].upside_down,area.assets[asset].texture);
-              parsedArea.assets.push(wallAsset);
-            }
-            map.areas.push(parsedArea);
-
-		})
+            return createArea(area);
+		});
         customAREAgui(map.areas[0]);
         areamenu.appendChild(map.areas[0].element);
         fromLocal&&customAlert("Successfully imported region in "+(performance.now()-noew)+" ms.",1);

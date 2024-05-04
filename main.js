@@ -282,11 +282,11 @@ var pushX=0;
 var pushY=0;
     var area = map.areas[i];
     area.previousArea=map.areas[i-1];
-    var curBoundary=area.BoundingBox;
+    var curBoundary=getAreaBoundary(area);
     area.rx.toString().startsWith("var x")&&(area.x=ExtractDiff(area.rx));
     area.ry.toString().startsWith("var y")&&(area.y=ExtractDiff(area.ry));
     if(area.previousArea){
-      var boundary=area.previousArea.BoundingBox;
+      var boundary=getAreaBoundary(area.previousArea);
       area.rx.toString().startsWith("last_x")&&(area.x=area.previousArea.x+ExtractDiff(area.rx));
       area.ry.toString().startsWith("last_y")&&(area.y=area.previousArea.y+ExtractDiff(area.ry));
       area.rx.toString().startsWith("last_right")&&(area.x=boundary.right+area.previousArea.x+ExtractDiff(area.rx));

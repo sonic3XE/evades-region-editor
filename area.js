@@ -113,39 +113,53 @@ function customAREAgui(area){
         x: xInput,
         y: yInput,
     }}
-
-function createArea(name="",x="var x", y="var y",properties,previousArea) {
-	const area = {
-        name,x,y,rx:x,ry:y,previousArea,entities:[],get BoundingBox(){
+function getAreaBoundary(area){
       var minX=1/0;
       var maxX=-1/0;
       var minY=1/0;
       var maxY=-1/0;
-      for(var i in this.zones){
-        if(minX>this.zones[i].x)minX=this.zones[i].x;
-        if(maxX<this.zones[i].x+this.zones[i].width)maxX=this.zones[i].x+this.zones[i].width;
-        if(minY>this.zones[i].y)minY=this.zones[i].y;
-        if(maxY<this.zones[i].y+this.zones[i].height)maxY=this.zones[i].y+this.zones[i].height;
+      for(var i in area.zones){
+        if(minX>area.zones[i].x)minX=area.zones[i].x;
+        if(maxX<area.zones[i].x+area.zones[i].width)maxX=area.zones[i].x+area.zones[i].width;
+        if(minY>area.zones[i].y)minY=area.zones[i].y;
+        if(maxY<area.zones[i].y+area.zones[i].height)maxY=area.zones[i].y+area.zones[i].height;
       }
-      if(!this.zones.length)return {left:0,right:0,top:0,bottom:0,width:0,height:0};
+      if(!area.zones.length)return {left:0,right:0,top:0,bottom:0,width:0,height:0};
       return {left:minX,right:maxX,top:minY,bottom:maxY,width:Math.abs(maxX-minX),height:Math.abs(maxY-minY)}
-    },get Size(){
-      var maxRight=0;
-      var maxBottom=0;
-      for(var zone of this.zones){
-        var right = zone.x+zone.width;
-        if(right > maxRight)maxRight = right;
-        var bottom = zone.y+zone.height;
-        if(bottom > maxBottom)maxBottom = bottom;
+}
+function getAreaSize(area){
+  var maxRight=0;
+  var maxBottom=0;
+  for(var zone of area.zones){
+    var right = zone.x+zone.width;
+    if(right > maxRight)maxRight = right;
+    var bottom = zone.y+zone.height;
+    if(bottom > maxBottom)maxBottom = bottom;
+  }
+  return {x:maxRight,y:maxBottom}
+}
+function createArea(e) {
+	const area = e;
+	area.entities=[];
+	area.rx=area.x,area.ry=area.y;
+	var properties=area.properties;
+	if(properties){area.properties={...defaultValues.properties,...properties}}
+    area.zones=area.zones.map(t=>{
+      if(t.background_color){
+        t.properties??={};
+        t.properties.background_color=t.background_color;
+        t.properties.background_color.map((e,t,a)=>{
+          if(a[t-1]!=undefined)a[t-1]+=e>>8;
+          a[t]&=255;
+        })
       }
-      return {x:maxRight,y:maxBottom}
-    },
-        zones: [],
-		assets: []
-    };
-	if(properties){area.properties={...defaultValues.properties,...properties}}else{
-		area.properties={};
-	};
+	  return createZone(t);
+	})
+	area.assets??=[];
+	area.assets=area.assets.map(t=>{
+      return createAsset(t.x,t.y,t.width,t.height,t.type,t.upside_down,t.texture);
+	})
+	area.properties??={};
 
     return area;
 }
