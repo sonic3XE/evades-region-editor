@@ -134,6 +134,11 @@ let ActiveZone = createZone(posX,posY, 160, 160,void 0,void 0,void 0,type);
  * @returns {Spawner}
  */
 function createSPAWNERgui(point1,Zone){
+		var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','riptide_radius', 'swamp_radius','drowning_radius','test_param','rotor_branch_count','rotor_node_count','rotor_node_radius','rotor_rot_speed','rotor_reversed','rotor_branch_offset','rotor_node_dist','rotor_branch_dist','rotor_offset_per_layer','rotor_layer_reverse_interval','rotor_corrosive','burning_radius','defender_radius','web_radius','quicksand_strength'];
+		for(var i in point1){
+			if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
+		}
+
         const countInput = document.createElement("input");
         countInput.value = point1.count ?? defaultValues.spawner.count;
         countInput.addEventListener("input", () => {
@@ -1064,10 +1069,6 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
     // Create inputs/labels
   spawner.map(p => {
     const spawner = createPoint(p);
-	var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','riptide_radius', 'swamp_radius','drowning_radius','test_param','rotor_branch_count','rotor_node_count','rotor_node_radius','rotor_rot_speed','rotor_reversed','rotor_branch_offset','rotor_node_dist','rotor_branch_dist','rotor_offset_per_layer','rotor_layer_reverse_interval','rotor_corrosive','burning_radius','defender_radius','web_radius'];
-	for(var i in p){
-		if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
-	}
     Zone.spawner.push(spawner);
     return;
   });
@@ -1107,85 +1108,7 @@ function createZone(x = 0, y = 0, width = 160, height = 160, tx=0,ty=0,propertie
   };
 //SPAWNER
 
-    function createPoint(obj,
-		/*global*/
-		count=1,
-		speed=5,
-		radius=0,
-		types=["normal"],
-		/*icicle enemy*/horizontal=false,
-		/*wall enemy*/move_clockwise=true,
-		/*position and angle*/x,y,angle,
-		/*frost giant enemy*/
-		pattern,
-		cone_angle=45,
-		direction=1,
-		immune=true,
-		turn_speed=2,
-		shot_interval=200,
-		pause_interval=0,
-		pause_duration=0,
-		turn_acceleration=0,
-		shot_acceleration=0,
-		projectile_duration=4000,
-		projectile_radius,
-		projectile_speed,
-		/*grass enemy*/powered=false,
-		/*flower enemy*/growth_multiplier=1,
-		/*wind ghost enemy*/ignore_invulnerability=false,
-		/*speed sniper enemy*/speed_loss=1,
-		/*regen sniper enemy*/regen_loss=0.4,
-		/*radiating bullets enemy*/
-		release_time,
-		release_interval=4000,
-		/*aura enemies*/
-		slippery_radius=165,
-		slowing_radius=150,
-		enlarging_radius=150,
-		draining_radius=150,
-		gravity_radius=150,
-		radar_radius=150,
-		repelling_radius=150,
-		disabling_radius=150,
-		toxic_radius=150,
-		lava_radius=150,
-		magnetic_reduction_radius=125,
-		magnetic_nullification_radius=125,
-		freezing_radius=100,
-		quicksand_radius=150,
-		barrier_radius=100,
-		experience_drain_radius=150,
-		/*switch enemy*/switch_interval=3000,
-		/*liquid enemy*/player_detection_radius=160,
-		/*turning enemy*/circle_size=150,
-		/*quicksand enemy*/push_direction,
-		/*cybot enemy*/hard_mode=false,
-		reducing_radius=140,
-		/*gravity enemy*/gravity=6,
-		/*repelling enemy*/repulsion=6,
-		blocking_radius=150,
-		quicksand_strength=5,
-    /*its a mystery*/
-    riptide_radius=180,
-    swamp_radius=150,
-    drowning_radius=150,
-    test_param = 2000,
-    /*rotor enemy*/
-    rotor_branch_count = 2,
-    rotor_node_count = 2,
-    rotor_node_radius = 16,
-    rotor_rot_speed = 5,
-    rotor_reversed = false,
-    rotor_branch_offset = 0,
-    rotor_node_dist = 0,
-    rotor_branch_dist = 0,
-    rotor_offset_per_layer = 0,
-    rotor_layer_reverse_interval = 0,
-    rotor_corrosive = false,
-		burning_radius=120,
-		defender_radius=150,
-		web_radius=110,
-	) {
+    function createPoint(obj) {
         const point1 = {
             types:[],
         }
@@ -1212,7 +1135,7 @@ var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drai
           "force_sniper_a",
           "force_sniper_b",
         ]
-            .map(e=>[formatString(curLang,"editor.enemy."+e),e]).sort();
+            .map(e=>[formatString(curLang,"editor.enemy."+e),e]);
   if(usingPifary)
     enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
   if(usingPncl9500)
