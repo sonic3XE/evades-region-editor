@@ -263,7 +263,7 @@ else {
   }else if(isActive&&realTime.checked){
   controlPlayer(selfId,input,delta),
   map.players.map(e=>{e.update(delta)}),
-  map.areas[current_Area].entities.map(e=>e.update(delta));
+  map.areas[current_Area].entities.map(e=>e.update(delta,map.areas[current_Area]));
   }
   }catch(e){throw errorFX.play(),e}
   var enemyError=false;

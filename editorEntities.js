@@ -396,6 +396,17 @@ function spawnEntities(area=current_Area){
               activeZone.spawner[i].switch_interval ?? defaultValues.spawner.switch_interval,
               {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
               break;
+          case "radiating_bullets":
+            entity=new RadiatingBulletsEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].angle,
+              activeZone.spawner[i].release_interval ?? defaultValues.spawner.release_interval,
+              activeZone.spawner[i].release_time ?? defaultValues.spawner.release_time,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
           case "wall":
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
@@ -2039,6 +2050,7 @@ class SimulatorEntity{
     this.auraColor=auraColor;
     this.auraRadius=auraRadius;
     this.type=type;
+	this.outline=false;
     this.speed=speed;
     this.angle=angle!=undefined?(angle*Math.PI/180):(Math.random()*Math.PI*2);
     this.velX=Math.cos(this.angle)*this.speed;
@@ -2343,7 +2355,7 @@ class SimulatorEntity{
         e.fillStyle = `rgba(1, 1, 1, ${a})`,
         e.fill()
       }
-		enemyOutline.checked && (e.lineWidth = 2,
+		this.outline && enemyOutline.checked && (e.lineWidth = 2,
                              e.strokeStyle = "black",
                                e.stroke(),
                                e.lineWidth = 1),
@@ -2384,6 +2396,7 @@ class Enemy extends SimulatorEntity{
     super(x,y,color,radius,type,speed,angle,aura_radius,aura_color,boundary);
     this.isEnemy=true;
 	this.renderFirst=false;
+	this.outline=true;
   }
   update(delta){
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
@@ -2437,6 +2450,7 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
       player.deathTimer=player.deathTimerTotal=map.properties.death_timer;
     }
   }
+  return dead;
 }
 //PELLETS
 class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
@@ -3468,6 +3482,50 @@ class SwitchEnemy extends Enemy{
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	  this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class RadiatingBulletsEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,release_interval,release_time,boundary){
+    super(x,y,radius,speed,angle,"#d3134f","radiating_bullets",boundary);
+    this.release_interval = release_interval,
+    this.clock = release_time ?? (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    this.clock += delta;
+    if (this.clock >= this.release_interval) {
+		for(var i=0;i<8;i++){
+			area.entities.push(new RadiatingBulletsProjectile(this.x,this.y,8,8,45*i,this.boundary))
+		}
+		this.clock = this.clock % this.release_interval;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class RadiatingBulletsProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#a30838","radiating_bullets_projectile",boundary);
+	this.outline=false;
+	this.immune=true;
+    this.clock = 0;
+  }
+  playerInteraction(player){
+	  this.remove=EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier);
+  }
+  onCollide(){
+	  this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock > 3000) {
+		this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
     this.collision(delta);
   }
 }
