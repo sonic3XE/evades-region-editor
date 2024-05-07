@@ -3492,11 +3492,13 @@ class RadiatingBulletsEnemy extends Enemy{
     this.releaseTime = release_time ?? (Math.random()*this.release_interval);
   }
   update(delta,area) {
-    this.releaseTime += delta;
-    if (this.releaseTime >= this.release_interval) {
+    this.releaseTime -= delta;
+    if (this.releaseTime < 0) {
 		for(var i=0;i<8;i++){
 			area.entities.push(new RadiatingBulletsProjectile(this.x,this.y,8,8,45*i,this.boundary))
 		}
+		this.releaseTime = this.releaseTime % this.release_interval;
+		this.releaseTime+=this.release_interval
 		this.releaseTime = this.releaseTime % this.release_interval;
     }
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
