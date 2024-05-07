@@ -411,6 +411,7 @@ function spawnEntities(area=current_Area){
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
           case "normal":
+          case "wavy":
           case "immune":
           case "sniper":
           case "corrosive":
@@ -3494,6 +3495,37 @@ class RadiatingBulletsProjectile extends Enemy{
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	this.speedMultiplier = 1;
     this.collision(delta);
+  }
+}
+class WavyEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.wavy_enemy.color,"wavy",boundary);
+    this.velangle();
+    this.angle = Math.PI / 2;
+    this.anglevel();
+    this.circleSize = 100;
+    this.dir = 1;
+    this.switchInterval = 800;
+    this.switchTime = 400;
+    this.angleIncrement = (this.speed + 6) / this.circleSize;
+  }
+  update(delta) {
+    if (this.switchTime > 0) {
+      this.switchTime -= delta
+    } else {
+      this.switchTime = this.switchInterval
+      this.dir *= -1;
+    }
+    this.velangle();
+    this.angle += this.angleIncrement*this.dir*(delta/(1000/30));
+    this.anglevel();
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  onCollide(){
+    this.dir *= -1; 
   }
 }
 class SniperEnemy extends Enemy{
