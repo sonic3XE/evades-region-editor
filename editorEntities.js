@@ -411,6 +411,9 @@ function spawnEntities(area=current_Area){
             entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
           break;
           case "normal":
+          case "immune":
+          case "sniper":
+          case "corrosive":
           case "dasher":
           case "homing":
           case "teleporting":
@@ -519,7 +522,7 @@ this.snowballedTime=2500;
 this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
-this.abilityOne={abilityType:14};
+this.abilityOne={abilityType:1};
 this.abilityTwo={abilityType:18};
 this.abilityThree={abilityType:98};
 this.abilityIndex=0;
@@ -1417,24 +1420,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     if (this.reducingTime>0&&this.reducing){
 	  if(this.reducingTime>2e3){
 		this.reducingTime=2e3;
-		switch(this.area){
-		case 0:this.deathTimer=this.deathTimerTotal=10000;break;
-		case 1:this.deathTimer=this.deathTimerTotal=15000;break;
-		case 2:this.deathTimer=this.deathTimerTotal=15000;break;
-		case 3:this.deathTimer=this.deathTimerTotal=20000;break;
-		case 4:this.deathTimer=this.deathTimerTotal=20000;break;
-		case 5:this.deathTimer=this.deathTimerTotal=20000;break;
-		case 6:this.deathTimer=this.deathTimerTotal=25000;break;
-		case 7:this.deathTimer=this.deathTimerTotal=25000;break;
-		case 8:this.deathTimer=this.deathTimerTotal=30000;break;
-		case 9:this.deathTimer=this.deathTimerTotal=30000;break;
-		default:this.deathTimer=this.deathTimerTotal=60000;break;
-		}
-		if(map.areas[this.area].properties.death_timer!==void 0){
-		this.deathTimer=this.deathTimerTotal=map.areas[this.area].properties.death_timer;
-		}else if(map.properties.death_timer!==void 0){
-		this.deathTimer=this.deathTimerTotal=map.properties.death_timer;
-		}
+		death(player);
 	  }
 	  this.radiusMultiplier*=1-this.reducingTime/2e3;
     }
@@ -2431,6 +2417,10 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
     dead=false;
   }
   if(player.deathTimer==-1&&dead){console.log("mega dead shit")
+    death(player);
+  }
+}
+function death(player){
     switch(player.area){
       case 0:player.deathTimer=player.deathTimerTotal=10000;break;
       case 1:player.deathTimer=player.deathTimerTotal=15000;break;
@@ -2449,8 +2439,6 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
     }else if(map.properties.death_timer!==void 0){
       player.deathTimer=player.deathTimerTotal=map.properties.death_timer;
     }
-  }
-  return dead;
 }
 //PELLETS
 class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
@@ -2532,7 +2520,7 @@ class PelletEntity extends SimulatorEntity{
 //EvadesClassic enemy files: server\src\game\entities\enemies\{{type}}_enemy.py
 class WallEnemy extends Enemy{
   constructor(radius,speed,area_bounding_box,wall_index,wall_count,initial_side,move_clockwise=true){
-    super(0,0,radius,speed,0,"#222222","wall",area_bounding_box);
+    super(0,0,radius,speed,0,enemyConfig.wall_enemy.color,"wall",area_bounding_box);
     if(initial_side==void 0){
       initial_side=0
     }
@@ -2598,7 +2586,19 @@ class WallEnemy extends Enemy{
 }
 class NormalEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#939393","normal",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.normal_enemy.color,"normal",boundary);
+  }
+}
+class ImmuneEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.immune_enemy.color,"immune",boundary);
+    this.immune=true;
+  }
+}
+class CorrosiveEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.corrosive_enemy.color,"normal",boundary);
+    this.corrosive=true;
   }
 }
 
@@ -2644,25 +2644,7 @@ class BlockingEnemy extends Enemy{
 	  player.lava=player.enemyEffects[7];
 	  player.energy+=15*delta/1e3;
 	  if(player.energy>=player.maxEnergy){
-		switch(player.area){
-		case 0:player.deathTimer=player.deathTimerTotal=10000;break;
-		case 1:player.deathTimer=player.deathTimerTotal=15000;break;
-		case 2:player.deathTimer=player.deathTimerTotal=15000;break;
-		case 3:player.deathTimer=player.deathTimerTotal=20000;break;
-		case 4:player.deathTimer=player.deathTimerTotal=20000;break;
-		case 5:player.deathTimer=player.deathTimerTotal=20000;break;
-		case 6:player.deathTimer=player.deathTimerTotal=25000;break;
-		case 7:player.deathTimer=player.deathTimerTotal=25000;break;
-		case 8:player.deathTimer=player.deathTimerTotal=30000;break;
-		case 9:player.deathTimer=player.deathTimerTotal=30000;break;
-		default:player.deathTimer=player.deathTimerTotal=60000;break;
-		}
-		if(map.areas[player.area].properties.death_timer!==void 0){
-		player.deathTimer=player.deathTimerTotal=map.areas[player.area].properties.death_timer;
-		}else if(map.properties.death_timer!==void 0){
-		player.deathTimer=player.deathTimerTotal=map.properties.death_timer;
-		}
-		player.energy=0;
+            death(player);player.energy=0;
 	  }
 	}
 	if(!player.toxic&&player.enemyEffects[2]){
@@ -2755,25 +2737,7 @@ class LavaEnemy extends Enemy{
 	  player.lava=true;
 	  player.energy+=15*delta/1e3;
 	  if(player.energy>=player.maxEnergy){
-		switch(player.area){
-		case 0:player.deathTimer=player.deathTimerTotal=10000;break;
-		case 1:player.deathTimer=player.deathTimerTotal=15000;break;
-		case 2:player.deathTimer=player.deathTimerTotal=15000;break;
-		case 3:player.deathTimer=player.deathTimerTotal=20000;break;
-		case 4:player.deathTimer=player.deathTimerTotal=20000;break;
-		case 5:player.deathTimer=player.deathTimerTotal=20000;break;
-		case 6:player.deathTimer=player.deathTimerTotal=25000;break;
-		case 7:player.deathTimer=player.deathTimerTotal=25000;break;
-		case 8:player.deathTimer=player.deathTimerTotal=30000;break;
-		case 9:player.deathTimer=player.deathTimerTotal=30000;break;
-		default:player.deathTimer=player.deathTimerTotal=60000;break;
-		}
-		if(map.areas[player.area].properties.death_timer!==void 0){
-		player.deathTimer=player.deathTimerTotal=map.areas[player.area].properties.death_timer;
-		}else if(map.properties.death_timer!==void 0){
-		player.deathTimer=player.deathTimerTotal=map.properties.death_timer;
-		}
-		player.energy=0;
+            death(player);player.energy=0;
 	  }
 	}
   }
@@ -2912,7 +2876,7 @@ class DrowningEnemy extends Enemy{
 }
 class HomingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#966e14","homing",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.homing_enemy.color,"homing",boundary);
     this.target_angle=this.angle;
     this.is_negative_speed=this.speed<0;
     this.speed=Math.abs(this.speed);
@@ -2999,7 +2963,7 @@ class HomingEnemy extends Enemy{
 }
 class DasherEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#003c66","dasher",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.dasher_enemy.color,"dasher",boundary);
     this.reset_parameters();
   }
   reset_parameters(){
@@ -3118,7 +3082,7 @@ class RotorEnemy extends Enemy{
 }
 class TeleportingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#ecc4ef","teleporting",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.teleporting_enemy.color,"teleporting",boundary);
     this.clock = 0;
   }
   update(delta){
@@ -3138,7 +3102,7 @@ class TeleportingEnemy extends Enemy{
 
 class StarEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#faf46e","star",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.star_enemy.color,"star",boundary);
     this.clock = 0;
     this.starPos = 1;
   }
@@ -3162,7 +3126,7 @@ class StarEnemy extends Enemy{
 
 class OscillatingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#869e0f","oscillating",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.oscillating_enemy.color,"oscillating",boundary);
     this.clock = 0;
   }
   update(delta){
@@ -3181,7 +3145,7 @@ class OscillatingEnemy extends Enemy{
 
 class ZigzagEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#b371f2","zigzag",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.zigzag_enemy.color,"zigzag",boundary);
     this.switchInterval = 500;
     this.switchTime = 500;
     this.switchAdd = false;
@@ -3215,7 +3179,7 @@ class ZigzagEnemy extends Enemy{
 
 class ZoningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#a03811","zoning",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.zoning_enemy.color,"zoning",boundary);
     this.switchInterval = 1000;
     this.switchTime = Math.random() * this.switchInterval;
     this.turnAngle = Math.PI / 2
@@ -3241,7 +3205,7 @@ class ZoningEnemy extends Enemy{
 
 class SizingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#f27743","sizing",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.sizing_enemy.color,"sizing",boundary);
     this.growing = true;
     this.maxRadius = this.radius * 2.5;
     this.minRadius = this.radius / 2.5;
@@ -3268,7 +3232,7 @@ class SizingEnemy extends Enemy{
 
 class TurningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,circle_size,boundary){
-    super(x,y,radius,speed,angle,"#336600","turning",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.turning_enemy.color,"turning",boundary);
     this.circle_size = circle_size;
     this.dir = speed / circle_size;
   }
@@ -3288,7 +3252,7 @@ class TurningEnemy extends Enemy{
 
 class SpiralEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#e8b500","spiral",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.spiral_enemy.color,"spiral",boundary);
     this.angleIncrement = 0.15;
     this.angleIncrementChange = 0.004;
     this.angleAdd = false;
@@ -3325,7 +3289,7 @@ class SpiralEnemy extends Enemy{
 
 class FakePumpkinEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#e26110","fake_pumpkin",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.pumpkin_enemy.color,"fake_pumpkin",boundary);
     this.speedMultiplier = 0;
 	this.isEnemy=false;
 	this.image=$31e8cfefa331e399$var$images["entities/pumpkin_off"];
@@ -3424,7 +3388,7 @@ class FlashlightSpawner extends SimulatorEntity{
 }
 class LiquidEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,player_detection_radius,boundary){
-    super(x,y,radius,speed,angle,"#6789ef","liquid",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.liquid_enemy.color,"liquid",boundary);
     this.player_detection_radius = player_detection_radius;
   }
   update(delta) {
@@ -3462,7 +3426,7 @@ class LiquidEnemy extends Enemy{
 
 class SwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,switch_inverval,boundary){
-    super(x,y,radius,speed,angle,"#565656","switch",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.switch_enemy.color,"switch",boundary);
     this.switch_inverval = switch_inverval;
     this.disabled = false;
     if (Math.round(Math.random()) === 1) {
@@ -3487,7 +3451,7 @@ class SwitchEnemy extends Enemy{
 }
 class RadiatingBulletsEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,release_interval,release_time,boundary){
-    super(x,y,radius,speed,angle,"#d3134f","radiating_bullets",boundary);
+    super(x,y,radius,speed,angle,enemyConfig.radiating_bullets_enemy.color,"radiating_bullets",boundary);
     this.release_interval = release_interval,
     this.releaseTime = release_time ?? (Math.random()*this.release_interval);
   }
@@ -3515,14 +3479,15 @@ class RadiatingBulletsProjectile extends Enemy{
     this.clock = 0;
   }
   playerInteraction(player){
-	  this.remove=EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier);
+    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier);
+    this.remove=true;
   }
   onCollide(){
-	  this.remove=true;
+    this.remove=true;
   }
   update(delta) {
     this.clock += delta;
-    if (this.clock > 3000) {
+    if (this.clock >= 3000) {
 		this.remove=true;
     }
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
@@ -3531,5 +3496,70 @@ class RadiatingBulletsProjectile extends Enemy{
     this.collision(delta);
   }
 }
-
+class SniperEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.sniper_enemy.color,"sniper",boundary);
+    this.release_interval = 3000,
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new SniperProjectile(this.x,this.y,this.radius/2,10,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class SniperProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#a05353","sniper_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
 window.warnin=false;
