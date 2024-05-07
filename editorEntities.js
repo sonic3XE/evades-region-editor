@@ -415,6 +415,7 @@ function spawnEntities(area=current_Area){
           case "immune":
           case "sniper":
           case "corrosive":
+          case "corrosive_sniper":
           case "dasher":
           case "homing":
           case "teleporting":
