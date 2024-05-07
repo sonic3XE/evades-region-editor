@@ -58,7 +58,7 @@ function spawnEntities(area=current_Area){
       var right=randZone.x+randZone.width;
       var bottom=randZone.y+randZone.height;
       var top=randZone.y;
-      var pellet=new PelletEntity(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,{left:boundary.left,right:boundary.right,bottom:boundary.bottom,top:boundary.top,width:boundary.width,height:boundary.height});
+      var pellet=new PelletEntity(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary);
       pellet.collision();
       map.areas[area].entities.push(pellet);
     }
@@ -105,6 +105,10 @@ function spawnEntities(area=current_Area){
         switch(activeZone.spawner[i].types[randType].i){
           default:
 			try{
+				map.unknownEntities??=[];
+				map.unknownEntities.indexOf(activeZone.spawner[i].types[randType].i)==-1&&(
+				map.unknownEntities.push(activeZone.spawner[i].types[randType].i),console.warn("Unknown enemy in "+map.name+": "+activeZone.spawner[i].types[randType].i),customAlert("Unknown enemy in "+map.name+": "+activeZone.spawner[i].types[randType].i,5,"#FF0")
+				)
             entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].color,radius,activeZone.spawner[i].types[randType].i,activeZone.spawner[i].speed,activeZone.spawner[i].angle,activeZone.spawner[i][`${activeZone.spawner[i].types[randType].i}_radius`]??defaultValues.spawner[`${activeZone.spawner[i].types[randType].i}_radius`],auraColor,{left,right,bottom,top,width:activeZone.width,height:activeZone.height});entity.isEnemy=true
 			}catch(e){
           entity=new NormalEnemy(
@@ -2469,8 +2473,8 @@ class PelletEntity extends SimulatorEntity{
     var sum=victoryZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
       var rand=Math.random()*sum;
       var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
-this.x=Math.random()*(randZone.width-16)+randZone.x+8;
-this.y=Math.random()*(randZone.height-16)+randZone.y+8;
+	  this.x=Math.random()*(randZone.width-16)+randZone.x+8;
+	  this.y=Math.random()*(randZone.height-16)+randZone.y+8;
       player.experience+=Math.floor(1+player.area/3)*map.properties.pellet_multiplier;
       if(player.experience>=player.nextLevelExperience){
 		if(player.level >= map.properties.max_level){
