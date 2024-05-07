@@ -3489,15 +3489,15 @@ class RadiatingBulletsEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,release_interval,release_time,boundary){
     super(x,y,radius,speed,angle,"#d3134f","radiating_bullets",boundary);
     this.release_interval = release_interval,
-    this.clock = release_time ?? (Math.random()*this.release_interval);
+    this.releaseTime = release_time ?? (Math.random()*this.release_interval);
   }
   update(delta,area) {
-    this.clock += delta;
-    if (this.clock >= this.release_interval) {
+    this.releaseTime += delta;
+    if (this.releaseTime >= this.release_interval) {
 		for(var i=0;i<8;i++){
 			area.entities.push(new RadiatingBulletsProjectile(this.x,this.y,8,8,45*i,this.boundary))
 		}
-		this.clock = this.clock % this.release_interval;
+		this.releaseTime = this.releaseTime % this.release_interval;
     }
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
