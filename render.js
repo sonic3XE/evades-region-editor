@@ -257,7 +257,7 @@ else {
   input.isMouse=false;
   if(!dosandbox.checked){
   (realTime.checked&&isActive)&&(controlPlayer(selfId,input,1e3/30*(ti>(1e3/30-delta/2))),
-  map.players.map(e=>{e.update(1e3/30*(ti>(1e3/30-delta/2)))}),map.areas[current_Area].entities.map(e=>e.update(1e3/30*(ti>(1e3/30-delta/2)))),
+  map.players.map(e=>{e.update(1e3/30*(ti>(1e3/30-delta/2)))}),map.areas[current_Area].entities.map(e=>e.update(1e3/30*(ti>(1e3/30-delta/2)),map.areas[current_Area])),
   ti>(1e3/30-delta/2) && (ti=0)
   );
   }else if(isActive&&realTime.checked){
