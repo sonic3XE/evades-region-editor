@@ -145,6 +145,7 @@ spawnEntities(current_Area)}
 else {
   camX=selfPlayer.x;
   camY=selfPlayer.y;
+  selfPlayer.isLocalPlayer=true;
   current_Area=selfPlayer.area;
   camScale=Math.min(window.innerHeight/720,window.innerWidth/1280);
 }
@@ -193,77 +194,26 @@ else {
   ctxE.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
+  var actually=(dosandbox.checked ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
+  ti>(1e3/30-delta/2) && (ti=0);
   map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
+  var entities=[...map.areas[current_Area].entities,...map.players];
   try{
-  map.areas[current_Area].entities.map(e=>{
-	e.render(ctxE,ctxL,delta,"aura");
-	e.render(ctxE,ctxL,delta,0);
+  entities.map(e=>{
+	e.renderEffects(ctxE,ctxL,actually);
   });
-  map.players.map(e=>{e.render(ctxE,ctxL,delta)});
-  for (let k in map.areas[current_Area].assets) {
-    switch (map.areas[current_Area].assets[k].type) {
-      case "wall": {
-        if(!zoneconsts[map.areas[current_Area].assets[k].texture])break;
-        var q = ctxE.createPattern(zoneconsts[map.areas[current_Area].assets[k].texture].active, null)
-        ctxE.save();
-        ctxE.beginPath();
-        ctxE.translate(map.areas[current_Area].assets[k].x,map.areas[current_Area].assets[k].y);
-        ctxE.fillStyle = ((tileMode.selectedIndex&1)&&map.areas[current_Area].assets[k].texture=="normal")?zoneColors[tileMode.selectedIndex>>1].active:q;
-        ctxE.rect(
-          0,
-          0,
-          map.areas[current_Area].assets[k].width,
-          map.areas[current_Area].assets[k].height
-        );
-        ctxE.fill();
-        ctxE.restore();
-        ctxE.closePath();
-        break;
-      }
-      case "light_region": {
-        var m = canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX + map.areas[current_Area].assets[k].width / 2) * camScale
-          , b = canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY + map.areas[current_Area].assets[k].height / 2) * camScale
-          , w = Math.max(map.areas[current_Area].assets[k].width, map.areas[current_Area].assets[k].height) / 2 * camScale
-          , I = ctxL.createRadialGradient(m, b, 0, m, b, w);
-        I.addColorStop(0, "rgba(0, 0, 0, 1)");
-        I.addColorStop(1, "rgba(0, 0, 0, 0)");
-        ctxL.fillStyle = I;
-        ctxL.fillRect(
-          canvas.width / 2 + (map.areas[current_Area].assets[k].x - camX) * camScale - w / 2, 
-          canvas.height / 2 + (map.areas[current_Area].assets[k].y - camY) * camScale - w / 2, 
-          (map.areas[current_Area].assets[k].width * camScale + w), 
-          (map.areas[current_Area].assets[k].height * camScale + w)
-        );
-        break;
-      }
-      case "gate": {
-        ctxE.drawImage(
-          tileMap,646,2,134,598,
-          map.areas[current_Area].assets[k].x,
-          map.areas[current_Area].assets[k].y,
-          map.areas[current_Area].assets[k].width,
-          map.areas[current_Area].assets[k].height
-        );
-        break;
-      }
-    }
-  }
-  map.areas[current_Area].entities.map(e=>{
-	e.render(ctxE,ctxL,delta,1)
+  entities.map(e=>{
+	e.render(ctxE,ctxL,actually);
   });
+  
   const input={};
   input.keys=keysDown;
   input.mouse={x:0,y:0};
   input.isMouse=false;
-  if(!dosandbox.checked){
-  (realTime.checked&&isActive)&&(controlPlayer(selfId,input,1e3/30*(ti>(1e3/30-delta/2))),
-  map.players.map(e=>{e.update(1e3/30*(ti>(1e3/30-delta/2)))}),map.areas[current_Area].entities.map(e=>e.update(1e3/30*(ti>(1e3/30-delta/2)),map.areas[current_Area])),
-  ti>(1e3/30-delta/2) && (ti=0)
-  );
-  }else if(isActive&&realTime.checked){
-  controlPlayer(selfId,input,delta),
-  map.players.map(e=>{e.update(delta)}),
-  map.areas[current_Area].entities.map(e=>e.update(delta,map.areas[current_Area]));
+  if(realTime.checked){
+  controlPlayer(selfId,input,actually),
+  map.players.map(e=>{e.update(actually)}),
+  map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area]))
   }
   }catch(e){throw errorFX.play(),e}
   var enemyError=false;
@@ -510,8 +460,8 @@ if(playtesting){
   //ExperienceBar Renderer  
   evadesRenderer.experienceBar.render(ctx,{viewportSize:canvas},{});
   evadesRenderer.bottomText.render(ctx,{viewportSize:canvas},{});
-  evadesRenderer.heroInfoCard.render(ctx,{viewportSize:canvas},{},delta);
-  evadesRenderer.minimap.render(ctx,delta);
+  evadesRenderer.heroInfoCard.render(ctx,{viewportSize:canvas},{},actually);
+  evadesRenderer.minimap.render(ctx,actually);
   evadesRenderer.map.render(ctx,{viewportSize:canvas},{});
   evadesRenderer.areaInfo.render(ctx,{viewportSize:canvas},{});
 }

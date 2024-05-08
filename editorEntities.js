@@ -45,6 +45,17 @@ function spawnEntities(area=current_Area){
   map.areas[area].assets.filter(e=>e.type=="torch").map(e=>{
 	 map.areas[area].entities.push(new Torch(e.x,e.y,e.upside_down))
   })
+  map.areas[area].assets.filter(e=>e.type=="light_region").map(e=>{
+	 map.areas[area].entities.push(new LightRegion(e.x,e.y,e.width,e.height))
+  })
+  map.areas[area].assets.filter(e=>e.type=="wall").map(e=>{
+	 map.areas[area].entities.push(new Wall(e.x,e.y,e.width,e.height,e.texture))
+  })
+  //Don't spawn gate entities since it is removed from the game.
+  //map.areas[area].assets.filter(e=>e.type=="gate").map(e=>{
+  //  map.areas[area].entities.push(new Gate(e.x,e.y,e.width,e.height))
+  //})
+		
   if(victoryZones.length){
     var areaofzone=victoryZones.map(e=>e.width*e.height);
     for(var it in areaofzone){
@@ -490,13 +501,14 @@ class SimulatedPlayer{
     this.x=x;
     this.y=y;
 this.onTele=true;
+this.effects=[];
 this.oldPos={x:this.x,y:this.y};
 this.previousPos={x:this.x,y:this.y};
     this.velX=0;
+	this.isPlayer=true;
     this.heroType=0;
     this.velY=0;
     this.level=1;
-	this.effects=[];
     this.nextLevelExperience=4;
     this.tempNextExperience=4;
     this.tempPrevExperience=0;
@@ -1269,22 +1281,28 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 		let area=map.areas[this.area];
       this.safeZone = true;
       this.minimum_speed = 1;
-      this.touchingActiveZone=false;
-      var onTele=false;
+      this.pointInActiveZone=false;
       for(var i in area.zones){
         var zone = area.zones[i];
-        if(zone.type == "active"||(zone.type=="safe"&&zone.properties.minimum_speed)){
-          var rect1 = {x:this.x,y:this.y,width:this.radius, height:this.radius};
-          var rect2 = {x:zone.x, y:zone.y, width:zone.width+this.radius, height:zone.height+this.radius}
-          if (rect1.x < rect2.x + rect2.width &&
-            rect1.x + rect1.width > rect2.x &&
-            rect1.y < rect2.y + rect2.height &&
-            rect1.y + rect1.height > rect2.y) {
-              if(zone.type=="active")this.safeZone=false;
-              this.minimum_speed=zone.minimum_speed;
+        var rect1 = {x:this.x,y:this.y,width:this.radius, height:this.radius};
+        var rect2 = {x:zone.x,y:zone.y,width:zone.width, height:zone.height}
+        if (rect1.x - this.radius < rect2.x + rect2.width &&
+            rect1.x + this.radius > rect2.x &&
+            rect1.y - this.radius < rect2.y + rect2.height &&
+            rect1.y + this.radius > rect2.y) {
+            if(zone.type=="active")this.safeZone=false;
+        }
+        if (rect1.x < rect2.x + rect2.width &&
+          rect1.x > rect2.x &&
+          rect1.y < rect2.y + rect2.height &&
+          rect1.y > rect2.y) {
+          if(zone.type=="active")this.pointInActiveZone=true;
+          if(zone.properties.minimum_speed){
+            this.minimum_speed=zone.properties.minimum_speed;
           }
         }
       }
+      var onTele=false;
       this.speedMultiplier = 1;
       if(this.collides&&this.slippery){
         this.d_x*=2;
@@ -1330,9 +1348,9 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       }
 
       if(this.mortarTime>0){this.speedMultiplier = 0;}
-      if(this.minimum_speed>this.speed+this.speedAdditioner){this.speed=this.minimum_speed}
+      if(this.minimum_speed>this.statSpeed+this.speedAdditioner){this.statSpeed=this.minimum_speed}
         if(this.className == "Cent"){
-          this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
+          this.distance_movement = (this.statSpeed*this.speedMultiplier)+this.speedAdditioner;
           this.cent_max_distance = this.distance_movement*2;
           if(this.cent_is_moving){
             if(this.cent_accelerating){
@@ -1380,7 +1398,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 	map.properties?.partial_magnetism||
 	map.areas[this.area].properties?.magnetism||
 	map.areas[this.area].properties?.partial_magnetism
-	)&&!this.safeZone){
+	)&&this.pointInActiveZone){
 		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
       var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):10)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
       if(this.magnetDirection.toLowerCase() == "down"){this.y += (magneticSpeed+this.dy*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
@@ -1506,7 +1524,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     var yaxis = (this.velY>=0)?1:-1;
     if(!isMagnet){magneticSpeed*=yaxis;}
     if(this.magnetDirection.toLowerCase() == "up"){magneticSpeed=-magneticSpeed}
-    if((isMagnet||this.vertSpeed != -1)&&!this.safeZone){vel = {x:this.velX, y:this.velY*this.magneticNullification};}
+    if((isMagnet||this.vertSpeed != -1)&&this.pointInActiveZone){vel = {x:this.velX, y:this.velY*this.magneticNullification};}
     else{vel = {x:this.velX, y:this.velY};}
     this.vertSpeed = -1;
 	this.magneticReduction=false;
@@ -1576,6 +1594,37 @@ this.collides=this.collision();
     if(this.deathTimer<=delta&&this.deathTimer>=0){
       map.players.splice(map.players.indexOf(this));
     }
+	}
+	renderEffects(e,ctxL,delta){
+        var rt = ctxL.createRadialGradient(
+          canvas.width / 2 + (this.x - camX) * camScale, 
+          canvas.height / 2 + (this.y - camY) * camScale, 0, 
+          canvas.width / 2 + (this.x - camX) * camScale, 
+          canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
+          rt.addColorStop(0, "rgba(0, 0, 0, 1)"),
+          rt.addColorStop(1, "rgba(0, 0, 0, 0)"),
+          ctxL.beginPath(),
+          ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
+          ctxL.fillStyle = rt,
+          ctxL.closePath(),
+          ctxL.fill()
+		  if(this.flashlight){
+			var ds = ctxL.createRadialGradient(
+			  canvas.width / 2 + (this.x - camX) * camScale, 
+			  canvas.height / 2 + (this.y - camY) * camScale,0, 
+			  canvas.width / 2 + (this.x - camX) * camScale, 
+			  canvas.height / 2 + (this.y - camY) * camScale,
+			  flashlightLightSource.distance * camScale);
+			ds.addColorStop(0, "rgba(0, 0, 0, 1)"),
+			ds.addColorStop(1, "rgba(0, 0, 0, 0)"),
+			ctxL.beginPath(),
+			ctxL.moveTo(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale),
+			ctxL.lineTo(canvas.width / 2 + (this.x - camX) * camScale + flashlightLightSource.distance * Math.cos(this.lastAngle*Math.PI/180 - flashlightLightSource.innerAngle / 2) * camScale, canvas.height / 2 + (this.y - camY) * camScale + flashlightLightSource.distance * Math.sin(this.lastAngle*Math.PI/180 - flashlightLightSource.innerAngle / 2) * camScale),
+			ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, flashlightLightSource.distance * camScale, flashlightLightSource.directionAngle - flashlightLightSource.innerAngle / 2, flashlightLightSource.directionAngle + flashlightLightSource.innerAngle / 2, !1),
+			ctxL.lineTo(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale),
+			ctxL.fillStyle = ds,
+			ctxL.closePath(),
+		  ctxL.fill()}
 	}
 	render(e,ctxL,delta) {
 		const a = {x:0,y:0};
@@ -1787,35 +1836,6 @@ this.collides=this.collision();
 		e.textAlign = "center",
 		e.fillStyle = "red",
 		e.fillText((this.deathTimer / 1e3).toFixed(0), t, r + 6))
-        var rt = ctxL.createRadialGradient(
-          canvas.width / 2 + (this.x - camX) * camScale, 
-          canvas.height / 2 + (this.y - camY) * camScale, 0, 
-          canvas.width / 2 + (this.x - camX) * camScale, 
-          canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
-          rt.addColorStop(0, "rgba(0, 0, 0, 1)"),
-          rt.addColorStop(1, "rgba(0, 0, 0, 0)"),
-          ctxL.beginPath(),
-          ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
-          ctxL.fillStyle = rt,
-          ctxL.closePath(),
-          ctxL.fill()
-		  if(this.flashlight){
-			var ds = ctxL.createRadialGradient(
-			  canvas.width / 2 + (this.x - camX) * camScale, 
-			  canvas.height / 2 + (this.y - camY) * camScale,0, 
-			  canvas.width / 2 + (this.x - camX) * camScale, 
-			  canvas.height / 2 + (this.y - camY) * camScale,
-			  flashlightLightSource.distance * camScale);
-			ds.addColorStop(0, "rgba(0, 0, 0, 1)"),
-			ds.addColorStop(1, "rgba(0, 0, 0, 0)"),
-			ctxL.beginPath(),
-			ctxL.moveTo(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale),
-			ctxL.lineTo(canvas.width / 2 + (this.x - camX) * camScale + flashlightLightSource.distance * Math.cos(this.lastAngle*Math.PI/180 - flashlightLightSource.innerAngle / 2) * camScale, canvas.height / 2 + (this.y - camY) * camScale + flashlightLightSource.distance * Math.sin(this.lastAngle*Math.PI/180 - flashlightLightSource.innerAngle / 2) * camScale),
-			ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, flashlightLightSource.distance * camScale, flashlightLightSource.directionAngle - flashlightLightSource.innerAngle / 2, flashlightLightSource.directionAngle + flashlightLightSource.innerAngle / 2, !1),
-			ctxL.lineTo(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale),
-			ctxL.fillStyle = ds,
-			ctxL.closePath(),
-		  ctxL.fill()}
 	}
 	renderIcedEffect(e, a, t) {
 		if (!this.isIced)
@@ -2275,17 +2295,27 @@ class SimulatorEntity{
   renderExtra(e, ctxL){
 
   }
+  renderEffects(e,ctxL,delta){
+	e.beginPath();
+	e.fillStyle=this.auraColor;
+	e.arc(this.x,this.y,this.auraRadius,0,Math.PI*2,!1);
+	e.fill();
+	e.closePath();
+    var r = ctxL.createRadialGradient(
+    canvas.width / 2 + (this.x - camX) * camScale, 
+    canvas.height / 2 + (this.y - camY) * camScale, 0, 
+    canvas.width / 2 + (this.x - camX) * camScale, 
+    canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
+    r.addColorStop(0, "rgba(0, 0, 0, 1)"),
+    r.addColorStop(1, "rgba(0, 0, 0, 0)"),
+    ctxL.beginPath(),
+    ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
+    ctxL.fillStyle = r,
+    ctxL.closePath(),
+    ctxL.fill();
+  }
   render(e,ctxL,delta,renderType) {
     var a={x:0,y:0};
-	if(renderType=="aura"){
-		e.beginPath();
-		e.fillStyle=this.auraColor;
-		e.arc(this.x,this.y,this.auraRadius,0,Math.PI*2,!1);
-		e.fill();
-		e.closePath();
-		return;
-	}
-	if(renderType!=this.renderFirst){
     if (this.isHarmless && !this.isDestroyed && (e.globalAlpha = .4),
     this.duration < 500 && (e.globalAlpha = Math.min(e.globalAlpha, this.duration / 500)),
     this.grassTime < 1e3 ? e.globalAlpha = Math.max(.4, this.grassTime / 1e3) : 1e3 === this.grassTime && this.grassHarmless && (e.globalAlpha = .4),
@@ -2350,21 +2380,9 @@ class SimulatorEntity{
                                e.closePath()
                              }
                              e.globalAlpha = 1
-        var r = ctxL.createRadialGradient(
-        canvas.width / 2 + (this.x - camX) * camScale, 
-        canvas.height / 2 + (this.y - camY) * camScale, 0, 
-        canvas.width / 2 + (this.x - camX) * camScale, 
-        canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
-        r.addColorStop(0, "rgba(0, 0, 0, 1)"),
-        r.addColorStop(1, "rgba(0, 0, 0, 0)"),
-        ctxL.beginPath(),
-        ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
-        ctxL.fillStyle = r,
-        ctxL.closePath(),
-        ctxL.fill()
     this.decayed=false;
     this.renderExtra(e,ctxL);
-  }}
+  }
 }
 //UTILS
 function modulus(x,y){
@@ -2851,31 +2869,6 @@ class QuicksandEnemy extends Enemy{
   }
 }
 
-class RiptideEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.riptide_enemy.color,"riptide",boundary,auraColors.riptide,aura_radius);
-  }
-  auraEffect(player,delta){
-    //add later
-  }
-}
-class SwampEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.swamp_enemy.color,"swamp",boundary,auraColors.swamp,aura_radius);
-  }
-  auraEffect(player,delta){
-    //add later
-  }
-}
-
-class DrowningEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.drowning_enemy.color,"drowning",boundary,auraColors.drowning,aura_radius);
-  }
-  auraEffect(player,delta){
-    //add later
-  }
-}
 class HomingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.homing_enemy.color,"homing",boundary);
@@ -3030,58 +3023,6 @@ class DasherEnemy extends Enemy{
     this.velangle();
   }
 }
-
-
-class RotorEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,rotor_branch_count = 2,rotor_node_count = 2,rotor_node_radius = 16,rotor_rot_speed = 5,rotor_reversed = false,rotor_branch_offset = 0, rotor_node_dist = 0, rotor_branch_dist = 0, rotor_offset_per_layer = 0, rotor_layer_reverse_interval = 0, rotor_corrosive = false, boundary){
-    super(x,y,radius,speed,angle,"#4d6f2b","rotor",boundary);
-    this.branch_count = rotor_branch_count;
-    this.node_count = rotor_node_count;
-    this.node_radius = rotor_node_radius;
-    this.rot_speed = rotor_rot_speed;
-    this.reverse = rotor_reversed ? -1 : 1;
-    this.branch_offset = rotor_branch_offset; 
-    this.node_dist = rotor_node_dist; 
-    this.branch_dist = rotor_branch_dist; 
-    this.offset_per_layer = rotor_offset_per_layer; 
-    this.layer_reverse_interval = rotor_layer_reverse_interval;
-    this.corrosive = rotor_corrosive;
-    this.rotation = this.branch_offset;
-    this.angle_btwn_branches = 360 / this.branch_count;
-  }
-  renderExtra(e, ctxL){
-    if (this.node_count * this.branch_count > 300){
-      console.warn("rotor enemy over 300 nodes. nodes will not be rendered.")
-      return;
-    }
-    for (var l = 0; l < this.node_count; l++){
-      for (var n = 0; n < this.branch_count; n++){
-        var dist_from_center = l * (this.node_radius * 2) + this.radius + (this.branch_dist * 2) + (this.node_dist * l * 2) + this.node_radius;
-        var branch_angle = this.angle_btwn_branches * n + (l % ((this.layer_reverse_interval) * 2) < this.layer_reverse_interval ? -this.rotation : this.rotation) + this.offset_per_layer * l;
-        var nodeX = dist_from_center * Math.cos(branch_angle * (Math.PI/180));
-        var nodeY = dist_from_center * Math.sin(branch_angle * (Math.PI/180));
-        this.renderNode(nodeX, nodeY, e);
-      } 
-    }
-  }
-  renderNode(offx, offy, e){
-    e.beginPath(),
-    e.arc(this.x + offx, this.y + offy, this.node_radius, 0, 2 * Math.PI, !1),
-    e.fillStyle = "rgba(49, 83, 21, 1)",
-    e.fill(),
-    e.lineWidth = 2,
-    e.strokeStyle = "black",
-    e.stroke(),
-    e.closePath()
-  }
-  update(delta){
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier=1;
-    this.collision(delta);
-    this.rotation += this.reverse * (delta / 60 / (1000 / 60)) * this.rot_speed * 15;
-  }
-}
 class TeleportingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.teleporting_enemy.color,"teleporting",boundary);
@@ -3101,7 +3042,6 @@ class TeleportingEnemy extends Enemy{
     this.collision(delta);
   }
 }
-
 class StarEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.star_enemy.color,"star",boundary);
@@ -3125,7 +3065,6 @@ class StarEnemy extends Enemy{
     this.collision(delta);
   }
 }
-
 class OscillatingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.oscillating_enemy.color,"oscillating",boundary);
@@ -3144,7 +3083,37 @@ class OscillatingEnemy extends Enemy{
     this.collision(delta);
   }
 }
-
+function renderSortedEntities(e) {
+		const t = this.sortEntitiesByZIndex(Object.values(e.entities));
+		renderEntities(t)
+	}
+	var $ccc1645057c0c20e$export$18da14ab4d863bec={"0":13,"1":3,"2":175,"3":55,"4":60,"5":56,"6":62,"7":57,"8":66,"9":59,"10":68,"11":61,"12":65,"13":58,"14":67,"15":69,"16":70,"17":71,"18":72,"19":73,"20":74,"21":75,"22":76,"23":77,"24":78,"25":79,"26":63,"27":64,"28":80,"29":81,"30":82,"31":86,"32":83,"33":84,"34":85,"35":87,"36":88,"37":89,"38":90,"39":91,"40":92,"41":93,"42":94,"43":95,"44":134,"45":135,"46":39,"47":40,"48":41,"49":42,"50":43,"51":96,"52":97,"53":44,"54":45,"55":98,"56":46,"57":99,"58":47,"59":48,"60":49,"61":50,"62":51,"63":52,"64":101,"65":102,"66":103,"67":104,"68":105,"69":112,"70":113,"71":114,"72":115,"73":116,"74":117,"75":118,"76":53,"77":54,"78":119,"79":120,"80":106,"82":108,"83":109,"84":110,"85":111,"86":121,"87":122,"88":123,"89":124,"90":125,"91":126,"92":127,"93":128,"94":129,"95":130,"96":131,"97":132,"98":133,"99":16,"100":14,"101":15,"102":136,"103":137,"104":17,"105":138,"106":20,"107":139,"108":140,"109":141,"110":142,"111":145,"112":146,"113":18,"114":4,"115":19,"116":21,"117":143,"118":144,"119":22,"120":7,"121":147,"122":148,"123":149,"124":150,"125":23,"126":10,"127":8,"128":9,"129":100,"130":38,"131":24,"132":25,"133":151,"134":152,"135":153,"136":154,"137":155,"138":156,"139":157,"140":158,"141":159,"142":160,"143":161,"144":162,"145":163,"146":164,"148":165,"149":166,"150":167,"151":168,"152":169,"153":170,"154":171,"155":172,"156":173,"157":174,"158":26,"159":27,"160":30,"161":31,"162":32,"163":33,"164":34,"165":35,"166":28,"167":29,"168":36,"169":37,"170":5,"171":6,"172":12,"173":11,"174":0,"175":1,"176":2};
+function renderEntities(e,ctxE) {
+		renderEntitiesEffects(e,ctxE);
+		for (const t of e)
+			t.render(ctxE, this.camera)
+	}
+function renderEntitiesEffects(e,ctxE) {
+		const t = ctxE.fillStyle;
+		for (const t of e)
+			for (const e of t.getEffectConfigs())
+				e.internal || null !== e.fillColor && (this.context.fillStyle = e.fillColor,
+				ctxE.beginPath(),
+				t.addEffectPath(this.context, this.camera, e),
+				ctxE.closePath(),
+				ctxE.fill());
+		this.context.fillStyle = t
+	}
+function sortEntitiesByZIndex(e) {
+		const t = []
+		  , a = [];
+		for (const r of e)
+			-1 === r.absoluteZIndex ? t.push(r) : a.push(r);
+		const r = (e,t)=>e.isEnemy && t.isEnemy && e.radius !== t.radius ? t.radius - e.radius : e.isPlayer && t.isPlayer && e.isLocalPlayer !== t.isLocalPlayer ? t.isLocalPlayer ? -1 : 1 : $ccc1645057c0c20e$export$18da14ab4d863bec[e.entityType] !== $ccc1645057c0c20e$export$18da14ab4d863bec[t.entityType] ? $ccc1645057c0c20e$export$18da14ab4d863bec[e.entityType] - $ccc1645057c0c20e$export$18da14ab4d863bec[t.entityType] : (e.relativeZIndex || 0) !== (t.relativeZIndex || 0) ? (e.relativeZIndex || 0) - (t.relativeZIndex || 0) : e.id - t.id;
+		return t.sort(r),
+		a.sort(r),
+		t.concat(a)
+	}
 class ZigzagEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.zigzag_enemy.color,"zigzag",boundary);
@@ -3178,7 +3147,6 @@ class ZigzagEnemy extends Enemy{
     this.collision(delta);
   }
 }
-
 class ZoningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.zoning_enemy.color,"zoning",boundary);
@@ -3204,7 +3172,6 @@ class ZoningEnemy extends Enemy{
     
   }
 }
-
 class SizingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.sizing_enemy.color,"sizing",boundary);
@@ -3231,7 +3198,6 @@ class SizingEnemy extends Enemy{
     this.collision(delta);
   }
 }
-
 class TurningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,circle_size,boundary){
     super(x,y,radius,speed,angle,enemyConfig.turning_enemy.color,"turning",boundary);
@@ -3251,7 +3217,6 @@ class TurningEnemy extends Enemy{
     this.dir *= -1; 
   }
 }
-
 class SpiralEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.spiral_enemy.color,"spiral",boundary);
@@ -3288,7 +3253,6 @@ class SpiralEnemy extends Enemy{
     this.dir *= -1; 
   }
 }
-
 class FakePumpkinEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.pumpkin_enemy.color,"fake_pumpkin",boundary);
@@ -3320,17 +3284,8 @@ class Torch extends SimulatorEntity{
 	this.height=36;
   }
   update(){}
-  render(ctx,ctxL,delta,renderType) {
-	  var tf=delta/(1e3/30)
-	if(renderType=="aura")return;
-	if(this.renderFirst==renderType)return;
-		Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
-		this.flipped ? (ctx.translate(this.x + this.width / 2, this.y + this.height / 2),
-		ctx.scale(1, -1),
-		ctx.drawImage(this.image.getImage(tf), -this.width / 2, -this.height / 2, this.width, this.height),
-		ctx.scale(1, -1),
-		ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), this.x, this.y, this.width, this.height)
-        var r = ctxL.createRadialGradient(
+  renderEffects(ctx,ctxL,delta){
+	          var r = ctxL.createRadialGradient(
         canvas.width / 2 + (this.x - camX) * camScale, 
         canvas.height / 2 + (this.y - camY) * camScale, 0, 
         canvas.width / 2 + (this.x - camX) * camScale, 
@@ -3342,6 +3297,87 @@ class Torch extends SimulatorEntity{
         ctxL.fillStyle = r,
         ctxL.closePath(),
         ctxL.fill();
+  }
+  render(ctx,ctxL,delta) {
+		ctx.imageSmoothingEnabled = false;
+	  var tf=delta/(1e3/30)
+		Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
+		this.flipped ? (ctx.translate(this.x + this.width / 2, this.y + this.height / 2),
+		ctx.scale(1, -1),
+		ctx.drawImage(this.image.getImage(tf), -this.width / 2, -this.height / 2, this.width, this.height),
+		ctx.scale(1, -1),
+		ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), this.x, this.y, this.width, this.height)
+  }
+}
+class LightRegion extends SimulatorEntity{
+  constructor(x,y,width,height){
+    super(x,y,null,null,"light_region",null,null,null,null,null);
+	this.width=width;
+	this.height=height;
+  }
+  update(){}
+  renderEffects(ctx,ctxL,delta) {
+        var m = canvas.width / 2 + (this.x - camX + this.width / 2) * camScale
+          , b = canvas.height / 2 + (this.y - camY + this.height / 2) * camScale
+          , w = Math.max(this.width, this.height) / 2 * camScale
+          , I = ctxL.createRadialGradient(m, b, 0, m, b, w);
+        I.addColorStop(0, "rgba(0, 0, 0, 1)");
+        I.addColorStop(1, "rgba(0, 0, 0, 0)");
+        ctxL.fillStyle = I;
+        ctxL.fillRect(
+          canvas.width / 2 + (this.x - camX) * camScale - w / 2, 
+          canvas.height / 2 + (this.y - camY) * camScale - w / 2, 
+          (this.width * camScale + w), 
+          (this.height * camScale + w)
+        );
+  }
+  render(ctx,ctxL,delta) {}
+}
+class Gate extends SimulatorEntity{
+  constructor(x,y,width,height){
+    super(x,y,null,null,"gate",null,null,null,null,null);
+	this.width=width;
+	this.height=height;
+  }
+  update(){}
+  render(ctx,ctxL,delta) {
+	ctx.imageSmoothingEnabled = false;
+	  ctx.drawImage(
+          tileMap,646,2,134,598,
+          this.x,
+          this.y,
+          this.width,
+          this.height
+        );
+  }
+}
+class Wall extends SimulatorEntity{
+  constructor(x,y,width,height,texture){
+    super(x,y,null,null,"wall",null,null,null,null,null);
+	this.texture=texture;
+	this.width=width;
+	this.height=height;
+  }
+  update(){}
+  render(ctx,ctxL,delta,renderType) {
+		ctx.imageSmoothingEnabled = false;
+        if(!zoneconsts[this.texture])return;
+        var q = ctx.createPattern(zoneconsts[this.texture].active, null)
+        ctx.save();
+        ctx.beginPath();
+        ctx.translate(this.x,this.y);
+        ctx.fillStyle = ((tileMode.selectedIndex&1)&&this.texture=="normal")?zoneColors[tileMode.selectedIndex>>1].active:q;
+        ctx.rect(
+          0,
+          0,
+		  this.width,
+		  this.height
+          //map.areas[current_Area].assets[k].width,
+          //map.areas[current_Area].assets[k].height
+        );
+        ctx.fill();
+        ctx.restore();
+        ctx.closePath();
   }
 }
 class FlashlightSpawner extends SimulatorEntity{
@@ -3382,7 +3418,6 @@ class FlashlightSpawner extends SimulatorEntity{
 	  }
   }
   render(ctx,ctxL,delta,renderType) {
-	if(this.renderFirst==renderType)return;
 	if(!this.isSpawned)return;
 	ctx.imageSmoothingEnabled = false;
     ctx.drawImage(this.texture.getImage(),this.x-16,this.y-8,32,16);
@@ -3425,7 +3460,6 @@ class LiquidEnemy extends Enemy{
     this.collision(delta);
   }
 }
-
 class SwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,switch_inverval,boundary){
     super(x,y,radius,speed,angle,enemyConfig.switch_enemy.color,"switch",boundary);
@@ -3661,3 +3695,77 @@ class CorrosiveSniperProjectile extends Enemy{
   }
 }
 window.warnin=false;
+class RotorEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,rotor_branch_count = 2,rotor_node_count = 2,rotor_node_radius = 16,rotor_rot_speed = 5,rotor_reversed = false,rotor_branch_offset = 0, rotor_node_dist = 0, rotor_branch_dist = 0, rotor_offset_per_layer = 0, rotor_layer_reverse_interval = 0, rotor_corrosive = false, boundary){
+    super(x,y,radius,speed,angle,"#4d6f2b","rotor",boundary);
+    this.branch_count = rotor_branch_count;
+    this.node_count = rotor_node_count;
+    this.node_radius = rotor_node_radius;
+    this.rot_speed = rotor_rot_speed;
+    this.reverse = rotor_reversed ? -1 : 1;
+    this.branch_offset = rotor_branch_offset; 
+    this.node_dist = rotor_node_dist; 
+    this.branch_dist = rotor_branch_dist; 
+    this.offset_per_layer = rotor_offset_per_layer; 
+    this.layer_reverse_interval = rotor_layer_reverse_interval;
+    this.corrosive = rotor_corrosive;
+    this.rotation = this.branch_offset;
+    this.angle_btwn_branches = 360 / this.branch_count;
+  }
+  renderExtra(e, ctxL){
+    if (this.node_count * this.branch_count > 300){
+      console.warn("rotor enemy over 300 nodes. nodes will not be rendered.")
+      return;
+    }
+    for (var l = 0; l < this.node_count; l++){
+      for (var n = 0; n < this.branch_count; n++){
+        var dist_from_center = l * (this.node_radius * 2) + this.radius + (this.branch_dist * 2) + (this.node_dist * l * 2) + this.node_radius;
+        var branch_angle = this.angle_btwn_branches * n + (l % ((this.layer_reverse_interval) * 2) < this.layer_reverse_interval ? -this.rotation : this.rotation) + this.offset_per_layer * l;
+        var nodeX = dist_from_center * Math.cos(branch_angle * (Math.PI/180));
+        var nodeY = dist_from_center * Math.sin(branch_angle * (Math.PI/180));
+        this.renderNode(nodeX, nodeY, e);
+      } 
+    }
+  }
+  renderNode(offx, offy, e){
+    e.beginPath(),
+    e.arc(this.x + offx, this.y + offy, this.node_radius, 0, 2 * Math.PI, !1),
+    e.fillStyle = "rgba(49, 83, 21, 1)",
+    e.fill(),
+    e.lineWidth = 2,
+    e.strokeStyle = "black",
+    e.stroke(),
+    e.closePath()
+  }
+  update(delta){
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	  this.speedMultiplier=1;
+    this.collision(delta);
+    this.rotation += this.reverse * (delta / 60 / (1000 / 60)) * this.rot_speed * 15;
+  }
+}
+class RiptideEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.riptide_enemy.color,"riptide",boundary,auraColors.riptide,aura_radius);
+  }
+  auraEffect(player,delta){
+    //add later
+  }
+}
+class SwampEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.swamp_enemy.color,"swamp",boundary,auraColors.swamp,aura_radius);
+  }
+  auraEffect(player,delta){
+    //add later
+  }
+}
+class DrowningEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.drowning_enemy.color,"drowning",boundary,auraColors.drowning,aura_radius);
+  }
+  auraEffect(player,delta){
+    //add later
+  }
+}
