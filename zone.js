@@ -644,7 +644,7 @@ point1.projectile_radius=undefined;
 		rotorCorrosiveInput.addEventListener("input", () => {
 			point1.rotor_corrosive = rotorCorrosiveInput.checked;spawnEntities()
 		});
-    const point2El = createFolder(formatString(curLang,"editor.property.types"), point1.types.map(e=>(customTypeGUI(e),e.element)));
+    const point2El = createFolder(formatString(curLang,"editor.property.types"), point1.types.map(e=>(customTypeGUI(e,point1),e.element)));
     const addBtn = document.createElement("button");
     const centerXbtn = document.createElement("button");
     const centerYbtn = document.createElement("button");
