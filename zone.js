@@ -655,6 +655,7 @@ point1.projectile_radius=undefined;
     addBtn.addEventListener("click", () => {
         let point3 = createpoint2(void 0,point1);
         point1.types.push(point3);
+		customTypeGUI(point3,point1);
         point2El.children[1].appendChild(point3.element);
         point2El.classList.remove("min");
       spawnEntities()
