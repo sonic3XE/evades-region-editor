@@ -3782,8 +3782,8 @@ class RegenSniperProjectile extends Enemy{
   }
   playerInteraction(player){
     this.remove=true;
-    player.regen-=this.regen_loss;
-    player.regen=Math.max(1,player.regen);
+    player.energyRegen-=this.regen_loss;
+    player.energyRegen=Math.max(1,player.energyRegen);
   }
   onCollide(){
     this.remove=true;
