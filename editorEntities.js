@@ -460,6 +460,10 @@ function spawnEntities(area=current_Area){
           case "regen_ghost":
           case "disabling_ghost":
           case "ice_sniper":
+          case "positive_magnetic_sniper":
+          case "negative_magnetic_sniper":
+          case "positive_magnetic_ghost":
+          case "negative_magnetic_ghost":
           case "corrosive":
           case "corrosive_sniper":
           case "dasher":
@@ -2859,6 +2863,56 @@ class RepellingEnemy extends Enemy{
     }
   }
 }
+class PositiveMagneticGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.positive_magnetic_ghost_enemy.color,"positive_magnetic_ghost",boundary);
+	this.isHarmless=true;
+	this.immune=true;
+	this.disabled=true;
+  }
+  playerInteraction(player){
+	if(player.magnetDirection=="DOWN"){
+		player.magnetDirection="UP";
+		if(player.abilityOne.abilityType==98){
+			player.abilityOne.abilityType=99;
+			player.abilityOne.name=abilityConfig[player.abilityOne.abilityType].name;
+		};
+		if(player.abilityTwo.abilityType==98){
+			player.abilityTwo.abilityType=99;
+			player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
+		};
+		if(player.abilityThree.abilityType==98){
+			player.abilityThree.abilityType=99;
+			player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+		};
+	}
+  }
+}
+class NegativeMagneticGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.negative_magnetic_ghost_enemy.color,"negative_magnetic_ghost",boundary);
+	this.isHarmless=true;
+	this.immune=true;
+	this.disabled=true;
+  }
+  playerInteraction(player){
+	if(player.magnetDirection=="UP"){
+		player.magnetDirection="DOWN";
+		if(player.abilityOne.abilityType==99){
+			player.abilityOne.abilityType=98;
+			player.abilityOne.name=abilityConfig[player.abilityOne.abilityType].name;
+		};
+		if(player.abilityTwo.abilityType==99){
+			player.abilityTwo.abilityType=98;
+			player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
+		};
+		if(player.abilityThree.abilityType==99){
+			player.abilityThree.abilityType=98;
+			player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+		};
+	}
+  }
+}
 class DisablingGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.disabling_ghost_enemy.color,"disabling_ghost",boundary);
@@ -3964,6 +4018,172 @@ class CorrosiveSniperProjectile extends Enemy{
     super(x,y,radius,speed,angle,"#61ff61","corrosive_sniper_projectile",boundary);
 	this.corrosive=true;
     this.clock = 0;
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class PositiveMagneticSniperEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.positive_magnetic_sniper_enemy.color,"positive_magnetic_sniper",boundary);
+    this.release_interval = 3000;
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new PositiveMagneticSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class PositiveMagneticSniperProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#e3001e","positive_magnetic_sniper_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+  }
+  playerInteraction(player){
+    this.remove=true;
+	if(player.magnetDirection=="DOWN"){
+		player.magnetDirection="UP";
+		if(player.abilityOne.abilityType==98){
+			player.abilityOne.abilityType=99;
+			player.abilityOne.name=abilityConfig[player.abilityOne.abilityType].name;
+		};
+		if(player.abilityTwo.abilityType==98){
+			player.abilityTwo.abilityType=99;
+			player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
+		};
+		if(player.abilityThree.abilityType==98){
+			player.abilityThree.abilityType=99;
+			player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+		};
+	}
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class NegativeMagneticSniperEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.negative_magnetic_sniper_enemy.color,"negative_magnetic_sniper",boundary);
+    this.release_interval = 3000;
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new NegativeMagneticSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class NegativeMagneticSniperProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#6f59ff","negative_magnetic_sniper_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+  }
+  playerInteraction(player){
+    this.remove=true;
+    player.magnetDirection="DOWN";
+	if(player.abilityOne.abilityType==99){
+		player.abilityOne.abilityType=98;
+		player.abilityOne.name=abilityConfig[player.abilityOne.abilityType].name;
+	};
+	if(player.abilityTwo.abilityType==99){
+		player.abilityTwo.abilityType=98;
+		player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
+	};
+	if(player.abilityThree.abilityType==99){
+		player.abilityThree.abilityType=98;
+		player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+	};
   }
   onCollide(){
     this.remove=true;
