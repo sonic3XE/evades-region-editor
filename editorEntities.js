@@ -460,6 +460,8 @@ function spawnEntities(area=current_Area){
           case "regen_ghost":
           case "disabling_ghost":
           case "ice_sniper":
+          case "poison_sniper":
+          case "poison_ghost":
           case "positive_magnetic_sniper":
           case "negative_magnetic_sniper":
           case "positive_magnetic_ghost":
@@ -566,9 +568,9 @@ this.sugarRushActivated=false;
 this.sweetToothConsumed=false;
 this.isObscured=false;
 this.isPoisoned=false;
-this.poisonedTime=0;
+this.poisonedTime=1000;
 this.nightDuration=0;
-this.poisonedTimeLeft=0;
+this.poisonedTimeLeft=1000;
 this.crumbledInvulnerability=false;
 this.crumbledTime=1000;
 this.crumbledTimeLeft=1000;
@@ -1167,7 +1169,7 @@ input.keys.has(controls.RIGHT[1]))) {
           this.speedMultiplier *= 0.5;
           this.speedAdditioner *= 0.5;
         }
-        if (this.poison) {
+        if (this.isPoisoned) {
           this.speedMultiplier *= 3;
         }
         if (this.fusion) {
@@ -1327,9 +1329,13 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
         this.d_y/=2;
         this.collidedPrev = false;
       }
-      if (this.poison) {
-        this.poisonTime += delta;
+      if (this.isPoisoned) {
+        this.poisonedTimeLeft -= delta;
         this.speedMultiplier *= 3;
+      }
+      if (this.poisonedTimeLeft <= 0) {
+        this.isPoisoned = false;
+        this.poisonedTimeLeft = 1000;
       }
       if (this.fusion) {
         this.speedMultiplier *= 0.7;
@@ -1337,10 +1343,6 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       if (this.className!="Cent"&&this.shift == 2) {
         this.speedMultiplier *= 0.5;
         this.speedAdditioner *= 0.5;
-      }
-      if (this.poisonTime >= this.poisonTimeLeft) {
-        this.poison = false;
-        this.poisonTimeLeft = 0;
       }
       if (this.slowing) {
         this.speedMultiplier *= (1-this.effectImmune*(1-0.7))*this.effectReplayer;
@@ -2939,6 +2941,20 @@ class SpeedGhostEnemy extends Enemy{
 	}
   }
 }
+class PoisonGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.poison_ghost_enemy.color,"poison_ghost",boundary);
+	this.isHarmless=true;
+	this.immune=true;
+	this.disabled=true;
+  }
+  playerInteraction(player){
+	if(!player.isPoisoned){
+	  player.isPoisoned=true;
+	  player.poisonedTimeLeft=150;
+	}
+  }
+}
 class RegenGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.regen_ghost_enemy.color,"regen_ghost",boundary);
@@ -3805,6 +3821,76 @@ class IceSniperProjectile extends Enemy{
   playerInteraction(player){
 	  player.isIced=true;
 	  player.icedTimeLeft=1000;
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class PoisonSniperEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.poison_sniper_enemy.color,"poison_sniper",boundary);
+    this.release_interval = 3000,
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new PoisonSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class PoisonSniperProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#590174","poison_sniper_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+  }
+  playerInteraction(player){
+	  player.isPoisoned=true;
+	  player.poisonedTimeLeft=1000;
   }
   onCollide(){
     this.remove=true;
