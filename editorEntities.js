@@ -447,6 +447,7 @@ function spawnEntities(area=current_Area){
           case "wavy":
           case "immune":
           case "sniper":
+          case "ice_sniper":
           case "corrosive":
           case "corrosive_sniper":
           case "dasher":
@@ -1431,13 +1432,13 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     this.radius *= this.radiusMultiplier;
     this.radiusMultiplier = 1;
     this.radiusAdditioner = 0;
-    this.wasFrozen = this.frozen;
-    if (this.frozen) {
-      this.frozenTime += delta;
+    this.wasFrozen = this.isIced;
+    if (this.isIced) {
+      this.icedTimeLeft -= delta;
     }
-    if (this.frozenTime >= this.frozenTimeLeft) {
-      this.frozen = false;
-      this.frozenTimeLeft = 0;
+    if (this.icedTimeLeft <= 0) {
+      this.isIced = false;
+      this.icedTimeLeft = 1000;
     }
 
     if(this.speedghost){
@@ -1552,10 +1553,10 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 	this.magneticReduction=false;
 	this.magneticNullification=false;
     if (!this.wasFrozen&&!this.isDowned()) {
-      this.x += vel.x* timeFix;
+      this.x += vel.x * timeFix;
       this.y += vel.y * timeFix;
     }
-    if(this.frozen&&isMagnet){this.y += vel.y * timeFix;}
+    if(this.isIced&&isMagnet){this.y += vel.y * timeFix;}
     this.speedMultiplier = 1;
     this.speedAdditioner = 0;
     this.regenAdditioner = 0;
@@ -3633,6 +3634,76 @@ class SniperProjectile extends Enemy{
     this.outline=false;
     this.immune=true;
     this.clock = 0;
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class IceSniperEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.ice_sniper_enemy.color,"ice_sniper",boundary);
+    this.release_interval = 3000,
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new IceSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class IceSniperProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#be89ff","ice_sniper_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+  }
+  playerInteraction(player){
+	  player.isIced=true;
+	  player.icedTimeLeft=1000;
   }
   onCollide(){
     this.remove=true;
