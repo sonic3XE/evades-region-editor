@@ -2863,6 +2863,7 @@ class DisablingGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.disabling_ghost_enemy.color,"disabling_ghost",boundary);
 	this.isHarmless=true;
+	this.immune=true;
 	this.disabled=true;
   }
   playerInteraction(player){
@@ -2875,6 +2876,7 @@ class SpeedGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.speed_ghost_enemy.color,"speed_ghost",boundary);
 	this.isHarmless=true;
+	this.immune=true;
 	this.disabled=true;
   }
   playerInteraction(player){
@@ -2887,6 +2889,7 @@ class RegenGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.regen_ghost_enemy.color,"regen_ghost",boundary);
 	this.isHarmless=true;
+	this.immune=true;
 	this.disabled=true;
   }
   playerInteraction(player){
