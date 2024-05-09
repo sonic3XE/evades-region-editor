@@ -2158,6 +2158,7 @@ class SimulatorEntity{
     }
     if(this.assetCollision())collided=true;
     if(collided)this.onCollide();
+	this.velangle();
     for(var i in map.players){
       var player = map.players[i];
       if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
@@ -3555,22 +3556,18 @@ class RadiatingBulletsProjectile extends Enemy{
   }
 }
 class WavyEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
+  constructor(x,y,radius,speed,angle=0,boundary){
     super(x,y,radius,speed,angle,enemyConfig.wavy_enemy.color,"wavy",boundary);
-    this.velangle();
-    this.angle = Math.PI / 2;
-    this.anglevel();
     this.circleSize = 100;
     this.dir = 1;
     this.switchInterval = 800;
-    this.switchTime = 400;
+    this.switchTime = 0;
     this.angleIncrement = (this.speed + 6) / this.circleSize;
   }
   update(delta) {
-    if (this.switchTime > 0) {
-      this.switchTime -= delta
-    } else {
-      this.switchTime = this.switchInterval
+    this.switchTime += delta
+    if (this.switchTime >= this.switchInterval) {
+      this.switchTime %= this.switchInterval;
       this.dir *= -1;
     }
     this.velangle();
