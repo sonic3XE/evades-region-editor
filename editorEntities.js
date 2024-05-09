@@ -456,6 +456,9 @@ function spawnEntities(area=current_Area){
           case "wavy":
           case "immune":
           case "sniper":
+          case "speed_ghost":
+          case "regen_ghost":
+          case "disabling_ghost":
           case "ice_sniper":
           case "corrosive":
           case "corrosive_sniper":
@@ -469,31 +472,6 @@ function spawnEntities(area=current_Area){
           case "sizing":
           case "spiral":
           case "fake_pumpkin":
-          /* enemies to do:
-          ww: case "switch":
-          gg: case "icicle":
-          ff: case "snowman": (this sounds really stupid to add)
-          ff: case "frost_giant": (its a stretch, while it is nice to have it will be tedious to add)
-          probably more i'm forgetting
-        */
-        /* enemies that detect player (use mouse as player position substitute):
-          gg: case "liquid":
-          dd: case "radiating_bullets": <- radiating bullets does not detect the player! but it still should have a preview
-          hh2: case "pumpkin":
-          hh2: case "tree":
-          bbh: case "lunging":
-          every sniper in the game
-          probably more i'm forgetting
-        */
-        /* enemies that make me suffer
-          ww: case "wavy":
-          I cannot get wavy enemies to move correctly. It has exclusively been suffering and I don't even have any idea of how they
-          are intended to work in game. They don't even initially move downwards like they do in the sandbox and from looking at 
-          videos they've never done this, but I swear they have. I'm questioning my own sanity. This is now my least favorite enemy 
-          in the game. If you know how to implement wavy enemies correctly please do it but for my own mental health i will not 
-          touch these sinister crimson demons.
-        */
-          //mm3 invisibles too but add general support for that first
           entity=new (eval(capitalize(activeZone.spawner[i].types[randType].i)+"Enemy"))(
             enemyX,
             enemyY,
@@ -2570,7 +2548,7 @@ class PelletEntity extends SimulatorEntity{
 		this.scaleOscillator.update(delta)
   }
 }
-//EvadesClassic enemy files: server\src\game\entities\enemies\{{type}}_enemy.py
+//	EvadesClassic enemy files: server\src\game\entities\enemies\{{type}}_enemy.py
 class WallEnemy extends Enemy{
   constructor(radius,speed,area_bounding_box,wall_index,wall_count,initial_side,move_clockwise=true){
     super(0,0,radius,speed,0,enemyConfig.wall_enemy.color,"wall",area_bounding_box);
@@ -2879,6 +2857,42 @@ class RepellingEnemy extends Enemy{
       player.x += (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
       player.y += (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
     }
+  }
+}
+class DisablingGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.disabling_ghost_enemy.color,"disabling_ghost",boundary);
+	this.isHarmless=true;
+	this.disabled=true;
+  }
+  playerInteraction(player){
+	if(!player.disabling){
+	  player.disabling=true;
+	}
+  }
+}
+class SpeedGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.speed_ghost_enemy.color,"speed_ghost",boundary);
+	this.isHarmless=true;
+	this.disabled=true;
+  }
+  playerInteraction(player){
+	if(!player.speedghost){
+	  player.speedghost=true;
+	}
+  }
+}
+class RegenGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.regen_ghost_enemy.color,"regen_ghost",boundary);
+	this.isHarmless=true;
+	this.disabled=true;
+  }
+  playerInteraction(player){
+	if(!player.regenghost){
+	  player.regenghost=true;
+	}
   }
 }
 class DisablingEnemy extends Enemy{

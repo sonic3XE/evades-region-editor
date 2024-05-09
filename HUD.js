@@ -2628,7 +2628,6 @@ class $31e8cfefa331e399$var$AnimatedImage {
 		e.preview && (this.previewImage = $31e8cfefa331e399$export$93e5c64e4cc246c8(this.initData.prefixPath + "/" + e.preview))
 	}
 	nextFrame(delta) {
-		console.log(this.currentFrameTime);
 		this.currentFrameTime+=delta,
 		this.currentFrameTime >= this.frames[this.currentFrame].duration && (this.currentFrame = (this.currentFrame + 1) % this.frames.length,
 		this.currentFrameTime = 0)
