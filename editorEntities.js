@@ -429,6 +429,15 @@ function spawnEntities(area=current_Area){
               activeZone.spawner[i].switch_interval ?? defaultValues.spawner.switch_interval,
               {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
               break;
+          case "icicle":
+            entity=new IcicleEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              activeZone.spawner[i].speed,
+              activeZone.spawner[i].horizontal ?? defaultValues.spawner.horizontal,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
           case "radiating_bullets":
             entity=new RadiatingBulletsEnemy(
               enemyX,
@@ -3507,6 +3516,27 @@ class SwitchEnemy extends Enemy{
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	  this.speedMultiplier = 1;
     this.collision(delta);
+  }
+}
+class IcicleEnemy extends Enemy{
+  constructor(x,y,radius,speed,horizontal,boundary){
+    super(x,y,radius,speed,Math.round(Math.random())*180+90*!horizontal,enemyConfig.icicle_enemy.color,"icicle",boundary);
+    this.clock = 0;
+	this.wallHit=false;
+  }
+  update(delta) {
+	if(this.wallHit){this.clock += delta;this.speedMultiplier*=0};
+    if (this.clock > 1e3) {
+      this.clock=0;
+	  this.wallHit=false;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+  onCollide(){
+	  this.wallHit=true;
   }
 }
 class RadiatingBulletsEnemy extends Enemy{
