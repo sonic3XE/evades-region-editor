@@ -4556,7 +4556,7 @@ class ForceSniperAEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new ForceSniperAProjectile(this.x,this.y,12,12,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new ForceSniperAProjectile(this.x,this.y,this.radius/2,12,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -4629,7 +4629,7 @@ class ForceSniperBEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new ForceSniperBProjectile(this.x,this.y,12,12,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new ForceSniperBProjectile(this.x,this.y,this.radius/2,12,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
