@@ -116,7 +116,10 @@ function spawnEntities(area=current_Area){
 				}else{
 				enemyY=Math.random()*(activeZone.height-radius*2*2.5**-(randType=="sizing"))+top+radius*2.5**-(randType=="sizing");
 				}
-				var instance=eval(`${capitalize(type)}Enemy`);
+				var instance;
+				try{
+					instance=eval(`${capitalize(type)}Enemy`)}catch(e){
+				};
 				switch(type){
 					default:{
 						map.unknownEntities??=[];
