@@ -160,6 +160,7 @@ function spawnEntities(area=current_Area){
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
 					case "fake_pumpkin":entity=new PumpkinEnemy(enemyX,enemyY,radius,speed,angle,boundary,true);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
+					case "seedling":
 					case "residue":
 					case "sand":
 					case "sandrock":
@@ -3606,8 +3607,39 @@ class GrassEnemy extends Enemy{
 	this.speedMultiplier = 1;
     this.collision(delta);
   }
-  spawnTrail(area){
-    area.entities.push(new FireTrailEnemy(this.x,this.y,this.radius,0,0,true,this.boundary));
+}
+class SeedlingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.seedling_enemy.color,"seedling",boundary);
+	this.hasEntity=false;
+	this.immune=true;
+  }
+  update(delta,area) {
+	if(!this.hasEntity){
+		this.hasEntity=true;
+		area.entities.push(new SeedlingProjectile(this.x,this.y,this.radius,0,0,this,this.boundary))
+	};
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class SeedlingProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,owner,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.seedling_enemy.color,"seedling_projectile",boundary);
+	this.owner=owner;
+	this.immune=true;
+	this.angle=Math.random()*360;
+	this.clockwise=Math.round(Math.random());
+  }
+  update(delta,area) {
+	this.angle+=10*delta/(1e3/30)*Math.pow(-1,this.clockwise);
+    this.x=this.owner.x+(this.radius+this.owner.radius/2)*Math.cos(this.angle/180*Math.PI);
+    this.y=this.owner.y+(this.radius+this.owner.radius/2)*Math.sin(this.angle/180*Math.PI);
+	this.collision(delta);
+    this.x=this.owner.x+(this.radius+this.owner.radius/2)*Math.cos(this.angle/180*Math.PI);
+    this.y=this.owner.y+(this.radius+this.owner.radius/2)*Math.sin(this.angle/180*Math.PI);
   }
 }
 class FireTrailEnemy extends Enemy{
