@@ -158,7 +158,7 @@ function spawnEntities(area=current_Area){
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
 					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),boundary);break;
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
-					case "fake_pumpkin":entity=new PumpkinEnemy(enemyX,enemyY,radius,speed,angle,boundary,true)
+					case "fake_pumpkin":entity=new PumpkinEnemy(enemyX,enemyY,radius,speed,angle,boundary,true);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
 					case "residue":
 					case "sand":
