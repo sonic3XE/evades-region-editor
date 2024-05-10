@@ -131,11 +131,12 @@ function spawnEntities(area=current_Area){
           );
 			}
           break;
-		  //57 implemented
+		  //59 implemented
           case "experience_drain":
           case "blocking":
           case "slippery":
           case "barrier":
+          case "radar":
           case "draining":
           case "slowing":
           case "magnetic_reduction":
@@ -241,6 +242,7 @@ function spawnEntities(area=current_Area){
           case "disabling_ghost":
           case "ice_sniper":
           case "wind_sniper":
+          case "prediction_sniper":
           case "lead_sniper":
           case "force_sniper_a":
           case "force_sniper_b":
@@ -2672,6 +2674,73 @@ class BarrierEnemy extends Enemy{
 	player.inEnemyBarrier=true;
   }
 }
+class RadarEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.radar_enemy.color,"radar",boundary,auraColors.radar,aura_radius);
+	this.releaseInterval=250;
+	this.release_time=Math.random()*this.releaseInterval;
+  }
+  update(delta,area) {
+    if(this.release_time<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return (e.moving||e.cent_is_moving)&&!e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > this.auraRadius**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new RadarProjectile(this.x,this.y,this.radius/3,5+this.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this,this.boundary))
+      this.release_time = this.releaseInterval;
+    }
+    }else{
+      this.release_time -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class RadarProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,owner,boundary){
+    super(x,y,radius,speed,angle,"#c90000","radar_projectile",boundary);
+    this.outline=false;
+	this.owner=owner;
+    this.immune=true;
+    this.clock = 0;
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+	if(distance(this.owner,this)>this.owner.auraRadius){
+		this.remove=true;
+	}
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
 class GravityEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,gravity,boundary){
     super(x,y,radius,speed,angle,enemyConfig.gravity_enemy.color,"gravity",boundary,auraColors.gravity,aura_radius);
@@ -3652,6 +3721,91 @@ class SniperEnemy extends Enemy{
 class SniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"#a05353","sniper_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class PredictionSniperEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.prediction_sniper_enemy.color,"prediction_sniper",boundary);
+    this.release_interval = 3000,
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  timeOfImpact(p, v, s) {
+    // Requires relative position and velocity to aiming point
+    let a = s * s - (v.x * v.x + v.y * v.y);
+    let b = p.x * v.x + p.y * v.y;
+    let c = p.x * p.x + p.y * p.y;
+
+    let d = b * b + a * c;
+
+    let t=(b + Math.sqrt(d)) / a;
+
+    return t*0.9;
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+	  let radial={x:closest_entity.velX??0,y:closest_entity.velY??0};
+	  let diff={x:-distance_x,y:-distance_y}
+      let lead=this.timeOfImpact(diff,radial,11);
+      var dX=diff.x + lead * radial.x;
+      var dY=diff.y + lead * radial.y;
+	  if(!isNaN(lead) && lead >=0){
+        area.entities.push(new PredictionSniperProjectile(this.x,this.y,this.radius/2,11,Math.atan2(dY,dX)/Math.PI*180,this.boundary))
+        this.releaseTime = this.release_interval;
+	  }
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class PredictionSniperProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#d14f84","prediction_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
