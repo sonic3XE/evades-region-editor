@@ -130,7 +130,7 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-					//69 implemented NICE NUMBER IDIOT, GET FUCKING CONSUMED BY INK DEMON
+					//70 implemented
 					case "experience_drain":
 					case "blocking":
 					case "slippery":
