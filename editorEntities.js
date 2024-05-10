@@ -160,6 +160,7 @@ function spawnEntities(area=current_Area){
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
 					case "residue":
+					case "sandrock":
 					case "fire_trail":
 					case "normal":
 					case "wavy":
@@ -2788,6 +2789,25 @@ class QuicksandEnemy extends Enemy{
   }
 }
 
+class SandrockEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.sandrock_enemy.color,"sandrock",boundary);
+	this.sandrockSpeed=1;
+  }
+  update(delta){
+	if(this.sandrockSpeed>=0.1){
+		this.sandrockSpeed-=0.01*delta/(1e3/30);
+	}
+	this.speedMultiplier*=this.sandrockSpeed;
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  onCollide(){
+	this.sandrockSpeed=1;
+  }
+}
 class ChargingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.charging_enemy.color,"charging",boundary);
