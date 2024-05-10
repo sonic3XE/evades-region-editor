@@ -90,6 +90,8 @@ function spawnEntities(area=current_Area){
         var auraColor=auraColors[activeZone.spawner[i].types[randType].i];
         let entity;
         var enemyX;
+		var angle=activeZone.spawner[i].angle;
+		var speed=activeZone.spawner[i].speed??defaultValues.spawner.speed;
         if(activeZone.spawner[i].x!=undefined){
           if(String(activeZone.spawner[i].x).split(",").length>1){
             var min=parseInt(activeZone.spawner[i].x.split(",")[0]);
@@ -113,345 +115,116 @@ function spawnEntities(area=current_Area){
         }else{
           enemyY=Math.random()*(activeZone.height-radius*2*2.5**-(randType=="sizing"))+top+radius*2.5**-(randType=="sizing");
         }
-        switch(activeZone.spawner[i].types[randType].i){
+		var type=activeZone.spawner[i].types[randType].i;
+        switch(type){
           default:
 			try{
 				map.unknownEntities??=[];
-				map.unknownEntities.indexOf(activeZone.spawner[i].types[randType].i)==-1&&(
-				map.unknownEntities.push(activeZone.spawner[i].types[randType].i),console.warn("Unknown enemy in "+map.name+": "+activeZone.spawner[i].types[randType].i),customAlert("Unknown enemy in "+map.name+": "+activeZone.spawner[i].types[randType].i,5,"#FF0")
+				map.unknownEntities.indexOf(type)==-1&&(
+				map.unknownEntities.push(type),console.warn("Unknown enemy in "+map.name+": "+activeZone.spawner[i].types[randType].i),customAlert("Unknown enemy in "+map.name+": "+activeZone.spawner[i].types[randType].i,5,"#FF0")
 				)
-            entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[activeZone.spawner[i].types[randType].i.replace("fake_","") + "_enemy"].color,radius,activeZone.spawner[i].types[randType].i,activeZone.spawner[i].speed,activeZone.spawner[i].angle,activeZone.spawner[i][`${activeZone.spawner[i].types[randType].i}_radius`]??defaultValues.spawner[`${activeZone.spawner[i].types[randType].i}_radius`],auraColor,{left,right,bottom,top,width:activeZone.width,height:activeZone.height});entity.isEnemy=true
+            entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[type.replace("fake_","") + "_enemy"].color,radius,type,speed,angle,activeZone.spawner[i][`${type}_radius`]??defaultValues.spawner[`${type}_radius`],auraColor,{left,right,bottom,top,width:activeZone.width,height:activeZone.height});entity.isEnemy=true
 			}catch(e){
           entity=new NormalEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
+            enemyX,enemyY,radius,speed,angle,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height}
           );
 			}
           break;
+		  //53 implemented
           case "experience_drain":
-          entity=new ExperienceDrainEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].experience_drain_radius??defaultValues.spawner.experience_drain_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
           case "blocking":
-          entity=new BlockingEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].blocking_radius??defaultValues.spawner.blocking_radius,
+          case "slippery":
+          case "barrier":
+          case "draining":
+          case "slowing":
+          case "magnetic_reduction":
+          case "magnetic_nullification":
+          case "freezing":
+          case "lava":
+          case "toxic":
+          case "enlarging":
+          case "disabling":
+          case "reducing":
+          entity=new (eval(capitalize(activeZone.spawner[i].types[randType].i)+"Enemy"))(
+            enemyX,enemyY,radius,speed,angle,
+			activeZone.spawner[i][`${type}_radius`]??defaultValues.spawner[`${type}_radius`],
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
-		  break;
+          break;
           case "gravity":
           entity=new GravityEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
+            enemyX,enemyY,radius,speed,angle,
 			activeZone.spawner[i].gravity_radius??defaultValues.spawner.gravity_radius,
 			activeZone.spawner[i].gravity??defaultValues.spawner.gravity,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
+          case "repelling":
+          entity=new RepellingEnemy(
+            enemyX,enemyY,radius,speed,angle,
+			activeZone.spawner[i].repelling_radius??defaultValues.spawner.repelling_radius,
+			activeZone.spawner[i].repulsion??defaultValues.spawner.repulsion,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
           case "quicksand":
           entity=new QuicksandEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
+            enemyX,enemyY,radius,speed,angle,
 			activeZone.spawner[i].quicksand_radius??defaultValues.spawner.quicksand_radius,
 			activeZone.spawner[i].push_direction??defaultValues.spawner.push_direction??quicksandDir,
 			activeZone.spawner[i].quicksand_strength??defaultValues.spawner.quicksand_strength,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
-          case "slippery":
-          entity=new SlipperyEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].slippery_radius??defaultValues.spawner.slippery_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "barrier":
-          entity=new BarrierEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].barrier_radius??defaultValues.spawner.barrier_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "repelling":
-          entity=new RepellingEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].repelling_radius??defaultValues.spawner.repelling_radius,
-			activeZone.spawner[i].repulsion??defaultValues.spawner.repulsion,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "draining":
-          entity=new DrainingEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].draining_radius??defaultValues.spawner.draining_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "slowing":
-          entity=new SlowingEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].slowing_radius??defaultValues.spawner.slowing_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "magnetic_reduction":
-          entity=new MagneticReductionEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].magnetic_reduction_radius??defaultValues.spawner.magnetic_reduction_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "magnetic_nullification":
-          entity=new MagneticNullificationEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].magnetic_nullification_radius??defaultValues.spawner.magnetic_nullification_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "freezing":
-          entity=new FreezingEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].freezing_radius??defaultValues.spawner.freezing_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
+          case "turning":
+            entity=new TurningEnemy(
+              enemyX,enemyY,radius,speed,angle,
+              activeZone.spawner[i].circle_size ?? defaultValues.spawner.circle_size,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
+          case "liquid":
+            entity=new LiquidEnemy(
+              enemyX,enemyY,radius,speed,angle,
+              activeZone.spawner[i].player_detection_radius ?? defaultValues.spawner.player_detection_radius,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
+          case "switch":
+            entity=new SwitchEnemy(
+              enemyX,enemyY,radius,speed,angle,
+              activeZone.spawner[i].switch_interval ?? defaultValues.spawner.switch_interval,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
+          case "icicle":
+            entity=new IcicleEnemy(
+              enemyX,enemyY,radius,speed,
+              activeZone.spawner[i].horizontal ?? defaultValues.spawner.horizontal,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
+          case "radiating_bullets":
+            entity=new RadiatingBulletsEnemy(
+			enemyX,enemyY,radius,speed,angle,
+              activeZone.spawner[i].release_interval ?? defaultValues.spawner.release_interval,
+              activeZone.spawner[i].release_time ?? defaultValues.spawner.release_time,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
+              break;
+          case "wall":
+            entity=new WallEnemy(radius,speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
+          break;
           case "speed_sniper":
           entity=new SpeedSniperEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
+            enemyX,enemyY,radius,speed,angle,
 			activeZone.spawner[i].speed_loss??defaultValues.spawner.speed_loss,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
           case "regen_sniper":
           entity=new RegenSniperEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
+            enemyX,enemyY,radius,speed,angle,
 			activeZone.spawner[i].regen_loss??defaultValues.spawner.regen_loss,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
-          case "lava":
-          entity=new LavaEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].lava_radius??defaultValues.spawner.lava_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "toxic":
-          entity=new ToxicEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].toxic_radius??defaultValues.spawner.toxic_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "enlarging":
-          entity=new EnlargingEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].enlarging_radius??defaultValues.spawner.enlarging_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "disabling":
-          entity=new DisablingEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			activeZone.spawner[i].disabling_radius??defaultValues.spawner.disabling_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "reducing":
-          entity=new ReducingEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			      activeZone.spawner[i].reducing_radius??defaultValues.spawner.reducing_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-          break;
-          case "rotor":
-            entity=new RotorEnemy(
-              enemyX,
-              enemyY,
-              radius,
-              activeZone.spawner[i].speed,
-              activeZone.spawner[i].angle,
-              activeZone.spawner[i].rotor_branch_count ?? defaultValues.spawner.rotor_branch_count,
-              activeZone.spawner[i].rotor_node_count ?? defaultValues.spawner.rotor_node_count,
-              activeZone.spawner[i].rotor_node_radius ?? defaultValues.spawner.rotor_node_radius,
-              activeZone.spawner[i].rotor_rot_speed ?? defaultValues.spawner.rotor_rot_speed,
-              activeZone.spawner[i].rotor_reversed ?? defaultValues.spawner.rotor_reversed,
-              activeZone.spawner[i].rotor_branch_offset ?? defaultValues.spawner.rotor_branch_offset,
-              activeZone.spawner[i].rotor_node_dist ?? defaultValues.spawner.rotor_node_dist,
-              activeZone.spawner[i].rotor_branch_dist ?? defaultValues.spawner.rotor_branch_dist,
-              activeZone.spawner[i].rotor_offset_per_layer ?? defaultValues.spawner.rotor_offset_per_layer,
-              activeZone.spawner[i].rotor_layer_reverse_interval ?? defaultValues.spawner.rotor_layer_reverse_interval,
-              activeZone.spawner[i].rotor_corrosive ?? defaultValues.spawner.rotor_corrosive,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-            );
-		      break;
-          case "riptide":
-          entity=new RiptideEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			      activeZone.spawner[i].riptide_radius??defaultValues.spawner.riptide_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-          break;
-          case "swamp":
-          entity=new SwampEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			      activeZone.spawner[i].swamp_radius??defaultValues.spawner.swamp_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-          break;
-          case "drowning":
-          entity=new DrowningEnemy(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
-			      activeZone.spawner[i].drowning_radius??defaultValues.spawner.drowning_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-          break;
-          case "turning":
-            entity=new TurningEnemy(
-              enemyX,
-              enemyY,
-              radius,
-              activeZone.spawner[i].speed,
-              activeZone.spawner[i].angle,
-              activeZone.spawner[i].circle_size ?? defaultValues.spawner.circle_size,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "liquid":
-            entity=new LiquidEnemy(
-              enemyX,
-              enemyY,
-              radius,
-              activeZone.spawner[i].speed,
-              activeZone.spawner[i].angle,
-              activeZone.spawner[i].player_detection_radius ?? defaultValues.spawner.player_detection_radius,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "switch":
-            entity=new SwitchEnemy(
-              enemyX,
-              enemyY,
-              radius,
-              activeZone.spawner[i].speed,
-              activeZone.spawner[i].angle,
-              activeZone.spawner[i].switch_interval ?? defaultValues.spawner.switch_interval,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "icicle":
-            entity=new IcicleEnemy(
-              enemyX,
-              enemyY,
-              radius,
-              activeZone.spawner[i].speed,
-              activeZone.spawner[i].horizontal ?? defaultValues.spawner.horizontal,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "radiating_bullets":
-            entity=new RadiatingBulletsEnemy(
-              enemyX,
-              enemyY,
-              radius,
-              activeZone.spawner[i].speed,
-              activeZone.spawner[i].angle,
-              activeZone.spawner[i].release_interval ?? defaultValues.spawner.release_interval,
-              activeZone.spawner[i].release_time ?? defaultValues.spawner.release_time,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "wall":
-            entity=new WallEnemy(radius,activeZone.spawner[i].speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
-          break;
           case "normal":
           case "wavy":
           case "immune":
@@ -481,12 +254,51 @@ function spawnEntities(area=current_Area){
           case "spiral":
           case "fake_pumpkin":
           entity=new (eval(capitalize(activeZone.spawner[i].types[randType].i)+"Enemy"))(
-            enemyX,
-            enemyY,
-            radius,
-            activeZone.spawner[i].speed,
-            activeZone.spawner[i].angle,
+            enemyX,enemyY,radius,speed,angle,
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height}
+          );
+          break;
+			  //NOT VANILLA
+          case "rotor":
+            entity=new RotorEnemy(
+              enemyX,
+              enemyY,
+              radius,
+              speed,
+              angle,
+              activeZone.spawner[i].rotor_branch_count ?? defaultValues.spawner.rotor_branch_count,
+              activeZone.spawner[i].rotor_node_count ?? defaultValues.spawner.rotor_node_count,
+              activeZone.spawner[i].rotor_node_radius ?? defaultValues.spawner.rotor_node_radius,
+              activeZone.spawner[i].rotor_rot_speed ?? defaultValues.spawner.rotor_rot_speed,
+              activeZone.spawner[i].rotor_reversed ?? defaultValues.spawner.rotor_reversed,
+              activeZone.spawner[i].rotor_branch_offset ?? defaultValues.spawner.rotor_branch_offset,
+              activeZone.spawner[i].rotor_node_dist ?? defaultValues.spawner.rotor_node_dist,
+              activeZone.spawner[i].rotor_branch_dist ?? defaultValues.spawner.rotor_branch_dist,
+              activeZone.spawner[i].rotor_offset_per_layer ?? defaultValues.spawner.rotor_offset_per_layer,
+              activeZone.spawner[i].rotor_layer_reverse_interval ?? defaultValues.spawner.rotor_layer_reverse_interval,
+              activeZone.spawner[i].rotor_corrosive ?? defaultValues.spawner.rotor_corrosive,
+              {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+            );
+		      break;
+          case "riptide":
+          entity=new RiptideEnemy(
+            enemyX,enemyY,radius,speed,angle,
+			      activeZone.spawner[i].riptide_radius??defaultValues.spawner.riptide_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+          break;
+          case "swamp":
+          entity=new SwampEnemy(
+            enemyX,enemyY,radius,speed,angle,
+			      activeZone.spawner[i].swamp_radius??defaultValues.spawner.swamp_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+          break;
+          case "drowning":
+          entity=new DrowningEnemy(
+            enemyX,enemyY,radius,speed,angle,
+			      activeZone.spawner[i].drowning_radius??defaultValues.spawner.drowning_radius,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
           break;
         };entity.collision();map.areas[area].entities.push(entity);
