@@ -1139,10 +1139,9 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 	)&&this.pointInActiveZone){
 		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
       var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):10)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
-      if(this.magnetDirection.toLowerCase() == "down"){this.y += (magneticSpeed+this.dy*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
-      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (-magneticSpeed+this.dy*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
+      if(this.magnetDirection.toLowerCase() == "down"){this.y += (magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
+      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
     }
-	this.dy=0;
     if(this.radiusAdditioner!=0){this.radius+=this.radiusAdditioner}
     this.radius *= this.radiusMultiplier;
     this.radiusMultiplier = 1;
