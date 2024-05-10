@@ -365,6 +365,7 @@ this.isGuest=!1;
     this.cent_acceleration = 0.333;
     this.cent_accelerating = false;
     this.cent_is_moving = false;
+	this.safeZone=true;
   }
 	  collision(delta){
     let collided=false;
