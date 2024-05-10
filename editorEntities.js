@@ -3286,11 +3286,10 @@ class CrumblingEnemy extends Enemy{
 		var residue=new ResidueEnemy(this.x,this.y,this.ogradius/3,this.speed/6.25,Math.random()*360,this.boundary);
 		this.radiusMultiplier*=this.crumbleSize;
 		this.speedMultiplier/=2;
-		this.area.entities.push(residue);
+		map.areas[current_Area].entities.push(residue);
 	  }
   }
   update(delta,area) {
-	this.area=area;
 	if(this.hasCollided){
 		this.collideTime+=delta;
 		this.speedMultiplier*=0.5;
