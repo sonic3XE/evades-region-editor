@@ -158,6 +158,7 @@ function spawnEntities(area=current_Area){
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
 					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),boundary);break;
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
+					case "fake_pumpkin":entity=new PumpkinEnemy(enemyX,enemyY,radius,speed,angle,boundary,true)
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
 					case "residue":
 					case "sand":
@@ -195,7 +196,7 @@ function spawnEntities(area=current_Area){
 					case "sizing":
 					case "spiral":
 					case "crumbling":
-					case "fake_pumpkin":
+					case "pumpkin":
 					case "glowy":
 					case "firefly":
 					case "phantom":
@@ -2179,9 +2180,14 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
     enemy.HarmlessTime=2000;
     harmless=true;
   }
-  if(enemy.texture=="pumpkinOff"||enemy.radius==0||harmless||enemy.shatterTime>0){
+  if(enemy.texture=="entities/pumpkin_off"||enemy.radius==0||harmless||enemy.shatterTime>0){
+	dead=false;
+  }
+  if(dead){
     if(player.isBandaged){
-      player.isBandaged=false;player.isUnbandaging=true;player.invulnerable=true;
+      player.isBandaged=false;
+	  player.isUnbandaging=true;
+	  player.invulnerable=true;
       setTimeout(()=>{player.isUnbandaging=player.invulnerable=false;},900)
     }
   }
@@ -3314,20 +3320,85 @@ class CrumblingEnemy extends Enemy{
     this.collision(delta);
   }
 }
-class FakePumpkinEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.pumpkin_enemy.color,"fake_pumpkin",boundary);
-    this.speedMultiplier = 0;
-	this.isEnemy=false;
-	this.image=$31e8cfefa331e399$var$images["entities/pumpkin_off"];
+class PumpkinEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary,fake=false){
+    super(x,y,radius,speed,angle,enemyConfig.pumpkin_enemy.color,"pumpkin",boundary);
 	this.texture="entities/pumpkin_off";
-	this.renderFirst=true;
+	this.image=$31e8cfefa331e399$var$images[this.texture];
+	this.detectedDuration=2500;
+	this.hasDetected=false;
+	this.targetAngle=0;
+	this.detectedTime=0;
+	this.detectedPosition={x:0,y:0};
+	this.isFake=fake;
   }
   update(delta) {
+	if(this.isFake)this.speedMultiplier=0;
+	else{
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    var target_angle=this.angle;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 200**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+	  this.detectedPosition.x=closest_entity.x;
+	  this.detectedPosition.y=closest_entity.y;
+      this.targetAngle = modulus(Math.atan2(distance_y,distance_x)+Math.PI,Math.PI*2);
+	  if(this.detectedTime<=0 && this.texture=="entities/pumpkin_off"){
+		this.hasDetected=true;
+		this.texture="entities/pumpkin_on";
+		this.lightRadius = this.radius + 30;
+		this.image=$31e8cfefa331e399$var$images[this.texture];
+	  }
+    }else{
+		  this.targetAngle=this.angle;
+	  }
+	this.anglevel();
+	if(this.hasDetected){
+		this.detectedTime+=delta;
+	}
+	if(this.detectedTime<1e3){
+		this.speedMultiplier*=0;
+		this.angle=this.targetAngle;
+		if(this.hasDetected){
+		  this.x+=Math.round(Math.random()*4-2);
+		  this.y+=Math.round(Math.random()*4-2);
+		}
+	}
+	if(this.detectedTime>2500){
+	  this.texture="entities/pumpkin_off";
+	  this.hasDetected=false;
+	  this.lightRadius=0;
+	  this.image=$31e8cfefa331e399$var$images[this.texture];
+	  this.detectedTime=0;
+	}}
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 0;
+	this.speedMultiplier = 1;
     this.collision(delta);
+  }
+  onCollide(){
+    this.target_angle=this.angle=Math.atan2(this.velY,this.velX);
   }
 }
 class MistEnemy extends Enemy{
