@@ -130,7 +130,7 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-					//66 implemented
+					//68 implemented
 					case "experience_drain":
 					case "blocking":
 					case "slippery":
@@ -160,6 +160,7 @@ function spawnEntities(area=current_Area){
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
 					case "residue":
+					case "sand":
 					case "sandrock":
 					case "fire_trail":
 					case "normal":
@@ -2786,6 +2787,25 @@ class QuicksandEnemy extends Enemy{
   }
   auraEffect(player,delta){
 	player.quicksand=[true,this.push_direction,this.quicksand_strength];
+  }
+}
+class SandEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.sand_enemy.color,"sand",boundary);
+	this.sandSpeed=1;
+  }
+  update(delta){
+	if(this.sandSpeed<3){
+		this.sandSpeed+=0.03*delta/(1e3/30);
+	}
+	this.speedMultiplier*=this.sandSpeed;
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  onCollide(){
+	this.sandSpeed=0;
   }
 }
 
