@@ -1290,7 +1290,18 @@ contextBtns.duplicateObject.addEventListener("click", () => {
     delete selectedObject.inputs;
     selectedObject.spawner&&selectedObject.spawner.map(e=>{delete e.element;delete e.inputs});
   if (["wall", "light_region", "flashlight_spawner", "torch", "gate"].indexOf(selectedObject.type) == -1) {
-    sel = createZone(selectedObject.rx, selectedObject.ry, selectedObject.rw, selectedObject.rh, selectedObject.translate.x, selectedObject.translate.y, selectedObject.properties, selectedObject.type, selectedObject.requirements, selectedObject.spawner.map(e => cloneSpawner(e)));
+	var zone={
+	  x:selectedObject.rx,
+	  y:selectedObject.ry,
+	  width:selectedObject.rw,
+	  height:selectedObject.rh,
+	  translate:{...(selectedObject.translate??{x:0,y:0})},
+	  properties:{...(selectedObject.properties??{})}, 
+	  type:selectedObject.type,
+	  requirements:[...selectedObject.requirements],
+	  spawner:selectedObject.spawner.map(e => cloneSpawner(e))
+	};
+    sel = createZone(zone);
     map.areas[current_Area].zones.push(sel);
     selectedObject=sel;
     customZONEgui(sel);
