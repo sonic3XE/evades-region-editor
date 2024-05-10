@@ -234,6 +234,8 @@ function spawnEntities(area=current_Area){
           case "disabling_ghost":
           case "ice_sniper":
           case "lead_sniper":
+          case "force_sniper_a":
+          case "force_sniper_b":
           case "poison_sniper":
           case "poison_ghost":
           case "charging":
@@ -814,11 +816,11 @@ this.isGuest=!1;
       this.firstAbility = false;
       this.secondAbility = false;
       this.thirdAbility = false;
-      if ((input.keys.has(controls.USE_ABILITY_ONE[0]) || input.keys.has(controls.USE_ABILITY_ONE[1])) && !this.firstAbilityPressed && !this.disabling) {
+      if ((input.keys.has(controls.USE_ABILITY_ONE[0]) || input.keys.has(controls.USE_ABILITY_ONE[1]) || this.forcefirst) && !this.firstAbilityPressed && !this.disabling) {
         this.firstAbility = true;
         this.firstAbilityPressed = true;
       }
-      if ((input.keys.has(controls.USE_ABILITY_TWO[0]) || input.keys.has(controls.USE_ABILITY_TWO[1])) && !this.secondAbilityPressed && !this.disabling) {
+      if ((input.keys.has(controls.USE_ABILITY_TWO[0]) || input.keys.has(controls.USE_ABILITY_TWO[1]) || this.forcesecond) && !this.secondAbilityPressed && !this.disabling) {
         this.secondAbility = true;
         this.secondAbilityPressed = true;
       }
@@ -826,10 +828,10 @@ this.isGuest=!1;
         this.thirdAbility = true;
         this.thirdAbilityPressed = true;
       }
-      if (!(input.keys.has(controls.USE_ABILITY_ONE[0]) || input.keys.has(controls.USE_ABILITY_ONE[1]))) {
+      if (!(input.keys.has(controls.USE_ABILITY_ONE[0]) || input.keys.has(controls.USE_ABILITY_ONE[1]) || this.forcefirst)) {
         this.firstAbilityPressed = false;
       }
-      if (!(input.keys.has(controls.USE_ABILITY_TWO[0]) || input.keys.has(controls.USE_ABILITY_TWO[1]))) {
+      if (!(input.keys.has(controls.USE_ABILITY_TWO[0]) || input.keys.has(controls.USE_ABILITY_TWO[1]) || this.forcesecond)) {
         this.secondAbilityPressed = false;
       }
       if (!(input.keys.has(controls.USE_ABILITY_THREE[0]) || input.keys.has(controls.USE_ABILITY_THREE[1]))) {
@@ -934,6 +936,8 @@ this.isGuest=!1;
 	this.handleAbility(ab1,1,delta,{ab2,ab3},forceOff[0]||this.firstAbility);
 	this.handleAbility(ab2,2,delta,{ab1,ab3},forceOff[1]||this.secondAbility);
 	this.handleAbility(ab3,3,delta,{ab1,ab2},forceOff[2]||this.thirdAbility);
+	this.forcefirst=false;
+	this.forcesecond=false;
       if (!this.prevSlippery||this.collides||(this.d_x == 0 && this.d_y == 0)) {
         if (this.slippery&&!this.prevSlippery) {
           if (!this.isMovementKeyPressed(input)) {
@@ -4233,6 +4237,152 @@ class NegativeMagneticSniperProjectile extends Enemy{
 		player.abilityThree.abilityType=98;
 		player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
 	};
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class ForceSniperAEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.force_sniper_a_enemy.color,"force_sniper_a",boundary);
+    this.release_interval = 3000,
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new ForceSniperAProjectile(this.x,this.y,12,12,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class ForceSniperAProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#0a5557","force_sniper_a_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+	this.touchedPlayers=[];
+  }
+  playerInteraction(player){
+	  if(this.touchedPlayers.indexOf(player)==-1){
+		  this.touchedPlayers.push(player);
+		  player.forcefirst=true;
+	  }
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class ForceSniperBEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.force_sniper_b_enemy.color,"force_sniper_b",boundary);
+    this.release_interval = 3000,
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new ForceSniperBProjectile(this.x,this.y,12,12,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class ForceSniperBProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#914d83","force_sniper_b_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+	this.touchedPlayers=[];
+  }
+  playerInteraction(player){
+	  if(this.touchedPlayers.indexOf(player)==-1){
+		  this.touchedPlayers.push(player);
+		  player.forcesecond=true;
+	  }
   }
   onCollide(){
     this.remove=true;
