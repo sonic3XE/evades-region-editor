@@ -3347,7 +3347,7 @@ class PhantomEnemy extends Enemy{
 	var timeFix=delta/(1e3/30);
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
-      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.nightActivated});
     }else{
       information = [mouseEntity];
     }
