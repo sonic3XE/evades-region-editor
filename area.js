@@ -74,10 +74,11 @@ function addArea(t=true,name = "") {
   updateMap();
 }
 function customAREAgui(area){
+	area.name??="";
     const nameInput = document.createElement("input");
     nameInput.value = area.name;
     nameInput.addEventListener("input", () => {
-        area.name = nameInput.value ?? "";
+        area.name = nameInput.value;
     });
 
     const xInput = document.createElement("input");
