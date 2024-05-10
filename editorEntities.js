@@ -3932,12 +3932,7 @@ class PredictionSniperEnemy extends Enemy{
 class ResidueEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.residue_enemy.color,"residue",boundary);
-    this.outline=false;
-    this.immune=true;
     this.clock = 0;
-  }
-  onCollide(){
-    this.remove=true;
   }
   update(delta) {
     this.clock += delta;
