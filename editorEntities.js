@@ -194,6 +194,7 @@ function spawnEntities(area=current_Area){
 					case "zoning":
 					case "sizing":
 					case "spiral":
+					case "crumbling":
 					case "fake_pumpkin":
 					case "glowy":
 					case "firefly":
@@ -3268,6 +3269,49 @@ class SpiralEnemy extends Enemy{
   }
   onCollide(){
     this.dir *= -1; 
+  }
+}
+class CrumblingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.crumbling_enemy.color,"crumbling",boundary);
+	this.hasCollided=false;
+	this.collideTime=0;
+	this.crumbleSize=1;
+  }
+  onCollide(){
+	  if(!this.hasCollided){
+		this.hasCollided=true;
+		this.crumbleSize/=2;
+		var residue=new ResidueEnemy(this.x,this.y,this.radius/3,this.speed/6.25,Math.random()*360,this.boundary);
+		this.radiusMultiplier*=this.crumbleSize;
+		this.speedMultiplier/=2;
+		this.area.entities.push(residue);
+	  }
+  }
+  update(delta,area) {
+	this.area=area;
+	if(this.hasCollided){
+		this.collideTime+=delta;
+		this.speedMultiplier*=0.5;
+	}
+	if(this.collideTime>=3e3&&this.hasCollided){
+		this.hasCollided=false;
+		this.collideTime=0;//67 frames to go back to original size in 30fps
+	};
+	if(!this.hasCollided){
+		if(this.crumbleSize<1){
+			this.crumbleSize+=delta/(1e3/30)/66.66666666666666666666666666/2;
+		}else{
+			this.crumbleSize=1;
+		}
+	}
+	this.radiusMultiplier*=this.crumbleSize;
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+	this.radius=this.ogradius*this.radiusMultiplier;
+	this.radiusMultiplier = 1;
+    this.collision(delta);
   }
 }
 class FakePumpkinEnemy extends Enemy{
