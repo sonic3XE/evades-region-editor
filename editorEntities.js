@@ -157,6 +157,7 @@ function spawnEntities(area=current_Area){
 					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),void 0,prop(spawner,"move_clockwise"));break;
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
 					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),boundary);break;
+					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
 					case "fire_trail":
 					case "normal":
@@ -2417,13 +2418,13 @@ class BlockingEnemy extends Enemy{
 	  player.toxic=player.enemyEffects[2];
 	  player.energy=Math.min(player.energy,player.maxEnergy*0.7);
 	}
-	if(!player.enlarging&&player.enemyEffects[5]){
-	  player.enlarging=player.enemyEffects[5];
-	  player.radiusAdditioner+=10;
-	}
 	if(!player.reducing&&player.enemyEffects[4]){
 	  player.reducing=player.enemyEffects[4];
 	  player.reducingTime+=delta;
+	}
+	if(!player.enlarging&&player.enemyEffects[5]){
+	  player.enlarging=player.enemyEffects[5];
+	  player.radiusAdditioner+=10;
 	}
 	if(!player.slippery&&player.enemyEffects[8]){player.slippery=player.enemyEffects[8]}
 	if(!player.disabling&&player.enemyEffects[9]){player.disabling=player.enemyEffects[9]}
@@ -3415,6 +3416,42 @@ class FireflyEnemy extends Enemy{
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	this.speedMultiplier = 1;
     this.collision(delta);
+  }
+}
+class GrassEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,powered,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.grass_enemy.color,"grass",boundary);
+	this.powered=powered;
+	this.hasTouched=false;
+	this.grassTime=0;
+	this.grassHarmless=true;
+  }
+  playerInteraction(player){
+	if(!player.isDowned()){
+		this.grassHarmless=false;
+		this.grassTime>=1e3 && (
+			this.grassTime=0,this.grassHarmless=true,
+			EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier),
+			map.areas[player.area].entities.filter(e=>{
+				return (e instanceof GrassEnemy)&&(!e.powered);
+			}).map(e=>{
+				e.grassTime=0;
+				e.grassHarmless=true;
+			})
+		);
+	}
+  }
+  update(delta,area) {
+	if(!this.grassHarmless&&this.grassTime<1e3){
+		this.grassTime+=delta;
+	}
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+  spawnTrail(area){
+    area.entities.push(new FireTrailEnemy(this.x,this.y,this.radius,0,0,true,this.boundary));
   }
 }
 class FireTrailEnemy extends Enemy{
