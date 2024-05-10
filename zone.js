@@ -97,7 +97,7 @@ function addZone(type) {
   var snap={x:localStorage.getItem("snapX")||16,y:localStorage.getItem("snapY")||16}
   let posX = roundTo(Math.round(mouseEntity.x),snap.x);
   let posY = roundTo(Math.round(mouseEntity.y),snap.y);
-let ActiveZone = createZone(posX,posY, 160, 160,void 0,void 0,void 0,type);
+let ActiveZone = createZone({x:posX,y:posY,width:160,height:160,type:"active"});
     map.areas[current_Area].zones.push(ActiveZone);
     updateMap();
 /*    function mousedown(e) {
