@@ -2664,6 +2664,7 @@ class RepellingEnemy extends Enemy{
       var angleToPlayer = Math.atan2(dy, dx);
       player.x += (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
       player.y += (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+	  player.collision();
     }
   }
 }
