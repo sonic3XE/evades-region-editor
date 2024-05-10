@@ -130,7 +130,7 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-					//64 implemented
+					//66 implemented
 					case "experience_drain":
 					case "blocking":
 					case "slippery":
@@ -159,6 +159,7 @@ function spawnEntities(area=current_Area){
 					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),boundary);break;
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
+					case "residue":
 					case "fire_trail":
 					case "normal":
 					case "wavy":
