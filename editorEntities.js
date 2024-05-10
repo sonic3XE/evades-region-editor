@@ -30,300 +30,175 @@ function capitalize(s){
   return t.join("");
 }
 function spawnEntities(area=current_Area){
-  if(!map.areas[area])return;
-  var isVictory=!!map.areas[area].zones.filter(e=>e.type=="victory").length;
-  var totalPellets=map.areas[area].properties.pellet_count ?? defaultValues.properties.pellet_count;
-  if(totalPellets==defaultValues.properties.pellet_count){
-    totalPellets=map.properties.pellet_count ?? defaultValues.properties.pellet_count;
-  }
-  var boundary=getAreaBoundary(map.areas[area]);
-  var victoryZones=map.areas[area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
-  map.areas[area].entities=[];
-  map.areas[area].assets.filter(e=>e.type=="flashlight_spawner").map(e=>{
-	 map.areas[area].entities.push(new FlashlightSpawner(e.x,e.y))
-  })
-  map.areas[area].assets.filter(e=>e.type=="torch").map(e=>{
-	 map.areas[area].entities.push(new Torch(e.x,e.y,e.upside_down))
-  })
-  map.areas[area].assets.filter(e=>e.type=="light_region").map(e=>{
-	 map.areas[area].entities.push(new LightRegion(e.x,e.y,e.width,e.height))
-  })
-  map.areas[area].assets.filter(e=>e.type=="wall").map(e=>{
-	 map.areas[area].entities.push(new Wall(e.x,e.y,e.width,e.height,e.texture))
-  })
-  //Don't spawn gate entities since it is removed from the game.
-  //map.areas[area].assets.filter(e=>e.type=="gate").map(e=>{
-  //  map.areas[area].entities.push(new Gate(e.x,e.y,e.width,e.height))
-  //})
-		
-  if(victoryZones.length){
-    var areaofzone=victoryZones.map(e=>e.width*e.height);
-    for(var it in areaofzone){
-      if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
-    }
-    var sum=victoryZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
-    for(var i=0;i<(totalPellets==25?(isVictory?250:25):totalPellets);i++){
-      var rand=Math.random()*sum;
-      var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
-      var left=randZone.x;
-      var right=randZone.x+randZone.width;
-      var bottom=randZone.y+randZone.height;
-      var top=randZone.y;
-      var pellet=new PelletEntity(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary);
-      pellet.collision();
-      map.areas[area].entities.push(pellet);
-    }
-  }
-  var quicksandDir=Math.floor(Math.random()*4)*90;
-  var activeZones=map.areas[area].zones.filter(e=>e.type=="active");
-  for(var x in activeZones){
-    var activeZone=activeZones[x];
-    for (var i in activeZone.spawner) {
-      for (var j=0;j<(activeZone.spawner[i].count ?? defaultValues.spawner.count);j++) {
-        if(activeZone.spawner[i].count>1024){console.warn("Too many spawner entities to be displayed");continue};
-        var left=activeZone.x;
-        var right=activeZone.x+activeZone.width;
-        var bottom=activeZone.y+activeZone.height;
-        var top=activeZone.y;
-        var randType=Math.floor(Math.random()*activeZone.spawner[i].types.length);
-        var radius=activeZone.spawner[i].radius;
-        var auraColor=auraColors[activeZone.spawner[i].types[randType].i];
-        let entity;
-        var enemyX;
-		var angle=activeZone.spawner[i].angle;
-		var speed=activeZone.spawner[i].speed??defaultValues.spawner.speed;
-        if(activeZone.spawner[i].x!=undefined){
-          if(String(activeZone.spawner[i].x).split(",").length>1){
-            var min=parseInt(activeZone.spawner[i].x.split(",")[0]);
-            var max=parseInt(activeZone.spawner[i].x.split(",")[1]);
-            enemyX=min+Math.random()*(max-min);
-          }else{
-            enemyX=activeZone.spawner[i].x;
-          }
-        }else{
-          enemyX=Math.random()*(activeZone.width-radius*2*2.5**-(randType=="sizing"))+left+radius*2.5**-(randType=="sizing");
-        }
-        var enemyY;
-        if(activeZone.spawner[i].y!=undefined){
-          if(String(activeZone.spawner[i].y).split(",").length>1){
-            var min=parseInt(activeZone.spawner[i].y.split(",")[0]);
-            var max=parseInt(activeZone.spawner[i].y.split(",")[1]);
-            enemyY=min+Math.random()*(max-min);
-          }else{
-            enemyY=activeZone.spawner[i].y;
-          }
-        }else{
-          enemyY=Math.random()*(activeZone.height-radius*2*2.5**-(randType=="sizing"))+top+radius*2.5**-(randType=="sizing");
-        }
-		var type=activeZone.spawner[i].types[randType].i;
-        switch(type){
-          default:
-			try{
-				map.unknownEntities??=[];
-				map.unknownEntities.indexOf(type)==-1&&(
-				map.unknownEntities.push(type),console.warn("Unknown enemy in "+map.name+": "+activeZone.spawner[i].types[randType].i),customAlert("Unknown enemy in "+map.name+": "+activeZone.spawner[i].types[randType].i,5,"#FF0")
-				)
-            entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[type.replace("fake_","") + "_enemy"].color,radius,type,speed,angle,activeZone.spawner[i][`${type}_radius`]??defaultValues.spawner[`${type}_radius`],auraColor,{left,right,bottom,top,width:activeZone.width,height:activeZone.height});entity.isEnemy=true
-			}catch(e){
-          entity=new NormalEnemy(
-            enemyX,enemyY,radius,speed,angle,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height}
-          );
+	if(!map.areas[area])return;
+	var isVictory=!!map.areas[area].zones.filter(e=>e.type=="victory").length;
+	var totalPellets=map.areas[area].properties.pellet_count ?? defaultValues.properties.pellet_count;
+	if(totalPellets==defaultValues.properties.pellet_count){
+		totalPellets=map.properties.pellet_count ?? defaultValues.properties.pellet_count;
+	}
+	var boundary=getAreaBoundary(map.areas[area]);
+	var victoryZones=map.areas[area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
+	map.areas[area].entities=[];
+	map.areas[area].assets.filter(e=>e.type=="flashlight_spawner").map(e=>{
+		map.areas[area].entities.push(new FlashlightSpawner(e.x,e.y))
+	})
+	map.areas[area].assets.filter(e=>e.type=="torch").map(e=>{
+		map.areas[area].entities.push(new Torch(e.x,e.y,e.upside_down))
+	})
+	map.areas[area].assets.filter(e=>e.type=="light_region").map(e=>{
+		map.areas[area].entities.push(new LightRegion(e.x,e.y,e.width,e.height))
+	})
+	map.areas[area].assets.filter(e=>e.type=="wall").map(e=>{
+		map.areas[area].entities.push(new Wall(e.x,e.y,e.width,e.height,e.texture))
+	})
+	//Don't spawn gate entities since it is removed from the game.
+	//map.areas[area].assets.filter(e=>e.type=="gate").map(e=>{
+	//  map.areas[area].entities.push(new Gate(e.x,e.y,e.width,e.height))
+	//})
+	
+	if(victoryZones.length){
+		var areaofzone=victoryZones.map(e=>e.width*e.height);
+		for(var it in areaofzone){
+			if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
+		}
+		var sum=victoryZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
+		for(var i=0;i<(totalPellets==25?(isVictory?250:25):totalPellets);i++){
+			var rand=Math.random()*sum;
+			var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
+			var left=randZone.x;
+			var right=randZone.x+randZone.width;
+			var bottom=randZone.y+randZone.height;
+			var top=randZone.y;
+			var pellet=new PelletEntity(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary);
+			pellet.collision();
+			map.areas[area].entities.push(pellet);
+		}
+	}
+	var quicksandDir=Math.floor(Math.random()*4)*90;
+	function prop(spawner,e){
+		return spawner[e]??defaultValues.spawner[e]
+	}
+	var activeZones=map.areas[area].zones.filter(e=>e.type=="active");
+	for(var activeZone of activeZones){
+		for (var i in activeZone.spawner) {
+			var spawner=activeZone.spawner[i];
+			for (var j=0;j<prop(spawner,"count");j++) {
+				if(prop(spawner,"count")>1024){console.warn("Too many spawner entities to be displayed");continue};
+				var left=activeZone.x;
+				var right=activeZone.x+activeZone.width;
+				var bottom=activeZone.y+activeZone.height;
+				var top=activeZone.y;
+				var randType=Math.floor(Math.random()*prop(spawner,"types").length);
+				var type=prop(spawner,"types")[randType].i;
+				var radius=prop(spawner,"radius");
+				var auraColor=auraColors[type];
+				let entity;
+				var enemyX=prop(spawner,"x");
+				var enemyY=prop(spawner,"y");
+				var boundary={left,right,bottom,top,width:activeZone.width,height:activeZone.height};
+				var angle=prop(spawner,"angle");
+				var speed=prop(spawner,"speed");
+				if(enemyX!=undefined){
+					if(String(enemyX).split(",").length>1){
+						var min=parseInt(enemyX.split(",")[0]);
+						var max=parseInt(enemyX.split(",")[1]);
+						enemyX=min+Math.random()*(max-min);
+					}
+				}else{
+					enemyX=Math.random()*(activeZone.width-radius*2*2.5**-(randType=="sizing"))+left+radius*2.5**-(randType=="sizing");
+				}
+				if(enemyY!=undefined){
+					if(String(enemyY).split(",").length>1){
+						var min=parseInt(enemyY.split(",")[0]);
+						var max=parseInt(enemyY.split(",")[1]);
+						enemyY=min+Math.random()*(max-min);
+					}
+				}else{
+				enemyY=Math.random()*(activeZone.height-radius*2*2.5**-(randType=="sizing"))+top+radius*2.5**-(randType=="sizing");
+				}
+				var instance=eval(`${capitalize(type)}Enemy`);
+				switch(type){
+					default:{
+						map.unknownEntities??=[];
+						map.unknownEntities.indexOf(type)==-1&&(map.unknownEntities.push(type),console.warn("Unknown enemy in "+map.name+": "+type),customAlert("Unknown enemy in "+map.name+": "+type,5,"#FF0"))
+						try{
+							entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[type.replace("fake_","") + "_enemy"].color,radius,type,speed,angle,prop(spawner,`${type}_radius`),auraColor,boundary);entity.isEnemy=true
+						}catch(e){
+							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
+						}
+					};break;
+					//64 implemented
+					case "experience_drain":
+					case "blocking":
+					case "slippery":
+					case "barrier":
+					case "radar":
+					case "draining":
+					case "slowing":
+					case "magnetic_reduction":
+					case "magnetic_nullification":
+					case "freezing":
+					case "lava":
+					case "toxic":
+					case "enlarging":
+					case "disabling":
+					case "reducing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "gravity":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"gravity"),boundary);break;
+					case "repelling":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"repulsion"),boundary);break;
+					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,`push_direction`)??quicksandDir,prop(spawner,`quicksand_strength`),boundary);break;
+					case "turning":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"circle_size"),boundary);break;
+					case "liquid":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"player_detection_radius"),boundary);break;
+					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),boundary);break;
+					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
+					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
+					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),void 0,prop(spawner,"move_clockwise"));break;
+					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
+					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),boundary);break;
+					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
+					case "fire_trail":
+					case "normal":
+					case "wavy":
+					case "immune":
+					case "sniper":
+					case "speed_ghost":
+					case "regen_ghost":
+					case "disabling_ghost":
+					case "ice_sniper":
+					case "wind_sniper":
+					case "prediction_sniper":
+					case "lead_sniper":
+					case "force_sniper_a":
+					case "force_sniper_b":
+					case "poison_sniper":
+					case "poison_ghost":
+					case "charging":
+					case "positive_magnetic_sniper":
+					case "negative_magnetic_sniper":
+					case "positive_magnetic_ghost":
+					case "negative_magnetic_ghost":
+					case "corrosive":
+					case "corrosive_sniper":
+					case "dasher":
+					case "homing":
+					case "teleporting":
+					case "star":
+					case "oscillating":
+					case "zigzag":
+					case "zoning":
+					case "sizing":
+					case "spiral":
+					case "fake_pumpkin":
+					case "glowy":
+					case "firefly":
+					case "phantom":
+					case "mist":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					//NOT VANILLA
+					case "rotor":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"rotor_branch_count"),prop(spawner,"rotor_node_count"),prop(spawner,"rotor_node_radius"),prop(spawner,"rotor_rot_speed"),prop(spawner,"rotor_reversed"),prop(spawner,"rotor_branch_offset"),prop(spawner,"rotor_node_dist"),prop(spawner,"rotor_branch_dist"),prop(spawner,"rotor_offset_per_layer"),prop(spawner,"rotor_layer_reverse_interval"),prop(spawner,"rotor_corrosive"),boundary);break;
+				};entity.collision();map.areas[area].entities.push(entity);
 			}
-          break;
-		  //59 implemented
-          case "experience_drain":
-          case "blocking":
-          case "slippery":
-          case "barrier":
-          case "radar":
-          case "draining":
-          case "slowing":
-          case "magnetic_reduction":
-          case "magnetic_nullification":
-          case "freezing":
-          case "lava":
-          case "toxic":
-          case "enlarging":
-          case "disabling":
-          case "reducing":
-          entity=new (eval(capitalize(activeZone.spawner[i].types[randType].i)+"Enemy"))(
-            enemyX,enemyY,radius,speed,angle,
-			activeZone.spawner[i][`${type}_radius`]??defaultValues.spawner[`${type}_radius`],
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-          break;
-          case "gravity":
-          entity=new GravityEnemy(
-            enemyX,enemyY,radius,speed,angle,
-			activeZone.spawner[i].gravity_radius??defaultValues.spawner.gravity_radius,
-			activeZone.spawner[i].gravity??defaultValues.spawner.gravity,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "repelling":
-          entity=new RepellingEnemy(
-            enemyX,enemyY,radius,speed,angle,
-			activeZone.spawner[i].repelling_radius??defaultValues.spawner.repelling_radius,
-			activeZone.spawner[i].repulsion??defaultValues.spawner.repulsion,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "quicksand":
-          entity=new QuicksandEnemy(
-            enemyX,enemyY,radius,speed,angle,
-			activeZone.spawner[i].quicksand_radius??defaultValues.spawner.quicksand_radius,
-			activeZone.spawner[i].push_direction??defaultValues.spawner.push_direction??quicksandDir,
-			activeZone.spawner[i].quicksand_strength??defaultValues.spawner.quicksand_strength,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "turning":
-            entity=new TurningEnemy(
-              enemyX,enemyY,radius,speed,angle,
-              activeZone.spawner[i].circle_size ?? defaultValues.spawner.circle_size,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "liquid":
-            entity=new LiquidEnemy(
-              enemyX,enemyY,radius,speed,angle,
-              activeZone.spawner[i].player_detection_radius ?? defaultValues.spawner.player_detection_radius,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "switch":
-            entity=new SwitchEnemy(
-              enemyX,enemyY,radius,speed,angle,
-              activeZone.spawner[i].switch_interval ?? defaultValues.spawner.switch_interval,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "icicle":
-            entity=new IcicleEnemy(
-              enemyX,enemyY,radius,speed,
-              activeZone.spawner[i].horizontal ?? defaultValues.spawner.horizontal,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "radiating_bullets":
-            entity=new RadiatingBulletsEnemy(
-			enemyX,enemyY,radius,speed,angle,
-              activeZone.spawner[i].release_interval ?? defaultValues.spawner.release_interval,
-              activeZone.spawner[i].release_time ?? defaultValues.spawner.release_time,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height})
-              break;
-          case "wall":
-            entity=new WallEnemy(radius,speed,{left,right,bottom,top,width:activeZone.width,height:activeZone.height},j,activeZone.spawner[i].count,void 0,activeZone.spawner[i].move_clockwise??defaultValues.spawner.move_clockwise)
-          break;
-          case "speed_sniper":
-          entity=new SpeedSniperEnemy(
-            enemyX,enemyY,radius,speed,angle,
-			activeZone.spawner[i].speed_loss??defaultValues.spawner.speed_loss,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "wind_ghost":
-          entity=new WindGhostEnemy(
-            enemyX,enemyY,radius,speed,angle,
-			activeZone.spawner[i].ignore_invulnerability??defaultValues.spawner.ignore_invulnerability,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "fire_trail":
-          entity=new FireTrailEnemy(
-            enemyX,enemyY,radius,speed,angle,false,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "regen_sniper":
-          entity=new RegenSniperEnemy(
-            enemyX,enemyY,radius,speed,angle,
-			activeZone.spawner[i].regen_loss??defaultValues.spawner.regen_loss,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-		  break;
-          case "normal":
-          case "wavy":
-          case "immune":
-          case "sniper":
-          case "speed_ghost":
-          case "regen_ghost":
-          case "disabling_ghost":
-          case "ice_sniper":
-          case "wind_sniper":
-          case "prediction_sniper":
-          case "lead_sniper":
-          case "force_sniper_a":
-          case "force_sniper_b":
-          case "poison_sniper":
-          case "poison_ghost":
-          case "charging":
-          case "positive_magnetic_sniper":
-          case "negative_magnetic_sniper":
-          case "positive_magnetic_ghost":
-          case "negative_magnetic_ghost":
-          case "corrosive":
-          case "corrosive_sniper":
-          case "dasher":
-          case "homing":
-          case "teleporting":
-          case "star":
-          case "oscillating":
-          case "zigzag":
-          case "zoning":
-          case "sizing":
-          case "spiral":
-          case "fake_pumpkin":
-          entity=new (eval(capitalize(activeZone.spawner[i].types[randType].i)+"Enemy"))(
-            enemyX,enemyY,radius,speed,angle,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height}
-          );
-          break;
-			  //NOT VANILLA
-          case "rotor":
-            entity=new RotorEnemy(
-              enemyX,
-              enemyY,
-              radius,
-              speed,
-              angle,
-              activeZone.spawner[i].rotor_branch_count ?? defaultValues.spawner.rotor_branch_count,
-              activeZone.spawner[i].rotor_node_count ?? defaultValues.spawner.rotor_node_count,
-              activeZone.spawner[i].rotor_node_radius ?? defaultValues.spawner.rotor_node_radius,
-              activeZone.spawner[i].rotor_rot_speed ?? defaultValues.spawner.rotor_rot_speed,
-              activeZone.spawner[i].rotor_reversed ?? defaultValues.spawner.rotor_reversed,
-              activeZone.spawner[i].rotor_branch_offset ?? defaultValues.spawner.rotor_branch_offset,
-              activeZone.spawner[i].rotor_node_dist ?? defaultValues.spawner.rotor_node_dist,
-              activeZone.spawner[i].rotor_branch_dist ?? defaultValues.spawner.rotor_branch_dist,
-              activeZone.spawner[i].rotor_offset_per_layer ?? defaultValues.spawner.rotor_offset_per_layer,
-              activeZone.spawner[i].rotor_layer_reverse_interval ?? defaultValues.spawner.rotor_layer_reverse_interval,
-              activeZone.spawner[i].rotor_corrosive ?? defaultValues.spawner.rotor_corrosive,
-              {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-            );
-		      break;
-          case "riptide":
-          entity=new RiptideEnemy(
-            enemyX,enemyY,radius,speed,angle,
-			      activeZone.spawner[i].riptide_radius??defaultValues.spawner.riptide_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-          break;
-          case "swamp":
-          entity=new SwampEnemy(
-            enemyX,enemyY,radius,speed,angle,
-			      activeZone.spawner[i].swamp_radius??defaultValues.spawner.swamp_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-          break;
-          case "drowning":
-          entity=new DrowningEnemy(
-            enemyX,enemyY,radius,speed,angle,
-			      activeZone.spawner[i].drowning_radius??defaultValues.spawner.drowning_radius,
-            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
-          );
-          break;
-        };entity.collision();map.areas[area].entities.push(entity);
-      }
-    }
-  }
-  if(isNaN(map.areas[area].entities.filter(e=>(isNaN(e.x)||isNaN(e.y))).length)){return spawnEntities();}
+		}
+	}
+	if(isNaN(map.areas[area].entities.filter(e=>(isNaN(e.x)||isNaN(e.y))).length)){return spawnEntities();}
 }
 //rect and circle collision
 function clamp(a,r,t){return Math.min(t,Math.max(r,a))}
@@ -1965,6 +1840,7 @@ class SimulatorEntity{
   auraEffect(player,delta){
   }
   velangle(){
+	if(this.velY==0&&this.velX==0)return this.angle;
     this.angle=Math.atan2(this.velY,this.velX);
   }
   update(delta){
@@ -2003,7 +1879,6 @@ class SimulatorEntity{
     }
     if(this.assetCollision())collided=true;
     if(collided)this.onCollide();
-	this.velangle();
     for(var i in map.players){
       var player = map.players[i];
       if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
@@ -3082,17 +2957,14 @@ class DasherEnemy extends Enemy{
     //update_parameters(self)
     if(this.time_preparing == 0){
       if(this.time_dashing == 0){
-        if(this.time_since_last_dash < this.time_between_dashes){
-          this.time_since_last_dash += delta;
-        }
-        else{
+        this.time_since_last_dash += delta;
+        if(this.time_since_last_dash > this.time_between_dashes){
           this.time_since_last_dash = 0;
           this.time_preparing += delta;
           this.speed = this.prepare_speed;
           this.compute_speed();
         }
-      }
-      else {
+      } else {
         this.time_dashing += delta;
         if (this.time_dashing > this.time_to_dash){
           this.time_dashing = 0;
@@ -3368,8 +3240,182 @@ class FakePumpkinEnemy extends Enemy{
     this.collision(delta);
   }
 }
+class MistEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.mist_enemy.color,"mist",boundary);
+      this.brightness = 1;
+      this.isVisible = true; // true - fading, false - going visible
+      this.visibility_radius = 200;
+      this.brightness_tick = 0.05;
+	}
+  update(delta,area) {
+	var timeFix=delta/(1e3/30);
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    var target_angle;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > this.visibility_radius**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      this.brightness-=this.brightness_tick*timeFix;
+	  this.brightness=Math.max(this.brightness,Number.EPSILON);
+    }else if(this.brightness<1){
+      this.brightness+=this.brightness_tick*timeFix;
+    }
+	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+  spawnTrail(area){
+    area.entities.push(new FireTrailEnemy(this.x,this.y,this.radius,0,0,true,this.boundary));
+  }
+}
+class PhantomEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.phantom_enemy.color,"phantom",boundary);
+      this.brightness = 1;
+      this.isVisible = true; // true - fading, false - going visible
+      this.visibility_radius = 250;
+      this.brightness_tick = 0.05;
+	}
+  update(delta,area) {
+	var timeFix=delta/(1e3/30);
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    var target_angle;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(Math.sqrt(distance)>this.visibility_radius+(entity.radius??0))continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+	  if(this.brightness<1){
+        this.brightness+=this.brightness_tick*timeFix;
+	  }
+    }else if(this.brightness>0){
+      this.brightness-=this.brightness_tick*timeFix;
+	  this.brightness=Math.max(this.brightness,Number.EPSILON);
+    }
+	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+  spawnTrail(area){
+    area.entities.push(new FireTrailEnemy(this.x,this.y,this.radius,0,0,true,this.boundary));
+  }
+}
+class GlowyEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.glowy_enemy.color,"glowy",boundary);
+      this.invisible_timing = 500;
+      this.brightness = 1;
+      this.isVisible = true;
+	  this.lightRadius=this.radius*3*this.brightness;
+      this.timer = this.invisible_timing;
+      this.brightness_tick = 0.06;
+	}
+  update(delta,area) {
+	var timeFix=delta/(1e3/30);
+    if(this.isVisible && this.timer <= 0){
+      this.brightness -= this.brightness_tick * timeFix;
+      if(this.brightness <= 0){
+        this.brightness = Number.EPSILON;
+        this.isVisible = false;
+        this.timer = this.invisible_timing;
+      }
+    } else if (!this.isVisible && this.timer <= 0){
+      this.brightness += this.brightness_tick * timeFix;
+      if(this.brightness >= 1){
+        this.isVisible = true;
+        this.timer = this.invisible_timing;
+      }
+    }
+
+    if (this.timer>0){
+      this.timer -= delta;
+    }
+	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class FireflyEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.firefly_enemy.color,"firefly",boundary);
+      this.invisible_timing = 500;
+      this.isVisible = Math.round(Math.random());
+      this.brightness = this.isVisible==0?Math.random():1;
+	  this.lightRadius=this.radius*3*this.brightness;
+      this.timer = this.isVisible==0?0:this.invisible_timing*Math.random();
+      this.brightness_tick = 0.06;
+	}
+  update(delta,area) {
+	var timeFix=delta/(1e3/30);
+    if(this.isVisible && this.timer <= 0){
+      this.brightness -= this.brightness_tick * timeFix;
+      if(this.brightness <= 0){
+        this.brightness = Number.EPSILON;
+        this.isVisible = false;
+        this.timer = this.invisible_timing;
+      }
+    } else if (!this.isVisible && this.timer <= 0){
+      this.brightness += this.brightness_tick * timeFix;
+      if(this.brightness >= 1){
+        this.isVisible = true;
+        this.timer = this.invisible_timing;
+      }
+    }
+
+    if (this.timer>0){
+      this.timer -= delta;
+    }
+	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
 class FireTrailEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,decay=false,boundary){
+  constructor(x,y,radius,speed,angle,boundary,decay=false){
     super(x,y,radius,speed,angle,enemyConfig.fire_trail_enemy.color,"fire_trail",boundary);
 	this.lightRadius=this.radius+40;
 	this.isDecay=decay;
@@ -3835,6 +3881,27 @@ class PredictionSniperEnemy extends Enemy{
     }
     }else{
       this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class ResidueEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.residue_enemy.color,"residue",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 3000) {
+      this.remove=true;
     }
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
@@ -4763,29 +4830,5 @@ class RotorEnemy extends Enemy{
 	  this.speedMultiplier=1;
     this.collision(delta);
     this.rotation += this.reverse * (delta / 60 / (1000 / 60)) * this.rot_speed * 15;
-  }
-}
-class RiptideEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.riptide_enemy.color,"riptide",boundary,auraColors.riptide,aura_radius);
-  }
-  auraEffect(player,delta){
-    //add later
-  }
-}
-class SwampEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.swamp_enemy.color,"swamp",boundary,auraColors.swamp,aura_radius);
-  }
-  auraEffect(player,delta){
-    //add later
-  }
-}
-class DrowningEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.drowning_enemy.color,"drowning",boundary,auraColors.drowning,aura_radius);
-  }
-  auraEffect(player,delta){
-    //add later
   }
 }
