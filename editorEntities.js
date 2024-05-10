@@ -1467,7 +1467,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     if (this.reducingTime>0&&this.reducing){
 	  if(this.reducingTime>2e3){
 		this.reducingTime=2e3;
-		death(player);
+		death(this);
 	  }
 	  this.radiusMultiplier*=1-this.reducingTime/2e3;
     }
