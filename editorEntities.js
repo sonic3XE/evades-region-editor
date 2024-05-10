@@ -460,6 +460,7 @@ function spawnEntities(area=current_Area){
           case "regen_ghost":
           case "disabling_ghost":
           case "ice_sniper":
+          case "lead_sniper":
           case "poison_sniper":
           case "poison_ghost":
           case "positive_magnetic_sniper":
@@ -599,6 +600,7 @@ this.playerInteractions=false;
 this.achievementCount=0;
 this.underLibotEffect=false;
 this.underDabotEffect=false;
+this.isLead=false;
 this.leadTime=0;
 this.ictosInvulnerability=false;
 this.quicksand=[0,0,5];
@@ -608,6 +610,7 @@ this.continuousReviveTimeLeft=0;
     this.deathTimerTotal=0;
     this.color=color;
     this.name=username;
+	this.isCent=false;
 	this.flashlight=false;
 	this.chronoPos=[];
 this.distance_moved_previously = [0,0];
@@ -644,6 +647,13 @@ this.area=0;
     this.d_x = 0;
     this.d_y = 0;
 this.isGuest=!1;
+    this.cent_max_distance = 10;
+    this.cent_distance = 0;
+    this.cent_input_ready = true;
+    this.cent_deceleration = 0.666;
+    this.cent_acceleration = 0.333;
+    this.cent_accelerating = false;
+    this.cent_is_moving = false;
   }
 	  collision(delta){
     let collided=false;
@@ -972,7 +982,21 @@ this.isGuest=!1;
 		};break;
 	}
 	}
+  isMovementKeyPressed(input){
+    return (
+	input.keys.has(controls.LEFT[0]) || 
+	input.keys.has(controls.LEFT[1]) || 
+	input.keys.has(controls.RIGHT[0]) || 
+	input.keys.has(controls.RIGHT[1]) || 
+	input.keys.has(controls.UP[0]) || 
+	input.keys.has(controls.UP[1]) || 
+	input.keys.has(controls.DOWN[0]) || 
+	input.keys.has(controls.DOWN[1]));
+  }
 	controlActions(input,delta){
+	var cent=this.isCent;
+	if(this.isLead)cent=!cent;
+	cent&&console.log(cent);
     if (input.keys) {
       this.firstAbility = false;
       this.secondAbility = false;
@@ -1099,15 +1123,7 @@ this.isGuest=!1;
 	this.handleAbility(ab3,3,delta,{ab1,ab2},forceOff[2]||this.thirdAbility);
       if (!this.prevSlippery||this.collides||(this.d_x == 0 && this.d_y == 0)) {
         if (this.slippery&&!this.prevSlippery) {
-          if (!(
-input.keys.has(controls.UP[0]) || 
-input.keys.has(controls.UP[1]) || 
-input.keys.has(controls.LEFT[0]) || 
-input.keys.has(controls.LEFT[1]) ||
-input.keys.has(controls.DOWN[0]) || 
-input.keys.has(controls.DOWN[1]) ||
-input.keys.has(controls.RIGHT[0]) || 
-input.keys.has(controls.RIGHT[1]))) {
+          if (!this.isMovementKeyPressed(input)) {
             this.velX=0;this.velY=0;
           }
         }
@@ -1165,7 +1181,7 @@ input.keys.has(controls.RIGHT[1]))) {
 			this.nightDuration=0;
 		};
         if(this.minimum_speed>this.speed+this.speedAdditioner){this.speed=this.minimum_speed}
-        if (this.className!="Cent"&&this.shift == 2) {
+        if (!cent&&this.shift == 2) {
           this.speedMultiplier *= 0.5;
           this.speedAdditioner *= 0.5;
         }
@@ -1177,94 +1193,91 @@ input.keys.has(controls.RIGHT[1]))) {
         }
         this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
         this.mouseActive = false;
-          if (input.isMouse&&!this.cent_is_moving&&!(input.keys[87] || input.keys[38]||input.keys[65] || input.keys[37]||input.keys[83] || input.keys[40]||input.keys[68] || input.keys[39])) {
-            this.mouse_distance_full_strenght = 150;
+          if (input.isMouse&&!this.cent_is_moving&&!this.isMovementKeyPressed(input)) {
+            this.mouse_distance_full_strength = 150*settings.scale;
             this.mouseActive = true;
-            if(this.slippery){this.mouse_distance_full_strenght = 1;}
+            if(this.slippery){this.mouse_distance_full_strength = 1;}
 
-            if(this.className!="Cent" || (this.className=="Cent" && this.cent_input_ready)){
-              if(this.className=="Cent"){this.cent_input_ready = false; this.cent_is_moving = true; this.cent_accelerating = true; this.mouse_distance_full_strenght = 1;}
+            if(!cent || (cent && this.cent_input_ready)){
+
+              if(cent){
+                this.cent_input_ready = false;
+                this.cent_is_moving = true;
+                this.cent_accelerating = true; 
+                this.mouse_distance_full_strength = 1;
+              }
+
               this.dirX = Math.round(input.mouse.x - width / 2);
               this.dirY = Math.round(input.mouse.y - height / 2);
               this.dist = distance(new Vector(0, 0), new Vector(this.dirX, this.dirY));
-              if (this.dist > this.mouse_distance_full_strenght) {
-                this.dirX = this.dirX * (this.mouse_distance_full_strenght / this.dist);
-                this.dirY = this.dirY * (this.mouse_distance_full_strenght / this.dist);
+
+              if (this.dist > this.mouse_distance_full_strength) {
+                this.dirX *= this.mouse_distance_full_strength / this.dist;
+                this.dirY *= this.mouse_distance_full_strength / this.dist;
               }
+              
               this.mouse_angle = Math.atan2(this.dirY,this.dirX);
               this.input_angle = this.mouse_angle;
-              this.mouse_distance = Math.min(this.mouse_distance_full_strenght,Math.sqrt(this.dirX**2+this.dirY**2))
-              this.distance_movement*=this.mouse_distance/this.mouse_distance_full_strenght;
+              this.mouse_distance = Math.min(this.mouse_distance_full_strength,Math.sqrt(this.dirX**2+this.dirY**2))
+              this.distance_movement*=this.mouse_distance/this.mouse_distance_full_strength;
+
+              if(cent && this.cent_input_ready){
+                this.cent_saved_angle = this.input_angle;
+                this.cent_input_ready = false;
+                this.cent_is_moving = true;
+              }
 
               this.d_x = this.distance_movement*Math.cos(this.mouse_angle)
               this.d_y = this.distance_movement*Math.sin(this.mouse_angle)
             }
-            if(this.className!="Cent"){
-			this.velX = this.dirX * this.speed / this.mouse_distance_full_strenght;
-            this.addX = this.dirX * this.speedAdditioner/this.mouse_distance_full_strenght;
-            this.addY = this.dirY * this.speedAdditioner/this.mouse_distance_full_strenght;
-            if(!this.magnet||this.magnet&&this.safeZone){if(this.vertSpeed==-1){this.velY = this.dirY * this.speed / this.mouse_distance_full_strenght;}else{this.velY = this.dirY * this.vertSpeed / this.mouse_distance_full_strenght;}} 
+
+            if(!cent){this.vel.x = this.dirX * this.speed / this.mouse_distance_full_strength;
+            this.addX = this.dirX * this.speedAdditioner/this.mouse_distance_full_strength;
+            this.addY = this.dirY * this.speedAdditioner/this.mouse_distance_full_strength;
+            if(!this.magnet||this.magnet&&this.safeZone){if(this.vertSpeed==-1){this.vel.y = this.dirY * this.speed / this.mouse_distance_full_strength;}else{this.vel.y = this.dirY * this.vertSpeed / this.mouse_distance_full_strength;}} 
             }
         } else if (!this.cent_is_moving){
             this.dirY = 0; this.dirX = 0;
             this.moving = false;
-            if(this.className == "Cent"  && this.cent_input_ready)if(input.keys.has(controls.UP[0]) || 
-input.keys.has(controls.UP[1]) || 
-input.keys.has(controls.LEFT[0]) || 
-input.keys.has(controls.LEFT[1]) ||
-input.keys.has(controls.DOWN[0]) || 
-input.keys.has(controls.DOWN[1]) ||
-input.keys.has(controls.RIGHT[0]) || 
-input.keys.has(controls.RIGHT[1])){this.cent_is_moving = true;}
-            if(input.keys.has(controls.UP[0]) || 
-input.keys.has(controls.UP[1]) || 
-input.keys.has(controls.LEFT[0]) || 
-input.keys.has(controls.LEFT[1]) ||
-input.keys.has(controls.DOWN[0]) || 
-input.keys.has(controls.DOWN[1]) ||
-input.keys.has(controls.RIGHT[0]) || 
-input.keys.has(controls.RIGHT[1])){
+            if(this.isMovementKeyPressed(input)){
+              if(cent && this.cent_input_ready) this.cent_is_moving = true;
               this.moving=true;
               input.isMouse = false;
               this.cent_input_ready = false;
               this.cent_accelerating = true;
             }
-            if (input.keys.has(controls.DOWN[0]) || 
-input.keys.has(controls.DOWN[1])) {
-              this.dirY=1;//if(this.className!="Cent"){if(!this.magnet||this.magnet&&this.safeZone){if(this.vertSpeed==-1){this.d_y = this.speed;this.addY = this.speedAdditioner}else{this.d_y = this.vertSpeed}}}else{this.dirY=1}
+            if (input.keys.has(controls.DOWN[0]) || input.keys.has(controls.DOWN[1])) {
+              this.dirY = 1;
             }
-            if (input.keys.has(controls.UP[0]) || 
-input.keys.has(controls.UP[1])) {
-              this.dirY=-1;//if(this.className!="Cent"){if(!this.magnet||this.magnet&&this.safeZone){if(this.vertSpeed==-1){this.d_y = -this.speed;this.addY = -this.speedAdditioner}else{this.d_y= -this.vertSpeed}}}else{this.dirY=-1}
+            if (input.keys.has(controls.UP[0]) || input.keys.has(controls.UP[1])) {
+              this.dirY = -1;
             }
-            if (input.keys.has(controls.LEFT[0]) || 
-input.keys.has(controls.LEFT[1])) {
-              this.dirX=-1;//if(this.className!="Cent"){this.d_x = -this.speed;this.addX = -this.speedAdditioner}else{this.dirX=-1}
+            if (input.keys.has(controls.LEFT[0]) || input.keys.has(controls.LEFT[1])) {
+              this.dirX = -1;
             }
-            if (input.keys.has(controls.RIGHT[0]) || 
-input.keys.has(controls.RIGHT[1])) {
-              this.dirX=1;//if(this.className!="Cent"){this.d_x = this.speed;this.addX = this.speedAdditioner}else{this.dirX=1}
+            if (input.keys.has(controls.RIGHT[0]) || input.keys.has(controls.RIGHT[1])) {
+              this.dirX = 1;
             }
+        }
+		if(!cent){
+			this.cent_is_moving=false;
+			this.cent_accelerating=false;
+			this.cent_input_ready=true;
+			this.cent_distance=0;
+		}
+        this.input_angle = Math.atan2(this.dirY,this.dirX)
+        if(cent && this.cent_input_ready){
+          this.cent_saved_angle = this.input_angle;
+          this.cent_input_ready = false;
+          this.cent_is_moving = true;
         }
         if(this.cent_distance){
           this.d_x = this.dirX * this.cent_distance;
           this.d_y = this.dirY * this.cent_distance;
         }
-        else if(this.moving&&!input.isMouse&&this.className!="Cent") {
+        else if(this.moving&&!input.isMouse&&!cent) {
           this.d_x = this.distance_movement * this.dirX;
           this.d_y = this.distance_movement * this.dirY;
-          var angle = this.lastAngle;
-          if(this.dirX>0){angle = 0;}
-          else if(this.dirX<0){angle = 180;}
-          if(this.dirY>0){angle = 90;}
-          else if(this.dirY<0){angle = 270;}
-          if(this.dirX>0&&this.dirY>0){angle = 45}
-          else if(this.dirX>0&&this.dirY<0){angle = 315}
-          else if(this.dirX<0&&this.dirY>0){angle = 135}
-          else if(this.dirX<0&&this.dirY<0){angle = 225}
-          this.inputAngle = angle;
-		  this.dx=this.d_x;
-		  this.dy=this.d_y;
         }
         //this.speed-=this.speedAdditioner;
         this.speed=this.statSpeed;
@@ -1276,6 +1289,8 @@ input.keys.has(controls.RIGHT[1])) {
                 }
 	update(delta){
 let timeFix=delta/(1e3/30);
+	  var cent=this.isCent;
+	  if(this.isLead)cent=!cent;
 this.chronoPos.push([this.x,this.y,this.deathTimer]);
 this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     this.inBarrier = false;
@@ -1340,7 +1355,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       if (this.fusion) {
         this.speedMultiplier *= 0.7;
       }
-      if (this.className!="Cent"&&this.shift == 2) {
+      if (!cent&&this.shift == 2) {
         this.speedMultiplier *= 0.5;
         this.speedAdditioner *= 0.5;
       }
@@ -1365,20 +1380,20 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 
       if(this.mortarTime>0){this.speedMultiplier = 0;}
       if(this.minimum_speed>this.statSpeed+this.speedAdditioner){this.statSpeed=this.minimum_speed}
-        if(this.className == "Cent"){
-          this.distance_movement = (this.statSpeed*this.speedMultiplier)+this.speedAdditioner;
-          this.cent_max_distance = this.distance_movement*2;
+        if(cent){
+          this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
+          this.cent_max_distance = this.distance_movement * 2;
           if(this.cent_is_moving){
             if(this.cent_accelerating){
               if(this.cent_distance < this.cent_max_distance){
-                this.cent_distance+=this.cent_acceleration*this.distance_movement*timeFix/2;
+                this.cent_distance += this.cent_acceleration * this.distance_movement * timeFix;
               } else {
                 this.cent_distance = this.cent_max_distance;
                 this.cent_accelerating = false;
               }
             } else {
               if(this.cent_distance > 0){
-                this.cent_distance -= this.cent_deceleration * this.distance_movement*timeFix*2;
+                this.cent_distance -= this.cent_deceleration * this.distance_movement * timeFix;
               } else {
                 this.cent_distance = 0;
                 this.cent_accelerating = true;
@@ -1387,17 +1402,6 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
               }
             }
             if(this.cent_distance<0){this.cent_distance = 0;}
-            if(this.cent_distance){
-              if(input.isMouse){
-              var dirX = Math.round(input.mouse.x - width / 2);
-              var dirY = Math.round(input.mouse.y - height / 2);
-              var dist = distance(new Vector(0, 0), new Vector(dirX, dirY));
-              if (dist > 1) {
-                dirX = dirX * (1 / dist);
-                dirY = dirY * (1 / dist);
-              }
-              this.velX = dirX * this.cent_distance;
-              this.velY = dirY * this.cent_distance;}}
           }
           this.distance_movement = this.cent_distance;
         }
@@ -1433,6 +1437,13 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       this.isIced = false;
       this.icedTimeLeft = 1000;
     }
+	if(this.isLead){
+	  this.leadTime+=delta;
+	}
+	if(this.leadTime>=3500){
+	  this.isLead=false;
+	  this.leadTime=0;
+	}
 
     if(this.speedghost){
       this.speed-=(0.1*this.effectImmune)/this.effectReplayer*timeFix;
@@ -1492,12 +1503,21 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     this.d_y += this.slide_y;
     this.abs_d_x = Math.abs(this.d_x)
     this.abs_d_y = Math.abs(this.d_y);
+    if(cent){
+      if(this.abs_d_x > this.cent_max_distance && !this.slippery){
+        this.d_x *= this.cent_max_distance / this.abs_d_x;
+      }
+      if(this.abs_d_y > this.cent_max_distance && !this.slippery){
+        this.d_y *= this.cent_max_distance / this.abs_d_y;
+      }
+    } else {
       if(this.abs_d_x>this.distance_movement&&!this.slippery){
         this.d_x *= this.distance_movement / this.abs_d_x;
       }
       if(this.abs_d_y>this.distance_movement&&!this.slippery){
         this.d_y *= this.distance_movement / this.abs_d_y;
       }
+    }
     this.prevSlippery = this.slippery;
     if (this.abs_d_x<1/32) {
       this.d_x = 0;
@@ -1642,6 +1662,21 @@ this.collides=this.collision();
 			ctxL.closePath(),
 		  ctxL.fill()}
 	}
+	renderLeadEffect(e, t, a) {
+		if (this.leadTime <= 0)
+			return;
+		const r = 3500
+		  , c = (r - this.leadTime) / r
+		  , o = .75;
+		e.globalAlpha = o - o * c,
+		(e.globalAlpha < 0 || e.globalAlpha > o) && (e.globalAlpha = 0),
+		e.beginPath(),
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.fillStyle = "rgb(33, 33, 39)",
+		e.fill(),
+		e.closePath(),
+		e.globalAlpha = 1
+	}
 	render(e,ctxL,delta) {
 		const a = {x:0,y:0};
 		this.fullMapOpacity=this.area==evadesRenderer?.minimap?.self?.entity?.area;
@@ -1753,7 +1788,7 @@ this.collides=this.collision();
 		this.renderPoisonedEffect(e, t, r),
 		this.renderCrumbledInvulnerabilityEffect(e, t, r),
 		this.renderShadowedInvulnerabilityEffect(e, t, r),
-		this.renderLeadEffect(e, t, r),
+		this.renderLeadEffect(e, a, r),
 		this.renderContinuousReviveEffect(e, t, r),
 		this.renderAccessory(e, t, r);
 		let s = "blue"
@@ -1914,21 +1949,6 @@ this.collides=this.collision();
 		e.beginPath(),
 		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(0, 0, 0)",
-		e.fill(),
-		e.closePath(),
-		e.globalAlpha = 1
-	}
-	renderLeadEffect(e, a, t) {
-		if (this.leadTime <= 0)
-			return;
-		const r = 1e3 * $parcel$interopDefault($3d7c57289a41f86c$exports).defaults.lead_sniper_projectile.effect_time
-		  , c = (r - this.leadTime) / r
-		  , o = .75;
-		e.globalAlpha = o - o * c,
-		(e.globalAlpha < 0 || e.globalAlpha > o) && (e.globalAlpha = 0),
-		e.beginPath(),
-		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
-		e.fillStyle = "rgb(33, 33, 39)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
@@ -3966,6 +3986,77 @@ class SpeedSniperProjectile extends Enemy{
     player.statSpeed-=this.speed_loss;
     player.speed=Math.max(5,player.speed);
     player.statSpeed=Math.max(5,player.statSpeed);
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class LeadSniperEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.lead_sniper_enemy.color,"lead_sniper",boundary);
+    this.release_interval = 3000,
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new LeadSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class LeadSniperProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#687888","lead_sniper_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+    this.clock = 0;
+  }
+  playerInteraction(player){
+    this.remove=true;
+    player.isLead=true;
+	player.leadTime=0;
   }
   onCollide(){
     this.remove=true;
