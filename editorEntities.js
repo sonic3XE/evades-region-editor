@@ -226,6 +226,12 @@ function spawnEntities(area=current_Area){
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
+          case "fire_trail":
+          entity=new FireTrailEnemy(
+            enemyX,enemyY,radius,speed,angle,false,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
           case "regen_sniper":
           entity=new RegenSniperEnemy(
             enemyX,enemyY,radius,speed,angle,
@@ -3360,6 +3366,39 @@ class FakePumpkinEnemy extends Enemy{
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	this.speedMultiplier = 0;
     this.collision(delta);
+  }
+}
+class FireTrailEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,decay=false,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.fire_trail_enemy.color,"fire_trail",boundary);
+	this.lightRadius=this.radius+40;
+	this.isDecay=decay;
+	this.clock=0;
+	this.brightness=1;
+  }
+  update(delta,area) {
+    this.clock+=delta;
+	if(!this.isDecay){
+	var duration=(1000*(this.radius*2)/this.speed)/32;
+    if (this.clock>=duration) {
+        this.spawnTrail(area);
+        this.clock=0;
+    }}else{
+      if(this.clock>=1000){
+        this.brightness -= delta/500;
+        if(this.brightness<0){this.brightness=Number.EPSILON}
+      }
+      if(this.clock>=1500){
+        this.remove = true;
+      }
+	}
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+  spawnTrail(area){
+    area.entities.push(new FireTrailEnemy(this.x,this.y,this.radius,0,0,true,this.boundary));
   }
 }
 class Torch extends SimulatorEntity{
