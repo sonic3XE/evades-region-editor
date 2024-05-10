@@ -131,7 +131,7 @@ function spawnEntities(area=current_Area){
           );
 			}
           break;
-		  //53 implemented
+		  //57 implemented
           case "experience_drain":
           case "blocking":
           case "slippery":
@@ -218,6 +218,13 @@ function spawnEntities(area=current_Area){
             {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
           );
 		  break;
+          case "wind_ghost":
+          entity=new WindGhostEnemy(
+            enemyX,enemyY,radius,speed,angle,
+			activeZone.spawner[i].ignore_invulnerability??defaultValues.spawner.ignore_invulnerability,
+            {left,right,bottom,top,width:activeZone.width,height:activeZone.height},
+          );
+		  break;
           case "regen_sniper":
           entity=new RegenSniperEnemy(
             enemyX,enemyY,radius,speed,angle,
@@ -233,6 +240,7 @@ function spawnEntities(area=current_Area){
           case "regen_ghost":
           case "disabling_ghost":
           case "ice_sniper":
+          case "wind_sniper":
           case "lead_sniper":
           case "force_sniper_a":
           case "force_sniper_b":
@@ -1943,7 +1951,7 @@ class SimulatorEntity{
     this.velX=Math.cos(this.angle)*this.speed;
     this.velY=Math.sin(this.angle)*this.speed;
   }
-  playerInteraction(player){
+  playerInteraction(player,delta){
     this.isEnemy&&(EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier));
   }
   auraEffect(player,delta){
@@ -1991,7 +1999,7 @@ class SimulatorEntity{
     for(var i in map.players){
       var player = map.players[i];
       if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
-        this.playerInteraction(player);
+        this.playerInteraction(player,delta);
       }
       if(!player.safeZone&&player.deathTimer==-1&&Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.auraRadius+player.radius)){
         this.auraEffect(player,delta);
@@ -4383,6 +4391,121 @@ class ForceSniperBProjectile extends Enemy{
 		  this.touchedPlayers.push(player);
 		  player.forcesecond=true;
 	  }
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.clock += delta;
+    if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class WindGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,ignore_invulnerability,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.wind_ghost_enemy.color,"wind_ghost",boundary);
+	this.gravity=1;
+	this.isHarmless=true;
+	this.immune=true;
+	this.disabled=true;
+	this.ignore_invulnerability=ignore_invulnerability;
+  }
+  playerInteraction(player,delta){
+    var iterations=1024;
+	var curIters=0;
+	if (!player.invulnerable||this.ignore_invulnerability) {
+	  while(distance({x:0,y:0},{x:player.x - this.x,y:player.y - this.y})<this.radius+player.radius){
+		curIters++;
+		if(curIters>=iterations)break;
+        var dx = player.x - this.x;
+        var dy = player.y - this.y;
+        var dist = distance({x:0,y:0},{x:dx,y:dy});
+        var attractionAmplitude = Math.pow(2, -(dist / 100));
+        var moveDist = (this.gravity * attractionAmplitude);
+        var angleToPlayer = Math.atan2(dy, dx);
+        player.x += (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
+        player.y += (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+	    player.collision(delta);
+	  }
+    }
+  }
+}
+class WindSniperEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.wind_sniper_enemy.color,"wind_sniper",boundary);
+    this.release_interval = 3000,
+    this.releaseTime = (Math.random()*this.release_interval);
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 600**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new WindSniperProjectile(this.x,this.y,this.radius/2,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.speedMultiplier = 1;
+    this.collision(delta);
+  }
+}
+class WindSniperProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"#82c2a5","wind_sniper_projectile",boundary);
+	this.gravity=1;
+	this.outline=false;
+	this.immune=true;
+	this.clock=0;
+  }
+  playerInteraction(player,delta){
+    var iterations=1024;
+	var curIters=0;
+	if (!player.invulnerable) {
+	  while(distance({x:0,y:0},{x:player.x - this.x,y:player.y - this.y})<this.radius+player.radius){
+		curIters++;
+		if(curIters>=iterations)break;
+        var dx = player.x - this.x;
+        var dy = player.y - this.y;
+        var dist = distance({x:0,y:0},{x:dx,y:dy});
+        var attractionAmplitude = Math.pow(2, -(dist / 100));
+        var moveDist = (this.gravity * attractionAmplitude);
+        var angleToPlayer = Math.atan2(dy, dx);
+        player.x += (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
+        player.y += (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+	    player.collision(delta);
+	  }
+    }
   }
   onCollide(){
     this.remove=true;
