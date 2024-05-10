@@ -4094,7 +4094,7 @@ class LeadSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new LeadSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new LeadSniperProjectile(this.x,this.y,12,6,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
