@@ -601,7 +601,7 @@ this.achievementCount=0;
 this.underLibotEffect=false;
 this.underDabotEffect=false;
 this.isLead=false;
-this.leadTime=0;
+this.leadTime=3500;
 this.ictosInvulnerability=false;
 this.quicksand=[0,0,5];
 this.continuousRevive=false;
@@ -1438,11 +1438,11 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       this.icedTimeLeft = 1000;
     }
 	if(this.isLead){
-	  this.leadTime+=delta;
+	  this.leadTime-=delta;
 	}
-	if(this.leadTime>=3500){
+	if(this.leadTime<=0){
 	  this.isLead=false;
-	  this.leadTime=0;
+	  this.leadTime=3500;
 	}
 
     if(this.speedghost){
@@ -1662,21 +1662,6 @@ this.collides=this.collision();
 			ctxL.closePath(),
 		  ctxL.fill()}
 	}
-	renderLeadEffect(e, t, a) {
-		if (this.leadTime <= 0)
-			return;
-		const r = 3500
-		  , c = (r - this.leadTime) / r
-		  , o = .75;
-		e.globalAlpha = o - o * c,
-		(e.globalAlpha < 0 || e.globalAlpha > o) && (e.globalAlpha = 0),
-		e.beginPath(),
-		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
-		e.fillStyle = "rgb(33, 33, 39)",
-		e.fill(),
-		e.closePath(),
-		e.globalAlpha = 1
-	}
 	render(e,ctxL,delta) {
 		const a = {x:0,y:0};
 		this.fullMapOpacity=this.area==evadesRenderer?.minimap?.self?.entity?.area;
@@ -1788,7 +1773,7 @@ this.collides=this.collision();
 		this.renderPoisonedEffect(e, t, r),
 		this.renderCrumbledInvulnerabilityEffect(e, t, r),
 		this.renderShadowedInvulnerabilityEffect(e, t, r),
-		this.renderLeadEffect(e, a, r),
+		this.renderLeadEffect(e, t, r),
 		this.renderContinuousReviveEffect(e, t, r),
 		this.renderAccessory(e, t, r);
 		let s = "blue"
@@ -1887,6 +1872,19 @@ this.collides=this.collision();
 		e.textAlign = "center",
 		e.fillStyle = "red",
 		e.fillText((this.deathTimer / 1e3).toFixed(0), t, r + 6))
+	}
+	renderLeadEffect(e, a, t) {
+		if (!this.isLead)
+			return;
+		const r = (3500 - this.leadTime) / 3500;
+		e.globalAlpha = .75 - .75 * r,
+		(e.globalAlpha < 0 || e.globalAlpha > .75) && (e.globalAlpha = 0),
+		e.beginPath(),
+		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
+		e.fillStyle = "rgb(33, 33, 39)",
+		e.fill(),
+		e.closePath(),
+		e.globalAlpha = 1
 	}
 	renderIcedEffect(e, a, t) {
 		if (!this.isIced)
@@ -4056,7 +4054,7 @@ class LeadSniperProjectile extends Enemy{
   playerInteraction(player){
     this.remove=true;
     player.isLead=true;
-	player.leadTime=0;
+	player.leadTime=3500;
   }
   onCollide(){
     this.remove=true;
