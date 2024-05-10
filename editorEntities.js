@@ -463,6 +463,7 @@ function spawnEntities(area=current_Area){
           case "lead_sniper":
           case "poison_sniper":
           case "poison_ghost":
+          case "charging":
           case "positive_magnetic_sniper":
           case "negative_magnetic_sniper":
           case "positive_magnetic_ghost":
@@ -3007,6 +3008,67 @@ class QuicksandEnemy extends Enemy{
   }
 }
 
+class ChargingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.charging_enemy.color,"charging",boundary);
+	this.chargingSpeed=1;
+  }
+  update(delta){
+	if(this.chargingSpeed<2.5){
+		this.chargingSpeed+=0.05*delta/(1e3/30);
+	}
+	if(this.provoked){
+		this.provokedTime-=delta;
+	}
+	if(this.provokedTime<=0){
+		this.provoked=false;
+	}
+	this.speedMultiplier*=this.chargingSpeed;
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier=1;
+    this.collision(delta);
+  }
+  onCollide(){
+	this.velangle();
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    var target_angle=this.angle;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 250**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      target_angle = modulus(Math.atan2(distance_y,distance_x)+Math.PI,Math.PI*2);
+	  this.angle=target_angle;
+	  this.provoked=true;
+	  this.provokedTime=1500;
+	  this.chargingSpeed=1;
+    }else{
+      target_angle = this.angle;
+	  this.chargingSpeed=0;
+    }
+	this.anglevel();
+  }
+}
 class HomingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.homing_enemy.color,"homing",boundary);
