@@ -205,7 +205,7 @@ else {
   ctxE.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
-  var actually=(settings.sandbox ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
+  var actually=(settings.isSandbox ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
   ti>(1e3/30-delta/2) && (ti=0);
   map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
   var entities=[...map.areas[current_Area].entities,...map.players];

@@ -725,7 +725,7 @@ realTime.addEventListener("input",(e)=>{
   settings.realTime=e.target.checked;
 })
 dosandbox.addEventListener("input",(e)=>{
-  settings.sandbox=e.target.checked;
+  settings.isSandbox=e.target.checked;
 })
 enemyOutlines.addEventListener("input",(e)=>{
   settings.enemyOutlines=e.target.checked;
