@@ -213,8 +213,6 @@ function spawnEntities(area=current_Area){
 					case "firefly":
 					case "phantom":
 					case "mist":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
-					//NOT VANILLA
-					case "rotor":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"rotor_branch_count"),prop(spawner,"rotor_node_count"),prop(spawner,"rotor_node_radius"),prop(spawner,"rotor_rot_speed"),prop(spawner,"rotor_reversed"),prop(spawner,"rotor_branch_offset"),prop(spawner,"rotor_node_dist"),prop(spawner,"rotor_branch_dist"),prop(spawner,"rotor_offset_per_layer"),prop(spawner,"rotor_layer_reverse_interval"),prop(spawner,"rotor_corrosive"),boundary);break;
 				};entity.collision();map.areas[area].entities.push(entity);
 			}
 		}
@@ -2167,9 +2165,6 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 			o(d - l * d, Math.min(this.radius, Math.max($, this.radius * l)), 3, 5 - 3 * l)
 		}
 	}
-  renderExtra(e, ctxL){
-
-  }
 	renderEffects(ctx,a){
 		const t = ctx.fillStyle;
 		for (const e of this.getEffectConfigs())
@@ -5137,53 +5132,3 @@ class WindSniperProjectile extends Enemy{
   }
 }
 window.warnin=false;
-class RotorEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,rotor_branch_count = 2,rotor_node_count = 2,rotor_node_radius = 16,rotor_rot_speed = 5,rotor_reversed = false,rotor_branch_offset = 0, rotor_node_dist = 0, rotor_branch_dist = 0, rotor_offset_per_layer = 0, rotor_layer_reverse_interval = 0, rotor_corrosive = false, boundary){
-    super(x,y,radius,speed,angle,"#4d6f2b","rotor",boundary);
-    this.branch_count = rotor_branch_count;
-    this.node_count = rotor_node_count;
-    this.node_radius = rotor_node_radius;
-    this.rot_speed = rotor_rot_speed;
-    this.reverse = rotor_reversed ? -1 : 1;
-    this.branch_offset = rotor_branch_offset; 
-    this.node_dist = rotor_node_dist; 
-    this.branch_dist = rotor_branch_dist; 
-    this.offset_per_layer = rotor_offset_per_layer; 
-    this.layer_reverse_interval = rotor_layer_reverse_interval;
-    this.corrosive = rotor_corrosive;
-    this.rotation = this.branch_offset;
-    this.angle_btwn_branches = 360 / this.branch_count;
-  }
-  renderExtra(e, ctxL){
-    if (this.node_count * this.branch_count > 300){
-      console.warn("rotor enemy over 300 nodes. nodes will not be rendered.")
-      return;
-    }
-    for (var l = 0; l < this.node_count; l++){
-      for (var n = 0; n < this.branch_count; n++){
-        var dist_from_center = l * (this.node_radius * 2) + this.radius + (this.branch_dist * 2) + (this.node_dist * l * 2) + this.node_radius;
-        var branch_angle = this.angle_btwn_branches * n + (l % ((this.layer_reverse_interval) * 2) < this.layer_reverse_interval ? -this.rotation : this.rotation) + this.offset_per_layer * l;
-        var nodeX = dist_from_center * Math.cos(branch_angle * (Math.PI/180));
-        var nodeY = dist_from_center * Math.sin(branch_angle * (Math.PI/180));
-        this.renderNode(nodeX, nodeY, e);
-      } 
-    }
-  }
-  renderNode(offx, offy, e){
-    e.beginPath(),
-    e.arc(this.x + offx, this.y + offy, this.node_radius, 0, 2 * Math.PI, !1),
-    e.fillStyle = "rgba(49, 83, 21, 1)",
-    e.fill(),
-    e.lineWidth = 2,
-    e.strokeStyle = "black",
-    e.stroke(),
-    e.closePath()
-  }
-  update(delta){
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier=1;
-    this.collision(delta);
-    this.rotation += this.reverse * (delta / 60 / (1000 / 60)) * this.rot_speed * 15;
-  }
-}
