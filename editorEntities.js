@@ -271,7 +271,7 @@ this.snowballedTime=2500;
 this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
-this.abilityOne={abilityType:1};
+this.abilityOne={abilityType:3};
 this.abilityTwo={abilityType:18};
 this.abilityThree={abilityType:98};
 this.abilityIndex=0;
@@ -279,6 +279,7 @@ this.cachedAbilities=[];
 this.availableAbilities=[0,1,2,14,18,31,96,98];
 this.harden = false;
 this.flow = false;
+this.paralysisAura=false;
 this.isBandaged=false;
 this.isUnbandaging=false;
 this.fusionActivated=false;
@@ -595,6 +596,30 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
+		case 3:{
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				if(this.paralysisAura){
+					this.energy-=ability.energyCost;
+					
+					for(var entity of map.areas[this.area].entities){
+						var radius=abilityLevels[ability.level-1]?.radius ?? abilityConfig[ability.abilityType].radius;
+						if(entity.isEnemy&&this.distance(this,entity)<(radius+entity.radius)&&!entity.immune){
+							entity.freeze(2000);
+							entity.damage(15);
+						}
+					}
+				}
+				this.paralysisAura=!this.paralysisAura;
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
 		case 14:{
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
@@ -764,6 +789,7 @@ this.isGuest=!1;
 	  if(this.deathTimer!=-1){
 		  this.flashlight=false;
 		  this.lantern=false;
+		  this.paralysisAura=false;
 		  this.abilityOne.abilityType!=18&&(this.firstAbilityActivated=false);
 		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
 		  this.abilityThree?.abilityType!=18&&(this.thirdAbilityActivated=false);
@@ -1352,6 +1378,25 @@ this.collides=this.collision();
     }
 	}
 	renderEffects(e,ctxL,delta){
+		var auraRadius;
+	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
+	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
+	  var ab3=evadesRenderer.heroInfoCard.abilityThree;
+		if(this.paralysisAura&&ab1.abilityType==3){
+		auraRadius=abilityConfig[ab1.abilityType]?.levels[ab1.level-1]?.radius ?? abilityConfig[ab1.abilityType].radius
+	}else if(this.paralysisAura&&ab2.abilityType==3){
+		auraRadius=abilityConfig[ab2.abilityType]?.levels[ab2.level-1]?.radius ?? abilityConfig[ab2.abilityType].radius
+	}else if(this.paralysisAura&&ab3.abilityType==3){
+		auraRadius=abilityConfig[ab3.abilityType]?.levels[ab3.level-1]?.radius ?? abilityConfig[ab3.abilityType].radius
+	}
+	e.beginPath();
+	e.fillStyle="rgba(0,0,0,0)";
+	if(this.paralysisAura){
+	e.fillStyle="rgba(77, 233, 242, 0.2)";
+	e.arc(this.x,this.y,auraRadius,0,Math.PI*2,!1);
+	}
+	e.fill();
+	e.closePath();
         var rt = ctxL.createRadialGradient(
           canvas.width / 2 + (this.x - camX) * camScale, 
           canvas.height / 2 + (this.y - camY) * camScale, 0, 
@@ -1835,12 +1880,22 @@ class SimulatorEntity{
     this.isDestroyed=false;
     this.lightRadius=0;
     this.y=y;
+	this.frozen=false;
     this.radius=radius;
     this.ogradius=this.radius;
     this.radiusMultiplier=1;
     this.speedMultiplier=1;
     this.boundary=boundary;
 	this.renderFirst=true;
+  }
+  freeze(duration){
+	  this.frozen=true;
+	  this.frozenTime=duration;
+  }
+  damage(x){
+	  if(this.maxHealth!=0){
+		  this.health-=x;
+	  }
   }
   anglevel(){
     this.velX=Math.cos(this.angle)*this.speed;
@@ -1867,6 +1922,12 @@ class SimulatorEntity{
 	  this.isHarmless=true;
 	}else{
 	  this.isHarmless=(!!this.disabled);
+	}
+	if(this.frozenTime>0){
+	  this.frozenTime-=delta;
+	  this.speedMultiplier*=0;
+	}else{
+	  this.frozen=false;
 	}
     let collided=false;
     if(this.x<this.boundary.left+this.radius){
