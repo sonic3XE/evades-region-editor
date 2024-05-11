@@ -1038,18 +1038,18 @@ let timeFix=delta/(1e3/30);
 	  var cent=this.isCent;
 	  if(this.isLead)cent=!cent;
 		var rotationSpeed = 15;
-		
-      if(this.input_angle<0){this.input_angle+=360}
-      if(this.input_angle>=360){this.input_angle-=360}
-      var distanceOne = this.input_angle - Math.abs(this.lastAngle);
-      if(this.lastAngle<=this.input_angle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.input_angle-rotationSpeed*delta/(1e3/30)){}
+		var angle=this.input_angle/Math.PI*180;
+      if(angle<0){angle+=360}
+      if(angle>=360){angle-=360}
+      var distanceOne = angle - Math.abs(this.lastAngle);
+      if(this.lastAngle<=angle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=angle-rotationSpeed*delta/(1e3/30)){}
       else if(distanceOne<-180){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
       else if(distanceOne>=180){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
       else if(distanceOne<0){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
       else if(distanceOne>0){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
       if(this.lastAngle>=360)this.lastAngle-=360;
       if(this.lastAngle<0)this.lastAngle+=360;
-      if(this.lastAngle<=this.input_angle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.input_angle-rotationSpeed*delta/(1e3/30)){this.lastAngle = this.input_angle}
+      if(this.lastAngle<=angle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=angle-rotationSpeed*delta/(1e3/30)){this.lastAngle = angle}
 this.chronoPos.push([this.x,this.y,this.deathTimer]);
 this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     this.inBarrier = false;
