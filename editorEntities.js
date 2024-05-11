@@ -2929,6 +2929,8 @@ class RegenGhostEnemy extends Enemy{
 class DisablingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"disabling_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.disabling){
@@ -2940,6 +2942,8 @@ class QuicksandEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,direction,strength,boundary){
     super(x,y,radius,speed,angle,"quicksand_enemy",boundary);
 	this.push_direction=direction;
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.quicksand_strength=strength;
   }
   auraEffect(player,delta){
