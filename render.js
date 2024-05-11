@@ -150,7 +150,6 @@ spawnEntities(player.area)
   if(!selfPlayer&&window.selfId){playtesting=false;
     menu.hidden=playtesting;selfId*=0;
     realTime.disabled=playtesting;
-    realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));
     camX=window.tempCamPos.x,camY=window.tempCamPos.y,current_Area=window.tempCamPos.area;
 spawnEntities(current_Area)}
 else {
@@ -519,7 +518,7 @@ if(playtesting){
     ctx.drawImage(cons,0,0,1920,barHeight*vertScale,
 	0,0,ctx.canvas.width,barHeight);
   }
-  if(settings.realTime){
+  if(settings.realTime||playtesting){
   const input={isMouse};
   input.keys=keysDown;
   input.mouse={x:mousePos.ex,y:mousePos.ey};
