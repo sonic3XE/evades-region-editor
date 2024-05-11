@@ -222,34 +222,6 @@ var zoneconsts = {
   }, ice: { active: createOffscreenCanvas(512, 512) }
 }
 function ExtractDiff(e){e=e.replace(/ /g,"");const t=e.split("+"),i=e.split("-");return t.length>1?parseInt(t[1]||0):i.length>1?-parseInt(i[1]||0):0};
-const auraColors={
-  "slowing":"rgba(255, 0, 0, 0.15)",
-  "draining":"rgba(0, 0, 255, 0.15)",
-  "gravity":"rgba(60, 0, 115, 0.15)",
-  "repelling":"rgba(210, 228, 239, 0.2)",
-  "freezing":"rgba(58, 117, 112, 0.3)",
-  "slippery":"rgba(33, 161, 165, 0.3)",
-  "disabling":"rgba(255, 191, 206, 0.5)",
-  "experience_drain":"rgba(60, 0, 0, 0.2)",
-  "enlarging":"rgba(77, 1, 99, 0.3)",
-  "toxic":"rgba(0, 199, 0, 0.2)",
-  "magnetic_reduction":"rgba(189, 103, 210, 0.25)",
-  "magnetic_nullification":"rgba(100, 35, 116, 0.3)",
-  "lava":"rgba(247, 131, 6, 0.3)",
-  "cybot":"rgba(146, 107, 227, 0.3)",
-  "quicksand":"rgba(108, 84, 30, 0.3)",
-  "radar":"rgba(153, 153, 153, 0.2)",
-  "barrier":"rgba(41, 255, 198, 0.3)",
-  "reducing":"rgba(45, 50, 55, 0.15)",
-  "blocking":"rgba(191, 82, 19, 0.3)",
-  "swamp":"rgba(11, 54, 11, 0.25)",
-  "riptide":"rgba(30, 100, 120, 0.15)",
-  "drowning":"rgba(13, 36, 77, 0.2)",
-  "burning":"rgba(255, 165, 0, 0.3)",
-  "defender":"rgba(0, 0, 0, 0.2)",
-  "web":"rgba(255, 255, 255, 0.6)",
-};
-const enemyConfig=getEnemyConfig();
 async function loadData(){
 	await fetch("world.yaml").then(e=>{
 		if(e?.status>=400&&!e?.ok)return customAlert(`[Error ${e.target.status}]: Unable to fetch data "${url}"`,20,"#FF0000");

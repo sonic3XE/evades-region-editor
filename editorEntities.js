@@ -101,7 +101,6 @@ function spawnEntities(area=current_Area){
 				var randType=Math.floor(Math.random()*prop(spawner,"types").length);
 				var type=prop(spawner,"types")[randType].i;
 				var radius=prop(spawner,"radius");
-				var auraColor=auraColors[type];
 				let entity;
 				var enemyX=prop(spawner,"x");
 				var enemyY=prop(spawner,"y");
@@ -135,7 +134,7 @@ function spawnEntities(area=current_Area){
 						map.unknownEntities??=[];
 						map.unknownEntities.indexOf(type)==-1&&(map.unknownEntities.push(type),console.warn("Unknown enemy in "+map.name+": "+type),customAlert("Unknown enemy in "+map.name+": "+type,5,"#FF0"))
 						try{
-							entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[type.replace("fake_","") + "_enemy"].color,radius,type,speed,angle,prop(spawner,`${type}_radius`),boundary);entity.isEnemy=true
+							entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[type.replace("fake_","") + "_enemy"].color,radius,type,speed,angle,boundary);entity.isEnemy=true
 						}catch(e){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
