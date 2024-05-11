@@ -130,7 +130,7 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-					//70 implemented
+					//72 implemented
 					case "experience_drain":
 					case "blocking":
 					case "slippery":
@@ -197,6 +197,7 @@ function spawnEntities(area=current_Area){
 					case "zoning":
 					case "sizing":
 					case "spiral":
+					//case "snowman":
 					case "crumbling":
 					case "pumpkin":
 					case "glowy":
@@ -3335,6 +3336,47 @@ class CrumblingEnemy extends Enemy{
     this.collision(delta);
   }
 }
+/*PARTIAL IMPLEMENTATION
+class SnowmanEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.snowman_enemy.color,"snowman",boundary);
+	this.hasCollided=false;
+	this.collideTime=0;
+	this.crumbleSize=1;
+  }
+  onCollide(){
+	  if(!this.hasCollided){
+		this.hasCollided=true;
+		this.crumbleSize=1;
+		this.radiusMultiplier*=this.crumbleSize;
+		this.speedMultiplier*=0;
+	  }
+  }
+  update(delta,area) {
+	if(this.hasCollided){
+		this.collideTime+=delta;
+		this.speedMultiplier*=0;
+	}
+	if(this.collideTime>=1e3&&this.hasCollided){
+		this.hasCollided=false;
+		this.collideTime=0;
+	};
+	if(!this.hasCollided){
+		if(this.crumbleSize<3){
+			this.crumbleSize+=0.05*delta/(1e3/30);
+		}else{
+			this.crumbleSize=3;
+		}
+	}
+	this.radiusMultiplier*=this.crumbleSize;
+    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
+    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+	this.speedMultiplier = 1;
+	this.radius=this.ogradius*this.radiusMultiplier;
+	this.radiusMultiplier = 1;
+    this.collision(delta);
+  }
+}*/
 class PumpkinEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary,fake=false){
     super(x,y,radius,speed,angle,enemyConfig.pumpkin_enemy.color,"pumpkin",boundary);
