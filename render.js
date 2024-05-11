@@ -149,7 +149,6 @@ spawnEntities(player.area)
   
   if(!selfPlayer&&window.selfId){playtesting=false;
     menu.hidden=playtesting;selfId*=0;
-    realTime.disabled=playtesting;
     camX=window.tempCamPos.x,camY=window.tempCamPos.y,current_Area=window.tempCamPos.area;
 spawnEntities(current_Area)}
 else {
