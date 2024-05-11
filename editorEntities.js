@@ -1573,7 +1573,7 @@ this.collides=this.collision();
 			e.fillRect(a - 18, r - this.radius - p - 8, 36 * l, 7),
 			e.strokeStyle = f,
 			e.strokeRect(a - 18, r - this.radius - p - 8, 36, 7),
-			e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(12),
+			e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(12/camScale),
 			e.textAlign = "center",
 			e.fillStyle = "black",
 			e.fillText(this.name, a, r - this.radius - p - 11);
@@ -1660,7 +1660,7 @@ this.collides=this.collision();
 			e.strokeRect(a + 44, r - this.radius - p - 13.5, 7, 7)))
 		}
 		e.globalAlpha = 1,
-		this.isDowned() && !$ && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16),
+		this.isDowned() && !$ && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16/camScale),
 		e.textAlign = "center",
 		e.fillStyle = "red",
 		this.mutatiorbBuffSlowerDeathTimer && this.mutatiorbBuffed && (e.fillStyle = "rgb(110, 57, 30)"),
