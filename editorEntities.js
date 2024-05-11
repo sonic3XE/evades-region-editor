@@ -238,9 +238,14 @@ const dist=Math.sqrt(dx**2+dy**2);
 var verifiedEntities=[
   "wall","normal","homing","dasher"
 ];
-class SimulatedPlayer{
+class SimulatedPlayer extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
   constructor(x,y,hero,username=nickname.value||"Local Player") {
+	super();
     this.x=x;
+	this.showOnMap=true;
+	this.dashTrails=[];
+	this.isDashing=false;
+	this.fullMapOpacity=true;
 	this.lightRectangle=null;
     this.y=y;
 	this.heroType=hero;
@@ -326,7 +331,7 @@ this.achievementCount=0;
 this.underLibotEffect=false;
 this.underDabotEffect=false;
 this.isLead=false;
-this.leadTime=3500;
+this.leadTime=0;
 this.ictosInvulnerability=false;
 this.quicksand=[0,0,5];
 this.continuousRevive=false;
@@ -1240,9 +1245,9 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 	if(this.isLead){
 	  this.leadTime-=delta;
 	}
-	if(this.leadTime<=0){
+	if(this.leadTime<0){
 	  this.isLead=false;
-	  this.leadTime=3500;
+	  this.leadTime=0;
 	}
 
     if(this.speedghost){
@@ -1432,71 +1437,63 @@ this.collides=this.collision();
       map.players.splice(map.players.indexOf(this));
     }
 	}
-	renderEffects(ctx){
+	renderEffects(ctx,a){
 		const t = ctx.fillStyle;
 		for (const e of this.getEffectConfigs())
 			e.internal || null !== e.fillColor && (ctx.fillStyle = e.fillColor,
 			ctx.beginPath(),
-			this.addEffectPath(ctx, {x:0,y:0}, e),
+			this.addEffectPath(ctx, a, e),
 			ctx.closePath(),
 			ctx.fill());
 		ctx.fillStyle = t;
 	}
-	addEffectPath(e, t, a) {
-		const r = a.internal ? this.radius : a.radius
-		  , c = this.x + t.x
-		  , o = this.y + t.y;
-		e.arc(c, o, r, 0, 2 * Math.PI, !1)
-	}
-	render(e,ctxL,delta) {
-		const a = {x:0,y:0};
-		this.fullMapOpacity=this.area==evadesRenderer?.minimap?.self?.entity?.area;
-		if (this.area!=evadesRenderer?.minimap?.self?.entity?.area)
-			return;
-		localStorage.getItem("confetti")&& this.isDowned() ? (this.drawnConfetti || (this.makeConfetti(),
+	render(e, t) {
+		if(this.area!=current_Area)return;
+		this.updateDashTrailEffect(e, t),
+		settings.confetti && this.isDowned() ? (this.drawnConfetti || (this.makeConfetti(),
 		this.drawnConfetti = !0),
 		this.animateConfetti(),
-		this.drawConfetti(e, a)) : this.drawnConfetti && (this.drawnConfetti = !1);
-		const t = this.x + a.x
-		  , r = this.y + a.y;
-		function c(a, c, o, n=0) {
+		this.drawConfetti(e, t)) : this.drawnConfetti && (this.drawnConfetti = !1);
+		const a = this.x + t.x
+		  , r = this.y + t.y;
+		function c(t, c, o, n=0) {
 			e.beginPath(),
-			e.arc(t + a, r + c, o, 0, 2 * Math.PI, !1),
-			n > 0 && e.arc(t + a, r + c, n, 0, 2 * Math.PI, !0),
+			e.arc(a + t, r + c, o, 0, 2 * Math.PI, !1),
+			n > 0 && e.arc(a + t, r + c, n, 0, 2 * Math.PI, !0),
 			e.fill(),
 			e.closePath()
 		}
-		function o(e, a, t) {
-			c(e, a, t / 2),
-			c(e, -a, t / 2),
-			c(-e, a, t / 2),
-			c(-e, -a, t / 2)
+		function o(e, t, a) {
+			c(e, t, a / 2),
+			c(e, -t, a / 2),
+			c(-e, t, a / 2),
+			c(-e, -t, a / 2)
 		}
 		let n = 1;
 		const $ = this.isDowned() && !this.rescueable && !this.isEmber;
 		$ && (n = this.deathTimer / this.deathTimerTotal);
-		const d = this.getColor();
+		const i = this.getColor();
 		if ($ && (e.globalAlpha = n),
 		"sticky-coat" === this.bodyName && !this.isDeparted) {
-			const a = this.radius + ("sticky-coat" === this.bodyName ? 5 : 1);
+			const t = this.radius + ("sticky-coat" === this.bodyName ? 5 : 1);
 			e.beginPath(),
-			e.arc(t, r, a, 0, 2 * Math.PI, !1),
+			e.arc(a, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "rgba(0, 199, 0, 0.6)",
 			e.fill(),
 			e.closePath()
 		}
 		if ("toxic-coat" === this.bodyName && !this.isDeparted) {
-			const a = this.radius + ("toxic-coat" === this.bodyName ? 5 : 1);
+			const t = this.radius + ("toxic-coat" === this.bodyName ? 5 : 1);
 			e.beginPath(),
-			e.arc(t, r, a, 0, 2 * Math.PI, !1),
+			e.arc(a, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "rgba(77, 1, 99, 0.6)",
 			e.fill(),
 			e.closePath()
 		}
 		if ((this.isBandaged || this.isUnbandaging) && !this.isDeparted) {
-			const a = this.radius + (this.isBandaged ? 3 : 1);
+			const t = this.radius + (this.isBandaged ? 3 : 1);
 			e.beginPath(),
-			e.arc(t, r, a, 0, 2 * Math.PI, !1),
+			e.arc(a, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "#dedabe",
 			e.fill(),
 			e.closePath(),
@@ -1504,46 +1501,62 @@ this.collides=this.collision();
 			e.stroke())
 		}
 		if (this.isStickyCoatActivated && 1 === this.stickyCoatDisabled) {
-			const a = this.radius + (this.isStickyCoatActivated ? 20 : 1);
+			const t = 15 + (this.isStickyCoatActivated ? 20 : 1);
 			e.beginPath(),
-			e.arc(t, r, a, 0, 2 * Math.PI, !1),
+			e.arc(a, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "rgba(0, 199, 0, 0.2)",
 			e.fill(),
 			e.closePath()
 		}
 		if (this.ictosInvulnerability) {
-			const a = this.radius + 5;
+			const t = this.radius + 5;
 			e.beginPath(),
-			e.arc(t, r, a, 0, 2 * Math.PI, !1),
+			e.arc(a, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "rgba(231, 175, 218, 0.5)",
 			e.fill(),
 			e.closePath()
 		}
-		const i = 1e3 / 30;
+		if (this.mutatiorbBuffBackShield && !this.isDeparted && !this.isDowned() && this.mutatiorbBuffed) {
+			const t = this.radius + (this.mutatiorbBuffBackShield ? 4 : 1)
+			  , c = this.shieldAngle;
+			let o = .3 * Math.PI;
+			this.isFactorb && (o = .45 * Math.PI),
+			e.beginPath(),
+			e.arc(a, r, t, c - o, o + c, !1),
+			e.lineWidth = 2,
+			e.fillStyle = "#a6532d",
+			e.fill(),
+			e.strokeStyle = "#6e391e",
+			e.stroke(),
+			e.lineWidth = 1,
+			e.closePath()
+		}
+		const d = 1e3 / 30;
 		if (this.mortarTime > 3e3)
-			e.fillStyle = d,
+			e.fillStyle = i,
 			this.mortarTime % !0 ? c(1, 1, this.radius) : this.mortarTime % !0 ? c(1, -1, this.radius) : this.mortarTime % !0 ? c(-1, 1, this.radius) : c(-1, -1, this.radius);
 		else if (this.mortarTime < 3e3 && this.mortarTime > 0)
 			e.fillStyle = "rgba(75, 60, 60, 0.6)",
-			this.mortarTime > 3e3 - i ? o(5, 5, this.radius) : this.mortarTime > 3e3 - 2 * i ? o(30, 30, this.radius) : this.mortarTime > 2900 ? o(50, 50, this.radius) : this.mortarTime > 3e3 - 4 * i ? o(65, 65, this.radius) : this.mortarTime > 3e3 - 5 * i ? o(75, 75, this.radius) : o(Math.floor(this.mortarTime / 3e3 * 75), Math.floor(this.mortarTime / 3e3 * 75), this.radius);
+			this.mortarTime > 3e3 - d ? o(5, 5, this.radius) : this.mortarTime > 3e3 - 2 * d ? o(30, 30, this.radius) : this.mortarTime > 2900 ? o(50, 50, this.radius) : this.mortarTime > 3e3 - 4 * d ? o(65, 65, this.radius) : this.mortarTime > 3e3 - 5 * d ? o(75, 75, this.radius) : o(Math.floor(this.mortarTime / 3e3 * 75), Math.floor(this.mortarTime / 3e3 * 75), this.radius);
 		else {
-			e.fillStyle = d;
-			let a = 0;
-			"doughnut" === this.bodyName && (a = .2 * this.radius),
-			c(0, 0, this.radius, a)
+			e.fillStyle = i;
+			let t = 0;
+			"doughnut" === this.bodyName && (t = .2 * this.radius),
+			c(0, 0, this.radius, t)
 		}
 		e.globalAlpha = 1,
-		this.renderIcedEffect(e, t, r),
-		this.renderSnowballedEffect(e, t, r),
-		this.renderPoisonedEffect(e, t, r),
-		this.renderCrumbledInvulnerabilityEffect(e, t, r),
-		this.renderShadowedInvulnerabilityEffect(e, t, r),
-		this.renderLeadEffect(e, t, r),
-		this.renderContinuousReviveEffect(e, t, r),
-		this.renderAccessory(e, t, r);
+		this.renderIcedEffect(e, a, r),
+		this.renderSnowballedEffect(e, a, r),
+		this.renderPoisonedEffect(e, a, r),
+		this.renderCrumbledInvulnerabilityEffect(e, a, r),
+		this.renderShadowedInvulnerabilityEffect(e, a, r),
+		this.renderLeadEffect(e, a, r),
+		this.renderContinuousReviveEffect(e, a, r),
+		this.renderAccessory(e, a, r);
 		let s = "blue"
 		  , f = "rgb(68, 118, 255)"
-		  , l = this.energy / this.maxEnergy;
+		  , l = this.energy / this.maxEnergy
+		  , p = 0;
 		if (this.energy > this.maxEnergy && (l = 1),
 		this.energy < 0 && (l = 0),
 		this.energized && (s = "rgb(255, 255, 0)",
@@ -1552,33 +1565,47 @@ this.collides=this.collision();
 		f = "rgb(212, 0, 100)"),
 		this.energized && this.sweetToothConsumed && (s = "rgb(255, 43, 143)",
 		f = "rgb(212, 0, 100)"),
+		this.hasRadioactiveGloop && (p = 15 - this.radius),
 		$ && (e.globalAlpha = n),
-		!this.isDeparted) {
-			if (e.fillStyle = s,
-			e.fillRect(t - 18, r - this.radius - 8, 36 * l, 7),
+		!this.isDeparted || this.hasRadioactiveGloop) {
+			this.isClinging && (e.globalAlpha = .3),
+			e.fillStyle = s,
+			e.fillRect(a - 18, r - this.radius - p - 8, 36 * l, 7),
 			e.strokeStyle = f,
-			e.strokeRect(t - 18, r - this.radius - 8, 36, 7),
-			e.font = "12px Tah",
+			e.strokeRect(a - 18, r - this.radius - p - 8, 36, 7),
+			e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(12),
 			e.textAlign = "center",
 			e.fillStyle = "black",
-			e.fillText(this.name, t, r - this.radius - 11),
-			this.magnetized && (e.beginPath(),
-			e.arc(t + 25, r - this.radius - 5, 3.5, 0, 2 * Math.PI, !1),
+			e.fillText(this.name, a, r - this.radius - p - 11);
+			let t = 25;
+			if (this.magnetized && (e.beginPath(),
+			e.arc(a + t, r - this.radius - p - 5, 3.5, 0, 2 * Math.PI, !1),
 			e.strokeStyle = "rgb(149, 124, 0)",
 			e.fillStyle = "rgb(210, 190, 90)",
 			e.lineWidth = 2,
 			e.fill(),
 			e.stroke(),
 			e.lineWidth = 1,
-			e.closePath()),
+			e.closePath(),
+			t += 10),
+			this.mutatiorbBuffEffectsReduction && this.mutatiorbBuffed && (e.beginPath(),
+			e.arc(a + t, r - this.radius - p - 5, 3.5, 0, 2 * Math.PI, !1),
+			e.strokeStyle = "rgb(59, 33, 19)",
+			e.fillStyle = "rgb(110, 57, 30)",
+			e.lineWidth = 2,
+			e.fill(),
+			e.stroke(),
+			e.lineWidth = 1,
+			e.closePath(),
+			t += 10),
 			this.underLibotEffect) {
-				const a = 10
+				const t = 10
 				  , c = 10
-				  , o = t - 30
-				  , n = r - this.radius - 9;
+				  , o = a - 30
+				  , n = r - this.radius - p - 9;
 				e.beginPath(),
-				e.moveTo(o + a, n),
-				e.lineTo(o + a / 2, n + c),
+				e.moveTo(o + t, n),
+				e.lineTo(o + t / 2, n + c),
 				e.lineTo(o, n),
 				e.closePath(),
 				e.fillStyle = "rgb(255, 250, 189)",
@@ -1588,13 +1615,13 @@ this.collides=this.collision();
 				e.stroke()
 			}
 			if (this.underDabotEffect) {
-				const a = 10
+				const t = 10
 				  , c = 10
-				  , o = t - 30
-				  , n = r - this.radius - 9;
+				  , o = a - 30
+				  , n = r - this.radius - p - 9;
 				e.beginPath(),
-				e.moveTo(o + a, n),
-				e.lineTo(o + a / 2, n + c),
+				e.moveTo(o + t, n),
+				e.lineTo(o + t / 2, n + c),
 				e.lineTo(o, n),
 				e.closePath(),
 				e.fillStyle = "rgb(61, 0, 110)",
@@ -1605,218 +1632,198 @@ this.collides=this.collision();
 			}
 			this.cybotDefeated && (this.hasWindDebuff ? (e.strokeStyle = "rgb(0, 133, 97)",
 			e.fillStyle = "rgb(0, 181, 133)",
-			e.fillRect(t + 32, r - this.radius - 2.5, 7, 7),
-			e.strokeRect(t + 32, r - this.radius - 2.5, 7, 7)) : (e.strokeStyle = "rgba(0, 133, 97, 0.3)",
+			e.fillRect(a + 44, r - this.radius - p - 2.5, 7, 7),
+			e.strokeRect(a + 44, r - this.radius - p - 2.5, 7, 7)) : (e.strokeStyle = "rgba(0, 133, 97, 0.3)",
 			e.fillStyle = "rgba(0, 181, 133, 0.3)",
-			e.fillRect(t + 32, r - this.radius - 2.5, 7, 7),
-			e.strokeRect(t + 32, r - this.radius - 2.5, 7, 7)),
+			e.fillRect(a + 44, r - this.radius - p - 2.5, 7, 7),
+			e.strokeRect(a + 44, r - this.radius - p - 2.5, 7, 7)),
 			this.hasWaterDebuff ? (e.strokeStyle = "rgb(32, 103, 117)",
 			e.fillStyle = "rgb(49, 155, 176)",
-			e.fillRect(t + 43, r - this.radius - 2.5, 7, 7),
-			e.strokeRect(t + 43, r - this.radius - 2.5, 7, 7)) : (e.strokeStyle = "rgba(32, 103, 117, 0.3)",
+			e.fillRect(a + 56, r - this.radius - p - 2.5, 7, 7),
+			e.strokeRect(a + 56, r - this.radius - p - 2.5, 7, 7)) : (e.strokeStyle = "rgba(32, 103, 117, 0.3)",
 			e.fillStyle = "rgba(49, 155, 176, 0.3)",
-			e.fillRect(t + 43, r - this.radius - 2.5, 7, 7),
-			e.strokeRect(t + 43, r - this.radius - 2.5, 7, 7)),
+			e.fillRect(a + 56, r - this.radius - p - 2.5, 7, 7),
+			e.strokeRect(a + 56, r - this.radius - p - 2.5, 7, 7)),
 			this.hasFireDebuff ? (e.strokeStyle = "rgb(179, 101, 5)",
 			e.fillStyle = "rgb(232, 132, 9)",
-			e.fillRect(t + 43, r - this.radius - 13.5, 7, 7),
-			e.strokeRect(t + 43, r - this.radius - 13.5, 7, 7)) : (e.strokeStyle = "rgba(179, 101, 5, 0.3)",
+			e.fillRect(a + 56, r - this.radius - p - 13.5, 7, 7),
+			e.strokeRect(a + 56, r - this.radius - p - 13.5, 7, 7)) : (e.strokeStyle = "rgba(179, 101, 5, 0.3)",
 			e.fillStyle = "rgba(232, 132, 9, 0.3)",
-			e.fillRect(t + 43, r - this.radius - 13.5, 7, 7),
-			e.strokeRect(t + 43, r - this.radius - 13.5, 7, 7)),
+			e.fillRect(a + 56, r - this.radius - p - 13.5, 7, 7),
+			e.strokeRect(a + 56, r - this.radius - p - 13.5, 7, 7)),
 			this.hasEarthDebuff ? (e.strokeStyle = "rgb(125, 82, 35)",
 			e.fillStyle = "rgb(176, 115, 49)",
-			e.fillRect(t + 32, r - this.radius - 13.5, 7, 7),
-			e.strokeRect(t + 32, r - this.radius - 13.5, 7, 7)) : (e.strokeStyle = "rgba(125, 82, 35, 0.3)",
+			e.fillRect(a + 44, r - this.radius - p - 13.5, 7, 7),
+			e.strokeRect(a + 44, r - this.radius - p - 13.5, 7, 7)) : (e.strokeStyle = "rgba(125, 82, 35, 0.3)",
 			e.fillStyle = "rgba(176, 115, 49, 0.3)",
-			e.fillRect(t + 32, r - this.radius - 13.5, 7, 7),
-			e.strokeRect(t + 32, r - this.radius - 13.5, 7, 7)))
+			e.fillRect(a + 44, r - this.radius - p - 13.5, 7, 7),
+			e.strokeRect(a + 44, r - this.radius - p - 13.5, 7, 7)))
 		}
 		e.globalAlpha = 1,
-		this.isDowned() && !$ && (e.font = `16px Tah`,
+		this.isDowned() && !$ && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16),
 		e.textAlign = "center",
 		e.fillStyle = "red",
-		e.fillText((this.deathTimer / 1e3).toFixed(0), t, r + 6))
+		this.mutatiorbBuffSlowerDeathTimer && this.mutatiorbBuffed && (e.fillStyle = "rgb(110, 57, 30)"),
+		e.fillText((this.deathTimer / 1e3).toFixed(0), a, r + 6))
 	}
-	renderLeadEffect(e, a, t) {
-		if (!this.isLead)
-			return;
-		const r = (3500 - this.leadTime) / 3500;
-		e.globalAlpha = .75 - .75 * r,
-		(e.globalAlpha < 0 || e.globalAlpha > .75) && (e.globalAlpha = 0),
-		e.beginPath(),
-		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
-		e.fillStyle = "rgb(33, 33, 39)",
-		e.fill(),
-		e.closePath(),
-		e.globalAlpha = 1
-	}
-	renderIcedEffect(e, a, t) {
+	renderIcedEffect(e, t, a) {
 		if (!this.isIced)
 			return;
 		const r = (this.icedTime - this.icedTimeLeft) / this.icedTime;
 		e.globalAlpha = .7 - .7 * r,
 		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
 		4e3 === this.electrifyInterval ? e.fillStyle = "rgb(176, 73, 0)" : e.fillStyle = "rgb(137, 231, 255)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderSnowballedEffect(e, a, t) {
+	renderSnowballedEffect(e, t, a) {
 		if (!this.isSnowballed)
 			return;
 		const r = (this.snowballedTime - this.snowballedTimeLeft) / this.snowballedTime;
 		e.globalAlpha = .7 - .7 * r,
 		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(191, 0, 255)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderPoisonedEffect(e, a, t) {
+	renderPoisonedEffect(e, t, a) {
 		if (!this.isPoisoned)
 			return;
 		const r = (this.poisonedTime - this.poisonedTimeLeft) / this.poisonedTime;
 		e.globalAlpha = .7 - .7 * r,
 		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(83, 13, 105)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderCrumbledInvulnerabilityEffect(e, a, t) {
+	renderCrumbledInvulnerabilityEffect(e, t, a) {
 		if (!this.crumbledInvulnerability)
 			return;
-		const r = (this.crumbledTime - this.crumbledTimeLeft) / this.crumbledTime;
-		e.globalAlpha = .7 - .7 * r,
-		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
+		const r = (this.crumbledTime - this.crumbledTimeLeft) / this.crumbledTime
+		  , c = .95;
+		e.globalAlpha = c - c * r,
+		(e.globalAlpha < 0 || e.globalAlpha > c) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(49, 43, 30)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderShadowedInvulnerabilityEffect(e, a, t) {
+	renderShadowedInvulnerabilityEffect(e, t, a) {
 		if (!this.shadowedInvulnerability)
 			return;
-		const r = (this.shadowedTime - this.shadowedTimeLeft) / this.shadowedTime;
-		e.globalAlpha = .7 - .7 * r,
-		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
+		const r = (this.shadowedTime - this.shadowedTimeLeft) / this.shadowedTime
+		  , c = .95;
+		e.globalAlpha = c - c * r,
+		(e.globalAlpha < 0 || e.globalAlpha > c) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
-		e.fillStyle = "rgb(0, 0, 0)",
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		this.isFactorb ? e.fillStyle = "rgb(222, 163, 133)" : e.fillStyle = "rgb(0, 0, 0)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderContinuousReviveEffect(e, a, t) {
+	renderLeadEffect(e, t, a) {
+		if (this.leadTime <= 0)
+			return;
+		const r = 1e3 * $3d7c57289a41f86c$exports.defaults.lead_sniper_projectile.effect_time
+		  , c = (r - this.leadTime) / r
+		  , o = .75;
+		e.globalAlpha = o - o * c,
+		(e.globalAlpha < 0 || e.globalAlpha > o) && (e.globalAlpha = 0),
+		e.beginPath(),
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.fillStyle = "rgb(33, 33, 39)",
+		e.fill(),
+		e.closePath(),
+		e.globalAlpha = 1
+	}
+	renderContinuousReviveEffect(e, t, a) {
 		if (!this.continuousRevive)
 			return;
-		const r = (this.continuousReviveTime - this.continuousReviveTimeLeft) / this.continuousReviveTime;
-		e.globalAlpha = .7 - .7 * r,
-		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
+		const r = (this.continuousReviveTime - this.continuousReviveTimeLeft) / this.continuousReviveTime
+		  , c = .95;
+		e.globalAlpha = c - c * r,
+		(e.globalAlpha < 0 || e.globalAlpha > c) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(a, t, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(255, 255, 255)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderAccessory(e, a, t) {
+	renderAccessory(e, t, a) {
 		if (void 0 === this.hatName && void 0 === this.bodyName || this.isDeparted)
 			return;
-		this.bodyName && this.bodyName != this.storedBodyName && (this.bodyImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("cosmetics/" + this.bodyName),
+		this.bodyName && this.bodyName !== this.storedBodyName && (this.bodyImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("cosmetics/" + this.bodyName),
 		this.storedBodyName = this.bodyName),
-		this.hatName && this.hatName != this.storedHatName && (this.hatImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("cosmetics/" + this.hatName),
+		this.hatName && this.hatName !== this.storedHatName && (this.hatImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("cosmetics/" + this.hatName),
 		this.storedHatName = this.hatName);
-		let r = 0
-		  , c = 0;
-		"one-winged-angel" === this.bodyName && (r = -10,
-		c = -7);
-		const o = ()=>e.drawImage(this.bodyImage.getImage(), a + r - 5 * this.radius / 3, t + c - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
-		  , n = ()=>e.drawImage(this.hatImage.getImage(), a - 5 * this.radius / 3 + 0, t - 5 * this.radius / 3 + 0, 10 * this.radius / 3, 10 * this.radius / 3)
-		  , $ = ()=>{
+		const r = ()=>e.drawImage(this.bodyImage.getImage(), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
+		  , c = ()=>e.drawImage(this.hatImage.getImage(), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
+		  , o = ()=>{
 			if (!this.hatName || !this.hatName.endsWith("-crown"))
 				return;
 			const r = [1e4, 7500, 5e3, 3500, 2500, 2e3, 1500, 1e3, 750, 500, 250, 100, 50];
 			(r=>{
 				null !== r && (null === this.gemImage && (this.gemImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("accessories/" + r.toString() + "-gem")),
-				e.drawImage(this.gemImage.getImage(), a - 5 * this.radius / 3, t - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3))
+				e.drawImage(this.gemImage.getImage(), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3))
 			}
 			)((e=>{
 				if (this.gemName)
 					return r.includes(parseInt(this.gemName)) ? this.gemName : null;
 				if (e < r[r.length - 1])
 					return null;
-				for (const a of r)
-					if (e >= a)
-						return a
+				for (const t of r)
+					if (e >= t)
+						return t
 			}
 			)(this.winCount))
 		}
 		;
-		this.isDowned() && this.rescueable ? (e.globalAlpha = .4,
-		this.bodyName && !this.bodyName.endsWith("-coat") && o(),
-		this.hatName && n(),
-		$(),
-		e.globalAlpha = 1) : (this.bodyName && !this.bodyName.endsWith("-coat") && o(),
-		this.hatName && n(),
-		$())
+		this.isDowned() && this.rescueable || this.isClinging || this.isDeparted ? (e.globalAlpha = .4,
+		this.bodyName && !this.bodyName.endsWith("-coat") && r(),
+		this.hatName && c(),
+		o(),
+		e.globalAlpha = 1) : (this.bodyName && !this.bodyName.endsWith("-coat") && r(),
+		this.hatName && c(),
+		o())
 	}
 	isDowned() {
 		return -1 !== this.deathTimer
 	}
 	getColor() {
-		function $hexToRgb(e) {
-			const a = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(e);
-			return a ? {
-				r: parseInt(a[1], 16),
-				g: parseInt(a[2], 16),
-				b: parseInt(a[3], 16)
-			} : null
-		}
 		let e = this.color;
-		const a = this.isDowned() && !this.rescueable && !this.isEmber;
-		if (this.isDowned() && !a) {
-			const a = $hexToRgb(e);
-			e = `rgba(${a.r}, ${a.g}, ${a.b}, 0.4)`
+		const t = this.isDowned() && !this.rescueable && !this.isEmber;
+		if (this.isDowned() && !t) {
+			const t = this.hexToRgb(e);
+			e = `rgba(${t.r}, ${t.g}, ${t.b}, 0.4)`
+		} else if (this.isClinging) {
+			const t = this.hexToRgb(e);
+			e = `rgba(${t.r}, ${t.g}, ${t.b}, 0.3)`
 		} else if (this.nightActivated) {
-			const a = $hexToRgb(e);
-			e = `rgba(${a.r}, ${a.g}, ${a.b}, 0.6)`
+			const t = this.hexToRgb(e);
+			e = `rgba(${t.r}, ${t.g}, ${t.b}, 0.6)`
 		} else if (this.isDeparted) {
-			const a = $hexToRgb(e);
-			e = `rgba(${a.r}, ${a.g}, ${a.b}, 0)`
+			const t = this.hexToRgb(e);
+			e = `rgba(${t.r}, ${t.g}, ${t.b}, 0)`
 		} else
-			this.isStone ? e = "rgba(145, 142, 133, 1)" : this.fusionActivated ? e = "rgba(60, 60, 75, 1)" : this.sugarRushActivated ? e = "rgba(230, 103, 164, 1)" : this.isObscured ? e = "rgba(0, 8, 96, 1)" : this.isEmber ? e = "rgba(87, 36, 16, 1)" : this.isWormhole ? e = "rgba(204, 194, 0, 1)" : 1 === this.roboScannerId ? e = "rgba(255, 0, 0, 1)" : 2 === this.roboScannerId ? e = "rgba(0, 0, 255, 1)" : 3 === this.roboScannerId ? e = "rgba(120, 20, 140, 1)" : 4 === this.roboScannerId ? e = "rgba(123, 157, 178, 1)" : 5 === this.roboScannerId ? e = "rgba(100, 193, 185, 1)" : 6 === this.roboScannerId ? e = "rgba(33, 161, 165, 1)" : 7 === this.roboScannerId ? e = "rgba(168, 124, 134, 1)" : 8 === this.roboScannerId ? e = "rgba(77, 1, 99, 1)" : 9 === this.roboScannerId ? e = "rgba(0, 199, 0, 1)" : 10 === this.roboScannerId ? e = "rgba(189, 103, 210, 1)" : 11 === this.roboScannerId ? e = "rgba(100, 35, 116, 1)" : 12 === this.roboScannerId ? e = "rgba(247, 131, 6, 1)" : 13 === this.roboScannerId ? e = "rgba(108, 84, 30, 1)" : 14 === this.roboScannerId ? e = "rgba(201, 0, 0, 1)" : 15 === this.roboScannerId ? e = "rgba(41, 255, 198, 1)" : 16 === this.roboScannerId ? e = "rgba(160, 83, 83, 1)" : 17 === this.roboScannerId ? e = "rgba(131, 0, 255, 1)" : 18 === this.roboScannerId ? e = "rgba(255, 144, 0, 1)" : 19 === this.roboScannerId ? e = "rgba(0, 204, 142, 1)" : 20 === this.roboScannerId ? e = "rgba(211, 19, 79, 1)" : 21 === this.roboScannerId ? e = "rgba(78, 39, 0, 1)" : 22 === this.roboScannerId ? e = "rgba(97, 255, 97, 1)" : 23 === this.roboScannerId ? e = "rgba(140, 1, 183, 1)" : 24 === this.roboScannerId ? e = "rgba(255, 56, 82, 1)" : 25 === this.roboScannerId ? e = "rgba(164, 150, 255, 1)" : 26 === this.roboScannerId ? e = "rgba(157, 227, 198, 1)" : 27 === this.roboScannerId ? e = "rgba(160, 83, 114, 1)" : 28 === this.roboScannerId ? e = "rgba(120, 136, 152, 1)" : 29 === this.roboScannerId && (e = "rgba(45, 50, 55, 1)");
-		for (const a of this.getEffectConfigs())
-			if (null !== a.fillColor && a.internal) {
-				e = a.fillColor;
+			this.isStone ? e = "rgba(145, 142, 133, 1)" : this.fusionActivated ? e = "rgba(60, 60, 75, 1)" : this.sugarRushActivated ? e = "rgba(230, 103, 164, 1)" : this.isObscured ? e = "rgba(0, 8, 96, 1)" : this.isEmber ? e = "rgba(87, 36, 16, 1)" : this.isWormhole ? e = "rgba(204, 194, 0, 1)" : 1 === this.roboScannerId ? e = "rgba(255, 0, 0, 1)" : 2 === this.roboScannerId ? e = "rgba(0, 0, 255, 1)" : 3 === this.roboScannerId ? e = "rgba(120, 20, 140, 1)" : 4 === this.roboScannerId ? e = "rgba(123, 157, 178, 1)" : 5 === this.roboScannerId ? e = "rgba(100, 193, 185, 1)" : 6 === this.roboScannerId ? e = "rgba(33, 161, 165, 1)" : 7 === this.roboScannerId ? e = "rgba(168, 124, 134, 1)" : 8 === this.roboScannerId ? e = "rgba(77, 1, 99, 1)" : 9 === this.roboScannerId ? e = "rgba(0, 199, 0, 1)" : 10 === this.roboScannerId ? e = "rgba(189, 103, 210, 1)" : 11 === this.roboScannerId ? e = "rgba(100, 35, 116, 1)" : 12 === this.roboScannerId ? e = "rgba(247, 131, 6, 1)" : 13 === this.roboScannerId ? e = "rgba(108, 84, 30, 1)" : 14 === this.roboScannerId ? e = "rgba(201, 0, 0, 1)" : 15 === this.roboScannerId ? e = "rgba(41, 255, 198, 1)" : 16 === this.roboScannerId ? e = "rgba(160, 83, 83, 1)" : 17 === this.roboScannerId ? e = "rgba(131, 0, 255, 1)" : 18 === this.roboScannerId ? e = "rgba(255, 144, 0, 1)" : 19 === this.roboScannerId ? e = "rgba(0, 204, 142, 1)" : 20 === this.roboScannerId ? e = "rgba(211, 19, 79, 1)" : 21 === this.roboScannerId ? e = "rgba(78, 39, 0, 1)" : 22 === this.roboScannerId ? e = "rgba(97, 255, 97, 1)" : 23 === this.roboScannerId ? e = "rgba(140, 1, 183, 1)" : 24 === this.roboScannerId ? e = "rgba(255, 56, 82, 1)" : 25 === this.roboScannerId ? e = "rgba(164, 150, 255, 1)" : 26 === this.roboScannerId ? e = "rgba(157, 227, 198, 1)" : 27 === this.roboScannerId ? e = "rgba(160, 83, 114, 1)" : 28 === this.roboScannerId ? e = "rgba(120, 136, 152, 1)" : 29 === this.roboScannerId ? e = "rgba(45, 50, 55, 1)" : 30 === this.roboScannerId ? e = "rgba(177, 156, 217, 1)" : 31 === this.roboScannerId ? e = "rgba(191, 82, 19)" : 32 === this.roboScannerId ? e = "rgba(10, 85, 87)" : 33 === this.roboScannerId && (e = "rgba(145, 77, 131)");
+		for (const t of this.getEffectConfigs())
+			if (null !== t.fillColor && t.internal) {
+				e = t.fillColor;
 				break
 			}
-		return e
-	}
-	getEffectConfigs() {
-		if (void 0 === this.effects)
-			return [];
-		const e = [];
-		for (const t of this.effects) {
-			if (t.removed || void 0 === t.effectType)
-				continue;
-			const a = $01bb7fd9b3660a1e$export$96671014a1dabc4c(t.effectType);
-			if (null === a)
-				return console.debug("Could not read effect type " + t.effectType),
-				null;
-			a.radius = t.radius,
-			a.inputAngle = t.inputAngle,
-			e.push(a)
-		}
 		return e
 	}
 	makeConfetti() {
@@ -1826,14 +1833,14 @@ this.collides=this.collision();
 	}
 	addConfetti() {
 		const e = ["#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722", "#cc7d60", "#b45c5c", "#397991"]
-		  , a = e[this.randomIntRange(0, e.length - 1)]
-		  , t = this.randomRange(this.x - 10, this.x + 10)
+		  , t = e[this.randomIntRange(0, e.length - 1)]
+		  , a = this.randomRange(this.x - 10, this.x + 10)
 		  , r = this.randomRange(this.y - 50, this.y);
 		this.confetti.push({
-			x: t,
+			x: a,
 			y: r,
 			size: this.randomIntRange(2, 8),
-			color: a,
+			color: t,
 			initialY: r,
 			vx: this.randomRange(-2.5, 2.5),
 			vy: this.randomRange(-5, -.8)
@@ -1841,52 +1848,68 @@ this.collides=this.collision();
 	}
 	animateConfetti() {
 		for (let e = 0; e < this.confetti.length; e++) {
-			const a = this.confetti[e];
-			a.x += a.vx,
-			a.y += a.vy,
-			a.vx += this.randomRange(-.1, .1),
-			a.vy += .35,
-			a.y >= a.initialY + 100 && (this.confetti.splice(e, 1),
+			const t = this.confetti[e];
+			t.x += t.vx,
+			t.y += t.vy,
+			t.vx += this.randomRange(-.1, .1),
+			t.vy += .35,
+			t.y >= t.initialY + 100 && (this.confetti.splice(e, 1),
 			$9bc26d320fe964d6$var$totalConfettiRendered--)
 		}
 	}
-	drawConfetti(e, a) {
-		for (let t = 0; t < this.confetti.length; t++)
-			this.drawConfettiPiece(e, a, this.confetti[t])
+	drawConfetti(e, t) {
+		for (let a = 0; a < this.confetti.length; a++)
+			this.drawConfettiPiece(e, t, this.confetti[a])
 	}
-	drawConfettiPiece(e, a, t) {
-		const r = t.x + a.x
-		  , c = t.y + a.y;
-		e.fillStyle = t.color,
-		e.fillRect(r, c, t.size, t.size)
+	drawConfettiPiece(e, t, a) {
+		const r = a.x + t.x
+		  , c = a.y + t.y;
+		e.fillStyle = a.color,
+		e.fillRect(r, c, a.size, a.size)
 	}
-	randomIntRange(e, a) {
-		return Math.floor(Math.random() * (a - e + 1)) + e
+	randomIntRange(e, t) {
+		return Math.floor(Math.random() * (t - e + 1)) + e
 	}
-	randomRange(e, a) {
-		return Math.random() * (a - e + Number.EPSILON) + e
+	randomRange(e, t) {
+		return Math.random() * (t - e + Number.EPSILON) + e
+	}
+	updateDashTrailEffect(e, t) {
+		if (!this.isDashing && !this.dashTrails.length)
+			return;
+		let a = 0;
+		for (; a < this.dashTrails.length; ) {
+			const r = this.dashTrails[a];
+			if (r.lifetime -= 1,
+			r.lifetime <= 0) {
+				this.dashTrails.splice(a, 1);
+				continue
+			}
+			const c = r.x + t.x
+			  , o = r.y + t.y;
+			e.globalAlpha = .15 + .15 * r.lifetime,
+			e.beginPath(),
+			e.arc(c, o, r.radius, 0, 2 * Math.PI, !1),
+			e.fillStyle = r.color,
+			e.fill(),
+			e.closePath(),
+			e.globalAlpha = 1,
+			a += 1
+		}
+		this.isDashing && this.dashTrails.push({
+			x: this.x,
+			y: this.y,
+			radius: this.radius,
+			color: this.color,
+			lifetime: 5
+		})
 	}
 }
+let $9bc26d320fe964d6$var$totalConfettiRendered = 0;
+const $9bc26d320fe964d6$var$MaxConfettiRendered = 500;
 //Entity
-class SimulatorEntity{
-	getEffectConfigs() {
-		if (void 0 === this.effects)
-			return [];
-		const e = [];
-		for (const t of this.effects) {
-			if (t.removed || void 0 === t.effectType)
-				continue;
-			const a = $01bb7fd9b3660a1e$export$96671014a1dabc4c(t.effectType);
-			if (null === a)
-				return console.debug("Could not read effect type " + t.effectType),
-				null;
-			a.radius = t.radius,
-			a.inputAngle = t.inputAngle,
-			e.push(a)
-		}
-		return e
-	}
+class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
   constructor(x,y,color,radius,type,speed=0,angle,auraRadius=0,auraColor="rgba(0,0,0,0)",boundary) {
+	super();
     this.color = color;
     this.auraColor=auraColor;
 	this.effects=[];
@@ -2147,91 +2170,82 @@ class SimulatorEntity{
   renderExtra(e, ctxL){
 
   }
-	renderEffects(ctx){
+	renderEffects(ctx,a){
 		const t = ctx.fillStyle;
 		for (const e of this.getEffectConfigs())
 			e.internal || null !== e.fillColor && (ctx.fillStyle = e.fillColor,
 			ctx.beginPath(),
-			this.addEffectPath(ctx, {x:0,y:0}, e),
+			this.addEffectPath(ctx, a, e),
 			ctx.closePath(),
 			ctx.fill());
 		ctx.fillStyle = t;
 	}
-	addEffectPath(e, t, a) {
-		const r = a.internal ? this.radius : a.radius
-		  , c = this.x + t.x
-		  , o = this.y + t.y;
-		e.arc(c, o, r, 0, 2 * Math.PI, !1)
+	render(e, t) {
+		if (this.isHarmless && !this.isDestroyed && (e.globalAlpha = .4),
+		this.duration < 500 && (e.globalAlpha = Math.min(e.globalAlpha, this.duration / 500 + .2)),
+		this.grassTime < 1e3 ? e.globalAlpha = Math.max(.4, this.grassTime / 1e3) : 1e3 === this.grassTime && this.grassHarmless && (e.globalAlpha = .4),
+		this.isDestroyed && (e.globalAlpha = 0),
+		this.brightness > 0 && (e.globalAlpha = Math.min(this.brightness, 1)),
+		this.maxHealth > 0) {
+			const a = "rgb(140, 59, 59)"
+			  , r = "red"
+			  , c = "rgb(255, 68, 68)"
+			  , o = this.health / this.maxHealth;
+			e.fillStyle = a,
+			e.fillRect(this.x + t.x - 18, this.y + t.y - this.radius - 8, 36, 7),
+			e.fillStyle = r,
+			e.fillRect(this.x + t.x - 18, this.y + t.y - this.radius - 8, 36 * o, 7),
+			e.strokeStyle = c,
+			e.strokeRect(this.x + t.x - 18, this.y + t.y - this.radius - 8, 36, 7)
+		}
+		if (this.name && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(12/camScale),
+		e.textAlign = "center",
+		e.fillStyle = "black",
+		e.fillText(this.name, this.x + t.x, this.y + t.y - this.radius - 11)),
+		this.inFear ? (e.font = "bolder 20px Arial",
+		e.fillStyle = "#d32323",
+		e.fillText("!", this.x + t.x, this.y + t.y - this.radius - 5)) : this.provoked && (e.font = "bolder 20px Arial",
+		e.fillStyle = "#A0A7AD",
+		e.fillText("!", this.x + t.x, this.y + t.y - this.radius - 5)),
+		this.reduced && (e.font = "bolder 32px Arial",
+		e.fillStyle = "#1212cf",
+		e.fillText("↓", this.x + t.x + this.radius + 5, this.y + t.y + 8)),
+		this.shatterTime > 0)
+			this.drawShattered(e, t);
+		else if (this.mortarTime > 0)
+			this.drawExploded(e, t);
+		else {
+			let a = this.radius;
+			if (void 0 !== this.visualRadius && (a = this.visualRadius),
+			e.beginPath(),
+			e.arc(this.x + t.x, this.y + t.y, a, 0, 2 * Math.PI, !1),
+			void 0 === this.image ? (e.fillStyle = this.getColorChange(),
+			e.fill()) : e.drawImage(this.image.getImage(), this.x + t.x - this.radius, this.y + t.y - this.radius, 2 * a, 2 * a),
+			this.isRepelling && (e.fillStyle = "rgba(109, 109, 255, 0.9)",
+			e.fill()),
+			this.decayed && !this.healingTime > 0 && (e.fillStyle = "rgba(0, 0, 128, 0.2)",
+			e.fill()),
+			this.healingTime > 0 && (e.fillStyle = "rgb(0, 221, 0)",
+			e.fill()),
+			this.burning && !this.healingTime > 0 && !this.decayed && (e.fillStyle = "rgba(205, 75, 27, 0.8)",
+			e.fill()),
+			this.petrified && (e.fillStyle = "rgba(70, 55, 92, 0.75)",
+			e.fill()),
+			this.gainedImmunity && (e.fillStyle = "rgb(0, 0, 0)",
+			e.fill()),
+			this.releaseTime <= 500) {
+				const t = (500 - Math.max(this.releaseTime, 0)) / 500 * .2 + .05;
+				e.fillStyle = `rgba(1, 1, 1, ${t})`,
+				e.fill()
+			}
+			settings.enemyOutlines && (e.lineWidth = 2,
+			e.strokeStyle = "black",
+			e.stroke(),
+			e.lineWidth = 1),
+			e.closePath()
+		}
+		e.globalAlpha = 1
 	}
-  render(e,ctxL,delta,renderType) {
-    var a={x:0,y:0};
-    if (this.isHarmless && !this.isDestroyed && (e.globalAlpha = .4),
-    this.duration < 500 && (e.globalAlpha = Math.min(e.globalAlpha, this.duration / 500)),
-    this.grassTime < 1e3 ? e.globalAlpha = Math.max(.4, this.grassTime / 1e3) : 1e3 === this.grassTime && this.grassHarmless && (e.globalAlpha = .4),
-    this.isDestroyed && (e.globalAlpha = 0),
-    this.brightness > 0 && (e.globalAlpha = Math.min(this.brightness, 1)),
-    this.maxHealth > 0) {
-      const t = "rgb(140, 59, 59)"
-        , r = "red"
-        , c = "rgb(255, 68, 68)"
-        , o = this.health / this.maxHealth;
-      e.fillStyle = t,
-      e.fillRect(this.x + a.x - 18, this.y + a.y - this.radius - 8, 36, 7),
-      e.fillStyle = r,
-      e.fillRect(this.x + a.x - 18, this.y + a.y - this.radius - 8, 36 * o, 7),
-      e.strokeStyle = c,
-      e.strokeRect(this.x + a.x - 18, this.y + a.y - this.radius - 8, 36, 7)
-    }
-    if (this.name && (e.font = "12px Tah",
-    e.textAlign = "center",
-    e.fillStyle = "black",
-    e.fillText(this.name, this.x + a.x, this.y + a.y - this.radius - 11)),
-    this.inFear ? (e.font = "bolder 20px Arial",
-    e.fillStyle = "#d32323",
-    e.fillText("!", this.x + a.x, this.y + a.y - this.radius - 5)) : this.provoked && (e.font = "bolder 20px Arial",
-    e.fillStyle = "#A0A7AD",
-    e.fillText("!", this.x + a.x, this.y + a.y - this.radius - 5)),
-    this.reduced && (e.font = "bolder 32px Arial",
-    e.fillStyle = "#1212cf",
-    e.fillText("↓", this.x + a.x + this.radius + 5, this.y + a.y + 8)),
-    this.shatterTime > 0)
-      this.drawShattered(e, a);
-    else if (this.mortarTime > 0)
-      this.drawExploded(e, a);
-    else {
-      let t = this.radius;
-      if (void 0 !== this.visualRadius && (t = this.visualRadius),
-      e.beginPath(),
-      e.arc(this.x + a.x, this.y + a.y, t, 0, 2 * Math.PI, !1),
-      void 0 === this.image ? (e.fillStyle = this.getColorChange(),
-      e.fill()) : e.drawImage(this.image.getImage(), this.x + a.x - this.radius, this.y + a.y - this.radius, 2 * t, 2 * t),
-      this.isRepelling && (e.fillStyle = "rgba(109, 109, 255, 0.9)",
-      e.fill()),
-      this.decayed && !this.healingTime > 0 && (e.fillStyle = "rgba(0, 0, 128, 0.2)",
-      e.fill()),
-      this.healingTime > 0 && (e.fillStyle = "rgb(0, 221, 0)",
-      e.fill()),
-      this.burning && !this.healingTime > 0 && !this.decayed && (e.fillStyle = "rgba(205, 75, 27, 0.8)",
-      e.fill()),
-      this.petrified && (e.fillStyle = "rgba(70, 55, 92, 0.75)",
-      e.fill()),
-      this.gainedImmunity && (e.fillStyle = "rgb(0, 0, 0)",
-      e.fill()),
-      this.releaseTime <= 500) {
-        let a = (500 - Math.max(this.releaseTime, 0)) / 500 * .2 + .05;
-        e.fillStyle = `rgba(1, 1, 1, ${a})`,
-        e.fill()
-      }
-		this.outline && enemyOutline.checked && (e.lineWidth = 2,
-                             e.strokeStyle = "black",
-                               e.stroke(),
-                               e.lineWidth = 1),
-                               e.closePath()
-                             }
-                             e.globalAlpha = 1
-    this.decayed=false;
-    this.renderExtra(e,ctxL);
-  }
 }
 //UTILS
 function modulus(x,y){
@@ -2380,16 +2394,14 @@ class PelletEntity extends SimulatorEntity{
   }
   update(delta){
     this.collision();
+	this.scaleOscillator.update(delta);
   }
-  render(ctx,ctxL,delta,renderType) {
-	  if(renderType=="aura")return;
-	  if(this.renderFirst==renderType)return;
-    ctx.beginPath();
-    ctx.fillStyle=this.color;
-    ctx.arc(this.x,this.y,this.radius * this.scaleOscillator.value,0,Math.PI*2,!1);
-    ctx.fill();
-    ctx.closePath();
-		this.scaleOscillator.update(delta)
+  render(e,t) {
+	e.beginPath(),
+	e.arc(this.x + t.x, this.y + t.y, this.radius * this.scaleOscillator.value, 0, 2 * Math.PI, !1),
+	e.fillStyle = this.color,
+	e.fill(),
+	e.closePath()
   }
 }
 //	EvadesClassic enemy files: server\src\game\entities\enemies\{{type}}_enemy.py

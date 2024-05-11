@@ -31,11 +31,12 @@
             <label for="snapX">Snap X: <input id="snapX" step="1" min="1" max="32" style="width:50px" type="number" value="16"></label>
             <label for="snapY">Snap Y: <input id="snapY" step="1" min="1" max="32" style="width:50px" type="number" value="16"></label>
             <label for="realTime" style="cursor:help;text-decoration:underline dotted;" title="We are not interested in giving out enemy files. - PotatoNuke">Update area in real time (less fps) <input id="realTime" type="checkbox"></label>
-            <label for="enemyOutline">Enemy Outlines <input id="enemyOutline" type="checkbox"></label>
+            <label for="enemyOutlines">Enemy Outlines <input id="enemyOutlines" type="checkbox"></label>
             <label for="dosandbox">60FPS <input id="dosandbox" type="checkbox"></label>
             <button onclick="extensionPage.hidden=false">View addons</button>
 			<label for="tileMode">Tiles <select id="tileMode"><option>Tiles</option><option>No Tiles</option><option>Tiles Dark</option><option>No Tiles Dark</option></select></label>
             <label for="nickname">Username: <input id="nickname" style="width:100px"></label>
+            <label for="confetti">Confetti <input id="confetti" type="checkbox"></label>
 			<button onclick="tip.hidden=true;document.getElementsByClassName('settings-launcher')[0].hidden=false;" style="position:absolute;right:0;top:0;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
         </p>
         <p id="extensionPage" hidden style="top:50%;left:50%;transform:translate(-50%,-50%)" onmouseover="dragElement(event.target);">
@@ -307,13 +308,13 @@
         </div>
         <script src="enemyConfig.js"></script>
         <script src="zone.js"></script>
+        <script src="HUD.js"></script>
         <script src="editorEntities.js"></script>
         <script src="area.js"></script>
         <script src="assets.js"></script>
         <script src="ui.js"></script>
         <script src="yaml_reader.js"></script>
         <script src="export_import.js"></script>
-        <script src="HUD.js"></script>
         <script src="render.js"></script>
         <script src="main.js"></script>
         <script src="https://rawgit.com/kawanet/msgpack-lite/master/dist/msgpack.min.js" type="text/javascript"></script>

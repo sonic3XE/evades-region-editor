@@ -1,4 +1,36 @@
 const useractive=navigator.userActivation;
+const settings={
+	get snapX(){
+		return Math.floor(Number(localStorage.snapX??16));
+	},set snapX(e){
+		localStorage.snapX=Math.floor(Math.min(Math.max(Number(e),1),32));
+	},get snapY(){
+		return Math.floor(Number(localStorage.snapY??16));
+	},set snapY(e){
+		localStorage.snapY=Math.floor(Math.min(Math.max(Number(e),1),32));
+	},get realTime(){
+		return localStorage.realTime=="true";
+	},set realTime(e){
+		localStorage.realTime=e;
+	},get enemyOutlines(){
+		return localStorage.enemyOutlines=="true";
+	},set enemyOutlines(e){
+		localStorage.enemyOutlines=e;
+	},get confetti(){
+		return localStorage.confetti=="true";
+	},set confetti(e){
+		localStorage.confetti=e;
+	},get tileMode(){
+		return Math.floor(Number(localStorage.tileMode??0))
+	},set tileMode(e){
+		localStorage.tileMode=e;
+	},get isSandbox(){
+		return localStorage.sandbox=="true";
+	},set isSandbox(e){
+		localStorage.sandbox=e;
+	}
+};
+
 (()=>{for(var i in this){
   if(i.includes("Frame"))continue;
   if(i.toLowerCase().includes("inner")||i.toLowerCase().includes("set")||i=="fetch"||i=="alert"||i=="confirm"||i=="prompt"||i=="localStorage"||i=="performance")continue;
@@ -94,9 +126,8 @@ function addZone(type) {
 //    lockCursor = true;
     updateMouseEntity=true;
 //    canvas.style.cursor = `url(/tile/${type}.png),auto`;
-  var snap={x:localStorage.getItem("snapX")||16,y:localStorage.getItem("snapY")||16}
-  let posX = roundTo(Math.round(mouseEntity.x),snap.x);
-  let posY = roundTo(Math.round(mouseEntity.y),snap.y);
+  let posX = roundTo(Math.round(mouseEntity.x),settings.snapX);
+  let posY = roundTo(Math.round(mouseEntity.y),settings.snapY);
 let ActiveZone = createZone({x:posX,y:posY,width:160,height:160,type:"active"});
     map.areas[current_Area].zones.push(ActiveZone);
     updateMap();

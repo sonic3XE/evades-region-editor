@@ -694,16 +694,30 @@ class $cee3aa9d42503f73$export$2e2bcd8739ae039 extends $0322546c98741e1e$export$
 		if (void 0 === this.effects)
 			return [];
 		const e = [];
-		for (const a of this.effects.list()) {
-			if (a.removed || void 0 === a.effectType)
-				continue;
-			const t = $01bb7fd9b3660a1e$export$96671014a1dabc4c(a.effectType);
-			if (null === t)
-				return console.debug("Could not read effect type " + a.effectType),
-				null;
-			t.radius = a.radius,
-			t.inputAngle = a.inputAngle,
-			e.push(t)
+		try{
+			for (const a of this.effects.list()) {
+				if (a.removed || void 0 === a.effectType)
+					continue;
+				const t = $01bb7fd9b3660a1e$export$96671014a1dabc4c(a.effectType);
+				if (null === t)
+					return console.debug("Could not read effect type " + a.effectType),
+					null;
+				t.radius = a.radius,
+				t.inputAngle = a.inputAngle,
+				e.push(t)
+			}
+		}catch(sh){
+			for (const a of this.effects) {
+				if (a.removed || void 0 === a.effectType)
+					continue;
+				const t = $01bb7fd9b3660a1e$export$96671014a1dabc4c(a.effectType);
+				if (null === t)
+					return console.debug("Could not read effect type " + a.effectType),
+					null;
+				t.radius = a.radius,
+				t.inputAngle = a.inputAngle,
+				e.push(t)
+			}
 		}
 		return e
 	}

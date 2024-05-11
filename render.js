@@ -82,6 +82,13 @@ $e7009c797811e935$export$2e2bcd8739ae039.update({});
   //Do not update below 24fps
   (delta/1e3)**-1<24&&(delta=0);
   ti+=delta;
+  snapX.value=settings.snapX;
+  snapY.value=settings.snapY;
+  realTime.checked=settings.realTime;
+  enemyOutlines.checked=settings.enemyOutlines;
+  dosandbox.checked=settings.isSandbox;
+  confetti.checked=settings.confetti;
+  tileMode.selectedIndex=settings.tileMode;
   updateMouseEntity&&(
   mouseEntity.x=mousePos.x / camScale + camX,
   mouseEntity.y=mousePos.y / camScale + camY
@@ -198,16 +205,16 @@ else {
   ctxE.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
-  var actually=(dosandbox.checked ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
+  var actually=(settings.sandbox ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
   ti>(1e3/30-delta/2) && (ti=0);
   map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
   var entities=[...map.areas[current_Area].entities,...map.players];
   try{
   entities.map(e=>{
-	e.renderEffects(ctxE,ctxL,actually);
+	e.renderEffects(ctxE,{x:0,y:0});
   });
   entities.map(e=>{
-	e.render(ctxE,ctxL,actually);
+	e.render(ctxE,{x:0,y:0});
   });
   var enemyError=false;
   ctxE.resetTransform();
@@ -458,6 +465,7 @@ if(!playtesting){
   ctx.fillText(`# of zones: ${map.areas[current_Area].zones.length}`, canvas.width / 2, 55);
   ctx.strokeText(`# of assets: ${map.areas[current_Area].assets.length}`, canvas.width / 2, 80);
   ctx.fillText(`# of assets: ${map.areas[current_Area].assets.length}`, canvas.width / 2, 80);
+  isMouse=false;
 }else{
 
 }
@@ -511,7 +519,7 @@ if(playtesting){
     ctx.drawImage(cons,0,0,1920,barHeight*vertScale,
 	0,0,ctx.canvas.width,barHeight);
   }
-  if(realTime.checked){
+  if(settings.realTime){
   const input={isMouse};
   input.keys=keysDown;
   input.mouse={x:mousePos.ex,y:mousePos.ey};

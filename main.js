@@ -716,24 +716,25 @@ canvas.addEventListener("contextmenu", e => {
   show(contextmenu);updateMouseEntity=false;
 });
 snapX.addEventListener("input",(e)=>{
-  e.target.value=Math.floor(Math.min(Math.max(Number(e.target.value),1),32));
-  localStorage.snapX=e.target.value;
-})
-realTime.addEventListener("input",(e)=>{
-  localStorage.realTime=e.target.checked;
-})
-dosandbox.addEventListener("input",(e)=>{
-  localStorage.dosandbox=e.target.checked;
-})
-enemyOutline.addEventListener("input",(e)=>{
-  localStorage.enemyOutline=e.target.checked;
-})
-tileMode.addEventListener("input",(e)=>{
-  localStorage.tileMode=e.target.selectedIndex;
+  settings.snapX=e.target.value;
 })
 snapY.addEventListener("input",(e)=>{
-  e.target.value=Math.floor(Math.min(Math.max(Number(e.target.value),1),32));
-  localStorage.snapY=e.target.value;
+  settings.snapY=e.target.value;
+})
+realTime.addEventListener("input",(e)=>{
+  settings.realTime=e.target.checked;
+})
+dosandbox.addEventListener("input",(e)=>{
+  settings.sandbox=e.target.checked;
+})
+enemyOutlines.addEventListener("input",(e)=>{
+  settings.enemyOutlines=e.target.checked;
+})
+confetti.addEventListener("input",(e)=>{
+  settings.confetti=e.target.checked;
+})
+tileMode.addEventListener("input",(e)=>{
+  settings.tileMode=e.target.selectedIndex;
 })
 document.addEventListener("click", e => {
   if (e.target === contextmenu || e.target.parentNode === contextmenu && e.button === 2) return;
@@ -1397,13 +1398,6 @@ loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background
   window.requestAnimationFrame(run);
 })();
 
-
-
-
-
-
-
-
 /**
  * @param {SkapObject} obj
  * @returns {[VectorLike, VectorLike]}
@@ -1466,24 +1460,6 @@ function capitalise(str = "") {
   if (str.length <= 1) return str;
   return str[0].toUpperCase() + str.slice(1);
 }
-localStorage.getItem("snapX")&&(
-  snapX.value=Math.floor(Number(localStorage.snapX))
-);
-localStorage.getItem("snapY")&&(
-  snapY.value=Math.floor(Number(localStorage.snapY))
-);
-localStorage.getItem("realTime")&&(
-  realTime.checked=localStorage.realTime=="true"
-);
-localStorage.getItem("enemyOutline")&&(
-  enemyOutline.checked=localStorage.enemyOutline=="true"
-);
-localStorage.getItem("tileMode")&&(
-  tileMode.selectedIndex=localStorage.tileMode
-);
-localStorage.getItem("dosandbox")&&(
-  dosandbox.checked=localStorage.dosandbox=="true"
-);
 localStorage.getItem("chat")&&(
   global.chat && (chat.hidden=localStorage.chat=="false")
 );
