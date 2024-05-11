@@ -299,7 +299,6 @@ this.canCling=false;
 this.isEmber=false;
 this.shadowedInvulnerability=false;
 this.shadowedTime=0;
-this.inputAngle=0;
 this.lastAngle=0;
 this.shadowedTimeLeft=0;
 this.isWormhole=false;
@@ -583,8 +582,8 @@ this.isGuest=!1;
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
-				this.x+=Math.cos(this.inputAngle)*abilityLevels[ability.level-1]?.distance;
-				this.y+=Math.sin(this.inputAngle)*abilityLevels[ability.level-1]?.distance;
+				this.x+=Math.cos(this.input_angle)*abilityLevels[ability.level-1]?.distance;
+				this.y+=Math.sin(this.input_angle)*abilityLevels[ability.level-1]?.distance;
 				var area=map.areas[this.area];
 				this.collision();
 				abilityActive=false;
@@ -1040,17 +1039,17 @@ let timeFix=delta/(1e3/30);
 	  if(this.isLead)cent=!cent;
 		var rotationSpeed = 15;
 		
-      if(this.inputAngle<0){this.inputAngle+=360}
-      if(this.inputAngle>=360){this.inputAngle-=360}
-      var distanceOne = this.inputAngle - Math.abs(this.lastAngle);
-      if(this.lastAngle<=this.inputAngle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.inputAngle-rotationSpeed*delta/(1e3/30)){}
+      if(this.input_angle<0){this.input_angle+=360}
+      if(this.input_angle>=360){this.input_angle-=360}
+      var distanceOne = this.input_angle - Math.abs(this.lastAngle);
+      if(this.lastAngle<=this.input_angle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.input_angle-rotationSpeed*delta/(1e3/30)){}
       else if(distanceOne<-180){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
       else if(distanceOne>=180){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
       else if(distanceOne<0){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
       else if(distanceOne>0){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
       if(this.lastAngle>=360)this.lastAngle-=360;
       if(this.lastAngle<0)this.lastAngle+=360;
-      if(this.lastAngle<=this.inputAngle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.inputAngle-rotationSpeed*delta/(1e3/30)){this.lastAngle = this.inputAngle}
+      if(this.lastAngle<=this.input_angle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.input_angle-rotationSpeed*delta/(1e3/30)){this.lastAngle = this.input_angle}
 this.chronoPos.push([this.x,this.y,this.deathTimer]);
 this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     this.inBarrier = false;
