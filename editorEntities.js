@@ -12,7 +12,7 @@ function $01bb7fd9b3660a1e$export$304370d6b87d514e(e, a, t) {
 }
 
 function $01bb7fd9b3660a1e$export$a1dfcc7b3a7a0b52(e) {
-return abilityConfig[e];
+return $3d7c57289a41f86c$exports.abilities[e];
 }
 function $01bb7fd9b3660a1e$export$6ca246516fec3cbe(e) {
 	let a = "";
@@ -35,6 +35,9 @@ function capitalize(s){
     return e[0].toUpperCase()+e.slice(1).toLowerCase();
   })
   return t.join("");
+}
+function getEntityColor(type){
+	return $3d7c57289a41f86c$exports.defaults[type].color;
 }
 function spawnEntities(area=current_Area){
 	if(!map.areas[area])return;
@@ -132,7 +135,7 @@ function spawnEntities(area=current_Area){
 						map.unknownEntities??=[];
 						map.unknownEntities.indexOf(type)==-1&&(map.unknownEntities.push(type),console.warn("Unknown enemy in "+map.name+": "+type),customAlert("Unknown enemy in "+map.name+": "+type,5,"#FF0"))
 						try{
-							entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[type.replace("fake_","") + "_enemy"].color,radius,type,speed,angle,prop(spawner,`${type}_radius`),auraColor,boundary);entity.isEnemy=true
+							entity=new SimulatorEntity(enemyX,enemyY,enemyConfig[type.replace("fake_","") + "_enemy"].color,radius,type,speed,angle,prop(spawner,`${type}_radius`),boundary);entity.isEnemy=true
 						}catch(e){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
@@ -1908,12 +1911,10 @@ let $9bc26d320fe964d6$var$totalConfettiRendered = 0;
 const $9bc26d320fe964d6$var$MaxConfettiRendered = 500;
 //Entity
 class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
-  constructor(x,y,color,radius,type,speed=0,angle,auraRadius=0,auraColor="rgba(0,0,0,0)",boundary) {
+  constructor(x,y,color,radius,type,speed=0,angle,boundary) {
 	super();
     this.color = color;
-    this.auraColor=auraColor;
 	this.effects=[];
-    this.auraRadius=auraRadius;
     this.type=type;
 	this.lightRectangle=null;
 	this.outline=false;
@@ -2261,11 +2262,11 @@ function speedparts(direction,speed){
 }
 //BASE ENEMY
 class Enemy extends SimulatorEntity{
-  constructor(x,y,radius,speed,angle,color,type,boundary,aura_color,aura_radius){
-    super(x,y,color,radius,type,speed,angle,aura_radius,aura_color,boundary);
+  constructor(x,y,radius,speed,angle,type,boundary){
+    super(x,y,getEntityColor(type),radius,type,speed,angle,boundary);
     this.isEnemy=true;
-	this.renderFirst=false;
-	this.outline=true;
+    this.renderFirst=false;
+    this.outline=true;
   }
   update(delta){
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
@@ -2348,12 +2349,11 @@ class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
 }
 class PelletEntity extends SimulatorEntity{
   constructor(x,y,radius,boundary){
-    //(x,y,color,radius,type,speed,angle,auraRadius=0,auraColor="rgba(0,0,0,0)",boundary)
-    super(x,y,null,radius,"pellet",null,null,null,null,boundary);
+    //(x,y,color,radius,type,speed,angle,boundary)
+    super(x,y,null,radius,"pellet",null,null,boundary);
     this.colors = ["#b84dd4", "#a32dd8", "#3b96fd", "#43c59b", "#f98f6b", "#61c736", "#d192bd"];
-		this.scaleOscillator = new $4e83b777e56fdf48$export$2e2bcd8739ae039(1.1,1.1,1.2,.005,!0);
+    this.scaleOscillator = new $4e83b777e56fdf48$export$2e2bcd8739ae039(1.1,1.1,1.2,.005,!0);
     this.color=this.colors[Math.floor((Math.abs(this.x) + Math.abs(this.y)) % this.colors.length)];
-	this.renderFirst=true;
   }
   playerInteraction(player){
   var victoryZones=map.areas[player.area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
@@ -2393,7 +2393,7 @@ class PelletEntity extends SimulatorEntity{
 	  return Math.floor(Math.min(HeroLevel,100)*Math.min(HeroLevel+1,101)*2+Math.max(0,HeroLevel*(HeroLevel+1)*(2*HeroLevel-179)/60-3535))
   }
   update(delta){
-    this.collision();
+        this.collision();
 	this.scaleOscillator.update(delta);
   }
   render(e,t) {
@@ -2407,7 +2407,7 @@ class PelletEntity extends SimulatorEntity{
 //	EvadesClassic enemy files: server\src\game\entities\enemies\{{type}}_enemy.py
 class WallEnemy extends Enemy{
   constructor(radius,speed,area_bounding_box,wall_index,wall_count,initial_side,move_clockwise=true){
-    super(0,0,radius,speed,0,enemyConfig.wall_enemy.color,"wall",area_bounding_box);
+    super(0,0,radius,speed,0,"wall_enemy",area_bounding_box);
     if(initial_side==void 0){
       initial_side=0
     }
@@ -2473,18 +2473,18 @@ class WallEnemy extends Enemy{
 }
 class NormalEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.normal_enemy.color,"normal",boundary);
+    super(x,y,radius,speed,angle,"normal_enemy",boundary);
   }
 }
 class ImmuneEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.immune_enemy.color,"immune",boundary);
+    super(x,y,radius,speed,angle,"immune_enemy",boundary);
     this.immune=true;
   }
 }
 class CorrosiveEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.corrosive_enemy.color,"normal",boundary);
+    super(x,y,radius,speed,angle,"corrosive_enemy",boundary);
     this.corrosive=true;
   }
 }
@@ -2492,8 +2492,8 @@ class CorrosiveEnemy extends Enemy{
 //Aura Enemies
 class ExperienceDrainEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.experience_drain_enemy.color,"experience_drain",boundary,auraColors.experience_drain,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"experience_drain_enemy",boundary);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.experienceDraining){
@@ -2512,8 +2512,8 @@ class ExperienceDrainEnemy extends Enemy{
 }
 class BlockingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.blocking_enemy.color,"blocking",boundary,auraColors.blocking,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"blocking_enemy",boundary);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.slowing&&player.enemyEffects[0]){
@@ -2568,8 +2568,9 @@ class BlockingEnemy extends Enemy{
 }
 class SlowingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.slowing_enemy.color,"slowing",boundary,auraColors.slowing,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"slowing_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.slowing){
@@ -2580,8 +2581,9 @@ class SlowingEnemy extends Enemy{
 }
 class MagneticReductionEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.magnetic_reduction_enemy.color,"magnetic_reduction",boundary,auraColors.magnetic_reduction,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"magnetic_reduction_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	player.magneticReduction=true
@@ -2589,8 +2591,9 @@ class MagneticReductionEnemy extends Enemy{
 }
 class MagneticNullificationEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.magnetic_nullification_enemy.color,"magnetic_nullification",boundary,auraColors.magnetic_nullification,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"magnetic_nullification_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	player.magneticNullification=true
@@ -2598,8 +2601,9 @@ class MagneticNullificationEnemy extends Enemy{
 }
 class FreezingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.freezing_enemy.color,"freezing",boundary,auraColors.freezing,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"freezing_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.freezing){
@@ -2610,8 +2614,9 @@ class FreezingEnemy extends Enemy{
 }
 class DrainingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.draining_enemy.color,"draining",boundary,auraColors.draining,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"draining_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.draining){
@@ -2622,8 +2627,9 @@ class DrainingEnemy extends Enemy{
 }
 class LavaEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.lava_enemy.color,"lava",boundary,auraColors.lava,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"lava_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.lava){
@@ -2637,8 +2643,9 @@ class LavaEnemy extends Enemy{
 }
 class ToxicEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.toxic_enemy.color,"toxic",boundary,auraColors.toxic,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"toxic_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.toxic){
@@ -2649,8 +2656,9 @@ class ToxicEnemy extends Enemy{
 }
 class EnlargingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.enlarging_enemy.color,"enlarging",boundary,auraColors.enlarging,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"enlarging_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.enlarging){
@@ -2661,8 +2669,9 @@ class EnlargingEnemy extends Enemy{
 }
 class ReducingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.reducing_enemy.color,"reducing",boundary,auraColors.reducing,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"reducing_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	if(!player.reducing){
@@ -2673,8 +2682,9 @@ class ReducingEnemy extends Enemy{
 }
 class SlipperyEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.slippery_enemy.color,"slippery",boundary,auraColors.slippery,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"slippery_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
 	player.slippery=true;
@@ -2682,8 +2692,9 @@ class SlipperyEnemy extends Enemy{
 }
 class BarrierEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.barrier_enemy.color,"barrier",boundary,auraColors.barrier,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"barrier_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.immune=true;
   }
   auraEffect(player,delta){
@@ -2692,8 +2703,9 @@ class BarrierEnemy extends Enemy{
 }
 class RadarEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.radar_enemy.color,"radar",boundary,auraColors.radar,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"radar_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.releaseInterval=250;
 	this.release_time=Math.random()*this.releaseInterval;
   }
@@ -2738,7 +2750,7 @@ class RadarEnemy extends Enemy{
 }
 class RadarProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,owner,boundary){
-    super(x,y,radius,speed,angle,"#c90000","radar_projectile",boundary);
+    super(x,y,radius,speed,angle,"radar_projectile",boundary);
     this.outline=false;
 	this.owner=owner;
     this.immune=true;
@@ -2760,8 +2772,9 @@ class RadarProjectile extends Enemy{
 }
 class GravityEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,gravity,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.gravity_enemy.color,"gravity",boundary,auraColors.gravity,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"gravity_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.gravity=gravity;
   }
   auraEffect(player,delta){
@@ -2779,8 +2792,9 @@ class GravityEnemy extends Enemy{
 }
 class RepellingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,repulsion,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.repelling_enemy.color,"repelling",boundary,auraColors.repelling,aura_radius);
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
+    super(x,y,radius,speed,angle,"repelling_enemy",boundary);
+	this.auraRadius=aura_radius;
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.repulsion=repulsion;
   }
   auraEffect(player,delta){
@@ -2799,7 +2813,7 @@ class RepellingEnemy extends Enemy{
 }
 class PositiveMagneticGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.positive_magnetic_ghost_enemy.color,"positive_magnetic_ghost",boundary);
+    super(x,y,radius,speed,angle,"positive_magnetic_ghost_enemy",boundary);
 	this.isHarmless=true;
 	this.immune=true;
 	this.disabled=true;
@@ -2815,16 +2829,18 @@ class PositiveMagneticGhostEnemy extends Enemy{
 			player.abilityTwo.abilityType=99;
 			player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
 		};
-		if(player.abilityThree.abilityType==98){
-			player.abilityThree.abilityType=99;
-			player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+		if(player.abilityThree){
+			if(player.abilityThree.abilityType==98){
+				player.abilityThree.abilityType=99;
+				player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+			};
 		};
 	}
   }
 }
 class NegativeMagneticGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.negative_magnetic_ghost_enemy.color,"negative_magnetic_ghost",boundary);
+    super(x,y,radius,speed,angle,"negative_magnetic_ghost_enemy",boundary);
 	this.isHarmless=true;
 	this.immune=true;
 	this.disabled=true;
@@ -2840,16 +2856,18 @@ class NegativeMagneticGhostEnemy extends Enemy{
 			player.abilityTwo.abilityType=98;
 			player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
 		};
-		if(player.abilityThree.abilityType==99){
-			player.abilityThree.abilityType=98;
-			player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+		if(player.abilityThree){
+			if(player.abilityThree.abilityType==99){
+				player.abilityThree.abilityType=98;
+				player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+			};
 		};
 	}
   }
 }
 class DisablingGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.disabling_ghost_enemy.color,"disabling_ghost",boundary);
+    super(x,y,radius,speed,angle,"disabling_ghost_enemy",boundary);
 	this.isHarmless=true;
 	this.immune=true;
 	this.disabled=true;
@@ -2862,7 +2880,7 @@ class DisablingGhostEnemy extends Enemy{
 }
 class SpeedGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.speed_ghost_enemy.color,"speed_ghost",boundary);
+    super(x,y,radius,speed,angle,"speed_ghost_enemy",boundary);
 	this.isHarmless=true;
 	this.immune=true;
 	this.disabled=true;
@@ -2875,7 +2893,7 @@ class SpeedGhostEnemy extends Enemy{
 }
 class IceGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.ice_ghost_enemy.color,"ice_ghost",boundary);
+    super(x,y,radius,speed,angle,"ice_ghost_enemy",boundary);
 	this.isHarmless=true;
 	this.immune=true;
 	this.disabled=true;
@@ -2889,7 +2907,7 @@ class IceGhostEnemy extends Enemy{
 }
 class PoisonGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.poison_ghost_enemy.color,"poison_ghost",boundary);
+    super(x,y,radius,speed,angle,"poison_ghost_enemy",boundary);
 	this.isHarmless=true;
 	this.immune=true;
 	this.disabled=true;
@@ -2903,7 +2921,7 @@ class PoisonGhostEnemy extends Enemy{
 }
 class RegenGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.regen_ghost_enemy.color,"regen_ghost",boundary);
+    super(x,y,radius,speed,angle,"regen_ghost_enemy",boundary);
 	this.isHarmless=true;
 	this.immune=true;
 	this.disabled=true;
@@ -2916,7 +2934,7 @@ class RegenGhostEnemy extends Enemy{
 }
 class DisablingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.disabling_enemy.color,"disabling",boundary,auraColors.disabling,aura_radius);
+    super(x,y,radius,speed,angle,"disabling_enemy",boundary);
   }
   auraEffect(player,delta){
 	if(!player.disabling){
@@ -2926,7 +2944,7 @@ class DisablingEnemy extends Enemy{
 }
 class QuicksandEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,direction,strength,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.quicksand_enemy.color,"quicksand",boundary,auraColors.quicksand,aura_radius);
+    super(x,y,radius,speed,angle,"quicksand_enemy",boundary);
 	this.push_direction=direction;
 	this.quicksand_strength=strength;
   }
@@ -2936,7 +2954,7 @@ class QuicksandEnemy extends Enemy{
 }
 class SandEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.sand_enemy.color,"sand",boundary);
+    super(x,y,radius,speed,angle,"sand_enemy",boundary);
 	this.sandSpeed=1;
   }
   update(delta){
@@ -2956,7 +2974,7 @@ class SandEnemy extends Enemy{
 
 class SandrockEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.sandrock_enemy.color,"sandrock",boundary);
+    super(x,y,radius,speed,angle,"sandrock_enemy",boundary);
 	this.sandrockSpeed=1;
   }
   update(delta){
@@ -2975,7 +2993,7 @@ class SandrockEnemy extends Enemy{
 }
 class ChargingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.charging_enemy.color,"charging",boundary);
+    super(x,y,radius,speed,angle,"charging_enemy",boundary);
 	this.chargingSpeed=1;
   }
   update(delta){
@@ -3036,7 +3054,7 @@ class ChargingEnemy extends Enemy{
 }
 class HomingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.homing_enemy.color,"homing",boundary);
+    super(x,y,radius,speed,angle,"homing_enemy",boundary);
     this.target_angle=this.angle;
     this.is_negative_speed=this.speed<0;
     this.speed=Math.abs(this.speed);
@@ -3123,7 +3141,7 @@ class HomingEnemy extends Enemy{
 }
 class DasherEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.dasher_enemy.color,"dasher",boundary);
+    super(x,y,radius,speed,angle,"dasher_enemy",boundary);
     this.reset_parameters();
   }
   reset_parameters(){
@@ -3187,7 +3205,7 @@ class DasherEnemy extends Enemy{
 }
 class TeleportingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.teleporting_enemy.color,"teleporting",boundary);
+    super(x,y,radius,speed,angle,"teleporting_enemy",boundary);
     this.clock = 0;
   }
   update(delta){
@@ -3206,7 +3224,7 @@ class TeleportingEnemy extends Enemy{
 }
 class StarEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.star_enemy.color,"star",boundary);
+    super(x,y,radius,speed,angle,"star_enemy",boundary);
     this.clock = 0;
     this.starPos = 1;
   }
@@ -3229,7 +3247,7 @@ class StarEnemy extends Enemy{
 }
 class OscillatingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.oscillating_enemy.color,"oscillating",boundary);
+    super(x,y,radius,speed,angle,"oscillating_enemy",boundary);
     this.clock = 0;
   }
   update(delta){
@@ -3247,7 +3265,7 @@ class OscillatingEnemy extends Enemy{
 }
 class ZigzagEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.zigzag_enemy.color,"zigzag",boundary);
+    super(x,y,radius,speed,angle,"zigzag_enemy",boundary);
     this.switchInterval = 500;
     this.switchTime = 500;
     this.switchAdd = false;
@@ -3280,7 +3298,7 @@ class ZigzagEnemy extends Enemy{
 }
 class ZoningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.zoning_enemy.color,"zoning",boundary);
+    super(x,y,radius,speed,angle,"zoning_enemy",boundary);
     this.switchInterval = 1000;
     this.switchTime = Math.random() * this.switchInterval;
     this.turnAngle = Math.PI / 2
@@ -3305,7 +3323,7 @@ class ZoningEnemy extends Enemy{
 }
 class SizingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.sizing_enemy.color,"sizing",boundary);
+    super(x,y,radius,speed,angle,"sizing_enemy",boundary);
     this.growing = true;
     this.maxRadius = this.radius * 2.5;
     this.minRadius = this.radius / 2.5;
@@ -3331,7 +3349,7 @@ class SizingEnemy extends Enemy{
 }
 class TurningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,circle_size,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.turning_enemy.color,"turning",boundary);
+    super(x,y,radius,speed,angle,"turning_enemy",boundary);
     this.circle_size = circle_size;
     this.dir = speed / circle_size;
   }
@@ -3350,7 +3368,7 @@ class TurningEnemy extends Enemy{
 }
 class SpiralEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.spiral_enemy.color,"spiral",boundary);
+    super(x,y,radius,speed,angle,"spiral_enemy",boundary);
     this.angleIncrement = 0.15;
     this.angleIncrementChange = 0.004;
     this.angleAdd = false;
@@ -3386,7 +3404,7 @@ class SpiralEnemy extends Enemy{
 }
 class CrumblingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.crumbling_enemy.color,"crumbling",boundary);
+    super(x,y,radius,speed,angle,"crumbling_enemy",boundary);
 	this.hasCollided=false;
 	this.collideTime=0;
 	this.crumbleSize=1;
@@ -3429,7 +3447,7 @@ class CrumblingEnemy extends Enemy{
 /*PARTIAL IMPLEMENTATION
 class SnowmanEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.snowman_enemy.color,"snowman",boundary);
+    super(x,y,radius,speed,angle,"snowman_enemy",boundary);
 	this.hasCollided=false;
 	this.collideTime=0;
 	this.crumbleSize=1;
@@ -3469,7 +3487,7 @@ class SnowmanEnemy extends Enemy{
 }*/
 class PumpkinEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary,fake=false){
-    super(x,y,radius,speed,angle,enemyConfig.pumpkin_enemy.color,"pumpkin",boundary);
+    super(x,y,radius,speed,angle,"pumpkin_enemy",boundary);
 	this.texture="entities/pumpkin_off";
 	this.image=$31e8cfefa331e399$var$images[this.texture];
 	this.detectedDuration=2500;
@@ -3550,7 +3568,7 @@ class PumpkinEnemy extends Enemy{
 }
 class MistEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.mist_enemy.color,"mist",boundary);
+    super(x,y,radius,speed,angle,"mist_enemy",boundary);
       this.brightness = 1;
       this.isVisible = true; // true - fading, false - going visible
       this.visibility_radius = 200;
@@ -3593,13 +3611,10 @@ class MistEnemy extends Enemy{
 	this.speedMultiplier = 1;
     this.collision(delta);
   }
-  spawnTrail(area){
-    area.entities.push(new FireTrailEnemy(this.x,this.y,this.radius,0,0,true,this.boundary));
-  }
 }
 class PhantomEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.phantom_enemy.color,"phantom",boundary);
+    super(x,y,radius,speed,angle,"phantom_enemy",boundary);
       this.brightness = 1;
       this.isVisible = true; // true - fading, false - going visible
       this.visibility_radius = 250;
@@ -3644,13 +3659,10 @@ class PhantomEnemy extends Enemy{
 	this.speedMultiplier = 1;
     this.collision(delta);
   }
-  spawnTrail(area){
-    area.entities.push(new FireTrailEnemy(this.x,this.y,this.radius,0,0,true,this.boundary));
-  }
 }
 class GlowyEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.glowy_enemy.color,"glowy",boundary);
+    super(x,y,radius,speed,angle,"glowy_enemy",boundary);
       this.invisible_timing = 500;
       this.brightness = 1;
       this.isVisible = true;
@@ -3687,7 +3699,7 @@ class GlowyEnemy extends Enemy{
 }
 class FireflyEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.firefly_enemy.color,"firefly",boundary);
+    super(x,y,radius,speed,angle,"firefly_enemy",boundary);
       this.invisible_timing = 500;
       this.isVisible = Math.round(Math.random());
       this.brightness = this.isVisible==0?Math.random():1;
@@ -3724,7 +3736,7 @@ class FireflyEnemy extends Enemy{
 }
 class GrassEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,powered,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.grass_enemy.color,"grass",boundary);
+    super(x,y,radius,speed,angle,"grass_enemy",boundary);
 	this.powered=powered;
 	this.hasTouched=false;
 	this.grassTime=0;
@@ -3757,7 +3769,7 @@ class GrassEnemy extends Enemy{
 }
 class SeedlingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.seedling_enemy.color,"seedling",boundary);
+    super(x,y,radius,speed,angle,"seedling_enemy",boundary);
 	this.hasEntity=false;
 	this.immune=true;
   }
@@ -3774,7 +3786,7 @@ class SeedlingEnemy extends Enemy{
 }
 class SeedlingProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,owner,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.seedling_enemy.color,"seedling_projectile",boundary);
+    super(x,y,radius,speed,angle,"seedling_projectile",boundary);
 	this.owner=owner;
 	this.immune=true;
 	this.angle=Math.random()*360;
@@ -3791,7 +3803,7 @@ class SeedlingProjectile extends Enemy{
 }
 class FireTrailEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary,decay=false){
-    super(x,y,radius,speed,angle,enemyConfig.fire_trail_enemy.color,"fire_trail",boundary);
+    super(x,y,radius,speed,angle,"fire_trail_enemy",boundary);
 	this.lightRadius=this.radius+40;
 	this.isDecay=decay;
 	this.clock=0;
@@ -3948,7 +3960,7 @@ class FlashlightSpawner extends SimulatorEntity{
 }
 class LiquidEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,player_detection_radius,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.liquid_enemy.color,"liquid",boundary);
+    super(x,y,radius,speed,angle,"liquid_enemy",boundary);
     this.player_detection_radius = player_detection_radius;
   }
   update(delta) {
@@ -3985,7 +3997,7 @@ class LiquidEnemy extends Enemy{
 }
 class SwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,switch_inverval,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.switch_enemy.color,"switch",boundary);
+    super(x,y,radius,speed,angle,"switch_enemy",boundary);
     this.switch_inverval = switch_inverval;
     this.disabled = false;
     if (Math.round(Math.random()) === 1) {
@@ -4010,7 +4022,7 @@ class SwitchEnemy extends Enemy{
 }
 class IcicleEnemy extends Enemy{
   constructor(x,y,radius,speed,horizontal,boundary){
-    super(x,y,radius,speed,Math.round(Math.random())*180+90*!horizontal,enemyConfig.icicle_enemy.color,"icicle",boundary);
+    super(x,y,radius,speed,Math.round(Math.random())*180+90*!horizontal,"icicle_enemy",boundary);
     this.clock = 0;
 	this.wallHit=false;
   }
@@ -4031,7 +4043,7 @@ class IcicleEnemy extends Enemy{
 }
 class RadiatingBulletsEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,release_interval,release_time,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.radiating_bullets_enemy.color,"radiating_bullets",boundary);
+    super(x,y,radius,speed,angle,"radiating_bullets_enemy",boundary);
     this.release_interval = release_interval,
     this.releaseTime = release_time ?? (Math.random()*this.release_interval);
   }
@@ -4053,7 +4065,7 @@ class RadiatingBulletsEnemy extends Enemy{
 }
 class RadiatingBulletsProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#a30838","radiating_bullets_projectile",boundary);
+    super(x,y,radius,speed,angle,"radiating_bullets_projectile",boundary);
 	this.outline=false;
 	this.immune=true;
     this.clock = 0;
@@ -4078,7 +4090,7 @@ class RadiatingBulletsProjectile extends Enemy{
 }
 class WavyEnemy extends Enemy{
   constructor(x,y,radius,speed,angle=0,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.wavy_enemy.color,"wavy",boundary);
+    super(x,y,radius,speed,angle,"wavy_enemy",boundary);
     this.circleSize = 100;
     this.dir = 1;
     this.switchInterval = 800;
@@ -4105,7 +4117,7 @@ class WavyEnemy extends Enemy{
 }
 class SniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.sniper_enemy.color,"sniper",boundary);
+    super(x,y,radius,speed,angle,"sniper_enemy",boundary);
     this.release_interval = 3000,
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4150,7 +4162,7 @@ class SniperEnemy extends Enemy{
 }
 class SniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#a05353","sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
@@ -4171,7 +4183,7 @@ class SniperProjectile extends Enemy{
 }
 class PredictionSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.prediction_sniper_enemy.color,"prediction_sniper",boundary);
+    super(x,y,radius,speed,angle,"prediction_sniper_enemy",boundary);
     this.release_interval = 3000,
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4235,7 +4247,7 @@ class PredictionSniperEnemy extends Enemy{
 }
 class ResidueEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.residue_enemy.color,"residue",boundary);
+    super(x,y,radius,speed,angle,"residue_enemy",boundary);
     this.clock = 0;
   }
   update(delta) {
@@ -4251,7 +4263,7 @@ class ResidueEnemy extends Enemy{
 }
 class PredictionSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#d14f84","prediction_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"prediction_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
@@ -4272,7 +4284,7 @@ class PredictionSniperProjectile extends Enemy{
 }
 class IceSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.ice_sniper_enemy.color,"ice_sniper",boundary);
+    super(x,y,radius,speed,angle,"ice_sniper_enemy",boundary);
     this.release_interval = 3000,
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4317,7 +4329,7 @@ class IceSniperEnemy extends Enemy{
 }
 class IceSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#be89ff","ice_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"ice_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
@@ -4342,7 +4354,7 @@ class IceSniperProjectile extends Enemy{
 }
 class PoisonSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.poison_sniper_enemy.color,"poison_sniper",boundary);
+    super(x,y,radius,speed,angle,"poison_sniper_enemy",boundary);
     this.release_interval = 3000,
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4387,7 +4399,7 @@ class PoisonSniperEnemy extends Enemy{
 }
 class PoisonSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#590174","poison_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"poison_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
@@ -4412,7 +4424,7 @@ class PoisonSniperProjectile extends Enemy{
 }
 class SpeedSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,speed_loss,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.speed_sniper_enemy.color,"speed_sniper",boundary);
+    super(x,y,radius,speed,angle,"speed_sniper_enemy",boundary);
     this.release_interval = 2500,
     this.speed_loss=speed_loss;
     this.releaseTime = (Math.random()*this.release_interval);
@@ -4458,7 +4470,7 @@ class SpeedSniperEnemy extends Enemy{
 }
 class SpeedSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,speed_loss,boundary){
-    super(x,y,radius,speed,angle,"#d6885c","speed_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"speed_sniper_projectile",boundary);
     this.outline=false;
     this.speed_loss=speed_loss;
     this.immune=true;
@@ -4487,7 +4499,7 @@ class SpeedSniperProjectile extends Enemy{
 }
 class LeadSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.lead_sniper_enemy.color,"lead_sniper",boundary);
+    super(x,y,radius,speed,angle,"lead_sniper_enemy",boundary);
     this.release_interval = 3000,
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4532,7 +4544,7 @@ class LeadSniperEnemy extends Enemy{
 }
 class LeadSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#687888","lead_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"lead_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
@@ -4558,7 +4570,7 @@ class LeadSniperProjectile extends Enemy{
 }
 class RegenSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,regen_loss,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.regen_sniper_enemy.color,"regen_sniper",boundary);
+    super(x,y,radius,speed,angle,"regen_sniper_enemy",boundary);
     this.release_interval = 2500,
     this.regen_loss=regen_loss;
     this.releaseTime = (Math.random()*this.release_interval);
@@ -4604,7 +4616,7 @@ class RegenSniperEnemy extends Enemy{
 }
 class RegenSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,regen_loss,boundary){
-    super(x,y,radius,speed,angle,"#00a875","regen_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"regen_sniper_projectile",boundary);
     this.outline=false;
     this.regen_loss=regen_loss;
     this.immune=true;
@@ -4631,7 +4643,7 @@ class RegenSniperProjectile extends Enemy{
 }
 class CorrosiveSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.corrosive_sniper_enemy.color,"corrosive_sniper",boundary);
+    super(x,y,radius,speed,angle,"corrosive_sniper_enemy",boundary);
     this.release_interval = 3000,
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4676,7 +4688,7 @@ class CorrosiveSniperEnemy extends Enemy{
 }
 class CorrosiveSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#61ff61","corrosive_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"corrosive_sniper_projectile",boundary);
 	this.corrosive=true;
     this.clock = 0;
   }
@@ -4696,7 +4708,7 @@ class CorrosiveSniperProjectile extends Enemy{
 }
 class PositiveMagneticSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.positive_magnetic_sniper_enemy.color,"positive_magnetic_sniper",boundary);
+    super(x,y,radius,speed,angle,"positive_magnetic_sniper_enemy",boundary);
     this.release_interval = 3000;
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4741,7 +4753,7 @@ class PositiveMagneticSniperEnemy extends Enemy{
 }
 class PositiveMagneticSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#e3001e","positive_magnetic_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"positive_magnetic_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
@@ -4758,9 +4770,11 @@ class PositiveMagneticSniperProjectile extends Enemy{
 			player.abilityTwo.abilityType=99;
 			player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
 		};
-		if(player.abilityThree.abilityType==98){
-			player.abilityThree.abilityType=99;
-			player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+		if(player.abilityThree){
+			if(player.abilityThree.abilityType==98){
+				player.abilityThree.abilityType=99;
+				player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+			};
 		};
 	}
   }
@@ -4780,7 +4794,7 @@ class PositiveMagneticSniperProjectile extends Enemy{
 }
 class NegativeMagneticSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.negative_magnetic_sniper_enemy.color,"negative_magnetic_sniper",boundary);
+    super(x,y,radius,speed,angle,"negative_magnetic_sniper_enemy",boundary);
     this.release_interval = 3000;
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4825,7 +4839,7 @@ class NegativeMagneticSniperEnemy extends Enemy{
 }
 class NegativeMagneticSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#6f59ff","negative_magnetic_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"negative_magnetic_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
@@ -4841,9 +4855,11 @@ class NegativeMagneticSniperProjectile extends Enemy{
 		player.abilityTwo.abilityType=98;
 		player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
 	};
-	if(player.abilityThree.abilityType==99){
-		player.abilityThree.abilityType=98;
-		player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+	if(player.abilityThree){
+		if(player.abilityThree.abilityType==99){
+			player.abilityThree.abilityType=98;
+			player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
+		};
 	};
   }
   onCollide(){
@@ -4862,7 +4878,7 @@ class NegativeMagneticSniperProjectile extends Enemy{
 }
 class ForceSniperAEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.force_sniper_a_enemy.color,"force_sniper_a",boundary);
+    super(x,y,radius,speed,angle,"force_sniper_a_enemy",boundary);
     this.release_interval = 3000,
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4907,7 +4923,7 @@ class ForceSniperAEnemy extends Enemy{
 }
 class ForceSniperAProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#0a5557","force_sniper_a_projectile",boundary);
+    super(x,y,radius,speed,angle,"force_sniper_a_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
@@ -4935,7 +4951,7 @@ class ForceSniperAProjectile extends Enemy{
 }
 class ForceSniperBEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.force_sniper_b_enemy.color,"force_sniper_b",boundary);
+    super(x,y,radius,speed,angle,"force_sniper_b_enemy",boundary);
     this.release_interval = 3000,
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -4980,7 +4996,7 @@ class ForceSniperBEnemy extends Enemy{
 }
 class ForceSniperBProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#914d83","force_sniper_b_projectile",boundary);
+    super(x,y,radius,speed,angle,"force_sniper_b_projectile",boundary);
     this.outline=false;
     this.immune=true;
     this.clock = 0;
@@ -5008,7 +5024,7 @@ class ForceSniperBProjectile extends Enemy{
 }
 class WindGhostEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,ignore_invulnerability,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.wind_ghost_enemy.color,"wind_ghost",boundary);
+    super(x,y,radius,speed,angle,"wind_ghost_enemy",boundary);
 	this.gravity=1;
 	this.isHarmless=true;
 	this.immune=true;
@@ -5037,7 +5053,7 @@ class WindGhostEnemy extends Enemy{
 }
 class WindSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,enemyConfig.wind_sniper_enemy.color,"wind_sniper",boundary);
+    super(x,y,radius,speed,angle,"wind_sniper_enemy",boundary);
     this.release_interval = 3000,
     this.releaseTime = (Math.random()*this.release_interval);
   }
@@ -5082,7 +5098,7 @@ class WindSniperEnemy extends Enemy{
 }
 class WindSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"#82c2a5","wind_sniper_projectile",boundary);
+    super(x,y,radius,speed,angle,"wind_sniper_projectile",boundary);
 	this.gravity=1;
 	this.outline=false;
 	this.immune=true;
