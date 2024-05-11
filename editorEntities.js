@@ -1038,6 +1038,19 @@ this.isGuest=!1;
 let timeFix=delta/(1e3/30);
 	  var cent=this.isCent;
 	  if(this.isLead)cent=!cent;
+		var rotationSpeed = 15;
+		
+      if(this.inputAngle<0){this.inputAngle+=360}
+      if(this.inputAngle>=360){this.inputAngle-=360}
+      var distanceOne = this.inputAngle - Math.abs(this.lastAngle);
+      if(this.lastAngle<=this.inputAngle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.inputAngle-rotationSpeed*delta/(1e3/30)){}
+      else if(distanceOne<-180){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
+      else if(distanceOne>=180){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
+      else if(distanceOne<0){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
+      else if(distanceOne>0){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
+      if(this.lastAngle>=360)this.lastAngle-=360;
+      if(this.lastAngle<0)this.lastAngle+=360;
+      if(this.lastAngle<=this.inputAngle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.inputAngle-rotationSpeed*delta/(1e3/30)){this.lastAngle = this.inputAngle}
 this.chronoPos.push([this.x,this.y,this.deathTimer]);
 this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     this.inBarrier = false;
@@ -1406,6 +1419,14 @@ this.collides=this.collision();
 	}
 	e.fill();
 	e.closePath();
+	var flashlightLightSource={
+			x: this.x,
+			y: this.y,
+			centerDistance: this.radius,
+			directionAngle: this.lastAngle*Math.PI/180,
+			innerAngle: 35*Math.PI/180,
+			distance: 500
+		};
         var rt = ctxL.createRadialGradient(
           canvas.width / 2 + (this.x - camX) * camScale, 
           canvas.height / 2 + (this.y - camY) * camScale, 0, 
@@ -1441,27 +1462,6 @@ this.collides=this.collision();
 		this.fullMapOpacity=this.area==evadesRenderer?.minimap?.self?.entity?.area;
 		if (this.area!=evadesRenderer?.minimap?.self?.entity?.area)
 			return;
-		var rotationSpeed = 15;
-		
-      if(this.inputAngle<0){this.inputAngle+=360}
-      if(this.inputAngle>=360){this.inputAngle-=360}
-      var distanceOne = this.inputAngle - Math.abs(this.lastAngle);
-      if(this.lastAngle<=this.inputAngle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.inputAngle-rotationSpeed*delta/(1e3/30)){}
-      else if(distanceOne<-180){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
-      else if(distanceOne>=180){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
-      else if(distanceOne<0){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
-      else if(distanceOne>0){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
-      if(this.lastAngle>=360)this.lastAngle-=360;
-      if(this.lastAngle<0)this.lastAngle+=360;
-      if(this.lastAngle<=this.inputAngle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=this.inputAngle-rotationSpeed*delta/(1e3/30)){this.lastAngle = this.inputAngle}
-		var flashlightLightSource={
-			x: this.x,
-			y: this.y,
-			centerDistance: this.radius,
-			directionAngle: this.lastAngle*Math.PI/180,
-			innerAngle: 35*Math.PI/180,
-			distance: 500
-		};
 		localStorage.getItem("confetti")&& this.isDowned() ? (this.drawnConfetti || (this.makeConfetti(),
 		this.drawnConfetti = !0),
 		this.animateConfetti(),
