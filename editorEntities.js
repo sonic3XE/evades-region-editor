@@ -173,6 +173,7 @@ function spawnEntities(area=current_Area){
 					case "regen_ghost":
 					case "disabling_ghost":
 					case "ice_sniper":
+					case "ice_ghost":
 					case "wind_sniper":
 					case "prediction_sniper":
 					case "lead_sniper":
@@ -2747,6 +2748,20 @@ class SpeedGhostEnemy extends Enemy{
   playerInteraction(player){
 	if(!player.speedghost){
 	  player.speedghost=true;
+	}
+  }
+}
+class IceGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,enemyConfig.ice_ghost_enemy.color,"ice_ghost",boundary);
+	this.isHarmless=true;
+	this.immune=true;
+	this.disabled=true;
+  }
+  playerInteraction(player){
+	if(!player.isIced){
+	  player.isIced=true;
+	  player.icedTimeLeft=150;
 	}
   }
 }
