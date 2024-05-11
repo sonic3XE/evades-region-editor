@@ -209,10 +209,10 @@ else {
   entities.map(e=>{
 	e.render(ctxE,ctxL,actually);
   });
-  }catch(e){throw errorFX.play(),e}
   var enemyError=false;
   ctxE.resetTransform();
   ctx.drawImage(canvasEntityLayer,0,0);
+  try{
   if(map.areas[current_Area].properties.lighting < 1){
 	evadesRenderer.dynamicLighting.lighting = map.areas[current_Area].properties.lighting,
 	evadesRenderer.dynamicLighting.circleLightSources.length = 0,
@@ -230,7 +230,11 @@ else {
 	ctx.globalCompositeOperation = "destination-in",
 	ctx.drawImage(canvasLighting, 0, 0),
 	ctx.globalCompositeOperation = "source-over"
+  }}catch(e){
+	  console.log("Lighting renderer error.");
+	  throw e;
   }
+  }catch(e){throw errorFX.play(),e}
   evadesRenderer.snowRenderer.update(map.areas[current_Area], ctx, { x: -camX * camScale, y: -camY * camScale })
   evadesRenderer.snowRenderer.render(ctx)
   ctx.lineWidth = 2;

@@ -420,6 +420,11 @@ this.isGuest=!1;
 					e.radius=prop("radius");
 				});
 			}
+			if(ability.abilityType==96){
+				this.effects.filter(e=>e.effectType==63).map(e=>{
+					!this.isDowned()&&(e.inputAngle=this.lastAngle/180*Math.PI);
+				});
+			}
 		}
 	}
   assetCollision(){
@@ -692,10 +697,14 @@ this.isGuest=!1;
 		};break;
 		case 96:{/*Flashlight*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
-				this.flashlight=true;
+				if(!this.effects.filter(e=>e.effectType==63).length){
+					this.effects.push({effectType:63,inputAngle:this.input_angle,hasLight:true,cone:{"innerAngle":35,"distance":500}});
+				}
 			}
 			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
-				this.flashlight=false;
+				this.effects.filter(e=>e.effectType==63).map(e=>{
+					e.removed=true;
+				});
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
@@ -814,9 +823,6 @@ this.isGuest=!1;
 	  var harden=false;
 	  var forceOff=[0,0,0];
 	  if(this.deathTimer!=-1){
-		  this.flashlight=false;
-		  this.lantern=false;
-		  this.paralysisAura=false;
 		  this.abilityOne.abilityType!=18&&(this.firstAbilityActivated=false);
 		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
 		  this.abilityThree?.abilityType!=18&&(this.thirdAbilityActivated=false);
@@ -1272,10 +1278,8 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       this.quicksand[0] = false;
     }
 
-    if (this.energy > 0 && this.energy < this.maxEnergy) {
-      this.energy += this.energyRate * delta / 1000;
-	  this.energyRate=this.energyRegen+this.regenAdditioner;
-    }
+    this.energy += this.energyRate * delta / 1000;
+	this.energyRate=this.energyRegen+this.regenAdditioner;
 	if(this.energy > this.maxEnergy)this.energy=this.maxEnergy;
 	if(this.energy < 0)this.energy=0;
     this.oldPos = (this.previousPos.x == this.x && this.previousPos.y == this.y) ? this.oldPos : {x:this.previousPos.x,y:this.previousPos.y}
@@ -2309,6 +2313,7 @@ function death(player){
     }else if(map.properties.death_timer!==void 0){
       player.deathTimer=player.deathTimerTotal=map.properties.death_timer;
     }
+	player.effects=[];
 }
 //PELLETS
 class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
@@ -3812,7 +3817,7 @@ class Torch extends SimulatorEntity{
 	this.baseLightRadius = 100,
 	this.randomFlickerRadius = 10,
 	this.flickerChance = .15,
-	this.lightRadius = this.baseLightRadius
+	this.lightRadius = this.baseLightRadius;
 	this.renderFirst=true;
 	this.flipped=upside_down;
 	this.image=$31e8cfefa331e399$var$images['entities/torch'].clone();
@@ -3820,8 +3825,6 @@ class Torch extends SimulatorEntity{
 	this.height=36;
   }
   update(){}
-  renderEffects(ctx,ctxL,delta){
-  }
   render(ctx,ctxL,delta) {
 	ctx.imageSmoothingEnabled = false;
 	var tf=delta/(1e3/30)
@@ -3836,25 +3839,9 @@ class Torch extends SimulatorEntity{
 class LightRegion extends SimulatorEntity{
   constructor(x,y,width,height){
     super(x,y,null,null,"light_region",null,null,null,null,null);
-	this.width=width;
-	this.height=height;
+	this.lightRectangle={x,y,width,height,intensity:1};
   }
   update(){}
-  renderEffects(ctx,ctxL,delta) {
-        var m = canvas.width / 2 + (this.x - camX + this.width / 2) * camScale
-          , b = canvas.height / 2 + (this.y - camY + this.height / 2) * camScale
-          , w = Math.max(this.width, this.height) / 2 * camScale
-          , I = ctxL.createRadialGradient(m, b, 0, m, b, w);
-        I.addColorStop(0, "rgba(0, 0, 0, 1)");
-        I.addColorStop(1, "rgba(0, 0, 0, 0)");
-        ctxL.fillStyle = I;
-        ctxL.fillRect(
-          canvas.width / 2 + (this.x - camX) * camScale - w / 2, 
-          canvas.height / 2 + (this.y - camY) * camScale - w / 2, 
-          (this.width * camScale + w), 
-          (this.height * camScale + w)
-        );
-  }
   render(ctx,ctxL,delta) {}
 }
 class Gate extends SimulatorEntity{
