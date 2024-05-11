@@ -3460,7 +3460,7 @@ class PumpkinEnemy extends Enemy{
 	this.isFake=fake;
   }
   update(delta) {
-	if(this.isFake)this.speedMultiplier=0;
+	if(this.isFake||this.frozen)this.speedMultiplier=0;
 	else{
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
