@@ -795,6 +795,25 @@ document.addEventListener("keydown", e => {
   chat.hidden=!toggleChat;
   }
 if(playtesting){
+  if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){
+	  e.preventDefault();
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].godmode=true;
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].deathTimer=-1;
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].speed=17;
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].maxEnergy=500;
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].energy=500;
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].upgradePoints=999;
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].level=100;
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].experience=map.players[map.players.map(t=>t.id).indexOf(selfId)].nextLevelExperience;
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].energyRegen=500;
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].noCooldown=true;
+	  evadesRenderer.heroInfoCard.abilityOne.locked=false;
+	  evadesRenderer.heroInfoCard.abilityOne.level=evadesRenderer.heroInfoCard.abilityOne.maxLevel;
+	  evadesRenderer.heroInfoCard.abilityTwo.locked=false;
+	  evadesRenderer.heroInfoCard.abilityTwo.level=evadesRenderer.heroInfoCard.abilityTwo.maxLevel;
+	  evadesRenderer.heroInfoCard.abilityThree.locked=false;
+	  evadesRenderer.heroInfoCard.abilityThree.level=evadesRenderer.heroInfoCard.abilityThree.maxLevel;
+  }
   if (e.which === controls.TOGGLE_HERO_INFO) toggleHeroCard = !toggleHeroCard;
   localStorage.heroCard=toggleHeroCard;
   if (e.which === controls.TOGGLE_LEADERBOARD) toggleLeaderboard = !toggleLeaderboard;

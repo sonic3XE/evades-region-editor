@@ -542,7 +542,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;*/
-		case 0:{
+		case 0:{/*Flow*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 				this.speedMultiplier*=abilityLevels[ability.level-1].slow??1;
 				this.speedAdditioner+=abilityLevels[ability.level-1].boost??0;
@@ -560,7 +560,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 1:{
+		case 1:{/*Harden*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 				this.speedMultiplier*=0;
 				this.invulnerable=true;
@@ -579,7 +579,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 2:{
+		case 2:{/*Warp*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
@@ -596,7 +596,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 3:{
+		case 3:{/*Paralysis*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				if(this.paralysisAura){
@@ -620,7 +620,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 14:{
+		case 14:{/*Night*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
@@ -637,7 +637,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 18:{
+		case 18:{/*Backtrack*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
@@ -655,7 +655,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 31:{
+		case 31:{/*Decay*/
 			for(var entity of map.areas[this.area].entities){
 				if(entity.isEnemy&&this.distance(this,entity)<abilityConfig[ability.abilityType].radius&&!entity.immune){
 					entity.speedMultiplier*=abilityLevels[ability.level-1]?.slow;
@@ -663,7 +663,7 @@ this.isGuest=!1;
 				}
 			}
 		};break;
-		case 96:{
+		case 96:{/*Flashlight*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 				this.flashlight=true;
 			}
@@ -672,7 +672,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 98:{
+		case 98:{/*Magnetism Down*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
@@ -698,7 +698,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 99:{
+		case 99:{/*Magnetism Up*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
@@ -1056,6 +1056,14 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 				ab3.cooldown-=delta/1e3;
 				ab3.cooldown=Math.max(ab3.cooldown,0);
 			}
+			if(this.noCooldown){
+				ab1.cooldown=0;
+				ab2.cooldown=0;
+				ab3.cooldown=0;
+			}
+			if(this.godmode){
+				this.invulnerable=true;
+			}
 		let area=map.areas[this.area];
       this.safeZone = true;
       this.minimum_speed = 1;
@@ -1321,6 +1329,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     this.regenAdditioner = 0;
     if(this.deathTimer!=-1){
       this.deathTimer-=delta;
+      this.deathTimer=Math.max(0,this.deathTimer);
     }
       for(var i in area.zones){
         var zone = area.zones[i];
@@ -1373,7 +1382,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 this.areaNumber=this.area+1;
 this.regionName=map.name;
 this.collides=this.collision();
-    if(this.deathTimer<=delta&&this.deathTimer>=0){
+    if(this.deathTimer==0){
       map.players.splice(map.players.indexOf(this));
     }
 	}
@@ -2246,7 +2255,7 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
   if(enemy.texture=="entities/pumpkin_off"||enemy.radius==0||harmless||enemy.shatterTime>0){
 	dead=false;
   }
-  if(dead){
+  if(dead&&!corrosive){
     if(player.isBandaged){
       player.isBandaged=false;
 	  player.isUnbandaging=true;

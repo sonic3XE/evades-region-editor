@@ -6,7 +6,7 @@ const useractive=navigator.userActivation;
 }})();
 
 const assetsLoaded={count:0};
-const loadImage = function(src) {
+const loadImage = function(src){
   if(typeof src!="string")return;
   if(src.endsWith(".mp4")){
     let vid=document.createElement("video");
