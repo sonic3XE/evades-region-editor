@@ -221,8 +221,6 @@ var zoneconsts = {
     dummy: createOffscreenCanvas(128, 128)
   }, ice: { active: createOffscreenCanvas(512, 512) }
 }
-class snow { constructor() { this.intensity = 0, this.particles = [], this.angle = 0, this.area = null, this.camera = null } update(t, i, r) { if (this.intensity = JSON.parse(t).snow, 0 !== this.intensity) { t !== JSON.stringify(this.area) && (this.area = JSON.parse(t), this.reset(i)); var s = 0, a = 0; null !== this.camera && (s = this.camera.x - r.x, a = this.camera.y - r.y), this.camera = { x: r.x, y: r.y }, this.angle += .01; for (var h = this.width(i), e = this.height(i), n = 1 + 2 * this.intensity, d = 0; d < this.particles.length; d++) { var l = this.particles[d]; l.x += 2 * Math.sin(this.angle) * n - s, l.y += (Math.cos(this.angle + l.d) + 1 + l.r / 2) * n - a, l.x > h ? this.particles[d] = s < 0 ? { x: -(Math.random() * s), y: Math.random() * e, r: l.r, d: l.d } : { x: 0, y: Math.random() * e, r: l.r, d: l.d } : l.x < 0 ? this.particles[d] = s > 0 ? { x: h - Math.random() * s, y: Math.random() * e, r: l.r, d: l.d } : { x: h, y: Math.random() * e, r: l.r, d: l.d } : l.y > e && a < 0 ? this.particles[d] = { x: Math.random() * h, y: -(Math.random() * a), r: l.r, d: l.d } : l.y < 0 && a > 0 ? this.particles[d] = { x: Math.random() * h, y: e - Math.random() * a, r: l.r, d: l.d } : (l.y < 0 || l.y > e) && (this.particles[d] = { x: Math.random() * h, y: 0, r: l.r, d: l.d }) } } } reset(t) { this.angle = 0, this.particles = [], this.camera = null; for (var i = Math.ceil(2 * this.intensity), r = Math.ceil(3.5 * this.intensity), s = this.width(t), a = this.height(t), h = 0; h < Math.floor(40 * this.intensity); h++)this.particles.push({ x: Math.random() * s, y: Math.random() * a, r: Math.random() * (r - i) + i, d: Math.random() }) } width(t) { return t.canvas.width } height(t) { return t.canvas.height } render(t) { if (0 !== this.intensity) { var i = this.width(t), r = this.height(t); t.fillStyle = "rgba(255, 255, 255, 0.8)", t.beginPath(); for (var s = 0; s < this.particles.length; s++) { var a = this.particles[s], h = a.x, e = a.y; h < 0 || e < 0 || h > i || e > r || (t.moveTo(h, e), t.arc(h, e, a.r, 0, 2 * Math.PI, !1)) } t.fill() } } }
-var c = new snow;
 function ExtractDiff(e){e=e.replace(/ /g,"");const t=e.split("+"),i=e.split("-");return t.length>1?parseInt(t[1]||0):i.length>1?-parseInt(i[1]||0):0};
 const auraColors={
   "slowing":"rgba(255, 0, 0, 0.15)",
@@ -385,15 +383,23 @@ canvas.addEventListener("wheel", e => {
   camY = (m * y - y + camY) / m;
   camScale = Math.min(Math.max(1/zoomLimit,camScale),32);
 },{capture:true,passive:true});
-const mousePos={x:0,y:0}
+const mousePos={x:0,y:0,ex:0,ey:0}
 let mouseEntity={x:mousePos.x / camScale + camX,y:mousePos.y / camScale + camX}
 canvas.addEventListener("mousemove", e => {
+  const t = canvas.getBoundingClientRect();
+  const mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
   mousePos.x=(e.offsetX - canvas.width / 2);
   mousePos.y=(e.offsetY - canvas.height / 2);
+  mousePos.ex=mouse_position.x;
+  mousePos.ey=mouse_position.y;
   socket.send(msgpack.encode({mouseEntity}));
 });
+var isMouse=false;
 canvas.addEventListener("mousedown", e => {
   if (e.button === 1) e.preventDefault();
+  if(playtesting && e.button === 0){
+	  isMouse=!isMouse;
+  }
   if (e.button !== 0) return;
   let target = targetedObject(e);
   if(lockCursor)return;

@@ -22,6 +22,13 @@ function $01bb7fd9b3660a1e$export$6ca246516fec3cbe(e) {
 	}
 	return a
 }
+function capitaliseName(s){
+  var t=s.split("_")
+  t=t.map(e=>{
+    return e[0].toUpperCase()+e.slice(1).toLowerCase();
+  })
+  return t.join(" ");
+}
 function capitalize(s){
   var t=s.split("_")
   t=t.map(e=>{
@@ -232,16 +239,18 @@ var verifiedEntities=[
   "wall","normal","homing","dasher"
 ];
 class SimulatedPlayer{
-  constructor(x,y,color,username=nickname.value||"Local Player") {
+  constructor(x,y,hero,username=nickname.value||"Local Player") {
     this.x=x;
+	this.lightRectangle=null;
     this.y=y;
+	this.heroType=hero;
+	const e = $01bb7fd9b3660a1e$export$71c647defb4fbd5a(this.heroType);
 this.onTele=true;
 this.effects=[];
 this.oldPos={x:this.x,y:this.y};
 this.previousPos={x:this.x,y:this.y};
     this.velX=0;
 	this.isPlayer=true;
-    this.heroType=0;
     this.velY=0;
     this.level=1;
     this.nextLevelExperience=4;
@@ -255,7 +264,6 @@ this.previousPos={x:this.x,y:this.y};
     this.deathTimer=-1;
     this.id=Math.random();
     this.nightActivated=false;
-this.effects=[];
 this.regionHighestAreaAchieved=0;
 this.winCount=0;
 this.rescuedCount=0;
@@ -271,15 +279,14 @@ this.snowballedTime=2500;
 this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
-this.abilityOne={abilityType:3};
-this.abilityTwo={abilityType:18};
-this.abilityThree={abilityType:98};
+this.abilityOne={abilityType:2};
+this.abilityTwo={abilityType:3};
+//this.abilityThree={abilityType:98};
 this.abilityIndex=0;
 this.cachedAbilities=[];
 this.availableAbilities=[0,1,2,14,18,31,96,98];
 this.harden = false;
 this.flow = false;
-this.paralysisAura=false;
 this.isBandaged=false;
 this.isUnbandaging=false;
 this.fusionActivated=false;
@@ -326,7 +333,8 @@ this.continuousRevive=false;
 this.continuousReviveTime=0;
 this.continuousReviveTimeLeft=0;
     this.deathTimerTotal=0;
-    this.color=color;
+    this.color=e.foregroundColor;
+	this.strokeColor = e.strokeColor;
     this.name=username;
 	this.isCent=false;
 	this.flashlight=false;
@@ -355,6 +363,7 @@ this.vertSpeed=-1;
 		this.hatImage = null,
 		this.gemImage = null,
 		this.lightRadius = 50,
+	this.energyRate=1;
 		this.drawnConfetti = !1,
 		this.confetti = [],
 		this.isPlayer = !0;
@@ -398,6 +407,21 @@ this.isGuest=!1;
   onCollide(){
     
   }
+	updateEffects(abilities){
+		this.effects=this.effects.filter(e=>!e.removed);
+		function prop(x){
+			return Ability.levels[ability.level-1][x] ?? [x]
+		}
+		for(var ability of abilities){
+			if(!ability)continue;
+			var Ability=abilityConfig[ability.abilityType];
+			if(ability.abilityType==3){
+				this.effects.filter(e=>e.effectType==2).map(e=>{
+					e.radius=prop("radius");
+				});
+			}
+		}
+	}
   assetCollision(){
     let collided=false;
     const walls=map.areas[this.area].assets.filter(e=>e.type=="wall");
@@ -598,16 +622,20 @@ this.isGuest=!1;
 		case 3:{/*Paralysis*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
-				if(this.paralysisAura){
+				var radius=abilityLevels[ability.level-1]?.radius ?? abilityConfig[ability.abilityType].radius;
+				if(!this.effects.filter(e=>e.effectType==2).length){
+					this.effects.push({effectType:2,radius});
+				}else{
 					this.energy-=ability.energyCost;
-					
 					for(var entity of map.areas[this.area].entities){
-						var radius=abilityLevels[ability.level-1]?.radius ?? abilityConfig[ability.abilityType].radius;
 						if(entity.isEnemy&&this.distance(this,entity)<(radius+entity.radius)&&!entity.immune){
 							entity.freeze(2000);
 							entity.damage(15);
 						}
 					}
+					this.effects.filter(e=>e.effectType==2).map(e=>{
+						e.removed=true;
+					});
 				}
 				this.paralysisAura=!this.paralysisAura;
 				abilityActive=false;
@@ -795,7 +823,6 @@ this.isGuest=!1;
 	  }
 	if(this.firstAbilityActivated&&ab1.abilityType==0||this.secondAbilityActivated&&ab2.abilityType==0||this.thirdAbilityActivated&&ab3.abilityType==0)flow=true;
 	if(this.firstAbilityActivated&&ab1.abilityType==1||this.secondAbilityActivated&&ab2.abilityType==1||this.thirdAbilityActivated&&ab3.abilityType==1)harden=true;
-	this.energyRate=this.energyRegen+this.regenAdditioner;
 	if(flow&&this.firstAbility&&ab1.abilityType==0){
 		harden=false;
 		if(ab2.abilityType==1&&this.secondAbilityActivated){
@@ -940,7 +967,7 @@ this.isGuest=!1;
         this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
         this.mouseActive = false;
           if (input.isMouse&&!this.cent_is_moving&&!this.isMovementKeyPressed(input)) {
-            this.mouse_distance_full_strength = 150*settings.scale;
+            this.mouse_distance_full_strength = 150*camScale;
             this.mouseActive = true;
             if(this.slippery){this.mouse_distance_full_strength = 1;}
 
@@ -953,9 +980,9 @@ this.isGuest=!1;
                 this.mouse_distance_full_strength = 1;
               }
 
-              this.dirX = Math.round(input.mouse.x - width / 2);
-              this.dirY = Math.round(input.mouse.y - height / 2);
-              this.dist = distance(new Vector(0, 0), new Vector(this.dirX, this.dirY));
+              this.dirX = Math.round(input.mouse.x - canvas.width / 2);
+              this.dirY = Math.round(input.mouse.y - canvas.height / 2);
+              this.dist = distance({x:0,y:0}, {x:this.dirX,y:this.dirY});
 
               if (this.dist > this.mouse_distance_full_strength) {
                 this.dirX *= this.mouse_distance_full_strength / this.dist;
@@ -977,10 +1004,10 @@ this.isGuest=!1;
               this.d_y = this.distance_movement*Math.sin(this.mouse_angle)
             }
 
-            if(!cent){this.vel.x = this.dirX * this.speed / this.mouse_distance_full_strength;
+            if(!cent){this.velX = this.dirX * this.speed / this.mouse_distance_full_strength;
             this.addX = this.dirX * this.speedAdditioner/this.mouse_distance_full_strength;
             this.addY = this.dirY * this.speedAdditioner/this.mouse_distance_full_strength;
-            if(!this.magnet||this.magnet&&this.safeZone){if(this.vertSpeed==-1){this.vel.y = this.dirY * this.speed / this.mouse_distance_full_strength;}else{this.vel.y = this.dirY * this.vertSpeed / this.mouse_distance_full_strength;}} 
+            if(!this.magnet||this.magnet&&this.safeZone){if(this.vertSpeed==-1){this.velY = this.dirY * this.speed / this.mouse_distance_full_strength;}else{this.velY = this.dirY * this.vertSpeed / this.mouse_distance_full_strength;}} 
             }
         } else if (!this.cent_is_moving){
             this.dirY = 0; this.dirX = 0;
@@ -1011,7 +1038,7 @@ this.isGuest=!1;
 			this.cent_input_ready=true;
 			this.cent_distance=0;
 		}
-        this.input_angle = Math.atan2(this.dirY,this.dirX)
+        (this.dirY||this.dirX)&&(this.input_angle = Math.atan2(this.dirY,this.dirX));
         if(cent && this.cent_input_ready){
           this.cent_saved_angle = this.input_angle;
           this.cent_input_ready = false;
@@ -1076,6 +1103,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 			if(this.godmode){
 				this.invulnerable=true;
 			}
+			this.updateEffects([ab1,ab2,ab3]);
 		let area=map.areas[this.area];
       this.safeZone = true;
       this.minimum_speed = 1;
@@ -1244,10 +1272,12 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       this.quicksand[0] = false;
     }
 
-    this.energy += this.energyRate * delta / 1000;
-    if (this.energy > this.maxEnergy) {
-      this.energy = this.maxEnergy;
+    if (this.energy > 0 && this.energy < this.maxEnergy) {
+      this.energy += this.energyRate * delta / 1000;
+	  this.energyRate=this.energyRegen+this.regenAdditioner;
     }
+	if(this.energy > this.maxEnergy)this.energy=this.maxEnergy;
+	if(this.energy < 0)this.energy=0;
     this.oldPos = (this.previousPos.x == this.x && this.previousPos.y == this.y) ? this.oldPos : {x:this.previousPos.x,y:this.previousPos.y}
     this.previousPos = {x:this.x, y:this.y};
     var dim = 1 - map.properties.friction;
@@ -1398,63 +1428,21 @@ this.collides=this.collision();
       map.players.splice(map.players.indexOf(this));
     }
 	}
-	renderEffects(e,ctxL,delta){
-		var auraRadius;
-	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
-	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
-	  var ab3=evadesRenderer.heroInfoCard.abilityThree;
-		if(this.paralysisAura&&ab1.abilityType==3){
-		auraRadius=abilityConfig[ab1.abilityType]?.levels[ab1.level-1]?.radius ?? abilityConfig[ab1.abilityType].radius
-	}else if(this.paralysisAura&&ab2.abilityType==3){
-		auraRadius=abilityConfig[ab2.abilityType]?.levels[ab2.level-1]?.radius ?? abilityConfig[ab2.abilityType].radius
-	}else if(this.paralysisAura&&ab3.abilityType==3){
-		auraRadius=abilityConfig[ab3.abilityType]?.levels[ab3.level-1]?.radius ?? abilityConfig[ab3.abilityType].radius
+	renderEffects(ctx){
+		const t = ctx.fillStyle;
+		for (const e of this.getEffectConfigs())
+			e.internal || null !== e.fillColor && (ctx.fillStyle = e.fillColor,
+			ctx.beginPath(),
+			this.addEffectPath(ctx, {x:0,y:0}, e),
+			ctx.closePath(),
+			ctx.fill());
+		ctx.fillStyle = t;
 	}
-	e.beginPath();
-	e.fillStyle="rgba(0,0,0,0)";
-	if(this.paralysisAura){
-	e.fillStyle="rgba(77, 233, 242, 0.2)";
-	e.arc(this.x,this.y,auraRadius,0,Math.PI*2,!1);
-	}
-	e.fill();
-	e.closePath();
-	var flashlightLightSource={
-			x: this.x,
-			y: this.y,
-			centerDistance: this.radius,
-			directionAngle: this.lastAngle*Math.PI/180,
-			innerAngle: 35*Math.PI/180,
-			distance: 500
-		};
-        var rt = ctxL.createRadialGradient(
-          canvas.width / 2 + (this.x - camX) * camScale, 
-          canvas.height / 2 + (this.y - camY) * camScale, 0, 
-          canvas.width / 2 + (this.x - camX) * camScale, 
-          canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
-          rt.addColorStop(0, "rgba(0, 0, 0, 1)"),
-          rt.addColorStop(1, "rgba(0, 0, 0, 0)"),
-          ctxL.beginPath(),
-          ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
-          ctxL.fillStyle = rt,
-          ctxL.closePath(),
-          ctxL.fill()
-		  if(this.flashlight){
-			var ds = ctxL.createRadialGradient(
-			  canvas.width / 2 + (this.x - camX) * camScale, 
-			  canvas.height / 2 + (this.y - camY) * camScale,0, 
-			  canvas.width / 2 + (this.x - camX) * camScale, 
-			  canvas.height / 2 + (this.y - camY) * camScale,
-			  flashlightLightSource.distance * camScale);
-			ds.addColorStop(0, "rgba(0, 0, 0, 1)"),
-			ds.addColorStop(1, "rgba(0, 0, 0, 0)"),
-			ctxL.beginPath(),
-			ctxL.moveTo(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale),
-			ctxL.lineTo(canvas.width / 2 + (this.x - camX) * camScale + flashlightLightSource.distance * Math.cos(this.lastAngle*Math.PI/180 - flashlightLightSource.innerAngle / 2) * camScale, canvas.height / 2 + (this.y - camY) * camScale + flashlightLightSource.distance * Math.sin(this.lastAngle*Math.PI/180 - flashlightLightSource.innerAngle / 2) * camScale),
-			ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, flashlightLightSource.distance * camScale, flashlightLightSource.directionAngle - flashlightLightSource.innerAngle / 2, flashlightLightSource.directionAngle + flashlightLightSource.innerAngle / 2, !1),
-			ctxL.lineTo(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale),
-			ctxL.fillStyle = ds,
-			ctxL.closePath(),
-		  ctxL.fill()}
+	addEffectPath(e, t, a) {
+		const r = a.internal ? this.radius : a.radius
+		  , c = this.x + t.x
+		  , o = this.y + t.y;
+		e.arc(c, o, r, 0, 2 * Math.PI, !1)
 	}
 	render(e,ctxL,delta) {
 		const a = {x:0,y:0};
@@ -1803,11 +1791,28 @@ this.collides=this.collision();
 			e = `rgba(${a.r}, ${a.g}, ${a.b}, 0)`
 		} else
 			this.isStone ? e = "rgba(145, 142, 133, 1)" : this.fusionActivated ? e = "rgba(60, 60, 75, 1)" : this.sugarRushActivated ? e = "rgba(230, 103, 164, 1)" : this.isObscured ? e = "rgba(0, 8, 96, 1)" : this.isEmber ? e = "rgba(87, 36, 16, 1)" : this.isWormhole ? e = "rgba(204, 194, 0, 1)" : 1 === this.roboScannerId ? e = "rgba(255, 0, 0, 1)" : 2 === this.roboScannerId ? e = "rgba(0, 0, 255, 1)" : 3 === this.roboScannerId ? e = "rgba(120, 20, 140, 1)" : 4 === this.roboScannerId ? e = "rgba(123, 157, 178, 1)" : 5 === this.roboScannerId ? e = "rgba(100, 193, 185, 1)" : 6 === this.roboScannerId ? e = "rgba(33, 161, 165, 1)" : 7 === this.roboScannerId ? e = "rgba(168, 124, 134, 1)" : 8 === this.roboScannerId ? e = "rgba(77, 1, 99, 1)" : 9 === this.roboScannerId ? e = "rgba(0, 199, 0, 1)" : 10 === this.roboScannerId ? e = "rgba(189, 103, 210, 1)" : 11 === this.roboScannerId ? e = "rgba(100, 35, 116, 1)" : 12 === this.roboScannerId ? e = "rgba(247, 131, 6, 1)" : 13 === this.roboScannerId ? e = "rgba(108, 84, 30, 1)" : 14 === this.roboScannerId ? e = "rgba(201, 0, 0, 1)" : 15 === this.roboScannerId ? e = "rgba(41, 255, 198, 1)" : 16 === this.roboScannerId ? e = "rgba(160, 83, 83, 1)" : 17 === this.roboScannerId ? e = "rgba(131, 0, 255, 1)" : 18 === this.roboScannerId ? e = "rgba(255, 144, 0, 1)" : 19 === this.roboScannerId ? e = "rgba(0, 204, 142, 1)" : 20 === this.roboScannerId ? e = "rgba(211, 19, 79, 1)" : 21 === this.roboScannerId ? e = "rgba(78, 39, 0, 1)" : 22 === this.roboScannerId ? e = "rgba(97, 255, 97, 1)" : 23 === this.roboScannerId ? e = "rgba(140, 1, 183, 1)" : 24 === this.roboScannerId ? e = "rgba(255, 56, 82, 1)" : 25 === this.roboScannerId ? e = "rgba(164, 150, 255, 1)" : 26 === this.roboScannerId ? e = "rgba(157, 227, 198, 1)" : 27 === this.roboScannerId ? e = "rgba(160, 83, 114, 1)" : 28 === this.roboScannerId ? e = "rgba(120, 136, 152, 1)" : 29 === this.roboScannerId && (e = "rgba(45, 50, 55, 1)");
-		/*for (const a of this.getEffectConfigs())
+		for (const a of this.getEffectConfigs())
 			if (null !== a.fillColor && a.internal) {
 				e = a.fillColor;
 				break
-			}*/
+			}
+		return e
+	}
+	getEffectConfigs() {
+		if (void 0 === this.effects)
+			return [];
+		const e = [];
+		for (const t of this.effects) {
+			if (t.removed || void 0 === t.effectType)
+				continue;
+			const a = $01bb7fd9b3660a1e$export$96671014a1dabc4c(t.effectType);
+			if (null === a)
+				return console.debug("Could not read effect type " + t.effectType),
+				null;
+			a.radius = t.radius,
+			a.inputAngle = t.inputAngle,
+			e.push(a)
+		}
 		return e
 	}
 	makeConfetti() {
@@ -1860,11 +1865,30 @@ this.collides=this.collision();
 }
 //Entity
 class SimulatorEntity{
+	getEffectConfigs() {
+		if (void 0 === this.effects)
+			return [];
+		const e = [];
+		for (const t of this.effects) {
+			if (t.removed || void 0 === t.effectType)
+				continue;
+			const a = $01bb7fd9b3660a1e$export$96671014a1dabc4c(t.effectType);
+			if (null === a)
+				return console.debug("Could not read effect type " + t.effectType),
+				null;
+			a.radius = t.radius,
+			a.inputAngle = t.inputAngle,
+			e.push(a)
+		}
+		return e
+	}
   constructor(x,y,color,radius,type,speed=0,angle,auraRadius=0,auraColor="rgba(0,0,0,0)",boundary) {
     this.color = color;
     this.auraColor=auraColor;
+	this.effects=[];
     this.auraRadius=auraRadius;
     this.type=type;
+	this.lightRectangle=null;
 	this.outline=false;
     this.speed=speed;
     this.angle=angle!=undefined?(angle*Math.PI/180):(Math.random()*Math.PI*2);
@@ -1886,7 +1910,7 @@ class SimulatorEntity{
     this.isBarrier=false;
     this.isRepelling=false;
     this.isDestroyed=false;
-    this.lightRadius=0;
+    this.lightRadius=null;
     this.y=y;
 	this.frozen=false;
     this.radius=radius;
@@ -2119,25 +2143,22 @@ class SimulatorEntity{
   renderExtra(e, ctxL){
 
   }
-  renderEffects(e,ctxL,delta){
-	e.beginPath();
-	e.fillStyle=this.auraColor;
-	e.arc(this.x,this.y,this.auraRadius,0,Math.PI*2,!1);
-	e.fill();
-	e.closePath();
-    var r = ctxL.createRadialGradient(
-    canvas.width / 2 + (this.x - camX) * camScale, 
-    canvas.height / 2 + (this.y - camY) * camScale, 0, 
-    canvas.width / 2 + (this.x - camX) * camScale, 
-    canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
-    r.addColorStop(0, "rgba(0, 0, 0, 1)"),
-    r.addColorStop(1, "rgba(0, 0, 0, 0)"),
-    ctxL.beginPath(),
-    ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
-    ctxL.fillStyle = r,
-    ctxL.closePath(),
-    ctxL.fill();
-  }
+	renderEffects(ctx){
+		const t = ctx.fillStyle;
+		for (const e of this.getEffectConfigs())
+			e.internal || null !== e.fillColor && (ctx.fillStyle = e.fillColor,
+			ctx.beginPath(),
+			this.addEffectPath(ctx, {x:0,y:0}, e),
+			ctx.closePath(),
+			ctx.fill());
+		ctx.fillStyle = t;
+	}
+	addEffectPath(e, t, a) {
+		const r = a.internal ? this.radius : a.radius
+		  , c = this.x + t.x
+		  , o = this.y + t.y;
+		e.arc(c, o, r, 0, 2 * Math.PI, !1)
+	}
   render(e,ctxL,delta,renderType) {
     var a={x:0,y:0};
     if (this.isHarmless && !this.isDestroyed && (e.globalAlpha = .4),
@@ -2455,6 +2476,7 @@ class CorrosiveEnemy extends Enemy{
 class ExperienceDrainEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.experience_drain_enemy.color,"experience_drain",boundary,auraColors.experience_drain,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	if(!player.experienceDraining){
@@ -2474,6 +2496,7 @@ class ExperienceDrainEnemy extends Enemy{
 class BlockingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.blocking_enemy.color,"blocking",boundary,auraColors.blocking,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	if(!player.slowing&&player.enemyEffects[0]){
@@ -2486,12 +2509,11 @@ class BlockingEnemy extends Enemy{
 	}
 	if(!player.draining&&player.enemyEffects[6]){
 	  player.draining=player.enemyEffects[6];
-	  player.energy-=15*delta/1e3;
-	  player.energy=Math.max(0,player.energy);
+	  player.energyRate-=15;
 	}
 	if(!player.lava&&player.enemyEffects[7]){
 	  player.lava=player.enemyEffects[7];
-	  player.energy+=15*delta/1e3;
+	  player.energyRate+=15;
 	  if(player.energy>=player.maxEnergy){
             death(player);player.energy=0;
 	  }
@@ -2530,6 +2552,7 @@ class BlockingEnemy extends Enemy{
 class SlowingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.slowing_enemy.color,"slowing",boundary,auraColors.slowing,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	if(!player.slowing){
@@ -2541,6 +2564,7 @@ class SlowingEnemy extends Enemy{
 class MagneticReductionEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.magnetic_reduction_enemy.color,"magnetic_reduction",boundary,auraColors.magnetic_reduction,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	player.magneticReduction=true
@@ -2549,6 +2573,7 @@ class MagneticReductionEnemy extends Enemy{
 class MagneticNullificationEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.magnetic_nullification_enemy.color,"magnetic_nullification",boundary,auraColors.magnetic_nullification,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	player.magneticNullification=true
@@ -2557,6 +2582,7 @@ class MagneticNullificationEnemy extends Enemy{
 class FreezingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.freezing_enemy.color,"freezing",boundary,auraColors.freezing,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	if(!player.freezing){
@@ -2568,23 +2594,24 @@ class FreezingEnemy extends Enemy{
 class DrainingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.draining_enemy.color,"draining",boundary,auraColors.draining,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	if(!player.draining){
 	  player.draining=true;
-	  player.energy-=15*delta/1e3;
-	  player.energy=Math.max(0,player.energy);
+	  player.energyRate-=15;
 	}
   }
 }
 class LavaEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.lava_enemy.color,"lava",boundary,auraColors.lava,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	if(!player.lava){
 	  player.lava=true;
-	  player.energy+=15*delta/1e3;
+	  player.energyRate+=15;
 	  if(player.energy>=player.maxEnergy){
             death(player);player.energy=0;
 	  }
@@ -2594,6 +2621,7 @@ class LavaEnemy extends Enemy{
 class ToxicEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.toxic_enemy.color,"toxic",boundary,auraColors.toxic,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	if(!player.toxic){
@@ -2605,6 +2633,7 @@ class ToxicEnemy extends Enemy{
 class EnlargingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.enlarging_enemy.color,"enlarging",boundary,auraColors.enlarging,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	if(!player.enlarging){
@@ -2616,6 +2645,7 @@ class EnlargingEnemy extends Enemy{
 class ReducingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.reducing_enemy.color,"reducing",boundary,auraColors.reducing,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	if(!player.reducing){
@@ -2627,6 +2657,7 @@ class ReducingEnemy extends Enemy{
 class SlipperyEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.slippery_enemy.color,"slippery",boundary,auraColors.slippery,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
   }
   auraEffect(player,delta){
 	player.slippery=true;
@@ -2635,6 +2666,7 @@ class SlipperyEnemy extends Enemy{
 class BarrierEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.barrier_enemy.color,"barrier",boundary,auraColors.barrier,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
 	this.immune=true;
   }
   auraEffect(player,delta){
@@ -2644,6 +2676,7 @@ class BarrierEnemy extends Enemy{
 class RadarEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,enemyConfig.radar_enemy.color,"radar",boundary,auraColors.radar,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
 	this.releaseInterval=250;
 	this.release_time=Math.random()*this.releaseInterval;
   }
@@ -2711,6 +2744,7 @@ class RadarProjectile extends Enemy{
 class GravityEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,gravity,boundary){
     super(x,y,radius,speed,angle,enemyConfig.gravity_enemy.color,"gravity",boundary,auraColors.gravity,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
 	this.gravity=gravity;
   }
   auraEffect(player,delta){
@@ -2729,6 +2763,7 @@ class GravityEnemy extends Enemy{
 class RepellingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,repulsion,boundary){
     super(x,y,radius,speed,angle,enemyConfig.repelling_enemy.color,"repelling",boundary,auraColors.repelling,aura_radius);
+	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type)})[0])})
 	this.repulsion=repulsion;
   }
   auraEffect(player,delta){
@@ -3193,37 +3228,6 @@ class OscillatingEnemy extends Enemy{
     this.collision(delta);
   }
 }
-function renderSortedEntities(e) {
-		const t = this.sortEntitiesByZIndex(Object.values(e.entities));
-		renderEntities(t)
-	}
-	var $ccc1645057c0c20e$export$18da14ab4d863bec={"0":13,"1":3,"2":175,"3":55,"4":60,"5":56,"6":62,"7":57,"8":66,"9":59,"10":68,"11":61,"12":65,"13":58,"14":67,"15":69,"16":70,"17":71,"18":72,"19":73,"20":74,"21":75,"22":76,"23":77,"24":78,"25":79,"26":63,"27":64,"28":80,"29":81,"30":82,"31":86,"32":83,"33":84,"34":85,"35":87,"36":88,"37":89,"38":90,"39":91,"40":92,"41":93,"42":94,"43":95,"44":134,"45":135,"46":39,"47":40,"48":41,"49":42,"50":43,"51":96,"52":97,"53":44,"54":45,"55":98,"56":46,"57":99,"58":47,"59":48,"60":49,"61":50,"62":51,"63":52,"64":101,"65":102,"66":103,"67":104,"68":105,"69":112,"70":113,"71":114,"72":115,"73":116,"74":117,"75":118,"76":53,"77":54,"78":119,"79":120,"80":106,"82":108,"83":109,"84":110,"85":111,"86":121,"87":122,"88":123,"89":124,"90":125,"91":126,"92":127,"93":128,"94":129,"95":130,"96":131,"97":132,"98":133,"99":16,"100":14,"101":15,"102":136,"103":137,"104":17,"105":138,"106":20,"107":139,"108":140,"109":141,"110":142,"111":145,"112":146,"113":18,"114":4,"115":19,"116":21,"117":143,"118":144,"119":22,"120":7,"121":147,"122":148,"123":149,"124":150,"125":23,"126":10,"127":8,"128":9,"129":100,"130":38,"131":24,"132":25,"133":151,"134":152,"135":153,"136":154,"137":155,"138":156,"139":157,"140":158,"141":159,"142":160,"143":161,"144":162,"145":163,"146":164,"148":165,"149":166,"150":167,"151":168,"152":169,"153":170,"154":171,"155":172,"156":173,"157":174,"158":26,"159":27,"160":30,"161":31,"162":32,"163":33,"164":34,"165":35,"166":28,"167":29,"168":36,"169":37,"170":5,"171":6,"172":12,"173":11,"174":0,"175":1,"176":2};
-function renderEntities(e,ctxE) {
-		renderEntitiesEffects(e,ctxE);
-		for (const t of e)
-			t.render(ctxE, this.camera)
-	}
-function renderEntitiesEffects(e,ctxE) {
-		const t = ctxE.fillStyle;
-		for (const t of e)
-			for (const e of t.getEffectConfigs())
-				e.internal || null !== e.fillColor && (this.context.fillStyle = e.fillColor,
-				ctxE.beginPath(),
-				t.addEffectPath(this.context, this.camera, e),
-				ctxE.closePath(),
-				ctxE.fill());
-		this.context.fillStyle = t
-	}
-function sortEntitiesByZIndex(e) {
-		const t = []
-		  , a = [];
-		for (const r of e)
-			-1 === r.absoluteZIndex ? t.push(r) : a.push(r);
-		const r = (e,t)=>e.isEnemy && t.isEnemy && e.radius !== t.radius ? t.radius - e.radius : e.isPlayer && t.isPlayer && e.isLocalPlayer !== t.isLocalPlayer ? t.isLocalPlayer ? -1 : 1 : $ccc1645057c0c20e$export$18da14ab4d863bec[e.entityType] !== $ccc1645057c0c20e$export$18da14ab4d863bec[t.entityType] ? $ccc1645057c0c20e$export$18da14ab4d863bec[e.entityType] - $ccc1645057c0c20e$export$18da14ab4d863bec[t.entityType] : (e.relativeZIndex || 0) !== (t.relativeZIndex || 0) ? (e.relativeZIndex || 0) - (t.relativeZIndex || 0) : e.id - t.id;
-		return t.sort(r),
-		a.sort(r),
-		t.concat(a)
-	}
 class ZigzagEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,enemyConfig.zigzag_enemy.color,"zigzag",boundary);
@@ -3514,7 +3518,7 @@ class PumpkinEnemy extends Enemy{
 	if(this.detectedTime>2500){
 	  this.texture="entities/pumpkin_off";
 	  this.hasDetected=false;
-	  this.lightRadius=0;
+	  this.lightRadius=null;
 	  this.image=$31e8cfefa331e399$var$images[this.texture];
 	  this.detectedTime=0;
 	}}
@@ -3817,28 +3821,16 @@ class Torch extends SimulatorEntity{
   }
   update(){}
   renderEffects(ctx,ctxL,delta){
-	          var r = ctxL.createRadialGradient(
-        canvas.width / 2 + (this.x - camX) * camScale, 
-        canvas.height / 2 + (this.y - camY) * camScale, 0, 
-        canvas.width / 2 + (this.x - camX) * camScale, 
-        canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale);
-        r.addColorStop(0, "rgba(0, 0, 0, 1)"),
-        r.addColorStop(1, "rgba(0, 0, 0, 0)"),
-        ctxL.beginPath(),
-        ctxL.arc(canvas.width / 2 + (this.x - camX) * camScale, canvas.height / 2 + (this.y - camY) * camScale, this.lightRadius * camScale, 0, 2 * Math.PI, !1),
-        ctxL.fillStyle = r,
-        ctxL.closePath(),
-        ctxL.fill();
   }
   render(ctx,ctxL,delta) {
-		ctx.imageSmoothingEnabled = false;
-	  var tf=delta/(1e3/30)
-		Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
-		this.flipped ? (ctx.translate(this.x + this.width / 2, this.y + this.height / 2),
-		ctx.scale(1, -1),
-		ctx.drawImage(this.image.getImage(tf), -this.width / 2, -this.height / 2, this.width, this.height),
-		ctx.scale(1, -1),
-		ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), this.x, this.y, this.width, this.height)
+	ctx.imageSmoothingEnabled = false;
+	var tf=delta/(1e3/30)
+	Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
+	this.flipped ? (ctx.translate(this.x + this.width / 2, this.y + this.height / 2),
+	ctx.scale(1, -1),
+	ctx.drawImage(this.image.getImage(tf), -this.width / 2, -this.height / 2, this.width, this.height),
+	ctx.scale(1, -1),
+	ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), this.x, this.y, this.width, this.height)
   }
 }
 class LightRegion extends SimulatorEntity{

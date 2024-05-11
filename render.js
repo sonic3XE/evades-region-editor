@@ -1,5 +1,7 @@
 var selfId=null;
 var evadesRenderer={
+	snowRenderer: new SnowRenderer,
+	dynamicLighting: new DynamicLighting(1),
 	directionalIndicatorHud: new DirectionalIndicatorHud,
 	experienceBar: new ExperienceBar,
 	heroInfoCard: new HeroInfoCard,
@@ -123,7 +125,7 @@ var selfPlayer=map.players.filter(e=>e.id==window.selfId)[0];
   if(!selfPlayer&&!window.selfId){
 	  var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0];
 	  if(!safezone)console.log("bro why is there no safe zone?"),safezone={x:0,y:0,width:32,height:32};
-var player=new SimulatedPlayer(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),"#FF0000");
+var player=new SimulatedPlayer(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),1);
 selfPlayer=player;
 window.selfId=player.id;
 map.players.push(player)
@@ -207,27 +209,30 @@ else {
   entities.map(e=>{
 	e.render(ctxE,ctxL,actually);
   });
-  
-  const input={};
-  input.keys=keysDown;
-  input.mouse={x:0,y:0};
-  input.isMouse=false;
-  if(realTime.checked){
-  controlPlayer(selfId,input,actually),
-  map.players.map(e=>{e.update(actually)}),
-  map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area]))
-  }
   }catch(e){throw errorFX.play(),e}
   var enemyError=false;
   ctxE.resetTransform();
   ctx.drawImage(canvasEntityLayer,0,0);
-  ctxL.fillStyle = `rgba(0,0,0,${map.areas[current_Area].properties.lighting??defaultValues.properties.lighting})`;
-  ctxL.fillRect(0, 0, canvasLighting.width, canvasLighting.height);
-  ctx.globalCompositeOperation = "destination-in";
-  ctx.drawImage(canvasLighting, 0, 0);
-  ctx.globalCompositeOperation = "source-over";
-  c.update(`{"snow":${map.areas[current_Area].properties.snow??0},"area":${current_Area}}`, ctx, { x: -camX * camScale, y: -camY * camScale })
-  c.render(ctx)
+  if(map.areas[current_Area].properties.lighting < 1){
+	evadesRenderer.dynamicLighting.lighting = map.areas[current_Area].properties.lighting,
+	evadesRenderer.dynamicLighting.circleLightSources.length = 0,
+	evadesRenderer.dynamicLighting.coneLightSources.length = 0,
+	evadesRenderer.dynamicLighting.rectangleLightSources.length = 0;
+	for (const t of entities) {
+		null !== t.lightRadius && evadesRenderer.dynamicLighting.addCircleLightSource(t.lightRadius, t.x, t.y),
+		null !== t.lightRectangle && evadesRenderer.dynamicLighting.addRectangleLightSource(t.lightRectangle),
+		t.burning && evadesRenderer.dynamicLighting.addCircleLightSource(4 * t.radius, t.x, t.y);
+		for (const e of t.getEffectConfigs())
+			e.hasLight && (e.cone && evadesRenderer.dynamicLighting.addConeLightSource(t.x, t.y, t.radius, e.inputAngle, e.cone.innerAngle * Math.PI / 180, e.cone.distance),
+			e.circle && evadesRenderer.dynamicLighting.addCircleLightSource(e.circle.radius, t.x, t.y))
+	}
+	evadesRenderer.dynamicLighting.render(ctxL, {x:0,y:0}),
+	ctx.globalCompositeOperation = "destination-in",
+	ctx.drawImage(canvasLighting, 0, 0),
+	ctx.globalCompositeOperation = "source-over"
+  }
+  evadesRenderer.snowRenderer.update(map.areas[current_Area], ctx, { x: -camX * camScale, y: -camY * camScale })
+  evadesRenderer.snowRenderer.render(ctx)
   ctx.lineWidth = 2;
   ctx.strokeStyle = ((map.areas[current_Area].properties.lighting??defaultValues.properties.lighting) > 0.5&&(tileMode.selectedIndex>>1==0)) ? "black" : "white";
   map.areas[current_Area].zones.length==0&&ctx.strokeRect(canvas.width / 2 - camX * camScale,canvas.height / 2 - camY * camScale,snapX.valueAsNumber*camScale,snapY.valueAsNumber*camScale);
@@ -502,6 +507,14 @@ if(playtesting){
     ctx.drawImage(cons,0,0,1920,barHeight*vertScale,
 	0,0,ctx.canvas.width,barHeight);
   }
+  if(realTime.checked){
+  const input={isMouse};
+  input.keys=keysDown;
+  input.mouse={x:mousePos.ex,y:mousePos.ey};
+  controlPlayer(selfId,input,actually),
+  map.players.map(e=>{e.update(actually)}),
+  map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area]))
+  };
   if(global.a){
 	  global.a+=delta;
 	  if(global.a<=1166.6666666666){
