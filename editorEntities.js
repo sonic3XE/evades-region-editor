@@ -2237,8 +2237,8 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 				const t = (500 - Math.max(this.releaseTime, 0)) / 500 * .2 + .05;
 				e.fillStyle = `rgba(1, 1, 1, ${t})`,
 				e.fill()
-			}
-			settings.enemyOutlines && (e.lineWidth = 2,
+			};
+			(settings.enemyOutlines && this.outline) && (e.lineWidth = 2,
 			e.strokeStyle = "black",
 			e.stroke(),
 			e.lineWidth = 1),
