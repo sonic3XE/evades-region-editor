@@ -88,7 +88,7 @@ var usingAutomationTools=activated_extensions.indexOf("automationTools")!=-1;
 //usingVanillaEnemySet should be set to false when a custom enemy type (from a sandbox, not in evades.io) is added.
 //causes the addon enemy properties folder to show up (even if there are no properties in the folder, but its probably fine)
 var usingVanillaEnemySet = !(usingPifary || usingPncl9500);
-
+if(!usingVanillaEnemySet)localStorage.clear(),location.reload();
 window.addEventListener("blur",function () {
   isActive = false;
 })
