@@ -88,6 +88,12 @@ function spawnEntities(area=current_Area){
 	function prop(spawner,e){
 		return spawner[e]??defaultValues.spawner[e]
 	}
+	function checkAreaProperties(e){
+		var t=defaultValues.properties[e];
+		var s=map.areas[area].properties[e] ?? t;
+		if(s==t)s=map.properties[e] ?? t;
+		return s;
+	}
 	var activeZones=map.areas[area].zones.filter(e=>e.type=="active");
 	for(var activeZone of activeZones){
 		for (var i in activeZone.spawner) {
@@ -165,7 +171,7 @@ function spawnEntities(area=current_Area){
 					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
 					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),void 0,prop(spawner,"move_clockwise"));break;
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
-					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),boundary);break;
+					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),checkAreaProperties("wind_ghosts_do_not_push_while_downed"),boundary);break;
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
 					case "fake_pumpkin":entity=new PumpkinEnemy(enemyX,enemyY,radius,speed,angle,boundary,true);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
@@ -5022,18 +5028,19 @@ class ForceSniperBProjectile extends Enemy{
   }
 }
 class WindGhostEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,ignore_invulnerability,boundary){
+  constructor(x,y,radius,speed,angle,ignore_invulnerability,ignore_dead_players,boundary){
     super(x,y,radius,speed,angle,"wind_ghost_enemy",boundary);
 	this.gravity=1;
 	this.isHarmless=true;
 	this.immune=true;
+	this.ignore_dead_players=ignore_dead_players;
 	this.disabled=true;
 	this.ignore_invulnerability=ignore_invulnerability;
   }
   playerInteraction(player,delta){
     var iterations=1024;
 	var curIters=0;
-	if (!player.invulnerable||this.ignore_invulnerability) {
+	if ((!player.invulnerable||this.ignore_invulnerability)&&!this.ignore_dead_players) {
 	  while(distance({x:0,y:0},{x:player.x - this.x,y:player.y - this.y})<this.radius+player.radius){
 		curIters++;
 		if(curIters>=iterations)break;
