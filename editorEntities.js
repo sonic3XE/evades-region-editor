@@ -3299,19 +3299,19 @@ class SizingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"sizing_enemy",boundary);
     this.growing = true;
-    this.maxRadius = this.radius * 2.5;
-    this.minRadius = this.radius / 2.5;
-	this.radius=this.minRadius;
+    this.maxRadius = this.ogradius * 2.5;
+    this.minRadius = this.ogradius / 2.5;
+	this.ogradius=this.minRadius;
   }
   update(delta){
     if (this.growing) {
-      this.radius += ((delta / (1000 / 30)) * 0.1) * this.minRadius;
-      if (this.radius > this.maxRadius) {
+      this.ogradius += ((delta / (1000 / 30)) * 0.1) * this.minRadius;
+      if (this.ogradius > this.maxRadius) {
         this.growing = false;
       }
     } else {
-      this.radius -= ((delta / (1000 / 30)) * 0.1) * this.minRadius;
-      if (this.radius < this.minRadius) {
+      this.ogradius -= ((delta / (1000 / 30)) * 0.1) * this.minRadius;
+      if (this.ogradius < this.minRadius) {
         this.growing = true;
       }
     }
