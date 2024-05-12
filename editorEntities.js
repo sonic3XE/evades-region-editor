@@ -5040,7 +5040,7 @@ class WindGhostEnemy extends Enemy{
   playerInteraction(player,delta){
     var iterations=1024;
 	var curIters=0;
-	if ((!player.invulnerable||this.ignore_invulnerability)&&!this.ignore_dead_players) {
+	if ((!player.invulnerable||this.ignore_invulnerability)&&(!player.isDowned()&&this.ignore_dead_players)||!this.ignore_dead_players) {
 	  while(distance({x:0,y:0},{x:player.x - this.x,y:player.y - this.y})<this.radius+player.radius){
 		curIters++;
 		if(curIters>=iterations)break;
