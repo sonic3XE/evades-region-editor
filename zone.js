@@ -439,48 +439,6 @@ function createSPAWNERgui(point1,Zone){
     aura18Input.value = Math.max(Number(aura18Input.value),0);
     point1.blocking_radius = Math.max(Number(aura18Input.value),0);spawnEntities()
   });
-  const pnclAura1Input = document.createElement("input");
-  pnclAura1Input.value = point1.riptide_radius ?? defaultValues.spawner.riptide_radius;
-  pnclAura1Input.step=1;
-  pnclAura1Input.addEventListener("input", () => {
-    pnclAura1Input.value = Math.max(Number(pnclAura1Input.value),0);
-    point1.riptide_radius = Math.max(Number(pnclAura1Input.value),0);spawnEntities()
-  });
-  const pnclAura2Input = document.createElement("input");
-  pnclAura2Input.value = point1.swamp_radius ?? defaultValues.spawner.swamp_radius;
-  pnclAura2Input.step=1;
-  pnclAura2Input.addEventListener("input", () => {
-    pnclAura2Input.value = Math.max(Number(pnclAura2Input.value),0);
-    point1.swamp_radius = Math.max(Number(pnclAura2Input.value),0);spawnEntities()
-  });
-  const pnclAura3Input = document.createElement("input");
-  pnclAura3Input.value = point1.drowning_radius ?? defaultValues.spawner.drowning_radius;
-  pnclAura3Input.step=1;
-  pnclAura3Input.addEventListener("input", () => {
-    pnclAura3Input.value = Math.max(Number(pnclAura3Input.value),0);
-    point1.drowning_radius = Math.max(Number(pnclAura3Input.value),0);spawnEntities()
-  });
-  const PifaryAuraInput = document.createElement("input");
-  PifaryAuraInput.value = point1.burning_radius ?? defaultValues.spawner.burning_radius;
-  PifaryAuraInput.step=1;
-  PifaryAuraInput.addEventListener("input", () => {
-    PifaryAuraInput.value = Math.max(Number(PifaryAuraInput.value),0);
-    point1.burning_radius = Math.max(Number(PifaryAuraInput.value),0);spawnEntities()
-  });
-  const PifaryAura2Input = document.createElement("input");
-  PifaryAura2Input.value = point1.defender_radius ?? defaultValues.spawner.defender_radius;
-  PifaryAura2Input.step=1;
-  PifaryAura2Input.addEventListener("input", () => {
-    PifaryAura2Input.value = Math.max(Number(PifaryAura2Input.value),0);
-    point1.defender_radius = Math.max(Number(PifaryAura2Input.value),0);spawnEntities()
-  });
-  const PifaryAura3Input = document.createElement("input");
-  PifaryAura3Input.value = point1.web_radius ?? defaultValues.spawner.web_radius;
-  PifaryAura3Input.step=1;
-  PifaryAura3Input.addEventListener("input", () => {
-    PifaryAura3Input.value = Math.max(Number(PifaryAura3Input.value),0);
-    point1.web_radius = Math.max(Number(PifaryAura3Input.value),0);spawnEntities()
-  });
 		const projDurInput = document.createElement("input");
 		projDurInput.value = point1.projectile_duration ?? defaultValues.spawner.projectile_duration;
 		projDurInput.step=1;
@@ -606,75 +564,6 @@ point1.projectile_radius=undefined;
 		immInput.addEventListener("input", () => {
 			point1.immune = immInput.checked;spawnEntities()
 		});
-
-    const testParamInput = document.createElement("input");
-        testParamInput.value = point1.test_param ?? defaultValues.spawner.test_param;
-		testParamInput.step=1;
-		testParamInput.addEventListener("input", () => {
-			point1.test_param = Number(testParamInput.value);spawnEntities()
-		});
-    const rotorBranchCountInput = document.createElement("input");
-        rotorBranchCountInput.value = point1.rotor_branch_count ?? defaultValues.spawner.rotor_branch_count;
-		rotorBranchCountInput.step=1;
-		rotorBranchCountInput.addEventListener("input", () => {
-			point1.rotor_branch_count = Number(rotorBranchCountInput.value);spawnEntities()
-		});
-    const rotorNodeCountInput = document.createElement("input");
-        rotorNodeCountInput.value = point1.rotor_node_count ?? defaultValues.spawner.rotor_node_count;
-		rotorNodeCountInput.step=1;
-		rotorNodeCountInput.addEventListener("input", () => {
-			point1.rotor_node_count = Number(rotorNodeCountInput.value);spawnEntities()
-		});
-    const rotorNodeRadiusInput = document.createElement("input");
-        rotorNodeRadiusInput.value = point1.rotor_node_radius ?? defaultValues.spawner.rotor_node_radius;
-		rotorNodeRadiusInput.step=1;
-		rotorNodeRadiusInput.addEventListener("input", () => {
-			point1.rotor_node_radius = Number(rotorNodeRadiusInput.value);spawnEntities()
-		});
-    const rotorRotSpeedInput = document.createElement("input");
-        rotorRotSpeedInput.value = point1.rotor_rot_speed ?? defaultValues.spawner.rotor_rot_speed;
-		rotorRotSpeedInput.step=1;
-		rotorRotSpeedInput.addEventListener("input", () => {
-			point1.rotor_rot_speed = Number(rotorRotSpeedInput.value);spawnEntities()
-		});
-    const rotorReversedInput = document.createElement("input");
-		rotorReversedInput.addEventListener("input", () => {
-			point1.rotor_reversed = rotorReversedInput.checked;spawnEntities()
-		});
-    const rotorBranchOffsetInput = document.createElement("input");
-        rotorBranchOffsetInput.value = point1.rotor_branch_offset ?? defaultValues.spawner.rotor_branch_offset;
-		rotorBranchOffsetInput.step=1;
-		rotorBranchOffsetInput.addEventListener("input", () => {
-			point1.rotor_branch_offset = Number(rotorBranchOffsetInput.value);spawnEntities()
-		});
-    const rotorNodeDistInput = document.createElement("input");
-        rotorNodeDistInput.value = point1.rotor_node_dist ?? defaultValues.spawner.rotor_node_dist;
-		rotorNodeDistInput.step=1;
-		rotorNodeDistInput.addEventListener("input", () => {
-			point1.rotor_node_dist = Number(rotorNodeDistInput.value);spawnEntities()
-		});
-    const rotorBranchDistInput = document.createElement("input");
-        rotorBranchDistInput.value = point1.rotor_branch_dist ?? defaultValues.spawner.rotor_branch_dist;
-		rotorBranchDistInput.step=1;
-		rotorBranchDistInput.addEventListener("input", () => {
-			point1.rotor_branch_dist = Number(rotorBranchDistInput.value);spawnEntities()
-		});
-    const rotorOffsetPerLayerInput = document.createElement("input");
-        rotorOffsetPerLayerInput.value = point1.rotor_offset_per_layer ?? defaultValues.spawner.rotor_offset_per_layer;
-		rotorOffsetPerLayerInput.step=1;
-		rotorOffsetPerLayerInput.addEventListener("input", () => {
-			point1.rotor_offset_per_layer = Number(rotorOffsetPerLayerInput.value);spawnEntities()
-		});
-    const rotorLayerReverseIntervalInput = document.createElement("input");
-        rotorLayerReverseIntervalInput.value = point1.rotor_layer_reverse_interval ?? defaultValues.spawner.rotor_layer_reverse_interval;
-		rotorLayerReverseIntervalInput.step=1;
-		rotorLayerReverseIntervalInput.addEventListener("input", () => {
-			point1.rotor_layer_reverse_interval = Number(rotorLayerReverseIntervalInput.value);spawnEntities()
-		});
-    const rotorCorrosiveInput = document.createElement("input");
-		rotorCorrosiveInput.addEventListener("input", () => {
-			point1.rotor_corrosive = rotorCorrosiveInput.checked;spawnEntities()
-		});
     const point2El = createFolder(formatString(curLang,"editor.property.types"), point1.types.map(e=>(customTypeGUI(e,point1),e.element)));
     const addBtn = document.createElement("button");
     const centerXbtn = document.createElement("button");
@@ -708,12 +597,6 @@ point1.projectile_radius=undefined;
       point2El.appendChild(centerXbtn);
       point2El.appendChild(centerYbtn);
     }
-    
-    PifaryAuraInput.disabled=!usingPifary;
-    PifaryAura2Input.disabled=!usingPifary;
-    PifaryAura3Input.disabled=!usingPifary;
-    pnclAura1Input.disabled=!usingPncl9500;
-    pnclAura2Input.disabled=!usingPncl9500;
     if (point1.types.length < 2) point2El.classList.add("min");
 		li = createFolder(formatString(curLang,"editor.spawner"), [
   		point2El, //Types
@@ -742,12 +625,6 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.experience_drain_radius"), aura16Input, "number"),
 		createProperty(formatString(curLang,"editor.property.reducing_radius"), aura17Input, "number"),
 		createProperty(formatString(curLang,"editor.property.blocking_radius"), aura18Input, "number"),
-    createProperty(formatString(curLang,"pncl9500.property.riptide_radius"), pnclAura1Input, "number"),
-    createProperty(formatString(curLang,"pncl9500.property.swamp_radius"), pnclAura2Input, "number"),
-    createProperty(formatString(curLang,"pncl9500.property.drowning_radius"), pnclAura3Input, "number"),
-		createProperty(formatString(curLang,"pifary-dev.property.burning_radius"), PifaryAuraInput, "number"),
-		createProperty(formatString(curLang,"pifary-dev.property.defender_radius"), PifaryAura2Input, "number"),
-		createProperty(formatString(curLang,"pifary-dev.property.web_radius"), PifaryAura3Input, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.cybot"), [
         createProperty(formatString(curLang,"editor.property.hard_mode"), hardInput, "switch", {value: point1.hard_mode ?? defaultValues.spawner.hard_mode}),
@@ -814,25 +691,6 @@ point1.projectile_radius=undefined;
     ],!0);
     var foldersInjectedByAddon = [];
     //if pifary were to have an enemy with a custom (non aura radius) property, similar code to the code below would be put here.
-    if (usingPncl9500){
-      //add custom enemies from pncl9500 addon to foldersInjectedByAddon
-      foldersInjectedByAddon = foldersInjectedByAddon.concat([
-        createFolder(formatString(curLang,"pncl9500.category.param_test"),[
-          createProperty(formatString(curLang,"pncl9500.property.test_param"), testParamInput, "number"),],!0),
-        createFolder(formatString(curLang,"pncl9500.category.rotor"), [
-          createProperty(formatString(curLang,"pncl9500.property.rotor_branch_count"), rotorBranchCountInput, "number"),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_node_count"), rotorNodeCountInput, "number"),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_node_radius"), rotorNodeRadiusInput, "number"),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_rot_speed"), rotorRotSpeedInput, "number"),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_reversed"), rotorReversedInput, "switch", {value:point1.rotor_reversed ?? defaultValues.spawner.rotor_reversed}),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_branch_offset"), rotorBranchOffsetInput, "number"),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_node_dist"), rotorNodeDistInput, "number"),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_branch_dist"), rotorBranchDistInput, "number"),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_offset_per_layer"), rotorOffsetPerLayerInput, "number"),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_layer_reverse_interval"), rotorLayerReverseIntervalInput, "number"),
-          createProperty(formatString(curLang,"pncl9500.property.rotor_corrosive"), rotorCorrosiveInput, "switch", {value:point1.rotor_corrosive ?? defaultValues.spawner.rotor_corrosive}),],!0),
-      ]);
-    }
     for (var i = 0; i < foldersInjectedByAddon.length; i++){
       li.lastElementChild.appendChild(foldersInjectedByAddon[i]);
     }
