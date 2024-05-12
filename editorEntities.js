@@ -4040,9 +4040,10 @@ class CyclingEnemy extends Enemy{
 		this.y=this.entity.y;
 	}
     if (this.clock > this.switch_inverval) {
-	var rand=['NORMAL_ENEMY', 'HOMING_ENEMY', 'SLOWING_ENEMY', 'DRAINING_ENEMY', 
-	'SIZING_ENEMY', 'FREEZING_ENEMY', 'DISABLING_ENEMY', 'ENLARGING_ENEMY', 
-	'IMMUNE_ENEMY', 'CORROSIVE_ENEMY', 'TOXIC_ENEMY'].map(e=>eval(capitalize(e.toLowerCase())));
+		var rand=['NORMAL_ENEMY', 'HOMING_ENEMY', 'SLOWING_ENEMY', 'DRAINING_ENEMY', 
+		'SIZING_ENEMY', 'FREEZING_ENEMY', 'DISABLING_ENEMY', 'ENLARGING_ENEMY', 
+		'IMMUNE_ENEMY', 'CORROSIVE_ENEMY', 'TOXIC_ENEMY'].map(e=>eval(capitalize(e.toLowerCase())));
+		rand=rand[Math.floor(Math.random()*rand.length)];
 		if(this.entity!=null){
 			this.entity.remove=true;
 		}
