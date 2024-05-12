@@ -212,7 +212,7 @@ function spawnEntities(area=current_Area){
 					case "zoning":
 					case "sizing":
 					case "spiral":
-					//case "snowman":
+					case "cycling":
 					case "crumbling":
 					case "pumpkin":
 					case "glowy":
@@ -4023,6 +4023,33 @@ class SwitchEnemy extends Enemy{
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
 	  this.speedMultiplier = 1;
     this.collision(delta);
+  }
+}
+class CyclingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"cycling_enemy",boundary);
+    this.switch_inverval = 3000;
+    this.clock = 0;
+	this.entity=null;
+  }
+  update(delta) {
+    this.clock += delta;
+	if(this.entity!=null){
+		this.radiusMultiplier=0;
+		this.x=this.entity.x;
+		this.y=this.entity.y;
+	}
+    if (this.clock > this.switch_inverval) {
+	var rand=['NORMAL_ENEMY', 'HOMING_ENEMY', 'SLOWING_ENEMY', 'DRAINING_ENEMY', 
+	'SIZING_ENEMY', 'FREEZING_ENEMY', 'DISABLING_ENEMY', 'ENLARGING_ENEMY', 
+	'IMMUNE_ENEMY', 'CORROSIVE_ENEMY', 'TOXIC_ENEMY'].map(e=>eval(capitalize(e.toLowerCase())));
+		if(this.entity!=null){
+			this.entity.remove=true;
+		}
+		this.entity=new rand(this.x,this.y,this.radius,this.speed,this.angle,this.boundary);
+		this.clock = this.clock % this.switch_inverval;
+    }
+    super.update(delta);
   }
 }
 class IcicleEnemy extends Enemy{
