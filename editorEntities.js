@@ -140,7 +140,7 @@ function spawnEntities(area=current_Area){
 						map.unknownEntities??=[];
 						map.unknownEntities.indexOf(type)==-1&&(map.unknownEntities.push(type),console.warn("Unknown enemy in "+map.name+": "+type),customAlert("Unknown enemy in "+map.name+": "+type,5,"#FF0"))
 						try{
-							entity=new SimulatorEntity(enemyX,enemyY,getEntityColor(type.replace("fake_","") + "_enemy").color,radius,type,speed,angle,boundary);entity.isEnemy=true
+							entity=new Enemy(enemyX,enemyY,radius,speed,angle,type.replace("fake_","") + "_enemy",boundary);entity.isEnemy=true
 						}catch(e){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
