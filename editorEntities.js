@@ -145,7 +145,7 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-					//72 implemented
+					//73 implemented
 					case "experience_drain":
 					case "blocking":
 					case "slippery":
@@ -4032,22 +4032,36 @@ class CyclingEnemy extends Enemy{
     this.clock = 0;
 	this.entity=null;
   }
-  update(delta) {
+  update(delta,area) {
     this.clock += delta;
 	if(this.entity!=null){
-		this.radiusMultiplier=0;
+		this.radius=0;
 		this.x=this.entity.x;
 		this.y=this.entity.y;
 	}
     if (this.clock > this.switch_inverval) {
 		var rand=['NORMAL_ENEMY', 'HOMING_ENEMY', 'SLOWING_ENEMY', 'DRAINING_ENEMY', 
 		'SIZING_ENEMY', 'FREEZING_ENEMY', 'DISABLING_ENEMY', 'ENLARGING_ENEMY', 
-		'IMMUNE_ENEMY', 'CORROSIVE_ENEMY', 'TOXIC_ENEMY'].map(e=>eval(capitalize(e.toLowerCase())));
+		'IMMUNE_ENEMY', 'CORROSIVE_ENEMY', 'TOXIC_ENEMY'].map(e=>capitalize(e.toLowerCase()));
 		rand=rand[Math.floor(Math.random()*rand.length)];
 		if(this.entity!=null){
 			this.entity.remove=true;
+			this.entity.velangle();
+			this.angle=this.entity.angle;
+			this.anglevel();
+		}else{
+			this.velangle();
 		}
-		this.entity=new rand(this.x,this.y,this.radius,this.speed,this.angle,this.boundary);
+		switch(rand){
+			case"SlowingEnemy":this.entity=new SlowingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
+			case"DrainingEnemy":this.entity=new DrainingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
+			case"FreezingEnemy":this.entity=new FreezingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,100,this.boundary);break;
+			case"DisablingEnemy":this.entity=new DisablingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
+			case"ToxicEnemy":this.entity=new ToxicEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
+			case"EnlargingEnemy":this.entity=new EnlargingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
+			default:this.entity=new (eval(rand))(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,this.boundary);break;
+		}
+		area.entities.push(this.entity);
 		this.clock = this.clock % this.switch_inverval;
     }
     super.update(delta);
