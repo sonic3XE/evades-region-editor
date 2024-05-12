@@ -414,6 +414,7 @@ this.isGuest=!1;
       collided=true;
     }
     if(this.assetCollision())collided=true;
+	return collided;
   }
   onCollide(){
     
@@ -1438,7 +1439,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
           area=map.areas[this.area];
 this.areaNumber=this.area+1;
 this.regionName=map.name;
-this.collides=this.collision();
+this.collides=this.collision(delta);
     if(this.deathTimer==0){
       map.players.splice(map.players.indexOf(this));
     }
