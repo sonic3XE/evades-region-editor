@@ -1085,6 +1085,7 @@ class $e7009c797811e935$var$InputLayer {
 		this.onMouseDownListeners.delete(e)
 	}
 	onKeyDown(e) {
+		if(!playtesting)return;
 		if (null === this.gameState || null === this.updateChat)
 			return;
 		if (this.gameState.initial)
@@ -1114,12 +1115,15 @@ class $e7009c797811e935$var$InputLayer {
 		}
 	}
 	onKeyUp(e) {
+		if(!playtesting)return;
 		//this.gameState.initial || e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && this.gameState.keys.keyUp($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
 	}
 	onBlur(e) {
+		if(!playtesting)return;
 		//this.gameState.initial || this.gameState.keys.clear($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
 	}
 	onMouseMove(e) {
+		if(!playtesting)return;
 		const a = this.canvas.getBoundingClientRect();
 		let t = {};
 		t.x = window.innerWidth / this.canvas.width,
@@ -1129,6 +1133,7 @@ class $e7009c797811e935$var$InputLayer {
 		this.y = (e.pageY - a.top) / t
 	}
 	onMouseDown(e) {
+		if(!playtesting)return;
 		e.preventDefault(),
 		this.canvas.focus(),
 		this.canvas.blur(),
@@ -1137,10 +1142,12 @@ class $e7009c797811e935$var$InputLayer {
 		this.onMouseDownListeners.forEach((e=>e()))
 	}
 	onMouseUp() {
+		if(!playtesting)return;
 		this.down = !1,
 		this.initialDown = !1
 	}
 	onMouseLeave() {
+		if(!playtesting)return;
 		this.enteredButtons.forEach((e=>{
 			e.mouseOver = !1,
 			e.mouseDown = !1
@@ -1151,16 +1158,20 @@ class $e7009c797811e935$var$InputLayer {
 		this.canvas.style.cursor = "default"
 	}
 	onGamepadConnect(e) {
+		if(!playtesting)return;
 		this.gamepad = navigator.getGamepads()[e.gamepad.index]
 	}
 	onGamepadDisconnect() {
+		if(!playtesting)return;
 		this.gamepad = null
 	}
 	onContextMenu(e) {
+		if(!playtesting)return;
 		e.preventDefault(),
 		e.stopPropagation()
 	}
 	update(e) {
+		if(!playtesting)return;
 		const a = $5eeca412293d6bd7$export$2e2bcd8739ae039.get();
 		let t, r = !1, c = !1, keys=new Set();
 		for (let a = 0; a < this.buttons.length; a++) {

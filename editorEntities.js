@@ -2238,7 +2238,8 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 			e.stroke(),
 			e.lineWidth = 1),
 			e.closePath()
-		}
+		};
+		this.decayed=false;
 		e.globalAlpha = 1
 	}
 }
