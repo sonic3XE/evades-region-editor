@@ -213,6 +213,7 @@ function spawnEntities(area=current_Area){
 					case "sizing":
 					case "spiral":
 					case "cycling":
+					case "snowman":
 					case "crumbling":
 					case "pumpkin":
 					case "glowy":
@@ -1975,6 +1976,8 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.angle=Math.atan2(this.velY,this.velX);
   }
   update(delta){
+	this.radius=this.ogradius*this.radiusMultiplier;
+	this.radiusMultiplier=1;
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
     this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
     this.speedMultiplier=1;
@@ -2271,10 +2274,7 @@ class Enemy extends SimulatorEntity{
     this.outline=true;
   }
   update(delta){
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 function distance(a,b){
@@ -2351,8 +2351,7 @@ class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
 }
 class PelletEntity extends SimulatorEntity{
   constructor(x,y,radius,boundary){
-    //(x,y,color,radius,type,speed,angle,boundary)
-    super(x,y,null,radius,"pellet",null,null,boundary);
+    super(x,y,null,radius,"pellet",0,0,boundary);
     this.colors = ["#b84dd4", "#a32dd8", "#3b96fd", "#43c59b", "#f98f6b", "#61c736", "#d192bd"];
     this.scaleOscillator = new $4e83b777e56fdf48$export$2e2bcd8739ae039(1.1,1.1,1.2,.005,!0);
     this.color=this.colors[Math.floor((Math.abs(this.x) + Math.abs(this.y)) % this.colors.length)];
@@ -2395,7 +2394,7 @@ class PelletEntity extends SimulatorEntity{
 	  return Math.floor(Math.min(HeroLevel,100)*Math.min(HeroLevel+1,101)*2+Math.max(0,HeroLevel*(HeroLevel+1)*(2*HeroLevel-179)/60-3535))
   }
   update(delta){
-        this.collision();
+    super.update(delta);
 	this.scaleOscillator.update(delta);
   }
   render(e,t) {
@@ -2744,10 +2743,7 @@ class RadarEnemy extends Enemy{
     }else{
       this.release_time -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class RadarProjectile extends Enemy{
@@ -2766,10 +2762,7 @@ class RadarProjectile extends Enemy{
 	if(distance(this.owner,this)>this.owner.auraRadius){
 		this.remove=true;
 	}
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class GravityEnemy extends Enemy{
@@ -2968,10 +2961,7 @@ class SandEnemy extends Enemy{
 		this.sandSpeed+=0.03*delta/(1e3/30);
 	}
 	this.speedMultiplier*=this.sandSpeed;
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
 	this.sandSpeed=0;
@@ -2988,10 +2978,7 @@ class SandrockEnemy extends Enemy{
 		this.sandrockSpeed-=0.01*delta/(1e3/30);
 	}
 	this.speedMultiplier*=this.sandrockSpeed;
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
 	this.sandrockSpeed=1;
@@ -3013,10 +3000,7 @@ class ChargingEnemy extends Enemy{
 		this.provoked=false;
 	}
 	this.speedMultiplier*=this.chargingSpeed;
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
 	this.velangle();
@@ -3112,10 +3096,7 @@ class HomingEnemy extends Enemy{
       this.velX=Math.cos(this.angle)*this.speed;
       this.velY=Math.sin(this.angle)*this.speed;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
     this.target_angle=this.angle=Math.atan2(this.velY,this.velX);
@@ -3200,10 +3181,7 @@ class DasherEnemy extends Enemy{
       }
       this.compute_speed();
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
     this.velangle();
@@ -3263,10 +3241,7 @@ class OscillatingEnemy extends Enemy{
       this.velY *= -1;
       this.clock = this.clock % 1000;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class ZigzagEnemy extends Enemy{
@@ -3296,10 +3271,7 @@ class ZigzagEnemy extends Enemy{
         this.switchAdd = false;
       }
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class ZoningEnemy extends Enemy{
@@ -3320,11 +3292,7 @@ class ZoningEnemy extends Enemy{
       this.velX = Math.cos(this.angle) * this.speed;
       this.velY = Math.sin(this.angle) * this.speed;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier=1;
-    this.collision(delta);
-    
+    super.update(delta);
   }
 }
 class SizingEnemy extends Enemy{
@@ -3347,10 +3315,7 @@ class SizingEnemy extends Enemy{
         this.growing = true;
       }
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class TurningEnemy extends Enemy{
@@ -3363,10 +3328,7 @@ class TurningEnemy extends Enemy{
     this.velangle()
     this.angle += this.dir * (delta / 30);
     this.anglevel();
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
     this.dir *= -1; 
@@ -3399,10 +3361,7 @@ class SpiralEnemy extends Enemy{
     this.velangle();
     this.angle += this.angleIncrement * this.dir * (delta / (1000 / 30));
     this.anglevel();
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
     this.dir *= -1; 
@@ -3442,27 +3401,21 @@ class CrumblingEnemy extends Enemy{
 		}
 	}
 	this.radiusMultiplier*=this.crumbleSize;
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-	this.radius=this.ogradius*this.radiusMultiplier;
-	this.radiusMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
-/*PARTIAL IMPLEMENTATION
 class SnowmanEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"snowman_enemy",boundary);
 	this.hasCollided=false;
 	this.collideTime=0;
 	this.crumbleSize=1;
+	this.crumbleSizeShrink=1;
   }
   onCollide(){
 	  if(!this.hasCollided){
 		this.hasCollided=true;
-		this.crumbleSize=1;
-		this.radiusMultiplier*=this.crumbleSize;
+		this.crumbleSizeShrink=this.crumbleSize;
 		this.speedMultiplier*=0;
 	  }
   }
@@ -3470,8 +3423,9 @@ class SnowmanEnemy extends Enemy{
 	if(this.hasCollided){
 		this.collideTime+=delta;
 		this.speedMultiplier*=0;
+		this.crumbleSize=(this.crumbleSizeShrink-1)*Math.cos(Math.PI*Math.min(this.collideTime,600)/1200)**3+1;
 	}
-	if(this.collideTime>=1e3&&this.hasCollided){
+	if(this.collideTime>=1.6e3&&this.hasCollided){
 		this.hasCollided=false;
 		this.collideTime=0;
 	};
@@ -3483,14 +3437,10 @@ class SnowmanEnemy extends Enemy{
 		}
 	}
 	this.radiusMultiplier*=this.crumbleSize;
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-	this.radius=this.ogradius*this.radiusMultiplier;
-	this.radiusMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
+	this.lightRadius = this.radius+60;
   }
-}*/
+}
 class PumpkinEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary,fake=false){
     super(x,y,radius,speed,angle,"pumpkin_enemy",boundary);
@@ -3563,10 +3513,7 @@ class PumpkinEnemy extends Enemy{
 	  this.image=$31e8cfefa331e399$var$images[this.texture];
 	  this.detectedTime=0;
 	}}
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
     this.target_angle=this.angle=Math.atan2(this.velY,this.velX);
@@ -3612,10 +3559,7 @@ class MistEnemy extends Enemy{
       this.brightness+=this.brightness_tick*timeFix;
     }
 	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class PhantomEnemy extends Enemy{
@@ -3660,10 +3604,7 @@ class PhantomEnemy extends Enemy{
 	  this.brightness=Math.max(this.brightness,Number.EPSILON);
     }
 	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class GlowyEnemy extends Enemy{
@@ -3697,10 +3638,7 @@ class GlowyEnemy extends Enemy{
       this.timer -= delta;
     }
 	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class FireflyEnemy extends Enemy{
@@ -3734,10 +3672,7 @@ class FireflyEnemy extends Enemy{
       this.timer -= delta;
     }
 	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class GrassEnemy extends Enemy{
@@ -3767,10 +3702,7 @@ class GrassEnemy extends Enemy{
 	if(!this.grassHarmless&&this.grassTime<1e3){
 		this.grassTime+=delta;
 	}
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class SeedlingEnemy extends Enemy{
@@ -3778,16 +3710,7 @@ class SeedlingEnemy extends Enemy{
     super(x,y,radius,speed,angle,"seedling_enemy",boundary);
 	this.hasEntity=false;
 	this.immune=true;
-  }
-  update(delta,area) {
-	if(!this.hasEntity){
-		this.hasEntity=true;
-		area.entities.push(new SeedlingProjectile(this.x,this.y,this.radius,0,0,this,this.boundary))
-	};
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+	map.areas[current_Area].entities.push(new SeedlingProjectile(this.x,this.y,this.radius,0,0,this,this.boundary))
   }
 }
 class SeedlingProjectile extends Enemy{
@@ -3831,10 +3754,7 @@ class FireTrailEnemy extends Enemy{
         this.remove = true;
       }
 	}
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
   spawnTrail(area){
     area.entities.push(new FireTrailEnemy(this.x,this.y,this.radius,0,0,true,this.boundary));
@@ -3995,10 +3915,7 @@ class LiquidEnemy extends Enemy{
     if(closest_entity!=void 0){
       this.speedMultiplier *= 5;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class SwitchEnemy extends Enemy{
@@ -4019,11 +3936,7 @@ class SwitchEnemy extends Enemy{
       this.isHarmless = this.disabled
     }
     this.clock = this.clock % this.switch_inverval;
-
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	  this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class CyclingEnemy extends Enemy{
@@ -4080,10 +3993,7 @@ class IcicleEnemy extends Enemy{
       this.clock=0;
 	  this.wallHit=false;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
 	  this.wallHit=true;
@@ -4105,10 +4015,7 @@ class RadiatingBulletsEnemy extends Enemy{
 		this.releaseTime+=this.release_interval
 		this.releaseTime = this.releaseTime % this.release_interval;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class RadiatingBulletsProjectile extends Enemy{
@@ -4130,10 +4037,7 @@ class RadiatingBulletsProjectile extends Enemy{
     if (this.clock >= 3000) {
 		this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class WavyEnemy extends Enemy{
@@ -4154,10 +4058,7 @@ class WavyEnemy extends Enemy{
     this.velangle();
     this.angle += this.angleIncrement*this.dir*(delta/(1000/30));
     this.anglevel();
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-	this.speedMultiplier=1;
-    this.collision(delta);
+    super.update(delta);
   }
   onCollide(){
     this.dir *= -1; 
@@ -4202,10 +4103,7 @@ class SniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class SniperProjectile extends Enemy{
@@ -4223,10 +4121,7 @@ class SniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class PredictionSniperEnemy extends Enemy{
@@ -4287,10 +4182,7 @@ class PredictionSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class ResidueEnemy extends Enemy{
@@ -4303,10 +4195,7 @@ class ResidueEnemy extends Enemy{
     if (this.clock >= 3000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class PredictionSniperProjectile extends Enemy{
@@ -4324,10 +4213,7 @@ class PredictionSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class IceSniperEnemy extends Enemy{
@@ -4369,10 +4255,7 @@ class IceSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class IceSniperProjectile extends Enemy{
@@ -4394,10 +4277,7 @@ class IceSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class PoisonSniperEnemy extends Enemy{
@@ -4439,10 +4319,7 @@ class PoisonSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class PoisonSniperProjectile extends Enemy{
@@ -4464,10 +4341,7 @@ class PoisonSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class SpeedSniperEnemy extends Enemy{
@@ -4510,10 +4384,7 @@ class SpeedSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class SpeedSniperProjectile extends Enemy{
@@ -4539,10 +4410,7 @@ class SpeedSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class LeadSniperEnemy extends Enemy{
@@ -4584,10 +4452,7 @@ class LeadSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class LeadSniperProjectile extends Enemy{
@@ -4610,10 +4475,7 @@ class LeadSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class RegenSniperEnemy extends Enemy{
@@ -4656,10 +4518,7 @@ class RegenSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class RegenSniperProjectile extends Enemy{
@@ -4683,10 +4542,7 @@ class RegenSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class CorrosiveSniperEnemy extends Enemy{
@@ -4728,10 +4584,7 @@ class CorrosiveSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class CorrosiveSniperProjectile extends Enemy{
@@ -4748,10 +4601,7 @@ class CorrosiveSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class PositiveMagneticSniperEnemy extends Enemy{
@@ -4793,10 +4643,7 @@ class PositiveMagneticSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class PositiveMagneticSniperProjectile extends Enemy{
@@ -4834,10 +4681,7 @@ class PositiveMagneticSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class NegativeMagneticSniperEnemy extends Enemy{
@@ -4879,10 +4723,7 @@ class NegativeMagneticSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class NegativeMagneticSniperProjectile extends Enemy{
@@ -4918,10 +4759,7 @@ class NegativeMagneticSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class ForceSniperAEnemy extends Enemy{
@@ -4963,10 +4801,7 @@ class ForceSniperAEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class ForceSniperAProjectile extends Enemy{
@@ -4991,10 +4826,7 @@ class ForceSniperAProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class ForceSniperBEnemy extends Enemy{
@@ -5036,10 +4868,7 @@ class ForceSniperBEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class ForceSniperBProjectile extends Enemy{
@@ -5064,10 +4893,7 @@ class ForceSniperBProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class WindGhostEnemy extends Enemy{
@@ -5139,10 +4965,7 @@ class WindSniperEnemy extends Enemy{
     }else{
       this.releaseTime -= delta;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 class WindSniperProjectile extends Enemy{
@@ -5180,10 +5003,7 @@ class WindSniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
-    this.speedMultiplier = 1;
-    this.collision(delta);
+    super.update(delta);
   }
 }
 window.warnin=false;
