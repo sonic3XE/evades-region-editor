@@ -3949,7 +3949,7 @@ class CyclingEnemy extends Enemy{
   update(delta,area) {
     this.clock += delta;
 	if(this.entity!=null){
-		this.radius=0;
+		this.radiusMultiplier=0;
 		this.x=this.entity.x;
 		this.y=this.entity.y;
 	}
