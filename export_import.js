@@ -55,17 +55,8 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
           delete selectedObject.properties.inputs;
         }
         selectedObject = null;
-		map.areas=obj.areas.map((e,t)=>{
-			let area=e;
-			try{
-            if(area.x=="var x")area.x=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].x??"var x";
-            if(area.y=="var y")area.y=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].y??"var y";
-			}catch(v){
-			}
-            var maxRight=0;
-            var maxBottom=0;
-			console.log(t);
-            return createArea(area);
+		map.areas=obj.areas.map(e=>{
+            return createArea(e);
 		});
         customAREAgui(map.areas[0]);
         areamenu.appendChild(map.areas[0].element);
