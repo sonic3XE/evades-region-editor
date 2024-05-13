@@ -255,8 +255,8 @@ var pushY=0;
     var curBoundary=getAreaBoundary(area);
     area.rx.toString().startsWith("var x")&&(area.x=ExtractDiff(area.rx));
     area.ry.toString().startsWith("var y")&&(area.y=ExtractDiff(area.ry));
-    if(area.rx.startsWith("var x"))area.x+=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].x??0;
-    if(area.ry.startsWith("var y"))area.y+=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].y??0;
+    if(area.rx.toString().startsWith("var x"))area.x+=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].x??0;
+    if(area.ry.toString().startsWith("var y"))area.y+=WORLD.regions.filter(e=>e.file==`regions/${obj.name.split(" ").join("-").toLowerCase()}.yaml`)[0].y??0;
     if(area.previousArea){
       var boundary=getAreaBoundary(area.previousArea);
       area.rx.toString().startsWith("last_x")&&(area.x=area.previousArea.x+ExtractDiff(area.rx));
