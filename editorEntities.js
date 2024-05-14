@@ -40,51 +40,64 @@ function getEntityColor(type){
 	return $3d7c57289a41f86c$exports.defaults[type].color;
 }
 function spawnEntities(area=current_Area){
-	if(!map.areas[area])return;
-	var isVictory=!!map.areas[area].zones.filter(e=>e.type=="victory").length;
-	var totalPellets=map.areas[area].properties.pellet_count ?? defaultValues.properties.pellet_count;
+	var areaC=map.areas[area];
+	if(!areaC)return;
+	var isVictory=!!areaC.zones.filter(e=>e.type=="victory").length;
+	var totalPellets=areaC.properties.pellet_count ?? defaultValues.properties.pellet_count;
 	if(totalPellets==defaultValues.properties.pellet_count){
 		totalPellets=map.properties.pellet_count ?? defaultValues.properties.pellet_count;
 	}
-	var boundary=getAreaBoundary(map.areas[area]);
-	var victoryZones=map.areas[area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
-	map.areas[area].entities=[];
-	map.areas[area].assets.filter(e=>e.type=="flashlight_spawner").map(e=>{
-		map.areas[area].entities.push(new FlashlightSpawner(e.x,e.y))
-	})
-	map.areas[area].assets.filter(e=>e.type=="torch").map(e=>{
-		map.areas[area].entities.push(new Torch(e.x,e.y,e.upside_down))
-	})
-	map.areas[area].assets.filter(e=>e.type=="light_region").map(e=>{
-		map.areas[area].entities.push(new LightRegion(e.x,e.y,e.width,e.height))
-	})
-	map.areas[area].assets.filter(e=>e.type=="wall").map(e=>{
-		map.areas[area].entities.push(new Wall(e.x,e.y,e.width,e.height,e.texture))
-	})
-	//Don't spawn gate entities since it is removed from the game.
-	//map.areas[area].assets.filter(e=>e.type=="gate").map(e=>{
-	//  map.areas[area].entities.push(new Gate(e.x,e.y,e.width,e.height))
-	//})
-	
-	if(victoryZones.length){
-		var areaofzone=victoryZones.map(e=>e.width*e.height);
-		for(var it in areaofzone){
-			if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
+	var pelletZones=[];
+	var boundary=getAreaBoundary(areaC);
+	if(areaC.properties.spawns_pellets!=void 0 && !areaC.properties.spawns_pellets){
+		for(var zone of areaC.zones){
+			if(zone.properties.spawns_pellets){
+				pelletZones.push(zone);
+			}
 		}
-		var sum=victoryZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
-		for(var i=0;i<(totalPellets==25?(isVictory?250:25):totalPellets);i++){
-			var rand=Math.random()*sum;
-			var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
-			var left=randZone.x;
-			var right=randZone.x+randZone.width;
-			var bottom=randZone.y+randZone.height;
-			var top=randZone.y;
-			var pellet=new PelletEntity(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary);
-			pellet.collision();
-			map.areas[area].entities.push(pellet);
+	}else{
+		for(var zone of areaC.zones){
+			if(["active","victory"].indexOf(zone.type)!=-1||(zone.properties.spawns_pellets!=void 0 && zone.properties.spawns_pellets)){
+				pelletZones.push(zone);
+			}
 		}
 	}
+	if(!pelletZones.length)pelletZones=[areaC.zones[0]];
+	areaC.entities=[];
+	
+	var areaofzone=pelletZones.map(e=>e.width*e.height);
+	for(var it in areaofzone){
+		if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
+	}
+	var sum=pelletZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
+	for(var i=0;i<(totalPellets==25?(isVictory?250:25):totalPellets);i++){
+		var rand=Math.random()*sum;
+		var randZone=pelletZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
+		var left=randZone.x;
+		var right=randZone.x+randZone.width;
+		var bottom=randZone.y+randZone.height;
+		var top=randZone.y;
+		var pellet=new PelletEntity(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary,pelletZones);
+		pellet.collision();
+		map.areas[area].entities.push(pellet);
+	}
 	var quicksandDir=Math.floor(Math.random()*4)*90;
+	areaC.assets.filter(e=>e.type=="flashlight_spawner").map(e=>{
+		areaC.entities.push(new FlashlightSpawner(e.x,e.y))
+	})
+	areaC.assets.filter(e=>e.type=="torch").map(e=>{
+		areaC.entities.push(new Torch(e.x,e.y,e.upside_down))
+	})
+	areaC.assets.filter(e=>e.type=="light_region").map(e=>{
+		areaC.entities.push(new LightRegion(e.x,e.y,e.width,e.height))
+	})
+	areaC.assets.filter(e=>e.type=="wall").map(e=>{
+		areaC.entities.push(new Wall(e.x,e.y,e.width,e.height,e.texture))
+	})
+	//Don't spawn gate entities since it is removed from the game.
+	//areaC.assets.filter(e=>e.type=="gate").map(e=>{
+	//  areaC.entities.push(new Gate(e.x,e.y,e.width,e.height))
+	//})
 	function prop(spawner,e){
 		return spawner[e]??defaultValues.spawner[e]
 	}
@@ -169,7 +182,7 @@ function spawnEntities(area=current_Area){
 					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),boundary);break;
 					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
 					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
-					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),void 0,prop(spawner,"move_clockwise"));break;
+					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),prop(spawner,"move_clockwise"));break;
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
 					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),checkAreaProperties("wind_ghosts_do_not_push_while_downed"),boundary);break;
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
@@ -226,22 +239,6 @@ function spawnEntities(area=current_Area){
 	}
 	if(isNaN(map.areas[area].entities.filter(e=>(isNaN(e.x)||isNaN(e.y))).length)){return spawnEntities();}
 }
-//rect and circle collision
-function clamp(a,r,t){return Math.min(t,Math.max(r,a))}
-function rectCircleCollision(cx, cy, cr, x, y, width, height) {
-  var tx = clamp(cx,x,x+width);
-  var ty = clamp(cy,y,y+height);
-  var dx=(cx-tx);
-  var dy=(cy-ty);
-const dist=Math.sqrt(dx**2+dy**2);
-  var e={}
-  e.c=dist < cr;
-  e.ax=Math.abs(dx);
-  e.ay=Math.abs(dy);
-  e.x=dx;
-  e.y=dy;
-  return e;
-};
 var verifiedEntities=[
   "wall","normal","homing","dasher"
 ];
@@ -1418,6 +1415,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
             }
           }
           this.x=targetPoint.x+(map.areas[this.area].x-map.areas[maxArea].x);
+		  this.hasTranslated=true;
           this.y=targetPoint.y+(map.areas[this.area].y-map.areas[maxArea].y);
           map.areas[this.area].entities=[];
           this.area = maxArea;
@@ -1437,7 +1435,25 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
         }
       }
           this.onTele=onTele;
+		  var safeZone;
           area=map.areas[this.area];
+		  for(var zone of area.zones){
+			  if(zone.type=="safe"){
+				  safeZone=zone;
+				  break;
+			  };
+		  };
+		  for(var zone of area.zones){
+			  if(zone.type=="teleport"&&rectCircleCollision(this.x, this.y, this.radius, zone.x, zone.y, zone.width, zone.height).c){
+				var left=safeZone.x;
+				var right=safeZone.x+safeZone.width;
+				var top=safeZone.y;
+				var bottom=safeZone.y+safeZone.height;
+				this.x=Math.min(Math.max(this.x,left+this.radius*2),right-this.radius*2);
+				this.y=Math.min(Math.max(this.y,top+this.radius*2),bottom-this.radius*2);
+				break;
+			  }
+		  }
 this.areaNumber=this.area+1;
 this.regionName=map.name;
 this.collides=this.collision(delta);
@@ -1915,6 +1931,21 @@ this.collides=this.collision(delta);
 let $9bc26d320fe964d6$var$totalConfettiRendered = 0;
 const $9bc26d320fe964d6$var$MaxConfettiRendered = 500;
 //Entity
+function clamp(a,r,t){return Math.min(t,Math.max(r,a))}
+function rectCircleCollision(cx, cy, cr, x, y, width, height) {
+  var tx = clamp(cx,x,x+width);
+  var ty = clamp(cy,y,y+height);
+  var dx=(cx-tx);
+  var dy=(cy-ty);
+const dist=Math.sqrt(dx**2+dy**2);
+  var e={}
+  e.c=dist <= cr;
+  e.ax=Math.abs(dx);
+  e.ay=Math.abs(dy);
+  e.x=dx;
+  e.y=dy;
+  return e;
+};
 class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
   constructor(x,y,color,radius,type,speed=0,angle,boundary) {
 	super();
@@ -2350,14 +2381,15 @@ class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
 	}
 }
 class PelletEntity extends SimulatorEntity{
-  constructor(x,y,radius,boundary){
+  constructor(x,y,radius,boundary,pellet_zones){
     super(x,y,null,radius,"pellet",0,0,boundary);
     this.colors = ["#b84dd4", "#a32dd8", "#3b96fd", "#43c59b", "#f98f6b", "#61c736", "#d192bd"];
     this.scaleOscillator = new $4e83b777e56fdf48$export$2e2bcd8739ae039(1.1,1.1,1.2,.005,!0);
     this.color=this.colors[Math.floor((Math.abs(this.x) + Math.abs(this.y)) % this.colors.length)];
+	this.pellet_zones=pellet_zones;
   }
   playerInteraction(player){
-  var victoryZones=map.areas[player.area].zones.filter(e=>(e.type=="victory"||e.type=="active"));
+  var victoryZones=this.pellet_zones;
     var areaofzone=victoryZones.map(e=>e.width*e.height);
     for(var it in areaofzone){
       if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
@@ -2407,11 +2439,9 @@ class PelletEntity extends SimulatorEntity{
 }
 //	EvadesClassic enemy files: server\src\game\entities\enemies\{{type}}_enemy.py
 class WallEnemy extends Enemy{
-  constructor(radius,speed,area_bounding_box,wall_index,wall_count,initial_side,move_clockwise=true){
+  constructor(radius,speed,area_bounding_box,wall_index,wall_count,move_clockwise=true){
     super(0,0,radius,speed,0,"wall_enemy",area_bounding_box);
-    if(initial_side==void 0){
-      initial_side=0
-    }
+    initial_side=0
     var distance=wall_index*(
       (this.boundary.width-this.radius*2)*2+
       (this.boundary.height-this.radius*2)*2)/wall_count;

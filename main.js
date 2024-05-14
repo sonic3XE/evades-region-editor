@@ -999,12 +999,12 @@ socket.addEventListener("message",socketreceive);
 function createPropertyObj(obj={},t="region") {
   delete obj.inputs,delete obj.element;
   var arrayCheck=Object.keys(obj);
-  var arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
+  var arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
 if(t=="region"){
-arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
+arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
 }
 if(t=="zone"){
-arr="background_color,friction,texture,minimum_speed".split(",");
+arr="background_color,friction,texture,spawns_pellets,minimum_speed".split(",");
 }
   for(var i in obj){
     if(arr.indexOf(i)==-1&&defaultValues.properties[i]!=obj[i]){
@@ -1037,6 +1037,7 @@ sticky_coat_distort_reduced = False
 allow_solo_with_group = False
 all_enemies_immune = False
 charge_reduced = False
+spawns_pellets = False
 */
   const properties = {...obj};
   properties.background_color&&(properties.background_color=[...properties.background_color].map(e=>Math.ceil(e)));
@@ -1077,6 +1078,10 @@ charge_reduced = False
   const _applies_lantern = document.createElement("input");
   _applies_lantern.addEventListener("input", () => {
     properties.applies_lantern = _applies_lantern.checked;
+  });
+  const _spawns_pellets = document.createElement("input");
+  _spawns_pellets.addEventListener("input", () => {
+    properties.spawns_pellets = _spawns_pellets.checked;
   });
   const _all_enemies_immune = document.createElement("input");
   _applies_lantern.addEventListener("input", () => {
@@ -1201,7 +1206,8 @@ if(t=="region"){
     createProperty(formatString(curLang,"editor.property.magnetism"), _magnetism, "switch", { value: properties.magnetism ?? defaultValues.properties.magnetism }),
     createProperty(formatString(curLang,"editor.property.partial_magnetism"), _partial_magnetism, "switch", { value: properties.partial_magnetism ?? defaultValues.properties.partial_magnetism }),
     createProperty(formatString(curLang,"editor.property.charge_reduced"), _charge_reduced, "switch", { value: properties.charge_reduced ?? defaultValues.properties.charge_reduced }),
-    createProperty(formatString(curLang,"editor.property.pellet_count"), _pellet_count, "number"),
+    createProperty(formatString(curLang,"editor.property.spawns_pellets"), null, "select", {value:properties.spawns_pellets ?? defaultValues.properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.none"),void 0],...[true, false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType: "switch"}),
+	createProperty(formatString(curLang,"editor.property.pellet_count"), _pellet_count, "number"),
     createProperty(formatString(curLang,"editor.property.pellet_multiplier"), _pellet_multiplier, "number")
   ]);
 };
@@ -1211,6 +1217,7 @@ if(t=="zone"){
       createProperty(formatString(curLang,"editor.property.background_color.color"), colorInput, "color"),
       createProperty(formatString(curLang,"editor.property.background_color.alpha"), opacityInput, "number"),
     ]),
+    createProperty(formatString(curLang,"editor.property.spawns_pellets"), null, "select", {value:properties.spawns_pellets ?? defaultValues.properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.none"),void 0],...[true, false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType: "switch"}),
     createProperty(formatString(curLang,"editor.property.friction"), _friction, "number"),
     createProperty(formatString(curLang,"editor.property.texture"), null, "select", {
       value: properties.texture ?? defaultValues.properties.texture, event: (e) => { properties.texture = e },
