@@ -206,7 +206,7 @@ function areaToJSON(area) {
       res[props[i]]=area.properties[props[i]]
     }
   }
-  return `{${area.name==""?"":`"name":"${area.name}",`}"properties":${JSON.stringify(res)},"x":${typeof area.rx=="number"?area.rx:''.concat('"',area.rx,'"')},"y":${typeof area.ry=="number"?area.ry:''.concat('"',area.ry,'"')},"zones":[${objects.join()}],"assets":[${assets.join()}]}`.replace(`,"assets":[]`,"");
+  return `{${(area.name==""||area.name==void 0)?"":`"name":"${area.name}",`}"properties":${JSON.stringify(res)},"x":${typeof area.rx=="number"?area.rx:''.concat('"',area.rx,'"')},"y":${typeof area.ry=="number"?area.ry:''.concat('"',area.ry,'"')},"zones":[${objects.join()}],"assets":[${assets.join()}]}`.replace(`,"assets":[]`,"");
 }
 
 /**
