@@ -1415,11 +1415,11 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
             }
           }
           this.x=targetPoint.x+(map.areas[this.area].x-map.areas[maxArea].x);
-		  this.hasTranslated=true;
           this.y=targetPoint.y+(map.areas[this.area].y-map.areas[maxArea].y);
           map.areas[this.area].entities=[];
           this.area = maxArea;
           spawnEntities(this.area);
+		  this.hasTranslated=true;
 		  this.chronoPos=[];
           }
         }
@@ -1444,7 +1444,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 			  };
 		  };
 		  for(var zone of area.zones){
-			  if(this.hasTranslated&&zone.type=="teleport"&&rectCircleCollision(this.x, this.y, this.radius, zone.x, zone.y, zone.width, zone.height).c){
+			  if(this.hasTranslated&&zone.type=="teleport"&&rectCircleCollision(this.x, this.y, this.radius, zone?.x, zone?.y, zone?.width, zone?.height).c){
 				var left=safeZone.x;
 				var right=safeZone.x+safeZone.width;
 				var top=safeZone.y;
@@ -1455,6 +1455,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 				break;
 			  }
 		  }
+		this.hasTranslated=false;
 this.areaNumber=this.area+1;
 this.regionName=map.name;
 this.collides=this.collision(delta);

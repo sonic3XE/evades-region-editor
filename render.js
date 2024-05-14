@@ -131,7 +131,7 @@ var selfPlayer=map.players.filter(e=>e.id==window.selfId)[0];
   }else{
   if(!selfPlayer&&!window.selfId){
 	  var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0];
-	  if(!safezone)console.log("bro why is there no safe zone?"),safezone={x:0,y:0,width:32,height:32};
+	  if(!safezone)safezone=map.areas[0].zones[0];
 var player=new SimulatedPlayer(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),1);
 selfPlayer=player;
 window.selfId=player.id;
