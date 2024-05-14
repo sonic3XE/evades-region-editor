@@ -201,7 +201,7 @@ function areaToJSON(area) {
   var res={};
   var props=Object.keys(area.properties);
   for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(!area.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
+    if(props[i]=="inputs"||props[i]=="element"||(area.properties.background_color&&!area.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],area.properties[props[i]])){
       res[props[i]]=area.properties[props[i]]
     }
