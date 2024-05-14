@@ -156,6 +156,6 @@ regions:
 - file: regions/wacky-wonderland.yaml
   x: 1952
   y: 16000
-- file: regions/withering-wasteland.yaml
+- file: regions/withering-wasteland.yaml outdated
   x: 1952
   y: 173712
