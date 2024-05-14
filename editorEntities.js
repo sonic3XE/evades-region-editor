@@ -1444,13 +1444,14 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 			  };
 		  };
 		  for(var zone of area.zones){
-			  if(zone.type=="teleport"&&rectCircleCollision(this.x, this.y, this.radius, zone.x, zone.y, zone.width, zone.height).c){
+			  if(this.hasTranslated&&zone.type=="teleport"&&rectCircleCollision(this.x, this.y, this.radius, zone.x, zone.y, zone.width, zone.height).c){
 				var left=safeZone.x;
 				var right=safeZone.x+safeZone.width;
 				var top=safeZone.y;
 				var bottom=safeZone.y+safeZone.height;
 				this.x=Math.min(Math.max(this.x,left+this.radius*2),right-this.radius*2);
 				this.y=Math.min(Math.max(this.y,top+this.radius*2),bottom-this.radius*2);
+				this.hasTranslated=false;
 				break;
 			  }
 		  }
