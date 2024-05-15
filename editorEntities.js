@@ -2443,7 +2443,7 @@ class PelletEntity extends SimulatorEntity{
 class WallEnemy extends Enemy{
   constructor(radius,speed,area_bounding_box,wall_index,wall_count,move_clockwise=true){
     super(0,0,radius,speed,0,"wall_enemy",area_bounding_box);
-    initial_side=0
+    var initial_side=0;
     var distance=wall_index*(
       (this.boundary.width-this.radius*2)*2+
       (this.boundary.height-this.radius*2)*2)/wall_count;
