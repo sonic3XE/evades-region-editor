@@ -1,4 +1,5 @@
 const useractive=navigator.userActivation;
+const animate=(function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame})();
 const settings={
 	get snapX(){
 		return Math.floor(Number(localStorage.snapX??16));
@@ -32,8 +33,7 @@ const settings={
 };
 
 (()=>{for(var i in this){
-  if(i.includes("Frame"))continue;
-  if(i.toLowerCase().includes("inner")||i.toLowerCase().includes("set")||i=="fetch"||i=="alert"||i=="confirm"||i=="prompt"||i=="localStorage"||i=="performance")continue;
+  if(i.toLowerCase().includes("inner")||i.toLowerCase().includes("set")||i.toLowerCase().startsWith("on")||i=="fetch"||i=="alert"||i=="confirm"||i=="prompt"||i=="localStorage"||i=="performance")continue;
   delete this[i];
 }})();
 
@@ -88,7 +88,7 @@ var usingAutomationTools=activated_extensions.indexOf("automationTools")!=-1;
 //usingVanillaEnemySet should be set to false when a custom enemy type (from a sandbox, not in evades.io) is added.
 //causes the addon enemy properties folder to show up (even if there are no properties in the folder, but its probably fine)
 var usingVanillaEnemySet = !(usingPifary || usingPncl9500);
-if(!usingVanillaEnemySet)localStorage.clear(),location.reload();
+if(!usingVanillaEnemySet)localStorage.clear(),reloadPage();
 window.addEventListener("blur",function () {
   isActive = false;
 })

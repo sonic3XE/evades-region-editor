@@ -401,90 +401,32 @@ x:target.x,y:target.y};
     {
       var snap={x:localStorage.getItem("snapX")||16,y:localStorage.getItem("snapY")||16}
       switch (selectMode) {
-        case "u":
+        default:
           resize = e => {
-            let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
-            if(!isNaN(target.ry))target.ry=target.y = roundTo(y, snap.y);
-            if(!isNaN(target.rh))target.rh=target.height = roundTo(posY - y + sizeY, snap.y);
-            if(!isNaN(target.ry))target.inputs.y.value = target.y;
-            if(!isNaN(target.rh))target.inputs.height.value = target.height;
-          }
-          break;
-        case "ur":
-          resize = e => {
-            let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
-            let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
-            if(!isNaN(target.rw))target.rw=target.width = roundTo(x - posX, snap.x);
-            if(!isNaN(target.ry))target.ry=target.y = roundTo(y, snap.y);
-            if(!isNaN(target.rh))target.rh=target.height = roundTo(posY - y + sizeY, snap.y);
-            if(!isNaN(target.rx))target.inputs.x.value = target.x;
-            if(!isNaN(target.ry))target.inputs.y.value = target.y;
-            if(!isNaN(target.rw))target.inputs.width.value = target.width;
-            if(!isNaN(target.rh))target.inputs.height.value = target.height;
-          }
-          break;
-        case "r":
-          resize = e => {
-            let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
-            if(!isNaN(target.rw))target.rw=target.width = roundTo(x - posX, snap.x);
-            if(!isNaN(target.rx))target.inputs.x.value = target.x;
-            if(!isNaN(target.rw))target.inputs.width.value = target.width;
-          }
-          break;
-        case "dr":
-          resize = e => {
-            let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
-            let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
-            if(!isNaN(target.rw))target.rw=target.width = roundTo(x - posX, snap.x);
-            if(!isNaN(target.rh))target.rh=target.height = roundTo(y - posY, snap.y);
-            if(!isNaN(target.rx))target.inputs.x.value = target.x;
-            if(!isNaN(target.ry))target.inputs.y.value = target.y;
-            if(!isNaN(target.rw))target.inputs.width.value = target.width;
-            if(!isNaN(target.rh))target.inputs.height.value = target.height;
-          }
-          break;
-        case "d":
-          resize = e => {
-            let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
-            if(!isNaN(target.rh))target.rh=target.height = roundTo(y - posY, snap.y);
-            if(!isNaN(target.ry))target.inputs.y.value = target.y;
-            if(!isNaN(target.rh))target.inputs.height.value = target.height;
-          }
-          break;
-        case "dl":
-          resize = e => {
-            let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
-            let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
-            if(!isNaN(target.rx))target.rx = target.x = roundTo(x, snap.x);
-            if(!isNaN(target.rw))target.rw = target.width = roundTo(posX - x + sizeX, snap.x);
-            if(!isNaN(target.rh))target.height = roundTo(y - posY, snap.y);
-            if(!isNaN(target.rx))target.inputs.x.value = target.x;
-            if(!isNaN(target.ry))target.inputs.y.value = target.y;
-            if(!isNaN(target.rw))target.inputs.width.value = target.width;
-            if(!isNaN(target.rh))target.inputs.height.value = target.height;
-          }
-          break;
-        case "l":
-          resize = e => {
-            let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
-            if(!isNaN(target.rx))target.rx = target.x = roundTo(x, snap.x);
-            if(!isNaN(target.rw))target.rw = target.width = roundTo(posX - x + sizeX, snap.x);
-            if(!isNaN(target.rx))target.inputs.x.value = target.x;
-            if(!isNaN(target.rw))target.inputs.width.value = target.width;
-          }
-          break;
-        case "ul":
-          resize = e => {
-            let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
-            let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
-            if(!isNaN(target.rx))target.rx = target.x = roundTo(x, snap.x);
-            if(!isNaN(target.rw))target.rw = target.width = roundTo(posX - x + sizeX, snap.x);
-            if(!isNaN(target.ry))target.ry = target.y = roundTo(y, snap.y);
-            if(!isNaN(target.rh))target.rh = target.height = roundTo(posY - y + sizeY, snap.y);
-            if(!isNaN(target.rx))target.inputs.x.value = target.x;
-            if(!isNaN(target.ry))target.inputs.y.value = target.y;
-            if(!isNaN(target.rw))target.inputs.width.value = target.width;
-            if(!isNaN(target.rh))target.inputs.height.value = target.height;
+			let y = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
+			if(selectMode.includes("u")){
+				if(!isNaN(target.ry))target.ry=target.y = roundTo(y, snap.y);
+				if(!isNaN(target.rh))target.rh=target.height = roundTo(posY - y + sizeY, snap.y);
+				if(!isNaN(target.ry))target.inputs.y.value = target.y;
+				if(!isNaN(target.rh))target.inputs.height.value = target.height;
+			}
+			if(selectMode.includes("d")){
+				if(!isNaN(target.rh))target.rh=target.height = roundTo(y - posY, snap.y);
+				if(!isNaN(target.ry))target.inputs.y.value = target.y;
+				if(!isNaN(target.rh))target.inputs.height.value = target.height;
+			}
+			let x = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
+			if(selectMode.includes("r")){
+				if(!isNaN(target.rw))target.rw = target.width = roundTo(x - posX, snap.x);
+				if(!isNaN(target.rx))target.inputs.x.value = target.x;
+				if(!isNaN(target.rw))target.inputs.width.value = target.width;
+			}
+			if(selectMode.includes("l")){
+				if(!isNaN(target.rx))target.rx = target.x = roundTo(x, snap.x);
+				if(!isNaN(target.rw))target.rw = target.width = roundTo(posX - x + sizeX, snap.x);
+				if(!isNaN(target.rx))target.inputs.x.value = target.x;
+				if(!isNaN(target.rw))target.inputs.width.value = target.width;
+			}
           }
           break;
         case "m":
@@ -526,13 +468,8 @@ x:target.x,y:target.y};
       lastwidth=target.width;
       lastheight=target.height;
     };
-    document.addEventListener("mousemove", u);
-    document.addEventListener("mouseup", () => {
-      lockCursor = false;
-      document.removeEventListener("mousemove", u);
-     (!playtesting)&&updateMap();
-    });
-
+	window.onmousemove=u;
+	window.onmouseup=()=>{lockCursor=false;updateMap();window.onmousemove=null;window.onmouseup=null};
   } else {
     if(selectedObject){
       if(selectedObject.properties){
@@ -1376,7 +1313,7 @@ loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background
 // Start rendering
 (function run() {
   render();
-  window.requestAnimationFrame(run);
+  animate(run);
 })();
 
 /**
