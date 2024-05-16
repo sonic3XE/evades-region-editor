@@ -30,35 +30,35 @@
             <titleheader style="font:bold 32px tah;display:block;width:100%;text-align:center">Settings</titleheader>
 			<table><caption><titleheader style="font: bold 20px tah;border-bottom: 1px white solid">EDITING</titleheader></caption><tbody>
 			<tr>
-				<td><label for="snapX">Snap X: <input id="snapX" step="1" min="1" max="32" style="width:50px" type="number" value="16"></label></td>
-				<td><label for="snapY">Snap Y: <input id="snapY" step="1" min="1" max="32" style="width:50px" type="number" value="16"></label></td>
-				<td><label for="isSandbox">60FPS <input id="isSandbox" type="checkbox"></label></td>
+				<td>Snap X: <input id="snapX" step="1" min="1" max="32" style="width:50px" type="number" value="16"></td>
+				<td>Snap Y: <input id="snapY" step="1" min="1" max="32" style="width:50px" type="number" value="16"></td>
+				<td>60FPS <input id="isSandbox" type="checkbox"></td>
 			</tr>
 			<tr><td colspan="3"><label for="realTime" style="cursor:help;text-decoration:underline dotted;" title="We are not interested in giving out enemy files. - PotatoNuke">Update area in real time (less fps) <input id="realTime" type="checkbox"></label></td></tr>
 			</tbody></table><hr>
 			<table><caption><titleheader style="font: bold 20px tah;border-bottom: 1px white solid">VISUALS</titleheader></caption><tbody>
 			<tr>
-				<td><label for="enemyOutlines">Enemy Outlines <input id="enemyOutlines" type="checkbox"></label></td>
-				<td><label for="tileMode">Tiles <select id="tileMode"><option>Tiles</option><option>No Tiles</option><option>Tiles Dark</option><option>No Tiles Dark</option></select></label></td>
+				<td>Enemy Outlines <input id="enemyOutlines" type="checkbox"></td>
+				<td>Tiles <select id="tileMode"><option>Tiles</option><option>No Tiles</option><option>Tiles Dark</option><option>No Tiles Dark</option></select></td>
 			</tr>
 			<tr>
-				<td><label for="confetti">Confetti <input id="confetti" type="checkbox"></label></td>
-				<td><label for="displayTimer">Display Timer <input type="checkbox" id="displayTimer"></label></td>
+				<td>Confetti <input id="confetti" type="checkbox"></td>
+				<td>Display Timer <input type="checkbox" id="displayTimer"></td>
 			</tr>
 			</tbody></table><hr>
 			<table><caption><titleheader style="font: bold 20px tah;border-bottom: 1px white solid">PLAYTESTING</titleheader></caption><tbody>
 			<tr>
-				<td><label for="nickname">Username: <input id="nickname" style="width:100px"></label></td>
-				<td><label for="herotype">Hero <select disabled id="herotype"><option>Rime</option></select></label></td>
+				<td>Username: <input id="nickname" style="width:100px"></td>
+				<td>Hero <select disabled id="herotype"><option>Rime</option></select></td>
 			</tr>
 			<tr>
-				<td colspan="2"><label for="toggleMouseMovement">Toggle Mouse Movement <input id="toggleMouseMovement" type="checkbox"></label></td>
+				<td colspan="2">Toggle Mouse Movement <input id="toggleMouseMovement" type="checkbox"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><label for="enableMouseMovement">Enable Mouse Movement <input id="enableMouseMovement" type="checkbox"></label></td>
+				<td colspan="2">Enable Mouse Movement <input id="enableMouseMovement" type="checkbox"></td>
 			</tr>
 			<tr>
-				<td colspan="2"><label for="joystickDeadzone">Joystick Deadzone <select id="joystickDeadzone"><option>None</option><option>Slight (0.05)</option><option>Medium (0.1)</option><option>Large (0.15)</option><option>Huge (0.2)</option></select></label></td>
+				<td colspan="2">Joystick Deadzone <select id="joystickDeadzone"><option>None</option><option>Slight (0.05)</option><option>Medium (0.1)</option><option>Large (0.15)</option><option>Huge (0.2)</option></select></td>
 			</tr>
 			</tbody></table>
 			<button onclick="tip.hidden=true;document.getElementsByClassName('settings-launcher')[0].hidden=false;" id="closeSettings" style="position:fixed;display:block;right:0;top:0px;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>

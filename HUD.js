@@ -1123,9 +1123,8 @@ class $e7009c797811e935$var$InputLayer {
 		//this.gameState.initial || this.gameState.keys.clear($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
 	}
 	onMouseMove(e) {
-		if(!playtesting)return;
-		this.x = (e.pageX - 0),
-		this.y = (e.pageY - 0)
+		this.x = e.pageX,
+		this.y = e.pageY
 	}
 	onMouseDown(e) {
 		if(!playtesting)return;
@@ -1137,12 +1136,10 @@ class $e7009c797811e935$var$InputLayer {
 		this.onMouseDownListeners.forEach((e=>e()))
 	}
 	onMouseUp() {
-		if(!playtesting)return;
 		this.down = !1,
 		this.initialDown = !1
 	}
 	onMouseLeave() {
-		if(!playtesting)return;
 		this.enteredButtons.forEach((e=>{
 			e.mouseOver = !1,
 			e.mouseDown = !1
@@ -1153,11 +1150,9 @@ class $e7009c797811e935$var$InputLayer {
 		this.canvas.style.cursor = "default"
 	}
 	onGamepadConnect(e) {
-		if(!playtesting)return;
 		this.gamepad = navigator.getGamepads()[e.gamepad.index]
 	}
 	onGamepadDisconnect() {
-		if(!playtesting)return;
 		this.gamepad = null
 	}
 	onContextMenu(e) {
@@ -1166,7 +1161,12 @@ class $e7009c797811e935$var$InputLayer {
 		e.stopPropagation()
 	}
 	update(e) {
-		if(!playtesting)return;
+		if(!playtesting){
+			this.down = !1;
+			this.initialDown = !1;
+			this.mouseMovementToggled = !1;
+			return;
+		}
 		const a = settings;
 		let t, r = !1, c = !1, keys=new Set();
 		for (let a = 0; a < this.buttons.length; a++) {

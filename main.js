@@ -371,9 +371,6 @@ canvas.addEventListener("mousemove", e => {
 var isMouse=false;
 canvas.addEventListener("mousedown", e => {
   if (e.button === 1) e.preventDefault();
-  if(playtesting && e.button === 0){
-	  isMouse=!isMouse;
-  }
   if (e.button !== 0) return;
   let target = targetedObject(e);
   if(lockCursor)return;

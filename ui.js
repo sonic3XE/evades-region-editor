@@ -317,7 +317,6 @@ if(elmnt.onmousedown)return;
   function dragMouseDown(e) {
     e = e || window.event;
     if(e.target.nodeName!="INPUT"&&e.target.nodeName!="SELECT"){
-      e.preventDefault();
       // get the mouse cursor position at startup:
       pos3 = e.clientX;
       pos4 = e.clientY;
