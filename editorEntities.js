@@ -996,12 +996,19 @@ this.isGuest=!1;
                 this.mouse_distance_full_strength = 1;
               }
 
-              this.dirX = Math.round(input.mouse.x - canvas.width / 2);
-              this.dirY = Math.round(input.mouse.y - canvas.height / 2);
+              this.dirX = (input.mouse.x - canvas.width / 2);
+              this.dirY = (input.mouse.y - canvas.height / 2);
               this.dist = distance({x:0,y:0}, {x:this.dirX,y:this.dirY});
-
-              if (this.dist > this.mouse_distance_full_strength) {
+			  if(this.dist > 200*camScale){
+                this.dirX *= 200*camScale / this.dist;
+                this.dirY *= 200*camScale / this.dist;
+			  }
+			  this.dirX=Math.min(this.mouse_distance_full_strength,Math.max(this.dirX,-this.mouse_distance_full_strength));
+			  this.dirY=Math.min(this.mouse_distance_full_strength,Math.max(this.dirY,-this.mouse_distance_full_strength));
+              if (Math.abs(this.dirX) > this.mouse_distance_full_strength) {
                 this.dirX *= this.mouse_distance_full_strength / this.dist;
+              }
+              if (Math.abs(this.dirY) > this.mouse_distance_full_strength) {
                 this.dirY *= this.mouse_distance_full_strength / this.dist;
               }
               
