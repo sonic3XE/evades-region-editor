@@ -1124,13 +1124,8 @@ class $e7009c797811e935$var$InputLayer {
 	}
 	onMouseMove(e) {
 		if(!playtesting)return;
-		const a = this.canvas.getBoundingClientRect();
-		let t = {};
-		t.x = window.innerWidth / this.canvas.width,
-		t.y = window.innerHeight / this.canvas.height,
-		t = t.x < t.y ? t.x : t.y,
-		this.x = (e.pageX - a.left) / t,
-		this.y = (e.pageY - a.top) / t
+		this.x = (e.pageX - 0),
+		this.y = (e.pageY - 0)
 	}
 	onMouseDown(e) {
 		if(!playtesting)return;
@@ -1172,7 +1167,7 @@ class $e7009c797811e935$var$InputLayer {
 	}
 	update(e) {
 		if(!playtesting)return;
-		const a = $5eeca412293d6bd7$export$2e2bcd8739ae039.get();
+		const a = settings;
 		let t, r = !1, c = !1, keys=new Set();
 		for (let a = 0; a < this.buttons.length; a++) {
 			const t = this.buttons[a];

@@ -485,6 +485,11 @@ label[for="realTime"] { grid-area: 3 / 1 / 4 / 3; }
 label[for="enemyOutline"] { grid-area: 4 / 1 / 5 / 2; }
 label[for="tileMode"] { grid-area: 4 / 2 / 5 / 3; }
 label[for="nickname"] { grid-area: 5 / 1 / 6 / 3; }
+label[for="dosandbox"] { grid-area: 6 / 1 / 7 / 2; }
+label[for="confetti"] { grid-area: 6 / 2 / 7 / 3; }
+label[for="toggleMouseMovement"] { grid-area: 7 / 1 / 8 / 3; }
+label[for="enableMouseMovement"] { grid-area: 8 / 1 / 9 / 3; }
+label[for="hero"] { grid-area: 9 / 1 / 10 / 2; }
 #objectFocus {
     display: none;
     position: absolute;

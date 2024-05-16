@@ -74,7 +74,7 @@ function render() {
 	!isFinish&&(
 $e7009c797811e935$export$2e2bcd8739ae039.start({}),
 $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);
-$e7009c797811e935$export$2e2bcd8739ae039.update({});
+  $e7009c797811e935$export$2e2bcd8739ae039.update(global);
   cons.currentTime || (cons.currentTime=1/1e6);
   if(!map.areas[current_Area])return requestAnimationFrame(render);
   var delta=performance.now()-lastTime;
@@ -88,6 +88,8 @@ $e7009c797811e935$export$2e2bcd8739ae039.update({});
   enemyOutlines.checked=settings.enemyOutlines;
   dosandbox.checked=settings.isSandbox;
   confetti.checked=settings.confetti;
+  toggleMouseMovement.checked=settings.toggleMouseMovement;
+  enableMouseMovement.checked=settings.enableMouseMovement;
   tileMode.selectedIndex=settings.tileMode;
   updateMouseEntity&&(
   mouseEntity.x=mousePos.x / camScale + camX,
@@ -463,7 +465,6 @@ if(!playtesting){
   ctx.fillText(`# of zones: ${map.areas[current_Area].zones.length}`, canvas.width / 2, 55);
   ctx.strokeText(`# of assets: ${map.areas[current_Area].assets.length}`, canvas.width / 2, 80);
   ctx.fillText(`# of assets: ${map.areas[current_Area].assets.length}`, canvas.width / 2, 80);
-  isMouse=false;
 }else{
 
 }
@@ -518,9 +519,10 @@ if(playtesting){
 	0,0,ctx.canvas.width,barHeight);
   }
   if(settings.realTime||playtesting){
-  const input={isMouse};
+	  global.mouseDown==void 0 && (global.mouseDown=null);
+  const input={isMouse:(mouseDown!=null)};
   input.keys=keysDown;
-  input.mouse={x:mousePos.ex,y:mousePos.ey};
+  input.mouse={x:mouseDown?.x + canvas.width/2,y:mouseDown?.y + canvas.height/2};
   controlPlayer(selfId,input,actually),
   map.players.map(e=>{e.update(actually)}),
   map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area]))

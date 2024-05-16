@@ -641,6 +641,12 @@ dosandbox.addEventListener("input",(e)=>{
 enemyOutlines.addEventListener("input",(e)=>{
   settings.enemyOutlines=e.target.checked;
 })
+toggleMouseMovement.addEventListener("input",(e)=>{
+  settings.toggleMouseMovement=e.target.checked;
+})
+enableMouseMovement.addEventListener("input",(e)=>{
+  settings.enableMouseMovement=e.target.checked;
+})
 confetti.addEventListener("input",(e)=>{
   settings.confetti=e.target.checked;
 })

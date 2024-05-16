@@ -29,6 +29,14 @@ const settings={
 		return localStorage.sandbox=="true";
 	},set isSandbox(e){
 		localStorage.sandbox=e;
+	},get toggleMouseMovement(){
+		return localStorage.toggleMouseMovement=="true";
+	},set toggleMouseMovement(e){
+		localStorage.toggleMouseMovement=e;
+	},get enableMouseMovement(){
+		return localStorage.enableMouseMovement=="true";
+	},set enableMouseMovement(e){
+		localStorage.enableMouseMovement=e;
 	}
 };
 
