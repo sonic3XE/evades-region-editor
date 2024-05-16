@@ -489,7 +489,8 @@ label[for="dosandbox"] { grid-area: 6 / 1 / 7 / 2; }
 label[for="confetti"] { grid-area: 6 / 2 / 7 / 3; }
 label[for="toggleMouseMovement"] { grid-area: 7 / 1 / 8 / 3; }
 label[for="enableMouseMovement"] { grid-area: 8 / 1 / 9 / 3; }
-label[for="hero"] { grid-area: 9 / 1 / 10 / 2; }
+label[for="joystickDeadzone"] { grid-area: 9 / 1 / 10 / 3; }
+label[for="hero"] { grid-area: 10 / 1 / 11 / 2; }
 #objectFocus {
     display: none;
     position: absolute;

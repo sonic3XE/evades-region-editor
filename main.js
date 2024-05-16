@@ -653,6 +653,9 @@ confetti.addEventListener("input",(e)=>{
 tileMode.addEventListener("input",(e)=>{
   settings.tileMode=e.target.selectedIndex;
 })
+joystickDeadzone.addEventListener("input",(e)=>{
+  settings.joystickDeadzone=e.target.selectedIndex/20;
+})
 document.addEventListener("click", e => {
   if (e.target === contextmenu || e.target.parentNode === contextmenu && e.button === 2) return;
   if (e.target === canvas && e.button === 2) return;

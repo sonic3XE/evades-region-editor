@@ -1197,9 +1197,9 @@ class $e7009c797811e935$var$InputLayer {
 			e.usingGamepad = !0;
 			for (let a = 0; a < this.gamepad.buttons.length; a++) {
 				const t = $4cb5e0b12995588c$export$39b8dbea490353e9[a];
-				t && (this.gamepad.buttons[a].value && !this.gamepadDown.includes(t) ? (e.keys.keyDown(t),
-				this.gamepadDown.push(t)) : !this.gamepad.buttons[a].value && this.gamepadDown.includes(t) && (e.keys.keyUp(t),
-				this.gamepadDown.splice(this.gamepadDown.indexOf(t), 1)))
+				t && (this.gamepad.buttons[a].value && !keysDown.has(t) ? (e.keys.keyDown(t),
+				keysDown.add(t)) : !this.gamepad.buttons[a].value && keysDown.has(t) && (e.keys.keyUp(t),
+				keysDown.delete(t)))
 			}
 			const t = this.gamepad.axes[0]
 			  , r = this.gamepad.axes[1];
@@ -1214,15 +1214,15 @@ class $e7009c797811e935$var$InputLayer {
 			const c = .7
 			  , o = this.gamepad.axes[2]
 			  , n = this.gamepad.axes[3];
-			o <= -c && !this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
-			this.gamepadDown.push($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY)) : this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
-			this.gamepadDown.splice(this.gamepadDown.indexOf($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY), 1)),
-			o >= c && !this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
-			this.gamepadDown.push($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY)) : this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
-			this.gamepadDown.splice(this.gamepadDown.indexOf($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY), 1)),
-			n <= -c && !this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
-			this.gamepadDown.push($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY)) : this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
-			this.gamepadDown.splice(this.gamepadDown.indexOf($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY), 1))
+			o <= -c && !keysDown.has($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
+			keysDown.add($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY)) : keysDown.has($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
+			keysDown.delete($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY)),
+			o >= c && !keysDown.has($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
+			keysDown.add($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY)) : keysDown.has($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
+			keysDown.delete($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY)),
+			n <= -c && !keysDown.has($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
+			keysDown.add($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY)) : keysDown.has($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
+			keysDown.delete($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY))
 		}
 	}
 	addButton(e, a=(()=>{}

@@ -14,7 +14,7 @@ const settings={
 	},set realTime(e){
 		localStorage.realTime=e;
 	},get enemyOutlines(){
-		return localStorage.enemyOutlines=="true";
+		return (localStorage.enemyOutlines??"true")=="true";
 	},set enemyOutlines(e){
 		localStorage.enemyOutlines=e;
 	},get confetti(){
@@ -22,7 +22,7 @@ const settings={
 	},set confetti(e){
 		localStorage.confetti=e;
 	},get tileMode(){
-		return Math.floor(Number(localStorage.tileMode??0))
+		return parseFloat(localStorage.tileMode??0)
 	},set tileMode(e){
 		localStorage.tileMode=e;
 	},get isSandbox(){
@@ -30,13 +30,17 @@ const settings={
 	},set isSandbox(e){
 		localStorage.sandbox=e;
 	},get toggleMouseMovement(){
-		return localStorage.toggleMouseMovement=="true";
+		return (localStorage.toggleMouseMovement??"true")=="true";
 	},set toggleMouseMovement(e){
 		localStorage.toggleMouseMovement=e;
 	},get enableMouseMovement(){
 		return localStorage.enableMouseMovement=="true";
 	},set enableMouseMovement(e){
 		localStorage.enableMouseMovement=e;
+	},get joystickDeadzone(){
+		return parseFloat(localStorage.joystickDeadzone??0.05);
+	},set joystickDeadzone(e){
+		localStorage.joystickDeadzone=Math.min(Math.max(Number(e),0),1);
 	}
 };
 

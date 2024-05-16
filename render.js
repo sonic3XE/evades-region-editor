@@ -91,6 +91,7 @@ $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);
   toggleMouseMovement.checked=settings.toggleMouseMovement;
   enableMouseMovement.checked=settings.enableMouseMovement;
   tileMode.selectedIndex=settings.tileMode;
+  joystickDeadzone.selectedIndex=Math.round(settings.joystickDeadzone*20);
   updateMouseEntity&&(
   mouseEntity.x=mousePos.x / camScale + camX,
   mouseEntity.y=mousePos.y / camScale + camY
@@ -476,12 +477,12 @@ if(!playtesting){
 
 if(playtesting){
   //ExperienceBar Renderer  
-  evadesRenderer.experienceBar.render(ctx,{viewportSize:canvas},{});
-  evadesRenderer.bottomText.render(ctx,{viewportSize:canvas},{});
-  evadesRenderer.heroInfoCard.render(ctx,{viewportSize:canvas},{},actually);
+  evadesRenderer.experienceBar.render(ctx,{viewportSize:canvas},global);
+  evadesRenderer.bottomText.render(ctx,{viewportSize:canvas},global);
+  evadesRenderer.heroInfoCard.render(ctx,{viewportSize:canvas},global,actually);
   evadesRenderer.minimap.render(ctx,actually);
-  evadesRenderer.map.render(ctx,{viewportSize:canvas},{});
-  evadesRenderer.areaInfo.render(ctx,{viewportSize:canvas},{});
+  evadesRenderer.map.render(ctx,{viewportSize:canvas},global);
+  evadesRenderer.areaInfo.render(ctx,{viewportSize:canvas},global);
 }
   //ctx.fillText(`${error}`, canvas.width / 2, canvas.height - 20);
   ctx.strokeStyle="#000";
