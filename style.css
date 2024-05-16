@@ -441,7 +441,21 @@ display: block;
   border-radius:10px;
   border:2px #000000 solid;
 }
-#tip,#extensionPage {
+#tip>table{width:100%}
+#tip {
+  width:400px;
+    position: absolute;
+	max-height:200px;
+	overflow-y:auto;
+	overflow-x:hidden;
+  margin:0;
+    user-select: none;
+    background: #2f3ab0dd;
+    padding: 10px;
+  border-radius:10px;
+  border:2px #2f3ab0 solid;
+}
+#extensionPage {
 display: grid;
 grid-column-gap: 0px;
 grid-row-gap: 0px;
@@ -478,20 +492,8 @@ grid-row-gap: 0px;
 	width: 32px;
 	height: 32px
 }
-#tip>titleheader,#extensionPage>titleheader {grid-area: 1 / 1 / 2 / 3;border-bottom:3px white solid}
-label[for="snapX"] { grid-area: 2 / 1 / 3 / 2; }
-label[for="snapY"] { grid-area: 2 / 2 / 3 / 3; }
-label[for="realTime"] { grid-area: 3 / 1 / 4 / 3; }
-label[for="enemyOutline"] { grid-area: 4 / 1 / 5 / 2; }
-label[for="tileMode"] { grid-area: 4 / 2 / 5 / 3; }
-label[for="nickname"] { grid-area: 5 / 1 / 6 / 3; }
-label[for="dosandbox"] { grid-area: 6 / 1 / 7 / 2; }
-label[for="confetti"] { grid-area: 6 / 2 / 7 / 3; }
-label[for="toggleMouseMovement"] { grid-area: 7 / 1 / 8 / 3; }
-label[for="enableMouseMovement"] { grid-area: 8 / 1 / 9 / 3; }
-label[for="joystickDeadzone"] { grid-area: 9 / 1 / 10 / 3; }
-label[for="hero"] { grid-area: 10 / 1 / 11 / 2; }
-label[for="displayTimer"] { grid-area: 10 / 2 / 11 / 3; }
+#tip>titleheader{border-bottom:3px white solid}
+#extensionPage>titleheader {grid-area: 1 / 1 / 2 / 3;border-bottom:3px white solid}
 #objectFocus {
     display: none;
     position: absolute;

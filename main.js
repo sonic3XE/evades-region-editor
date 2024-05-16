@@ -626,32 +626,16 @@ canvas.addEventListener("contextmenu", e => {
 
   show(contextmenu);updateMouseEntity=false;
 });
+[realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>{
+	e.addEventListener("input",(t)=>{
+		settings[t.target.id]=t.target.checked;
+	})
+})
 snapX.addEventListener("input",(e)=>{
   settings.snapX=e.target.value;
 })
 snapY.addEventListener("input",(e)=>{
   settings.snapY=e.target.value;
-})
-realTime.addEventListener("input",(e)=>{
-  settings.realTime=e.target.checked;
-})
-dosandbox.addEventListener("input",(e)=>{
-  settings.isSandbox=e.target.checked;
-})
-enemyOutlines.addEventListener("input",(e)=>{
-  settings.enemyOutlines=e.target.checked;
-})
-toggleMouseMovement.addEventListener("input",(e)=>{
-  settings.toggleMouseMovement=e.target.checked;
-})
-enableMouseMovement.addEventListener("input",(e)=>{
-  settings.enableMouseMovement=e.target.checked;
-})
-confetti.addEventListener("input",(e)=>{
-  settings.confetti=e.target.checked;
-})
-displayTimer.addEventListener("input",(e)=>{
-  settings.displayTimer=e.target.checked;
 })
 tileMode.addEventListener("input",(e)=>{
   settings.tileMode=e.target.selectedIndex;

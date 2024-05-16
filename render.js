@@ -84,14 +84,9 @@ $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);
   ti+=delta;
   snapX.value=settings.snapX;
   snapY.value=settings.snapY;
-  realTime.checked=settings.realTime;
-  enemyOutlines.checked=settings.enemyOutlines;
-  dosandbox.checked=settings.isSandbox;
-  confetti.checked=settings.confetti;
-  displayTimer.checked=settings.displayTimer;
-  toggleMouseMovement.checked=settings.toggleMouseMovement;
-  enableMouseMovement.checked=settings.enableMouseMovement;
+  [realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>e.checked=settings[e.id]);
   tileMode.selectedIndex=settings.tileMode;
+  closeSettings.style.top=tip.scrollTop+"px";
   joystickDeadzone.selectedIndex=Math.round(settings.joystickDeadzone*20);
   updateMouseEntity&&(
   mouseEntity.x=mousePos.x / camScale + camX,
