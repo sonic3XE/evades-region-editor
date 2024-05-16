@@ -88,6 +88,7 @@ $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);
   enemyOutlines.checked=settings.enemyOutlines;
   dosandbox.checked=settings.isSandbox;
   confetti.checked=settings.confetti;
+  displayTimer.checked=settings.displayTimer;
   toggleMouseMovement.checked=settings.toggleMouseMovement;
   enableMouseMovement.checked=settings.enableMouseMovement;
   tileMode.selectedIndex=settings.tileMode;
@@ -447,27 +448,37 @@ else {
     ctx.strokeStyle = arrtoHex(map.properties.background_color ?? defaultValues.properties.background_color);
     ctx.fillStyle = luma(map.properties.background_color ?? defaultValues.properties.background_color) > 128 ? "black" : "white";
   };
-  ctx.font = `bold ${35*(!playtesting)+35*(playtesting*camScale)}px tah`;
   ctx.lineWidth = 6*(!playtesting)+6*(playtesting*camScale);
   var areaname=String(map.areas[current_Area].name||(current_Area+1));
   let rs = `Area ${areaname}`;
   isNaN(parseInt(areaname)) && (rs = areaname);
   let cs = `${map.name}: ${rs}`;
   map.areas[current_Area].zones.filter(e=>e.type=="victory").length&&(cs=`${map.name}: Victory!`);
-  ctx.strokeText(cs, canvas.width / 2, 20*(!playtesting)+(40*camScale+ctx.canvas.height/2-360*camScale)*playtesting);
-  ctx.fillText(cs, canvas.width / 2, 20*(!playtesting)+(40*camScale+ctx.canvas.height/2-360*camScale)*playtesting);
   ctx.textBaseline = "middle";
   var curTime=Date.now();
 Frate.push(curTime);
 Frate=Frate.filter(e=>(e>(curTime-1e3)))
 if(!playtesting){
+  ctx.font = `bold 35px tah`;
+  ctx.strokeText(cs, canvas.width / 2, 20);
+  ctx.fillText(cs, canvas.width / 2, 20);
   ctx.font = "bold 25px tah";
   ctx.strokeText(`# of zones: ${map.areas[current_Area].zones.length}`, canvas.width / 2, 55);
   ctx.fillText(`# of zones: ${map.areas[current_Area].zones.length}`, canvas.width / 2, 55);
   ctx.strokeText(`# of assets: ${map.areas[current_Area].assets.length}`, canvas.width / 2, 80);
   ctx.fillText(`# of assets: ${map.areas[current_Area].assets.length}`, canvas.width / 2, 80);
 }else{
-
+  ctx.font = `bold ${35*camScale}px tah`;
+  ctx.textBaseline="alphabetic";
+  ctx.strokeText(cs, canvas.width / 2, 40*camScale+ctx.canvas.height/2-360*camScale);
+  ctx.fillText(cs, canvas.width / 2, 40*camScale+ctx.canvas.height/2-360*camScale);
+  if(settings.displayTimer){
+	const st = Math.floor(selfPlayer.survivalTime);
+	ctx.font = `bold ${30*camScale}px tah`;
+	const sa = `${st / 60 >> 0}m ${st % 60 < 10 ? "0" + st % 60 : st % 60}s`;
+	ctx.strokeText(sa, canvas.width / 2, 80*camScale+ctx.canvas.height/2-360*camScale),
+	ctx.fillText(sa, canvas.width / 2, 80*camScale+ctx.canvas.height/2-360*camScale)
+  }
 }
 /*  ctx.strokeText(`${Frate.length}FPS`, 200, 80);
     ctx.fillText(`${Frate.length}FPS`, 200, 80);*/

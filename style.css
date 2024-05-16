@@ -491,6 +491,7 @@ label[for="toggleMouseMovement"] { grid-area: 7 / 1 / 8 / 3; }
 label[for="enableMouseMovement"] { grid-area: 8 / 1 / 9 / 3; }
 label[for="joystickDeadzone"] { grid-area: 9 / 1 / 10 / 3; }
 label[for="hero"] { grid-area: 10 / 1 / 11 / 2; }
+label[for="displayTimer"] { grid-area: 10 / 2 / 11 / 3; }
 #objectFocus {
     display: none;
     position: absolute;

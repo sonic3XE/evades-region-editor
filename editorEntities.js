@@ -1229,6 +1229,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     if (Math.abs(this.velY)<1/32) {
       this.velY = 0;
     }
+	this.survivalTime+=delta/1e3;
     this.radius = this.defaultRadius;
 	var velY=this.velY;
     if((

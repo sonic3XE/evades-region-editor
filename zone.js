@@ -41,6 +41,10 @@ const settings={
 		return parseFloat(localStorage.joystickDeadzone??0.05);
 	},set joystickDeadzone(e){
 		localStorage.joystickDeadzone=Math.min(Math.max(Number(e),0),1);
+	},get displayTimer(){
+		return localStorage.displayTimer=="true";
+	},set displayTimer(e){
+		localStorage.displayTimer=e;
 	}
 };
 

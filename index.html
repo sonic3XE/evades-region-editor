@@ -33,14 +33,15 @@
             <label for="realTime" style="cursor:help;text-decoration:underline dotted;" title="We are not interested in giving out enemy files. - PotatoNuke">Update area in real time (less fps) <input id="realTime" type="checkbox"></label>
             <label for="enemyOutlines">Enemy Outlines <input id="enemyOutlines" type="checkbox"></label>
             <label for="dosandbox">60FPS <input id="dosandbox" type="checkbox"></label>
-            <button onclick="extensionPage.hidden=false">View addons</button>
 			<label for="tileMode">Tiles <select id="tileMode"><option>Tiles</option><option>No Tiles</option><option>Tiles Dark</option><option>No Tiles Dark</option></select></label>
             <label for="nickname">Username: <input id="nickname" style="width:100px"></label>
             <label for="confetti">Confetti <input id="confetti" type="checkbox"></label>
             <label for="herotype">Hero <select disabled id="herotype"><option>Rime</option></select></label>
+            <label for="displayTimer">Display Timer <input type="checkbox" id="displayTimer"></label>
             <label for="toggleMouseMovement">Toggle Mouse Movement <input id="toggleMouseMovement" type="checkbox"></label>
             <label for="enableMouseMovement">Enable Mouse Movement <input id="enableMouseMovement" type="checkbox"></label>
             <label for="joystickDeadzone">Joystick Deadzone <select id="joystickDeadzone"><option>None</option><option>Slight (0.05)</option><option>Medium (0.1)</option><option>Large (0.15)</option><option>Huge (0.2)</option></select></label>
+            <button onclick="extensionPage.hidden=false">View addons</button>
 			<button onclick="tip.hidden=true;document.getElementsByClassName('settings-launcher')[0].hidden=false;" style="position:absolute;right:0;top:0;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
         </p>
         <p id="extensionPage" hidden style="top:50%;left:50%;transform:translate(-50%,-50%)" onmouseover="dragElement(event.target);">

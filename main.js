@@ -650,6 +650,9 @@ enableMouseMovement.addEventListener("input",(e)=>{
 confetti.addEventListener("input",(e)=>{
   settings.confetti=e.target.checked;
 })
+displayTimer.addEventListener("input",(e)=>{
+  settings.displayTimer=e.target.checked;
+})
 tileMode.addEventListener("input",(e)=>{
   settings.tileMode=e.target.selectedIndex;
 })
