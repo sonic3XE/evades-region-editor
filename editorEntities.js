@@ -188,6 +188,7 @@ function spawnEntities(area=current_Area){
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
 					case "fake_pumpkin":entity=new PumpkinEnemy(enemyX,enemyY,radius,speed,angle,boundary,true);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
+					case "frost_giant":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"immune"),prop(spawner,"projectile_duration"),prop(spawner,"projectile_radius"),prop(spawner,"projectile_speed"),prop(spawner,"pause_interval"),prop(spawner,"pause_duration"),prop(spawner,"turn_speed"),prop(spawner,"turn_acceleration"),prop(spawner,"shot_interval"),prop(spawner,"shot_acceleration"),prop(spawner,"direction"),prop(spawner,"pattern"),prop(spawner,"cone_angle"),boundary);break;
 					case "seedling":
 					case "residue":
 					case "sand":
@@ -2039,23 +2040,31 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	}
     let collided=false;
     if(this.x<this.boundary.left+this.radius){
+	  this.onBeforeCollide();
       this.x=this.boundary.left+this.radius;
       this.velX=Math.abs(this.velX);
+	  this.velangle();
       collided=true;
     }
     if(this.x>this.boundary.right-this.radius){
+	  this.onBeforeCollide();
       this.x=this.boundary.right-this.radius;
       this.velX=-Math.abs(this.velX);
+	  this.velangle();
       collided=true;
     }
     if(this.y<this.boundary.top+this.radius){
+	  this.onBeforeCollide();
       this.y=this.boundary.top+this.radius;
       this.velY=Math.abs(this.velY);
+	  this.velangle();
       collided=true;
     }
     if(this.y>this.boundary.bottom-this.radius){
+	  this.onBeforeCollide();
       this.y=this.boundary.bottom-this.radius;
       this.velY=-Math.abs(this.velY);
+	  this.velangle();
       collided=true;
     }
     if(this.assetCollision())collided=true;
@@ -2073,6 +2082,8 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
   onCollide(){
     
   }
+  onBeforeCollide(){
+  }
   assetCollision(){
     let collided=false;
     const walls=map.areas[current_Area].assets.filter(e=>e.type=="wall");
@@ -2087,6 +2098,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
       var radius=this.radius;
       var c=rectCircleCollision(this.x,this.y,radius,i.x,i.y,i.width,i.height);
       if(c.c){
+		this.onBeforeCollide();
         collided=true;
         var a=Math.atan2(c.y,c.x);
         var relX = (this.x - centerX) / halfWidth;
@@ -4639,6 +4651,206 @@ class CorrosiveSniperProjectile extends Enemy{
   update(delta) {
     this.clock += delta;
     if (this.clock >= 7000) {
+      this.remove=true;
+    }
+    super.update(delta);
+  }
+}
+class FrostGiantEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,
+  immune,
+  projectile_duration,
+  projectile_radius,
+  projectile_speed,
+  pause_interval,
+  pause_duration,
+  turn_speed,
+  turn_acceleration,
+  shot_interval,
+  shot_acceleration,
+  direction,
+  pattern,
+  cone_angle,
+  boundary){
+    super(x,y,radius,speed,angle,"frost_giant_enemy",boundary);
+    this.immune=immune,
+    this.projectile_duration=projectile_duration,
+    this.projectile_radius=projectile_radius??10,
+    this.projectile_speed=projectile_speed??4,
+    this.pause_interval=pause_interval,
+    this.pause_duration=pause_duration,
+    this.turn_speed=turn_speed,
+    this.initial_turn_speed=turn_speed,
+    this.turn_acceleration=turn_acceleration,
+    this.shot_interval=shot_interval,
+    this.initial_shot_interval=shot_interval,
+    this.shot_acceleration=shot_acceleration,
+    this.direction=direction,
+    this.pattern=this.get_pattern_generator(pattern),
+    this.cone_angle=cone_angle;
+    this.initial_angle=this.angle;
+    this.shot_cooldown = this.shot_interval;
+    this.pause_cooldown = this.pause_interval;
+    this.pause_time = this.pause_duration;
+  }
+  prepare_shot(delta){
+    if(this.pause_interval!=0){
+      if(this.pause_cooldown <= 0){
+        this.shot_interval = this.initial_shot_interval;
+        this.turn_speed = this.initial_turn_speed;
+        this.pause_time -= delta;
+        if(this.pause_time<0){
+          this.pause_cooldown = this.pause_interval;
+          this.pause_time = this.pause_duration;
+        }
+      return false;
+      } else {
+          this.pause_cooldown -= delta;
+        }
+    }
+    this.shot_cooldown -= delta;
+    if(this.shot_cooldown < 0){
+      this.shot_cooldown = this.shot_interval;
+      return true;
+    } return false;
+  }
+  get_pattern_generator(pattern){
+    switch(pattern){
+      case"spiral": return this.spiral_pattern;
+      case"twinspiral": return this.twinspiral_pattern;
+      case"quadspiral": return this.quadspiral_pattern;
+      case"cone": return this.cone_pattern;
+      case"twincone": return this.twincone_pattern;
+      case"cone_edges": return this.cone_edges_pattern;
+      case"twin": return this.twin_pattern;
+      case"singlebig": return this.singlebig_pattern;
+      default: this.rotation = true; return ()=>{}
+    }
+  }
+  rad_to_deg(x){
+	  return x/Math.PI*180;
+  }
+  deg_to_rad(x){
+	  return x*Math.PI/180;
+  }
+  generate_entities(delta,area){
+    this.angle += this.deg_to_rad(this.turn_speed * this.direction*delta/(1e3/30));
+    this.shot_interval -= this.shot_acceleration*delta/(1e3/30);
+    this.turn_speed += this.turn_acceleration*delta/(1e3/30);
+	try{
+    this.pattern(delta,area);
+	}catch(e){};
+  }
+  cone_pattern(delta,area){
+    function angle_difference(x,y){
+      return Math.min(Math.abs(y-x),Math.abs(y-x+Math.PI*2),Math.abs(y-x-Math.PI*2))
+    };
+    if(Math.abs(angle_difference(this.angle,this.initial_angle)) >= this.deg_to_rad(this.cone_angle)){
+      // Avoid accumulation floating point error by resetting angle.
+      this.angle = this.initial_angle + this.deg_to_rad(this.cone_angle * this.direction);
+      this.direction *= -1;
+    }
+
+    if(this.prepare_shot(delta)){
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle),this.projectile_duration,this.boundary)
+    }
+  }
+  spiral_pattern(delta,area){
+    if(this.prepare_shot(delta)){
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle),this.projectile_duration,this.boundary)
+    }
+  }
+  singlebig_pattern(delta,area){
+    if(this.prepare_shot(delta)){
+      const big_radius = this.projectile_radius*3;
+      const big_speed = this.projectile_speed;
+      const offset_distance = big_radius / 2
+      const newPos = {x:this.x + Math.cos(this.initial_angle) * offset_distance,
+                      y:this.y + Math.sin(this.initial_angle) * offset_distance}
+      this.addBullet(area,newPos.x,newPos.y,big_speed,big_radius,this.rad_to_deg(this.initial_angle),this.projectile_duration,this.boundary)
+    }
+  }
+  quadspiral_pattern(delta,area){
+    if(this.prepare_shot(delta)){
+	  var i=0;
+	  while(i<4){
+        this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle)+(i++)*90,this.projectile_duration,this.boundary)
+	  }
+    }
+  }
+  twin_pattern(delta,area){
+    if(this.prepare_shot(delta)){
+      this.direction *= -1;
+
+      const perpendicular_angle = this.initial_angle + Math.PI / 2 * this.direction;
+      const offset_distance = 15;
+      const newPos = {x: this.x + Math.cos(perpendicular_angle) * offset_distance,
+                      y: this.y + Math.sin(perpendicular_angle) * offset_distance}
+      this.addBullet(area,newPos.x,newPos.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.initial_angle),this.projectile_duration,this.boundary)
+    }
+  }
+  cone_edges_pattern(delta,area){
+    if(this.prepare_shot(delta)){
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle)+this.cone_angle,this.projectile_duration,this.boundary)
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle)-this.cone_angle,this.projectile_duration,this.boundary)
+    }
+  }
+  twinspiral_pattern(delta,area){
+    if(this.prepare_shot(delta)){
+	  var i=0;
+	  while(i<2){
+        this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle)+(i++)*180,this.projectile_duration,this.boundary)
+	  }
+    }
+  }
+  twincone_pattern(delta,area){
+    function angle_difference(x,y){
+      return Math.min(Math.abs(y-x),Math.abs(y-x+Math.PI*2),Math.abs(y-x-Math.PI*2))
+    };
+
+    const angle_moved = angle_difference(this.angle, this.initial_angle);
+
+    if(Math.abs(angle_moved) >= this.deg_to_rad(this.cone_angle)){
+      // Avoid accumulation floating point error by resetting angle.
+      this.angle = this.initial_angle + this.deg_to_rad(this.cone_angle * this.direction);
+      this.direction *= -1;
+    }
+
+    if(this.prepare_shot(delta)){
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.initial_angle+angle_moved),this.projectile_duration,this.boundary)
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.initial_angle-angle_moved),this.projectile_duration,this.boundary)
+    }
+  }
+  addBullet(area,x,y,speed,radius,angle,duration,boundary){
+	  area.entities.push(new FrostGiantIceProjectile(x,y,radius,speed,angle,duration,boundary));
+  }
+  onBeforeCollide(){
+	this.anglevel();
+  }
+  update(delta,area) {
+    if(!this.rotation){
+      this.generate_entities(delta,area);
+    }
+    if(this.rotation){
+      this.velangle();
+      this.angle += 2*this.turn_speed*this.direction*delta/(1e3/30);
+      this.anglevel();
+    }
+    super.update(delta);
+  }
+}
+class FrostGiantIceProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,projectile_duration,boundary){
+    super(x,y,radius,speed,angle,"frost_giant_ice_projectile",boundary);
+	this.duration=projectile_duration;
+  }
+  onCollide(){
+    this.remove=true;
+  }
+  update(delta) {
+    this.duration -= delta;
+    if (this.duration <= 0) {
+      this.duration = Math.max(0,this.duration);
       this.remove=true;
     }
     super.update(delta);
