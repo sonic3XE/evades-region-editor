@@ -1236,15 +1236,21 @@ input:checked+.switchSpan::after {
 }
 
 @font-face {
+  font-family: 'arz';
+  font-weight: 700;
+  font-style: normal;
+  src: url("fonts/arz-bold.ttf") format("truetype");
+}
+@font-face {
   font-family: 'tah';
   font-weight: 400;
   font-style: normal;
-  src: url("fonts/defaultregular.ttf") format("truetype");
+  src: url("fonts/tah-reg.ttf") format("truetype");
 }
 @font-face {
   font-family: 'tah';
   font-weight: 700;
   font-style: normal;
-  src: url("fonts/defaultbold.ttf") format("truetype");
+  src: url("fonts/tah-bold.ttf") format("truetype");
 }
 /*# sourceMappingURL=https://home.sonicexe66.repl.co/EXE/SONIC.EXE */
