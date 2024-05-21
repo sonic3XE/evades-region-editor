@@ -3461,13 +3461,13 @@ class SnowmanEnemy extends Enemy{
     super(x,y,radius,speed,angle,"snowman_enemy",boundary);
 	this.hasCollided=false;
 	this.collideTime=0;
-	this.crumbleSize=1;
-	this.crumbleSizeShrink=1;
+	this.snowmanSize=1;
+	this.snowmanSizeShrink=1;
   }
   onCollide(){
 	  if(!this.hasCollided){
 		this.hasCollided=true;
-		this.crumbleSizeShrink=this.crumbleSize;
+		this.snowmanSizeShrink=this.snowmanSize;
 		this.speedMultiplier*=0;
 	  }
   }
@@ -3475,20 +3475,20 @@ class SnowmanEnemy extends Enemy{
 	if(this.hasCollided){
 		this.collideTime+=delta;
 		this.speedMultiplier*=0;
-		this.crumbleSize=(this.crumbleSizeShrink-1)*Math.cos(Math.PI*Math.min(this.collideTime,600)/1200)**3+1;
+		this.snowmanSize=(this.snowmanSizeShrink-1)*Math.cos(Math.PI*Math.min(this.collideTime,600)/1200)**3+1;
 	}
 	if(this.collideTime>=1.6e3&&this.hasCollided){
 		this.hasCollided=false;
 		this.collideTime=0;
 	};
 	if(!this.hasCollided){
-		if(this.crumbleSize<3){
-			this.crumbleSize+=0.05*delta/(1e3/30);
+		if(this.snowmanSize<3){
+			this.snowmanSize+=0.05*delta/(1e3/30);
 		}else{
-			this.crumbleSize=3;
+			this.snowmanSize=3;
 		}
 	}
-	this.radiusMultiplier*=this.crumbleSize;
+	this.radiusMultiplier*=this.snowmanSize;
     super.update(delta);
 	this.lightRadius = this.radius+60;
   }
