@@ -475,8 +475,6 @@ if(!playtesting){
 	ctx.fillText(sa, canvas.width / 2, 80*camScale+ctx.canvas.height/2-360*camScale)
   }
 }
-  ctx.strokeText(`${fpscount} ticks per second`, 200, 80);
-    ctx.fillText(`${fpscount} ticks per second`, 200, 80);
   ctx.lineWidth = camScale;
   ctx.textBaseline="alphabetic";
 
