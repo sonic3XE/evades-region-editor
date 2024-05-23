@@ -71,6 +71,7 @@ var VFX=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d
 VFX.loop=1;
 
 function render() {
+  setTimeout(render);
 	!isFinish&&(
 $e7009c797811e935$export$2e2bcd8739ae039.start({}),
 $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);
@@ -81,6 +82,8 @@ $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);
   lastTime=performance.now();
   //Do not update below 24fps
   (delta/1e3)**-1<24&&(delta=0);
+  //If the fps is below 30, just temporarly remove the 30 fps cap.
+  var IsBelow30FPS=(delta/1e3)**-1<30;
   ti+=delta;
   snapX.value=settings.snapX;
   snapY.value=settings.snapY;
@@ -202,7 +205,7 @@ else {
   ctxE.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
-  var actually=(settings.isSandbox ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
+  var actually=((settings.isSandbox||IsBelow30FPS) ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
   ti>(1e3/30-delta/2) && (ti=0);
   map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
   var entities=[...map.areas[current_Area].entities,...map.players];
