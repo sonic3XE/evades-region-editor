@@ -1204,14 +1204,7 @@ contextBtns.torch.addEventListener("click", e => addAsset("torch"));
 contextBtns.gate.addEventListener("click", e => addAsset("gate"));
 contextBtns.duplicateArea.addEventListener("click", () => {
   var area=map.areas[current_Area];
-  var newArea = createArea(area.name,area.rx,area.ry,area.properties);
-  for(var zone of area.zones){
-    newArea.zones.push(createZone(zone.rx, zone.ry, zone.rw, zone.rh, zone.translate.x, zone.translate.y, zone.properties, zone.type, zone.requirements, zone.spawner.map(e => cloneSpawner(e))))
-  }
-  for(var asset of area.assets){
-    newArea.assets.push(createAsset(asset.x, asset.y, asset.width, asset.height, asset.type, asset.upside_down, asset.texture))
-  }
-  map.areas.push(newArea);
+  map.areas.push(createArea(JSON.parse(areaToJSON(area))));
   updateMap();
 });
 contextBtns.duplicateObject.addEventListener("click", () => {

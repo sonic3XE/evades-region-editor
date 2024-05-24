@@ -61,7 +61,7 @@ function addArea(t=true,name = "") {
     }else*/{
       var area;
   map.areas[current_Area]?
-  (area=createArea(name,"last_right","last_y",void 0,map.areas[map.areas.length-1])):
+  (area=createArea({name,x:"last_right",y:"last_y"})):
   (area=createArea());
     map.areas.push(area);
     }
@@ -139,13 +139,14 @@ function getAreaSize(area){
   }
   return {x:maxRight,y:maxBottom}
 }
-function createArea(e) {
+function createArea(e={}) {
 	const area = e;
 	area.entities=[];
 	area.rx=area.x,area.ry=area.y;
 	var properties=area.properties;
 	if(properties){area.properties={...defaultValues.properties,...properties}}
-    area.zones=area.zones.map(t=>{
+    area.zones??=[];
+	area.zones=area.zones.map(t=>{
       if(t.background_color){
         t.properties??={};
         t.properties.background_color=t.background_color;
