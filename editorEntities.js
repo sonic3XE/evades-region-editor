@@ -4066,7 +4066,7 @@ class FlowerProjectile extends Enemy{
 		this.timer+=delta;
 		if(this.timer>=this.shrinkRate){
 			this.timer=0;
-			this.ogradius-=4 * this.growth_multiplier;
+			this.ogradius-=this.staticRadius/18 * this.growth_multiplier;
 			if(this.ogradius<0){
 				this.ogradius=0;
 			}
@@ -4075,7 +4075,7 @@ class FlowerProjectile extends Enemy{
 		this.timer+=delta;
 		if(this.timer>=this.growRate){
 			this.timer=0;
-			this.ogradius+=4 * this.growth_multiplier;
+			this.ogradius+=this.staticRadius/18 * this.growth_multiplier;
 			if(this.ogradius>this.staticRadius){
 				this.ogradius=this.staticRadius;
 			}
