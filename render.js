@@ -77,7 +77,7 @@ $e7009c797811e935$export$2e2bcd8739ae039.start({}),
 $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);
   $e7009c797811e935$export$2e2bcd8739ae039.update(global);
   cons.currentTime || (cons.currentTime=1/1e6);
-  if(!map.areas[current_Area])return requestAnimationFrame(render);
+  if(!map.areas[current_Area])return setTimeout(render);
   var delta=performance.now()-lastTime;
   lastTime=performance.now();
   //Do not update below 24fps

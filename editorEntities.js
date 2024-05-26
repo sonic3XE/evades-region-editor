@@ -158,7 +158,7 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-					//80 implemented
+					//83 implemented
 					case "experience_drain":
 					case "blocking":
 					case "slippery":
@@ -204,6 +204,8 @@ function spawnEntities(area=current_Area){
 					case "immune":
 					case "sniper":
 					case "speed_ghost":
+					case "gravity_ghost":
+					case "repelling_ghost":
 					case "regen_ghost":
 					case "disabling_ghost":
 					case "ice_sniper":
@@ -225,6 +227,7 @@ function spawnEntities(area=current_Area){
 					case "dasher":
 					case "homing":
 					case "teleporting":
+					case "static":
 					case "star":
 					case "oscillating":
 					case "zigzag":
@@ -2980,6 +2983,48 @@ class GravityEnemy extends Enemy{
     }
   }
 }
+class GravityGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"gravity_ghost_enemy",boundary);
+	this.isHarmless=true;
+	this.disabled=true;
+	this.immune=true;
+	this.gravity=12;
+  }
+  playerInteraction(player,delta){
+	if (!player.invulnerable) {
+      var dx = player.x - this.x;
+      var dy = player.y - this.y;
+      var dist = distance({x:0,y:0},{x:dx,y:dy});
+      var attractionAmplitude = Math.pow(2, -(dist / 100));
+      var moveDist = (this.gravity * attractionAmplitude);
+      var angleToPlayer = Math.atan2(dy, dx);
+      player.x -= (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
+      player.y -= (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+    }
+  }
+}
+class RepellingGhostEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"repelling_ghost_enemy",boundary);
+	this.isHarmless=true;
+	this.disabled=true;
+	this.immune=true;
+	this.gravity=12;
+  }
+  playerInteraction(player,delta){
+	if (!player.invulnerable) {
+      var dx = player.x - this.x;
+      var dy = player.y - this.y;
+      var dist = distance({x:0,y:0},{x:dx,y:dy});
+      var attractionAmplitude = Math.pow(2, -(dist / 100));
+      var moveDist = (this.gravity * attractionAmplitude);
+      var angleToPlayer = Math.atan2(dy, dx);
+      player.x += (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
+      player.y += (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+    }
+  }
+}
 class RepellingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,repulsion,boundary){
     super(x,y,radius,speed,angle,"repelling_enemy",boundary);
@@ -3437,6 +3482,37 @@ class OscillatingEnemy extends Enemy{
       this.clock = this.clock % 1000;
     }
     super.update(delta);
+  }
+}
+class StaticEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"static_enemy",boundary);
+    this.clock = 0;
+	this.disabled=false;
+	this.iseffect=false;
+  }
+  playerInteraction(player){
+	  for(var entity of map.areas[player.area].entities){
+		  if(entity instanceof StaticEnemy){
+			  if(entity==this)continue;
+			  if(this.iseffect&&distance(this,entity)<this.radius + entity.radius){
+				  this.disabled=false;
+				  EnemyPlayerInteraction(player,this,this.corrosive,this.disabled,this.immune,player.inBarrier);
+			  }
+		  }
+	  }
+	  if(!player.isDowned()){
+	    this.x=clamp(player.x,this.boundary.left+this.radius,this.boundary.right-this.radius);
+	    this.y=clamp(player.y,this.boundary.top+this.radius,this.boundary.bottom-this.radius);
+		this.iseffect=true;
+	  }
+  }
+  update(delta){
+	if(!this.disabled){
+      this.clock += delta
+	  if (this.clock > 1e3)this.disabled=true,this.clock=0;
+	}
+	super.update(delta);
   }
 }
 class ZigzagEnemy extends Enemy{
