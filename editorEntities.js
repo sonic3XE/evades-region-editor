@@ -1481,7 +1481,7 @@ this.collides=this.collision(delta);
 	  knockback_player(delta,enemy,push_time,radius){
     const timeFix = delta / (1000 / 30);
     this.knockback = true;
-    this.knockback_push_time = push_delta;
+    this.knockback_push_time = push_time;
     this.knockback_enemy_pos = {x:enemy.x,y:enemy.y};
     this.knockback_enemy_radius = radius;
     this.knockback_multiplayer = this.effectImmune / this.effectReplayer;
