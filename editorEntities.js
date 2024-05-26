@@ -83,7 +83,7 @@ function spawnEntities(area=current_Area){
 	}
 	var quicksandDir=Math.floor(Math.random()*4)*90;
 	areaC.assets.filter(e=>e.type=="flashlight_spawner").map(e=>{
-		areaC.entities.push(new FlashlightSpawner(e.x,e.y))
+		areaC.entities.push(new FlashlightItem(e.x,e.y))
 	})
 	areaC.assets.filter(e=>e.type=="torch").map(e=>{
 		areaC.entities.push(new Torch(e.x,e.y,e.upside_down))
@@ -158,7 +158,7 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-					//75 implemented
+					//80 implemented
 					case "experience_drain":
 					case "blocking":
 					case "slippery":
@@ -181,6 +181,7 @@ function spawnEntities(area=current_Area){
 					case "liquid":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"player_detection_radius"),boundary);break;
 					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),boundary);break;
 					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
+					case "flower":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"growth_multiplier"),boundary);break;
 					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
 					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),prop(spawner,"move_clockwise"));break;
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
@@ -190,8 +191,12 @@ function spawnEntities(area=current_Area){
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
 					case "frost_giant":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"immune"),prop(spawner,"projectile_duration"),prop(spawner,"projectile_radius"),prop(spawner,"projectile_speed"),prop(spawner,"pause_interval"),prop(spawner,"pause_duration"),prop(spawner,"turn_speed"),prop(spawner,"turn_acceleration"),prop(spawner,"shot_interval"),prop(spawner,"shot_acceleration"),prop(spawner,"direction"),prop(spawner,"pattern"),prop(spawner,"cone_angle"),boundary);break;
 					case "seedling":
+					case "lunging":
+					case "stalactite":
 					case "residue":
 					case "sand":
+					case "tree":
+					case "cactus":
 					case "sandrock":
 					case "fire_trail":
 					case "normal":
@@ -1085,6 +1090,7 @@ this.isGuest=!1;
                   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
                 }
 	update(delta){
+    this.update_knockback(delta);
 let timeFix=delta/(1e3/30);
 	  var cent=this.isCent;
 	  if(this.isLead)cent=!cent;
@@ -1472,7 +1478,60 @@ this.collides=this.collision(delta);
       map.players.splice(map.players.indexOf(this));
     }
 	}
-	renderEffects(ctx,a){
+	  knockback_player(delta,enemy,push_time,radius){
+    const timeFix = delta / (1000 / 30);
+    this.knockback = true;
+    this.knockback_push_time = push_delta;
+    this.knockback_enemy_pos = {x:enemy.x,y:enemy.y};
+    this.knockback_enemy_radius = radius;
+    this.knockback_multiplayer = this.effectImmune / this.effectReplayer;
+    this.knockback_limit_count += 1;
+
+    const ePos = this.knockback_enemy_pos;
+    const pPos = this;
+    const distance_between = distance(ePos,pPos)-this.radius;
+    const distance_remaining = this.knockback_enemy_radius - distance_between;
+    const angle = Math.atan2(ePos.y-pPos.y,ePos.x-pPos.x)-Math.PI;
+    const y_distance_remaining = Math.sin(angle) * distance_remaining;
+    const x_distance_remaining = Math.cos(angle) * distance_remaining;
+
+    const ticks_until_finished = this.knockback_push_time / timeFix;
+    this.knockback_x_speed = x_distance_remaining / ticks_until_finished;
+    this.knockback_y_speed = y_distance_remaining / ticks_until_finished;
+  }
+  update_knockback(delta){
+    if(!this.knockback) return;
+    const timeFix = delta / (1000 / 30);
+    if(this.knockback_push_time > 0){
+    
+      this.push_player(this.x+this.knockback_x_speed*this.knockback_multiplayer,
+                       this.y+this.knockback_y_speed*this.knockback_multiplayer);
+      this.knockback_push_time -= delta;
+      if(this.knockback_multiplayer > 0){
+        this.knockback_multiplayer -= 0.17 * timeFix;
+      }
+      if(this.knockback_multiplayer < 0){
+        this.knockback_multiplayer = 0;
+      }
+    }
+    else if (this.knockback_push_time < 0){
+      this.knockback_push_time = 0;
+      this.knockback = false;
+      if(this.knockback_limit_count < 100){
+        this.knockback_limit_count = 0;
+      } else {
+        this.shadowed_invulnerability = true;
+        this.shadowed_time_left = 1000;
+        this.shadowed_time = 1000;
+        this.knockback_limit_count = 0;
+      }
+    }
+  }
+  push_player(x,y){
+    this.x = x;
+    this.y = y;
+  }
+  renderEffects(ctx,a){
 		const t = ctx.fillStyle;
 		for (const e of this.getEffectConfigs())
 			e.internal || null !== e.fillColor && (ctx.fillStyle = e.fillColor,
@@ -1704,7 +1763,7 @@ this.collides=this.collision(delta);
 	renderIcedEffect(e, t, a) {
 		if (!this.isIced)
 			return;
-		const r = (this.icedTime - this.icedTimeLeft) / this.icedTime;
+		const r = (this.icedTime - this.icedTimeLeft) / this.iceddelta;
 		e.globalAlpha = .7 - .7 * r,
 		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
 		e.beginPath(),
@@ -1717,7 +1776,7 @@ this.collides=this.collision(delta);
 	renderSnowballedEffect(e, t, a) {
 		if (!this.isSnowballed)
 			return;
-		const r = (this.snowballedTime - this.snowballedTimeLeft) / this.snowballedTime;
+		const r = (this.snowballedTime - this.snowballedTimeLeft) / this.snowballeddelta;
 		e.globalAlpha = .7 - .7 * r,
 		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
 		e.beginPath(),
@@ -1730,7 +1789,7 @@ this.collides=this.collision(delta);
 	renderPoisonedEffect(e, t, a) {
 		if (!this.isPoisoned)
 			return;
-		const r = (this.poisonedTime - this.poisonedTimeLeft) / this.poisonedTime;
+		const r = (this.poisonedTime - this.poisonedTimeLeft) / this.poisoneddelta;
 		e.globalAlpha = .7 - .7 * r,
 		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
 		e.beginPath(),
@@ -1978,7 +2037,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.isHarmless=false;
     this.corrosive=false;
     this.burning=false;
-    this.colorChange=0;
+    this.t=0;
     this.healingTime=0;
     this.inFear=false;
     this.decayed=false;
@@ -2009,7 +2068,6 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.velY=Math.sin(this.angle)*this.speed;
   }
   playerInteraction(player,delta){
-    this.isEnemy&&(EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier));
   }
   auraEffect(player,delta){
   }
@@ -2326,6 +2384,9 @@ class Enemy extends SimulatorEntity{
     this.renderFirst=false;
     this.outline=true;
   }
+  playerInteraction(player,delta){
+    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier);
+  }
   update(delta){
     super.update(delta);
   }
@@ -2527,6 +2588,87 @@ class WallEnemy extends Enemy{
 class NormalEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"normal_enemy",boundary);
+  }
+}
+class TreeEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"tree_enemy",boundary);
+    this.staticSpeed = this.speed;
+    this.totalReleaseTime = 4000;
+    this.clock = Math.random() * 3500;
+    this.clock2 = Math.random() * 500;
+    this.clock3 = 0;
+    this.waiting = true;
+    this.shake = false;
+    this.currentVelX = this.velX;
+    this.currentVelY = this.velY;
+    this.beforeShakeVelX = this.velX;
+    this.beforeShakeVelY = this.velY;
+  }
+  update(delta,area){
+    this.clock += delta;
+    this.clock2 += delta;
+    this.clock3 += delta;
+    if (this.clock > this.totalReleaseTime) {
+      var count = Math.floor(Math.random()*6)+2
+      for (var i = 0; i < count; i++) {
+        area.entities.push(new LeafProjectile(this.x,this.y, 12, 6,i * 180 / (count/2),this.boundary))
+      }
+      this.clock = 0;
+      this.velX = this.beforeShakeVelX
+      this.velY = this.beforeShakeVelY
+      this.shake = false;
+    }
+    if(this.velX!==0&&this.velY!==0){this.currentVelX = this.velX;this.currentVelY=this.velY}
+    if(this.clock2>500){
+      this.waiting=!this.waiting;
+      this.clock2 = 0;
+    }
+    if(this.clock>3500){
+      if(!this.shake){this.beforeShakeVelX = this.currentVelX;this.beforeShakeVelY=this.currentVelY}
+      this.shake = true;
+      if(this.clock3>50){
+        this.velX = -this.currentVelX
+        this.velY = -this.currentVelY
+        this.clock3=0;
+      }
+    } else if(this.waiting){
+      this.velX = 0;
+      this.velY = 0;
+    } else {
+      this.velX = this.currentVelX
+      this.velY = this.currentVelY
+      var deg = (this.clock2/5+90) * Math.PI / 180;
+      this.speedMultiplier = (Math.abs(Math.sin(deg)))
+      if(this.speedMultiplier>1.5){this.speedMultiplier=1.5}
+    }
+    if(this.waiting){
+      this.speedMultiplier *= 1;
+    }
+	super.update(delta,area);
+  }
+}
+class LeafProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"leaf_projectile",boundary);
+    this.immune=true;
+	this.outline=false;
+	this.isEnemy=false;
+	this.clock=0;
+	this.dir=this.speed/150;
+  }
+  onCollide(){
+	  this.remove=true;
+  }
+  update(delta,area){
+	this.clock+=delta;
+    this.velangle();
+    this.angle += this.dir * (delta/30);
+    this.anglevel();
+    if(this.clock>1700){
+      this.remove = true;
+    }
+	super.update(delta,area);
   }
 }
 class ImmuneEnemy extends Enemy{
@@ -2803,6 +2945,7 @@ class RadarProjectile extends Enemy{
     super(x,y,radius,speed,angle,"radar_projectile",boundary);
     this.outline=false;
 	this.owner=owner;
+	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
   }
@@ -3419,6 +3562,31 @@ class SpiralEnemy extends Enemy{
     this.dir *= -1; 
   }
 }
+class CactusEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"cactus_enemy",boundary);
+	this.crumbleSize=1;
+  }
+  playerInteraction(player,delta){
+	if(!player.invulnerable&&!player.isDowned()){
+	  if(player.knockback_limit_count<100){
+        if(!player.shadowedInvulnerability){
+          player.knockback_player(delta,this,200,this.radius*8*32+50);
+		  this.crumbleSize=1/4;
+        }
+      }
+	}
+  }
+  update(delta,area) {
+	if(this.crumbleSize<1){
+		this.crumbleSize+=delta/(1e3/30)/(300/3)*(1-1/4);
+	}else{
+		this.crumbleSize=1;
+	}
+	this.radiusMultiplier*=this.crumbleSize;
+    super.update(delta);
+  }
+}
 class CrumblingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"crumbling_enemy",boundary);
@@ -3447,7 +3615,7 @@ class CrumblingEnemy extends Enemy{
 	};
 	if(!this.hasCollided){
 		if(this.crumbleSize<1){
-			this.crumbleSize+=delta/(1e3/30)/66.66666666666666666666666666/2;
+			this.crumbleSize+=delta/(1e3/30)/(200/3)/2;
 		}else{
 			this.crumbleSize=1;
 		}
@@ -3541,6 +3709,8 @@ class PumpkinEnemy extends Enemy{
 		this.hasDetected=true;
 		this.texture="entities/pumpkin_on";
 		this.lightRadius = this.radius + 30;
+		this.absoluteZIndex=null;
+		this.relativeZIndex=1;
 		this.image=$31e8cfefa331e399$var$images[this.texture];
 	  }
     }else{
@@ -3562,6 +3732,8 @@ class PumpkinEnemy extends Enemy{
 	  this.texture="entities/pumpkin_off";
 	  this.hasDetected=false;
 	  this.lightRadius=null;
+	  this.absoluteZIndex=-1;
+	  this.relativeZIndex=0;
 	  this.image=$31e8cfefa331e399$var$images[this.texture];
 	  this.detectedTime=0;
 	}}
@@ -3757,6 +3929,92 @@ class GrassEnemy extends Enemy{
     super.update(delta);
   }
 }
+class FlowerEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,growth_multiplier,boundary){
+    super(x,y,radius,speed,angle,"flower_enemy",boundary);
+	this.hasEntity=false;
+	this.growth_multiplier=growth_multiplier;
+  }
+  update(){
+	if(!this.hasEntity){
+		this.hasEntity=true;
+		for(var i=0;i<5;i++){
+			arguments[1].entities.push(new FlowerProjectile(this.x,this.y,this.radius,0,0,this,i,this.growth_multiplier,this.boundary))
+		}
+	}
+	super.update(...arguments)
+  }
+}
+class FlowerProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,owner,id,growth_multiplier,boundary){
+    super(x,y,radius,speed,angle,"flower_projectile",boundary);
+	this.owner=owner;
+	this.outline=false;
+	this.isEnemy=false;
+	this.growth_multiplier=growth_multiplier;
+	this.immune=true;
+	this.staticRadius=this.radius;
+	this.trigger_radius=150;
+	this.shrinkRate=4000/30;
+	this.growRate=2000/30;
+	this.state=1;
+	this.timer=0;
+	this.id=id;
+  }
+  update(delta,area) {
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.owner.x - entity.x;
+      distance_y = this.owner.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > (this.trigger_radius+this.owner.radius+this.radius+(entity.radius??0))**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.owner.x - closest_entity.x;
+      distance_y = this.owner.y - closest_entity.y;
+		this.timer+=delta;
+		if(this.timer>=this.shrinkRate){
+			this.timer=0;
+			this.ogradius-=4 * this.growth_multiplier;
+			if(this.ogradius<0){
+				this.ogradius=0;
+			}
+		}
+    }else{
+		this.timer+=delta;
+		if(this.timer>=this.growRate){
+			this.timer=0;
+			this.ogradius+=4 * this.growth_multiplier;
+			if(this.ogradius>this.staticRadius){
+				this.ogradius=this.staticRadius;
+			}
+		}
+	}
+    this.radiusMultiplier *= this.owner.radiusMultiplier;
+	this.setPosition(Math.sin(this.id*72*Math.PI/180),-Math.cos(this.id*72*Math.PI/180));
+	super.update(delta,area);
+	this.setPosition(Math.sin(this.id*72*Math.PI/180),-Math.cos(this.id*72*Math.PI/180));
+  }
+  setPosition(x, y){
+    this.x = this.owner.x + x * this.owner.radius;
+    this.y = this.owner.y + y * this.owner.radius;
+  }
+}
 class SeedlingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"seedling_enemy",boundary);
@@ -3893,7 +4151,7 @@ class Wall extends SimulatorEntity{
         ctx.closePath();
   }
 }
-class FlashlightSpawner extends SimulatorEntity{
+class FlashlightItem extends SimulatorEntity{
   constructor(x,y){
     super(x,y,null,null,"flashlight_spawner",null,null,null,null,null);
 	this.renderFirst=true;
@@ -4074,6 +4332,7 @@ class RadiatingBulletsProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"radiating_bullets_projectile",boundary);
 	this.outline=false;
+	this.isEnemy=false;
 	this.immune=true;
     this.clock = 0;
   }
@@ -4163,6 +4422,7 @@ class SniperProjectile extends Enemy{
     super(x,y,radius,speed,angle,"sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
+	this.isEnemy=false;
     this.clock = 0;
   }
   onCollide(){
@@ -4255,6 +4515,7 @@ class PredictionSniperProjectile extends Enemy{
     super(x,y,radius,speed,angle,"prediction_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
+	this.isEnemy=false;
     this.clock = 0;
   }
   onCollide(){
@@ -4315,6 +4576,7 @@ class IceSniperProjectile extends Enemy{
     super(x,y,radius,speed,angle,"ice_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
+	this.isEnemy=false;
     this.clock = 0;
   }
   playerInteraction(player){
@@ -4379,6 +4641,7 @@ class PoisonSniperProjectile extends Enemy{
     super(x,y,radius,speed,angle,"poison_sniper_projectile",boundary);
     this.outline=false;
     this.immune=true;
+	this.isEnemy=false;
     this.clock = 0;
   }
   playerInteraction(player){
@@ -4443,6 +4706,7 @@ class SpeedSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,speed_loss,boundary){
     super(x,y,radius,speed,angle,"speed_sniper_projectile",boundary);
     this.outline=false;
+	this.isEnemy=false;
     this.speed_loss=speed_loss;
     this.immune=true;
     this.clock = 0;
@@ -4511,6 +4775,7 @@ class LeadSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"lead_sniper_projectile",boundary);
     this.outline=false;
+	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
   }
@@ -4577,6 +4842,7 @@ class RegenSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,regen_loss,boundary){
     super(x,y,radius,speed,angle,"regen_sniper_projectile",boundary);
     this.outline=false;
+	this.isEnemy=false;
     this.regen_loss=regen_loss;
     this.immune=true;
     this.clock = 0;
@@ -4902,6 +5168,7 @@ class PositiveMagneticSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"positive_magnetic_sniper_projectile",boundary);
     this.outline=false;
+	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
   }
@@ -4982,6 +5249,7 @@ class NegativeMagneticSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"negative_magnetic_sniper_projectile",boundary);
     this.outline=false;
+	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
   }
@@ -5060,6 +5328,7 @@ class ForceSniperAProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"force_sniper_a_projectile",boundary);
     this.outline=false;
+	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
 	this.touchedPlayers=[];
@@ -5127,6 +5396,7 @@ class ForceSniperBProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"force_sniper_b_projectile",boundary);
     this.outline=false;
+	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
 	this.touchedPlayers=[];
@@ -5225,6 +5495,7 @@ class WindSniperProjectile extends Enemy{
     super(x,y,radius,speed,angle,"wind_sniper_projectile",boundary);
 	this.gravity=1;
 	this.outline=false;
+	this.isEnemy=false;
 	this.immune=true;
 	this.clock=0;
   }
@@ -5258,4 +5529,158 @@ class WindSniperProjectile extends Enemy{
     super.update(delta);
   }
 }
+class LungingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"lunging_enemy",boundary);
+    this.base_speed = speed;
+    this.reset_parameters();
+	this.colorChange=0;
+  }
+  reset_parameters(){
+    this.lunge_speed = this.base_speed;
+    this.normal_speed = 0;
+
+    this.time_to_lunge = 1500;
+    this.lunge_timer = 0;
+
+    this.max_lunge_time = 2000;
+    this.time_during_lunge = 0;
+
+    this.lunge_cooldown_max = 500;
+    this.lunge_cooldown_timer = 0;
+
+    this.base_speed = 0;
+    this.compute_speed();
+  }
+  compute_speed(){
+    this.velX = Math.cos(this.angle) * this.base_speed;
+    this.velY = Math.sin(this.angle) * this.base_speed;
+  }
+  getColorChange() {
+  	const e = this.hexToRgb(this.color);
+  	return e.r += this.colorChange,
+  	e.g -= 1.45 * this.colorChange,
+  	e.b -= 1.3 * this.colorChange,
+  	`rgb(${e.r}, ${e.g}, ${e.b})`
+  }
+  update(delta, area){
+	  const timefix=delta/(1e3/30);
+    this.heating = false;
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 250**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if (this.time_during_lunge>0){
+      if(this.time_during_lunge >= this.max_lunge_time){
+        this.time_during_lunge = 0;
+        this.lunge_cooldown_timer = 1;
+        this.base_speed = this.normal_speed;
+        this.compute_speed();
+      } else {
+        this.time_during_lunge += delta;
+        this.base_speed = this.lunge_speed * (1 - (this.time_during_lunge / this.max_lunge_time));
+        this.compute_speed();
+      }
+    }
+    if(this.lunge_cooldown_timer > 0){
+      if(this.lunge_cooldown_timer > this.lunge_cooldown_max){
+        this.lunge_cooldown_timer = 0;
+      } else {
+        this.lunge_cooldown_timer += delta;
+        this.colorChange = 55-Math.floor(55*this.lunge_cooldown_timer/this.lunge_cooldown_max)
+      }
+    }
+    else {
+      let lunge_time_ratio = this.lunge_timer / this.time_to_lunge;
+      if(closest_entity != undefined){
+        let target_angle = Math.atan2(distance_y,distance_x)+Math.PI;
+        target_angle += Math.random() * Math.PI/8 - Math.PI/16;
+        if (this.time_during_lunge == 0){
+          this.lunge_timer += delta;
+          this.colorChange = Math.floor(55 * lunge_time_ratio);
+          if(this.lunge_timer >= this.time_to_lunge){
+            this.lunge_timer = 0;
+            this.time_during_lunge = 1;
+            this.base_speed = this.lunge_speed;
+            this.change_angle(target_angle);
+          }
+        }
+      } else {
+        if(this.lunge_timer > 0){
+          this.lunge_timer-=delta;
+          this.colorChange = Math.floor(55 * lunge_time_ratio);
+        }
+        if(this.lunge_timer < 0){
+          this.lunge_timer = 0;
+        }
+      }
+      if (lunge_time_ratio > 0.75){
+        this.x+=Math.round(Math.random()*4-2);
+        this.y+=Math.round(Math.random()*4-2);
+      }
+    }
+	this.speed=this.baseSpeed;
+	super.update(delta,area);
+  }
+  change_angle(angle){
+    this.angle = angle;
+    this.compute_speed();
+  }
+}
+class StalactiteEnemy extends Enemy {
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"stalactite_enemy",boundary);
+    this.hasCollided = false;
+    this.collideTime = 0;
+  }
+  update(delta, area) {
+    if (this.hasCollided){
+      this.collideTime += delta;
+      if (this.collideTime > 500) {
+        this.hasCollided = false;
+        this.collideTime = 0;
+      } else {
+        this.speedMultiplier = 0;
+      }
+    }
+	super.update(delta,area);
+  }
+  onCollide(){
+    map.areas[current_Area].entities.push(new StalactiteEnemyProjectile(this.x,this.y,this.radius/2,this.boundary));
+    this.hasCollided = true;
+  }
+}
+class StalactiteEnemyProjectile extends Enemy{
+  constructor(x,y,radius,boundary){
+    super(x,y,radius,3,void 0,"stalactite_enemy_projectile",boundary);
+	this.duration=1500;
+  }
+  update(delta) {
+    this.duration -= delta;
+    if (this.duration <= 0){
+      this.remove = true;
+	  this.duration=0;
+    }
+    super.update(delta);
+  }
+}
+
 window.warnin=false;
