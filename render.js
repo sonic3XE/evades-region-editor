@@ -462,6 +462,8 @@ else {
   let rs = `Area ${areaname}`;
   isNaN(parseInt(areaname)) && (rs = areaname);
   let cs = `${map.name}: ${rs}`;
+  map.areas.length==1 && (cs = `${map.name}`);
+  map.name.length || (cs = rs);
   map.areas[current_Area].zones.filter(e=>e.type=="victory").length&&(cs=`${map.name}: Victory!`);
   ctx.textBaseline = "middle";
   var curTime=Date.now();
