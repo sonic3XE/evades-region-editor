@@ -1061,6 +1061,12 @@ var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drai
           "blocking","stalactite",
           "force_sniper_a",
           "force_sniper_b",
+		  'flaming',
+		  'stumbling',
+		  'disarming',
+		  'lurching',
+		  'infectious',
+		  'mutating',
         ]
             .map(e=>[formatString(curLang,"editor.enemy."+e),e]);
   if(usingPifary)

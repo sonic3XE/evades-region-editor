@@ -29,13 +29,6 @@ function capitaliseName(s){
   })
   return t.join(" ");
 }
-function capitalize(s){
-  var t=s.split("_")
-  t=t.map(e=>{
-    return e[0].toUpperCase()+e.slice(1).toLowerCase();
-  })
-  return t.join("");
-}
 function getEntityColor(type){
 	return $3d7c57289a41f86c$exports.defaults[type].color;
 }
