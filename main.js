@@ -1368,21 +1368,25 @@ localStorage.getItem("chat")&&(
             <label for="posX">X: <input id="posX" step="1" style="width:50px" type="number"></label><br>
             <label for="posY">Y: <input id="posY" step="1" style="width:50px" type="number"></label>
         </p>*/
-var fps=0;
+var fpsHist=[];
 setTimeout(function rungame(){
-    var delta=performance.now()-lastTime;
-    lastTime=performance.now();
-    //Do not update below 24fps
+    var e=performance.now();
+    while(performance.now()-e<=1){
+    var r=performance.now()
+    var delta=r-lastTime;
+    lastTime=r;
     (delta/1e3)**-1<24&&(delta=0);
-    //If the fps is below 30, just temporarily remove the 30 fps cap.
     var IsBelow30FPS=(delta/1e3)**-1<30;
     ti+=delta;
-    var actually=((settings.isSandbox||IsBelow30FPS) ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
-    ti>(1e3/30-delta/2) && (ti=0);
-	global.fps++;
-	setTimeout(()=>(global.fps--),1e3);
-	(settings.realTime||playtesting)&&(global.mouseDown==void 0&&(global.mouseDown=null),controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
-	setTimeout(rungame);
+    var actually=((settings.isSandbox||IsBelow30FPS)?delta:(1e3/30*(ti>(1e3/30-delta/2))))*isActive;
+    ti>(1e3/30-delta/2)&&(ti=0);
+    fpsHist=fpsHist.filter(e=>((r-e)<=1e3));
+    fpsHist.push(r);
+    map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
+    (settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
+    }
+    e=performance.now();
+    setTimeout(rungame);
 })
 animate(function run(){
 	render();

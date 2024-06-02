@@ -195,13 +195,12 @@ else {
   ctxE.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
-  map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
   var entities=sortEntitiesByZIndex([...map.areas[current_Area].entities,...map.players]);
   entities.map(e=>{
-	e.renderEffects(ctxE,{x:0,y:0});
+    e.renderEffects(ctxE,{x:0,y:0});
   });
   entities.map(e=>{
-	e.render(ctxE,{x:0,y:0});
+    e.render(ctxE,{x:0,y:0});
   });
   var enemyError=false;
   ctxE.resetTransform();
@@ -376,7 +375,7 @@ else {
   ctx.strokeStyle="#000",ctx.lineWidth=4,ctx.font="bold 20px tah",isForked&&(ctx.textAlign="right",ctx.fillStyle="white",ctx.globalAlpha=0.1,ctx.strokeText("Made by Sonic3XE", canvas.width-10, canvas.height-52),ctx.fillText("Made by Sonic3XE", canvas.width-10, canvas.height-52),ctx.globalAlpha=1);
   ctx.textAlign="left",assetsLoaded.count/21!=1&&(ctx.fillRect(10,canvas.height-20,assetsLoaded.count/21*200,10),ctx.fillText("Loading...",assetsLoaded.count/21*200+15,canvas.height-10));
   !playtesting&&alertMessages.map((e,t,a)=>{ctx.fillStyle=e.color;ctx.strokeText(`${e.text}`,10,canvas.height-20-20*(a.length-t),canvas.width-20);ctx.fillText(`${e.text}`,10,canvas.height-20-20*(a.length-t),canvas.width-20)});
-  ctx.fillText(`${fps} tps`, canvas.width / 2, canvas.height - 20);
+  ctx.fillText(`${fpsHist.length} tps`, canvas.width / 2, canvas.height - 20);
   playtesting&&(ctx.drawImage(cons,1920*(1/2+640*camScale/ctx.canvas.width),0,1920*(1/2-640*camScale/ctx.canvas.width),1080,(ctx.canvas.width/2+640*camScale),0,ctx.canvas.width-(ctx.canvas.width/2+640*camScale),ctx.canvas.height),ctx.drawImage(cons,0,0,1920*(1/2-640*camScale/ctx.canvas.width),1080,0,0,ctx.canvas.width-(ctx.canvas.width/2+640*camScale),ctx.canvas.height),ctx.drawImage(cons,0,1080*(1/2-360*camScale/ctx.canvas.height),1920,1080*(1/2+360*camScale/ctx.canvas.height),0,(ctx.canvas.height/2+360*camScale),ctx.canvas.width,ctx.canvas.height-(ctx.canvas.height/2+360*camScale)),ctx.drawImage(cons,0,0,1920,1080*(1/2+360*camScale/ctx.canvas.height),0,0,ctx.canvas.width,ctx.canvas.height-(ctx.canvas.height/2+360*camScale)));
   global.a&&((global.a+=delta,global.a<=7e3/6)?(map.name=new Array(27).fill(0).map(e=>String.fromCharCode(32+Math.random()*96)).join("")):(global.a<=4e3/3)?(map.name="You're not suppose to be here."):new Array(20).fill(0).map(e=>void(e=[Math.random()*ctx.canvas.width,Math.random()*ctx.canvas.height,Math.random()*ctx.canvas.width,Math.random()*ctx.canvas.height,Math.random()*ctx.canvas.width,Math.random()*ctx.canvas.height,Math.random()*ctx.canvas.width,Math.random()*ctx.canvas.height],ctx.drawImage(ctx.canvas,e[0],e[1],e[2],e[3],e[4]-e[2]/2,e[5]-e[3]/2,e[6],e[7]),ctx.fillStyle=`#${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}`,ctx.globalCompositeOperation="multiply",ctx.fillRect(e[4]-e[2]/2,e[5]-e[3]/2,e[6],e[7]),ctx.globalCompositeOperation="source-over")));
   ((cons.ended||!cons.paused)&&(delete global.a))&&(ctx.fillStyle="#FFF",(global.a==undefined)&&ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height),ctx.drawImage(cons,0,0,ctx.canvas.width,ctx.canvas.height),canvas.style.cursor="none",canvas.setAttribute("class","canvas-overlay"));
