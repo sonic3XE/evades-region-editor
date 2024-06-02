@@ -1370,8 +1370,6 @@ localStorage.getItem("chat")&&(
         </p>*/
 var fpsHist=[];
 setTimeout(function rungame(){
-    var e=performance.now();
-    while(performance.now()-e<=1){
     var r=performance.now()
     var delta=r-lastTime;
     lastTime=r;
@@ -1380,12 +1378,8 @@ setTimeout(function rungame(){
     ti+=delta;
     var actually=((settings.isSandbox||IsBelow30FPS)?delta:(1e3/30*(ti>(1e3/30-delta/2))))*isActive;
     ti>(1e3/30-delta/2)&&(ti=0);
-    fpsHist=fpsHist.filter(e=>((r-e)<=1e3));
-    fpsHist.push(r);
     map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
     (settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
-    }
-    e=performance.now();
     setTimeout(rungame);
 })
 animate(function run(){
