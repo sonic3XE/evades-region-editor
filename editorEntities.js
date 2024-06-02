@@ -250,7 +250,6 @@ class SimulatedPlayer extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.x=x;
 	this.showOnMap=true;
 	this.dashTrails=[];
-	this.isDashing=false;
 	this.fullMapOpacity=true;
 	this.lightRectangle=null;
     this.y=y;
@@ -339,11 +338,29 @@ this.underDabotEffect=false;
 this.isLead=false;
 this.leadTime=0;
 this.ictosInvulnerability=false;
-this.quicksand=[0,0,5];
 this.continuousRevive=false;
 this.continuousReviveTime=0;
 this.continuousReviveTimeLeft=0;
+this.storedPellets=0
+this.mutatiorbBuffSpeedBoost=false;
+this.mutatiorbBuffCooldownReduction=false;
+this.mutatiorbBuffEffectsReduction=false;
+this.mutatiorbBuffSlowerDeathTimer=false;
+this.mutatiorbBuffExperienceGain=false;
+this.hasRadioactiveGloop=false;
+this.mutatiorbBuffBackShield=false;
+this.isFactorb=false;
+this.shieldAngle=0;
+this.mutatiorbBuffed=false;
+this.isClinging=false;
+this.abilityRemoved=false;
+this.hasUndeadInfection=false;
+this.isDashing=false;
+this.ictosChance=false;
+this.flamingTimeLeft=1e3;
+this.canGainEnergy=true;
     this.deathTimerTotal=0;
+	this.quicksand=[0,0,5];
     this.color=e.foregroundColor;
 	this.strokeColor = e.strokeColor;
     this.name=username;
@@ -1609,8 +1626,8 @@ this.collides=this.collision(delta);
 		if (this.mutatiorbBuffBackShield && !this.isDeparted && !this.isDowned() && this.mutatiorbBuffed) {
 			const t = this.radius + (this.mutatiorbBuffBackShield ? 4 : 1)
 			  , c = this.shieldAngle;
-			let o = .3 * Math.PI;
-			this.isFactorb && (o = .45 * Math.PI),
+			let o = .5 * Math.PI;
+			this.isFactorb && (o = .75 * Math.PI),
 			e.beginPath(),
 			e.arc(a, r, t, c - o, o + c, !1),
 			e.lineWidth = 2,
@@ -1638,10 +1655,10 @@ this.collides=this.collision(delta);
 		this.renderIcedEffect(e, a, r),
 		this.renderSnowballedEffect(e, a, r),
 		this.renderPoisonedEffect(e, a, r),
-		this.renderCrumbledInvulnerabilityEffect(e, a, r),
 		this.renderShadowedInvulnerabilityEffect(e, a, r),
 		this.renderLeadEffect(e, a, r),
 		this.renderContinuousReviveEffect(e, a, r),
+		this.renderFlamingEffect(e, a, r),
 		this.renderAccessory(e, a, r);
 		let s = "blue"
 		  , f = "rgb(68, 118, 255)"
@@ -1655,6 +1672,8 @@ this.collides=this.collision(delta);
 		f = "rgb(212, 0, 100)"),
 		this.energized && this.sweetToothConsumed && (s = "rgb(255, 43, 143)",
 		f = "rgb(212, 0, 100)"),
+		this.canGainEnergy || (s = "rgb(110, 110, 117)",
+		f = "rgb(87, 87, 92)"),
 		this.hasRadioactiveGloop && (p = 15 - this.radius),
 		$ && (e.globalAlpha = n),
 		!this.isDeparted || this.hasRadioactiveGloop) {
@@ -1672,6 +1691,16 @@ this.collides=this.collision(delta);
 			e.arc(a + t, r - this.radius - p - 5, 3.5, 0, 2 * Math.PI, !1),
 			e.strokeStyle = "rgb(149, 124, 0)",
 			e.fillStyle = "rgb(210, 190, 90)",
+			e.lineWidth = 2,
+			e.fill(),
+			e.stroke(),
+			e.lineWidth = 1,
+			e.closePath(),
+			t += 10),
+			this.hasUndeadInfection && (e.beginPath(),
+			e.arc(a + t, r - this.radius - p - 5, 3.5, 0, 2 * Math.PI, !1),
+			e.strokeStyle = "rgb(100, 168, 0)",
+			e.fillStyle = "rgb(174, 227, 95)",
 			e.lineWidth = 2,
 			e.fill(),
 			e.stroke(),
@@ -1722,32 +1751,33 @@ this.collides=this.collision(delta);
 			}
 			this.cybotDefeated && (this.hasWindDebuff ? (e.strokeStyle = "rgb(0, 133, 97)",
 			e.fillStyle = "rgb(0, 181, 133)",
-			e.fillRect(a + 44, r - this.radius - p - 2.5, 7, 7),
-			e.strokeRect(a + 44, r - this.radius - p - 2.5, 7, 7)) : (e.strokeStyle = "rgba(0, 133, 97, 0.3)",
+			e.fillRect(a + t, r - this.radius - p - 2.5, 7, 7),
+			e.strokeRect(a + t, r - this.radius - p - 2.5, 7, 7)) : (e.strokeStyle = "rgba(0, 133, 97, 0.3)",
 			e.fillStyle = "rgba(0, 181, 133, 0.3)",
-			e.fillRect(a + 44, r - this.radius - p - 2.5, 7, 7),
-			e.strokeRect(a + 44, r - this.radius - p - 2.5, 7, 7)),
+			e.fillRect(a + t, r - this.radius - p - 2.5, 7, 7),
+			e.strokeRect(a + t, r - this.radius - p - 2.5, 7, 7)),
 			this.hasWaterDebuff ? (e.strokeStyle = "rgb(32, 103, 117)",
 			e.fillStyle = "rgb(49, 155, 176)",
-			e.fillRect(a + 56, r - this.radius - p - 2.5, 7, 7),
-			e.strokeRect(a + 56, r - this.radius - p - 2.5, 7, 7)) : (e.strokeStyle = "rgba(32, 103, 117, 0.3)",
+			e.fillRect(a + t + 12, r - this.radius - p - 2.5, 7, 7),
+			e.strokeRect(a + t + 12, r - this.radius - p - 2.5, 7, 7)) : (e.strokeStyle = "rgba(32, 103, 117, 0.3)",
 			e.fillStyle = "rgba(49, 155, 176, 0.3)",
-			e.fillRect(a + 56, r - this.radius - p - 2.5, 7, 7),
-			e.strokeRect(a + 56, r - this.radius - p - 2.5, 7, 7)),
+			e.fillRect(a + t + 12, r - this.radius - p - 2.5, 7, 7),
+			e.strokeRect(a + t + 12, r - this.radius - p - 2.5, 7, 7)),
 			this.hasFireDebuff ? (e.strokeStyle = "rgb(179, 101, 5)",
 			e.fillStyle = "rgb(232, 132, 9)",
-			e.fillRect(a + 56, r - this.radius - p - 13.5, 7, 7),
-			e.strokeRect(a + 56, r - this.radius - p - 13.5, 7, 7)) : (e.strokeStyle = "rgba(179, 101, 5, 0.3)",
+			e.fillRect(a + t + 12, r - this.radius - p - 13.5, 7, 7),
+			e.strokeRect(a + t + 12, r - this.radius - p - 13.5, 7, 7)) : (e.strokeStyle = "rgba(179, 101, 5, 0.3)",
 			e.fillStyle = "rgba(232, 132, 9, 0.3)",
-			e.fillRect(a + 56, r - this.radius - p - 13.5, 7, 7),
-			e.strokeRect(a + 56, r - this.radius - p - 13.5, 7, 7)),
+			e.fillRect(a + t + 12, r - this.radius - p - 13.5, 7, 7),
+			e.strokeRect(a + t + 12, r - this.radius - p - 13.5, 7, 7)),
 			this.hasEarthDebuff ? (e.strokeStyle = "rgb(125, 82, 35)",
 			e.fillStyle = "rgb(176, 115, 49)",
-			e.fillRect(a + 44, r - this.radius - p - 13.5, 7, 7),
-			e.strokeRect(a + 44, r - this.radius - p - 13.5, 7, 7)) : (e.strokeStyle = "rgba(125, 82, 35, 0.3)",
+			e.fillRect(a + t, r - this.radius - p - 13.5, 7, 7),
+			e.strokeRect(a + t, r - this.radius - p - 13.5, 7, 7)) : (e.strokeStyle = "rgba(125, 82, 35, 0.3)",
 			e.fillStyle = "rgba(176, 115, 49, 0.3)",
-			e.fillRect(a + 44, r - this.radius - p - 13.5, 7, 7),
-			e.strokeRect(a + 44, r - this.radius - p - 13.5, 7, 7)))
+			e.fillRect(a + t, r - this.radius - p - 13.5, 7, 7),
+			e.strokeRect(a + t, r - this.radius - p - 13.5, 7, 7)),
+			t += 25)
 		}
 		e.globalAlpha = 1,
 		this.isDowned() && !$ && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16/camScale),
@@ -1848,6 +1878,20 @@ this.collides=this.collision(delta);
 		e.beginPath(),
 		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(255, 255, 255)",
+		e.fill(),
+		e.closePath(),
+		e.globalAlpha = 1
+	}
+	renderFlamingEffect(e, t, a) {
+		if (this.flamingTimeLeft >= 1e3)
+			return;
+		const r = this.flamingTimeLeft / 1e3
+		  , c = .95;
+		e.globalAlpha = c - c * r,
+		(e.globalAlpha < 0 || e.globalAlpha > c) && (e.globalAlpha = 0),
+		e.beginPath(),
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.fillStyle = "#aa2f2f",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1

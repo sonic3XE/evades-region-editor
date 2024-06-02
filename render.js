@@ -72,19 +72,11 @@ var VFX=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d
 VFX.loop=1;
 
 function render() {
-  setTimeout(render);
 	!isFinish&&(
 $e7009c797811e935$export$2e2bcd8739ae039.start({}),
 $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);
   $e7009c797811e935$export$2e2bcd8739ae039.update(global);
   cons.currentTime||=1/1e6;
-  var delta=performance.now()-lastTime;
-  lastTime=performance.now();
-  //Do not update below 24fps
-  (delta/1e3)**-1<24&&(delta=0);
-  //If the fps is below 30, just temporarly remove the 30 fps cap.
-  var IsBelow30FPS=(delta/1e3)**-1<30;
-  ti+=delta;
   snapX.value=settings.snapX;
   snapY.value=settings.snapY;
   [realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>e.checked=settings[e.id]);
@@ -201,8 +193,6 @@ else {
   ctxE.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
-  var actually=((settings.isSandbox||IsBelow30FPS) ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
-  ti>(1e3/30-delta/2) && (ti=0);
   map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
   var entities=sortEntitiesByZIndex([...map.areas[current_Area].entities,...map.players]);
   entities.map(e=>{
@@ -377,16 +367,15 @@ else {
   let cs = `${map.name}: ${rs}`;
   map.areas.length==1 && (cs = `${map.name}`);
   map.name.length || (cs = rs);
-  map.areas[current_Area].zones.filter(e=>e.type=="victory").length&&(cs=`${map.name}: Victory!`);
+  map.areas[current_Area].zones.filter(e=>e.type=="victory").length?(cs=`${map.name}: Victory!`):false&&(cs=`${map.name}: BOSS AREA ${rs}`);
   !playtesting&&(ctx.lineWidth=6,ctx.font=`bold 35px tah`,ctx.strokeText(cs,canvas.width/2,20),ctx.fillText(cs,canvas.width/2,20),ctx.font="bold 25px tah",ctx.strokeText(`# of zones: ${map.areas[current_Area].zones.length}`,canvas.width/2,55),ctx.fillText(`# of zones: ${map.areas[current_Area].zones.length}`,canvas.width/2,55),ctx.strokeText(`# of assets: ${map.areas[current_Area].assets.length}`,canvas.width/2,80),ctx.fillText(`# of assets: ${map.areas[current_Area].assets.length}`,canvas.width/2,80));
 
   ctx.lineWidth=camScale,ctx.textBaseline="alphabetic",playtesting&&(evadesRenderer.directionalIndicatorHud.update(map.players,{id:selfPlayer.id,entity:selfPlayer},map.areas[selfPlayer.area]),evadesRenderer.titleText.unionState({...selfPlayer,regionName:map.name,areaNumber:current_Area+1,areaName:map.areas[current_Area].name||String(current_Area+1)}),evadesRenderer.experienceBar.unionState(selfPlayer),evadesRenderer.heroInfoCard.unionState(selfPlayer),evadesRenderer.minimap.update(map.players,map.areas[selfPlayer.area].entities,{entity:selfPlayer},map.areas[selfPlayer.area]),evadesRenderer.minimap.unionState({x:map.areas[selfPlayer.area].x+selfPlayer.x,y:map.areas[selfPlayer.area].y+selfPlayer.y}),evadesRenderer.map.update(map.players,{entity:selfPlayer},map.areas[selfPlayer.area]),evadesRenderer.areaInfo.update({entity:selfPlayer},map.areas[selfPlayer.area]),evadesRenderer.bottomText.unionState(selfPlayer),evadesRenderer.directionalIndicatorHud.render(ctx,{viewportSize:canvas},{}),evadesRenderer.titleText.render(ctx,{viewportSize:canvas},{}),evadesRenderer.experienceBar.render(ctx,{viewportSize:canvas},global),evadesRenderer.bottomText.render(ctx,{viewportSize:canvas},global),evadesRenderer.heroInfoCard.render(ctx,{viewportSize:canvas},global,actually),evadesRenderer.minimap.render(ctx,actually),evadesRenderer.map.render(ctx,{viewportSize:canvas},global),evadesRenderer.areaInfo.render(ctx,{viewportSize:canvas},global));
-  //ctx.fillText(`${error}`, canvas.width / 2, canvas.height - 20);
   ctx.strokeStyle="#000",ctx.lineWidth=4,ctx.font="bold 20px tah",isForked&&(ctx.textAlign="right",ctx.fillStyle="white",ctx.globalAlpha=0.1,ctx.strokeText("Made by Sonic3XE", canvas.width-10, canvas.height-52),ctx.fillText("Made by Sonic3XE", canvas.width-10, canvas.height-52),ctx.globalAlpha=1);
   ctx.textAlign="left",assetsLoaded.count/21!=1&&(ctx.fillRect(10,canvas.height-20,assetsLoaded.count/21*200,10),ctx.fillText("Loading...",assetsLoaded.count/21*200+15,canvas.height-10));
   !playtesting&&alertMessages.map((e,t,a)=>{ctx.fillStyle=e.color;ctx.strokeText(`${e.text}`,10,canvas.height-20-20*(a.length-t),canvas.width-20);ctx.fillText(`${e.text}`,10,canvas.height-20-20*(a.length-t),canvas.width-20)});
+  ctx.fillText(`${fps} tps`, canvas.width / 2, canvas.height - 20);
   playtesting&&(ctx.drawImage(cons,1920*(1/2+640*camScale/ctx.canvas.width),0,1920*(1/2-640*camScale/ctx.canvas.width),1080,(ctx.canvas.width/2+640*camScale),0,ctx.canvas.width-(ctx.canvas.width/2+640*camScale),ctx.canvas.height),ctx.drawImage(cons,0,0,1920*(1/2-640*camScale/ctx.canvas.width),1080,0,0,ctx.canvas.width-(ctx.canvas.width/2+640*camScale),ctx.canvas.height),ctx.drawImage(cons,0,1080*(1/2-360*camScale/ctx.canvas.height),1920,1080*(1/2+360*camScale/ctx.canvas.height),0,(ctx.canvas.height/2+360*camScale),ctx.canvas.width,ctx.canvas.height-(ctx.canvas.height/2+360*camScale)),ctx.drawImage(cons,0,0,1920,1080*(1/2+360*camScale/ctx.canvas.height),0,0,ctx.canvas.width,ctx.canvas.height-(ctx.canvas.height/2+360*camScale)));
-  (settings.realTime||playtesting)&&(global.mouseDown==void 0&&(global.mouseDown=null),controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
   global.a&&((global.a+=delta,global.a<=7e3/6)?(map.name=new Array(27).fill(0).map(e=>String.fromCharCode(32+Math.random()*96)).join("")):(global.a<=4e3/3)?(map.name="You're not suppose to be here."):new Array(20).fill(0).map(e=>void(e=[Math.random()*ctx.canvas.width,Math.random()*ctx.canvas.height,Math.random()*ctx.canvas.width,Math.random()*ctx.canvas.height,Math.random()*ctx.canvas.width,Math.random()*ctx.canvas.height,Math.random()*ctx.canvas.width,Math.random()*ctx.canvas.height],ctx.drawImage(ctx.canvas,e[0],e[1],e[2],e[3],e[4]-e[2]/2,e[5]-e[3]/2,e[6],e[7]),ctx.fillStyle=`#${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}${Math.floor(Math.random()*16).toString(16)}`,ctx.globalCompositeOperation="multiply",ctx.fillRect(e[4]-e[2]/2,e[5]-e[3]/2,e[6],e[7]),ctx.globalCompositeOperation="source-over")));
   ((cons.ended||!cons.paused)&&(delete global.a))&&(ctx.fillStyle="#FFF",(global.a==undefined)&&ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height),ctx.drawImage(cons,0,0,ctx.canvas.width,ctx.canvas.height),canvas.style.cursor="none",canvas.setAttribute("class","canvas-overlay"));
   //if(enemyError)throw "Something went wrong.";
