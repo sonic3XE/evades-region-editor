@@ -70,8 +70,10 @@ function controlPlayer(id,input,delta){
 var errorFX=loadImage('https://s.jezevec10.com/res/se2/topout.mp3');
 var VFX=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/mus_gameOver.ogg");
 VFX.loop=1;
-
+var le=0;
 function render() {
+  const delta=performance.now()-le;le=performance.now();
+  var actually=delta*isActive;
 	!isFinish&&(
 $e7009c797811e935$export$2e2bcd8739ae039.start({}),
 $e7009c797811e935$export$2e2bcd8739ae039.registerListeners(),isFinish=true);

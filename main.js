@@ -1377,7 +1377,7 @@ setTimeout(function rungame(){
     //If the fps is below 30, just temporarily remove the 30 fps cap.
     var IsBelow30FPS=(delta/1e3)**-1<30;
     ti+=delta;
-    global.actually=((settings.isSandbox||IsBelow30FPS) ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
+    var actually=((settings.isSandbox||IsBelow30FPS) ? delta : (1e3/30*(ti>(1e3/30-delta/2))))*isActive;
     ti>(1e3/30-delta/2) && (ti=0);
 	global.fps++;
 	setTimeout(()=>(global.fps--),1e3);
