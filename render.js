@@ -14,18 +14,6 @@ var evadesRenderer={
 let Frate=[];
 var mouseEntities=[];
 const defaultHighestAreaAchieved={"Central Core":0,"Central Core Hard":0,"Catastrophic Core":0,"Vicious Valley":0,"Vicious Valley Hard":0,"Elite Expanse":0,"Elite Expanse Hard":0,"Wacky Wonderland":0,"Glacial Gorge":0,"Glacial Gorge Hard":0,"Dangerous District":0,"Dangerous District Hard":0,"Peculiar Pyramid":0,"Peculiar Pyramid Hard":0,"Monumental Migration":0,"Monumental Migration Hard":0,"Humongous Hollow":0,"Humongous Hollow Hard":0,"Haunted Halls":0,"Frozen Fjord":0,"Frozen Fjord Hard":0,"Transforming Turbidity":0,"Quiet Quarry":0,"Quiet Quarry Hard":0,"Ominous Occult":0,"Ominous Occult Hard":0,"Restless Ridge":0,"Restless Ridge Hard":0,"Toxic Territory":0,"Toxic Territory Hard":0,"Magnetic Monopole":0,"Magnetic Monopole Hard":0,"Assorted Alcove":0,"Assorted Alcove Hard":0,"Burning Bunker":0,"Burning Bunker Hard":0,"Grand Garden":0,"Grand Garden Hard":0,"Endless Echo":0,"Endless Echo Hard":0,"Mysterious Mansion":0,"Coupled Corridors":0,"Cyber Castle":0,"Cyber Castle Hard":0,"Research Lab":0,"Shifting Sands":0,"Infinite Inferno":0,"Dusty Depths":0,"Withering Wasteland":0,"Stellar Square":0};
-var toggleHeroCard=false;
-localStorage.getItem("heroCard")&&(toggleHeroCard=eval(localStorage.getItem("heroCard")));
-var toggleLeaderboard=false;
-localStorage.getItem("leaderboard")&&(toggleLeaderboard=eval(localStorage.getItem("leaderboard")));
-var toggleAreaInfo=false;
-localStorage.getItem("areaInfo")&&(toggleAreaInfo=eval(localStorage.getItem("areaInfo")));
-var toggleChat=false;
-localStorage.getItem("chat")&&(toggleChat=eval(localStorage.getItem("chat")));
-var toggleMap=false;
-localStorage.getItem("map")&&(toggleMap=eval(localStorage.getItem("map")));
-var toggleMinimapMode=false;
-localStorage.getItem("minimapMode")&&(toggleMinimapMode=eval(localStorage.getItem("minimapMode")));
 var lastTime=0,ti=0
 function arrow(e, a, t, r, c, o=2, n=15, $="#cc000088", _="#FF0000") {
 	if(a==r&&t==c)return;
@@ -71,6 +59,18 @@ var errorFX=loadImage('https://s.jezevec10.com/res/se2/topout.mp3');
 var VFX=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/mus_gameOver.ogg");
 VFX.loop=1;
 var le=0;
+var toggleHeroCard=false;
+localStorage.getItem("heroCard")&&(toggleHeroCard=eval(localStorage.getItem("heroCard")));
+var toggleLeaderboard=false;
+localStorage.getItem("leaderboard")&&(toggleLeaderboard=eval(localStorage.getItem("leaderboard")));
+var toggleAreaInfo=false;
+localStorage.getItem("areaInfo")&&(toggleAreaInfo=eval(localStorage.getItem("areaInfo")));
+var toggleChat=false;
+localStorage.getItem("chat")&&(toggleChat=eval(localStorage.getItem("chat")));
+var toggleMap=false;
+localStorage.getItem("map")&&(toggleMap=eval(localStorage.getItem("map")));
+var toggleMinimapMode=false;
+localStorage.getItem("minimapMode")&&(toggleMinimapMode=eval(localStorage.getItem("minimapMode")));
 function render() {
   const delta=performance.now()-le;le=performance.now();
   var actually=delta*isActive;
@@ -126,11 +126,9 @@ var selfPlayer=map.players.filter(e=>e.id==window.selfId)[0];
     camY += camSpeed / camScale * (keysDown.has(controls.CAM_DOWN) - keysDown.has(controls.CAM_UP));
   }else{
   if(!selfPlayer&&!window.selfId){
-	  var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0];
-	  if(!safezone)safezone=map.areas[0].zones[0];
+	  var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0]??map.areas[0].zones[0];
 var player=new SimulatedPlayer(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),1);
-selfPlayer=player;
-window.selfId=player.id;
+selfPlayer=player;window.selfId=player.id;
 map.players.push(player)
 	  evadesRenderer.heroInfoCard.abilityOne=new $097def8f8d652b17$export$2e2bcd8739ae039;
 	  evadesRenderer.heroInfoCard.abilityTwo=new $097def8f8d652b17$export$2e2bcd8739ae039;
@@ -143,11 +141,10 @@ map.players.push(player)
 spawnEntities(player.area)
 };
   
-  if(!selfPlayer&&window.selfId){playtesting=false;
-    menu.hidden=playtesting;selfId*=0;
-    camX=window.tempCamPos.x,camY=window.tempCamPos.y,current_Area=window.tempCamPos.area;
-spawnEntities(current_Area)}
-else {
+if(!selfPlayer&&window.selfId){playtesting=false;
+menu.hidden=playtesting;selfId*=0;
+camX=window.tempCamPos.x,camY=window.tempCamPos.y,current_Area=window.tempCamPos.area;
+spawnEntities(current_Area)}else{
   camX=selfPlayer.x;
   camY=selfPlayer.y;
   selfPlayer.isLocalPlayer=true;
@@ -155,58 +152,63 @@ else {
   camScale=Math.min(window.innerHeight/720,window.innerWidth/1280);
 }
   }
+  //1. Render Area
+  const area=map.areas[current_Area];
+  var prop=(e,t)=>(e.properties[t]??propDefault(t));
+  var propDefault=(t)=>(defaultValues.properties[t]);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = tileMode.selectedIndex>>1?"#050505FF":"#333333FF";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  for (var j in map.areas[current_Area].zones) {
-    var texture="normal";
-    if((map.areas[current_Area].zones[j].properties.texture ?? defaultValues.properties.texture)!=defaultValues.properties.texture)texture=map.areas[current_Area].zones[j].properties.texture ?? defaultValues.properties.texture;
-    else if((map.areas[current_Area].properties.texture ?? defaultValues.properties.texture)!=defaultValues.properties.texture)texture=map.areas[current_Area].properties.texture ?? defaultValues.properties.texture;
-    else texture=map.properties.texture ?? defaultValues.properties.texture;
-    var p = ctx.createPattern(zoneconsts[texture][map.areas[current_Area].zones[j].type], null)
+  for (var zone of map.areas[current_Area].zones) {
+    var texture;
+    if(prop(zone,"texture")!=propDefault("texture"))texture=prop(zone,"texture");
+    else if(prop(area,"texture")!=propDefault("texture"))texture=prop(area,"texture");
+    else texture=prop(map,"texture");
+    var p = ctx.createPattern(zoneconsts[texture][zone.type], null)
     ctx.beginPath();
     ctx.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
     ctx.scale(camScale, camScale);
-    ctx.fillStyle = ((tileMode.selectedIndex&1)&&texture=="normal")?zoneColors[tileMode.selectedIndex>>1][map.areas[current_Area].zones[j].type]:p;
+    ctx.fillStyle = ((tileMode.selectedIndex&1)&&texture=="normal")?zoneColors[tileMode.selectedIndex>>1][zone.type]:p;
     ctx.rect(
-      map.areas[current_Area].zones[j].x,
-      map.areas[current_Area].zones[j].y,
-      map.areas[current_Area].zones[j].width,
-      map.areas[current_Area].zones[j].height
+      zone.x,
+      zone.y,
+      zone.width,
+      zone.height
     );
     ctx.fill();
     ctx.resetTransform();
-    if (arrayToInt32(map.areas[current_Area].zones[j].properties.background_color ?? defaultValues.properties.background_color)!=0) {
-      ctx.fillStyle = RGBAtoHex(map.areas[current_Area].zones[j].properties.background_color ?? defaultValues.properties.background_color)
-    } else if (arrayToInt32(map.areas[current_Area].properties.background_color ?? defaultValues.properties.background_color)!=0) { 
-      ctx.fillStyle = RGBAtoHex(map.areas[current_Area].properties.background_color ?? defaultValues.properties.background_color) 
-    } else { 
-      ctx.fillStyle = RGBAtoHex(map.properties.background_color ?? defaultValues.properties.background_color) 
+    if (RGBAtoHex(prop(zone,"background_color"))!="#00000000") {
+      ctx.fillStyle = RGBAtoHex(prop(zone,"background_color"))
+    } else if (RGBAtoHex(prop(area,"background_color"))!="#00000000") {
+      ctx.fillStyle = RGBAtoHex(prop(area,"background_color"))
+    } else {
+      ctx.fillStyle = RGBAtoHex(prop(map,"background_color"));
     };
     ctx.fillRect(
-      canvas.width / 2 + (map.areas[current_Area].zones[j].x - camX) * camScale,
-      canvas.height / 2 + (map.areas[current_Area].zones[j].y - camY) * camScale,
-      map.areas[current_Area].zones[j].width * camScale,
-      map.areas[current_Area].zones[j].height * camScale
+      canvas.width/2+(zone.x-camX)*camScale,
+      canvas.height/2+(zone.y-camY)*camScale,
+      zone.width*camScale,
+      zone.height*camScale
     );
     ctx.closePath();
   }
+  //2. Render Entities
   [ctxE,ctxL].map(e=>e.clearRect(0,0,innerWidth,innerHeight));
   ctxE.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
   ctxE.scale(camScale, camScale);
   ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
-  var entities=sortEntitiesByZIndex([...map.areas[current_Area].entities,...map.players]);
+  var entities=sortEntitiesByZIndex([...area.entities,...map.players]);
   entities.map(e=>{
     e.renderEffects(ctxE,{x:0,y:0});
   });
   entities.map(e=>{
     e.render(ctxE,{x:0,y:0});
   });
-  var enemyError=false;
   ctxE.resetTransform();
   ctx.drawImage(canvasEntityLayer,0,0);
-  if(map.areas[current_Area].properties.lighting < 1){
-	evadesRenderer.dynamicLighting.lighting = map.areas[current_Area].properties.lighting,
+  //3. Render Lighting
+  if(prop(area,"lighting") < 1){
+	evadesRenderer.dynamicLighting.lighting = prop(area,"lighting"),
 	evadesRenderer.dynamicLighting.circleLightSources.length = 0,
 	evadesRenderer.dynamicLighting.coneLightSources.length = 0,
 	evadesRenderer.dynamicLighting.rectangleLightSources.length = 0;
@@ -218,34 +220,37 @@ else {
 			e.hasLight && (e.cone && evadesRenderer.dynamicLighting.addConeLightSource(t.x, t.y, t.radius, e.inputAngle, e.cone.innerAngle * Math.PI / 180, e.cone.distance),
 			e.circle && evadesRenderer.dynamicLighting.addCircleLightSource(e.circle.radius, t.x, t.y))
 	}
-	evadesRenderer.dynamicLighting.render(ctxL, {x:0,y:0}),
+	evadesRenderer.dynamicLighting.render(ctxL,{x:0,y:0}),
 	ctx.globalCompositeOperation = "destination-in",
 	ctx.drawImage(canvasLighting, 0, 0),
 	ctx.globalCompositeOperation = "source-over"
   }
-  evadesRenderer.snowRenderer.update(map.areas[current_Area], ctx, { x: -camX * camScale, y: -camY * camScale })
+  //4. Render Snow
+  evadesRenderer.snowRenderer.update(area,ctx,{x:-camX*camScale,y:-camY*camScale})
   evadesRenderer.snowRenderer.render(ctx)
-  ctx.lineWidth = 2;
-  ctx.strokeStyle = ((map.areas[current_Area].properties.lighting??defaultValues.properties.lighting) > 0.5&&(tileMode.selectedIndex>>1==0)) ? "black" : "white";
-  map.areas[current_Area].zones.length==0&&ctx.strokeRect(canvas.width / 2 - camX * camScale,canvas.height / 2 - camY * camScale,snapX.valueAsNumber*camScale,snapY.valueAsNumber*camScale);
+  //5. Render HUD
+  ctx.lineWidth=2;
+  var col = prop(area,"lighting") > 0.5 && !tileMode.selectedIndex>>1 ? "black" : "white";
+  ctx.strokeStyle=col;
+  !area.zones.length&&ctx.strokeRect(canvas.width / 2 - camX * camScale,canvas.height / 2 - camY * camScale,settings.snapX*camScale,settings.snapY*camScale);
   if (hitbox&&!playtesting) {
-    for (let i in map.areas) {
-      for (let j in map.areas[i].zones) {
+    for (var Area of map.areas) {
+      for (var zone of Area.zones) {
         ctx.strokeRect(
-          canvas.width / 2 + (map.areas[i].x - map.areas[current_Area].x + map.areas[i].zones[j].x - camX) * camScale,
-          canvas.height / 2 + (map.areas[i].y - map.areas[current_Area].y + map.areas[i].zones[j].y - camY) * camScale,
-          map.areas[i].zones[j].width * camScale,
-          map.areas[i].zones[j].height * camScale
+          canvas.width / 2 + (Area.x - area.x + zone.x - camX) * camScale,
+          canvas.height / 2 + (Area.y - area.y + zone.y - camY) * camScale,
+          zone.width * camScale,
+          zone.height * camScale
         );
       }
-      for (let k in map.areas[i].assets) {
-        switch (map.areas[i].assets[k].type) {
+      for (var asset of Area.assets) {
+        switch (asset.type) {
           case "flashlight_spawner":
           case "torch": {
             ctx.beginPath()
             ctx.ellipse(
-              canvas.width / 2 + (map.areas[i].x - map.areas[current_Area].x + map.areas[i].assets[k].x - camX) * camScale,
-              canvas.height / 2 + (map.areas[i].y - map.areas[current_Area].y + map.areas[i].assets[k].y - camY) * camScale,
+              canvas.width / 2 + (Area.x - area.x + assets.x - camX) * camScale,
+              canvas.height / 2 + (Area.y - area.y + assets.y - camY) * camScale,
               16 * camScale, 16 * camScale, 0, 0, Math.PI * 2
             );
             ctx.stroke();
@@ -254,10 +259,10 @@ else {
           }
           default: {
             ctx.strokeRect(
-              canvas.width / 2 + (map.areas[i].x - map.areas[current_Area].x + map.areas[i].assets[k].x - camX) * camScale,
-              canvas.height / 2 + (map.areas[i].y - map.areas[current_Area].y + map.areas[i].assets[k].y - camY) * camScale,
-              map.areas[i].assets[k].width * camScale,
-              map.areas[i].assets[k].height * camScale
+              canvas.width / 2 + (Area.x - area.x + asset.x - camX) * camScale,
+              canvas.height / 2 + (Area.y - area.y + asset.y - camY) * camScale,
+              asset.width * camScale,
+              asset.height * camScale
             );
           }
         }
@@ -341,23 +346,22 @@ else {
           selectedObject.width * camScale,
           selectedObject.height * camScale
         );
-      }
+      };break;
     }
   };
-  /*var bound=map.areas[current_Area].BoundingBox;
+  var bound=getAreaBoundary(area);
   ctx.strokeStyle = "#00FF00FF";
   hitbox&&ctx.strokeRect(
     canvas.width / 2 + (bound.left - camX) * camScale - ctx.lineWidth,
     canvas.height / 2 + (bound.top - camY) * camScale - ctx.lineWidth,
     bound.width * camScale + ctx.lineWidth * 2,
     bound.height * camScale + ctx.lineWidth * 2
-  );*/
-  var prop=(e,t)=>(e.properties[t]??defaultValues.properties[t]);
+  );
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  if (arrayToInt32(prop(map.areas[current_Area],"background_color"))) {
-    ctx.strokeStyle = arrtoHex(prop(map.areas[current_Area],"background_color"));
-    ctx.fillStyle = luma(prop(map.areas[current_Area],"background_color")) > 128 ? "#000" :"#FFF";
+  if (arrayToInt32(prop(area,"background_color"))) {
+    ctx.strokeStyle = arrtoHex(prop(area,"background_color"));
+    ctx.fillStyle = luma(prop(area,"background_color")) > 128 ? "#000" :"#FFF";
   } else {
     ctx.strokeStyle = arrtoHex(prop(map,"background_color"));
     ctx.fillStyle = luma(prop(map,"background_color")) > 128 ? "#000" :"#FFF";
