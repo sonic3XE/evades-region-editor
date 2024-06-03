@@ -153,50 +153,18 @@ spawnEntities(current_Area)}else{
 }
   }
   //1. Render Area
+  var matrix=new DOMMatrix([camScale,0,0,camScale,canvas.width/2-camX*camScale,canvas.height/2-camY*camScale]);
   const area=map.areas[current_Area];
   var prop=(e,t)=>(e.properties[t]??propDefault(t));
   var propDefault=(t)=>(defaultValues.properties[t]);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = tileMode.selectedIndex>>1?"#050505FF":"#333333FF";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  for (var zone of map.areas[current_Area].zones) {
-    var texture;
-    if(prop(zone,"texture")!=propDefault("texture"))texture=prop(zone,"texture");
-    else if(prop(area,"texture")!=propDefault("texture"))texture=prop(area,"texture");
-    else texture=prop(map,"texture");
-    var p = ctx.createPattern(zoneconsts[texture][zone.type], null)
-    ctx.beginPath();
-    ctx.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
-    ctx.scale(camScale, camScale);
-    ctx.fillStyle = ((tileMode.selectedIndex&1)&&texture=="normal")?zoneColors[tileMode.selectedIndex>>1][zone.type]:p;
-    ctx.rect(
-      zone.x,
-      zone.y,
-      zone.width,
-      zone.height
-    );
-    ctx.fill();
-    ctx.resetTransform();
-    if (RGBAtoHex(prop(zone,"background_color"))!="#00000000") {
-      ctx.fillStyle = RGBAtoHex(prop(zone,"background_color"))
-    } else if (RGBAtoHex(prop(area,"background_color"))!="#00000000") {
-      ctx.fillStyle = RGBAtoHex(prop(area,"background_color"))
-    } else {
-      ctx.fillStyle = RGBAtoHex(prop(map,"background_color"));
-    };
-    ctx.fillRect(
-      canvas.width/2+(zone.x-camX)*camScale,
-      canvas.height/2+(zone.y-camY)*camScale,
-      zone.width*camScale,
-      zone.height*camScale
-    );
-    ctx.closePath();
-  }
+  var b=Object.keys(zoneconsts).indexOf.bind([]);
+  for(var zone of area.zones){var texture=b(prop(zone,"texture"))?prop(zone,"texture"):b(prop(area,"texture"))?prop(area,"texture"):prop(map,"texture"),p=ctx.createPattern(zoneconsts[texture][zone.type],null);p.setTransform(matrix),ctx.beginPath(),ctx.fillStyle=((tileMode.selectedIndex&1)&&texture=="normal")?zoneColors[tileMode.selectedIndex>>1][zone.type]:p,ctx.rect(canvas.width/2+(zone.x-camX)*camScale,canvas.height/2+(zone.y-camY)*camScale,zone.width*camScale,zone.height*camScale),ctx.fill(),ctx.fillStyle = RGBAtoHex(arrayToInt32(prop(zone,"background_color"))?prop(zone,"background_color"):arrayToInt32(prop(area,"background_color"))?prop(area,"background_color"):prop(map,"background_color")),ctx.fill(),ctx.closePath()}
   //2. Render Entities
+  ctxE.resetTransform();
   [ctxE,ctxL].map(e=>e.clearRect(0,0,innerWidth,innerHeight));
-  ctxE.translate(canvas.width / 2 - camX * camScale, canvas.height / 2 - camY * camScale);
-  ctxE.scale(camScale, camScale);
-  ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
+  ctxE.setTransform(matrix);ctxE.textAlign="center";ctxE.textBaseline="alphabetic";
   var entities=sortEntitiesByZIndex([...area.entities,...map.players]);
   entities.map(e=>{
     e.renderEffects(ctxE,{x:0,y:0});
@@ -204,7 +172,6 @@ spawnEntities(current_Area)}else{
   entities.map(e=>{
     e.render(ctxE,{x:0,y:0});
   });
-  ctxE.resetTransform();
   ctx.drawImage(canvasEntityLayer,0,0);
   //3. Render Lighting
   if(prop(area,"lighting") < 1){
@@ -230,7 +197,7 @@ spawnEntities(current_Area)}else{
   evadesRenderer.snowRenderer.render(ctx)
   //5. Render HUD
   ctx.lineWidth=2;
-  var col = prop(area,"lighting") > 0.5 && !tileMode.selectedIndex>>1 ? "black" : "white";
+  var col = (prop(area,"lighting")>0.5)*((tileMode.selectedIndex>>1)==0) ? "black" : "white";
   ctx.strokeStyle=col;
   !area.zones.length&&ctx.strokeRect(canvas.width / 2 - camX * camScale,canvas.height / 2 - camY * camScale,settings.snapX*camScale,settings.snapY*camScale);
   if (hitbox&&!playtesting) {
@@ -300,8 +267,7 @@ spawnEntities(current_Area)}else{
       case "torch": {
         ctx.beginPath();
         ctx.ellipse(
-          canvas.width / 2 + (selectedObject.x - camX) * camScale,
-          canvas.height / 2 + (selectedObject.y - camY) * camScale,
+          ...pos(selectedObject),
           16 * camScale, 16 * camScale, 0, 0, Math.PI * 2
         );
         ctx.stroke();
@@ -333,19 +299,14 @@ spawnEntities(current_Area)}else{
         arrow(ctx,
           canvas.width / 2 + (selectedObject.x+selectedObject.width/2 - camX) * camScale,
           canvas.height / 2 + (selectedObject.y+selectedObject.height/2 - camY) * camScale,
-          canvas.width / 2 + (selectedObject.x+selectedObject.width/2 + selectedObject.translate.x - camX) * camScale,
-          canvas.height / 2 + (selectedObject.y+selectedObject.height/2 + selectedObject.translate.y - camY) * camScale,
+          canvas.width / 2 + (selectedObject.x+selectedObject.width/2+selectedObject.translate.x - camX) * camScale,
+          canvas.height / 2 + (selectedObject.y+selectedObject.height/2+selectedObject.translate.y - camY) * camScale,
           32*camScale,2,"#000000","#FF00FF"
         );
         break;
       }
       default: {
-        ctx.strokeRect(
-          canvas.width / 2 + (selectedObject.x - camX) * camScale,
-          canvas.height / 2 + (selectedObject.y - camY) * camScale,
-          selectedObject.width * camScale,
-          selectedObject.height * camScale
-        );
+        ctx.strokeRect(...rect(selectedObject));
       };break;
     }
   };
@@ -366,15 +327,15 @@ spawnEntities(current_Area)}else{
     ctx.strokeStyle = arrtoHex(prop(map,"background_color"));
     ctx.fillStyle = luma(prop(map,"background_color")) > 128 ? "#000" :"#FFF";
   };
-  var areaname=String(map.areas[current_Area].name||(current_Area+1));
+  var areaname=String(area.name||(current_Area+1));
   let rs = `Area ${areaname}`;
   isNaN(parseInt(areaname)) && (rs = areaname);
   let cs = `${map.name}: ${rs}`;
   map.areas.length==1 && (cs = `${map.name}`);
   map.name.length || (cs = rs);
-  map.areas[current_Area].zones.filter(e=>e.type=="victory").length?(cs=`${map.name}: Victory!`):false&&(cs=`${map.name}: BOSS AREA ${rs}`);
-  !playtesting&&(ctx.lineWidth=6,ctx.font=`bold 35px tah`,ctx.strokeText(cs,canvas.width/2,20),ctx.fillText(cs,canvas.width/2,20),ctx.font="bold 25px tah",ctx.strokeText(`# of zones: ${map.areas[current_Area].zones.length}`,canvas.width/2,55),ctx.fillText(`# of zones: ${map.areas[current_Area].zones.length}`,canvas.width/2,55),ctx.strokeText(`# of assets: ${map.areas[current_Area].assets.length}`,canvas.width/2,80),ctx.fillText(`# of assets: ${map.areas[current_Area].assets.length}`,canvas.width/2,80));
-  ctx.lineWidth=camScale,ctx.textBaseline="alphabetic",playtesting&&(evadesRenderer.directionalIndicatorHud.update(map.players,{id:selfPlayer.id,entity:selfPlayer},map.areas[selfPlayer.area]),evadesRenderer.titleText.unionState({...selfPlayer,regionName:map.name,areaNumber:current_Area+1,areaName:map.areas[current_Area].name||String(current_Area+1)}),evadesRenderer.experienceBar.unionState(selfPlayer),evadesRenderer.heroInfoCard.unionState(selfPlayer),evadesRenderer.minimap.update(map.players,map.areas[selfPlayer.area].entities,{entity:selfPlayer},map.areas[selfPlayer.area]),evadesRenderer.minimap.unionState({x:map.areas[selfPlayer.area].x+selfPlayer.x,y:map.areas[selfPlayer.area].y+selfPlayer.y}),evadesRenderer.map.update(map.players,{entity:selfPlayer},map.areas[selfPlayer.area]),evadesRenderer.areaInfo.update({entity:selfPlayer},map.areas[selfPlayer.area]),evadesRenderer.bottomText.unionState(selfPlayer),evadesRenderer.directionalIndicatorHud.render(ctx,{viewportSize:canvas},{}),evadesRenderer.titleText.render(ctx,{viewportSize:canvas},{}),evadesRenderer.experienceBar.render(ctx,{viewportSize:canvas},global),evadesRenderer.bottomText.render(ctx,{viewportSize:canvas},global),evadesRenderer.heroInfoCard.render(ctx,{viewportSize:canvas},global,actually),evadesRenderer.minimap.render(ctx,actually),evadesRenderer.map.render(ctx,{viewportSize:canvas},global),evadesRenderer.areaInfo.render(ctx,{viewportSize:canvas},global));
+  area.zones.filter(e=>e.type=="victory").length?(cs=`${map.name}: Victory!`):false&&(cs=`${map.name}: BOSS AREA ${rs}`);
+  !playtesting&&(ctx.lineWidth=6,ctx.font=`bold 35px tah`,ctx.strokeText(cs,canvas.width/2,20),ctx.fillText(cs,canvas.width/2,20),ctx.font="bold 25px tah",ctx.strokeText(`# of zones: ${area.zones.length}`,canvas.width/2,55),ctx.fillText(`# of zones: ${area.zones.length}`,canvas.width/2,55),ctx.strokeText(`# of assets: ${area.assets.length}`,canvas.width/2,80),ctx.fillText(`# of assets: ${area.assets.length}`,canvas.width/2,80));
+  ctx.lineWidth=camScale,ctx.textBaseline="alphabetic",playtesting&&(evadesRenderer.directionalIndicatorHud.update(map.players,{id:selfPlayer.id,entity:selfPlayer},area),evadesRenderer.titleText.unionState({...selfPlayer,regionName:map.name,areaNumber:current_Area+1,areaName:area.name||String(current_Area+1)}),evadesRenderer.experienceBar.unionState(selfPlayer),evadesRenderer.heroInfoCard.unionState(selfPlayer),evadesRenderer.minimap.update(map.players,area.entities,{entity:selfPlayer},area),evadesRenderer.minimap.unionState({x:area.x+selfPlayer.x,y:area.y+selfPlayer.y}),evadesRenderer.map.update(map.players,{entity:selfPlayer},area),evadesRenderer.areaInfo.update({entity:selfPlayer},area),evadesRenderer.bottomText.unionState(selfPlayer),evadesRenderer.directionalIndicatorHud.render(ctx,{viewportSize:canvas},{}),evadesRenderer.titleText.render(ctx,{viewportSize:canvas},{}),evadesRenderer.experienceBar.render(ctx,{viewportSize:canvas},global),evadesRenderer.bottomText.render(ctx,{viewportSize:canvas},global),evadesRenderer.heroInfoCard.render(ctx,{viewportSize:canvas},global,actually),evadesRenderer.minimap.render(ctx,actually),evadesRenderer.map.render(ctx,{viewportSize:canvas},global),evadesRenderer.areaInfo.render(ctx,{viewportSize:canvas},global));
   ctx.strokeStyle="#000",ctx.lineWidth=4,ctx.font="bold 20px tah",isForked&&(ctx.textAlign="right",ctx.fillStyle="white",ctx.globalAlpha=0.1,ctx.strokeText("Made by Sonic3XE", canvas.width-10, canvas.height-52),ctx.fillText("Made by Sonic3XE", canvas.width-10, canvas.height-52),ctx.globalAlpha=1);
   ctx.textAlign="left",assetsLoaded.count/21!=1&&(ctx.fillRect(10,canvas.height-20,assetsLoaded.count/21*200,10),ctx.fillText("Loading...",assetsLoaded.count/21*200+15,canvas.height-10));
   !playtesting&&alertMessages.map((e,t,a)=>{ctx.fillStyle=e.color;ctx.strokeText(`${e.text}`,10,canvas.height-20-20*(a.length-t),canvas.width-20);ctx.fillText(`${e.text}`,10,canvas.height-20-20*(a.length-t),canvas.width-20)});
