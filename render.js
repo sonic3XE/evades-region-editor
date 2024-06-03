@@ -306,7 +306,7 @@ spawnEntities(current_Area)}else{
         break;
       }
       default: {
-        ctx.strokeRect(...rect(selectedObject));
+        ctx.strokeRect(canvas.width/2+(selectedObject.x-camX)*camScale,canvas.height/2+(selectedObject.y-camY)*camScale,selectedObject.width*camScale,selectedObject.height*camScale);
       };break;
     }
   };
