@@ -166,7 +166,7 @@ function mapToJSON(map) {
     for (let area of map.areas) {
         areas.push(areaToJSON(area));
     }
-    return `{"name":"${map.name}","properties":${JSON.stringify(res)},"areas":[${areas.join()}]}`.replaceAll('"properties":{},',"");
+    return `{"name":${JSON.stringify(map.name)},"properties":${JSON.stringify(res)},"areas":[${areas.join()}]}`.replaceAll('"properties":{},',"");
 }
 
 /**
@@ -206,7 +206,7 @@ function areaToJSON(area) {
       res[props[i]]=area.properties[props[i]]
     }
   }
-  return `{${(area.name==""||area.name==void 0)?"":`"name":"${area.name}",`}"properties":${JSON.stringify(res)},"x":${typeof area.rx=="number"?area.rx:''.concat('"',area.rx,'"')},"y":${typeof area.ry=="number"?area.ry:''.concat('"',area.ry,'"')},"zones":[${objects.join()}],"assets":[${assets.join()}]}`.replace(`,"assets":[]`,"");
+  return `{${(area.name==""||area.name==void 0)?"":`"name":${JSON.stringify(area.name)},`}"properties":${JSON.stringify(res)},"x":${typeof area.rx=="number"?area.rx:''.concat('"',area.rx,'"')},"y":${typeof area.ry=="number"?area.ry:''.concat('"',area.ry,'"')},"zones":[${objects.join()}],"assets":[${assets.join()}]}`.replace(`,"assets":[]`,"");
 }
 
 /**
