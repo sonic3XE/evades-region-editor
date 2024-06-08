@@ -509,23 +509,28 @@ grid-row-gap: 0px;
     top: 0;
     left: 0;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
     border-radius: 2px;
     overflow: hidden;
     background: #202020;
+}
+#contextmenu{
+	width:300px;
+	border-collapse:collapse;
 }
 #contextmenu button {
     background: #202020;
     color: #ffffff;
     border: none;
     cursor: pointer;
-    text-align: left;
-    padding: 5px;
-    width: 200px;
+    text-align: center;
+	width:100%;
 }
 #contextmenu button:hover {
     background: #303030;
+}
+#contextmenu button:disabled {
+    color: #FFFFFF40;
+    cursor: not-allowed;
 }
 #contextmenu.hidden {
     display: none;
@@ -545,6 +550,9 @@ grid-row-gap: 0px;
     }
     #contextmenu button:hover {
         background: #c0c0c0;
+    }
+    #contextmenu button:disabled {
+        color: #20202040;
     }
 }
 

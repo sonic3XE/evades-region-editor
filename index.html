@@ -232,20 +232,25 @@
             <label for="posX">X: <input id="posX" style="width:100px"></label><br>
             <label for="posY">Y: <input id="posY" style="width:100px"></label>
         </p>-->
-        <div id="contextmenu" class="hidden">
-            <button id="deleteArea">Delete Current Area</button>
-            <button id="duplicateArea">Duplicate Current Area</button>
-            <div id="objectActions">
-                <button id="deleteObject">Delete Selected Object</button>
-                <button id="duplicateObject">Duplicate Selected Object</button>
-            </div>
-            <button id="createZone">Create Zone</button>
-            <button id="createWall">Create Wall</button>
-            <button id="createLightRegion">Create Light Region</button>
-            <button id="createFlashlightSpawner">Create Flashlight Spawner</button>
-            <button id="createTorch">Create Torch</button>
-            <button id="createGate" hidden>Create Gate</button>
-            <button id="createArea">Create New Area</button>
+        <table id="contextmenu" class="hidden">
+			<tbody>
+			<tr><th colspan="6">Object Actions</th></tr>
+			<tr>
+				<td colspan="2"><button id="deleteObject">Delete</button></td>
+				<td colspan="2"><button id="rotateObject">Rotate</button></td>
+				<td colspan="2"><button id="duplicateObject">Duplicate</button></td>
+			</tr>
+			<tr><th colspan="6">Create...</th></tr>
+			<tr>
+				<td colspan="3"><button id="createZone">Create Zone</button></td>
+				<td colspan="3"><button id="createAsset">Create Asset</button></td>
+			</tr>
+			<tr><th colspan="6">Area Actions</th></tr>
+			<tr>
+				<td colspan="2"><button id="createArea">Add Area</button></td>
+				<td colspan="2"><button id="duplicateArea">Duplicate Area</button></td>
+				<td colspan="2"><button id="deleteArea">Remove Area</button></td>
+			</tr>
         </div>
 		<!--
 		<div><div id="chat" style="transform-origin: 0% 0%; transform: scale(1); left: 55px; top: 10px; visibility: visible;"><div id="chat-window"></div><input id="chat-input" type="text" autocomplete="off" placeholder="Press enter to chat" maxlength="160"></div></div>

@@ -72,17 +72,13 @@ const importInput = document.getElementById("import");
 const contextmenu = document.getElementById("contextmenu");
 const contextBtns = {
   zone: document.getElementById("createZone"),
-  wallAsset: document.getElementById("createWall"),
-  lightRegion: document.getElementById("createLightRegion"),
-  flashlightSpawner: document.getElementById("createFlashlightSpawner"),
-  torch: document.getElementById("createTorch"),
-  gate: document.getElementById("createGate"),
+  asset: document.getElementById("createAsset"),
+  deleteObject: document.getElementById("deleteObject"),
+  duplicateObject: document.getElementById("duplicateObject"),
+  rotateObject: document.getElementById("rotateObject"),
   area: document.getElementById("createArea"),
   deleteArea: document.getElementById("deleteArea"),
   duplicateArea: document.getElementById("duplicateArea"),
-  deleteObject: document.getElementById("deleteObject"),
-  duplicateObject: document.getElementById("duplicateObject"),
-  objectActions: document.getElementById("objectActions"),
 };
 
 const togglebottommenu = document.getElementById("togglebottommenu");
@@ -615,11 +611,10 @@ canvas.addEventListener("contextmenu", e => {
   contextmenu.style.top = e.y + 1 + "px";
   var eng="Active,Safe,Exit,Teleport,Victory,Removal,Dummy,Wall,Light_region,Flashlight_spawner,Torch,Gate".split(",");
   var рус="Актив,Сафе,Эксит,Телепорт,Викторэ,Ремовал,Думми,Валл,Лигхт_регион,Флашлигхт_cпавнер,Торч,Гате".split(",");
-  if (selectedObject) show(contextBtns.objectActions);
-  else hide(contextBtns.objectActions);
-  if (selectedObject) contextBtns.deleteObject.innerHTML = `${window.русский?"Делете Селектед Объект":"Delete Selected Object"}<br>(${window.русский?рус[eng.indexOf(capitalise(selectedObject.type))]:capitalise(selectedObject.type)})`;
-  if (map.areas.length === 1) hide(contextBtns.deleteArea);
-  else show(contextBtns.deleteArea);
+  contextBtns.duplicateObject.disabled=!selectedObject;
+  contextBtns.deleteObject.disabled=!selectedObject;
+  contextBtns.rotateObject.disabled=(!selectedObject||isNaN(parseInt(selectedObject.rw))||isNaN(parseInt(selectedObject.rh)));
+  contextBtns.deleteArea.disabled=map.areas.length==1;
 
   show(contextmenu);updateMouseEntity=false;
 });
@@ -1197,11 +1192,7 @@ if(t=="region"){
 }
 
 contextBtns.zone.addEventListener("click", e => addZone("active"));
-contextBtns.wallAsset.addEventListener("click", e => addAsset("wall"));
-contextBtns.lightRegion.addEventListener("click", e => addAsset("light_region"));
-contextBtns.flashlightSpawner.addEventListener("click", e => addAsset("flashlight_spawner"));
-contextBtns.torch.addEventListener("click", e => addAsset("torch"));
-contextBtns.gate.addEventListener("click", e => addAsset("gate"));
+contextBtns.asset.addEventListener("click", e => addAsset("wall"));
 contextBtns.duplicateArea.addEventListener("click", () => {
   var area=map.areas[current_Area];
   map.areas.push(createArea(JSON.parse(areaToJSON(area))));
@@ -1242,6 +1233,29 @@ contextBtns.duplicateObject.addEventListener("click", () => {
     selectedObject=sel;
     selectedObject.createGUI(sel);
     objectmenu.appendChild(selectedObject.element);
+  }
+  updateMap();
+});
+contextBtns.rotateObject.addEventListener("click", () => {
+  var sel;
+  if (!selectedObject) return;
+  if(selectedObject.isAsset){
+	  var width=selectedObject.width;
+	  var height=selectedObject.height;
+	  selectedObject.height=width;
+	  selectedObject.width=height;
+	  selectedObject.inputs.width.value=selectedObject.width;
+	  selectedObject.inputs.height.value=selectedObject.height;
+  }else{
+	  var width=selectedObject.rw;
+	  var height=selectedObject.rh;
+	  if(isNaN(parseInt(width))||isNaN(parseInt(height)))return;
+	  selectedObject.rh=width;
+	  selectedObject.height=width;
+	  selectedObject.rw=height;
+	  selectedObject.width=height;
+	  selectedObject.inputs.width.value=selectedObject.rw;
+	  selectedObject.inputs.height.value=selectedObject.rh;
   }
   updateMap();
 });
