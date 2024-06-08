@@ -229,8 +229,8 @@ spawnEntities(current_Area)}else{
           case "torch": {
             ctx.beginPath()
             ctx.ellipse(
-              canvas.width / 2 + (Area.x - area.x + assets.x - camX) * camScale,
-              canvas.height / 2 + (Area.y - area.y + assets.y - camY) * camScale,
+              canvas.width / 2 + (Area.x - area.x + asset.x - camX) * camScale,
+              canvas.height / 2 + (Area.y - area.y + asset.y - camY) * camScale,
               16 * camScale, 16 * camScale, 0, 0, Math.PI * 2
             );
             ctx.stroke();
