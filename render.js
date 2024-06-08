@@ -263,34 +263,35 @@ spawnEntities(current_Area)}else{
     };
   };
   if (selectedObject&&!playtesting) {
-  ctx.lineWidth = 2;
-    ctx.strokeStyle = "#FF0000FF";
-    switch (selectedObject.type) {
-      case "flashlight_spawner":
-      case "torch": {
-        ctx.beginPath();
-        ctx.ellipse(
-          ...pos(selectedObject),
-          16 * camScale, 16 * camScale, 0, 0, Math.PI * 2
-        );
-        ctx.stroke();
-        break;
-      }
-      case "exit": {
-        ctx.strokeRect(
-          canvas.width / 2 + (selectedObject.x - camX) * camScale,
-          canvas.height / 2 + (selectedObject.y - camY) * camScale,
-          selectedObject.width * camScale,
-          selectedObject.height * camScale
-        );
-        arrow(ctx,
-          canvas.width / 2 + (selectedObject.x+selectedObject.width/2 - camX) * camScale,
-          canvas.height / 2 + (selectedObject.y+selectedObject.height/2 - camY) * camScale,
-          canvas.width / 2 + (selectedObject.x+selectedObject.width/2 + selectedObject.translate.x - camX) * camScale,
-          canvas.height / 2 + (selectedObject.y+selectedObject.height/2 + selectedObject.translate.y - camY) * camScale,
-          32*camScale,2,"#000000","#FFFF00"
-        );
-        break;
+	ctx.lineWidth = 2;
+	ctx.strokeStyle = "#FF0000FF";
+	switch (selectedObject.type) {
+	  case "flashlight_spawner":
+	  case "torch": {
+		ctx.beginPath();
+		ctx.ellipse(
+			canvas.width / 2 + (selectedObject.x - camX) * camScale,
+			canvas.height / 2 + (selectedObject.y - camY) * camScale,
+			16 * camScale, 16 * camScale, 0, 0, Math.PI * 2
+		);
+		ctx.stroke();
+		break;
+	  }
+	  case "exit": {
+		ctx.strokeRect(
+		  canvas.width / 2 + (selectedObject.x - camX) * camScale,
+		  canvas.height / 2 + (selectedObject.y - camY) * camScale,
+		  selectedObject.width * camScale,
+		  selectedObject.height * camScale
+		);
+		arrow(ctx,
+		  canvas.width / 2 + (selectedObject.x+selectedObject.width/2 - camX) * camScale,
+		  canvas.height / 2 + (selectedObject.y+selectedObject.height/2 - camY) * camScale,
+		  canvas.width / 2 + (selectedObject.x+selectedObject.width/2 + selectedObject.translate.x - camX) * camScale,
+		  canvas.height / 2 + (selectedObject.y+selectedObject.height/2 + selectedObject.translate.y - camY) * camScale,
+		  32*camScale,2,"#000000","#FFFF00"
+		);
+		break;
       }
       case "teleport": {
         ctx.strokeRect(
