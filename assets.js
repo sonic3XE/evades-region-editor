@@ -70,7 +70,7 @@ var texture=createProperty(formatString(curLang,"editor.property.texture"),null,
 				}else{
 					show(wProp),show(hProp)
 				}
-				wall.type = e
+				wall.type = e;spawnEntities()
 			},
 			selectOptions: ["wall","light_region","gate","torch","flashlight_spawner"].map(e=>[formatString(curLang,"editor.asset."+e),e]),
 			selectType: "text"
