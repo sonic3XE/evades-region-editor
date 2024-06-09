@@ -52,7 +52,6 @@ let camScale = 5 / 32;
 const camSpeed = 10;
 let camX = 0;
 let camY = 0;
-let selectedObject = null;
 let currentArea = null;
 
 const selectBuffer = 5;
@@ -379,14 +378,17 @@ canvas.addEventListener("mousedown", e => {
   if (target) {
     var temp={width:target.width,height:target.height,
 x:target.x,y:target.y};
-    if (selectedObject && "element" in selectedObject) selectedObject.element.remove();
-    selectedObject = target;
+	for(let obj in selectedObjects){
+		if (selectedObjects[obj] && "element" in selectedObjects[obj]) selectedObjects[obj].element.remove();
+	}
+	selectedObjects.includes(target) || keysDown.has(controls.FOCUS) || (selectedObjects = [])
+    selectedObjects.includes(target) || selectedObjects.push(target);
     if(target.isAsset){
       customASSETgui(target);
     }else{
       customZONEgui(target);
     }
-    objectmenu.appendChild(selectedObject.element);
+    objectmenu.appendChild(target.element);
     const { x: posX, y: posY, width: sizeX, height: sizeY } = target ?? target;
     const mouseX = Math.round((e.pageX - canvas.width / 2) / camScale + camX);
     const mouseY = Math.round((e.pageY - canvas.height / 2) / camScale + camY);
@@ -464,16 +466,16 @@ x:target.x,y:target.y};
 	window.onmousemove=u;
 	window.onmouseup=()=>{lockCursor=false;updateMap();window.onmousemove=null;window.onmouseup=null};
   } else {
-    if(selectedObject){
-      if(selectedObject.properties){
-        selectedObject.properties.element.remove()
-        delete selectedObject.properties.inputs;
-        delete selectedObject.properties.element;
+    selectedObjects.map(v=>{
+      if(v.properties){
+        v.properties.element.remove()
+        delete v.properties.inputs;
+        delete v.properties.element;
       };
-      selectedObject.element.remove();
-      delete selectedObject.element;
-      delete selectedObject.inputs;
-      selectedObject.spawner&&selectedObject.spawner.map(e=>{
+      v.element.remove();
+      delete v.element;
+      delete v.inputs;
+      v.spawner&&v.spawner.map(e=>{
 		  e.types.map(t=>{
 			  t.element.remove();
 			  delete t.element;
@@ -482,8 +484,8 @@ x:target.x,y:target.y};
 		  delete e.element;
 		  delete e.inputs
 	  });
-    };
-    selectedObject = null;
+    });
+    selectedObjects = [];
   }
 });
 
@@ -611,13 +613,14 @@ canvas.addEventListener("contextmenu", e => {
   contextmenu.style.top = e.y + 1 + "px";
   var eng="Active,Safe,Exit,Teleport,Victory,Removal,Dummy,Wall,Light_region,Flashlight_spawner,Torch,Gate".split(",");
   var рус="Актив,Сафе,Эксит,Телепорт,Викторэ,Ремовал,Думми,Валл,Лигхт_регион,Флашлигхт_cпавнер,Торч,Гате".split(",");
-  contextBtns.duplicateObject.disabled=!selectedObject;
-  contextBtns.deleteObject.disabled=!selectedObject;
-  contextBtns.rotateObject.disabled=(!selectedObject||isNaN(parseInt(selectedObject.rw))||isNaN(parseInt(selectedObject.rh)));
+  contextBtns.duplicateObject.disabled=!selectedObjects.length;
+  contextBtns.deleteObject.disabled=!selectedObjects.length;
+  contextBtns.rotateObject.disabled=selectedObjects.length==0||selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length;
   contextBtns.deleteArea.disabled=map.areas.length==1;
 
   show(contextmenu);updateMouseEntity=false;
 });
+let selectedObjects=[];
 [realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>{
 	e.addEventListener("input",(t)=>{
 		settings[t.target.id]=t.target.checked;
@@ -686,6 +689,10 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 document.addEventListener("keydown", e => {
   var camera = { x: camX, y: camY }
   if (e.target instanceof HTMLInputElement) return;
+  if(e.ctrlKey && e.which === controls.CAM_LEFT){
+	  selectedObjects.push(...map.areas[current_Area].zones,...map.areas[current_Area].assets)
+	  return;
+  }
   if (e.which === controls.PLAYTEST){
 	if(consumed_by_ink_demon)return;
     playtesting=!playtesting;
@@ -1261,20 +1268,21 @@ contextBtns.rotateObject.addEventListener("click", () => {
 });
 contextBtns.area.addEventListener("click", () => addArea());
 function deleteObject() {
-  if (selectedObject) {
+  selectedObjects.map(e=>{
     let arr = map.areas[current_Area].zones;
-    if (arr.includes(selectedObject)) {
-      arr.splice(arr.indexOf(selectedObject), 1);
-      selectedObject.element.remove();
-      selectedObject = null;
+    if (arr.includes(e)) {
+      arr[arr.indexOf(e)]=null;
+      "element" in e && e.element.remove();
     }
     let arr2 = map.areas[current_Area].assets;
-    if (arr2.includes(selectedObject)) {
-      arr2.splice(arr2.indexOf(selectedObject), 1);
-      selectedObject.element.remove();
-      selectedObject = null;
+    if (arr2.includes(e)) {
+      arr2[arr2.indexOf(e)]=null;
+      "element" in e && e.element.remove();
     }
-  }
+	map.areas[current_Area].zones=arr.filter(t=>t);
+	map.areas[current_Area].assets=arr2.filter(t=>t);
+  });
+  selectedObjects=[];
   updateMap();
 }
 contextBtns.deleteObject.addEventListener("click", () => {

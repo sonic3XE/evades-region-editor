@@ -46,15 +46,17 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
         menu.childNodes[3].childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[0].textContent=RGBtoHex(map.properties.background_color)
         map.areas = [];
         areamenu.firstChild && areamenu.removeChild(areamenu.firstChild);
-        if (selectedObject){
-          selectedObject.element.remove();
-          selectedObject.properties.element.remove();
-          delete selectedObject.element;
-          delete selectedObject.properties.element;
-          delete selectedObject.inputs;
-          delete selectedObject.properties.inputs;
+        if (selectedObjects){
+		  for(var obj2 of selectedObjects){
+            obj2.element.remove();
+            obj2.properties.element.remove();
+            delete obj2.element;
+            delete obj2.properties.element;
+            delete obj2.inputs;
+            delete obj2.properties.inputs;
+		  }
         }
-        selectedObject = null;
+        selectedObjects = [];
 		map.areas=obj.areas.map(e=>{
             return createArea(e);
 		});
