@@ -463,6 +463,18 @@ x:target.x,y:target.y};
       let lastheight=target.height;
       map.areas[current_Area].entities=[];
       resize(e);
+	  var diffx=target.x-lastx;
+	  var diffy=target.y-lasty;
+      target.x=lastx;
+      target.y=lasty;
+      target.width=lastwidth;
+      target.height=lastheight;
+	  selectedObjects.map(e=>{
+		  (!isNaN(parseInt(e.rx)))&&(e.x+=diffx);
+		  (!isNaN(parseInt(e.ry)))&&(e.y+=diffy);
+		  (!isNaN(parseInt(e.rx)))&&(e.rx=e.x);
+		  (!isNaN(parseInt(e.ry)))&&(e.ry=e.y);
+	  })
       lastx=target.x;
       lasty=target.y;
       lastwidth=target.width;
@@ -473,19 +485,19 @@ x:target.x,y:target.y};
   } else {
     selectedObjects.map(v=>{
       if(v.properties){
-        v.properties.element.remove()
+        "element" in v.properties && v.properties.element.remove();
         delete v.properties.inputs;
         delete v.properties.element;
       };
-      v.element.remove();
+      "element" in v && v.element.remove();
       delete v.element;
       delete v.inputs;
       v.spawner&&v.spawner.map(e=>{
 		  e.types.map(t=>{
-			  t.element.remove();
+			  "element" in t && t.element.remove();
 			  delete t.element;
 		  });
-		  e.element.remove();
+		  "element" in e && e.element.remove();
 		  delete e.element;
 		  delete e.inputs
 	  });
@@ -1243,28 +1255,33 @@ contextBtns.duplicateObject.addEventListener("click",()=>{
 	selectedObjects=[];
 	updateMap();
 });
-contextBtns.rotateObject.addEventListener("click", () => {
-  var sel;
-  if (!selectedObject) return;
-  if(selectedObject.isAsset){
-	  var width=selectedObject.width;
-	  var height=selectedObject.height;
-	  selectedObject.height=width;
-	  selectedObject.width=height;
-	  selectedObject.inputs.width.value=selectedObject.width;
-	  selectedObject.inputs.height.value=selectedObject.height;
-  }else{
-	  var width=selectedObject.rw;
-	  var height=selectedObject.rh;
-	  if(isNaN(parseInt(width))||isNaN(parseInt(height)))return;
-	  selectedObject.rh=width;
-	  selectedObject.height=width;
-	  selectedObject.rw=height;
-	  selectedObject.width=height;
-	  selectedObject.inputs.width.value=selectedObject.rw;
-	  selectedObject.inputs.height.value=selectedObject.rh;
-  }
-  updateMap();
+contextBtns.rotateObject.addEventListener("click",()=>{
+	var sel;
+	var e,t=0;
+	for (var o in selectedObjects) {
+		if (selectedObjects[o]) {
+			null == e && (e = o);
+			var s = (n = selectedObjects[o]).rw + 0
+			  , p = n.rh + 0;
+			n.rw = n.width = p,
+			n.rh = n.height = s;
+			var a = selectedObjects[o];
+			s = a.x - selectedObjects[e].rx + 0,
+			p = a.y - selectedObjects[e].ry + 0,
+			a.x = selectedObjects[e].x + p,
+			a.y = selectedObjects[e].y + s,
+			a.rx = selectedObjects[e].x + p,
+			a.ry = selectedObjects[e].y + s,
+			a.x + n.rw > t && (t = a.x + n.rw)
+		}
+		var nx=selectedObjects[o].translate.x,ny=selectedObjects[o].translate.y;
+		selectedObjects[o].translate.x=ny;
+		selectedObjects[o].translate.y=nx;
+		if(selectedObjects[o].inputs)
+			selectedObjects[o].inputs.tx.value=selectedObjects[o].translate.x,
+			selectedObjects[o].inputs.ty.value=selectedObjects[o].translate.y;
+	}
+	updateMap();
 });
 contextBtns.area.addEventListener("click", () => addArea());
 function deleteObject() {
@@ -1317,7 +1334,8 @@ contextBtns.deleteArea.addEventListener("click", () => {
     updateMap();
   }
 });
-loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: last_right\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: last_right\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
+//loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: last_right\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: last_right\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
+loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: 320\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: 2880\n      y: 0\n      width: 256\n      height: 480\n    - type: exit\n      x: 3136\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: 320\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: 2400\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: 2656\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
 
 /**
  * @param {SkapObject} obj
