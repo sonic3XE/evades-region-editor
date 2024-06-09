@@ -75,6 +75,9 @@ const contextBtns = {
   deleteObject: document.getElementById("deleteObject"),
   duplicateObject: document.getElementById("duplicateObject"),
   rotateObject: document.getElementById("rotateObject"),
+  copyObject: document.getElementById("copyObject"),
+  cutObject: document.getElementById("cutObject"),
+  pasteObject: document.getElementById("pasteObject"),
   area: document.getElementById("createArea"),
   deleteArea: document.getElementById("deleteArea"),
   duplicateArea: document.getElementById("duplicateArea"),
@@ -632,7 +635,10 @@ canvas.addEventListener("contextmenu", e => {
   var рус="Актив,Сафе,Эксит,Телепорт,Викторэ,Ремовал,Думми,Валл,Лигхт_регион,Флашлигхт_cпавнер,Торч,Гате".split(",");
   contextBtns.duplicateObject.disabled=!selectedObjects.length;
   contextBtns.deleteObject.disabled=!selectedObjects.length;
-  contextBtns.rotateObject.disabled=selectedObjects.length==0||selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length;
+  contextBtns.copyObject.disabled=!selectedObjects.length;
+  contextBtns.cutObject.disabled=!selectedObjects.length;
+  contextBtns.pasteObject.disabled=!copyObjects.length;
+  contextBtns.rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
   contextBtns.deleteArea.disabled=map.areas.length==1;
 
   show(contextmenu);updateMouseEntity=false;
@@ -773,26 +779,33 @@ if(playtesting){
     camX = bound.width / 2+bound.left;
     camY = bound.height / 2+bound.top;
     spawnEntities();
-    if(selectedObject&&ind!=current_Area){
-      if(selectedObject.properties){
-        selectedObject.properties.element.remove()
-        delete selectedObject.properties.inputs;
-        delete selectedObject.properties.element;
-      };
-      selectedObject.element.remove();
-      delete selectedObject.element;
-      delete selectedObject.inputs;
-      selectedObject.spawner&&selectedObject.spawner.map(e=>{
-		  e.types.map(t=>{
-			  t.element.remove();
-			  delete t.element;
-		  });
-		  e.element.remove();
-		  delete e.element;
-		  delete e.inputs
-	  });
-      selectedObject=null;
-      hide(objectActions);
+    if(selectedObjects.length&&ind!=current_Area){
+		selectedObjects.map(selectedObject=>{
+			if(selectedObject.properties){
+				"element" in selectedObject.properties && selectedObject.properties.element.remove();
+				delete selectedObject.properties.inputs;
+				delete selectedObject.properties.element;
+			};
+			"element" in selectedObject && selectedObject.element.remove();
+			delete selectedObject.element;
+			delete selectedObject.inputs;
+			selectedObject.spawner&&selectedObject.spawner.map(e=>{
+				e.types.map(t=>{
+					"element" in t && t.element.remove();
+					delete t.element;
+				});
+				"element" in e && e.element.remove();
+				delete e.element;
+				delete e.inputs
+			});
+		});
+		selectedObjects=[];
+		contextBtns.duplicateObject.disabled=!selectedObjects.length;
+		contextBtns.deleteObject.disabled=!selectedObjects.length;
+		contextBtns.copyObject.disabled=!selectedObjects.length;
+		contextBtns.cutObject.disabled=!selectedObjects.length;
+		contextBtns.pasteObject.disabled=!copyObjects.length;
+		contextBtns.rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
     };
   }
   if (e.which === controls.NEXT_AREA&&!lockCursor) {
@@ -811,26 +824,33 @@ if(playtesting){
     camX = bound.width / 2+bound.left;
     camY = bound.height / 2+bound.top;
     spawnEntities();
-    if(selectedObject&&ind!=current_Area){
-      if(selectedObject.properties){
-        selectedObject.properties.element.remove()
-        delete selectedObject.properties.inputs;
-        delete selectedObject.properties.element;
-      };
-      selectedObject.element.remove();
-      delete selectedObject.element;
-      delete selectedObject.inputs;
-      selectedObject.spawner&&selectedObject.spawner.map(e=>{
-		  e.types.map(t=>{
-			  t.element.remove();
-			  delete t.element;
-		  });
-		  e.element.remove();
-		  delete e.element;
-		  delete e.inputs
-	  });
-      selectedObject=null;
-      hide(objectActions);
+    if(selectedObjects.length&&ind!=current_Area){
+		selectedObjects.map(selectedObject=>{
+			if(selectedObject.properties){
+				"element" in selectedObject.properties && selectedObject.properties.element.remove();
+				delete selectedObject.properties.inputs;
+				delete selectedObject.properties.element;
+			};
+			"element" in selectedObject && selectedObject.element.remove();
+			delete selectedObject.element;
+			delete selectedObject.inputs;
+			selectedObject.spawner&&selectedObject.spawner.map(e=>{
+				e.types.map(t=>{
+					"element" in t && t.element.remove();
+					delete t.element;
+				});
+				"element" in e && e.element.remove();
+				delete e.element;
+				delete e.inputs
+			});
+		});
+		selectedObjects=[];
+		contextBtns.duplicateObject.disabled=!selectedObjects.length;
+		contextBtns.deleteObject.disabled=!selectedObjects.length;
+		contextBtns.copyObject.disabled=!selectedObjects.length;
+		contextBtns.cutObject.disabled=!selectedObjects.length;
+		contextBtns.pasteObject.disabled=!copyObjects.length;
+		contextBtns.rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
     };
   }
   if (e.which === controls.DELETE_ZONE) {deleteObject();spawnEntities();}
@@ -945,6 +965,7 @@ socket.addEventListener("message",socketreceive);
 /** 
  * @param {Properties} obj
 */
+var copyObjects=[];
 function createPropertyObj(obj={},t="region") {
   delete obj.inputs,delete obj.element;
   var arrayCheck=Object.keys(obj);
@@ -1222,7 +1243,35 @@ contextBtns.duplicateArea.addEventListener("click", () => {
   map.areas.push(createArea(JSON.parse(areaToJSON(area))));
   updateMap();
 });
-contextBtns.duplicateObject.addEventListener("click",()=>{
+contextBtns.pasteObject.addEventListener("click",()=>{
+	updateMouseEntity=true;
+	let posX=roundTo(Math.round(mouseEntity.x),settings.snapX);
+	let posY=roundTo(Math.round(mouseEntity.y),settings.snapY);
+	copyObjects.map(_=>{
+		var sel;
+		if (["wall", "light_region", "flashlight_spawner", "torch", "gate"].indexOf(_.type) == -1) {
+			var zone={
+			x:isNaN(parseInt(_.rx))?_.rx:(posX+Number(_.rx)),
+			y:isNaN(parseInt(_.ry))?_.ry:(posY+Number(_.ry)),
+			width:_.rw,
+			height:_.rh,
+			translate:{...(_.translate??{x:0,y:0})},
+			properties:{...(_.properties??{})}, 
+			type:_.type,
+			requirements:[..._.requirements],
+			spawner:_.spawner.map(e => cloneSpawner(e))
+			};
+			sel = createZone(zone);
+			map.areas[current_Area].zones.push(sel);
+		} else {
+			sel = createAsset(_.x+posX, _.y+posY, _.width, _.height, _.type, _.upside_down, _.texture);
+			map.areas[current_Area].assets.push(sel);
+		}
+	});
+	updateMap();
+})
+contextBtns.copyObject.addEventListener("click",()=>{
+	copyObjects=[];
 	selectedObjects.map(_=>{
 		var sel;
 		if(_.properties){
@@ -1231,6 +1280,70 @@ contextBtns.duplicateObject.addEventListener("click",()=>{
 			delete _.properties.element;
 		};
 		_.element.remove();
+		delete _.element;
+		delete _.inputs;
+		if (["wall", "light_region", "flashlight_spawner", "torch", "gate"].indexOf(_.type) == -1) {
+			var zone={
+			x:_.rx,
+			y:_.ry,
+			width:_.rw,
+			height:_.rh,
+			translate:{...(_.translate??{x:0,y:0})},
+			properties:{...(_.properties??{})}, 
+			type:_.type,
+			requirements:[..._.requirements],
+			spawner:_.spawner.map(e => cloneSpawner(e))
+			};
+			sel = createZone(zone);
+			copyObjects.push(sel);
+		} else {
+			sel = createAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
+			copyObjects.push(sel);
+		}
+	});
+})
+contextBtns.cutObject.addEventListener("click",()=>{
+	copyObjects=[];
+	selectedObjects.map(_=>{
+		var sel;
+		if(_.properties){
+			"element" in _.properties && _.properties.element.remove();
+			delete _.properties.inputs;
+			delete _.properties.element;
+		};
+		"element" in _ && _.element.remove();
+		delete _.element;
+		delete _.inputs;
+		if (["wall", "light_region", "flashlight_spawner", "torch", "gate"].indexOf(_.type) == -1) {
+			var zone={
+			x:_.rx,
+			y:_.ry,
+			width:_.rw,
+			height:_.rh,
+			translate:{...(_.translate??{x:0,y:0})},
+			properties:{...(_.properties??{})}, 
+			type:_.type,
+			requirements:[..._.requirements],
+			spawner:_.spawner.map(e => cloneSpawner(e))
+			};
+			sel = createZone(zone);
+			copyObjects.push(sel);
+		} else {
+			sel = createAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
+			copyObjects.push(sel);
+		}
+	});
+	deleteObject();
+})
+contextBtns.duplicateObject.addEventListener("click",()=>{
+	selectedObjects.map(_=>{
+		var sel;
+		if(_.properties){
+			"element" in _.properties && _.properties.element.remove();
+			delete _.properties.inputs;
+			delete _.properties.element;
+		};
+		"element" in _ && _.element.remove();
 		delete _.element;
 		delete _.inputs;
 		if (["wall", "light_region", "flashlight_spawner", "torch", "gate"].indexOf(_.type) == -1) {
@@ -1258,11 +1371,12 @@ contextBtns.duplicateObject.addEventListener("click",()=>{
 contextBtns.rotateObject.addEventListener("click",()=>{
 	var sel;
 	var e,t=0;
+	if(selectedObjects.length>1){
 	for (var o in selectedObjects) {
 		if (selectedObjects[o]) {
 			null == e && (e = o);
-			var s = (n = selectedObjects[o]).rw + 0
-			  , p = n.rh + 0;
+			var s = ((n = selectedObjects[o]).rw||n.width) + 0
+			  , p = (n.rh||n.height) + 0;
 			n.rw = n.width = p,
 			n.rh = n.height = s;
 			var a = selectedObjects[o];
@@ -1274,12 +1388,34 @@ contextBtns.rotateObject.addEventListener("click",()=>{
 			a.ry = selectedObjects[e].y + s,
 			a.x + n.rw > t && (t = a.x + n.rw)
 		}
-		var nx=selectedObjects[o].translate.x,ny=selectedObjects[o].translate.y;
-		selectedObjects[o].translate.x=ny;
-		selectedObjects[o].translate.y=nx;
-		if(selectedObjects[o].inputs)
-			selectedObjects[o].inputs.tx.value=selectedObjects[o].translate.x,
-			selectedObjects[o].inputs.ty.value=selectedObjects[o].translate.y;
+		if(selectedObjects[o].translate){
+			var nx=selectedObjects[o].translate.x,ny=selectedObjects[o].translate.y;
+			selectedObjects[o].translate.x=ny;
+			selectedObjects[o].translate.y=nx;
+			if(selectedObjects[o].inputs)
+				selectedObjects[o].inputs.tx.value=selectedObjects[o].translate.x,
+				selectedObjects[o].inputs.ty.value=selectedObjects[o].translate.y;
+		}
+	}}else{
+		var selectedObject=selectedObjects[0];
+  if(selectedObject.isAsset){
+	  var width=selectedObject.width;
+	  var height=selectedObject.height;
+	  selectedObject.height=width;
+	  selectedObject.width=height;
+	  selectedObject.inputs.width.value=selectedObject.width;
+	  selectedObject.inputs.height.value=selectedObject.height;
+  }else{
+	  var width=selectedObject.rw;
+	  var height=selectedObject.rh;
+	  if(isNaN(parseInt(width))||isNaN(parseInt(height)))return;
+	  selectedObject.rh=width;
+	  selectedObject.height=width;
+	  selectedObject.rw=height;
+	  selectedObject.width=height;
+	  selectedObject.inputs.width.value=selectedObject.rw;
+	  selectedObject.inputs.height.value=selectedObject.rh;
+  }
 	}
 	updateMap();
 });
@@ -1319,23 +1455,22 @@ contextBtns.deleteArea.addEventListener("click", () => {
     current_Area = Math.max(current_Area - 1, 0);
     customAREAgui(map.areas[current_Area]);
     areamenu.appendChild(map.areas[current_Area].element);
-    if(selectedObject){
-      if(selectedObject.properties){
-        selectedObject.properties.element.remove()
-        delete selectedObject.properties.inputs;
-        delete selectedObject.properties.element;
-      };
-      selectedObject.element.remove();
-      delete selectedObject.element;
-      delete selectedObject.inputs;
-      selectedObject.spawner&&selectedObject.spawner.map(e=>{delete e.element;delete e.inputs});
-    selectedObject = null;
-    }
+	selectedObjects.map(selectedObject=>{
+		if(selectedObject.properties){
+			"element" in selectedObject.properties && selectedObject.properties.element.remove();
+			delete selectedObject.properties.inputs;
+			delete selectedObject.properties.element;
+		};
+		"element" in selectedObject && selectedObject.element.remove();
+		delete selectedObject.element;
+		delete selectedObject.inputs;
+		selectedObject.spawner&&selectedObject.spawner.map(e=>{delete e.element;delete e.inputs});
+	});
     updateMap();
   }
 });
-//loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: last_right\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: last_right\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
-loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: 320\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: 2880\n      y: 0\n      width: 256\n      height: 480\n    - type: exit\n      x: 3136\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: 320\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: 2400\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: 2656\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
+loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: last_right\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: last_right\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
+//loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: 320\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: 2880\n      y: 0\n      width: 256\n      height: 480\n    - type: exit\n      x: 3136\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: 320\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: 2400\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: 2656\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
 
 /**
  * @param {SkapObject} obj
