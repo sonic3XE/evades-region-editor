@@ -210,10 +210,10 @@ spawnEntities(current_Area)}else{
   evadesRenderer.snowRenderer.render(ctx)
   //5. Render HUD
   ctx.lineWidth=2;
-  var col = (prop(area,"properties","lighting")>0.5)*((tileMode.selectedIndex>>1)==0) ? "black" : "white";
-  ctx.strokeStyle=col;
   !area.zones.length&&ctx.strokeRect(canvas.width / 2 - camX * camScale,canvas.height / 2 - camY * camScale,settings.snapX*camScale,settings.snapY*camScale);
   if (hitbox&&!playtesting) {
+    var col = (prop(area,"properties","lighting")>0.5)*((tileMode.selectedIndex>>1)==0) ? "black" : "white";
+    ctx.strokeStyle=col;
     for (var Area of map.areas) {
       for (var zone of Area.zones) {
         ctx.strokeRect(
@@ -262,13 +262,13 @@ spawnEntities(current_Area)}else{
 	  };
     };
   };
-  if (selectedObjects&&!playtesting) {
+  if (selectedObjects.length&&!playtesting) {
 	ctx.lineWidth = 2;
-	ctx.strokeStyle = "#FF0000FF";
 	for(var objs of selectedObjects){
 		switch (objs.type){
 			case "flashlight_spawner":
 			case "torch": {
+				ctx.strokeStyle = "#FF0000FF";
 				ctx.beginPath();
 				ctx.ellipse(
 					canvas.width / 2 + (objs.x - camX) * camScale,
@@ -278,23 +278,9 @@ spawnEntities(current_Area)}else{
 				ctx.stroke();
 				break;
 			}
+			case "teleport":
 			case "exit": {
-				ctx.strokeRect(
-					canvas.width / 2 + (objs.x - camX) * camScale,
-					canvas.height / 2 + (objs.y - camY) * camScale,
-					objs.width * camScale,
-					objs.height * camScale
-				);
-				arrow(ctx,
-					canvas.width / 2 + (objs.x+objs.width/2 - camX) * camScale,
-					canvas.height / 2 + (objs.y+objs.height/2 - camY) * camScale,
-					canvas.width / 2 + (objs.x+objs.width/2 + objs.translate.x - camX) * camScale,
-					canvas.height / 2 + (objs.y+objs.height/2 + objs.translate.y - camY) * camScale,
-					32*camScale,2,"#000000","#FFFF00"
-				);
-				break;
-			}
-			case "teleport": {
+				ctx.strokeStyle = "#FF0000FF";
 				ctx.strokeRect(
 					canvas.width / 2 + (objs.x - camX) * camScale,
 					canvas.height / 2 + (objs.y - camY) * camScale,
@@ -306,11 +292,12 @@ spawnEntities(current_Area)}else{
 					canvas.height / 2 + (objs.y+objs.height/2 - camY) * camScale,
 					canvas.width / 2 + (objs.x+objs.width/2+objs.translate.x - camX) * camScale,
 					canvas.height / 2 + (objs.y+objs.height/2+objs.translate.y - camY) * camScale,
-					32*camScale,2,"#000000","#FF00FF"
+					32*camScale,2,"#000000",objs.type=="teleport"?"#FF00FF":"#FFFF00"
 				);
 				break;
 			}
 			default: {
+				ctx.strokeStyle = "#FF0000FF";
 				ctx.strokeRect(canvas.width/2+(objs.x-camX)*camScale,canvas.height/2+(objs.y-camY)*camScale,objs.width*camScale,objs.height*camScale);
 			};break;
 		}

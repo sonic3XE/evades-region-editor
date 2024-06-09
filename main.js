@@ -383,6 +383,11 @@ x:target.x,y:target.y};
 	}
 	selectedObjects.includes(target) || keysDown.has(controls.FOCUS) || (selectedObjects = [])
     selectedObjects.includes(target) || selectedObjects.push(target);
+	selectedObjects.sort((e,t)=>{
+		var a=map.areas[current_Area].zones.indexOf.bind(map.areas[current_Area].zones);
+		var b=map.areas[current_Area].assets.indexOf.bind(map.areas[current_Area].assets);
+		return (e.isAsset?b(e)+map.areas[current_Area].zones.length:a(e))-(t.isAsset?b(t)+map.areas[current_Area].zones.length:a(t));
+	});
     if(target.isAsset){
       customASSETgui(target);
     }else{
@@ -1205,43 +1210,38 @@ contextBtns.duplicateArea.addEventListener("click", () => {
   map.areas.push(createArea(JSON.parse(areaToJSON(area))));
   updateMap();
 });
-contextBtns.duplicateObject.addEventListener("click", () => {
-  var sel;
-  if (!selectedObject) return;
-    if(selectedObject.properties){
-      selectedObject.properties.element.remove()
-      delete selectedObject.properties.inputs;
-      delete selectedObject.properties.element;
-    };
-    selectedObject.element.remove();
-    delete selectedObject.element;
-    delete selectedObject.inputs;
-    selectedObject.spawner&&selectedObject.spawner.map(e=>{delete e.element;delete e.inputs});
-  if (["wall", "light_region", "flashlight_spawner", "torch", "gate"].indexOf(selectedObject.type) == -1) {
-	var zone={
-	  x:selectedObject.rx,
-	  y:selectedObject.ry,
-	  width:selectedObject.rw,
-	  height:selectedObject.rh,
-	  translate:{...(selectedObject.translate??{x:0,y:0})},
-	  properties:{...(selectedObject.properties??{})}, 
-	  type:selectedObject.type,
-	  requirements:[...selectedObject.requirements],
-	  spawner:selectedObject.spawner.map(e => cloneSpawner(e))
-	};
-    sel = createZone(zone);
-    map.areas[current_Area].zones.push(sel);
-    selectedObject=sel;
-    customZONEgui(sel);
-    objectmenu.appendChild(selectedObject.element);
-  } else {
-    sel = createAsset(selectedObject.x, selectedObject.y, selectedObject.width, selectedObject.height, selectedObject.type, selectedObject.upside_down, selectedObject.texture);
-    map.areas[current_Area].assets.push(sel);
-    selectedObject=sel;
-    selectedObject.createGUI(sel);
-    objectmenu.appendChild(selectedObject.element);
-  }
-  updateMap();
+contextBtns.duplicateObject.addEventListener("click",()=>{
+	selectedObjects.map(_=>{
+		var sel;
+		if(_.properties){
+			_.properties.element.remove()
+			delete _.properties.inputs;
+			delete _.properties.element;
+		};
+		_.element.remove();
+		delete _.element;
+		delete _.inputs;
+		if (["wall", "light_region", "flashlight_spawner", "torch", "gate"].indexOf(_.type) == -1) {
+			var zone={
+			x:_.rx,
+			y:_.ry,
+			width:_.rw,
+			height:_.rh,
+			translate:{...(_.translate??{x:0,y:0})},
+			properties:{...(_.properties??{})}, 
+			type:_.type,
+			requirements:[..._.requirements],
+			spawner:_.spawner.map(e => cloneSpawner(e))
+			};
+			sel = createZone(zone);
+			map.areas[current_Area].zones.push(sel);
+		} else {
+			sel = createAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
+			map.areas[current_Area].assets.push(sel);
+		}
+	});
+	selectedObjects=[];
+	updateMap();
 });
 contextBtns.rotateObject.addEventListener("click", () => {
   var sel;
