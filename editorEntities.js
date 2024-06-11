@@ -3607,23 +3607,26 @@ class SizingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"sizing_enemy",boundary);
     this.growing = true;
-    this.maxRadius = this.ogradius * 2.5;
-    this.minRadius = this.ogradius / 2.5;
-	this.ogradius=this.minRadius;
+	this.sizing_bound_multiplier = 2.5;
+	this.sizing_changing_speed = 0.04;
+	this.sizing_upper_bound = this.sizing_bound_multiplier;
+	this.sizing_lower_bound = 1 / this.sizing_bound_multiplier;
+	this.sizing_multiplier = this.sizing_lower_bound;
   }
   update(delta){
-    if (this.growing) {
-      this.ogradius += ((delta / (1000 / 30)) * 0.1) * this.minRadius;
-      if (this.ogradius > this.maxRadius) {
-        this.growing = false;
-      }
-    } else {
-      this.ogradius -= ((delta / (1000 / 30)) * 0.1) * this.minRadius;
-      if (this.ogradius < this.minRadius) {
-        this.growing = true;
-      }
-    }
-    super.update(delta);
+	if (this.growing) {
+		this.sizing_multiplier += this.sizing_changing_speed * delta / (1000 / 30);
+		if (this.sizing_multiplier > this.sizing_upper_bound) {
+			this.growing = false;
+		}
+	} else {
+		this.sizing_multiplier -= this.sizing_changing_speed * delta / (1000 / 30);
+		if (this.sizing_multiplier < this.sizing_lower_bound) {
+			this.growing = true;
+		}
+	}
+	this.radiusMultiplier*=this.sizing_multiplier;
+	super.update(delta);
   }
 }
 class TurningEnemy extends Enemy{
