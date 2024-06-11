@@ -364,7 +364,6 @@ canvas.addEventListener("mousemove", e => {
   mousePos.y=(e.offsetY - canvas.height / 2);
   mousePos.ex=mouse_position.x;
   mousePos.ey=mouse_position.y;
-  socket.send(msgpack.encode({mouseEntity}));
 });
 var isMouse=false;
 canvas.addEventListener("mousedown", e => {
@@ -761,7 +760,7 @@ if(playtesting){
   chat.hidden=!toggleChat;
   }
   if(global.leaderboard){
-  leaderboard.hidden=!leaderboard;
+  leaderboard.hidden=!toggleLeaderboard;
   }
 }
   if(playtesting)return;
@@ -1541,6 +1540,9 @@ function capitalise(str = "") {
 }
 localStorage.getItem("chat")&&(
   global.chat && (chat.hidden=localStorage.chat=="false")
+);
+localStorage.getItem("leaderboard")&&(
+  global.leaderboard && (leaderboard.hidden=localStorage.leaderboard=="false")
 );
 /**
         <p id="objectFocus" class="obj_area">
