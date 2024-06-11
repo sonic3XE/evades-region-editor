@@ -1222,7 +1222,11 @@ class $e7009c797811e935$var$InputLayer {
 		e.stopPropagation()
 	}
 	update(e) {
+		chat.setAttribute("style",`transform-origin: 0% 0%;transform: scale(${camScale}); left: ${ctx.canvas.width/2-640*camScale+10*camScale}px; top: ${ctx.canvas.height/2-360*camScale+10*camScale}px; visibility: visible;`);
+		leaderboard.setAttribute("style",`transform-origin: 100% 0%;transform: scale(${camScale}); right: ${ctx.canvas.width/2-640*camScale+10*camScale}px; top: ${ctx.canvas.height/2-360*camScale+10*camScale}px; visibility: visible;`);
 		if(!playtesting){
+			chat.style.visibility="hidden";
+			leaderboard.style.visibility="hidden";
 			this.down = !1;
 			this.initialDown = !1;
 			this.mouseMovementToggled = !1;

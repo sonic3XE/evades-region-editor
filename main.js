@@ -935,11 +935,13 @@ function socketreceive(e){
       document.getElementById("chat-window").childNodes[0].remove()
     }}catch(e){}
   }
-  if(message.mouseEntity){
-    mouseEntities[message.mouseEntity.id]={color:message.mouseEntity.color,name:message.mouseEntity.name,x:message.mouseEntity.x,y:message.mouseEntity.y}
-  }
-  if(message.deleteMouseEntity){
-    delete mouseEntities[message.deleteMouseEntity]
+  if(message.leaderboard){
+	leaderboard.innerHTML=`
+	<span class="leaderboard-title">Region Editor</span>
+	<div class="leaderboard-title-break"><br><span class="leaderboard-world-title">Online: ${message.leaderboard.length}/1000</span></div>
+	${message.leaderboard.map(e=>{
+		return `<div class="leaderboard-line"><span class="leaderboard-name">${e}</span>`
+	}).join("")}</div>`
   }
   if(message.chathistory){
 	try{

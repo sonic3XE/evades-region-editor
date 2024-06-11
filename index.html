@@ -258,9 +258,53 @@
 				<td colspan="2"><button id="deleteArea">Remove Area</button></td>
 			</tr>
         </div>
-		<!--
-		<div><div id="chat" style="transform-origin: 0% 0%; transform: scale(1); left: 55px; top: 10px; visibility: visible;"><div id="chat-window"></div><input id="chat-input" type="text" autocomplete="off" placeholder="Press enter to chat" maxlength="160"></div></div>
-      -->
+		<div>
+		<div id="chat" style="transform-origin: 0% 0%; transform: scale(1); left: 10px; top: 10px; visibility: hidden;"><div id="chat-window"></div><input id="chat-input" type="text" autocomplete="off" placeholder="Press enter to chat" maxlength="160"></div>
+		<style>leaderboard {
+	color: #f9f9f9;
+	width: 220px;
+	max-height: 600px;
+	background-color: #00000080;
+	padding: 2px 2px 10px;
+	position: absolute;
+	overflow-x: hidden;
+	overflow-y: auto
+}
+.leaderboard-title {
+	width: 100%;
+	text-align: center;
+	white-space: nowrap;
+	font: 700 20px Tah;
+	display: inline-block
+}
+.leaderboard-world-title {
+	width: 100%;
+	text-align: center;
+	margin-top: 5px;
+	font: 18px Tah;
+	display: inline-block
+}
+.leaderboard-line {
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font: 14px Tah;
+	overflow: hidden
+}
+.leaderboard-title-break {
+	text-align: center;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	font: 3px Tah;
+	overflow: hidden
+}
+leaderboard.big {
+	width: 230px
+}</style><leaderboard id="leaderboard" style="transform-origin: 100% 0%; transform: scale(1); right: 10px; top: 10px; visibility: hidden;" class="big">
+	<span class="leaderboard-title">Region Editor</span>
+	<div class="leaderboard-title-break"><br><span class="leaderboard-world-title">Online: ???/1000</span></div>
+	<div class="leaderboard-line"><span class="leaderboard-name">Test</span></div>
+</leaderboard></div>
 	  <button class="areas" hidden style="width:150px;height:32px;font-family:tah;" onclick="event.target.hidden=true;areaProp.hidden=false">Area Properties</button>
       <button class="regional" hidden style="width:150px;height:32px;font-family:tah;" onclick="event.target.hidden=true;regionProp.hidden=false">Region Properties</button>
 	  <a href="https://github.com/sonic3XE/evades-region-editor/issues/new/choose" class="issues" style="
