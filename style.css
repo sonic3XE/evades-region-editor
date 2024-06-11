@@ -280,6 +280,9 @@ body {
 	-webkit-appearance: unset;
     transition: background 0.4s;
 }
+#importer:disabled {
+	cursor:not-allowed;
+}
 #importer:hover {
     background: #00a000;
 }
@@ -301,7 +304,7 @@ body {
     position: relative;
     background: #00a000;
     border: none;
-    border-radius: 2px 2px 2px 2px;
+    border-radius: 2px 2px 0 0;
     padding: 5px;
     width: 25px;
     height: 25px;
@@ -503,7 +506,6 @@ grid-row-gap: 0px;
     background: #00000080;
     padding: 5px 10px;
 }
-
 #contextmenu {
     position: absolute;
     top: 0;

@@ -736,153 +736,129 @@ point1.projectile_radius=undefined;
     point1.element = li;
     }
 function customZONEgui(Zone){
-  const spawnerEl = createFolder(formatString(curLang,"editor.property.spawner"), Zone.spawner.map(e=>(createSPAWNERgui(e,Zone),e.element)));
-  if (Zone.spawner.length < 1) spawnerEl.classList.add("min");
-  const addBtn2 = document.createElement("button");
-  spawnerEl.classList.add("array");
-  addBtn2.classList.add("add");
-  addBtn2.addEventListener("click", () => {
-    let point2 = createPoint({types:["normal"],radius:18,count:1,speed:5});
-    Zone.spawner.push(point2);
-    createSPAWNERgui(point2,Zone);
-    if(Zone.spawner[0].element.parentElement){
-      Zone.spawner[0].element.parentElement.parentElement.children[1].appendChild(point2.element);
-      Zone.spawner[0].element.parentElement.parentElement.classList.remove("min");
-    }else{
-      spawnerEl.children[1].appendChild(point2.element);
-      spawnerEl.classList.remove("min");
-    }
-    spawnEntities()
-  });
-  spawnerEl.appendChild(addBtn2);
-  var requie=[];
-  const reqEl = createFolder(formatString(curLang,"editor.property.requirements"), Zone.requirements.map(p => {
-    const e = createReq(p.requirement??p,Zone);
-    return requie.push(e),e.element;
-  }));
- Zone.requirements=requie;
-    const addBtn = document.createElement("button");
-    reqEl.classList.add("array");
-    addBtn.classList.add("add");
-    addBtn.addEventListener("click", () => {
-        let point2 = createReq(void 0,Zone);
-        Zone.requirements.push(point2);
-        reqEl.children[1].appendChild(point2.element);
-        reqEl.classList.remove("min");
-    });
-    reqEl.appendChild(addBtn);
-    if (Zone.requirements.length < 1) reqEl.classList.add("min");
+	const spawnerEl = createFolder(formatString(curLang,"editor.property.spawner"), Zone.spawner.map(e=>(createSPAWNERgui(e,Zone),e.element)));
+	if (Zone.spawner.length < 1) spawnerEl.classList.add("min");
+	const addBtn2 = document.createElement("button");
+	spawnerEl.classList.add("array");
+	addBtn2.classList.add("add");
+	addBtn2.addEventListener("click",()=>{
+		let point2 = createPoint({types:["normal"],radius:18,count:1,speed:5});
+		Zone.spawner.push(point2);
+		createSPAWNERgui(point2,Zone);
+		if(Zone.spawner[0].element.parentElement){
+			Zone.spawner[0].element.parentElement.parentElement.children[1].appendChild(point2.element);
+			Zone.spawner[0].element.parentElement.parentElement.classList.remove("min");
+		}else{
+			spawnerEl.children[1].appendChild(point2.element);
+			spawnerEl.classList.remove("min");
+		}
+		spawnEntities()
+	});
+	spawnerEl.appendChild(addBtn2);
+	var requie=[];
+	const reqEl = createFolder(formatString(curLang,"editor.property.requirements"), Zone.requirements.map(p => {
+		const e = createReq(p.requirement??p,Zone);
+		return requie.push(e),e.element;
+	}));
+	Zone.requirements=requie;
+	const addBtn = document.createElement("button");
+	reqEl.classList.add("array");
+	addBtn.classList.add("add");
+	addBtn.addEventListener("click", () => {
+		let point2 = createReq(void 0,Zone);
+		Zone.requirements.push(point2);
+		reqEl.children[1].appendChild(point2.element);
+		reqEl.classList.remove("min");
+	});
+	reqEl.appendChild(addBtn);
+	if (Zone.requirements.length < 1) reqEl.classList.add("min");
 
-    const xInput = document.createElement("input");
-    xInput.value = Zone.rx;
-    xInput.addEventListener("input", () => {
-        Zone.rx = xInput.value;
-        if(!isNaN(Number(xInput.value))){
-          Zone.rx=Zone.x=Number(xInput.value);
-        }
-      updateMap();
-    });
+	const xInput = document.createElement("input");
+	xInput.value = Zone.rx;
+	xInput.addEventListener("input", () => {
+		Zone.rx = xInput.value;
+		if(!isNaN(Number(xInput.value))){
+			Zone.rx=Zone.x=Number(xInput.value);
+		}
+		updateMap();
+	});
+	//消費した。
+	const yInput = document.createElement("input");
+	yInput.value = Zone.ry;
+	yInput.addEventListener("input", () => {
+		Zone.ry = yInput.value;
+		if(!isNaN(Number(yInput.value))){
+			Zone.ry=Zone.y=Number(yInput.value);
+		}
+		updateMap();
+	});
+	const wInput = document.createElement("input");
+	wInput.value = Zone.rw;
+	wInput.addEventListener("input", () => {
+		Zone.rw = wInput.value;
+		if(!isNaN(Number(wInput.value))){
+			Zone.width=Zone.rw=wInput.value = Number(wInput.value);
+		}
+		updateMap();
+	});
+	const hInput = document.createElement("input");
+	hInput.value = Zone.rh;
+	hInput.addEventListener("input", () => {
+		Zone.rh = hInput.value;
+		if(!isNaN(Number(hInput.value))){
+			Zone.height=Zone.rh=hInput.value = Number(hInput.value);
+		}
+		updateMap();
+	});
+	const txInput = document.createElement("input");
+	txInput.value = Zone.translate.x;
+	txInput.addEventListener("input", () => {
+		Zone.translate.x = Number(txInput.value);
+	});
 
-    const yInput = document.createElement("input");
-    yInput.value = Zone.ry;
-    yInput.addEventListener("input", () => {
-        Zone.ry = yInput.value;
-        if(!isNaN(Number(yInput.value))){
-          Zone.ry=Zone.y=Number(yInput.value);
-        }
-      updateMap();
-    });
-    const wInput = document.createElement("input");
-    wInput.value = Zone.rw;
-    wInput.addEventListener("input", () => {
-        Zone.rw = wInput.value;
-        if(!isNaN(Number(wInput.value))){
-          Zone.width=Zone.rw=wInput.value = Number(wInput.value);
-        }
-      updateMap();
-    });
-    const hInput = document.createElement("input");
-    hInput.value = Zone.rh;
-    hInput.addEventListener("input", () => {
-        Zone.rh = hInput.value;
-        if(!isNaN(Number(hInput.value))){
-          Zone.height=Zone.rh=hInput.value = Number(hInput.value);
-        }
-      updateMap();
-    });
-    const txInput = document.createElement("input");
-    txInput.value = Zone.translate.x;
-    txInput.addEventListener("input", () => {
-        Zone.translate.x = Number(txInput.value);
-    });
-
-    const tyInput = document.createElement("input");
-    tyInput.value = Zone.translate.y;
-    tyInput.addEventListener("input", () => {
-        Zone.translate.y = Number(tyInput.value);
-    });
-  const translation=createFolder("Translate", [
-			createProperty(formatString(curLang,"editor.property.x"), txInput, "number"),
-			createProperty(formatString(curLang,"editor.property.y"), tyInput, "number")
-		]);
-
-          if(Zone.type=="active"){
-            show(spawnerEl)
-          }else {
-            hide(spawnerEl)
-          }
-          if(Zone.type=="teleport"){
-            show(reqEl)
-          }else {
-            hide(reqEl)
-          }
-          if(Zone.type=="teleport"||Zone.type=="exit"){
-            show(translation)
-          }else {
-            hide(translation)
-          }
-var props=createPropertyObj(Zone.properties,"zone");
-  Zone.properties=props;
-	Zone.element = createFolder(formatString(curLang,"editor.zone"), [
-    createProperty(formatString(curLang,"editor.property.type"), null, "select",{
-				value: Zone.type,
-				event: e => {
-          if(e=="teleport"){
-            show(reqEl)
-          }else {
-            hide(reqEl)
-          }
-          if(e=="active"){
-            show(spawnerEl)
-          }else {
-            hide(spawnerEl)
-          }
-          if(e=="exit"||e=="teleport"){
-            show(translation)
-          }else {
-            hide(translation)
-          }
-          Zone.type = e;spawnEntities()
-        },
-				selectOptions: ['active', 'safe', 'exit', 'teleport', 'victory', 'removal', 'dummy'].map(e=>[formatString(curLang,"editor.zone."+e),e]),
-				selectType: "text"
+	const tyInput = document.createElement("input");
+	tyInput.value = Zone.translate.y;
+	tyInput.addEventListener("input", () => {
+		Zone.translate.y = Number(tyInput.value);
+	});
+	const translation=createFolder("Translate", [
+		createProperty(formatString(curLang,"editor.property.x"), txInput, "number"),
+		createProperty(formatString(curLang,"editor.property.y"), tyInput, "number")
+	]);
+	(Zone.type=="active"?show:hide)(spawnerEl);
+	(Zone.type=="teleport"?show:hide)(reqEl);
+	(Zone.type=="teleport"||Zone.type=="exit"?show:hide)(translation);
+	var props=createPropertyObj(Zone.properties,"zone");
+	Zone.properties=props;
+	Zone.element = createFolder(formatString(curLang,"editor.zone"),[
+		createProperty(formatString(curLang,"editor.property.type"),null,"select",{
+			value: Zone.type,
+			event: e=>{
+				(e=="teleport"?show:hide)(reqEl);
+				(e=="active"?show:hide)(spawnerEl);
+				(e=="exit"||e=="teleport"?show:hide)(translation);
+				Zone.type = e;
+				spawnEntities();
+			},
+			selectOptions: ['active', 'safe', 'exit', 'teleport', 'victory', 'removal', 'dummy'].map(e=>[formatString(curLang,"editor.zone."+e),e]),
+			selectType: "text"
 			}),
 		createProperty(formatString(curLang,"editor.property.x"), xInput, "text"),
 		createProperty(formatString(curLang,"editor.property.y"), yInput, "text"),
-    createProperty(formatString(curLang,"editor.property.width"), wInput, "text"),
-    createProperty(formatString(curLang,"editor.property.height"), hInput, "text"),
-    reqEl,
-    spawnerEl,
-    translation,
-    Zone.properties.element,
+		createProperty(formatString(curLang,"editor.property.width"), wInput, "text"),
+		createProperty(formatString(curLang,"editor.property.height"), hInput, "text"),
+		reqEl,
+		spawnerEl,
+		translation,
+		Zone.properties.element,
 	]);
-    Zone.inputs = {
-        x: xInput,
-        y: yInput,
-        tx: txInput,
-        ty: tyInput,
-        width: wInput,
-        height: hInput
+    Zone.inputs={
+        x:xInput,
+        y:yInput,
+        tx:txInput,
+        ty:tyInput,
+        width:wInput,
+        height:hInput
     };
 }
 function cloneSpawner(e){
