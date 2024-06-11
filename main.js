@@ -725,11 +725,6 @@ document.addEventListener("keydown", e => {
     realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));
     playtesting?(window.tempCamPos={x:camX,y:camY,area:current_Area}):(camX=window.tempCamPos.x,camY=window.tempCamPos.y);
   };
-  if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
-  localStorage.chat=toggleChat;
-  if(global.chat){
-  chat.hidden=!toggleChat;
-  }
 if(playtesting){
   if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){
 	  e.preventDefault();
@@ -760,6 +755,14 @@ if(playtesting){
   localStorage.map=toggleMap;
   if (e.which === controls.TOGGLE_MINIMAP_MODE) toggleMinimapMode = !toggleMinimapMode;
   localStorage.minimapMode=toggleMinimapMode;
+  if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
+  localStorage.chat=toggleChat;
+  if(global.chat){
+  chat.hidden=!toggleChat;
+  }
+  if(global.leaderboard){
+  leaderboard.hidden=!leaderboard;
+  }
 }
   if(playtesting)return;
   if (e.which === controls.TOGGLE_HITBOX) hitbox = !hitbox;
