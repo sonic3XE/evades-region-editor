@@ -748,7 +748,7 @@ if(playtesting){
   localStorage.heroCard=toggleHeroCard;
   if (e.which === controls.TOGGLE_LEADERBOARD) toggleLeaderboard = !toggleLeaderboard;
   localStorage.leaderboard=toggleLeaderboard;
-  if (e.which === controls.TOGGLE_AREA_INFO&&location.search=="?isDev") toggleAreaInfo = !toggleAreaInfo;
+  if (e.which === controls.TOGGLE_AREA_INFO) toggleAreaInfo = !toggleAreaInfo;
   localStorage.areaInfo=toggleAreaInfo;
   if (e.which === controls.TOGGLE_MAP[0]||e.which === controls.TOGGLE_MAP[1]) toggleMap = !toggleMap,e.preventDefault();
   localStorage.map=toggleMap;
