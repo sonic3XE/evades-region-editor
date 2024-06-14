@@ -1,9 +1,8 @@
 var global = typeof window != 'undefined' && window.Math == Math
   ? window : typeof self != 'undefined' && self.Math == Math ? self
   : Function('return this')();
-var tileMap;
 const config={get isImagesLoaded(){
-  global.tileMap=loadImage("tilemap.png");
+  global.tiles=loadImage("tiles.png");
   global.tilesDark=loadImage("tilesDark.png");
   //fetch("/EvadesRegionEditorTileMap").then(e=>e.arrayBuffer().then(t=>global.tileMap=QOItoPNG(bz2.decompress(new Uint8Array(t).slice(12)))))
 	return true;
@@ -157,17 +156,6 @@ document.addEventListener("keydown", e => {
 document.addEventListener("keyup", e => {
   keysDown.delete(e.which);
 })
-/** 
- * @param {number} t
- * @param {number} e
- * @returns {HTMLCanvasElement} o
-*/
-function createOffscreenCanvas(t, e) {
-  var o = document.createElement("canvas");
-  return o.width = t,
-    o.height = e,
-    o
-}
 var abilities=loadImage("abilities.png");
 var txtr_abilities=[
 	{x: 53,y:715,w:50,h:50},
@@ -676,6 +664,8 @@ areas:
         height: 160
 `,false,false);
 })
+var cons=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4");
+var prec=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3");
 Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
 		if(!prec.ended && prec.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
@@ -712,54 +702,55 @@ document.addEventListener("keydown", e => {
 	  return;
   }
   if (e.which === controls.PLAYTEST){
-	if(consumed_by_ink_demon)return;
+  	if(e.preventDefault(),consumed_by_ink_demon)return;
     playtesting=!playtesting;
     tl.style.transform="translate("+(-100*playtesting)+"px, 0)";
     menu.hidden=playtesting;
     realTime.disabled=playtesting;
     realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));
     playtesting?(window.tempCamPos={x:camX,y:camY,area:current_Area}):(camX=window.tempCamPos.x,camY=window.tempCamPos.y);
+	if(playtesting){
+		var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0]??map.areas[0].zones[0],
+		selfPlayer=new SimulatedPlayer(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),1);
+		window.selfId=selfPlayer.id;
+		map.players.push(selfPlayer);
+		evadesRenderer.heroInfoCard.abilityOne=new $097def8f8d652b17$export$2e2bcd8739ae039;
+		evadesRenderer.heroInfoCard.abilityTwo=new $097def8f8d652b17$export$2e2bcd8739ae039;
+		evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
+		evadesRenderer.heroInfoCard.abilityOne.afterStateUpdate(abilityConfig[selfPlayer.abilityOne.abilityType]);
+		evadesRenderer.heroInfoCard.abilityTwo.afterStateUpdate(abilityConfig[selfPlayer.abilityTwo.abilityType]);
+		selfPlayer.abilityThree&&evadesRenderer.heroInfoCard.abilityThree.afterStateUpdate(abilityConfig[selfPlayer.abilityThree.abilityType]);
+		spawnEntities(selfPlayer.area);
+	}
   };
-if(playtesting){
-  if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){
-	  e.preventDefault();
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].godmode=true;
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].deathTimer=-1;
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].speed=17;
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].maxEnergy=500;
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].energy=500;
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].upgradePoints=999;
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].level=100;
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].experience=map.players[map.players.map(t=>t.id).indexOf(selfId)].nextLevelExperience;
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].energyRegen=500;
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].noCooldown=true;
-	  evadesRenderer.heroInfoCard.abilityOne.locked=false;
-	  evadesRenderer.heroInfoCard.abilityOne.level=evadesRenderer.heroInfoCard.abilityOne.maxLevel;
-	  evadesRenderer.heroInfoCard.abilityTwo.locked=false;
-	  evadesRenderer.heroInfoCard.abilityTwo.level=evadesRenderer.heroInfoCard.abilityTwo.maxLevel;
-	  evadesRenderer.heroInfoCard.abilityThree.locked=false;
-	  evadesRenderer.heroInfoCard.abilityThree.level=evadesRenderer.heroInfoCard.abilityThree.maxLevel;
-  }
-  if (e.which === controls.TOGGLE_HERO_INFO) toggleHeroCard = !toggleHeroCard;
-  localStorage.heroCard=toggleHeroCard;
-  if (e.which === controls.TOGGLE_LEADERBOARD) toggleLeaderboard = !toggleLeaderboard;
-  localStorage.leaderboard=toggleLeaderboard;
-  if (e.which === controls.TOGGLE_AREA_INFO) toggleAreaInfo = !toggleAreaInfo;
-  localStorage.areaInfo=toggleAreaInfo;
-  if (e.which === controls.TOGGLE_MAP[0]||e.which === controls.TOGGLE_MAP[1]) toggleMap = !toggleMap,e.preventDefault();
-  localStorage.map=toggleMap;
-  if (e.which === controls.TOGGLE_MINIMAP_MODE) toggleMinimapMode = !toggleMinimapMode;
-  localStorage.minimapMode=toggleMinimapMode;
-  if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
-  localStorage.chat=toggleChat;
-  if(global.chat){
-  chat.hidden=!toggleChat;
-  }
-  if(global.leaderboard){
-  leaderboard.hidden=!toggleLeaderboard;
-  }
-}
-  if(playtesting)return;
+  if(playtesting){
+    if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){
+  	  e.preventDefault();
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].godmode=true;
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].deathTimer=-1;
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].speed=17;
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].maxEnergy=500;
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].energy=500;
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].upgradePoints=999;
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].level=100;
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].experience=map.players[map.players.map(t=>t.id).indexOf(selfId)].nextLevelExperience;
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].energyRegen=500;
+  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].noCooldown=true;
+  	  evadesRenderer.heroInfoCard.abilityOne.locked=false;
+  	  evadesRenderer.heroInfoCard.abilityOne.level=evadesRenderer.heroInfoCard.abilityOne.maxLevel;
+  	  evadesRenderer.heroInfoCard.abilityTwo.locked=false;
+  	  evadesRenderer.heroInfoCard.abilityTwo.level=evadesRenderer.heroInfoCard.abilityTwo.maxLevel;
+  	  evadesRenderer.heroInfoCard.abilityThree.locked=false;
+  	  evadesRenderer.heroInfoCard.abilityThree.level=evadesRenderer.heroInfoCard.abilityThree.maxLevel;
+    }
+    if (e.which === controls.TOGGLE_LEADERBOARD) toggleLeaderboard = !toggleLeaderboard;
+    localStorage.leaderboard=toggleLeaderboard;
+    if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
+    localStorage.chat=toggleChat;
+    (global.chat)&&(chat.hidden=!toggleChat);
+    (global.leaderboard)&&(leaderboard.hidden=!toggleLeaderboard);
+	return;
+  };
   if (e.which === controls.TOGGLE_HITBOX) hitbox = !hitbox;
   if (e.which === controls.PREVIOUS_AREA&&!lockCursor) {
     map.areas[current_Area].element.remove();
@@ -1546,7 +1537,7 @@ localStorage.getItem("leaderboard")&&(
             <label for="posX">X: <input id="posX" step="1" style="width:50px" type="number"></label><br>
             <label for="posY">Y: <input id="posY" step="1" style="width:50px" type="number"></label>
         </p>*/
-var fpsHist=[];
+var fpsHist=[],lastTime=0,ti=0;
 setTimeout(function rungame(){
     var r=performance.now()
     var delta=r-lastTime;

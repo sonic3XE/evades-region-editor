@@ -311,3 +311,14 @@ function torchToJSON(torch) {
 function gateToJSON(gate) {
   return `{"type":"gate","x":${gate.x},"y":${gate.y},"width":${gate.width},"height":${gate.height}}`;
 }
+/** 
+ * @param {number} t
+ * @param {number} e
+ * @returns {HTMLCanvasElement} o
+*/
+function createOffscreenCanvas(t, e) {
+  var o = document.createElement("canvas");
+  return o.width = t,
+    o.height = e,
+    o
+}
