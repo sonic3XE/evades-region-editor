@@ -712,7 +712,7 @@ document.addEventListener("keydown", e => {
 	if(playtesting){
 		var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0]??map.areas[0].zones[0],
 		selfPlayer=new SimulatedPlayer(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),1);
-		window.selfId=selfPlayer.id;
+		global.selfId=selfPlayer.id;
 		map.players.push(selfPlayer);
 		evadesRenderer.heroInfoCard.abilityOne=new $097def8f8d652b17$export$2e2bcd8739ae039;
 		evadesRenderer.heroInfoCard.abilityTwo=new $097def8f8d652b17$export$2e2bcd8739ae039;
@@ -1548,9 +1548,10 @@ setTimeout(function rungame(){
     var actually=((settings.isSandbox||IsBelow30FPS)?delta:(1e3/30*(ti>(1e3/30-delta/2))))*isActive;
     ti>(1e3/30-delta/2)&&(ti=0);
     map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
-    (settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
+    (settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),selfId&&controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
     setTimeout(rungame);
-})
+});
+global.selfId=null;
 animate(function run(){
 	render();
 	animate(run);
