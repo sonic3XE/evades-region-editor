@@ -4414,11 +4414,15 @@ class IcicleEnemy extends Enemy{
 	this.wallHit=false;
   }
   update(delta) {
-	if(this.wallHit){this.clock += delta;this.speedMultiplier*=0};
-    if (this.clock > 1e3) {
-      this.clock=0;
-	  this.wallHit=false;
-    }
+	if(this.wallHit){
+	  this.clock += delta;
+      if (this.clock > 1e3) {
+        this.clock=0;
+	    this.wallHit=false;
+      }else{
+		this.speedMultiplier*=0;
+	  }
+	};
     super.update(delta);
   }
   onCollide(){
@@ -5769,6 +5773,7 @@ class StalactiteEnemy extends Enemy {
   }
   update(delta, area) {
     if (this.hasCollided){
+      !this.collideTime && map.areas[current_Area].entities.push(new StalactiteEnemyProjectile(this.x,this.y,this.radius/2,this.boundary));
       this.collideTime += delta;
       if (this.collideTime > 500) {
         this.hasCollided = false;
@@ -5780,7 +5785,6 @@ class StalactiteEnemy extends Enemy {
 	super.update(delta,area);
   }
   onCollide(){
-    map.areas[current_Area].entities.push(new StalactiteEnemyProjectile(this.x,this.y,this.radius/2,this.boundary));
     this.hasCollided = true;
   }
 }
