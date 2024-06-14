@@ -469,8 +469,6 @@ x:target.x,y:target.y};
 	  var diffy=target.y-lasty;
       target.x=lastx;
       target.y=lasty;
-      target.width=lastwidth;
-      target.height=lastheight;
 	  selectedObjects.map(e=>{
 		  (!isNaN(parseInt(e.rx)))&&(e.x+=diffx);
 		  (!isNaN(parseInt(e.ry)))&&(e.y+=diffy);
@@ -479,8 +477,6 @@ x:target.x,y:target.y};
 	  })
       lastx=target.x;
       lasty=target.y;
-      lastwidth=target.width;
-      lastheight=target.height;
     };
 	window.onmousemove=u;
 	window.onmouseup=()=>{lockCursor=false;updateMap();window.onmousemove=null;window.onmouseup=null};
