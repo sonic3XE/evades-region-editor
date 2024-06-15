@@ -449,8 +449,8 @@ this.isGuest=!1;
 					e.radius=prop("radius");
 				});
 			}
-			if(ability.abilityType==96){
-				this.effects.filter(e=>e.effectType==63).map(e=>{
+			if(ability.abilityType==98){
+				this.effects.filter(e=>e.effectType==66).map(e=>{
 					!this.isDowned()&&(e.inputAngle=this.lastAngle/180*Math.PI);
 				});
 			}
@@ -724,20 +724,20 @@ this.isGuest=!1;
 				}
 			}
 		};break;
-		case 96:{/*Flashlight*/
+		case 98:{/*Flashlight*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
-				if(!this.effects.filter(e=>e.effectType==63).length){
-					this.effects.push({effectType:63,inputAngle:this.input_angle,hasLight:true,cone:{"innerAngle":35,"distance":500}});
+				if(!this.effects.filter(e=>e.effectType==66).length){
+					this.effects.push({effectType:66,inputAngle:this.input_angle,hasLight:true,cone:{"innerAngle":35,"distance":500}});
 				}
 			}
 			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
-				this.effects.filter(e=>e.effectType==63).map(e=>{
+				this.effects.filter(e=>e.effectType==66).map(e=>{
 					e.removed=true;
 				});
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 98:{/*Magnetism Down*/
+		case 100:{/*Magnetism Down*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
@@ -746,24 +746,24 @@ this.isGuest=!1;
 				switch(kind){
 					case 1:{
 						this.firstAbilityActivated=false;
-						this.abilityOne.abilityType=99;
+						this.abilityOne.abilityType=101;
 						this.abilityOne.name=abilityConfig[this.abilityOne.abilityType].name;
 					}break;
 					case 2:{
 						this.secondAbilityActivated=false;
-						this.abilityTwo.abilityType=99;
+						this.abilityTwo.abilityType=101;
 						this.abilityTwo.name=abilityConfig[this.abilityTwo.abilityType].name;
 					}break;
 					case 3:{
 						this.thirdAbilityActivated=false;
-						this.abilityThree.abilityType=99;
+						this.abilityThree.abilityType=101;
 						this.abilityThree.name=abilityConfig[this.abilityThree.abilityType].name;
 					}break;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
-		case 99:{/*Magnetism Up*/
+		case 101:{/*Magnetism Up*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
@@ -772,17 +772,17 @@ this.isGuest=!1;
 				switch(kind){
 					case 1:{
 						this.firstAbilityActivated=false;
-						this.abilityOne.abilityType=98;
+						this.abilityOne.abilityType=100;
 						this.abilityOne.name=abilityConfig[this.abilityOne.abilityType].name;
 					}break;
 					case 2:{
 						this.secondAbilityActivated=false;
-						this.abilityTwo.abilityType=98;
+						this.abilityTwo.abilityType=100;
 						this.abilityTwo.name=abilityConfig[this.abilityTwo.abilityType].name;
 					}break;
 					case 3:{
 						this.thirdAbilityActivated=false;
-						this.abilityThree.abilityType=98;
+						this.abilityThree.abilityType=100;
 						this.abilityThree.name=abilityConfig[this.abilityThree.abilityType].name;
 					}break;
 				}
@@ -4201,15 +4201,16 @@ class Torch extends SimulatorEntity{
 	this.height=36;
   }
   update(){}
-  render(ctx,ctxL,delta) {
-	ctx.imageSmoothingEnabled = false;
+  render(ctx,t,delta) {
+	const a = this.x + t.x
+	  , r = this.y + t.y;
 	var tf=delta/(1e3/30)
 	Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
-	this.flipped ? (ctx.translate(this.x + this.width / 2, this.y + this.height / 2),
+	this.flipped ? (ctx.translate(a + this.width / 2, r + this.height / 2),
 	ctx.scale(1, -1),
 	ctx.drawImage(this.image.getImage(tf), -this.width / 2, -this.height / 2, this.width, this.height),
 	ctx.scale(1, -1),
-	ctx.translate(-(this.x + this.width / 2), -(this.y + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), this.x, this.y, this.width, this.height)
+	ctx.translate(-(a + this.width / 2), -(r + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), a, r, this.width, this.height)
   }
 }
 class LightRegion extends SimulatorEntity{
@@ -4246,21 +4247,19 @@ class Wall extends SimulatorEntity{
 	this.height=height;
   }
   update(){}
-  render(ctx,ctxL,delta,renderType) {
+  render(ctx,camera) {
 		ctx.imageSmoothingEnabled = false;
         if(!zoneconsts[this.texture])return;
         var q = ctx.createPattern(zoneconsts[this.texture].active, null)
+		q.setTransform(new DOMMatrix([1,0,0,1,(camera.x+this.x)%zoneconsts[this.texture].active.width,(camera.y+this.y)%zoneconsts[this.texture].active.height]))
         ctx.save();
         ctx.beginPath();
-        ctx.translate(this.x,this.y);
         ctx.fillStyle = ((tileMode.selectedIndex&1)&&this.texture=="normal")?zoneColors[tileMode.selectedIndex>>1].active:q;
         ctx.rect(
-          0,
-          0,
+          camera.x+this.x,
+          camera.y+this.y,
 		  this.width,
 		  this.height
-          //map.areas[current_Area].assets[k].width,
-          //map.areas[current_Area].assets[k].height
         );
         ctx.fill();
         ctx.restore();
@@ -4295,8 +4294,8 @@ class FlashlightItem extends SimulatorEntity{
 	  if(!player.abilityThree){
 		  player.abilityThree={};
 	  }
-	  if(player.abilityThree.abilityType!=96&&this.isSpawned){
-	  player.abilityThree.abilityType=96;
+	  if(player.abilityThree.abilityType!=98&&this.isSpawned){
+	  player.abilityThree.abilityType=98;
 	  evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
 	  evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[player.abilityThree.abilityType]);
 	  evadesRenderer.heroInfoCard.abilityThree.locked=false;
@@ -4304,10 +4303,10 @@ class FlashlightItem extends SimulatorEntity{
 	  this.isSpawned=false;
 	  }
   }
-  render(ctx,ctxL,delta,renderType) {
+  render(ctx,camera) {
 	if(!this.isSpawned)return;
 	ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(this.texture.getImage(),this.x-16,this.y-8,32,16);
+    ctx.drawImage(this.texture.getImage(),camera.x+(this.x-16),camera.y+this.y-8,32,16);
   }
 }
 class LiquidEnemy extends Enemy{

@@ -31,8 +31,7 @@ class DynamicLighting{addCircleLightSource(e,t,a){this.circleLightSources.push({
 render(e,t){
 	
 	e.clearRect(0,0,e.canvas.width,e.canvas.height);
-    e.translate(e.canvas.width / 2 - camX * camScale, e.canvas.height / 2 - camY * camScale);
-    e.scale(camScale, camScale);
+	e.scale(camScale, camScale);
 	for(const a of this.circleLightSources){if(a.radius<0||Number.isNaN(a.radius))continue;const r=e.createRadialGradient(a.x+t.x,a.y+t.y,0,a.x+t.x,a.y+t.y,a.radius);r.addColorStop(0,"rgba(0, 0, 0, 1)"),r.addColorStop(1,"rgba(0, 0, 0, 0)"),e.beginPath(),e.arc(a.x+t.x,a.y+t.y,a.radius,0,2*Math.PI,!1),e.fillStyle=r,e.closePath(),e.fill()}for(const a of this.coneLightSources){const r=a.x+t.x,c=a.y+t.y,o=a.directionAngle-a.innerAngle/2,n=r+a.distance*Math.cos(o),$=c+a.distance*Math.sin(o),i=e.createRadialGradient(a.x+t.x,a.y+t.y,0,a.x+t.x,a.y+t.y,a.distance);i.addColorStop(0,"rgba(0, 0, 0, 1)"),i.addColorStop(1,"rgba(0, 0, 0, 0)"),e.beginPath(),e.moveTo(r,c),e.lineTo(n,$),e.arc(r,c,a.distance,a.directionAngle-a.innerAngle/2,a.directionAngle+a.innerAngle/2,!1),e.lineTo(r,c),e.fillStyle=i,e.closePath(),e.fill()}for(const a of this.rectangleLightSources){const r=a.x+t.x+a.width/2,c=a.y+t.y+a.height/2,o=Math.max(a.width,a.height)/2,n=e.createRadialGradient(r,c,0,r,c,o);n.addColorStop(0,`rgba(0, 0, 0, ${a.intensity})`),n.addColorStop(1,"rgba(0, 0, 0, 0)"),e.fillStyle=n,e.fillRect(a.x+t.x-o/2,a.y+t.y-o/2,a.width+o,a.height+o)}e.fillStyle=`rgba(0, 0, 0, ${this.lighting})`,
 	e.resetTransform(),
 	e.fillRect(0,0,e.canvas.width,e.canvas.height)
