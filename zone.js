@@ -184,7 +184,8 @@ let ActiveZone = createZone({x:posX,y:posY,width:160,height:160,type:"active"});
  * @returns {Spawner}
  */
 function createSPAWNERgui(point1,Zone){
-		var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','riptide_radius', 'swamp_radius','drowning_radius','test_param','rotor_branch_count','rotor_node_count','rotor_node_radius','rotor_rot_speed','rotor_reversed','rotor_branch_offset','rotor_node_dist','rotor_branch_dist','rotor_offset_per_layer','rotor_layer_reverse_interval','rotor_corrosive','burning_radius','defender_radius','web_radius','quicksand_strength'];
+		var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'switch_time', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','riptide_radius', 'swamp_radius','drowning_radius','test_param','rotor_branch_count','rotor_node_count','rotor_node_radius','rotor_rot_speed','rotor_reversed','rotor_branch_offset','rotor_node_dist','rotor_branch_dist','rotor_offset_per_layer','rotor_layer_reverse_interval','rotor_corrosive','burning_radius','defender_radius','web_radius','quicksand_strength'];
+		delete point1.element;
 		for(var i in point1){
 			if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
 		}
@@ -528,6 +529,16 @@ point1.projectile_radius=undefined;
 			retiInput.value = Math.max(Number(retiInput.value),0);
 			point1.release_time = Math.max(Number(retiInput.value),0);}spawnEntities()
 		});
+        const switchtimeInput = document.createElement("input");
+        switchtimeInput.value = point1.switch_time ?? defaultValues.spawner.switch_time;
+		switchtimeInput.step=1;
+		switchtimeInput.addEventListener("input", () => {
+		if(switchtimeInput.value==""){
+			point1.switch_time=undefined;return
+		}else{
+			switchtimeInput.value = Math.max(Number(switchtimeInput.value),0);
+			point1.switch_time = Math.max(Number(switchtimeInput.value),0);}spawnEntities()
+		});
         const pdrInput = document.createElement("input");
         pdrInput.value = point1.player_detection_radius ?? defaultValues.spawner.player_detection_radius;
 		pdrInput.step=1;
@@ -694,6 +705,7 @@ point1.projectile_radius=undefined;
       ],!0),
       createFolder(formatString(curLang,"editor.category.switch"), [
 		createProperty(formatString(curLang,"editor.property.switch_interval"), switchintInput, "number"),
+		createProperty(formatString(curLang,"editor.property.switch_time"), switchtimeInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.turning"),[
 		createProperty(formatString(curLang,"editor.property.circle_size"), csInput, "number"),
@@ -894,14 +906,8 @@ function cloneSpawner(e){
 		obj.push_direction = e.push_direction
 	);
 	obj.types.includes("blocking") && (obj.blocking_radius = e.blocking_radius);
-	obj.types.includes("burning") && (obj.burning_radius = e.burning_radius);
-	obj.types.includes("defender") && (obj.defender_radius = e.defender_radius);
-	obj.types.includes("web") && (obj.web_radius = e.web_radius);
 	obj.types.includes("freezing") && (obj.freezing_radius = e.freezing_radius);
 	obj.types.includes("reducing") && (obj.reducing_radius = e.reducing_radius);
-  obj.types.includes("riptide") && (obj.riptide_radius = e.riptide_radius);
-  obj.types.includes("swamp") && (obj.swamp_radius = e.swamp_radius);
-  obj.types.includes("drowning") && (obj.drowning_radius = e.drowning_radius);
 	obj.types.includes("disabling") && (obj.disabling_radius = e.disabling_radius);
 	obj.types.includes("lava") && (obj.lava_radius = e.lava_radius);
 	obj.types.includes("barrier") && (obj.barrier_radius = e.barrier_radius);
@@ -910,7 +916,10 @@ function cloneSpawner(e){
 	obj.types.includes("grass") && (obj.powered = e.powered);
 	obj.types.includes("flower") && (obj.growth_multiplier = e.growth_multiplier);
 	obj.types.includes("wind_ghost") && (obj.ignore_invulnerability = e.ignore_invulnerability);
-	obj.types.includes("switch") && (obj.switch_interval = e.switch_interval);
+	obj.types.includes("switch") && (
+		obj.switch_interval = e.switch_interval,
+		obj.switch_time = e.switch_time
+	);
 	obj.types.includes("cybot") && (obj.hard_mode = e.hard_mode);
 	obj.types.includes("frost_giant") && (
 		obj.shot_acceleration = e.shot_acceleration,

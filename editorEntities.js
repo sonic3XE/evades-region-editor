@@ -172,7 +172,7 @@ function spawnEntities(area=current_Area){
 					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,`push_direction`)??quicksandDir,prop(spawner,`quicksand_strength`),boundary);break;
 					case "turning":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"circle_size"),boundary);break;
 					case "liquid":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"player_detection_radius"),boundary);break;
-					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),boundary);break;
+					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),prop(spawner,"switch_time"),boundary);break;
 					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
 					case "flower":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"growth_multiplier"),boundary);break;
 					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
@@ -4344,23 +4344,23 @@ class LiquidEnemy extends Enemy{
   }
 }
 class SwitchEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,switch_inverval,boundary){
+  constructor(x,y,radius,speed,angle,switch_inverval,switch_time,boundary){
     super(x,y,radius,speed,angle,"switch_enemy",boundary);
     this.switch_inverval = switch_inverval;
+	this.switch_time=switch_time;
     this.disabled = false;
     if (Math.round(Math.random()) === 1) {
       this.disabled = true;
     }
     this.isHarmless = this.disabled;
-    this.clock = 0;
   }
   update(delta) {
-    this.clock += delta;
-    if (this.clock > this.switch_inverval) {
+    this.switch_time += delta;
+    if (this.switch_time > this.switch_inverval) {
       this.disabled = !this.disabled;
       this.isHarmless = this.disabled
     }
-    this.clock = this.clock % this.switch_inverval;
+    this.switch_time = this.switch_time % this.switch_inverval;
     super.update(delta);
   }
 }
