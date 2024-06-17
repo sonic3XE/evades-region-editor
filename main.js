@@ -902,7 +902,7 @@ function socketclosed(e){
   setTimeout(()=>{
     socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
     socket.binaryType="arraybuffer";
-    document.getElementById("chat-window").innerHTML="";
+    global.chat&&(document.getElementById("chat-window").innerHTML="");
     socket.addEventListener("close",socketclosed);
     socket.addEventListener("message",socketreceive);
   },3e3);
