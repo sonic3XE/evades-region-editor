@@ -890,6 +890,7 @@ function socketclosed(e){
   console.log("socket died, might reconnect after 3 seconds");
     var chatmsg=document.createElement("div");
     mouseEntities=[];
+	if(global.chat){
     chatmsg.setAttribute("class","chat-message")
     chatmsg.setAttribute("style","color:red")
     chatmsg.innerHTML="<b>Disconnected</b>";
@@ -897,7 +898,7 @@ function socketclosed(e){
     document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
     if(document.getElementById("chat-window").childNodes.length>100){
       document.getElementById("chat-window").childNodes[0].remove()
-    }
+    }}
   setTimeout(()=>{
     socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
     socket.binaryType="arraybuffer";
