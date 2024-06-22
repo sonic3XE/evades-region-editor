@@ -104,6 +104,12 @@ a:active {
 .mydomain:hover>span{
 	display:block;
 }
+.discord-server>span{
+	display:none;
+}
+.discord-server:hover>span{
+	display:block;
+}
 .issues>span{
 	display:none;
 }
