@@ -166,6 +166,7 @@ var curLang={
   "editor.property.powered": "Powered",
   "editor.property.ignore_invulnerability": "Ignore Invulnerability",
   "editor.property.speed_loss": "Speed Loss",
+  "editor.property.spawn_top": "Spawn Top",
   "editor.property.regen_loss": "Regen Loss",
   "editor.property.release_interval": "Release Interval",
   "editor.property.release_time": "Release Time",

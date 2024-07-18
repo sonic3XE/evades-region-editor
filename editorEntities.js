@@ -176,7 +176,7 @@ function spawnEntities(area=current_Area){
 					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
 					case "flower":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"growth_multiplier"),boundary);break;
 					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
-					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),prop(spawner,"move_clockwise"));break;
+					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),prop(spawner,"move_clockwise"),prop(spawner,"spawn_top"));break;
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
 					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),checkAreaProperties("wind_ghosts_do_not_push_while_downed"),boundary);break;
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
@@ -2562,9 +2562,9 @@ class PelletEntity extends SimulatorEntity{
 }
 //	EvadesClassic enemy files: server\src\game\entities\enemies\{{type}}_enemy.py
 class WallEnemy extends Enemy{
-  constructor(radius,speed,area_bounding_box,wall_index,wall_count,move_clockwise=true){
+  constructor(radius,speed,area_bounding_box,wall_index,wall_count,move_clockwise=true,spawn_top=true){
     super(0,0,radius,speed,0,"wall_enemy",area_bounding_box);
-    var initial_side=0;
+    var initial_side=2*(!spawn_top);
     var distance=wall_index*(
       (this.boundary.width-this.radius*2)*2+
       (this.boundary.height-this.radius*2)*2)/wall_count;

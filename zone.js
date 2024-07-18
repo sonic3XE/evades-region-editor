@@ -310,6 +310,11 @@ function createSPAWNERgui(point1,Zone){
     hardInput.addEventListener("input", () => {
       point1.hard_mode=hardInput.checked;spawnEntities()
   });
+  const spTopInput = document.createElement("input");
+    spTopInput.checked = point1.spawn_top ?? defaultValues.spawner.spawn_top;
+    spTopInput.addEventListener("input", () => {
+      point1.spawn_top=spTopInput.checked;spawnEntities()
+  });
 
 		const speedInput = document.createElement("input");
 		speedInput.value = isNaN(point1.speed ?? defaultValues.spawner.speed)?0:(point1.speed ?? defaultValues.spawner.speed);
@@ -711,6 +716,7 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.circle_size"), csInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.wall"),[
+		createProperty(formatString(curLang,"editor.property.spawn_top"), spTopInput, "switch", {value: point1.spawn_top ?? defaultValues.spawner.spawn_top}),
 		createProperty(formatString(curLang,"editor.property.move_clockwise"), ckwsInput, "switch", {value: point1.move_clockwise ?? defaultValues.spawner.move_clockwise}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.wind_ghost"), [
@@ -912,7 +918,10 @@ function cloneSpawner(e){
 	obj.types.includes("lava") && (obj.lava_radius = e.lava_radius);
 	obj.types.includes("barrier") && (obj.barrier_radius = e.barrier_radius);
 	obj.types.includes("icicle") && (obj.horizontal = e.horizontal);
-	obj.types.includes("wall") && (obj.move_clockwise = e.move_clockwise);
+	obj.types.includes("wall") && (
+		obj.move_clockwise = e.move_clockwise,
+		obj.spawn_top = e.spawn_top
+	);
 	obj.types.includes("grass") && (obj.powered = e.powered);
 	obj.types.includes("flower") && (obj.growth_multiplier = e.growth_multiplier);
 	obj.types.includes("wind_ghost") && (obj.ignore_invulnerability = e.ignore_invulnerability);
@@ -941,20 +950,6 @@ function cloneSpawner(e){
 		obj.release_time = e.release_time,
 		obj.release_interval = e.release_interval
 	);
-  obj.types.includes("param_test") && (obj.test_param = e.test_param);
-  obj.types.includes("rotor") && (
-    obj.rotor_branch_count = e.rotor_branch_count,
-    obj.rotor_node_count = e.rotor_node_count,
-    obj.rotor_node_radius = e.rotor_node_radius,
-    obj.rotor_rot_speed = e.rotor_rot_speed,
-    obj.rotor_reversed = e.rotor_reversed,
-    obj.rotor_branch_offset = e.rotor_branch_offset,
-    obj.rotor_node_dist = e.rotor_node_dist,
-    obj.rotor_branch_dist = e.rotor_branch_dist,
-    obj.rotor_offset_per_layer = e.rotor_offset_per_layer,
-    obj.rotor_layer_reverse_interval = e.rotor_layer_reverse_interval,
-    obj.rotor_corrosive = e.rotor_corrosive
-  );
 	return obj;
 }
 function createZone(e) {
