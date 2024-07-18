@@ -359,6 +359,7 @@ var defaultValues={
 	spawner:{
 		horizontal:false,
 		move_clockwise:true,
+		spawn_top:true,
 		cone_angle:45,
 		direction:1,
 		pattern:void 0,
