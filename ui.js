@@ -438,6 +438,7 @@ var defaultValues={
 		charge_reduced:false,
 	},
 }
+// ソニック。エキセ <- Perferring japanese // / Sonic.exe / Соник.экзе / ⠠⠎⠕⠝⠊⠉⠲⠑⠭⠑ / Σόνικ.εξε
 function createLI(_class = "", id = "") {
     let el = document.createElement("li");
     if (id) el.id = id;
