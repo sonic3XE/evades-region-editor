@@ -1267,11 +1267,11 @@ contextBtns.copyObject.addEventListener("click",()=>{
 	selectedObjects.map(_=>{
 		var sel;
 		if(_.properties){
-			_.properties.element.remove()
+			"element" in _.properties && _.properties.element.remove();
 			delete _.properties.inputs;
 			delete _.properties.element;
 		};
-		_.element.remove();
+		"element" in _ && _.element.remove();
 		delete _.element;
 		delete _.inputs;
 		if (["wall", "light_region", "flashlight_spawner", "torch", "gate"].indexOf(_.type) == -1) {
