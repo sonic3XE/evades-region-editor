@@ -4586,11 +4586,8 @@ class RingSniperEnemy extends Enemy{
       distance_x = this.x - entity.x;
       distance_y = this.y - entity.y;
       distance = distance_x**2 + distance_y**2
-	  // amasterclasher, if you see this comment:
-	  // you can tell sonic.exe666 in #brainstorming:
-	  // The range of ring sniper enemy where it can shoot at players.
-      if(distance > 9223372036854775807)continue;
-	  // this range will be changed later when junior developers are online.
+      if(distance > 2400**2)continue;
+	  // this range will be changed if this is incorrect
       if(closest_entity==void 0){
         closest_entity=entity;
         closest_entity_distance = distance;
