@@ -196,6 +196,7 @@ function spawnEntities(area=current_Area){
 					case "wavy":
 					case "immune":
 					case "sniper":
+					case "ring_sniper":
 					case "speed_ghost":
 					case "gravity_ghost":
 					case "repelling_ghost":
@@ -4556,6 +4557,90 @@ class SniperProjectile extends Enemy{
     if (this.clock >= 7000) {
       this.remove=true;
     }
+    super.update(delta);
+  }
+}
+class RingSniperEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"ring_sniper_enemy",boundary);
+	//This will be subject to change when this interval is not exact.
+    this.release_interval = 5000;
+	//I haven't tracked the max health of ring sniper enemies.
+	//Placeholder of 1 is valid since max health of 0 doesn't work.
+	this.maxHealth=this.health=1;
+	//:unsure: If it does shoot this immediately after spawned by Cybot MK.2
+	this.releaseTime=0;
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+	  // amasterclasher, if you see this comment:
+	  // you can tell sonic.exe666 in #brainstorming:
+	  // The range of ring sniper enemy where it can shoot at players.
+      if(distance > 9223372036854775807)continue;
+	  // this range will be changed later when junior developers are online.
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new RingSniperProjectile(this.x,this.y,24,3,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = this.release_interval;
+    }
+    }else{
+      this.releaseTime -= delta;
+    }
+    super.update(delta);
+  }
+}
+class RingSniperProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"ring_sniper_projectile",boundary);
+    this.outline=false;
+    this.immune=true;
+	this.corrosive=true;
+	this.isEnemy=false;
+    this.clock=0;
+    this.clock2=0;
+	this.bounce_count=0;
+  }
+  onCollide(){
+	this.bounce_count++;
+  }
+  render(e, t) {
+    e.beginPath(),
+    e.arc(this.x + t.x, this.y + t.y, .875 * this.radius, 0, 2 * Math.PI, !1),
+    e.strokeStyle = this.color,
+    e.lineWidth = this.radius / 4,
+    e.stroke()
+  }
+  update(delta) {
+	if(this.bounce_count>=3){
+	  this.clock+=delta;
+      if (this.clock>=3000){
+        this.remove=true;
+      }
+	}
+	this.clock2+=delta;
+	if(this.clock2>=8320/this.speed*(1e3/30))this.remove=true;
     super.update(delta);
   }
 }
