@@ -1905,6 +1905,8 @@ this.collides=this.collision(delta);
 		this.storedBodyName = this.bodyName),
 		this.hatName && this.hatName !== this.storedHatName && (this.hatImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("cosmetics/" + this.hatName),
 		this.storedHatName = this.hatName);
+		this.gemName && this.gemName !== this.storedGemName && (this.gemImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("accessories/" + this.gemName.toString() + "-gem"),
+		this.storedGemName = this.gemName);
 		const r = ()=>e.drawImage(this.bodyImage.getImage(), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
 		  , c = ()=>e.drawImage(this.hatImage.getImage(), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
 		  , o = ()=>{
