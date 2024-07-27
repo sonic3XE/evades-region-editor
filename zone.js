@@ -33,6 +33,18 @@ const settings={
 		return (localStorage.toggleMouseMovement??"true")=="true";
 	},set toggleMouseMovement(e){
 		localStorage.toggleMouseMovement=e;
+	},get hat(){
+		return Number(localStorage.hat??0);
+	},set hat(e){
+		localStorage.hat=e;
+	},get gem(){
+		return Number(localStorage.gem??0);
+	},set gem(e){
+		localStorage.gem=e;
+	},get body(){
+		return Number(localStorage.body??0);
+	},set body(e){
+		localStorage.body=e;
 	},get enableMouseMovement(){
 		return localStorage.enableMouseMovement=="true";
 	},set enableMouseMovement(e){

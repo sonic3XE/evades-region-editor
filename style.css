@@ -452,7 +452,7 @@ display: block;
 }
 #tip>table{width:100%}
 #tip {
-  width:400px;
+  width:416px;
     position: absolute;
 	max-height:200px;
 	overflow-y:auto;

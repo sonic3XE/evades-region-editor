@@ -627,6 +627,11 @@ canvas.addEventListener("contextmenu", e => {
   show(contextmenu);updateMouseEntity=false;
 });
 let selectedObjects=[];
+[body_collection,hat_collection,gem_collection].map(e=>{
+	e.addEventListener("input",(t)=>{
+		settings[t.target.id.split("_")[0]]=t.target.selectedIndex;
+	})
+});
 [realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>{
 	e.addEventListener("input",(t)=>{
 		settings[t.target.id]=t.target.checked;
