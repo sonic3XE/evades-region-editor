@@ -278,9 +278,14 @@ this.regionHighestAreaAchieved=0;
 this.winCount=0;
 this.rescuedCount=0;
 this.survivalTime=0;
-this.hatName=[null, "gold-crown", "silver-crown", "bronze-crown", "santa-hat", "gold-wreath", "spring-wreath", "autumn-wreath", "winter-wreath", "summer-wreath", "summer-olympics-wreath", "summer-olympics-wreath-2", "winter-olympics-wreath", "halo", "blue-santa-hat", "flames", "blue-flames", "stars", "witch-hat", "sunglasses", "flower-headband", "pirate-hat", "rose-wreath", "gold-jewels", "silver-jewels", "bronze-jewels"][settings.hat];
-this.bodyName=[null, "sticky-coat", "toxic-coat", "orbit-ring", "clouds", "storm-clouds", "tuxedo", "doughnut", "stardust", "broomstick", "snowglobe"][settings.body];
-this.gemName=[null, 50, 100, 250, 500, 750, 1000, 1500, 2000, 2500, 3500, 5000, 7500, 10000][settings.gem];
+//init accessory getter by player settings
+Object.defineProperties(this,{"hatName":{get:function(){
+	return [null, "gold-crown", "silver-crown", "bronze-crown", "santa-hat", "gold-wreath", "spring-wreath", "autumn-wreath", "winter-wreath", "summer-wreath", "summer-olympics-wreath", "summer-olympics-wreath-2", "winter-olympics-wreath", "halo", "blue-santa-hat", "flames", "blue-flames", "stars", "witch-hat", "sunglasses", "flower-headband", "pirate-hat", "rose-wreath", "gold-jewels", "silver-jewels", "bronze-jewels"][settings.hat];
+}},"bodyName":{get:function(){
+	return [null, "sticky-coat", "toxic-coat", "orbit-ring", "clouds", "storm-clouds", "tuxedo", "doughnut", "stardust", "broomstick", "snowglobe"][settings.body];
+}},"gemName":{get:function(){
+	return [null, 50, 100, 250, 500, 750, 1000, 1500, 2000, 2500, 3500, 5000, 7500, 10000][settings.gem];
+}}})
 this.isIced=false;
 this.icedTime=1000;
 this.icedTimeLeft=1000;
@@ -387,17 +392,11 @@ this.vertSpeed=-1;
     this.auraType = -1;
 	this.nightSpeed=0;
     this.collides = false;
-		this.hatImage = $31e8cfefa331e399$var$images[`cosmetics/${[null, "gold-crown", "silver-crown", "bronze-crown", "santa-hat", "gold-wreath", "spring-wreath", "autumn-wreath", "winter-wreath", "summer-wreath", "summer-olympics-wreath", "summer-olympics-wreath-2", "winter-olympics-wreath", "halo", "blue-santa-hat", "flames", "blue-flames", "stars", "witch-hat", "sunglasses", "flower-headband", "pirate-hat", "rose-wreath", "gold-jewels", "silver-jewels", "bronze-jewels"][settings.hat]}`]||null;
-		this.bodyImage = $31e8cfefa331e399$var$images[`cosmetics/${[null, "sticky-coat", "toxic-coat", "orbit-ring", "clouds", "storm-clouds", "tuxedo", "doughnut", "stardust", "broomstick", "snowglobe"][settings.body]}`]||null;
-		this.gemImage = $31e8cfefa331e399$var$images[`accessories/${[null, 50, 100, 250, 500, 750, 1000, 1500, 2000, 2500, 3500, 5000, 7500, 10000][settings.gem]}-gem`]||null;
-		
-		
-		
-		this.lightRadius = 50,
+	this.lightRadius = 50,
 	this.energyRate=1;
-		this.drawnConfetti = !1,
-		this.confetti = [],
-		this.isPlayer = !0;
+	this.drawnConfetti = !1,
+	this.confetti = [],
+	this.isPlayer = !0;
     this.abs_d_x = 0;
     this.abs_d_y = 0;
 this.areaNumber=1;
