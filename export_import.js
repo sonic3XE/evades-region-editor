@@ -63,7 +63,13 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
         customAREAgui(map.areas[0]);
         areamenu.appendChild(map.areas[0].element);
         fromLocal&&customAlert("Successfully imported region in "+(performance.now()-noew)+" ms.",1);
-        }catch(err){var rng=Math.random()<0.1;(rng?consumed_by_ink_demon=1:customAlert("Import error. Please check your file to see the problems.",1/0));console.log(err)}
+        }catch(err){
+			//var rng=Math.random()<0.1;
+			//(rng?consumed_by_ink_demon=1:customAlert("Import error. Please check your file to see the problems.",1/0));
+			customAlert(`Failed to import region due to an error in ${fromLocal?"your file":"the regions directory"}.`,10)
+			err.stack.split("\n").map(e=>customAlert(e,10,"#F00"))
+			console.log(err);
+		}
       updateMap();
   if(alertMessages.filter(e=>e.color=="#FF3333").length){throw "Missing properties. T_T"}
 }
