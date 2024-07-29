@@ -1,0 +1,2161 @@
+name: Assorted Alcove
+properties:
+  friction: 0.75
+  warping_disabled: true
+  background_color:
+  - 105
+  - 70
+  - 5
+  - 80
+areas:
+# 1
+- x: var x
+  y: var y
+  zones:
+  - type: teleport
+    x: 32
+    y: 0
+    width: 288
+    height: 64
+    translate:
+      x: 0
+      y: -8608
+  - type: teleport
+    x: 32
+    y: 416
+    width: 288
+    height: 64
+    translate:
+      x: -1952
+      y: 2120
+  - type: teleport
+    x: 0
+    y: 0
+    width: 32
+    height: 480
+    translate:
+      x: 94796
+      y: 0
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 100
+  - type: safe
+    x: 32
+    y: 64
+    width: 288
+    height: 352
+    properties:
+      minimum_speed: 10
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: 480
+    spawner:
+    - count: 5
+      radius: 18
+      speed: 6
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 2
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 9
+      radius: 18
+      speed: 8
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 3
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 10
+      radius: 10
+      speed: 4.5
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 7
+      radius: 20
+      speed: 9.5
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 7
+      radius: 10
+      speed: 7.5
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 5
+      radius: 30
+      speed: 4
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 4
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 16
+      radius: 30
+      speed: 7.5
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 5
+      radius: 30
+      speed: 4
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 5
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 10
+      radius: 7
+      speed: 10
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 10
+      radius: 18
+      speed: 8
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 5
+      radius: 30
+      speed: 4
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 6
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 18
+      radius: 12
+      speed: 10
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 5
+      radius: 30
+      speed: 4
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 7
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 30
+      radius: 18
+      speed: 8
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 2
+      radius: 80
+      speed: 8
+      types:
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - homing
+      - icicle
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+    - count: 5
+      radius: 30
+      speed: 4
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 8
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 15
+      radius: 12
+      speed: 7
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 9
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 3.5
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 13
+      radius: 24
+      speed: 9.5
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 10
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 7
+      radius: 40
+      speed: 4
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 7
+      radius: 30
+      speed: 6
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 7
+      radius: 20
+      speed: 8
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 7
+      radius: 10
+      speed: 10
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 11
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 31
+      radius: 12
+      speed: 9
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 12
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 17
+      radius: 12
+      speed: 8.5
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 7
+      radius: 18
+      speed: 12.5
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 13
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 24
+      radius: 18
+      speed: 9.5
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 14
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 34
+      radius: 12
+      speed: 9.5
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 2
+      radius: 80
+      speed: 9
+      types:
+      - corrosive
+      - dasher
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 6
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 15
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 8
+      radius: 45
+      speed: 6
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 11
+      radius: 11
+      speed: 8
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 8
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 16
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 9
+      radius: 12
+      speed: 4
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 8
+      radius: 12
+      speed: 7
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 8
+      radius: 12
+      speed: 10
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 8
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 17
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 15
+      radius: 48
+      speed: 10
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 8
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 18
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 4
+      radius: 8
+      speed: 15
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 20
+      radius: 36
+      speed: 8
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 8
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 19
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 17
+      radius: 28
+      speed: 9.5
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 8
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 20
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 6
+      radius: 14
+      speed: 11
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 6
+      radius: 12
+      speed: 11
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 7
+      radius: 10
+      speed: 11
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 7
+      radius: 10
+      speed: 8
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 8
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 21
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 18
+      radius: 18
+      speed: 15
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 2
+      radius: 80
+      speed: 10
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - enlarging
+      - fake_pumpkin
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 8
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 22
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 6
+      radius: 50
+      speed: 9
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 10
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 23
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 22
+      radius: 25
+      speed: 5
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 10
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 24
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 11
+      radius: 10
+      speed: 14
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 3
+      radius: 40
+      speed: 5
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 10
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 25
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 8
+      radius: 18
+      speed: 10
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 13
+      radius: 18
+      speed: 4
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 4
+      radius: 24
+      speed: 12
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 10
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 26
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 11
+      radius: 9
+      speed: 12
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 13
+      radius: 12
+      speed: 4
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 10
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 27
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 19
+      radius: 38
+      speed: 9
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 10
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 28
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 24
+      radius: 18
+      speed: 15
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 2
+      radius: 80
+      speed: 12
+      types:
+      - corrosive
+      - dasher
+      - disabling
+      - draining
+      - enlarging
+      - fake_pumpkin
+      - fire_trail
+      - freezing
+      - homing
+      - icicle
+      - immune
+      - liquid
+      - normal
+      - pumpkin
+      - sizing
+      - slowing
+      - snowman
+      - switch
+      - toxic
+    - count: 5
+      radius: 30
+      speed: 10
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# Victory 1
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: victory
+    x: 64
+    y: 0
+    width: 2976
+    height: last_height
+  - height: last_height
+    type: removal
+    width: 160
+    translate:
+      x: 160
+      y: 0
+    x: 3040
+    y: 0

@@ -1,0 +1,1154 @@
+name: Toxic Territory Hard
+properties:
+  friction: 0.75
+  background_color:
+  - 0
+  - 0
+  - 0
+  - 125
+areas:
+# 1
+- x: var x
+  y: var y
+  zones:
+  - type: teleport
+    x: 0
+    y: 0
+    width: 32
+    height: 192
+    translate:
+      x: -94604
+      y: 0
+    properties:
+      background_color:
+      - 0
+      - 0
+      - 0
+      - 100
+  - type: safe
+    x: 32
+    y: 0
+    width: 288
+    height: 192
+    properties:
+      minimum_speed: 10
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 192
+    spawner:
+    - types:
+      - corrosive
+      count: 10
+      radius: 18
+      speed: 7
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 2
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 256
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 256
+    spawner:
+    - types:
+      - corrosive
+      count: 18
+      radius: 12
+      speed: 10
+    - types:
+      - toxic
+      count: 2
+      radius: 12
+      speed: 5
+    - types:
+      - wall
+      count: 5
+      radius: 10
+      speed: 5
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 3
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 320
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 320
+    spawner:
+    - types:
+      - corrosive
+      count: 26
+      radius: 12
+      speed: 5
+    - types:
+      - corrosive
+      count: 6
+      radius: 18
+      speed: 17
+    - types:
+      - toxic
+      count: 5
+      radius: 12
+      speed: 5
+    - types:
+      - wall
+      count: 5
+      radius: 15
+      speed: 5
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 4
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 384
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 384
+    spawner:
+    - types:
+      - corrosive
+      count: 16
+      radius: 48
+      speed: 3
+    - types:
+      - corrosive
+      count: 22
+      radius: 30
+      speed: 3
+    - types:
+      - corrosive
+      count: 29
+      radius: 12
+      speed: 4
+    - types:
+      - toxic
+      count: 2
+      radius: 12
+      speed: 9
+    - types:
+      - wall
+      count: 5
+      radius: 20
+      speed: 5
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 5
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 448
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 448
+    spawner:
+    - types:
+      - corrosive
+      count: 2
+      radius: 135
+      speed: 7
+    - types:
+      - corrosive
+      count: 52
+      radius: 18
+      speed: 2
+    - types:
+      - corrosive
+      count: 52
+      radius: 12
+      speed: 2
+    - types:
+      - toxic
+      count: 3
+      radius: 12
+      speed: 2
+    - types:
+      - wall
+      count: 5
+      radius: 25
+      speed: 5
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 6
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 448
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 448
+    spawner:
+    - types:
+      - corrosive
+      count: 12
+      radius: 18
+      speed: 5
+    - types:
+      - corrosive
+      count: 20
+      radius: 12
+      speed: 3
+    - types:
+      - corrosive_sniper
+      count: 2
+      radius: 12
+      speed: 3
+    - types:
+      - wall
+      count: 5
+      radius: 25
+      speed: 6
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 7
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 384
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 384
+    spawner:
+    - types:
+      - corrosive
+      count: 16
+      radius: 24
+      speed: 9
+    - types:
+      - toxic
+      count: 2
+      radius: 12
+      speed: 10
+    - types:
+      - corrosive_sniper
+      count: 4
+      radius: 24
+      speed: 5
+    - types:
+      - wall
+      count: 5
+      radius: 20
+      speed: 6
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 8
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 320
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 320
+    spawner:
+    - types:
+      - corrosive
+      count: 24
+      radius: 18
+      speed: 7
+    - types:
+      - corrosive_sniper
+      count: 4
+      radius: 12
+      speed: 5
+    - types:
+      - corrosive_sniper
+      count: 3
+      radius: 6
+      speed: 6
+    - types:
+      - wall
+      count: 5
+      radius: 15
+      speed: 6
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 9
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 256
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 256
+    spawner:
+    - types:
+      - corrosive
+      count: 8
+      radius: 24
+      speed: 5
+    - types:
+      - corrosive
+      count: 16
+      radius: 12
+      speed: 7
+    - types:
+      - corrosive_sniper
+      count: 3
+      radius: 32
+      speed: 10
+    - types:
+      - wall
+      count: 5
+      radius: 10
+      speed: 6
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 10
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 192
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 192
+    spawner:
+    - types:
+      - corrosive
+      count: 12
+      radius: 18
+      speed: 5
+    - types:
+      - toxic
+      count: 3
+      radius: 12
+      speed: 5
+    - types:
+      - corrosive_sniper
+      count: 2
+      radius: 36
+      speed: 3
+    - types:
+      - corrosive_sniper
+      count: 6
+      radius: 12
+      speed: 2
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 11
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 192
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 192
+    spawner:
+    - types:
+      - corrosive
+      count: 8
+      radius: 26
+      speed: 6
+    - types:
+      - corrosive
+      count: 8
+      radius: 32
+      speed: 3
+    - types:
+      - enlarging
+      count: 4
+      radius: 12
+      speed: 7
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 12
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 256
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 256
+    spawner:
+    - types:
+      - corrosive
+      count: 11
+      radius: 18
+      speed: 9
+    - types:
+      - corrosive_sniper
+      count: 4
+      radius: 12
+      speed: 10
+    - types:
+      - enlarging
+      count: 4
+      radius: 12
+      speed: 7
+    - types:
+      - wall
+      count: 5
+      radius: 10
+      speed: 7
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 13
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 320
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 320
+    spawner:
+    - types:
+      - corrosive
+      count: 20
+      radius: 24
+      speed: 5
+    - types:
+      - toxic
+      count: 6
+      radius: 12
+      speed: 12
+    - types:
+      - enlarging
+      count: 6
+      radius: 12
+      speed: 12
+    - types:
+      - wall
+      count: 5
+      radius: 15
+      speed: 7
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 14
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 384
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 384
+    spawner:
+    - types:
+      - corrosive_sniper
+      count: 3
+      radius: 12
+      speed: 13
+    - types:
+      - corrosive_sniper
+      count: 4
+      radius: 30
+      speed: 3
+    - types:
+      - enlarging
+      count: 16
+      radius: 12
+      speed: 6
+    - types:
+      - wall
+      count: 5
+      radius: 20
+      speed: 7
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 15
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 448
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 448
+    spawner:
+    - types:
+      - corrosive
+      count: 10
+      radius: 12
+      speed: 14
+    - types:
+      - toxic
+      count: 10
+      radius: 12
+      speed: 5
+    - types:
+      - corrosive_sniper
+      count: 4
+      radius: 12
+      speed: 5
+    - types:
+      - enlarging
+      count: 15
+      radius: 30
+      speed: 11
+    - types:
+      - wall
+      count: 5
+      radius: 25
+      speed: 7
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 16
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 448
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 448
+    spawner:
+    - types:
+      - enlarging
+      count: 8
+      radius: 12
+      speed: 9
+    - types:
+      - poison_ghost
+      count: 10
+      radius: 24
+      speed: 4.2
+    - types:
+      - wall
+      count: 5
+      radius: 25
+      speed: 9
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 17
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 384
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 384
+    spawner:
+    - types:
+      - corrosive
+      count: 12
+      radius: 30
+      speed: 5
+    - types:
+      - toxic
+      count: 15
+      radius: 12
+      speed: 14
+    - types:
+      - poison_ghost
+      count: 8
+      radius: 60
+      speed: 4.2
+    - types:
+      - wall
+      count: 5
+      radius: 20
+      speed: 9
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 18
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 320
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 320
+    spawner:
+    - types:
+      - toxic
+      count: 15
+      radius: 12
+      speed: 3
+    - types:
+      - enlarging
+      count: 15
+      radius: 12
+      speed: 3
+    - types:
+      - poison_ghost
+      count: 16
+      radius: 36
+      speed: 7
+    - types:
+      - wall
+      count: 5
+      radius: 15
+      speed: 9
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 19
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 256
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 256
+    spawner:
+    - types:
+      - toxic
+      count: 10
+      radius: 12
+      speed: 3
+    - types:
+      - corrosive_sniper
+      count: 4
+      radius: 12
+      speed: 5
+    - types:
+      - enlarging
+      count: 10
+      radius: 12
+      speed: 3
+    - types:
+      - poison_ghost
+      count: 8
+      radius: 52
+      speed: 9.8
+    - types:
+      - wall
+      count: 5
+      radius: 10
+      speed: 9
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 20
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 192
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 3584
+    height: 192
+    spawner:
+    - types:
+      - corrosive
+      count: 5
+      radius: 12
+      speed: 9
+    - types:
+      - toxic
+      count: 5
+      radius: 12
+      speed: 9
+    - types:
+      - enlarging
+      count: 12
+      radius: 12
+      speed: 9
+    - types:
+      - poison_ghost
+      count: 6
+      radius: 36
+      speed: 7.35
+    - types:
+      - poison_ghost
+      count: 9
+      radius: 12
+      speed: 12.6
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+# 21
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 192
+    translate:
+      x: -160
+      y: 0
+  - type: victory
+    x: 64
+    y: 0
+    width: 2976
+    height: last_height
+  - type: removal
+    x: 3040
+    y: 0
+    width: 160
+    height: last_height

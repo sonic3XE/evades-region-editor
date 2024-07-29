@@ -24,9 +24,6 @@ regions:
 - file: regions/central-core-hard.yaml
   x: 135052
   y: 0
-- file: regions/central-core-test.yaml
-  x: 0
-  y: 0
 - file: regions/coupled-corridors.yaml
   x: 307872
   y: 44640
@@ -42,7 +39,7 @@ regions:
 - file: regions/dangerous-district-hard.yaml
   x: 270104
   y: 24640
-- file: regions/dusty-depths.yaml outdated
+- file: regions/dusty-depths.yaml
   x: 70208
   y: 5456
 - file: regions/elite-expanse.yaml
@@ -123,7 +120,7 @@ regions:
 - file: regions/quiet-quarry-hard.yaml
   x: 135052
   y: 26080
-- file: regions/research-lab.yaml outdated
+- file: regions/research-lab.yaml
   x: 5632
   y: 147952
 - file: regions/restless-ridge.yaml
@@ -132,7 +129,7 @@ regions:
 - file: regions/restless-ridge-hard.yaml
   x: 135052
   y: 43040
-- file: regions/shifting-sands.yaml outdated
+- file: regions/shifting-sands.yaml
   x: 5088
   y: 4320
 - file: regions/stellar-square.yaml
@@ -156,6 +153,6 @@ regions:
 - file: regions/wacky-wonderland.yaml
   x: 1952
   y: 16000
-- file: regions/withering-wasteland.yaml outdated
+- file: regions/withering-wasteland.yaml
   x: 1952
   y: 173712

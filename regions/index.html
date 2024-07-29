@@ -10,6 +10,7 @@
 <script>
 function formatDates(time){
     if(typeof time == "number")time = new Date(time*1e3);
+	if(typeof time=="string")return time;
     return `${time.getMonth()+1}/${time.getDate()}/${time.getYear()%100}, ${(time.getHours()%12)||12}:${time.getMinutes().toString().padStart(2,"0")}:${time.getSeconds().toString().padStart(2,"0")} ${time.getHours()>11?"PM":"AM"}`
 }
 function addRow(name, url, isdir,
@@ -203,15 +204,15 @@ window.addEventListener('DOMContentLoaded', onLoad);
 
 <body>
 
-<h1 id="header">何かがうまくいかなかった<!--Index of EvadesClassic/master/server/maps/definitions/regions--></h1>
+<h1 id="header">Index of LOCATION</h1>
+<!--<h1 id="header">Index of evades-region-editor/regions何かがうまくいかなかったIndex of EvadesClassic/master/server/maps/definitions/regions</h1>-->
 
 <div id="parentDirLinkBox" style="display:none">
   <a id="parentDirLink" class="icon up">
     <span id="parentDirText">[parent directory]</span>
   </a>
 </div>
-<h2>Error 404: Not Found</h2>
-<table hidden>
+<table>
   <thead>
     <tr class="header" id="theader">
       <th id="nameColumnHeader" tabindex=0 role="button">Name</th>
@@ -236,57 +237,55 @@ window.addEventListener('DOMContentLoaded', onLoad);
 // found in the LICENSE file.
 var loadTimeData;class LoadTimeData{constructor(){this.data_=null}set data(value){expect(!this.data_,"Re-setting data.");this.data_=value}valueExists(id){return id in this.data_}getValue(id){expect(this.data_,"No data. Did you remember to include strings.js?");const value=this.data_[id];expect(typeof value!=="undefined","Could not find value for "+id);return value}getString(id){const value=this.getValue(id);expectIsType(id,value,"string");return value}getStringF(id,var_args){const value=this.getString(id);if(!value){return""}const args=Array.prototype.slice.call(arguments);args[0]=value;return this.substituteString.apply(this,args)}substituteString(label,var_args){const varArgs=arguments;return label.replace(/\$(.|$|\n)/g,(function(m){expect(m.match(/\$[$1-9]/),"Unescaped $ found in localized string.");return m==="$$"?"$":varArgs[m[1]]}))}getBoolean(id){const value=this.getValue(id);expectIsType(id,value,"boolean");return value}getInteger(id){const value=this.getValue(id);expectIsType(id,value,"number");expect(value===Math.floor(value),"Number isn't integer: "+value);return value}overrideValues(replacements){expect(typeof replacements==="object","Replacements must be a dictionary object.");for(const key in replacements){this.data_[key]=replacements[key]}}}function expect(condition,message){if(!condition){throw new Error("Unexpected condition on "+document.location.href+": "+message)}}function expectIsType(id,value,type){expect(typeof value===type,"["+value+"] ("+id+") is not a "+type)}expect(!loadTimeData,"should only include this file once");loadTimeData=new LoadTimeData;window.loadTimeData=loadTimeData;console.warn("crbug/1173575, non-JS module files deprecated.");</script><script>loadTimeData.data = {"header":"Index of LOCATION","headerDateModified":"Date Modified","headerName":"Name","headerSize":"Size","language":"en","parentDirText":"[parent directory]","textdirection":"ltr"};</script><script>start("/evades-region-editor/regions/");</script>
 <script>onHasParentDirectory();</script>
-<script>addRow("assorted-alcove-hard.yaml","assorted-alcove-hard.yaml",0,28372,"27.7 kB",1701049526,"11/26/23, 8:45:26 PM");</script>
-<script>addRow("assorted-alcove.yaml","assorted-alcove.yaml",0,32761,"32.0 kB",1701049526,"11/26/23, 8:45:26 PM");</script>
-<script>addRow("ballistic-battlefield.yaml","ballistic-battlefield.yaml",0,36622,"35.8 kB",1701049526,"11/26/23, 8:45:26 PM");</script>
-<script>addRow("burning-bunker-hard.yaml","burning-bunker-hard.yaml",0,197891,"193 kB",1701049526,"11/26/23, 8:45:26 PM");</script>
-<script>addRow("burning-bunker.yaml","burning-bunker.yaml",0,288019,"281 kB",1701049526,"11/26/23, 8:45:26 PM");</script>
-<script>addRow("catastrophic-core.yaml","catastrophic-core.yaml",0,31932,"31.2 kB",1701049526,"11/26/23, 8:45:26 PM");</script>
-<script>addRow("central-core-hard.yaml","central-core-hard.yaml",0,31474,"30.7 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("central-core-test.yaml","central-core-test.yaml",0,5375,"5.2 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("central-core.yaml","central-core.yaml",0,31311,"30.6 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("coupled-corridors.yaml","coupled-corridors.yaml",0,65215,"63.7 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("cyber-castle-hard.yaml","cyber-castle-hard.yaml",0,25689,"25.1 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("cyber-castle.yaml","cyber-castle.yaml",0,19269,"18.8 kB",1701050454,"11/26/23, 9:00:54 PM");</script>
-<script>addRow("dangerous-district-hard.yaml","dangerous-district-hard.yaml",0,73986,"72.3 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("dangerous-district.yaml","dangerous-district.yaml",0,64529,"63.0 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("dissociated.yaml","dissociated.yaml",0,0,"Missing",0,"00/00/00, 00:00:00 AM");</script>
-<script>addRow("dusty-depths.yaml","dusty-depths.yaml",0,0,"Outdated",0,"00/00/00, 00:00:00 AM");</script>
-<script>addRow("elite-expanse-hard.yaml","elite-expanse-hard.yaml",0,70482,"68.8 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("elite-expanse.yaml","elite-expanse.yaml",0,63087,"61.6 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("endless-echo-hard.yaml","endless-echo-hard.yaml",0,780,"780 B",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("endless-echo.yaml","endless-echo.yaml",0,1032,"1.0 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("frozen-fjord-hard.yaml","frozen-fjord-hard.yaml",0,150916,"147 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("frozen-fjord-snippets.yaml","frozen-fjord-snippets.yaml",0,8566,"8.4 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("frozen-fjord.yaml","frozen-fjord.yaml",0,80528,"78.6 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("glacial-gorge-hard.yaml","glacial-gorge-hard.yaml",0,31584,"30.8 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("glacial-gorge.yaml","glacial-gorge.yaml",0,30730,"30.0 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("grand-garden-hard.yaml","grand-garden-hard.yaml",0,22745,"22.2 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("grand-garden.yaml","grand-garden.yaml",0,22467,"21.9 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("haunted-halls.yaml","haunted-halls.yaml",0,23964,"23.4 kB",1701049527,"11/26/23, 8:45:27 PM");</script>
-<script>addRow("humongous-hollow-hard.yaml","humongous-hollow-hard.yaml",0,79858,"78.0 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("humongous-hollow.yaml","humongous-hollow.yaml",0,65831,"64.3 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("infinite-inferno.yaml","infinite-inferno.yaml",0,33415,"32.6 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("magnetic-monopole-hard.yaml","magnetic-monopole-hard.yaml",0,41614,"40.6 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("magnetic-monopole.yaml","magnetic-monopole.yaml",0,36276,"35.4 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("monumental-migration-hard.yaml","monumental-migration-hard.yaml",0,1320561,"1.3 MB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("monumental-migration.yaml","monumental-migration.yaml",0,336097,"328 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("mysterious-mansion.yaml","mysterious-mansion.yaml",0,117576,"115 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("ominous-occult-hard.yaml","ominous-occult-hard.yaml",0,13572,"13.3 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("ominous-occult.yaml","ominous-occult.yaml",0,10930,"10.7 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("peculiar-pyramid-hard.yaml","peculiar-pyramid-hard.yaml",0,26726,"26.1 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("peculiar-pyramid.yaml","peculiar-pyramid.yaml",0,23405,"22.9 kB",1712613795,"4/8/24, 6:03:15 PM");</script>
-<script>addRow("quiet-quarry-hard.yaml","quiet-quarry-hard.yaml",0,63718,"62.2 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("quiet-quarry.yaml","quiet-quarry.yaml",0,32057,"31.3 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("research-lab.yaml","research-lab.yaml",0,0,"Outdated",0,"00/00/00, 00:00:00 AM");</script>
-<script>addRow("restless-ridge-hard.yaml","restless-ridge-hard.yaml",0,273520,"267 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("restless-ridge.yaml","restless-ridge.yaml",0,218833,"214 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("shifting-sands.yaml","shifting-sands.yaml",0,0,"Outdated",0,"00/00/00, 00:00:00 AM");</script>
-<script>addRow("stellar-square.yaml","stellar-square.yaml",0,1403,"1.4 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("toxic-territory-hard.yaml","toxic-territory-hard.yaml",0,16993,"16.6 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("toxic-territory.yaml","toxic-territory.yaml",0,17356,"16.9 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("transforming-turbidity.yaml","transforming-turbidity.yaml",0,34086,"33.3 kB",1701052262,"11/26/23, 9:31:02 PM");</script>
-<script>addRow("vicious-valley-hard.yaml","vicious-valley-hard.yaml",0,30828,"30.1 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("vicious-valley.yaml","vicious-valley.yaml",0,30987,"30.3 kB",1701049528,"11/26/23, 8:45:28 PM");</script>
-<script>addRow("wacky-wonderland.yaml","wacky-wonderland.yaml",0,56718,"55.4 kB",1701049529,"11/26/23, 8:45:29 PM");</script>
-<script>addRow("withering-wasteland.yaml","withering-wasteland.yaml",0,0,"Outdated",0,"00/00/00, 00:00:00 AM");</script>
+<script>addRow("assorted-alcove-hard.yaml","assorted-alcove-hard.yaml",0,28372,"27.7 kB",1722271366,"7/29/24, 12:42:46 PM");</script>
+<script>addRow("assorted-alcove.yaml","assorted-alcove.yaml",0,32761,"32.0 kB",1722271370,"7/29/24, 12:42:50 PM");</script>
+<script>addRow("ballistic-battlefield.yaml","ballistic-battlefield.yaml",0,36622,"35.8 kB",1722271366,"7/29/24, 12:42:46 PM");</script>
+<script>addRow("burning-bunker.yaml \u2192 ../../404.html","../../404.html",0,1134,"1.1 kB",1708119724,"2/16/24, 4:42:04 PM");</script>
+<script>addRow("burning-bunker-hard.yaml","burning-bunker-hard.yaml",0,198440,"194 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("catastrophic-core.yaml","catastrophic-core.yaml",0,31932,"31.2 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("central-core-hard.yaml","central-core-hard.yaml",0,31474,"30.7 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("central-core.yaml","central-core.yaml",0,31311,"30.6 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("coupled-corridors.yaml","coupled-corridors.yaml",0,65215,"63.7 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("cyber-castle-hard.yaml","cyber-castle-hard.yaml",0,25689,"25.1 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("cyber-castle.yaml","cyber-castle.yaml",0,19325,"18.9 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("dangerous-district-hard.yaml","dangerous-district-hard.yaml",0,73985,"72.3 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("dangerous-district.yaml","dangerous-district.yaml",0,64528,"63.0 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("dusty-depths.yaml","dusty-depths.yaml",0,401400,"392 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("elite-expanse-hard.yaml","elite-expanse-hard.yaml",0,70481,"68.8 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("elite-expanse.yaml","elite-expanse.yaml",0,63086,"61.6 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("endless-echo-hard.yaml","endless-echo-hard.yaml",0,779,"779 B",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("endless-echo.yaml","endless-echo.yaml",0,1031,"1.0 kB",1722271367,"7/29/24, 12:42:47 PM");</script>
+<script>addRow("frozen-fjord-hard.yaml","frozen-fjord-hard.yaml",0,150916,"147 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("frozen-fjord-snippets.yaml","frozen-fjord-snippets.yaml",0,8566,"8.4 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("frozen-fjord.yaml","frozen-fjord.yaml",0,80528,"78.6 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("glacial-gorge-hard.yaml","glacial-gorge-hard.yaml",0,36211,"35.4 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("glacial-gorge.yaml","glacial-gorge.yaml",0,30730,"30.0 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("grand-garden-hard.yaml","grand-garden-hard.yaml",0,22745,"22.2 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("grand-garden.yaml","grand-garden.yaml",0,22467,"21.9 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("haunted-halls.yaml","haunted-halls.yaml",0,23964,"23.4 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("humongous-hollow-hard.yaml","humongous-hollow-hard.yaml",0,79824,"78.0 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("humongous-hollow.yaml","humongous-hollow.yaml",0,65831,"64.3 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("infinite-inferno.yaml","infinite-inferno.yaml",0,33131,"32.4 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("magnetic-monopole-hard.yaml","magnetic-monopole-hard.yaml",0,41614,"40.6 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("magnetic-monopole.yaml","magnetic-monopole.yaml",0,36487,"35.6 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("monumental-migration-hard.yaml","monumental-migration-hard.yaml",0,1320560,"1.3 MB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("monumental-migration.yaml","monumental-migration.yaml",0,336096,"328 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("mysterious-mansion.yaml","mysterious-mansion.yaml",0,117576,"115 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("ominous-occult-hard.yaml","ominous-occult-hard.yaml",0,13598,"13.3 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("ominous-occult.yaml","ominous-occult.yaml",0,10956,"10.7 kB",1722271368,"7/29/24, 12:42:48 PM");</script>
+<script>addRow("peculiar-pyramid-hard.yaml","peculiar-pyramid-hard.yaml",0,29321,"28.6 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("peculiar-pyramid.yaml","peculiar-pyramid.yaml",0,23405,"22.9 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("quiet-quarry-hard.yaml","quiet-quarry-hard.yaml",0,52793,"51.6 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("quiet-quarry.yaml","quiet-quarry.yaml",0,32057,"31.3 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("research-lab.yaml","research-lab.yaml",0,5681,"5.5 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("restless-ridge-hard.yaml","restless-ridge-hard.yaml",0,273458,"267 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("restless-ridge.yaml","restless-ridge.yaml",0,218891,"214 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("shifting-sands.yaml","shifting-sands.yaml",0,43905,"42.9 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("stellar-square.yaml","stellar-square.yaml",0,1425,"1.4 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("toxic-territory-hard.yaml","toxic-territory-hard.yaml",0,16993,"16.6 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("toxic-territory.yaml","toxic-territory.yaml",0,17356,"16.9 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("transforming-turbidity.yaml","transforming-turbidity.yaml",0,34116,"33.3 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("vicious-valley-hard.yaml","vicious-valley-hard.yaml",0,30828,"30.1 kB",1722271370,"7/29/24, 12:42:50 PM");</script>
+<script>addRow("vicious-valley.yaml","vicious-valley.yaml",0,30987,"30.3 kB",1722271369,"7/29/24, 12:42:49 PM");</script>
+<script>addRow("wacky-wonderland.yaml","wacky-wonderland.yaml",0,56718,"55.4 kB",1722271370,"7/29/24, 12:42:50 PM");</script>
+<script>addRow("withering-wasteland.yaml","withering-wasteland.yaml",0,40413,"39.5 kB",1722271370,"7/29/24, 12:42:50 PM");</script>
