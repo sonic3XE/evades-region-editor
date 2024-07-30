@@ -1555,6 +1555,7 @@ setTimeout(function rungame(){
     ti>(1e3/30-delta/2)&&(ti=0);
     map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
     (settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),selfId&&controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
+	performance.now()-r>=10 && customAlert("Ticking entities took"+(performance.now()-r)+"ms",0.5,"#FF0");
     setTimeout(rungame);
 });
 global.selfId=null;
