@@ -151,7 +151,7 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-					//83 implemented
+					//84 implemented
 					case "experience_drain":
 					case "blocking":
 					case "slippery":
