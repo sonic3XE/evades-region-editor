@@ -1545,18 +1545,17 @@ localStorage.getItem("leaderboard")&&(
         </p>*/
 var fpsHist=[],lastTime=0,ti=0;
 setTimeout(function rungame(){
-    var r=performance.now()
-    var delta=r-lastTime;
-    lastTime=r;
-    (delta/1e3)**-1<24&&(delta=0);
-    var IsBelow30FPS=(delta/1e3)**-1<30;
-    ti+=delta;
-    var actually=((settings.isSandbox||IsBelow30FPS)?delta:(1e3/30*(ti>(1e3/30-delta/2))))*isActive;
-    ti>(1e3/30-delta/2)&&(ti=0);
-    map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
-    (settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),selfId&&controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
-	performance.now()-r>=10 && customAlert("Ticking entities took"+(performance.now()-r)+"ms",0.5,"#FF0");
-    setTimeout(rungame);
+	var r=performance.now()
+	var delta=r-lastTime;
+	lastTime=r;
+	var IsBelow30FPS=(delta/1e3)**-1<30;
+	(delta/1e3)**-1<24&&(delta=0);
+	ti+=delta;
+	var actually=((settings.isSandbox||IsBelow30FPS)?delta:(1e3/30*(ti>(1e3/30-delta/2))))*isActive;
+	ti>(1e3/30-delta/2)&&(ti=0);
+	map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
+	(settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),selfId&&controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
+	setTimeout(rungame);
 });
 global.selfId=null;
 animate(function run(){
