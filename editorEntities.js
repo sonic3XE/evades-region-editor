@@ -2121,6 +2121,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.angle=Math.atan2(this.velY,this.velX);
   }
   update(delta){
+	if(this.health <= 0 && this.maxHealth != 0)this.remove=true;
 	this.radius=this.ogradius*this.radiusMultiplier;
 	this.radiusMultiplier=1;
     this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
@@ -2175,7 +2176,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     for(var i in map.players){
       var player = map.players[i];
       if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
-        this.playerInteraction(player,delta);
+		this.playerInteraction(player,delta);
       }
       if(!player.safeZone&&player.deathTimer==-1&&Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.auraRadius+player.radius)){
         this.auraEffect(player,delta);
@@ -4563,13 +4564,9 @@ class SniperProjectile extends Enemy{
 class RingSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"ring_sniper_enemy",boundary);
-	//This will be subject to change when this interval is not exact.
-    this.release_interval = 5000;
-	//I haven't tracked the max health of ring sniper enemies.
-	//Placeholder of 1 is valid since max health of 0 doesn't work.
-	this.maxHealth=this.health=1;
-	//:unsure: If it does shoot this immediately after spawned by Cybot MK.2
-	this.releaseTime=0;
+    this.release_interval=5000;
+	this.maxHealth=this.health=100;
+	this.releaseTime=Math.random()*this.release_interval;
   }
   update(delta,area) {
     if(this.releaseTime<=0){
