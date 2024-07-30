@@ -1544,7 +1544,7 @@ localStorage.getItem("leaderboard")&&(
             <label for="posY">Y: <input id="posY" step="1" style="width:50px" type="number"></label>
         </p>*/
 var fpsHist=[],lastTime=0,ti=0;
-setTimeout(function rungame(){
+function rungame(){
 	var r=performance.now()
 	var delta=r-lastTime;
 	lastTime=r;
@@ -1555,10 +1555,11 @@ setTimeout(function rungame(){
 	ti>(1e3/30-delta/2)&&(ti=0);
 	map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
 	(settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),selfId&&controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
-	setTimeout(rungame);
-});
+	//setTimeout(rungame);
+}
 global.selfId=null;
-animate(function run(){
+animate(function run(e){
+	rungame(e);
 	render();
 	animate(run);
 })
