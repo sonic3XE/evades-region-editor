@@ -175,7 +175,7 @@ function mapToJSON(map) {
     for (let area of map.areas) {
         areas.push(areaToJSON(area));
     }
-    return `{"name":${JSON.stringify(map.name)},${map.save_to_drive!=defaultValues.save_to_drive?`"save_to_drive":${map.save_to_drive},`:""}"properties":${JSON.stringify(res)},"areas":[${areas.join()}]}`.replaceAll('"properties":{},',"");
+    return `{"name":${JSON.stringify(map.name)},${map.share_to_drive!=defaultValues.share_to_drive?`"share_to_drive":${map.share_to_drive},`:""}"properties":${JSON.stringify(res)},"areas":[${areas.join()}]}`.replaceAll('"properties":{},',"");
 }
 
 /**
