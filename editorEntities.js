@@ -4620,11 +4620,13 @@ class RingSniperProjectile extends Enemy{
 	this.bounce_count++;
   }
   render(e, t) {
+    const defaultLine=e.lineWidth;
     e.beginPath(),
     e.arc(this.x + t.x, this.y + t.y, .875 * this.radius, 0, 2 * Math.PI, !1),
     e.strokeStyle = this.color,
     e.lineWidth = this.radius / 4,
-    e.stroke()
+    e.stroke(),
+	e.lineWidth=defaultLine;
   }
   update(delta) {
 	if(this.bounce_count>=3){
