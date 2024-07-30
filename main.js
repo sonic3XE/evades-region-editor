@@ -30,10 +30,11 @@ const randomMapNames = ["editor test", "My Map", "EPIC MAP", "{{map->name}}"];
 const randomMapCreators = ["anonymous", "xXDark_L0rd_69420Xx", "Editor", "{{map->creator}}"];
 
 /**
- * @type {{name:string,properties:Properties,areas:Area[]}}
+ * @type {{name:string,share_to_drive:boolean,properties:Properties,areas:Area[]}}
  */
 const map = {
   name: "No Name",
+  share_to_drive:true,
   players: [],
   properties: {},
   areas: [],
@@ -1222,16 +1223,23 @@ if(t=="region"){
   return properties;
 }
 // Setup Evades Region Editor
-{
+function setup(){
+  const boolInput = document.createElement("input");
+  boolInput.addEventListener("input", () => {
+    map.share_to_drive = boolInput.checked;
+  });
+  boolInput.disabled=true;
   const nameInput = createInput(map.name, () => { map.name = nameInput.value })
   map.element = createFolder(formatString(curLang,"editor.region"), [
     createProperty(formatString(curLang,"editor.property.name"), nameInput, "text"),
+    createProperty(formatString(curLang,"editor.property.share_to_drive"), boolInput, "switch", { value: map.share_to_drive ?? defaultValues.share_to_drive }),
     (map.properties=createPropertyObj()).element,
   ]);
   map.element.classList.add("closed");
   menu.insertBefore(map.element, areamenu);
-  map.inputs = {name:nameInput};
+  map.inputs = {name:nameInput,share_to_drive:boolInput};
 }
+setup();
 
 contextBtns.zone.addEventListener("click", e => addZone("active"));
 contextBtns.asset.addEventListener("click", e => addAsset("wall"));

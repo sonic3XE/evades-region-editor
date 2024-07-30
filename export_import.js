@@ -15,6 +15,7 @@ function loadFile(str,fromLocal=!0,socketSend=true) {
   obj.properties=createPropertyObj({...defaultValues.properties,...obj.properties},"region");
   var objKeys=Object.keys(obj.properties);
         map.inputs.name.value = map.name = obj.name;
+        map.inputs.share_to_drive.checked = map.share_to_drive = obj.share_to_drive ?? defaultValues.share_to_drive;
 map.properties.background_color??=[0,0,0,0];
 try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.round(obj.properties.background_color[3]);
 }catch(e){map.properties.inputs.opacity.value=map.properties.background_color[3]=0}
@@ -40,10 +41,10 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
         map.properties.background_color[2]=0
         map.properties.texture="normal";
         }
-        menu.childNodes[3].childNodes[1].childNodes[1].childNodes[1].childNodes[2].childNodes[1].selectedIndex=["normal","leaves","wooden","baguette"].indexOf(map.properties.texture.toLowerCase());
-        menu.childNodes[3].childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[1].childNodes[0].style.borderLeftColor=
-        menu.childNodes[3].childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].style.background=
-        menu.childNodes[3].childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[0].textContent=RGBtoHex(map.properties.background_color)
+        menu.childNodes[3].childNodes[1].childNodes[2].childNodes[1].childNodes[2].childNodes[1].selectedIndex=["normal","leaves","wooden","baguette"].indexOf(map.properties.texture.toLowerCase());
+        menu.childNodes[3].childNodes[1].childNodes[2].childNodes[1].childNodes[0].childNodes[1].childNodes[0].style.borderLeftColor=
+        menu.childNodes[3].childNodes[1].childNodes[2].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].style.background=
+        menu.childNodes[3].childNodes[1].childNodes[2].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[0].textContent=RGBtoHex(map.properties.background_color)
         map.areas = [];
         areamenu.firstChild && areamenu.removeChild(areamenu.firstChild);
         if (selectedObjects){
@@ -174,7 +175,7 @@ function mapToJSON(map) {
     for (let area of map.areas) {
         areas.push(areaToJSON(area));
     }
-    return `{"name":${JSON.stringify(map.name)},"properties":${JSON.stringify(res)},"areas":[${areas.join()}]}`.replaceAll('"properties":{},',"");
+    return `{"name":${JSON.stringify(map.name)},${map.save_to_drive!=defaultValues.save_to_drive?`"save_to_drive":${map.save_to_drive},`:""}"properties":${JSON.stringify(res)},"areas":[${areas.join()}]}`.replaceAll('"properties":{},',"");
 }
 
 /**

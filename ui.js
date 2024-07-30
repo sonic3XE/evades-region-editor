@@ -138,6 +138,7 @@ var curLang={
   "editor.pattern.cone_edges": "Cone Edges",
   "editor.pattern.twin": "Twin",
   "editor.pattern.singlebig": "Single Big",
+  "editor.property.share_to_drive":"Share To Drive",
   "editor.property.name":"Name",
   "editor.property.types": "Types",
   "editor.property.x": "X",
@@ -356,6 +357,7 @@ if(elmnt.onmousedown)return;
   }
 }
 var defaultValues={
+	share_to_drive:true,
 	spawner:{
 		horizontal:false,
 		move_clockwise:true,
