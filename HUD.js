@@ -1364,6 +1364,7 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			e.visible = !this.hidden
 	}
 	render(e, a, t,delta) {
+		var io=e.lineWidth;
 		if (!this.ready || this.hidden)
 			return;
 		const r = a.viewportSize
@@ -1421,7 +1422,9 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		$ = c + 105*camScale,
 		d = o,
 		e.strokeStyle = "rgb(128, 128, 128)",
+		e.lineWidth=io*camScale,
 		$f36928166e04fda7$export$2e2bcd8739ae039.line(e, $, d, $, d + this.height*camScale),
+		e.lineWidth=io,
 		this.upgradeBrightness.update(delta);
 		this.upgradePoints > 0 && ($ = c + 136*camScale,
 		d = o + 16*camScale,
