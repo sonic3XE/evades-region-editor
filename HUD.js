@@ -1365,6 +1365,7 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	}
 	render(e, a, t,delta) {
 		var io=e.lineWidth;
+		e.lineWidth=io*camScale;
 		if (!this.ready || this.hidden)
 			return;
 		const r = a.viewportSize
@@ -1422,9 +1423,7 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		$ = c + 105*camScale,
 		d = o,
 		e.strokeStyle = "rgb(128, 128, 128)",
-		e.lineWidth=io*camScale,
 		$f36928166e04fda7$export$2e2bcd8739ae039.line(e, $, d, $, d + this.height*camScale),
-		e.lineWidth=io,
 		this.upgradeBrightness.update(delta);
 		this.upgradePoints > 0 && ($ = c + 136*camScale,
 		d = o + 16*camScale,
@@ -1477,7 +1476,8 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		$ = c + p + 328*camScale,
 		this.renderAbility(e, this.abilityTwo, $, d, t.usingGamepad ? ["ZR"] : ["X", "K"], t.usingGamepad ? "R" : 5, this.buttons.useAbilityTwo, this.buttons.upgradeAbilityTwo),
 		void 0 !== this.abilityThree.abilityType && ($ = c + p + 410*camScale,
-		this.renderAbility(e, this.abilityThree, $, d, t.usingGamepad ? ["Y"] : ["C", "L"], t.usingGamepad ? ["X"] : 6, this.buttons.useAbilityThree, this.buttons.upgradeAbilityThree))
+		this.renderAbility(e, this.abilityThree, $, d, t.usingGamepad ? ["Y"] : ["C", "L"], t.usingGamepad ? ["X"] : 6, this.buttons.useAbilityThree, this.buttons.upgradeAbilityThree)),
+		e.lineWidth=io
 	}
 	energyInfo() {
 		return `${Math.floor(this.energy)} / ${this.maxEnergy}`
