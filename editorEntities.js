@@ -151,8 +151,8 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-					//84 implemented
-					case "experience_drain":
+/*					84 / 98 implemented
+*/					case "experience_drain":
 					case "blocking":
 					case "slippery":
 					case "barrier":
@@ -235,7 +235,22 @@ function spawnEntities(area=current_Area){
 					case "glowy":
 					case "firefly":
 					case "phantom":
-					case "mist":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "mist":
+/*NOT IMPLEMENTED*/			//case "aibot": 400hp
+					//case "eabot": 400hp
+					//case "fibot": 400hp
+					//case "wabot": 400hp
+					//case "dabot": 500hp
+					//case "elbot": 500hp
+					//case "icbot": 500hp
+					//case "libot": 500hp
+					//case "mebot": 500hp
+					//case "plbot": 500hp
+					//case "cybot": 900hp
+					//case "thunderbolt":
+					//case "electric":
+					//case "sparking":
+					entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
 				};entity.collision();map.areas[area].entities.push(entity);
 			}
 		}

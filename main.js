@@ -703,8 +703,20 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 document.addEventListener("keydown", e => {
   var camera = { x: camX, y: camY }
   if (e.target instanceof HTMLInputElement) return;
-  if(e.ctrlKey && e.which === controls.CAM_LEFT){
-	  selectedObjects.push(...map.areas[current_Area].zones,...map.areas[current_Area].assets)
+  if(e.ctrlKey && e.which === $0372b03b1cca8a43$export$8309310f4f3643db.A){
+	  e.preventDefault(selectedObjects.push(...map.areas[current_Area].zones,...map.areas[current_Area].assets));
+	  return;
+  }
+  if(e.ctrlKey && e.which === $0372b03b1cca8a43$export$8309310f4f3643db.C && selectedObjects.length){
+	  e.preventDefault(copyObjs());
+	  return;
+  }
+  if(e.ctrlKey && e.which === $0372b03b1cca8a43$export$8309310f4f3643db.X && selectedObjects.length){
+	  e.preventDefault(cutObjs());
+	  return;
+  }
+  if(e.ctrlKey && e.which === $0372b03b1cca8a43$export$8309310f4f3643db.V && copyObjects.length){
+	  e.preventDefault(pasteObjs());
 	  return;
   }
   if (e.which === controls.PLAYTEST){
@@ -848,7 +860,7 @@ document.addEventListener("keydown", e => {
 		contextBtns.rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
     };
   }
-  if (e.which === controls.DELETE_ZONE) {deleteObject();spawnEntities();}
+  if (e.which === controls.DELETE_ZONE) {deleteObjs();spawnEntities();}
 });
 resizemenu.addEventListener("mousedown", () => {
   resizing = true;
@@ -1248,7 +1260,7 @@ contextBtns.duplicateArea.addEventListener("click", () => {
   map.areas.push(createArea(JSON.parse(areaToJSON(area))));
   updateMap();
 });
-contextBtns.pasteObject.addEventListener("click",()=>{
+contextBtns.pasteObject.addEventListener("click",global.pasteObjs=()=>{
 	updateMouseEntity=true;
 	let posX=roundTo(Math.round(mouseEntity.x),settings.snapX);
 	let posY=roundTo(Math.round(mouseEntity.y),settings.snapY);
@@ -1275,7 +1287,7 @@ contextBtns.pasteObject.addEventListener("click",()=>{
 	});
 	updateMap();
 })
-contextBtns.copyObject.addEventListener("click",()=>{
+contextBtns.copyObject.addEventListener("click",global.copyObjs=()=>{
 	copyObjects=[];
 	selectedObjects.map(_=>{
 		var sel;
@@ -1307,7 +1319,7 @@ contextBtns.copyObject.addEventListener("click",()=>{
 		}
 	});
 })
-contextBtns.cutObject.addEventListener("click",()=>{
+contextBtns.cutObject.addEventListener("click",global.cutObjs=()=>{
 	copyObjects=[];
 	selectedObjects.map(_=>{
 		var sel;
@@ -1338,7 +1350,7 @@ contextBtns.cutObject.addEventListener("click",()=>{
 			copyObjects.push(sel);
 		}
 	});
-	deleteObject();
+	deleteObjs();
 })
 contextBtns.duplicateObject.addEventListener("click",()=>{
 	selectedObjects.map(_=>{
@@ -1425,7 +1437,7 @@ contextBtns.rotateObject.addEventListener("click",()=>{
 	updateMap();
 });
 contextBtns.area.addEventListener("click", () => addArea());
-function deleteObject() {
+contextBtns.deleteObject.addEventListener("click",global.deleteObjs=()=>{
   selectedObjects.map(e=>{
     let arr = map.areas[current_Area].zones;
     if (arr.includes(e)) {
@@ -1442,9 +1454,6 @@ function deleteObject() {
   });
   selectedObjects=[];
   updateMap();
-}
-contextBtns.deleteObject.addEventListener("click", () => {
-  deleteObject()
 });
 contextBtns.deleteArea.addEventListener("click", () => {
   let arr = map.areas;
