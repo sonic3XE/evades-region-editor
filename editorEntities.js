@@ -5223,6 +5223,7 @@ class FrostGiantEnemy extends Enemy{
   generate_entities(delta,area){
     this.angle += this.deg_to_rad(this.turn_speed * this.direction*delta/(1e3/30));
     this.shot_interval -= this.shot_acceleration*delta/(1e3/30);
+    this.shot_interval = Math.max(1e3/30,this.shot_interval);
     this.turn_speed += this.turn_acceleration*delta/(1e3/30);
 	try{
     this.pattern(delta,area);
