@@ -3807,6 +3807,8 @@ class PumpkinEnemy extends Enemy{
 	this.hasDetected=false;
 	this.targetAngle=0;
 	this.detectedTime=0;
+	this.absoluteZIndex=-1;
+	this.relativeZIndex=0;
 	this.detectedPosition={x:0,y:0};
 	this.isFake=fake;
   }
