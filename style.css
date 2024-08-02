@@ -139,7 +139,7 @@ a:active {
 .hero-select-question div {
     width: 32px;
     height: 32px;
-    background: url(question.png) 0 0/32px;
+    background: url(./miscellaneous/question.png) 0 0/32px;
 }
 .hero-select-question help {
   display:none;
@@ -182,7 +182,7 @@ helpText b{
 .hero-select-question:hover div {
     width: 32px;
     height: 32px;
-    background: url(question-hover.png) 0 0/32px;
+    background: url(./miscellaneous/question-hover.png) 0 0/32px;
 }
 
 :root {
