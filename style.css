@@ -38,31 +38,31 @@ a:active {
 	cursor: pointer
 }
 
-.chat-message .dev {
+.dev {
 	color: #87ceeb
 }
 
-.chat-message .head-mod {
+.head-mod {
 	color: #c00000
 }
 
-.chat-message .sr-mod {
+.sr-mod {
 	color: #ff4949
 }
 
-.chat-message .mod {
+.mod {
 	color: #ffb349
 }
 
-.chat-message .jr-mod {
+.jr-mod {
 	color: #ffe049
 }
 
-.chat-message .youtuber {
+.youtuber {
 	color: #4bfc9a
 }
 
-.chat-message .streamer {
+.streamer {
 	color: #9248da
 }
 
