@@ -175,6 +175,7 @@ function spawnEntities(area=current_Area){
 					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),prop(spawner,"switch_time"),boundary);break;
 					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
 					case "flower":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"growth_multiplier"),boundary);break;
+					case "homing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"reverse"),boundary);break;
 					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
 					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),prop(spawner,"move_clockwise"),prop(spawner,"spawn_top"));break;
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
@@ -219,7 +220,6 @@ function spawnEntities(area=current_Area){
 					case "corrosive":
 					case "corrosive_sniper":
 					case "dasher":
-					case "homing":
 					case "teleporting":
 					case "static":
 					case "star":
@@ -3338,15 +3338,10 @@ class ChargingEnemy extends Enemy{
   }
 }
 class HomingEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
+  constructor(x,y,radius,speed,angle,reverse,boundary){
     super(x,y,radius,speed,angle,"homing_enemy",boundary);
     this.target_angle=this.angle;
-    this.is_negative_speed=this.speed<0;
-    this.speed=Math.abs(this.speed);
-    if(this.is_negative_speed){
-      this.velX*=-1;
-      this.velY*=-1;
-    }
+    this.reverse=reverse;
   }
   update(delta){
     var closest_entity,closest_entity_distance,information;
@@ -3375,7 +3370,7 @@ class HomingEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      target_angle = modulus(Math.atan2(distance_y,distance_x)+Math.PI+(Math.PI*this.is_negative_speed),Math.PI*2);
+      target_angle = modulus(Math.atan2(distance_y,distance_x)+Math.PI+(Math.PI*this.reverse),Math.PI*2);
     }else {
       target_angle = this.target_angle;
     }

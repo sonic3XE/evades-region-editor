@@ -196,7 +196,7 @@ let ActiveZone = createZone({x:posX,y:posY,width:160,height:160,type:"active"});
  * @returns {Spawner}
  */
 function createSPAWNERgui(point1,Zone){
-		var list=['angle', 'barrier_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'spawn_top', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'speed', 'speed_loss', 'switch_interval', 'switch_time', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y','gravity','repulsion','blocking_radius','riptide_radius', 'swamp_radius','drowning_radius','test_param','rotor_branch_count','rotor_node_count','rotor_node_radius','rotor_rot_speed','rotor_reversed','rotor_branch_offset','rotor_node_dist','rotor_branch_dist','rotor_offset_per_layer','rotor_layer_reverse_interval','rotor_corrosive','burning_radius','defender_radius','web_radius','quicksand_strength'];
+		var list=['angle', 'barrier_radius', 'blocking_radius', 'circle_size', 'cone_angle', 'count', 'direction', 'disabling_radius', 'draining_radius', 'enlarging_radius', 'experience_drain_radius', 'freezing_radius', 'gravity', 'gravity_radius', 'growth_multiplier', 'hard_mode', 'horizontal', 'ignore_invulnerability', 'immune', 'lava_radius', 'magnetic_nullification_radius', 'magnetic_reduction_radius', 'move_clockwise', 'pattern', 'pause_duration', 'pause_interval', 'player_detection_radius', 'powered', 'projectile_duration', 'projectile_radius', 'projectile_speed', 'push_direction', 'quicksand_radius', 'quicksand_strength', 'radar_radius', 'radius', 'reducing_radius', 'regen_loss', 'release_interval', 'release_time', 'repelling_radius', 'repulsion', 'reverse', 'shot_acceleration', 'shot_interval', 'slippery_radius', 'slowing_radius', 'spawn_top', 'speed', 'speed_loss', 'toxic_radius', 'turn_acceleration', 'turn_speed', 'types', 'x', 'y', 'switch_interval', 'switch_time'];
 		delete point1.element;
 		for(var i in point1){
 			if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
@@ -326,6 +326,11 @@ function createSPAWNERgui(point1,Zone){
     spTopInput.checked = point1.spawn_top ?? defaultValues.spawner.spawn_top;
     spTopInput.addEventListener("input", () => {
       point1.spawn_top=spTopInput.checked;spawnEntities()
+  });
+  const reversInput = document.createElement("input");
+    reversInput.checked = point1.reverse ?? defaultValues.spawner.reverse;
+    reversInput.addEventListener("input", () => {
+      point1.reverse=reversInput.checked;spawnEntities()
   });
 
 		const speedInput = document.createElement("input");
@@ -696,6 +701,9 @@ point1.projectile_radius=undefined;
       ],!0),
       createFolder(formatString(curLang,"editor.category.gravity"), [
 		createProperty(formatString(curLang,"editor.property.gravity"), gravInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.homing"), [
+		createProperty(formatString(curLang,"editor.property.reverse"), reversInput, "switch", {value: point1.reverse ?? defaultValues.spawner.reverse}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.icicle"),[
         createProperty(formatString(curLang,"editor.property.horizontal"), hInput, "switch", {value: point1.horizontal ?? defaultValues.spawner.horizontal}),
