@@ -2966,7 +2966,7 @@ class RadarEnemy extends Enemy{
     if(this.release_time<=0){
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
-      information = map.players.filter(e=>{return (e.moving||e.cent_is_moving)&&!e.isDowned()&&!e.safeZone&&!e.nightActivated});
+      information = map.players.filter(e=>{return (e.moving||e.cent_is_moving||e.mouseActive)&&!e.isDowned()&&!e.safeZone&&!e.nightActivated});
     }else{
       information = [mouseEntity];
     }
