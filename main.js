@@ -1024,9 +1024,9 @@ var copyObjects=[];
 function createPropertyObj(obj={},t="region") {
   delete obj.inputs,delete obj.element;
   var arrayCheck=Object.keys(obj);
-  var arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
+  var arr="background_color,friction,lightning_reduced,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
 if(t=="region"){
-arr="background_color,friction,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
+arr="background_color,friction,lightning_reduced,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
 }
 if(t=="zone"){
 arr="background_color,friction,texture,spawns_pellets,minimum_speed".split(",");
@@ -1057,12 +1057,15 @@ magnetism = False
 partial_magnetism = False
 pellet_count = 25
 pellet_multiplier = 1
+lightning_reduced = False
 applies_lantern = False
-sticky_coat_distort_reduced = False
-allow_solo_with_group = False
 all_enemies_immune = False
 charge_reduced = False
 spawns_pellets = False
+
+Removed
+sticky_coat_distort_reduced = False
+allow_solo_with_group = False
 */
   const properties = {...obj};
   properties.background_color&&(properties.background_color=[...properties.background_color].map(e=>Math.ceil(e)));
@@ -1079,6 +1082,10 @@ spawns_pellets = False
   const _magnetism = document.createElement("input");
   _magnetism.addEventListener("input", () => {
     properties.magnetism = _magnetism.checked;
+  });
+  const _lightning_reduced = document.createElement("input");
+  _lightning_reduced.addEventListener("input", () => {
+    properties.lightning_reduced = _lightning_reduced.checked;
   });
   /*const _radioactive_gloop_reduced = document.createElement("input");
   _radioactive_gloop_reduced.addEventListener("input", () => {
@@ -1225,6 +1232,7 @@ if(t=="region"){
     createProperty(formatString(curLang,"editor.property.warping_disabled"), _warping_disabled, "switch", { value: properties.warping_disabled ?? defaultValues.properties.warping_disabled }),
     //createProperty(formatString(curLang,"editor.property.allow_solo_with_group"), _allow_solo_with_group, "switch", { value: properties.allow_solo_with_group ?? defaultValues.properties.allow_solo_with_group }),
     createProperty(formatString(curLang,"editor.property.crumble_reduced"), _crumble_reduced, "switch", { value: properties.crumble_reduced ?? defaultValues.properties.crumble_reduced }),
+    createProperty(formatString(curLang,"editor.property.lightning_reduced"), _lightning_reduced, "switch", { value: properties.lightning_reduced ?? defaultValues.properties.lightning_reduced }),
     //createProperty(formatString(curLang,"editor.property.radioactive_gloop_reduced"), _radioactive_gloop_reduced, "switch", { value: properties.radioactive_gloop_reduced ?? defaultValues.properties.radioactive_gloop_reduced }),
     createProperty(formatString(curLang,"editor.property.sticky_coat_distort_reduced"), _sticky_coat_distort_reduced, "switch", { value: properties.sticky_coat_distort_reduced ?? defaultValues.properties.sticky_coat_distort_reduced }),
     createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"), _wind_ghosts_do_not_push_while_downed, "switch", { value: properties.wind_ghosts_do_not_push_while_downed ?? defaultValues.properties.wind_ghosts_do_not_push_while_downed }),
