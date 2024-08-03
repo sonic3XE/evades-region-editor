@@ -724,6 +724,17 @@ document.addEventListener("keydown", e => {
 	  e.preventDefault(pasteObjs());
 	  return;
   }
+  if(playtesting&&e.which === $0372b03b1cca8a43$export$8309310f4f3643db.E){
+          map.areas[current_Area].entities=[];
+          current_Area=Math.max(Math.min(current_Area-1,map.areas.length),0)
+          spawnEntities();
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].area=current_Area;
+  }else if(playtesting&&e.which === $0372b03b1cca8a43$export$8309310f4f3643db.T){
+          map.areas[current_Area].entities=[];
+          current_Area=Math.max(Math.min(current_Area+1,map.areas.length),0);
+          spawnEntities();
+	  map.players[map.players.map(t=>t.id).indexOf(selfId)].area=current_Area;
+  }
   if (e.which === controls.PLAYTEST){
   	if(e.preventDefault(),consumed_by_ink_demon)return;
     playtesting=!playtesting;
