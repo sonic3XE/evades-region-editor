@@ -1161,9 +1161,6 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 				ab2.cooldown=0;
 				ab3.cooldown=0;
 			}
-			if(this.godmode){
-				this.invulnerable=true;
-			}
 			this.updateEffects([ab1,ab2,ab3]);
 		let area=map.areas[this.area];
       this.safeZone = true;
@@ -2468,7 +2465,7 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
     enemy.HarmlessTime=2000;
     harmless=true;
   }
-  if(enemy.texture=="entities/pumpkin_off"||enemy.radius==0||harmless||enemy.shatterTime>0){
+  if(enemy.texture=="entities/pumpkin_off"||enemy.radius==0||harmless||enemy.shatterTime>0||player.godmode){
 	dead=false;
   }
   if(dead&&!corrosive){
@@ -2544,16 +2541,16 @@ class PelletEntity extends SimulatorEntity{
 	  this.x=Math.random()*(randZone.width-16)+randZone.x+8;
 	  this.y=Math.random()*(randZone.height-16)+randZone.y+8;
       player.experience+=Math.floor(1+player.area/3)*map.properties.pellet_multiplier;
-      if(player.experience>=player.nextLevelExperience){
+      while(player.experience>=player.nextLevelExperience){
 		if(player.level >= map.properties.max_level){
 			player.experience=player.nextLevelExperience;
-			return;
+			break;
 		}
 		player.experience-=player.tempPrevExperience-player.previousLevelExperience;
-		var newLevel=Math.floor(this.calculateLevel(player.experience))
+		var newLevel=player.level+1;
 		var diff=newLevel-player.level;
-        player.tempPrevExperience=this.calculateExperience(newLevel-1)
-        player.tempNextExperience=this.calculateExperience(newLevel)
+        player.tempPrevExperience=player.experience;
+        player.tempNextExperience+=this.calculateExperience(newLevel)-this.calculateExperience(newLevel-1)
         player.nextLevelExperience=player.tempNextExperience;
 		player.previousLevelExperience=player.tempPrevExperience;
         player.level+=diff;

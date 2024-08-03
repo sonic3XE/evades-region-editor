@@ -724,17 +724,6 @@ document.addEventListener("keydown", e => {
 	  e.preventDefault(pasteObjs());
 	  return;
   }
-  if(playtesting&&e.which === $0372b03b1cca8a43$export$8309310f4f3643db.E){
-          map.areas[current_Area].entities=[];
-          current_Area=Math.max(Math.min(current_Area-1,map.areas.length),0)
-          spawnEntities();
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].area=current_Area;
-  }else if(playtesting&&e.which === $0372b03b1cca8a43$export$8309310f4f3643db.T){
-          map.areas[current_Area].entities=[];
-          current_Area=Math.max(Math.min(current_Area+1,map.areas.length),0);
-          spawnEntities();
-	  map.players[map.players.map(t=>t.id).indexOf(selfId)].area=current_Area;
-  }
   if (e.which === controls.PLAYTEST){
   	if(e.preventDefault(),consumed_by_ink_demon)return;
     playtesting=!playtesting;
@@ -758,24 +747,64 @@ document.addEventListener("keydown", e => {
 	}
   };
   if(playtesting){
-    if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){
+	var plr=map.players[map.players.map(t=>t.id).indexOf(selfId)];
+	//Teleports you to another area (Command: /tp <area>)
+	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.E){
+	  map.areas[current_Area].entities=[];
+	  current_Area=Math.max(Math.min(current_Area-1,map.areas.length-1),0)
+	  spawnEntities();
+	  plr.area=current_Area;
+	}
+	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.T){
+	  map.areas[current_Area].entities=[];
+	  current_Area=Math.max(Math.min(current_Area+1,map.areas.length-1),0);
+	  spawnEntities();
+	  plr.area=current_Area;
+	}
+	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.R){//Max out hero card (Command: /max)
+	  plr.speed=17;
+	  plr.maxEnergy=300;
+	  plr.energy=300;
+  	  plr.energyRegen=7;
+	  plr.level=100;
+	  plr.experience=plr.nextLevelExperience;
+	  evadesRenderer.heroInfoCard.abilityOne.locked=false;
+	  evadesRenderer.heroInfoCard.abilityOne.level=evadesRenderer.heroInfoCard.abilityOne.maxLevel;
+	  evadesRenderer.heroInfoCard.abilityTwo.locked=false;
+	  evadesRenderer.heroInfoCard.abilityTwo.level=evadesRenderer.heroInfoCard.abilityTwo.maxLevel;
+          if(plr.abilityThree){
+	    evadesRenderer.heroInfoCard.abilityThree.locked=false;
+	    evadesRenderer.heroInfoCard.abilityThree.level=evadesRenderer.heroInfoCard.abilityThree.maxLevel;
+          }
+  }
+    if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){//Admin (Command: /a)
   	  e.preventDefault();
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].godmode=true;
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].deathTimer=-1;
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].speed=17;
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].maxEnergy=500;
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].energy=500;
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].upgradePoints=999;
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].level=100;
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].experience=map.players[map.players.map(t=>t.id).indexOf(selfId)].nextLevelExperience;
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].energyRegen=500;
-  	  map.players[map.players.map(t=>t.id).indexOf(selfId)].noCooldown=true;
+  	  plr.godmode=true;
+  	  plr.deathTimer=-1;
+  	  plr.speed=17;
+  	  plr.maxEnergy=500;
+  	  plr.energy=500;
+  	  plr.upgradePoints=999;
+  	  plr.level=100;
+  	  plr.experience=plr.nextLevelExperience;
+  	  plr.energyRegen=500;
+  	  plr.noCooldown=true;
   	  evadesRenderer.heroInfoCard.abilityOne.locked=false;
   	  evadesRenderer.heroInfoCard.abilityOne.level=evadesRenderer.heroInfoCard.abilityOne.maxLevel;
   	  evadesRenderer.heroInfoCard.abilityTwo.locked=false;
   	  evadesRenderer.heroInfoCard.abilityTwo.level=evadesRenderer.heroInfoCard.abilityTwo.maxLevel;
-  	  evadesRenderer.heroInfoCard.abilityThree.locked=false;
-  	  evadesRenderer.heroInfoCard.abilityThree.level=evadesRenderer.heroInfoCard.abilityThree.maxLevel;
+          if(plr.abilityThree){
+	    evadesRenderer.heroInfoCard.abilityThree.locked=false;
+	    evadesRenderer.heroInfoCard.abilityThree.level=evadesRenderer.heroInfoCard.abilityThree.maxLevel;
+          }
+    }else if(e.which === controls.PLAYTEST - 2&&location.search=="?isDev"){//Godmode (Command: /g)
+  	  e.preventDefault();
+  	  plr.godmode=true;
+	  plr.deathTimer=-1;
+    }else if(e.which === controls.PLAYTEST - 1&&location.search=="?isDev"){//Survival (Command: /s)
+  	  e.preventDefault();
+  	  plr.godmode=false;
+	  plr.deathTimer=-1;
     }
     if (e.which === controls.TOGGLE_LEADERBOARD) toggleLeaderboard = !toggleLeaderboard;
     localStorage.leaderboard=toggleLeaderboard;
