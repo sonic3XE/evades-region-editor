@@ -206,6 +206,7 @@ var curLang={
   "editor.property.requirements":"Requirements",
   "editor.property.type":"Type",
   "editor.property.properties":"Properties",
+  "editor.property.lightning_reduced":"Lightning Reduced",
   "editor.property.background_color":"Background Color",
   "editor.property.background_color.color":"Color",
   "editor.property.background_color.alpha":"Alpha",
@@ -441,6 +442,7 @@ var defaultValues={
 		allow_solo_with_group:false,
 		all_enemies_immune:false,
 		charge_reduced:false,
+		lightning_reduced:false,
 	},
 }
 // ソニック。エキセ <- Perferring japanese // / Sonic.exe / Соник.экзе / ⠠⠎⠕⠝⠊⠉⠲⠑⠭⠑ / Σόνικ.εξε
