@@ -949,6 +949,9 @@ function cloneSpawner(e){
 		obj.switch_interval = e.switch_interval,
 		obj.switch_time = e.switch_time
 	);
+	obj.types.includes("homing") && (
+		obj.reverse = e.reverse
+	);
 	obj.types.includes("cybot") && (obj.hard_mode = e.hard_mode);
 	obj.types.includes("frost_giant") && (
 		obj.shot_acceleration = e.shot_acceleration,
