@@ -788,6 +788,9 @@ document.addEventListener("keydown", e => {
 	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.Y){//Toggle Cooldown (Command: /cd)
 		plr.noCooldown=!plr.noCooldown;
 	}
+	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.U){//Revive (Command: /r)
+		plr.deathTimer=-1;
+	}
     if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){//Admin (Command: /a)
 		e.preventDefault();
 		plr.godmode=true;
