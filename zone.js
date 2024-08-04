@@ -780,7 +780,7 @@ function customZONEgui(Zone){
 	spawnerEl.classList.add("array");
 	addBtn2.classList.add("add");
 	addBtn2.addEventListener("click",()=>{
-		let point2 = createPoint({types:["normal"],radius:18,count:1,speed:5});
+		let point2 = createPoint({types:["normal"],radius:18,speed:150});
 		Zone.spawner.push(point2);
 		createSPAWNERgui(point2,Zone);
 		if(Zone.spawner[0].element.parentElement){
@@ -1064,12 +1064,14 @@ var enemyList=['wall', 'normal', 'homing', 'dasher', 'slowing', 'experience_drai
           "blocking","stalactite",
           "force_sniper_a",
           "force_sniper_b",
-		  /*'flaming',
+		  'flaming',
 		  'stumbling',
 		  'disarming',
 		  'lurching',
 		  'infectious',
-		  'mutating',*/
+		  'mutating',
+		  'vengeful_soul',
+		  'lost_soul',
         ]
             .map(e=>[formatString(curLang,"editor.enemy."+e),e]);
   if(usingPifary)

@@ -1,9 +1,3 @@
-#Author: PotatoNuke
-#Date: 22-apr-2022
-#Map: Frozen Fjord Hard
-#Version: 4.1
-#Areas: 41
-#Description: A fixed version of FFH v4
 name: Frozen Fjord Hard
 properties:
   friction: 0.75
@@ -13,8 +7,6 @@ properties:
   - 160
   - 75
 areas:
-#Various buffs and nerfs
-# Area 1
 - properties:
     snow: 0.1
   x: var x
@@ -30,17 +22,17 @@ areas:
       y: 0
     properties:
       background_color:
-      - 0 #idk
-      - 100 #idk
-      - 200 #idk
-      - 75 #idk
+      - 0
+      - 100
+      - 200
+      - 75
   - type: safe
     x: 32
     y: 0
     width: 288
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -83,7 +75,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 2
 - properties:
     snow: 0.2
   x: last_right
@@ -108,7 +99,7 @@ areas:
       x: 1900
       y: 50
       angle: 0
-      turn_speed: 2
+      turn_speed: 60
       pattern: spiral
       types:
       - frost_giant
@@ -116,7 +107,7 @@ areas:
       x: 1900
       y: 430
       angle: 0
-      turn_speed: -2
+      turn_speed: -60
       pattern: spiral
       types:
       - frost_giant
@@ -124,7 +115,7 @@ areas:
       x: 1300
       y: 50
       angle: 0
-      turn_speed: 2
+      turn_speed: 60
       pattern: spiral
       types:
       - frost_giant
@@ -132,7 +123,7 @@ areas:
       x: 1300
       y: 430
       angle: 0
-      turn_speed: -2
+      turn_speed: -60
       pattern: spiral
       types:
       - frost_giant
@@ -153,7 +144,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 3
 - properties:
     snow: 0.3
   x: last_right
@@ -179,7 +169,7 @@ areas:
       y: 50
       angle: 0
       shot_interval: 200
-      turn_speed: 2
+      turn_speed: 60
       pattern: spiral
       types:
       - frost_giant
@@ -188,7 +178,7 @@ areas:
       y: 430
       angle: 0
       shot_interval: 200
-      turn_speed: -2
+      turn_speed: -60
       pattern: spiral
       types:
       - frost_giant
@@ -197,7 +187,7 @@ areas:
       y: 240
       angle: 0
       shot_interval: 200
-      turn_speed: 1
+      turn_speed: 30
       pattern: quadspiral
       types:
       - frost_giant
@@ -206,7 +196,7 @@ areas:
       y: 50
       angle: 0
       shot_interval: 200
-      turn_speed: 2
+      turn_speed: 60
       pattern: spiral
       types:
       - frost_giant
@@ -215,7 +205,7 @@ areas:
       y: 430
       angle: 0
       shot_interval: 200
-      turn_speed: -2
+      turn_speed: -60
       pattern: spiral
       types:
       - frost_giant
@@ -236,7 +226,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 4
 - properties:
     snow: 0.4
   x: last_right
@@ -337,7 +326,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 5
 - properties:
     snow: 0.5
   x: last_right
@@ -432,7 +420,7 @@ areas:
       pattern: twinspiral
       x: 2400
       y: 240
-      turn_speed: 4
+      turn_speed: 120
       shot_interval: 150
       types:
       - frost_giant
@@ -453,7 +441,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 6
 - properties:
     snow: 0.6
   x: last_right
@@ -478,7 +465,7 @@ areas:
       pattern: twincone
       angle: 180
       cone_angle: 120
-      turn_speed: 1.5
+      turn_speed: 45
       shot_interval: 250
       x: 1500
       y: 240
@@ -488,8 +475,8 @@ areas:
       pattern: spiral
       pause_interval: 5000
       pause_duration: 2500
-      turn_acceleration: 0.8
-      shot_acceleration: 5
+      turn_acceleration: 24
+      shot_acceleration: 150
       x: 2100
       y: 240
       types:
@@ -499,8 +486,8 @@ areas:
       angle: 90
       pause_interval: 5000
       pause_duration: 2500
-      turn_acceleration: 0.05
-      shot_acceleration: 2
+      turn_acceleration: 1.5
+      shot_acceleration: 60
       x: 2800
       y: 50
       types:
@@ -511,8 +498,8 @@ areas:
       angle: -90
       pause_interval: 5000
       pause_duration: 2500
-      turn_acceleration: 0.05
-      shot_acceleration: 2
+      turn_acceleration: 1.5
+      shot_acceleration: 60
       x: 2800
       y: 430
       types:
@@ -534,7 +521,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 7
 - properties:
     snow: 0.7
   x: last_right
@@ -632,7 +618,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 8
 - properties:
     snow: 0.8
   x: last_right
@@ -751,7 +736,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 9
 - properties:
     snow: 0.9
   x: last_right
@@ -933,7 +917,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 10
 - properties:
     snow: 1
   x: last_right
@@ -992,8 +975,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-#Twice as dark, +100% count
-# Area 11
+  boss: true
 - properties:
     lighting: 0.25
     background_color:
@@ -1022,7 +1004,7 @@ areas:
     spawner:
     - count: 2
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -1042,7 +1024,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 12
 - properties:
     lighting: 0.25
     background_color:
@@ -1071,7 +1052,7 @@ areas:
     spawner:
     - count: 4
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -1091,7 +1072,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 13
 - properties:
     lighting: 0.25
     background_color:
@@ -1120,7 +1100,7 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -1140,7 +1120,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 14
 - properties:
     lighting: 0.25
     background_color:
@@ -1169,7 +1148,7 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -1189,7 +1168,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 15
 - properties:
     lighting: 0.25
     background_color:
@@ -1218,7 +1196,7 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -1238,9 +1216,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-#snowman and icicle enemies +50% speed and count
-#slippery auras +50% speed, -25% count
-# Area 16
 - x: last_right
   y: last_y - 224
   properties:
@@ -1263,12 +1238,12 @@ areas:
     spawner:
     - count: 18
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - snowman
     - count: 3
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slippery
     type: active
@@ -1295,7 +1270,6 @@ areas:
     width: 2240
     height: 480
     texture: ice
-# Area 17
 - x: last_right
   y: last_y
   properties:
@@ -1318,12 +1292,12 @@ areas:
     spawner:
     - count: 21
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - snowman
     - count: 3
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slippery
     type: active
@@ -1350,7 +1324,6 @@ areas:
     width: 2368
     height: 608
     texture: ice
-# Area 18
 - x: last_right
   y: last_y
   properties:
@@ -1373,24 +1346,24 @@ areas:
     spawner:
     - count: 21
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - snowman
     - count: 3
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slippery
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       horizontal: true
       y: 0, 128
       types:
       - icicle
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       horizontal: true
       y: 672, 800
       types:
@@ -1425,7 +1398,6 @@ areas:
     width: 2240
     height: 224
     texture: ice
-# Area 19
 - x: last_right
   y: last_y
   properties:
@@ -1448,17 +1420,17 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - snowman
     - count: 15
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - icicle
     - count: 15
       radius: 18
-      speed: 15
+      speed: 450
       horizontal: true
       types:
       - icicle
@@ -1504,7 +1476,6 @@ areas:
     width: 320
     height: 224
     texture: ice
-# Area 20
 - x: last_right
   y: last_y
   properties:
@@ -1527,12 +1498,12 @@ areas:
     spawner:
     - count: 23
       radius: 36
-      speed: 15
+      speed: 450
       types:
       - icicle
     - count: 23
       radius: 36
-      speed: 15
+      speed: 450
       horizontal: true
       types:
       - icicle
@@ -1578,11 +1549,7 @@ areas:
     width: 320
     height: 224
     texture: ice
-#snowman enemies +50% speed, +25% size
-#icicle enemies +75% speed, +25% count
-#ice snipers +150% size, +50% count, now ice_ghost
-#slippery enemies +50% speed, -67% count
-# Area 21
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -1605,7 +1572,7 @@ areas:
     spawner:
     - count: 30
       radius: 23
-      speed: 9
+      speed: 270
       types:
       - snowman
     type: active
@@ -1770,7 +1737,6 @@ areas:
     width: 160
     height: 96
     texture: ice
-# Area 22
 - x: last_right
   y: last_y
   properties:
@@ -1793,12 +1759,12 @@ areas:
     spawner:
     - count: 23
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - ice_ghost
     - count: 30
       radius: 23
-      speed: 9
+      speed: 270
       types:
       - snowman
     type: active
@@ -1963,7 +1929,6 @@ areas:
     width: 160
     height: 96
     texture: ice
-# Area 23
 - x: last_right
   y: last_y
   properties:
@@ -1986,17 +1951,17 @@ areas:
     spawner:
     - count: 8
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - ice_ghost
     - count: 30
       radius: 23
-      speed: 9
+      speed: 270
       types:
       - snowman
     - count: 3
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - slippery
     type: active
@@ -2161,8 +2126,6 @@ areas:
     width: 160
     height: 96
     texture: ice
-# Area 24
-#texture: ice
 - x: last_right
   y: last_y
   properties:
@@ -2185,27 +2148,27 @@ areas:
     spawner:
     - count: 8
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - ice_ghost
     - count: 30
       radius: 23
-      speed: 9
+      speed: 270
       types:
       - snowman
     - count: 2
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - slippery
     - count: 16
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
     - count: 25
       radius: 18
-      speed: 9
+      speed: 270
       horizontal: true
       types:
       - icicle
@@ -2371,10 +2334,6 @@ areas:
     width: 160
     height: 96
     texture: ice
-#all enemies except ice_snipers +50% speed
-#ice snipers +50% count, +200% size
-#Twice as dark
-# Area 25
 - properties:
     lighting: 0.25
     background_color:
@@ -2403,12 +2362,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
     - count: 3
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slippery
     type: active
@@ -2428,7 +2387,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 26
 - properties:
     lighting: 0.25
     background_color:
@@ -2457,12 +2415,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
     - count: 4
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slippery
     type: active
@@ -2482,7 +2440,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 27
 - properties:
     lighting: 0.25
     background_color:
@@ -2511,17 +2468,17 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
     - count: 3
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slippery
     - count: 5
       radius: 54
-      speed: 6
+      speed: 180
       types:
       - ice_ghost
     type: active
@@ -2541,7 +2498,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 28
 - properties:
     lighting: 0.25
     background_color:
@@ -2570,22 +2526,22 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
     - count: 3
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slippery
     - count: 3
       radius: 54
-      speed: 6
+      speed: 180
       types:
       - ice_ghost
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - snowman
     type: active
@@ -2605,8 +2561,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 29
-#all enemies except slippery auras +200% count, include other buffs
 - properties:
     lighting: 0.25
     background_color:
@@ -2635,22 +2589,22 @@ areas:
     spawner:
     - count: 18
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
     - count: 3
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slippery
     - count: 9
       radius: 54
-      speed: 6
+      speed: 180
       types:
       - ice_ghost
     - count: 9
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - snowman
     type: active
@@ -2670,9 +2624,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-#all enemies +100% speed, +10% count
-#wall tiles pattern changed
-# Area 30
 - properties:
     snow: 0.1
     background_color:
@@ -2700,420 +2651,420 @@ areas:
     spawner:
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 787
       y: 159
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2139
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1932
       y: 704
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2560
       y: 703
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1304
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1489
       y: 667
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1468
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2257
       y: 380
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 987
       y: 145
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1932
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1423
       y: 572
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2158
       y: 534
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 781
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2452
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2513
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2414
       y: 366
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 553
       y: 420
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1385
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 449
       y: 179
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 384
       y: 245
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2366
       y: 226
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 485
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 936
       y: 207
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1076
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2059
       y: 118
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2511
       y: 321
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1167
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1970
       y: 758
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2666
       y: 547
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1880
       y: 599
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2731
       y: 188
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1186
       y: 121
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 854
       y: 442
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2430
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 854
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 343
       y: 418
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 389
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2757
       y: 539
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1152
       y: 313
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2500
       y: 109
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1932
       y: 429
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1455
       y: 161
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1447
       y: 625
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2507
       y: 535
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2131
       y: 704
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 457
       y: 199
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 640
       y: 206
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2304
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 959
       y: 491
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2806
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1637
       y: 235
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1559
       y: 211
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2855
       y: 358
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2580
       y: 291
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1306
       y: 567
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1838
       y: 121
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1573
       y: 427
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 449
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 793
       y: 597
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2589
       y: 396
       horizontal: true
@@ -3121,7 +3072,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 836
       y: 452
       horizontal: true
@@ -3129,7 +3080,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2308
       y: 217
       horizontal: true
@@ -3137,7 +3088,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 944
       y: 459
       horizontal: true
@@ -3145,7 +3096,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2418
       y: 448
       horizontal: true
@@ -3153,7 +3104,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2239
       y: 634
       horizontal: true
@@ -3161,7 +3112,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2765
       y: 564
       horizontal: true
@@ -3169,7 +3120,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2858
       y: 126
       horizontal: true
@@ -3177,7 +3128,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1841
       y: 96
       horizontal: true
@@ -3185,7 +3136,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2514
       y: 163
       horizontal: true
@@ -3193,7 +3144,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1137
       y: 768
       horizontal: true
@@ -3201,7 +3152,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2646
       y: 429
       horizontal: true
@@ -3209,7 +3160,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1860
       y: 96
       horizontal: true
@@ -3217,7 +3168,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2204
       y: 131
       horizontal: true
@@ -3225,7 +3176,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1069
       y: 489
       horizontal: true
@@ -3233,7 +3184,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 790
       y: 748
       horizontal: true
@@ -3241,7 +3192,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 781
       y: 484
       horizontal: true
@@ -3249,7 +3200,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1663
       y: 422
       horizontal: true
@@ -3257,7 +3208,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 691
       y: 105
       horizontal: true
@@ -3265,7 +3216,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2079
       y: 641
       horizontal: true
@@ -3273,7 +3224,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1193
       y: 706
       horizontal: true
@@ -3281,7 +3232,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1112
       y: 235
       horizontal: true
@@ -3289,7 +3240,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2485
       y: 700
       horizontal: true
@@ -3297,7 +3248,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 632
       y: 514
       horizontal: true
@@ -3305,7 +3256,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 668
       y: 768
       horizontal: true
@@ -3313,7 +3264,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2768
       y: 768
       horizontal: true
@@ -3321,7 +3272,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1574
       y: 541
       horizontal: true
@@ -3329,7 +3280,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1311
       y: 768
       horizontal: true
@@ -3337,7 +3288,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1714
       y: 703
       horizontal: true
@@ -3345,7 +3296,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1849
       y: 712
       horizontal: true
@@ -3353,7 +3304,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 976
       y: 647
       horizontal: true
@@ -3361,7 +3312,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1293
       y: 538
       horizontal: true
@@ -3369,7 +3320,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 342
       y: 513
       horizontal: true
@@ -3377,7 +3328,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2396
       y: 96
       horizontal: true
@@ -3385,7 +3336,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1994
       y: 768
       horizontal: true
@@ -3393,7 +3344,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2864
       y: 188
       horizontal: true
@@ -3401,7 +3352,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1082
       y: 406
       horizontal: true
@@ -3409,7 +3360,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1470
       y: 299
       horizontal: true
@@ -3417,7 +3368,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2524
       y: 96
       horizontal: true
@@ -3425,7 +3376,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2749
       y: 638
       horizontal: true
@@ -3433,7 +3384,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1864
       y: 96
       horizontal: true
@@ -3441,7 +3392,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1445
       y: 768
       horizontal: true
@@ -3449,7 +3400,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 576
       y: 518
       horizontal: true
@@ -3457,7 +3408,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1256
       y: 764
       horizontal: true
@@ -3465,7 +3416,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2127
       y: 768
       horizontal: true
@@ -3473,7 +3424,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1958
       y: 245
       horizontal: true
@@ -3481,7 +3432,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2723
       y: 595
       horizontal: true
@@ -3489,7 +3440,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2630
       y: 263
       horizontal: true
@@ -3497,7 +3448,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 845
       y: 199
       horizontal: true
@@ -3505,7 +3456,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2423
       y: 417
       horizontal: true
@@ -3513,7 +3464,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2537
       y: 423
       horizontal: true
@@ -3521,7 +3472,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1079
       y: 612
       horizontal: true
@@ -3529,7 +3480,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 494
       y: 353
       horizontal: true
@@ -3537,7 +3488,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1798
       y: 379
       horizontal: true
@@ -3545,7 +3496,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1052
       y: 436
       horizontal: true
@@ -3553,7 +3504,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 469
       y: 671
       horizontal: true
@@ -3564,7 +3515,7 @@ areas:
       speed: 0
       x: 606
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3572,7 +3523,7 @@ areas:
       speed: 0
       x: 706
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3580,7 +3531,7 @@ areas:
       speed: 0
       x: 990
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3588,7 +3539,7 @@ areas:
       speed: 0
       x: 1090
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3596,7 +3547,7 @@ areas:
       speed: 0
       x: 1374
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3604,7 +3555,7 @@ areas:
       speed: 0
       x: 1474
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3612,7 +3563,7 @@ areas:
       speed: 0
       x: 1758
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3620,7 +3571,7 @@ areas:
       speed: 0
       x: 1858
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3628,7 +3579,7 @@ areas:
       speed: 0
       x: 2142
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3636,7 +3587,7 @@ areas:
       speed: 0
       x: 2242
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3644,7 +3595,7 @@ areas:
       speed: 0
       x: 2526
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3652,7 +3603,7 @@ areas:
       speed: 0
       x: 2626
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3660,7 +3611,7 @@ areas:
       speed: 0
       x: 606
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3668,7 +3619,7 @@ areas:
       speed: 0
       x: 706
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3676,7 +3627,7 @@ areas:
       speed: 0
       x: 990
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3684,7 +3635,7 @@ areas:
       speed: 0
       x: 1090
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3692,7 +3643,7 @@ areas:
       speed: 0
       x: 1374
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3700,7 +3651,7 @@ areas:
       speed: 0
       x: 1474
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3708,7 +3659,7 @@ areas:
       speed: 0
       x: 1758
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3716,7 +3667,7 @@ areas:
       speed: 0
       x: 1858
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3724,7 +3675,7 @@ areas:
       speed: 0
       x: 2142
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3732,7 +3683,7 @@ areas:
       speed: 0
       x: 2242
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3740,7 +3691,7 @@ areas:
       speed: 0
       x: 2526
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -3748,7 +3699,7 @@ areas:
       speed: 0
       x: 2626
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     type: active
@@ -4117,9 +4068,7 @@ areas:
     width: 96
     height: 96
     texture: ice
-#icicle enemies +100% speed, +10% count
-#slippery auras and ice snipers +75% size, +50% count, type now ice_ghost
-# Area 31
+  boss: true
 - properties:
     snow: 0.2
     background_color:
@@ -4145,268 +4094,268 @@ areas:
     y: 0
   - height: last_height
     spawner:
-    - count: 1  
+    - count: 1
       radius: 18
-      speed: 10 
-      x: 1201   
-      y: 337    
-      types:    
-      - icicle  
-    - count: 1  
-      radius: 18
-      speed: 10 
-      x: 2535   
-      y: 125    
-      types:    
-      - icicle  
-    - count: 1  
-      radius: 18
-      speed: 10 
-      x: 2721   
-      y: 740    
+      speed: 300
+      x: 1201
+      y: 337
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
+      x: 2535
+      y: 125
+      types:
+      - icicle
+    - count: 1
+      radius: 18
+      speed: 300
+      x: 2721
+      y: 740
+      types:
+      - icicle
+    - count: 1
+      radius: 18
+      speed: 300
       x: 1456
       y: 403
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1758
       y: 436
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 944
       y: 395
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1527
       y: 245
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2662
       y: 471
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1195
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1913
       y: 751
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2549
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1749
       y: 332
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 424
       y: 675
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2595
       y: 369
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2705
       y: 458
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2099
       y: 276
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2722
       y: 269
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1170
       y: 381
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1902
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1634
       y: 196
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 416
       y: 512
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2834
       y: 195
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 870
       y: 164
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2529
       y: 325
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2327
       y: 286
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1554
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2806
       y: 528
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1695
       y: 605
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1646
       y: 630
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1345
       y: 222
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2075
       y: 627
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1538
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1640
       y: 209
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2330
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 457
       y: 716
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 335
       y: 400
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1770
       y: 291
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1109
       y: 282
       horizontal: true
@@ -4414,7 +4363,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 364
       y: 747
       horizontal: true
@@ -4422,7 +4371,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1347
       y: 768
       horizontal: true
@@ -4430,7 +4379,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2575
       y: 418
       horizontal: true
@@ -4438,7 +4387,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 937
       y: 96
       horizontal: true
@@ -4446,7 +4395,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2070
       y: 768
       horizontal: true
@@ -4454,7 +4403,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2233
       y: 285
       horizontal: true
@@ -4462,7 +4411,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2016
       y: 713
       horizontal: true
@@ -4470,7 +4419,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2472
       y: 659
       horizontal: true
@@ -4478,7 +4427,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2133
       y: 768
       horizontal: true
@@ -4486,7 +4435,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2851
       y: 165
       horizontal: true
@@ -4494,7 +4443,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2017
       y: 575
       horizontal: true
@@ -4502,7 +4451,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1437
       y: 224
       horizontal: true
@@ -4510,7 +4459,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2598
       y: 180
       horizontal: true
@@ -4518,7 +4467,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1857
       y: 167
       horizontal: true
@@ -4526,7 +4475,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 397
       y: 768
       horizontal: true
@@ -4534,7 +4483,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1114
       y: 586
       horizontal: true
@@ -4542,7 +4491,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1962
       y: 305
       horizontal: true
@@ -4550,7 +4499,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2594
       y: 160
       horizontal: true
@@ -4558,7 +4507,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1009
       y: 661
       horizontal: true
@@ -4566,7 +4515,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1152
       y: 210
       horizontal: true
@@ -4574,7 +4523,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2642
       y: 688
       horizontal: true
@@ -4582,7 +4531,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2067
       y: 507
       horizontal: true
@@ -4590,7 +4539,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1897
       y: 197
       horizontal: true
@@ -4598,7 +4547,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 830
       y: 743
       horizontal: true
@@ -4606,7 +4555,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 585
       y: 372
       horizontal: true
@@ -4614,7 +4563,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2250
       y: 96
       horizontal: true
@@ -4622,7 +4571,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 979
       y: 416
       horizontal: true
@@ -4630,7 +4579,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1907
       y: 694
       horizontal: true
@@ -4638,7 +4587,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1393
       y: 284
       horizontal: true
@@ -4646,7 +4595,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2404
       y: 518
       horizontal: true
@@ -4657,7 +4606,7 @@ areas:
       speed: 0
       x: 606
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4665,7 +4614,7 @@ areas:
       speed: 0
       x: 706
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4673,7 +4622,7 @@ areas:
       speed: 0
       x: 990
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4681,7 +4630,7 @@ areas:
       speed: 0
       x: 1090
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4689,7 +4638,7 @@ areas:
       speed: 0
       x: 1374
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4697,7 +4646,7 @@ areas:
       speed: 0
       x: 1474
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4705,7 +4654,7 @@ areas:
       speed: 0
       x: 1758
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4713,7 +4662,7 @@ areas:
       speed: 0
       x: 1858
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4721,7 +4670,7 @@ areas:
       speed: 0
       x: 2142
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4729,7 +4678,7 @@ areas:
       speed: 0
       x: 2242
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4737,7 +4686,7 @@ areas:
       speed: 0
       x: 2526
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4745,7 +4694,7 @@ areas:
       speed: 0
       x: 2626
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4753,7 +4702,7 @@ areas:
       speed: 0
       x: 606
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4761,7 +4710,7 @@ areas:
       speed: 0
       x: 706
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4769,7 +4718,7 @@ areas:
       speed: 0
       x: 990
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4777,7 +4726,7 @@ areas:
       speed: 0
       x: 1090
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4785,7 +4734,7 @@ areas:
       speed: 0
       x: 1374
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4793,7 +4742,7 @@ areas:
       speed: 0
       x: 1474
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4801,7 +4750,7 @@ areas:
       speed: 0
       x: 1758
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4809,7 +4758,7 @@ areas:
       speed: 0
       x: 1858
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4817,7 +4766,7 @@ areas:
       speed: 0
       x: 2142
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4825,7 +4774,7 @@ areas:
       speed: 0
       x: 2242
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4833,7 +4782,7 @@ areas:
       speed: 0
       x: 2526
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -4841,12 +4790,12 @@ areas:
       speed: 0
       x: 2626
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 8
       radius: 23
-      speed: 5
+      speed: 150
       types:
       - ice_ghost
     type: active
@@ -5215,7 +5164,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 32
 - properties:
     snow: 0.3
     background_color:
@@ -5243,259 +5191,259 @@ areas:
     spawner:
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1596
       y: 298
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1038
       y: 559
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2716
       y: 457
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 727
       y: 344
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2534
       y: 692
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 648
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2317
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1105
       y: 457
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2163
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1379
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1788
       y: 149
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2514
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2158
       y: 601
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 956
       y: 694
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1959
       y: 132
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2390
       y: 768
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1382
       y: 160
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2479
       y: 307
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2476
       y: 574
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1197
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2124
       y: 578
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2245
       y: 731
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1702
       y: 482
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2069
       y: 282
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2323
       y: 127
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1561
       y: 171
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1441
       y: 375
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2003
       y: 356
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1237
       y: 605
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2044
       y: 513
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1967
       y: 434
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1044
       y: 96
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1176
       y: 101
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 607
       y: 458
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1676
       y: 454
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2722
       y: 245
       types:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2677
       y: 656
       horizontal: true
@@ -5503,7 +5451,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1855
       y: 484
       horizontal: true
@@ -5511,7 +5459,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 915
       y: 215
       horizontal: true
@@ -5519,7 +5467,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2608
       y: 96
       horizontal: true
@@ -5527,7 +5475,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1958
       y: 226
       horizontal: true
@@ -5535,7 +5483,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2694
       y: 345
       horizontal: true
@@ -5543,7 +5491,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2303
       y: 471
       horizontal: true
@@ -5551,7 +5499,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 808
       y: 650
       horizontal: true
@@ -5559,7 +5507,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 975
       y: 293
       horizontal: true
@@ -5567,7 +5515,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2885
       y: 588
       horizontal: true
@@ -5575,7 +5523,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1498
       y: 768
       horizontal: true
@@ -5583,7 +5531,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 427
       y: 768
       horizontal: true
@@ -5591,7 +5539,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2437
       y: 563
       horizontal: true
@@ -5599,7 +5547,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 332
       y: 239
       horizontal: true
@@ -5607,7 +5555,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2869
       y: 312
       horizontal: true
@@ -5615,7 +5563,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 384
       y: 149
       horizontal: true
@@ -5623,7 +5571,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1290
       y: 739
       horizontal: true
@@ -5631,7 +5579,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1450
       y: 96
       horizontal: true
@@ -5639,7 +5587,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2747
       y: 419
       horizontal: true
@@ -5647,7 +5595,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2592
       y: 298
       horizontal: true
@@ -5655,7 +5603,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 383
       y: 169
       horizontal: true
@@ -5663,7 +5611,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 2707
       y: 469
       horizontal: true
@@ -5671,7 +5619,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 1802
       y: 98
       horizontal: true
@@ -5679,7 +5627,7 @@ areas:
       - icicle
     - count: 1
       radius: 18
-      speed: 10
+      speed: 300
       x: 838
       y: 96
       horizontal: true
@@ -5690,7 +5638,7 @@ areas:
       speed: 0
       x: 606
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5698,7 +5646,7 @@ areas:
       speed: 0
       x: 706
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5706,7 +5654,7 @@ areas:
       speed: 0
       x: 990
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5714,7 +5662,7 @@ areas:
       speed: 0
       x: 1090
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5722,7 +5670,7 @@ areas:
       speed: 0
       x: 1374
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5730,7 +5678,7 @@ areas:
       speed: 0
       x: 1474
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5738,7 +5686,7 @@ areas:
       speed: 0
       x: 1758
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5746,7 +5694,7 @@ areas:
       speed: 0
       x: 1858
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5754,7 +5702,7 @@ areas:
       speed: 0
       x: 2142
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5762,7 +5710,7 @@ areas:
       speed: 0
       x: 2242
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5770,7 +5718,7 @@ areas:
       speed: 0
       x: 2526
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5778,7 +5726,7 @@ areas:
       speed: 0
       x: 2626
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5786,7 +5734,7 @@ areas:
       speed: 0
       x: 606
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5794,7 +5742,7 @@ areas:
       speed: 0
       x: 706
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5802,7 +5750,7 @@ areas:
       speed: 0
       x: 990
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5810,7 +5758,7 @@ areas:
       speed: 0
       x: 1090
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5818,7 +5766,7 @@ areas:
       speed: 0
       x: 1374
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5826,7 +5774,7 @@ areas:
       speed: 0
       x: 1474
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5834,7 +5782,7 @@ areas:
       speed: 0
       x: 1758
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5842,7 +5790,7 @@ areas:
       speed: 0
       x: 1858
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5850,7 +5798,7 @@ areas:
       speed: 0
       x: 2142
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5858,7 +5806,7 @@ areas:
       speed: 0
       x: 2242
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5866,7 +5814,7 @@ areas:
       speed: 0
       x: 2526
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -5874,12 +5822,12 @@ areas:
       speed: 0
       x: 2626
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 23
       radius: 23
-      speed: 5
+      speed: 150
       types:
       - ice_ghost
     type: active
@@ -6248,9 +6196,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-#all enemies +25% speed and size
-#all enemies +100% speed, include other buffs
-# Area 33
 - properties:
     snow: 0.4
     background_color:
@@ -6278,217 +6223,217 @@ areas:
     spawner:
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1674
       y: 98
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 713
       y: 768
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2470
       y: 768
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 791
       y: 698
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2431
       y: 716
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 646
       y: 488
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 807
       y: 268
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2794
       y: 215
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1757
       y: 405
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 550
       y: 733
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1550
       y: 362
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 634
       y: 753
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 968
       y: 197
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 829
       y: 768
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1693
       y: 448
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1536
       y: 468
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 853
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 805
       y: 131
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2225
       y: 458
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 528
       y: 621
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1517
       y: 515
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1509
       y: 274
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2645
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1156
       y: 768
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2502
       y: 291
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2424
       y: 424
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 606
       y: 768
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1606
       y: 130
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1804
       y: 495
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 507
       y: 505
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2070
       y: 768
       horizontal: true
@@ -6496,7 +6441,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1212
       y: 96
       horizontal: true
@@ -6504,7 +6449,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 632
       y: 768
       horizontal: true
@@ -6512,7 +6457,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2379
       y: 96
       horizontal: true
@@ -6520,7 +6465,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 850
       y: 123
       horizontal: true
@@ -6528,7 +6473,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2792
       y: 601
       horizontal: true
@@ -6536,7 +6481,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2675
       y: 211
       horizontal: true
@@ -6544,7 +6489,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1712
       y: 403
       horizontal: true
@@ -6552,7 +6497,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2013
       y: 504
       horizontal: true
@@ -6560,7 +6505,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2876
       y: 659
       horizontal: true
@@ -6568,7 +6513,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 739
       y: 759
       horizontal: true
@@ -6576,7 +6521,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1472
       y: 96
       horizontal: true
@@ -6584,7 +6529,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2240
       y: 649
       horizontal: true
@@ -6592,7 +6537,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1925
       y: 768
       horizontal: true
@@ -6600,7 +6545,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1463
       y: 768
       horizontal: true
@@ -6608,7 +6553,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2677
       y: 398
       horizontal: true
@@ -6616,7 +6561,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1073
       y: 457
       horizontal: true
@@ -6624,7 +6569,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2799
       y: 768
       horizontal: true
@@ -6632,7 +6577,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2452
       y: 472
       horizontal: true
@@ -6640,7 +6585,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 567
       y: 768
       horizontal: true
@@ -6648,7 +6593,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2550
       y: 310
       horizontal: true
@@ -6656,7 +6601,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2764
       y: 616
       horizontal: true
@@ -6664,7 +6609,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1789
       y: 641
       horizontal: true
@@ -6672,7 +6617,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2199
       y: 416
       horizontal: true
@@ -6683,7 +6628,7 @@ areas:
       speed: 0
       x: 606
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6691,7 +6636,7 @@ areas:
       speed: 0
       x: 706
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6699,7 +6644,7 @@ areas:
       speed: 0
       x: 990
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6707,7 +6652,7 @@ areas:
       speed: 0
       x: 1090
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6715,7 +6660,7 @@ areas:
       speed: 0
       x: 1374
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6723,7 +6668,7 @@ areas:
       speed: 0
       x: 1474
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6731,7 +6676,7 @@ areas:
       speed: 0
       x: 1758
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6739,7 +6684,7 @@ areas:
       speed: 0
       x: 1858
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6747,7 +6692,7 @@ areas:
       speed: 0
       x: 2142
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6755,7 +6700,7 @@ areas:
       speed: 0
       x: 2242
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6763,7 +6708,7 @@ areas:
       speed: 0
       x: 2526
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6771,7 +6716,7 @@ areas:
       speed: 0
       x: 2626
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6779,7 +6724,7 @@ areas:
       speed: 0
       x: 606
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6787,7 +6732,7 @@ areas:
       speed: 0
       x: 706
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6795,7 +6740,7 @@ areas:
       speed: 0
       x: 990
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6803,7 +6748,7 @@ areas:
       speed: 0
       x: 1090
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6811,7 +6756,7 @@ areas:
       speed: 0
       x: 1374
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6819,7 +6764,7 @@ areas:
       speed: 0
       x: 1474
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6827,7 +6772,7 @@ areas:
       speed: 0
       x: 1758
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6835,7 +6780,7 @@ areas:
       speed: 0
       x: 1858
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6843,7 +6788,7 @@ areas:
       speed: 0
       x: 2142
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6851,7 +6796,7 @@ areas:
       speed: 0
       x: 2242
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6859,7 +6804,7 @@ areas:
       speed: 0
       x: 2526
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -6867,7 +6812,7 @@ areas:
       speed: 0
       x: 2626
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 5
@@ -6875,8 +6820,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 3000
-      speed: 12
-      turn_speed: 5
+      speed: 360
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -7245,7 +7190,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 34
 - properties:
     snow: 0.4
     background_color:
@@ -7273,196 +7217,196 @@ areas:
     spawner:
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2703
       y: 403
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2135
       y: 710
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2581
       y: 255
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 947
       y: 291
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1715
       y: 461
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 787
       y: 412
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2652
       y: 475
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2519
       y: 125
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2748
       y: 118
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 335
       y: 616
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2198
       y: 209
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1081
       y: 741
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 727
       y: 470
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2004
       y: 192
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2372
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1348
       y: 384
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2815
       y: 448
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1640
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1285
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2895
       y: 101
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2886
       y: 118
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1663
       y: 575
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1819
       y: 369
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2173
       y: 537
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1206
       y: 544
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 443
       y: 739
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1536
       y: 211
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1802
       y: 768
       horizontal: true
@@ -7470,7 +7414,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 753
       y: 518
       horizontal: true
@@ -7478,7 +7422,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 993
       y: 768
       horizontal: true
@@ -7486,7 +7430,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 453
       y: 135
       horizontal: true
@@ -7494,7 +7438,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2266
       y: 265
       horizontal: true
@@ -7502,7 +7446,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1962
       y: 724
       horizontal: true
@@ -7510,7 +7454,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1640
       y: 662
       horizontal: true
@@ -7518,7 +7462,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1112
       y: 295
       horizontal: true
@@ -7526,7 +7470,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2101
       y: 459
       horizontal: true
@@ -7534,7 +7478,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1953
       y: 768
       horizontal: true
@@ -7542,7 +7486,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1409
       y: 96
       horizontal: true
@@ -7550,7 +7494,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 891
       y: 144
       horizontal: true
@@ -7558,7 +7502,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 648
       y: 529
       horizontal: true
@@ -7566,7 +7510,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1693
       y: 649
       horizontal: true
@@ -7574,7 +7518,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1415
       y: 372
       horizontal: true
@@ -7582,7 +7526,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1837
       y: 765
       horizontal: true
@@ -7590,7 +7534,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2648
       y: 96
       horizontal: true
@@ -7598,7 +7542,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1831
       y: 768
       horizontal: true
@@ -7606,7 +7550,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 429
       y: 96
       horizontal: true
@@ -7614,7 +7558,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1658
       y: 96
       horizontal: true
@@ -7622,7 +7566,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2883
       y: 96
       horizontal: true
@@ -7630,7 +7574,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1623
       y: 721
       horizontal: true
@@ -7638,7 +7582,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1026
       y: 96
       horizontal: true
@@ -7646,7 +7590,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2178
       y: 295
       horizontal: true
@@ -7654,7 +7598,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 893
       y: 511
       horizontal: true
@@ -7662,7 +7606,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1646
       y: 518
       horizontal: true
@@ -7670,7 +7614,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 627
       y: 740
       horizontal: true
@@ -7678,7 +7622,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1329
       y: 96
       horizontal: true
@@ -7686,7 +7630,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2801
       y: 297
       horizontal: true
@@ -7697,7 +7641,7 @@ areas:
       speed: 0
       x: 606
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7705,7 +7649,7 @@ areas:
       speed: 0
       x: 706
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7713,7 +7657,7 @@ areas:
       speed: 0
       x: 990
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7721,7 +7665,7 @@ areas:
       speed: 0
       x: 1090
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7729,7 +7673,7 @@ areas:
       speed: 0
       x: 1374
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7737,7 +7681,7 @@ areas:
       speed: 0
       x: 1474
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7745,7 +7689,7 @@ areas:
       speed: 0
       x: 1758
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7753,7 +7697,7 @@ areas:
       speed: 0
       x: 1858
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7761,7 +7705,7 @@ areas:
       speed: 0
       x: 2142
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7769,7 +7713,7 @@ areas:
       speed: 0
       x: 2242
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7777,7 +7721,7 @@ areas:
       speed: 0
       x: 2526
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7785,7 +7729,7 @@ areas:
       speed: 0
       x: 2626
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7793,7 +7737,7 @@ areas:
       speed: 0
       x: 606
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7801,7 +7745,7 @@ areas:
       speed: 0
       x: 706
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7809,7 +7753,7 @@ areas:
       speed: 0
       x: 990
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7817,7 +7761,7 @@ areas:
       speed: 0
       x: 1090
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7825,7 +7769,7 @@ areas:
       speed: 0
       x: 1374
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7833,7 +7777,7 @@ areas:
       speed: 0
       x: 1474
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7841,7 +7785,7 @@ areas:
       speed: 0
       x: 1758
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7849,7 +7793,7 @@ areas:
       speed: 0
       x: 1858
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7857,7 +7801,7 @@ areas:
       speed: 0
       x: 2142
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7865,7 +7809,7 @@ areas:
       speed: 0
       x: 2242
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7873,7 +7817,7 @@ areas:
       speed: 0
       x: 2526
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -7881,7 +7825,7 @@ areas:
       speed: 0
       x: 2626
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 10
@@ -7889,8 +7833,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 3000
-      speed: 12
-      turn_speed: 5
+      speed: 360
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -8259,7 +8203,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 35
 - properties:
     snow: 0.5
     background_color:
@@ -8287,182 +8230,182 @@ areas:
     spawner:
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 883
       y: 768
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1578
       y: 597
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2636
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2191
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 856
       y: 639
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1239
       y: 482
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1963
       y: 655
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1504
       y: 577
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1651
       y: 768
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1539
       y: 203
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 524
       y: 143
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1650
       y: 458
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1485
       y: 139
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1882
       y: 164
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2273
       y: 610
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1645
       y: 165
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1990
       y: 158
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1415
       y: 768
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 742
       y: 329
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1860
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2194
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2493
       y: 301
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1277
       y: 96
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1286
       y: 217
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1984
       y: 768
       types:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2611
       y: 468
       horizontal: true
@@ -8470,7 +8413,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2811
       y: 475
       horizontal: true
@@ -8478,7 +8421,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1517
       y: 768
       horizontal: true
@@ -8486,7 +8429,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1803
       y: 474
       horizontal: true
@@ -8494,7 +8437,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2794
       y: 125
       horizontal: true
@@ -8502,7 +8445,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1506
       y: 277
       horizontal: true
@@ -8510,7 +8453,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1512
       y: 768
       horizontal: true
@@ -8518,7 +8461,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1324
       y: 656
       horizontal: true
@@ -8526,7 +8469,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 373
       y: 146
       horizontal: true
@@ -8534,7 +8477,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 700
       y: 710
       horizontal: true
@@ -8542,7 +8485,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1815
       y: 176
       horizontal: true
@@ -8550,7 +8493,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 399
       y: 96
       horizontal: true
@@ -8558,7 +8501,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1802
       y: 768
       horizontal: true
@@ -8566,7 +8509,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 361
       y: 101
       horizontal: true
@@ -8574,7 +8517,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 944
       y: 467
       horizontal: true
@@ -8582,7 +8525,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1654
       y: 104
       horizontal: true
@@ -8590,7 +8533,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 656
       y: 768
       horizontal: true
@@ -8598,7 +8541,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1176
       y: 96
       horizontal: true
@@ -8606,7 +8549,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 880
       y: 218
       horizontal: true
@@ -8614,7 +8557,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2733
       y: 444
       horizontal: true
@@ -8622,7 +8565,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1341
       y: 588
       horizontal: true
@@ -8630,7 +8573,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 1963
       y: 768
       horizontal: true
@@ -8638,7 +8581,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2015
       y: 211
       horizontal: true
@@ -8646,7 +8589,7 @@ areas:
       - icicle
     - count: 1
       radius: 23
-      speed: 12
+      speed: 360
       x: 2828
       y: 463
       horizontal: true
@@ -8657,7 +8600,7 @@ areas:
       speed: 0
       x: 606
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8665,7 +8608,7 @@ areas:
       speed: 0
       x: 706
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8673,7 +8616,7 @@ areas:
       speed: 0
       x: 990
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8681,7 +8624,7 @@ areas:
       speed: 0
       x: 1090
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8689,7 +8632,7 @@ areas:
       speed: 0
       x: 1374
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8697,7 +8640,7 @@ areas:
       speed: 0
       x: 1474
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8705,7 +8648,7 @@ areas:
       speed: 0
       x: 1758
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8713,7 +8656,7 @@ areas:
       speed: 0
       x: 1858
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8721,7 +8664,7 @@ areas:
       speed: 0
       x: 2142
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8729,7 +8672,7 @@ areas:
       speed: 0
       x: 2242
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8737,7 +8680,7 @@ areas:
       speed: 0
       x: 2526
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8745,7 +8688,7 @@ areas:
       speed: 0
       x: 2626
       y: 4
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8753,7 +8696,7 @@ areas:
       speed: 0
       x: 606
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8761,7 +8704,7 @@ areas:
       speed: 0
       x: 706
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8769,7 +8712,7 @@ areas:
       speed: 0
       x: 990
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8777,7 +8720,7 @@ areas:
       speed: 0
       x: 1090
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8785,7 +8728,7 @@ areas:
       speed: 0
       x: 1374
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8793,7 +8736,7 @@ areas:
       speed: 0
       x: 1474
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8801,7 +8744,7 @@ areas:
       speed: 0
       x: 1758
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8809,7 +8752,7 @@ areas:
       speed: 0
       x: 1858
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8817,7 +8760,7 @@ areas:
       speed: 0
       x: 2142
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8825,7 +8768,7 @@ areas:
       speed: 0
       x: 2242
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8833,7 +8776,7 @@ areas:
       speed: 0
       x: 2526
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 1
@@ -8841,7 +8784,7 @@ areas:
       speed: 0
       x: 2626
       y: 860
-      ignore_invulnerability: True
+      ignore_invulnerability: true
       types:
       - wind_ghost
     - count: 10
@@ -8849,8 +8792,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 3000
-      speed: 12
-      turn_speed: 5
+      speed: 360
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -9219,8 +9162,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-#all enemies +10% count, +50% size, +100% speed
-# Area 36
 - properties:
     snow: 0.6
     background_color:
@@ -9251,8 +9192,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 3000
-      speed: 10
-      turn_speed: 5
+      speed: 300
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -9357,8 +9298,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-#all enemies +2 count, include other buffs
-# Area 37
 - properties:
     snow: 0.7
     background_color:
@@ -9389,8 +9328,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 2000
-      speed: 10
-      turn_speed: 5
+      speed: 300
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -9495,8 +9434,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-#all enemies +4 count, include other buffs
-# Area 38
 - properties:
     snow: 0.8
     background_color:
@@ -9527,8 +9464,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 1000
-      speed: 10
-      turn_speed: 5
+      speed: 300
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -9633,8 +9570,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-#all enemies +100% speed, +75% size
-# Area 39
 - properties:
     snow: 0.9
     background_color:
@@ -9665,8 +9600,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 500
-      speed: 10
-      turn_speed: 5
+      speed: 300
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -9771,11 +9706,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-#frost giant enemies +100% speed and size
-#icicle enemies +200% speed, +100% size, -33% count
-#slippery aura and ice sniper enemies +100% speed and size, type now ice_ghost
-#snowman enemies added, copied from icicles but with -50% count
-# Area 40
 - properties:
     snow: 1
     background_color:
@@ -9805,29 +9735,29 @@ areas:
       radius: 40
       pattern: quadspiral
       immune: false
-      speed: 10
-      turn_speed: 5
+      speed: 300
+      turn_speed: 150
       types:
       - frost_giant
     - count: 5
       radius: 40
-      speed: 15
+      speed: 450
       types:
       - icicle
     - count: 5
       radius: 40
-      speed: 15
+      speed: 450
       horizontal: true
       types:
       - icicle
     - count: 5
       radius: 40
-      speed: 15
+      speed: 450
       types:
       - snowman
     - count: 10
       radius: 40
-      speed: 10
+      speed: 300
       types:
       - ice_ghost
     type: active
@@ -9902,7 +9832,7 @@ areas:
     width: 96
     height: 480
     texture: ice
-# Area 41
+  boss: true
 - x: last_right
   y: last_y + 160
   zones:

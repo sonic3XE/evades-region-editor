@@ -31,7 +31,7 @@ areas:
     width: 288
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -42,7 +42,7 @@ areas:
       - liquid
       count: 7
       radius: 18
-      speed: 1.5
+      speed: 45
   - type: safe
     x: last_right
     y: 0
@@ -83,7 +83,7 @@ areas:
       - liquid
       count: 13
       radius: 18
-      speed: 1.5
+      speed: 45
   - type: safe
     x: last_right
     y: 0
@@ -124,12 +124,12 @@ areas:
       - liquid
       count: 7
       radius: 18
-      speed: 3
+      speed: 90
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -170,12 +170,12 @@ areas:
       - liquid
       count: 13
       radius: 18
-      speed: 3
+      speed: 90
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -216,22 +216,22 @@ areas:
       - liquid
       count: 5
       radius: 12
-      speed: 4.5
+      speed: 135
     - types:
       - liquid
       count: 5
       radius: 18
-      speed: 3
+      speed: 90
     - types:
       - liquid
       count: 5
       radius: 24
-      speed: 1.5
+      speed: 45
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -272,22 +272,22 @@ areas:
       - liquid
       count: 5
       radius: 18
-      speed: 4.5
+      speed: 135
     - types:
       - liquid
       count: 5
       radius: 24
-      speed: 3
+      speed: 90
     - types:
       - liquid
       count: 5
       radius: 30
-      speed: 1.5
+      speed: 45
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -328,17 +328,17 @@ areas:
       - liquid
       count: 15
       radius: 30
-      speed: 4.5
+      speed: 135
     - types:
       - slippery
       count: 2
       radius: 2
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -379,12 +379,12 @@ areas:
       - liquid
       count: 13
       radius: 18
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -425,17 +425,17 @@ areas:
       - liquid
       count: 25
       radius: 18
-      speed: 3
+      speed: 90
     - types:
       - slippery
       count: 2
       radius: 2
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -476,17 +476,17 @@ areas:
       - liquid
       count: 13
       radius: 18
-      speed: 7.5
+      speed: 225
     - types:
       - liquid
       count: 3
       radius: 90
-      speed: 7.5
+      speed: 225
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -527,12 +527,12 @@ areas:
       - icicle
       count: 6
       radius: 18
-      speed: 12
+      speed: 360
     - types:
       - icicle
       count: 5
       radius: 24
-      speed: 9
+      speed: 270
       horizontal: true
   - type: safe
     x: last_right
@@ -580,12 +580,12 @@ areas:
       - icicle
       count: 11
       radius: 18
-      speed: 12
+      speed: 360
     - types:
       - icicle
       count: 7
       radius: 24
-      speed: 9.5
+      speed: 285
       horizontal: true
   - type: safe
     x: last_right
@@ -633,22 +633,22 @@ areas:
       - icicle
       count: 4
       radius: 12
-      speed: 18
+      speed: 540
     - types:
       - icicle
       count: 4
       radius: 18
-      speed: 11
+      speed: 330
     - types:
       - icicle
       count: 3
       radius: 24
-      speed: 6
+      speed: 180
     - types:
       - icicle
       count: 8
       radius: 24
-      speed: 10
+      speed: 300
       horizontal: true
   - type: safe
     x: last_right
@@ -696,33 +696,33 @@ areas:
       - icicle
       count: 4
       radius: 12
-      speed: 15
+      speed: 450
     - types:
       - icicle
       count: 4
       radius: 18
-      speed: 12
+      speed: 360
     - types:
       - icicle
       count: 5
       radius: 24
-      speed: 6
+      speed: 180
     - types:
       - liquid
       count: 3
       radius: 18
-      speed: 1.5
+      speed: 45
     - types:
       - icicle
       count: 4
       radius: 24
-      speed: 8
+      speed: 240
       horizontal: true
     - types:
       - icicle
       count: 6
       radius: 14
-      speed: 11
+      speed: 330
       horizontal: true
   - type: safe
     x: last_right
@@ -770,33 +770,33 @@ areas:
       - icicle
       count: 3
       radius: 12
-      speed: 24
+      speed: 720
     - types:
       - icicle
       count: 3
       radius: 18
-      speed: 18
+      speed: 540
     - types:
       - icicle
       count: 3
       radius: 24
-      speed: 12
+      speed: 360
     - types:
       - liquid
       count: 5
       radius: 18
-      speed: 1.5
+      speed: 45
     - types:
       - icicle
       count: 4
       radius: 24
-      speed: 8.5
+      speed: 255
       horizontal: true
     - types:
       - icicle
       count: 4
       radius: 14
-      speed: 11
+      speed: 330
       horizontal: true
   - type: safe
     x: last_right
@@ -844,18 +844,18 @@ areas:
       - icicle
       count: 12
       radius: 12
-      speed: 20
+      speed: 600
     - types:
       - icicle
       count: 4
       radius: 24
-      speed: 9
+      speed: 270
       horizontal: true
     - types:
       - icicle
       count: 6
       radius: 14
-      speed: 11
+      speed: 330
       horizontal: true
   - type: safe
     x: last_right
@@ -903,23 +903,23 @@ areas:
       - icicle
       count: 10
       radius: 15
-      speed: 18
+      speed: 540
     - types:
       - icicle
       count: 10
       radius: 20
-      speed: 10
+      speed: 300
     - types:
       - icicle
       count: 6
       radius: 18
-      speed: 9
+      speed: 270
       horizontal: true
     - types:
       - icicle
       count: 6
       radius: 10
-      speed: 11
+      speed: 330
       horizontal: true
   - type: safe
     x: last_right
@@ -967,18 +967,18 @@ areas:
       - icicle
       count: 20
       radius: 24
-      speed: 12.5
+      speed: 375
     - types:
       - icicle
       count: 6
       radius: 18
-      speed: 8
+      speed: 240
       horizontal: true
     - types:
       - icicle
       count: 8
       radius: 10
-      speed: 10
+      speed: 300
       horizontal: true
   - type: safe
     x: last_right
@@ -1026,23 +1026,23 @@ areas:
       - icicle
       count: 10
       radius: 36
-      speed: 21
+      speed: 630
     - types:
       - liquid
       count: 6
       radius: 18
-      speed: 3
+      speed: 90
     - types:
       - icicle
       count: 6
       radius: 18
-      speed: 8.5
+      speed: 255
       horizontal: true
     - types:
       - icicle
       count: 8
       radius: 10
-      speed: 10
+      speed: 300
       horizontal: true
   - type: safe
     x: last_right
@@ -1090,33 +1090,33 @@ areas:
       - icicle
       count: 6
       radius: 28
-      speed: 12
+      speed: 360
     - types:
       - icicle
       count: 8
       radius: 20
-      speed: 12
+      speed: 360
     - types:
       - icicle
       count: 12
       radius: 10
-      speed: 14
+      speed: 420
     - types:
       - liquid
       count: 4
       radius: 15
-      speed: 2
+      speed: 60
     - types:
       - icicle
       count: 6
       radius: 10
-      speed: 8
+      speed: 240
       horizontal: true
     - types:
       - icicle
       count: 6
       radius: 14
-      speed: 8
+      speed: 240
       horizontal: true
   - type: safe
     x: last_right
@@ -1165,12 +1165,12 @@ areas:
       count: 6
       slippery_radius: 100
       radius: 18
-      speed: 10
+      speed: 300
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 8.5
+      speed: 255
   - type: safe
     x: last_right
     y: 0
@@ -1218,12 +1218,12 @@ areas:
       count: 8
       slippery_radius: 100
       radius: 25
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 9
+      speed: 270
   - type: safe
     x: last_right
     y: 0
@@ -1271,23 +1271,23 @@ areas:
       count: 8
       slippery_radius: 100
       radius: 5
-      speed: 15
+      speed: 450
     - types:
       - slippery
       count: 2
       slippery_radius: 140
       radius: 25
-      speed: 10.5
+      speed: 315
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 9.5
+      speed: 285
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 9.5
+      speed: 285
       move_clockwise: False
   - type: safe
     x: last_right
@@ -1330,23 +1330,23 @@ areas:
       count: 8
       slippery_radius: 100
       radius: 5
-      speed: 12
+      speed: 360
     - types:
       - slippery
       count: 4
       slippery_radius: 140
       radius: 25
-      speed: 10
+      speed: 300
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 10
+      speed: 300
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 10
+      speed: 300
       move_clockwise: False
   - type: safe
     x: last_right
@@ -1389,35 +1389,35 @@ areas:
       count: 5
       slippery_radius: 100
       radius: 5
-      speed: 11
+      speed: 330
     - types:
       - slippery
       count: 5
       slippery_radius: 50
       radius: 15
-      speed: 13
+      speed: 390
     - types:
       - slippery
       count: 2
       slippery_radius: 140
       radius: 20
-      speed: 8
+      speed: 240
     - types:
       - slippery
       count: 2
       slippery_radius: 180
       radius: 30
-      speed: 8
+      speed: 240
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 10.5
+      speed: 315
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 10.5
+      speed: 315
       move_clockwise: False
   - type: safe
     x: last_right
@@ -1460,35 +1460,35 @@ areas:
       count: 6
       slippery_radius: 100
       radius: 5
-      speed: 9
+      speed: 270
     - types:
       - slippery
       count: 12
       slippery_radius: 50
       radius: 15
-      speed: 11
+      speed: 330
     - types:
       - slippery
       count: 3
       slippery_radius: 140
       radius: 20
-      speed: 9
+      speed: 270
     - types:
       - slippery
       count: 2
       slippery_radius: 160
       radius: 25
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 11
+      speed: 330
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 11
+      speed: 330
       move_clockwise: False
   - type: safe
     x: last_right
@@ -1531,28 +1531,28 @@ areas:
       count: 6
       slippery_radius: 100
       radius: 5
-      speed: 11
+      speed: 330
     - types:
       - slippery
       count: 6
       slippery_radius: 80
       radius: 15
-      speed: 11
+      speed: 330
     - types:
       - liquid
       count: 14
       radius: 20
-      speed: 1.5
+      speed: 45
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 11
+      speed: 330
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 11
+      speed: 330
       move_clockwise: False
   - type: safe
     x: last_right
@@ -1595,38 +1595,38 @@ areas:
       count: 4
       slippery_radius: 100
       radius: 15
-      speed: 8
+      speed: 240
     - types:
       - slippery
       count: 8
       slippery_radius: 80
       radius: 5
-      speed: 9
+      speed: 270
     - types:
       - liquid
       count: 10
       radius: 20
-      speed: 2
+      speed: 60
     - types:
       - liquid
       count: 10
       radius: 35
-      speed: 1.5
+      speed: 45
     - types:
       - liquid
       count: 6
       radius: 12
-      speed: 4
+      speed: 120
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 11
+      speed: 330
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 11
+      speed: 330
       move_clockwise: False
   - type: safe
     x: last_right
@@ -1669,34 +1669,34 @@ areas:
       count: 6
       slippery_radius: 100
       radius: 20
-      speed: 8
+      speed: 240
     - types:
       - slippery
       count: 10
       slippery_radius: 80
       radius: 5
-      speed: 8
+      speed: 240
     - types:
       - slippery
       count: 8
       slippery_radius: 50
       radius: 5
-      speed: 9
+      speed: 270
     - types:
       - liquid
       count: 10
       radius: 20
-      speed: 2
+      speed: 60
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 8
       radius: 20
-      speed: 12
+      speed: 360
       move_clockwise: False
   - type: safe
     x: last_right
@@ -1739,40 +1739,40 @@ areas:
       count: 4
       slippery_radius: 135
       radius: 30
-      speed: 2
+      speed: 60
     - types:
       - slippery
       count: 6
       slippery_radius: 100
       radius: 10
-      speed: 6
+      speed: 180
     - types:
       - slippery
       count: 8
       slippery_radius: 80
       radius: 15
-      speed: 8
+      speed: 240
     - types:
       - slippery
       count: 10
       slippery_radius: 50
       radius: 25
-      speed: 10
+      speed: 300
     - types:
       - liquid
       count: 16
       radius: 20
-      speed: 2.5
+      speed: 75
     - types:
       - wall
       count: 10
       radius: 18
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 10
       radius: 18 
-      speed: 12
+      speed: 360
       move_clockwise: False
   - type: safe
     x: last_right
@@ -1814,17 +1814,17 @@ areas:
       - ice_ghost
       count: 9
       radius: 36
-      speed: 6
+      speed: 180
     - types:
       - liquid
       count: 12
       radius: 18
-      speed: 3
+      speed: 90
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 10.5
+      speed: 315
   - type: safe
     x: last_right
     y: 0
@@ -1865,22 +1865,22 @@ areas:
       - ice_ghost
       count: 14
       radius: 36
-      speed: 6
+      speed: 180
     - types:
       - liquid
       count: 10
       radius: 25
-      speed: 2
+      speed: 60
     - types:
       - liquid
       count: 6
       radius: 18
-      speed: 3
+      speed: 90
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 10.5
+      speed: 315
   - type: safe
     x: last_right
     y: 0
@@ -1921,22 +1921,22 @@ areas:
       - ice_ghost
       count: 14
       radius: 36
-      speed: 6
+      speed: 180
     - types:
       - liquid
       count: 25
       radius: 18
-      speed: 3
+      speed: 90
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 10.5
+      speed: 315
     - types:
       - wall
       count: 6
       radius: 20
-      speed: 10.5
+      speed: 315
       move_clockwise: False
   - type: safe
     x: last_right
@@ -1978,22 +1978,22 @@ areas:
       - ice_ghost
       count: 14
       radius: 36
-      speed: 11
+      speed: 330
     - types:
       - liquid
       count: 36
       radius: 18
-      speed: 3
+      speed: 90
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 10.5
+      speed: 315
     - types:
       - wall
       count: 6
       radius: 20
-      speed: 10.5
+      speed: 315
       move_clockwise: False
   - type: safe
     x: last_right
@@ -2035,17 +2035,17 @@ areas:
       - ice_ghost
       count: 9
       radius: 60
-      speed: 4
+      speed: 120
     - types:
       - icicle
       count: 35
       radius: 18
-      speed: 18
+      speed: 540
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 10.5
+      speed: 315
   - type: safe
     x: last_right
     y: 0
@@ -2086,27 +2086,27 @@ areas:
       - ice_ghost
       count: 6
       radius: 60
-      speed: 4
+      speed: 120
     - types:
       - icicle
       count: 14
       radius: 12
-      speed: 24
+      speed: 720
     - types:
       - icicle
       count: 13
       radius: 18
-      speed: 18
+      speed: 540
     - types:
       - icicle
       count: 12
       radius: 24
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 10.5
+      speed: 315
   - type: safe
     x: last_right
     y: 0
@@ -2147,32 +2147,32 @@ areas:
       - ice_sniper
       count: 2
       radius: 30
-      speed: 2
+      speed: 60
     - types:
       - ice_ghost
       count: 10
       radius: 50
-      speed: 5
+      speed: 150
     - types:
       - icicle
       count: 12
       radius: 12
-      speed: 26
+      speed: 780
     - types:
       - icicle
       count: 10
       radius: 18
-      speed: 24
+      speed: 720
     - types:
       - icicle
       count: 10
       radius: 24
-      speed: 20
+      speed: 600
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 10.5
+      speed: 315
   - type: safe
     x: last_right
     y: 0
@@ -2213,32 +2213,32 @@ areas:
       - ice_sniper
       count: 3
       radius: 35
-      speed: 2
+      speed: 60
     - types:
       - ice_ghost
       count: 8
       radius: 50
-      speed: 3
+      speed: 90
     - types:
       - icicle
       count: 16
       radius: 25
-      speed: 16
+      speed: 480
     - types:
       - icicle
       count: 10
       radius: 32
-      speed: 12
+      speed: 360
     - types:
       - icicle
       count: 8
       radius: 40
-      speed: 6.5
+      speed: 195
     - types:
       - wall
       count: 5
       radius: 30
-      speed: 10.5
+      speed: 315
   - type: safe
     x: last_right
     y: 0
@@ -2279,37 +2279,37 @@ areas:
       - ice_ghost
       count: 8
       radius: 55
-      speed: 10
+      speed: 300
     - types:
       - liquid
       count: 12
       radius: 24
-      speed: 3.5
+      speed: 105
     - types:
       - liquid
       count: 10
       radius: 32
-      speed: 2
+      speed: 60
     - types:
       - liquid
       count: 10
       radius: 40
-      speed: 2
+      speed: 60
     - types:
       - liquid
       count: 12
       radius: 10
-      speed: 2
+      speed: 60
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 15
+      speed: 450
     - types:
       - wall
       count: 6
       radius: 20
-      speed: 15
+      speed: 450
       move_clockwise: False
   - type: safe
     x: last_right
@@ -2351,44 +2351,44 @@ areas:
       - ice_ghost
       count: 7
       radius: 25
-      speed: 8
+      speed: 240
     - types:
       - liquid
       count: 12
       radius: 35
-      speed: 3.5
+      speed: 105
     - types:
       - icicle
       count: 20
       radius: 25
-      speed: 7
+      speed: 210
     - types:
       - icicle
       count: 20
       radius: 20
-      speed: 8
+      speed: 240
     - types:
       - icicle
       count: 9
       radius: 20
-      speed: 7
+      speed: 210
       horizontal: true
     - types:
       - icicle
       count: 9
       radius: 25
-      speed: 8
+      speed: 240
       horizontal: true
     - types:
       - wall
       count: 10
       radius: 18
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 10
       radius: 18 
-      speed: 12
+      speed: 360
       move_clockwise: False
   - type: safe
     x: last_right

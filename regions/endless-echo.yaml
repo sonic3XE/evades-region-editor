@@ -47,7 +47,7 @@ areas:
     width: 288
     height: 352
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0

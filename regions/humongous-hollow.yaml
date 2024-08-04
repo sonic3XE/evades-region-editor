@@ -1,4451 +1,3406 @@
-name: Humongous Hollow
-properties:
-  friction: 0.75
-  background_color:
-  - 155
-  - 88
-  - 0
-  - 75
 areas:
-# 1
 - x: var x
   y: var y
   zones:
-  - type: teleport
+  - height: 64
+    translate: {x: 0, y: -1120}
+    type: teleport
+    width: 288
     x: 32
     y: 0
+  - height: 64
+    translate: {x: 0, y: 864}
+    type: teleport
     width: 288
-    height: 64
-    translate:
-      x: 0
-      y: -1120
-  - type: teleport
     x: 32
-    y: 416
-    width: 288
-    height: 64
-    translate:
-      x: 0
-      y: 1120
-  - type: teleport
+    y: 672
+  - height: 736
+    properties:
+      background_color: [0, 0, 0, 100]
+    translate: {x: 268300, y: 240}
+    type: teleport
+    width: 32
     x: 0
     y: 0
-    width: 32
-    height: 480
-    translate:
-      x: 268300
-      y: 240
-    properties:
-      background_color:
-      - 0
-      - 0
-      - 0
-      - 100
-  - type: safe
+  - height: 608
+    properties: {minimum_speed: 300}
+    type: safe
+    width: 288
     x: 32
     y: 64
-    width: 288
-    height: 352
-    properties:
-      minimum_speed: 10
-  - height: 480
+  - height: 736
     spawner:
     - count: 4
-      radius: 30
-      speed: 1.5
-      types:
-      - normal
+      radius: 39
+      speed: 45
+      types: [normal]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 2
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 6
-      radius: 40
-      speed: 2
-      types:
-      - normal
+      radius: 51
+      speed: 60
+      types: [normal]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 3
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 3
-      radius: 20
-      speed: 2.5
-      types:
-      - normal
+      radius: 26
+      speed: 75
+      types: [normal]
     - count: 4
-      radius: 40
-      speed: 2
-      types:
-      - normal
+      radius: 51
+      speed: 60
+      types: [normal]
     - count: 3
-      radius: 80
-      speed: 1
-      types:
-      - normal
+      radius: 102
+      speed: 30
+      types: [normal]
     - count: 6
-      radius: 60
-      speed: 2
-      types:
-      - wall
+      radius: 77
+      speed: 60
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 4
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 15
-      radius: 30
-      speed: 0.5
-      types:
-      - normal
+      radius: 39
+      speed: 15
+      types: [normal]
     - count: 5
-      radius: 60
-      speed: 2.5
-      types:
-      - normal
+      radius: 77
+      speed: 75
+      types: [normal]
     - count: 6
-      radius: 60
-      speed: 2
-      types:
-      - wall
+      radius: 77
+      speed: 60
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 5
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 20
-      radius: 20
-      speed: 2.5
-      types:
-      - normal
-    - count: 2
-      radius: 25
-      speed: 1.5
-      types:
-      - slowing
+      radius: 26
+      speed: 75
+      types: [normal]
+    - count: 1
+      radius: 32
+      speed: 45
+      types: [normal]
+    - count: 1
+      radius: 32
+      slowing_radius: 397
+      speed: 45
+      types: [slowing]
     - count: 6
-      radius: 60
-      speed: 2
-      types:
-      - wall
+      radius: 77
+      speed: 60
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 6
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 13
-      radius: 35
-      speed: 1.5
-      types:
-      - normal
+      radius: 45
+      speed: 45
+      types: [normal]
     - count: 2
-      radius: 80
-      speed: 6
-      types:
-      - normal
-    - count: 2
-      radius: 25
-      speed: 1.5
-      types:
-      - slowing
-    - count: 6
-      radius: 60
-      speed: 2
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 7
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 5
-      radius: 20
-      speed: 1.5
-      types:
-      - normal
-    - count: 9
-      radius: 60
-      speed: 2
-      types:
-      - normal
-    - count: 2
-      radius: 25
-      speed: 7
-      types:
-      - slowing
-    - count: 6
-      radius: 60
-      speed: 2
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 8
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 4
-      radius: 20
-      speed: 3.5
-      types:
-      - normal
-    - count: 3
-      radius: 40
-      speed: 4
-      types:
-      - normal
-    - count: 3
-      radius: 60
-      speed: 4.5
-      types:
-      - normal
-    - count: 4
-      radius: 25
-      speed: 5
-      types:
-      - slowing
-    - count: 6
-      radius: 60
-      speed: 2
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 9
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 20
-      radius: 10
-      speed: 3
-      types:
-      - normal
-    - count: 8
-      radius: 25
-      speed: 1
-      types:
-      - normal
-    - count: 8
-      radius: 25
-      speed: 1
-      types:
-      - slowing
-    - count: 6
-      radius: 60
-      speed: 2
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 10
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 24
-      radius: 25
-      speed: 1
-      types:
-      - normal
-    - count: 2
-      radius: 100
-      speed: 1
-      types:
-      - normal
-    - count: 12
-      radius: 50
-      speed: 2
-      types:
-      - slowing
-    - count: 6
-      radius: 90
-      speed: 1.25
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 11
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 2
-      radius: 30
-      speed: 0.7
-      types:
-      - liquid
-    - count: 4
-      radius: 40
-      speed: 0.4
-      types:
-      - liquid
-    - count: 6
-      radius: 60
-      speed: 3.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 12
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 7
-      radius: 20
-      speed: 0.9
-      types:
-      - liquid
-    - count: 4
-      radius: 60
-      speed: 0.7
-      types:
-      - liquid
-    - count: 6
-      radius: 60
-      speed: 3.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 13
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 4
-      radius: 30
-      speed: 3
-      types:
-      - normal
-    - count: 2
-      radius: 60
-      speed: 4
-      types:
-      - normal
-    - count: 8
-      radius: 30
-      speed: 0.7
-      types:
-      - liquid
-    - count: 2
-      radius: 60
-      speed: 1.1
-      types:
-      - liquid
-    - count: 6
-      radius: 60
-      speed: 3.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 14
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 8
-      radius: 50
-      speed: 3
-      types:
-      - normal
-    - count: 16
-      radius: 20
-      speed: 0.7
-      types:
-      - liquid
-    - count: 6
-      radius: 60
-      speed: 3.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 15
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 8
-      radius: 70
-      speed: 1
-      types:
-      - liquid
-    - count: 2
-      radius: 25
-      speed: 5
-      types:
-      - draining
-    - count: 6
-      radius: 60
-      speed: 3.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 16
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 16
-      radius: 20
-      speed: 2
-      types:
-      - normal
-    - count: 8
-      radius: 40
-      speed: 0.9
-      types:
-      - liquid
-    - count: 3
-      radius: 25
-      speed: 5
-      types:
-      - draining
-    - count: 6
-      radius: 60
-      speed: 3.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 17
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 8
-      radius: 30
-      speed: 6
-      types:
-      - normal
-    - count: 4
-      radius: 80
-      speed: 1.1
-      types:
-      - liquid
+      radius: 102
+      speed: 180
+      types: [normal]
     - count: 1
-      radius: 25
-      speed: 10
-      types:
-      - draining
+      radius: 32
+      speed: 45
+      types: [normal]
+    - count: 1
+      radius: 32
+      slowing_radius: 397
+      speed: 45
+      types: [slowing]
     - count: 6
-      radius: 60
-      speed: 3.5
-      types:
-      - wall
+      radius: 77
+      speed: 60
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 18
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
-    - count: 16
-      radius: 15
-      speed: 3
-      types:
-      - normal
-    - count: 3
-      radius: 95
-      speed: 0.3
-      types:
-      - liquid
-    - count: 12
-      radius: 15
-      speed: 0.7
-      types:
-      - liquid
+    - count: 5
+      radius: 26
+      speed: 45
+      types: [normal]
+    - count: 9
+      radius: 77
+      speed: 60
+      types: [normal]
+    - count: 1
+      radius: 32
+      speed: 210
+      types: [normal]
+    - count: 1
+      radius: 32
+      slowing_radius: 397
+      speed: 210
+      types: [slowing]
+    - count: 6
+      radius: 77
+      speed: 60
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
     - count: 4
-      radius: 25
-      speed: 1
-      types:
-      - draining
-    - count: 6
-      radius: 60
-      speed: 3.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 19
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 10
-      radius: 50
-      speed: 1.5
-      types:
-      - normal
-    - count: 10
-      radius: 50
-      speed: 0.3
-      types:
-      - liquid
-    - count: 4
-      radius: 25
-      speed: 4
-      types:
-      - draining
-    - count: 6
-      radius: 60
-      speed: 3.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 20
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 16
-      radius: 25
-      speed: 0.8
-      types:
-      - liquid
+      radius: 26
+      speed: 105
+      types: [normal]
+    - count: 3
+      radius: 51
+      speed: 120
+      types: [normal]
+    - count: 3
+      radius: 77
+      speed: 135
+      types: [normal]
     - count: 2
-      radius: 100
-      speed: 0.8
-      types:
-      - liquid
-    - count: 12
-      radius: 50
-      speed: 2
-      types:
-      - draining
-    - count: 6
-      radius: 90
-      speed: 1.75
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 21
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 3
-      radius: 30
-      speed: 3
-      types:
-      - turning
-    - count: 3
-      radius: 60
-      speed: 2
-      types:
-      - turning
-    - count: 6
-      radius: 60
-      speed: 4.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 22
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 3
-      radius: 50
-      speed: 2.5
-      types:
-      - turning
-    - count: 3
-      radius: 40
-      speed: 3
-      types:
-      - turning
-    - count: 3
-      radius: 30
-      speed: 3.5
-      types:
-      - turning
-    - count: 3
-      radius: 20
-      speed: 4
-      types:
-      - turning
-    - count: 6
-      radius: 60
-      speed: 4.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 23
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
+      radius: 32
+      speed: 150
+      types: [normal]
     - count: 2
-      radius: 25
-      speed: 4
-      types:
-      - normal
-    - count: 4
-      radius: 50
-      speed: 3.5
-      types:
-      - normal
-    - count: 3
-      radius: 25
-      speed: 5
-      types:
-      - turning
-    - count: 2
-      radius: 50
-      speed: 4
-      types:
-      - turning
+      radius: 32
+      slowing_radius: 397
+      speed: 150
+      types: [slowing]
     - count: 6
-      radius: 60
-      speed: 4.5
-      types:
-      - wall
+      radius: 77
+      speed: 60
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 24
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 20
-      radius: 15
-      speed: 2
-      types:
-      - normal
-    - count: 6
-      radius: 80
-      speed: 2
-      types:
-      - turning
-    - count: 6
-      radius: 60
-      speed: 4.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 25
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 32
-      radius: 15
-      speed: 1.5
-      types:
-      - turning
+      radius: 13
+      speed: 90
+      types: [normal]
+    - count: 8
+      radius: 32
+      speed: 30
+      types: [normal]
     - count: 4
-      radius: 25
-      speed: 1
-      types:
-      - freezing
+      radius: 32
+      speed: 30
+      types: [normal]
+    - count: 4
+      radius: 32
+      slowing_radius: 397
+      speed: 30
+      types: [slowing]
     - count: 6
-      radius: 60
-      speed: 4.5
-      types:
-      - wall
+      radius: 77
+      speed: 60
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 26
-- x: last_right
+- boss: true
+  x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
-    - count: 8
-      radius: 25
-      speed: 2.5
-      types:
-      - normal
-    - count: 8
-      radius: 25
-      speed: 3.5
-      types:
-      - turning
-    - count: 8
-      radius: 25
-      speed: 2
-      types:
-      - freezing
+    - count: 24
+      radius: 32
+      speed: 30
+      types: [normal]
+    - count: 2
+      radius: 127
+      speed: 30
+      types: [normal]
     - count: 6
-      radius: 60
-      speed: 4.5
-      types:
-      - wall
+      radius: 64
+      speed: 60
+      types: [normal]
+    - count: 6
+      radius: 64
+      slowing_radius: 792
+      speed: 60
+      types: [slowing]
+    - count: 6
+      radius: 115
+      speed: 37.5
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 27
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 8
-      radius: 50
-      speed: 1.5
-      types:
-      - normal
-    - count: 7
-      radius: 25
-      speed: 3
-      types:
-      - turning
-    - count: 5
-      radius: 15
-      speed: 3
-      types:
-      - turning
-    - count: 7
-      radius: 25
-      speed: 2.5
-      types:
-      - freezing
-    - count: 6
-      radius: 60
-      speed: 4.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 28
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 2
-      radius: 95
-      speed: 1
-      types:
-      - normal
+      radius: 39
+      speed: 21
+      player_detection_radius: 181
+      types: [liquid]
+    - count: 4
+      radius: 51
+      speed: 12
+      player_detection_radius: 193
+      types: [liquid]
     - count: 6
-      radius: 50
-      speed: 5
-      types:
-      - turning
-    - count: 10
-      radius: 25
-      speed: 0.5
-      types:
-      - freezing
-    - count: 6
-      radius: 60
-      speed: 4.5
-      types:
-      - wall
+      radius: 77
+      speed: 105
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 29
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
-    - count: 5
-      radius: 60
-      speed: 1.5
-      types:
-      - normal
-    - count: 5
-      radius: 60
-      speed: 1.5
-      types:
-      - turning
-    - count: 18
-      radius: 25
-      speed: 0.5
-      types:
-      - freezing
+    - count: 7
+      radius: 26
+      speed: 27
+      player_detection_radius: 168
+      types: [liquid]
+    - count: 4
+      radius: 77
+      speed: 21
+      player_detection_radius: 219
+      types: [liquid]
     - count: 6
-      radius: 60
-      speed: 4.5
-      types:
-      - wall
+      radius: 77
+      speed: 105
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 30
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
+    spawner:
+    - count: 4
+      radius: 39
+      speed: 90
+      types: [normal]
+    - count: 2
+      radius: 77
+      speed: 120
+      types: [normal]
+    - count: 8
+      radius: 39
+      speed: 21
+      player_detection_radius: 181
+      types: [liquid]
+    - count: 2
+      radius: 77
+      speed: 33
+      player_detection_radius: 219
+      types: [liquid]
+    - count: 6
+      radius: 77
+      speed: 105
+      types: [wall]
+    type: active
+    width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 64
+      speed: 90
+      types: [normal]
+    - count: 16
+      radius: 26
+      speed: 21
+      player_detection_radius: 168
+      types: [liquid]
+    - count: 6
+      radius: 77
+      speed: 105
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 89
+      speed: 30
+      player_detection_radius: 231
+      types: [liquid]
+    - count: 1
+      radius: 32
+      speed: 30
+      player_detection_radius: 174
+      types: [liquid]
+    - count: 1
+      draining_radius: 397
+      radius: 32
+      speed: 150
+      types: [draining]
+    - count: 6
+      radius: 77
+      speed: 105
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 16
-      radius: 25
-      speed: 2.5
-      types:
-      - turning
+      radius: 26
+      speed: 60
+      types: [normal]
+    - count: 8
+      radius: 51
+      speed: 27
+      player_detection_radius: 193
+      types: [liquid]
+    - count: 1
+      radius: 32
+      speed: 150
+      types: [normal]
     - count: 2
-      radius: 100
-      speed: 2.5
-      types:
-      - turning
-    - count: 12
-      radius: 50
-      speed: 1.5
-      types:
-      - freezing
+      draining_radius: 397
+      radius: 32
+      speed: 150
+      types: [draining]
     - count: 6
-      radius: 90
-      speed: 2.25
-      types:
-      - wall
+      radius: 77
+      speed: 105
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 31
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
+    - count: 8
+      radius: 39
+      speed: 180
+      types: [normal]
+    - count: 4
+      radius: 102
+      speed: 33
+      player_detection_radius: 244
+      types: [liquid]
+    - count: 1
+      draining_radius: 397
+      radius: 32
+      speed: 300
+      types: [draining]
     - count: 6
-      radius: 50
-      speed: 25.6
-      types:
-      - teleporting
-    - count: 6
-      radius: 60
-      speed: 5.5
-      types:
-      - wall
+      radius: 77
+      speed: 105
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 32
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
+    spawner:
+    - count: 16
+      radius: 20
+      speed: 90
+      types: [normal]
+    - count: 3
+      radius: 121
+      speed: 9
+      player_detection_radius: 263
+      types: [liquid]
+    - count: 12
+      radius: 20
+      speed: 21
+      player_detection_radius: 162
+      types: [liquid]
+    - count: 2
+      radius: 32
+      speed: 30
+      types: [normal]
+    - count: 2
+      draining_radius: 397
+      radius: 32
+      speed: 30
+      types: [draining]
+    - count: 6
+      radius: 77
+      speed: 105
+      types: [wall]
+    type: active
+    width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 64
+      speed: 45
+      types: [normal]
+    - count: 10
+      radius: 64
+      speed: 9
+      player_detection_radius: 206
+      types: [liquid]
+    - count: 2
+      radius: 32
+      speed: 120
+      types: [normal]
+    - count: 2
+      draining_radius: 397
+      radius: 32
+      speed: 120
+      types: [draining]
+    - count: 6
+      radius: 77
+      speed: 105
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- boss: true
+  x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 16
+      radius: 32
+      speed: 24
+      player_detection_radius: 174
+      types: [liquid]
+    - count: 2
+      radius: 127
+      speed: 24
+      player_detection_radius: 269
+      types: [liquid]
+    - count: 6
+      radius: 64
+      speed: 12
+      player_detection_radius: 206
+      types: [liquid]
+    - count: 6
+      draining_radius: 792
+      radius: 64
+      speed: 60
+      types: [draining]
+    - count: 6
+      radius: 115
+      speed: 52.5
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - circle_size: 191
+      count: 3
+      radius: 39
+      speed: 90
+      types: [turning]
+    - circle_size: 191
+      count: 3
+      radius: 77
+      speed: 60
+      types: [turning]
+    - count: 6
+      radius: 77
+      speed: 135
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - circle_size: 191
+      count: 3
+      radius: 64
+      speed: 75
+      types: [turning]
+    - circle_size: 191
+      count: 3
+      radius: 51
+      speed: 90
+      types: [turning]
+    - circle_size: 191
+      count: 3
+      radius: 39
+      speed: 105
+      types: [turning]
+    - circle_size: 191
+      count: 3
+      radius: 26
+      speed: 120
+      types: [turning]
+    - count: 6
+      radius: 77
+      speed: 135
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 2
+      radius: 32
+      speed: 120
+      types: [normal]
+    - count: 4
+      radius: 64
+      speed: 105
+      types: [normal]
+    - circle_size: 191
+      count: 3
+      radius: 32
+      speed: 150
+      types: [turning]
+    - circle_size: 191
+      count: 2
+      radius: 64
+      speed: 120
+      types: [turning]
+    - count: 6
+      radius: 77
+      speed: 135
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 20
+      radius: 20
+      speed: 60
+      types: [normal]
+    - circle_size: 191
+      count: 6
+      radius: 102
+      speed: 60
+      types: [turning]
+    - count: 6
+      radius: 77
+      speed: 135
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - circle_size: 191
+      count: 32
+      radius: 20
+      speed: 45
+      types: [turning]
+    - circle_size: 191
+      count: 2
+      radius: 32
+      speed: 30
+      types: [turning]
+    - count: 2
+      freezing_radius: 264
+      radius: 32
+      speed: 30
+      types: [freezing]
+    - count: 6
+      radius: 77
+      speed: 135
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 32
+      speed: 75
+      types: [normal]
+    - circle_size: 191
+      count: 8
+      radius: 32
+      speed: 105
+      types: [turning]
+    - count: 4
+      radius: 32
+      speed: 60
+      types: [normal]
+    - count: 4
+      freezing_radius: 264
+      radius: 32
+      speed: 60
+      types: [freezing]
+    - count: 6
+      radius: 77
+      speed: 135
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 64
+      speed: 45
+      types: [normal]
+    - circle_size: 191
+      count: 7
+      radius: 32
+      speed: 90
+      types: [turning]
+    - circle_size: 191
+      count: 5
+      radius: 20
+      speed: 90
+      types: [turning]
+    - count: 3
+      radius: 32
+      speed: 75
+      types: [normal]
+    - count: 4
+      freezing_radius: 264
+      radius: 32
+      speed: 75
+      types: [freezing]
+    - count: 6
+      radius: 77
+      speed: 135
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 2
+      radius: 121
+      speed: 30
+      types: [normal]
+    - circle_size: 191
+      count: 6
+      radius: 64
+      speed: 150
+      types: [turning]
+    - count: 5
+      radius: 32
+      speed: 15
+      types: [normal]
+    - count: 5
+      freezing_radius: 264
+      radius: 32
+      speed: 15
+      types: [freezing]
+    - count: 6
+      radius: 77
+      speed: 135
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 5
-      radius: 90
-      speed: 48
-      types:
-      - teleporting
+      radius: 77
+      speed: 45
+      types: [normal]
+    - circle_size: 191
+      count: 5
+      radius: 77
+      speed: 45
+      types: [turning]
+    - count: 9
+      radius: 32
+      speed: 15
+      types: [normal]
+    - count: 9
+      freezing_radius: 264
+      radius: 32
+      speed: 15
+      types: [freezing]
     - count: 6
-      radius: 60
-      speed: 5.5
-      types:
-      - wall
+      radius: 77
+      speed: 135
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 33
-- x: last_right
+- boss: true
+  x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
+    spawner:
+    - circle_size: 191
+      count: 16
+      radius: 32
+      speed: 75
+      types: [turning]
+    - circle_size: 191
+      count: 2
+      radius: 127
+      speed: 75
+      types: [turning]
+    - circle_size: 191
+      count: 6
+      radius: 64
+      speed: 45
+      types: [turning]
+    - count: 6
+      freezing_radius: 529
+      radius: 64
+      speed: 45
+      types: [freezing]
+    - count: 6
+      radius: 115
+      speed: 67.5
+      types: [wall]
+    type: active
+    width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 64
+      speed: 768
+      types: [teleporting]
+    - count: 6
+      radius: 77
+      speed: 165
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 5
+      radius: 115
+      speed: 1440
+      types: [teleporting]
+    - count: 6
+      radius: 77
+      speed: 165
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 4
-      radius: 50
-      speed: 9
-      types:
-      - normal
+      radius: 64
+      speed: 270
+      types: [normal]
     - count: 4
-      radius: 50
-      speed: 112
-      types:
-      - teleporting
+      radius: 64
+      speed: 3360
+      types: [teleporting]
     - count: 6
-      radius: 60
-      speed: 5.5
-      types:
-      - wall
+      radius: 77
+      speed: 165
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 34
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 3
-      radius: 80
-      speed: 5.5
-      types:
-      - normal
+      radius: 102
+      speed: 165
+      types: [normal]
     - count: 24
-      radius: 15
-      speed: 32
-      types:
-      - teleporting
+      radius: 20
+      speed: 960
+      types: [teleporting]
     - count: 6
-      radius: 60
-      speed: 5.5
-      types:
-      - wall
+      radius: 77
+      speed: 165
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 35
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 11
-      radius: 40
-      speed: 51.2
-      types:
-      - teleporting
-    - count: 3
-      radius: 25
-      speed: 7
-      types:
-      - disabling
+      radius: 51
+      speed: 1536
+      types: [teleporting]
+    - count: 1
+      radius: 32
+      speed: 2100
+      types: [teleporting]
+    - count: 2
+      disabling_radius: 397
+      radius: 32
+      speed: 210
+      types: [disabling]
     - count: 6
-      radius: 60
-      speed: 5.5
-      types:
-      - wall
+      radius: 77
+      speed: 165
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 36
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 12
-      radius: 15
-      speed: 1.5
-      types:
-      - normal
+      radius: 20
+      speed: 45
+      types: [normal]
     - count: 1
-      radius: 80
-      speed: 44.8
-      types:
-      - teleporting
+      radius: 102
+      speed: 1344
+      types: [teleporting]
     - count: 2
-      radius: 60
-      speed: 44.8
-      types:
-      - teleporting
+      radius: 77
+      speed: 1344
+      types: [teleporting]
     - count: 3
-      radius: 40
-      speed: 44.8
-      types:
-      - teleporting
+      radius: 51
+      speed: 1344
+      types: [teleporting]
     - count: 4
-      radius: 20
-      speed: 44.8
-      types:
-      - teleporting
-    - count: 4
-      radius: 25
-      speed: 7.5
-      types:
-      - disabling
+      radius: 26
+      speed: 1344
+      types: [teleporting]
+    - count: 2
+      radius: 32
+      speed: 225
+      types: [normal]
+    - count: 2
+      disabling_radius: 397
+      radius: 32
+      speed: 225
+      types: [disabling]
     - count: 6
-      radius: 60
-      speed: 5.5
-      types:
-      - wall
+      radius: 77
+      speed: 165
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 37
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 1
-      radius: 35
-      speed: 2.5
-      types:
-      - normal
+      radius: 45
+      speed: 75
+      types: [normal]
     - count: 1
-      radius: 30
-      speed: 2.5
-      types:
-      - normal
+      radius: 39
+      speed: 75
+      types: [normal]
     - count: 1
-      radius: 25
-      speed: 2.5
-      types:
-      - normal
+      radius: 32
+      speed: 75
+      types: [normal]
     - count: 1
-      radius: 20
-      speed: 2.5
-      types:
-      - normal
+      radius: 26
+      speed: 75
+      types: [normal]
     - count: 3
-      radius: 35
-      speed: 57.6
-      types:
-      - teleporting
+      radius: 45
+      speed: 1728
+      types: [teleporting]
     - count: 3
-      radius: 30
-      speed: 57.6
-      types:
-      - teleporting
+      radius: 39
+      speed: 1728
+      types: [teleporting]
     - count: 3
-      radius: 25
-      speed: 57.6
-      types:
-      - teleporting
+      radius: 32
+      speed: 1728
+      types: [teleporting]
     - count: 3
-      radius: 20
-      speed: 57.6
-      types:
-      - teleporting
-    - count: 7
-      radius: 25
-      speed: 6.5
-      types:
-      - disabling
+      radius: 26
+      speed: 1728
+      types: [teleporting]
+    - count: 3
+      radius: 32
+      speed: 195
+      types: [normal]
+    - count: 4
+      disabling_radius: 397
+      radius: 32
+      speed: 195
+      types: [disabling]
     - count: 6
-      radius: 60
-      speed: 5.5
-      types:
-      - wall
+      radius: 77
+      speed: 165
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 38
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 4
-      radius: 80
-      speed: 2.5
-      types:
-      - normal
+      radius: 102
+      speed: 75
+      types: [normal]
     - count: 10
-      radius: 40
-      speed: 48
-      types:
-      - teleporting
+      radius: 51
+      speed: 1440
+      types: [teleporting]
+    - count: 3
+      radius: 32
+      speed: 60
+      types: [normal]
+    - count: 3
+      disabling_radius: 397
+      radius: 32
+      speed: 60
+      types: [disabling]
     - count: 6
-      radius: 25
-      speed: 2
-      types:
-      - disabling
-    - count: 6
-      radius: 60
-      speed: 5.5
-      types:
-      - wall
+      radius: 77
+      speed: 165
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 39
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 3
-      radius: 80
-      speed: 1.5
-      types:
-      - normal
+      radius: 102
+      speed: 45
+      types: [normal]
     - count: 6
-      radius: 80
-      speed: 64
-      types:
-      - teleporting
-    - count: 8
-      radius: 25
-      speed: 2.5
-      types:
-      - disabling
+      radius: 102
+      speed: 1920
+      types: [teleporting]
+    - count: 4
+      radius: 32
+      speed: 75
+      types: [normal]
+    - count: 4
+      disabling_radius: 397
+      radius: 32
+      speed: 75
+      types: [disabling]
     - count: 6
-      radius: 60
-      speed: 5.5
-      types:
-      - wall
+      radius: 77
+      speed: 165
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 40
-- x: last_right
+- boss: true
+  x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 16
-      radius: 25
-      speed: 64
-      types:
-      - teleporting
+      radius: 32
+      speed: 1920
+      types: [teleporting]
     - count: 2
-      radius: 100
-      speed: 64
-      types:
-      - teleporting
-    - count: 16
-      radius: 50
-      speed: 2
-      types:
-      - disabling
+      radius: 127
+      speed: 1920
+      types: [teleporting]
+    - count: 8
+      radius: 64
+      speed: 600
+      types: [teleporting]
+    - count: 8
+      disabling_radius: 792
+      radius: 64
+      speed: 60
+      types: [disabling]
     - count: 6
-      radius: 90
-      speed: 2.75
-      types:
-      - wall
+      radius: 115
+      speed: 82.5
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# Victory Area 41
-- x: last_right
+- properties: {pellet_count: 0}
+  x: last_right
   y: last_y
-  properties:
-    pellet_count: 0
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
+  - {height: last_height, type: victory, width: 2976, x: 64, y: 0}
   - height: last_height
-    type: victory
-    width: 2976
-    x: 64
-    y: 0
-  - height: last_height
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
-    translate:
-      x: 160
-      y: 0
     x: 3040
     y: 0
-# 42
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 8
-      radius: 60
-      speed: 4
-      types:
-      - normal
+      radius: 77
+      speed: 120
+      types: [normal]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 43
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 5
-      radius: 40
-      speed: 4.5
-      types:
-      - normal
+      radius: 51
+      speed: 135
+      types: [normal]
     - count: 6
-      radius: 60
-      speed: 4
-      types:
-      - normal
+      radius: 77
+      speed: 120
+      types: [normal]
     - count: 5
-      radius: 100
-      speed: 3
-      types:
-      - normal
+      radius: 127
+      speed: 90
+      types: [normal]
     - count: 8
-      radius: 80
-      speed: 4
-      types:
-      - wall
+      radius: 102
+      speed: 120
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 44
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 17
-      radius: 50
-      speed: 2.5
-      types:
-      - normal
+      radius: 64
+      speed: 75
+      types: [normal]
     - count: 7
-      radius: 80
-      speed: 4.5
-      types:
-      - normal
+      radius: 102
+      speed: 135
+      types: [normal]
     - count: 8
-      radius: 80
-      speed: 4
-      types:
-      - wall
+      radius: 102
+      speed: 120
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 45
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 22
-      radius: 40
-      speed: 4.5
-      types:
-      - normal
-    - count: 4
-      radius: 45
-      speed: 3.5
-      types:
-      - slowing
+      radius: 51
+      speed: 135
+      types: [normal]
+    - count: 2
+      radius: 58
+      speed: 105
+      types: [normal]
+    - count: 2
+      radius: 58
+      slowing_radius: 714
+      speed: 105
+      types: [slowing]
     - count: 8
-      radius: 80
-      speed: 4
-      types:
-      - wall
+      radius: 102
+      speed: 120
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 46
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 15
-      radius: 55
-      speed: 3.5
-      types:
-      - normal
+      radius: 70
+      speed: 105
+      types: [normal]
     - count: 4
-      radius: 100
-      speed: 8
-      types:
-      - normal
-    - count: 4
-      radius: 45
-      speed: 3.5
-      types:
-      - slowing
+      radius: 127
+      speed: 240
+      types: [normal]
+    - count: 2
+      radius: 58
+      speed: 105
+      types: [normal]
+    - count: 2
+      radius: 58
+      slowing_radius: 714
+      speed: 105
+      types: [slowing]
     - count: 8
-      radius: 80
-      speed: 4
-      types:
-      - wall
+      radius: 102
+      speed: 120
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 47
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 7
-      radius: 40
-      speed: 3.5
-      types:
-      - normal
+      radius: 51
+      speed: 105
+      types: [normal]
     - count: 11
-      radius: 80
-      speed: 4
-      types:
-      - normal
-    - count: 4
-      radius: 45
-      speed: 9
-      types:
-      - slowing
+      radius: 102
+      speed: 120
+      types: [normal]
+    - count: 2
+      radius: 58
+      speed: 270
+      types: [normal]
+    - count: 2
+      radius: 58
+      slowing_radius: 714
+      speed: 270
+      types: [slowing]
     - count: 8
-      radius: 80
-      speed: 4
-      types:
-      - wall
+      radius: 102
+      speed: 120
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 48
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 6
-      radius: 40
-      speed: 5.5
-      types:
-      - normal
+      radius: 51
+      speed: 165
+      types: [normal]
     - count: 5
-      radius: 60
-      speed: 6
-      types:
-      - normal
+      radius: 77
+      speed: 180
+      types: [normal]
     - count: 5
-      radius: 80
-      speed: 6.5
-      types:
-      - normal
-    - count: 6
-      radius: 45
-      speed: 7
-      types:
-      - slowing
-    - count: 8
-      radius: 80
-      speed: 4
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 49
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 22
-      radius: 20
-      speed: 5
-      types:
-      - normal
-    - count: 10
-      radius: 35
-      speed: 3
-      types:
-      - normal
-    - count: 10
-      radius: 35
-      speed: 3
-      types:
-      - slowing
-    - count: 8
-      radius: 70
-      speed: 4
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 50
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 26
-      radius: 35
-      speed: 3
-      types:
-      - normal
-    - count: 4
-      radius: 110
-      speed: 3
-      types:
-      - normal
-    - count: 14
-      radius: 60
-      speed: 4
-      types:
-      - slowing
-    - count: 8
-      radius: 100
-      speed: 3
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 51
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 4
-      radius: 50
-      speed: 2
-      types:
-      - liquid
-    - count: 6
-      radius: 60
-      speed: 1.5
-      types:
-      - liquid
-    - count: 8
-      radius: 80
-      speed: 5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 52
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 9
-      radius: 40
-      speed: 2
-      types:
-      - liquid
-    - count: 6
-      radius: 80
-      speed: 1.7
-      types:
-      - liquid
-    - count: 8
-      radius: 80
-      speed: 5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 53
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 6
-      radius: 50
-      speed: 5
-      types:
-      - normal
-    - count: 4
-      radius: 80
-      speed: 6
-      types:
-      - normal
-    - count: 10
-      radius: 50
-      speed: 2
-      types:
-      - liquid
-    - count: 4
-      radius: 80
-      speed: 3
-      types:
-      - liquid
-    - count: 8
-      radius: 80
-      speed: 5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 54
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 10
-      radius: 70
-      speed: 5
-      types:
-      - normal
-    - count: 18
-      radius: 40
-      speed: 2
-      types:
-      - liquid
-    - count: 8
-      radius: 80
-      speed: 5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 55
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 10
-      radius: 90
-      speed: 3
-      types:
-      - liquid
-    - count: 4
-      radius: 45
-      speed: 6
-      types:
-      - draining
-    - count: 8
-      radius: 80
-      speed: 5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 56
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 18
-      radius: 20
-      speed: 4
-      types:
-      - normal
-    - count: 10
-      radius: 40
-      speed: 3
-      types:
-      - liquid
-    - count: 5
-      radius: 25
-      speed: 7
-      types:
-      - draining
-    - count: 8
-      radius: 80
-      speed: 5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 57
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 10
-      radius: 30
-      speed: 8
-      types:
-      - normal
-    - count: 6
-      radius: 80
-      speed: 3.1
-      types:
-      - liquid
+      radius: 102
+      speed: 195
+      types: [normal]
     - count: 3
-      radius: 25
-      speed: 12
-      types:
-      - draining
+      radius: 58
+      speed: 210
+      types: [normal]
+    - count: 3
+      radius: 58
+      slowing_radius: 714
+      speed: 210
+      types: [slowing]
     - count: 8
-      radius: 80
-      speed: 5
-      types:
-      - wall
+      radius: 102
+      speed: 120
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 58
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 18
-      radius: 15
-      speed: 5
-      types:
-      - normal
-    - count: 5
-      radius: 95
-      speed: 3.3
-      types:
-      - liquid
-    - count: 14
-      radius: 15
-      speed: 3.7
-      types:
-      - liquid
-    - count: 4
-      radius: 25
-      speed: 1
-      types:
-      - draining
-    - count: 8
-      radius: 80
-      speed: 5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 59
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 12
-      radius: 50
-      speed: 3.5
-      types:
-      - normal
-    - count: 12
-      radius: 50
-      speed: 3.3
-      types:
-      - liquid
-    - count: 6
-      radius: 25
-      speed: 6
-      types:
-      - draining
-    - count: 8
-      radius: 80
-      speed: 5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 60
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 18
-      radius: 25
-      speed: 3.8
-      types:
-      - liquid
-    - count: 4
-      radius: 100
-      speed: 3.8
-      types:
-      - liquid
-    - count: 14
-      radius: 50
-      speed: 4
-      types:
-      - draining
-    - count: 8
-      radius: 90
-      speed: 3
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 61
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 5
-      radius: 30
-      speed: 5
-      types:
-      - turning
-    - count: 5
-      radius: 60
-      speed: 4
-      types:
-      - turning
-    - count: 8
-      radius: 70
-      speed: 6
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 62
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 5
-      radius: 50
-      speed: 4.5
-      types:
-      - turning
-    - count: 5
-      radius: 40
-      speed: 5
-      types:
-      - turning
-    - count: 5
-      radius: 30
-      speed: 5.5
-      types:
-      - turning
-    - count: 5
-      radius: 20
-      speed: 6
-      types:
-      - turning
-    - count: 8
-      radius: 70
-      speed: 6
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 63
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 4
-      radius: 25
-      speed: 6
-      types:
-      - normal
-    - count: 6
-      radius: 50
-      speed: 5.5
-      types:
-      - normal
-    - count: 5
-      radius: 25
-      speed: 7
-      types:
-      - turning
-    - count: 4
-      radius: 50
-      speed: 6
-      types:
-      - turning
-    - count: 8
-      radius: 65
-      speed: 6.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 64
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 22
-      radius: 25
-      speed: 4
-      types:
-      - normal
+      radius: 26
+      speed: 150
+      types: [normal]
+    - count: 10
+      radius: 45
+      speed: 90
+      types: [normal]
+    - count: 5
+      radius: 45
+      speed: 90
+      types: [normal]
+    - count: 5
+      radius: 45
+      slowing_radius: 555
+      speed: 90
+      types: [slowing]
     - count: 8
-      radius: 80
-      speed: 4
-      types:
-      - turning
-    - count: 8
-      radius: 65
-      speed: 6.5
-      types:
-      - wall
+      radius: 89
+      speed: 120
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 65
-- x: last_right
+- boss: true
+  x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
-    - count: 34
-      radius: 25
-      speed: 3.5
-      types:
-      - turning
-    - count: 6
-      radius: 35
-      speed: 3
-      types:
-      - freezing
-    - count: 8
-      radius: 60
-      speed: 7
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 66
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 10
-      radius: 25
-      speed: 4
-      types:
-      - normal
-    - count: 10
-      radius: 25
-      speed: 5
-      types:
-      - turning
-    - count: 10
-      radius: 25
-      speed: 4
-      types:
-      - freezing
-    - count: 8
-      radius: 50
-      speed: 7.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 67
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 8
-      radius: 50
-      speed: 1.5
-      types:
-      - normal
-    - count: 9
-      radius: 25
-      speed: 5
-      types:
-      - turning
+    - count: 26
+      radius: 45
+      speed: 90
+      types: [normal]
+    - count: 4
+      radius: 140
+      speed: 90
+      types: [normal]
     - count: 7
-      radius: 10
-      speed: 5
-      types:
-      - turning
-    - count: 9
-      radius: 25
-      speed: 4
-      types:
-      - freezing
+      radius: 77
+      speed: 120
+      types: [normal]
+    - count: 7
+      radius: 77
+      slowing_radius: 951
+      speed: 120
+      types: [slowing]
     - count: 8
-      radius: 50
-      speed: 7.5
-      types:
-      - wall
+      radius: 127
+      speed: 90
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 68
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 4
-      radius: 90
-      speed: 3
-      types:
-      - normal
+      radius: 64
+      speed: 60
+      player_detection_radius: 206
+      types: [liquid]
+    - count: 6
+      radius: 77
+      speed: 45
+      player_detection_radius: 219
+      types: [liquid]
     - count: 8
-      radius: 50
-      speed: 7
-      types:
-      - turning
-    - count: 12
-      radius: 25
-      speed: 2.5
-      types:
-      - freezing
-    - count: 8
-      radius: 50
-      speed: 7.5
-      types:
-      - wall
+      radius: 102
+      speed: 150
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 69
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
-    - count: 7
-      radius: 60
-      speed: 3
-      types:
-      - normal
-    - count: 7
-      radius: 60
-      speed: 3
-      types:
-      - turning
-    - count: 20
-      radius: 25
-      speed: 3
-      types:
-      - freezing
+    - count: 9
+      radius: 51
+      speed: 60
+      player_detection_radius: 193
+      types: [liquid]
+    - count: 6
+      radius: 102
+      speed: 51
+      player_detection_radius: 244
+      types: [liquid]
     - count: 8
-      radius: 50
-      speed: 7.5
-      types:
-      - wall
+      radius: 102
+      speed: 150
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 70
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
+    spawner:
+    - count: 6
+      radius: 64
+      speed: 150
+      types: [normal]
+    - count: 4
+      radius: 102
+      speed: 180
+      types: [normal]
+    - count: 10
+      radius: 64
+      speed: 60
+      player_detection_radius: 206
+      types: [liquid]
+    - count: 4
+      radius: 102
+      speed: 90
+      player_detection_radius: 244
+      types: [liquid]
+    - count: 8
+      radius: 102
+      speed: 150
+      types: [wall]
+    type: active
+    width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 89
+      speed: 150
+      types: [normal]
+    - count: 18
+      radius: 51
+      speed: 60
+      player_detection_radius: 193
+      types: [liquid]
+    - count: 8
+      radius: 102
+      speed: 150
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 115
+      speed: 90
+      player_detection_radius: 257
+      types: [liquid]
+    - count: 2
+      radius: 58
+      speed: 36
+      player_detection_radius: 200
+      types: [liquid]
+    - count: 2
+      draining_radius: 714
+      radius: 58
+      speed: 180
+      types: [draining]
+    - count: 8
+      radius: 102
+      speed: 150
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 18
-      radius: 25
-      speed: 4
-      types:
-      - turning
-    - count: 4
-      radius: 100
-      speed: 4
-      types:
-      - turning
+      radius: 26
+      speed: 120
+      types: [normal]
+    - count: 10
+      radius: 51
+      speed: 90
+      player_detection_radius: 193
+      types: [liquid]
+    - count: 2
+      radius: 32
+      speed: 210
+      types: [normal]
+    - count: 3
+      draining_radius: 397
+      radius: 32
+      speed: 210
+      types: [draining]
+    - count: 8
+      radius: 102
+      speed: 150
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 39
+      speed: 240
+      types: [normal]
+    - count: 6
+      radius: 102
+      speed: 93
+      player_detection_radius: 244
+      types: [liquid]
+    - count: 1
+      radius: 32
+      speed: 360
+      types: [normal]
+    - count: 2
+      draining_radius: 397
+      radius: 32
+      speed: 360
+      types: [draining]
+    - count: 8
+      radius: 102
+      speed: 150
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 18
+      radius: 20
+      speed: 150
+      types: [normal]
+    - count: 5
+      radius: 121
+      speed: 99
+      player_detection_radius: 263
+      types: [liquid]
     - count: 14
-      radius: 50
-      speed: 3
-      types:
-      - freezing
+      radius: 20
+      speed: 111
+      player_detection_radius: 162
+      types: [liquid]
+    - count: 2
+      radius: 32
+      speed: 30
+      types: [normal]
+    - count: 2
+      draining_radius: 397
+      radius: 32
+      speed: 30
+      types: [draining]
     - count: 8
-      radius: 80
-      speed: 4
-      types:
-      - wall
+      radius: 102
+      speed: 150
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 71
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
+    - count: 12
+      radius: 64
+      speed: 105
+      types: [normal]
+    - count: 12
+      radius: 64
+      speed: 99
+      player_detection_radius: 206
+      types: [liquid]
+    - count: 3
+      radius: 32
+      speed: 180
+      types: [normal]
+    - count: 3
+      draining_radius: 397
+      radius: 32
+      speed: 180
+      types: [draining]
     - count: 8
-      radius: 50
-      speed: 27
-      types:
-      - teleporting
-    - count: 8
-      radius: 80
-      speed: 5.5
-      types:
-      - wall
+      radius: 102
+      speed: 150
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 72
-- x: last_right
+- boss: true
+  x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
-    - count: 8
-      radius: 90
-      speed: 50
-      types:
-      - teleporting
-    - count: 8
-      radius: 80
-      speed: 5.5
-      types:
-      - wall
-    type: active
-    width: 2560
-    x: last_right
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
-    type: exit
-    width: 64
-    x: last_right
-    y: 0
-# 73
-- x: last_right
-  y: last_y
-  zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
-    type: exit
-    width: 64
-    x: 0
-    y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    spawner:
-    - count: 6
-      radius: 50
-      speed: 11
-      types:
-      - normal
-    - count: 6
-      radius: 50
+    - count: 18
+      radius: 32
       speed: 114
-      types:
-      - teleporting
+      player_detection_radius: 174
+      types: [liquid]
+    - count: 4
+      radius: 127
+      speed: 114
+      player_detection_radius: 269
+      types: [liquid]
+    - count: 7
+      radius: 64
+      speed: 24
+      player_detection_radius: 206
+      types: [liquid]
+    - count: 7
+      draining_radius: 792
+      radius: 64
+      speed: 120
+      types: [draining]
     - count: 8
-      radius: 80
-      speed: 5.5
-      types:
-      - wall
+      radius: 115
+      speed: 90
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 74
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
+    spawner:
+    - circle_size: 191
+      count: 5
+      radius: 39
+      speed: 150
+      types: [turning]
+    - circle_size: 191
+      count: 5
+      radius: 77
+      speed: 120
+      types: [turning]
+    - count: 8
+      radius: 89
+      speed: 180
+      types: [wall]
+    type: active
+    width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - circle_size: 191
+      count: 5
+      radius: 64
+      speed: 135
+      types: [turning]
+    - circle_size: 191
+      count: 5
+      radius: 51
+      speed: 150
+      types: [turning]
+    - circle_size: 191
+      count: 5
+      radius: 39
+      speed: 165
+      types: [turning]
+    - circle_size: 191
+      count: 5
+      radius: 26
+      speed: 180
+      types: [turning]
+    - count: 8
+      radius: 89
+      speed: 180
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 4
+      radius: 32
+      speed: 180
+      types: [normal]
+    - count: 6
+      radius: 64
+      speed: 165
+      types: [normal]
+    - circle_size: 191
+      count: 5
+      radius: 32
+      speed: 210
+      types: [turning]
+    - circle_size: 191
+      count: 4
+      radius: 64
+      speed: 180
+      types: [turning]
+    - count: 8
+      radius: 83
+      speed: 195
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 22
+      radius: 32
+      speed: 120
+      types: [normal]
+    - circle_size: 191
+      count: 8
+      radius: 102
+      speed: 120
+      types: [turning]
+    - count: 8
+      radius: 83
+      speed: 195
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - circle_size: 191
+      count: 34
+      radius: 32
+      speed: 105
+      types: [turning]
+    - circle_size: 191
+      count: 3
+      radius: 45
+      speed: 90
+      types: [turning]
+    - count: 3
+      freezing_radius: 370
+      radius: 45
+      speed: 90
+      types: [freezing]
+    - count: 8
+      radius: 77
+      speed: 210
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 10
+      radius: 32
+      speed: 120
+      types: [normal]
+    - circle_size: 191
+      count: 10
+      radius: 32
+      speed: 150
+      types: [turning]
+    - count: 5
+      radius: 32
+      speed: 120
+      types: [normal]
+    - count: 5
+      freezing_radius: 264
+      radius: 32
+      speed: 120
+      types: [freezing]
+    - count: 8
+      radius: 64
+      speed: 225
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 64
+      speed: 45
+      types: [normal]
+    - circle_size: 191
+      count: 9
+      radius: 32
+      speed: 150
+      types: [turning]
+    - circle_size: 191
+      count: 7
+      radius: 13
+      speed: 150
+      types: [turning]
+    - count: 4
+      radius: 32
+      speed: 120
+      types: [normal]
+    - count: 5
+      freezing_radius: 264
+      radius: 32
+      speed: 120
+      types: [freezing]
+    - count: 8
+      radius: 64
+      speed: 225
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 4
+      radius: 115
+      speed: 90
+      types: [normal]
+    - circle_size: 191
+      count: 8
+      radius: 64
+      speed: 210
+      types: [turning]
+    - count: 6
+      radius: 32
+      speed: 75
+      types: [normal]
+    - count: 6
+      freezing_radius: 264
+      radius: 32
+      speed: 75
+      types: [freezing]
+    - count: 8
+      radius: 64
+      speed: 225
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 7
+      radius: 77
+      speed: 90
+      types: [normal]
+    - circle_size: 191
+      count: 7
+      radius: 77
+      speed: 90
+      types: [turning]
+    - count: 10
+      radius: 32
+      speed: 90
+      types: [normal]
+    - count: 10
+      freezing_radius: 264
+      radius: 32
+      speed: 90
+      types: [freezing]
+    - count: 8
+      radius: 64
+      speed: 225
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- boss: true
+  x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - circle_size: 191
+      count: 18
+      radius: 32
+      speed: 120
+      types: [turning]
+    - circle_size: 191
+      count: 4
+      radius: 127
+      speed: 120
+      types: [turning]
+    - circle_size: 191
+      count: 7
+      radius: 64
+      speed: 90
+      types: [turning]
+    - count: 7
+      freezing_radius: 529
+      radius: 64
+      speed: 90
+      types: [freezing]
+    - count: 8
+      radius: 102
+      speed: 120
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 64
+      speed: 810
+      types: [teleporting]
+    - count: 8
+      radius: 102
+      speed: 165
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 8
+      radius: 115
+      speed: 1500
+      types: [teleporting]
+    - count: 8
+      radius: 102
+      speed: 165
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    spawner:
+    - count: 6
+      radius: 64
+      speed: 330
+      types: [normal]
+    - count: 6
+      radius: 64
+      speed: 3420
+      types: [teleporting]
+    - count: 8
+      radius: 102
+      speed: 165
+      types: [wall]
+    type: active
+    width: 2560
+    x: last_right
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
+  - height: last_height
+    translate: {x: 160, y: 0}
+    type: exit
+    width: 64
+    x: last_right
+    y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - height: 736
+    translate: {x: -160, y: 0}
+    type: exit
+    width: 64
+    x: 0
+    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 5
-      radius: 80
-      speed: 7.5
-      types:
-      - normal
+      radius: 102
+      speed: 225
+      types: [normal]
     - count: 26
-      radius: 15
-      speed: 34
-      types:
-      - teleporting
+      radius: 20
+      speed: 1020
+      types: [teleporting]
     - count: 8
-      radius: 80
-      speed: 5.5
-      types:
-      - wall
+      radius: 102
+      speed: 165
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 75
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 13
-      radius: 40
-      speed: 54
-      types:
-      - teleporting
-    - count: 5
-      radius: 25
-      speed: 9
-      types:
-      - disabling
+      radius: 51
+      speed: 1620
+      types: [teleporting]
+    - count: 2
+      radius: 32
+      speed: 2700
+      types: [teleporting]
+    - count: 3
+      disabling_radius: 397
+      radius: 32
+      speed: 270
+      types: [disabling]
     - count: 8
-      radius: 80
-      speed: 5.5
-      types:
-      - wall
+      radius: 102
+      speed: 165
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 76
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 14
-      radius: 15
-      speed: 3
-      types:
-      - normal
+      radius: 20
+      speed: 90
+      types: [normal]
     - count: 3
-      radius: 80
-      speed: 46
-      types:
-      - teleporting
+      radius: 102
+      speed: 1380
+      types: [teleporting]
     - count: 4
-      radius: 60
-      speed: 46
-      types:
-      - teleporting
+      radius: 77
+      speed: 1380
+      types: [teleporting]
     - count: 5
-      radius: 40
-      speed: 46
-      types:
-      - teleporting
+      radius: 51
+      speed: 1380
+      types: [teleporting]
     - count: 6
-      radius: 20
-      speed: 46
-      types:
-      - teleporting
-    - count: 6
-      radius: 25
-      speed: 9
-      types:
-      - disabling
+      radius: 26
+      speed: 1380
+      types: [teleporting]
+    - count: 3
+      radius: 32
+      speed: 270
+      types: [normal]
+    - count: 3
+      disabling_radius: 397
+      radius: 32
+      speed: 270
+      types: [disabling]
     - count: 8
-      radius: 80
-      speed: 6
-      types:
-      - wall
+      radius: 102
+      speed: 180
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 77
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 3
-      radius: 35
-      speed: 4
-      types:
-      - normal
+      radius: 45
+      speed: 120
+      types: [normal]
     - count: 3
-      radius: 30
-      speed: 4
-      types:
-      - normal
+      radius: 39
+      speed: 120
+      types: [normal]
     - count: 3
-      radius: 25
-      speed: 4
-      types:
-      - normal
+      radius: 32
+      speed: 120
+      types: [normal]
     - count: 3
-      radius: 20
-      speed: 4
-      types:
-      - normal
+      radius: 26
+      speed: 120
+      types: [normal]
     - count: 5
-      radius: 35
-      speed: 59
-      types:
-      - teleporting
+      radius: 45
+      speed: 1770
+      types: [teleporting]
     - count: 5
-      radius: 30
-      speed: 59
-      types:
-      - teleporting
+      radius: 39
+      speed: 1770
+      types: [teleporting]
     - count: 5
-      radius: 25
-      speed: 59
-      types:
-      - teleporting
+      radius: 32
+      speed: 1770
+      types: [teleporting]
     - count: 5
-      radius: 20
-      speed: 59
-      types:
-      - teleporting
-    - count: 9
-      radius: 25
-      speed: 8
-      types:
-      - disabling
+      radius: 26
+      speed: 1770
+      types: [teleporting]
+    - count: 4
+      radius: 32
+      speed: 240
+      types: [normal]
+    - count: 5
+      disabling_radius: 397
+      radius: 32
+      speed: 240
+      types: [disabling]
     - count: 8
-      radius: 80
-      speed: 6
-      types:
-      - wall
+      radius: 102
+      speed: 180
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 78
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 6
-      radius: 80
-      speed: 4
-      types:
-      - normal
+      radius: 102
+      speed: 120
+      types: [normal]
     - count: 12
-      radius: 40
-      speed: 50
-      types:
-      - teleporting
+      radius: 51
+      speed: 1500
+      types: [teleporting]
+    - count: 4
+      radius: 32
+      speed: 120
+      types: [normal]
+    - count: 4
+      disabling_radius: 397
+      radius: 32
+      speed: 120
+      types: [disabling]
     - count: 8
-      radius: 25
-      speed: 4
-      types:
-      - disabling
-    - count: 8
-      radius: 80
-      speed: 7
-      types:
-      - wall
+      radius: 102
+      speed: 210
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 79
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 5
-      radius: 80
-      speed: 3
-      types:
-      - normal
+      radius: 102
+      speed: 90
+      types: [normal]
     - count: 8
-      radius: 80
-      speed: 66
-      types:
-      - teleporting
-    - count: 10
-      radius: 25
-      speed: 4
-      types:
-      - disabling
+      radius: 102
+      speed: 1980
+      types: [teleporting]
+    - count: 5
+      radius: 32
+      speed: 120
+      types: [normal]
+    - count: 5
+      disabling_radius: 397
+      radius: 32
+      speed: 120
+      types: [disabling]
     - count: 8
-      radius: 80
-      speed: 7
-      types:
-      - wall
+      radius: 102
+      speed: 210
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# 80
-- x: last_right
+- boss: true
+  x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
     spawner:
     - count: 18
-      radius: 25
-      speed: 66
-      types:
-      - teleporting
+      radius: 32
+      speed: 1980
+      types: [teleporting]
     - count: 4
-      radius: 100
-      speed: 66
-      types:
-      - teleporting
-    - count: 18
-      radius: 50
-      speed: 4
-      types:
-      - disabling
+      radius: 127
+      speed: 1980
+      types: [teleporting]
+    - count: 9
+      radius: 64
+      speed: 1200
+      types: [teleporting]
+    - count: 9
+      disabling_radius: 792
+      radius: 64
+      speed: 120
+      types: [disabling]
     - count: 8
-      radius: 80
-      speed: 8
-      types:
-      - wall
+      radius: 102
+      speed: 240
+      types: [wall]
     type: active
     width: 2560
     x: last_right
     y: 0
+  - {height: last_height, type: safe, width: 256, x: last_right, y: 0}
   - height: last_height
-    type: safe
-    width: 256
-    x: last_right
-    y: 0
-  - height: last_height
-    translate:
-      x: 160
-      y: 0
+    translate: {x: 160, y: 0}
     type: exit
     width: 64
     x: last_right
     y: 0
-# Victory Area 81
 - x: last_right
   y: last_y
   zones:
-  - height: 480
-    translate:
-      x: -160
-      y: 0
+  - height: 736
+    translate: {x: -160, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
-  - height: last_height
-    type: victory
-    width: 2976
-    x: 64
-    y: 0
-  - height: last_height
-    type: removal
-    width: 160
-    x: 3040
-    y: 0
+  - {height: last_height, type: victory, width: 2976, x: 64, y: 0}
+  - {height: last_height, type: removal, width: 160, x: 3040, y: 0}
+name: Humongous Hollow
+properties:
+  background_color: [155, 88, 0, 75]
+  friction: 0.75
+  pellet_count: 50

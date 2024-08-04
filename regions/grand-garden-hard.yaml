@@ -31,7 +31,7 @@ areas:
     width: 288
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -40,13 +40,13 @@ areas:
     spawner:
     - count: 10
       radius: 23
-      speed: 1
+      speed: 30
       powered: True
       types:
       - grass
     - count: 5
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - turning
   - type: safe
@@ -87,13 +87,13 @@ areas:
     spawner:
     - count: 20
       radius: 25
-      speed: 1
+      speed: 30
       powered: True
       types:
       - grass
     - count: 10
       radius: 14
-      speed: 7
+      speed: 210
       types:
       - turning
   - type: safe
@@ -134,18 +134,18 @@ areas:
     spawner:
     - count: 20
       radius: 28
-      speed: 1
+      speed: 30
       powered: True
       types:
       - grass
     - count: 10
       radius: 17
-      speed: 8
+      speed: 240
       types:
       - turning
     - count: 5
       radius: 38
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -186,18 +186,18 @@ areas:
     spawner:
     - count: 20
       radius: 30
-      speed: 1
+      speed: 30
       powered: True
       types:
       - grass
     - count: 10
       radius: 19
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 5
       radius: 38
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -238,18 +238,18 @@ areas:
     spawner:
     - count: 20
       radius: 33
-      speed: 1
+      speed: 30
       powered: True
       types:
       - grass
     - count: 10
       radius: 22
-      speed: 11
+      speed: 330
       types:
       - turning
     - count: 5
       radius: 38
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -290,18 +290,18 @@ areas:
     spawner:
     - count: 20
       radius: 35
-      speed: 1
+      speed: 30
       powered: True
       types:
       - grass
     - count: 10
       radius: 24
-      speed: 12
+      speed: 360
       types:
       - turning
     - count: 5
       radius: 38
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -320,6 +320,7 @@ areas:
 # 7
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - type: exit
     x: 0
@@ -342,23 +343,23 @@ areas:
     spawner:
     - count: 20
       radius: 38
-      speed: 2
+      speed: 60
       powered: True
       types:
       - grass
     - count: 10
       radius: 27
-      speed: 13
+      speed: 390
       types:
       - turning
     - count: 2
       radius: 53
-      speed: 13
+      speed: 390
       types:
       - turning
     - count: 5
       radius: 38
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -399,18 +400,18 @@ areas:
     spawner:
     - count: 10
       radius: 23
-      speed: 2
+      speed: 60
       powered: True
       types:
       - grass
     - count: 7
       radius: 23
-      speed: 4
+      speed: 120
       types:
       - flower
     - count: 5
       radius: 38
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -451,18 +452,18 @@ areas:
     spawner:
     - count: 20
       radius: 27
-      speed: 2
+      speed: 60
       powered: True
       types:
       - grass
     - count: 14
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - flower
     - count: 5
       radius: 38
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -503,18 +504,18 @@ areas:
     spawner:
     - count: 20
       radius: 30
-      speed: 2
+      speed: 60
       powered: True
       types:
       - grass
     - count: 14
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - flower
     - count: 5
       radius: 38
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -555,18 +556,18 @@ areas:
     spawner:
     - count: 20
       radius: 34
-      speed: 2
+      speed: 60
       powered: True
       types:
       - grass
     - count: 14
       radius: 34
-      speed: 6
+      speed: 180
       types:
       - flower
     - count: 5
       radius: 38
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -607,18 +608,18 @@ areas:
     spawner:
     - count: 20
       radius: 38
-      speed: 2
+      speed: 60
       powered: True
       types:
       - grass
     - count: 14
       radius: 38
-      speed: 7
+      speed: 210
       types:
       - flower
     - count: 5
       radius: 38
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -659,18 +660,18 @@ areas:
     spawner:
     - count: 20
       radius: 42
-      speed: 2
+      speed: 60
       powered: True
       types:
       - grass
     - count: 14
       radius: 42
-      speed: 8
+      speed: 240
       types:
       - flower
     - count: 5
       radius: 38
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -689,6 +690,7 @@ areas:
 # 14
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - type: exit
     x: 0
@@ -711,23 +713,23 @@ areas:
     spawner:
     - count: 20
       radius: 45
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 14
       radius: 45
-      speed: 9
+      speed: 270
       types:
       - flower
     - count: 2
       radius: 90
-      speed: 9
+      speed: 270
       types:
       - flower
     - count: 5
       radius: 38
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -768,18 +770,18 @@ areas:
     spawner:
     - count: 10
       radius: 23
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 9
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -820,18 +822,18 @@ areas:
     spawner:
     - count: 20
       radius: 25
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 18
       radius: 14
-      speed: 7
+      speed: 210
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -872,18 +874,18 @@ areas:
     spawner:
     - count: 20
       radius: 28
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 18
       radius: 17
-      speed: 8
+      speed: 240
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -924,18 +926,18 @@ areas:
     spawner:
     - count: 20
       radius: 30
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 18
       radius: 19
-      speed: 9
+      speed: 270
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -976,18 +978,18 @@ areas:
     spawner:
     - count: 20
       radius: 33
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 18
       radius: 22
-      speed: 11
+      speed: 330
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -1028,18 +1030,18 @@ areas:
     spawner:
     - count: 20
       radius: 35
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 18
       radius: 24
-      speed: 12
+      speed: 360
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -1058,6 +1060,7 @@ areas:
 # 21
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - type: exit
     x: 0
@@ -1080,23 +1083,23 @@ areas:
     spawner:
     - count: 20
       radius: 38
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 18
       radius: 27
-      speed: 13
+      speed: 390
       types:
       - seedling
     - count: 2
       radius: 53
-      speed: 13
+      speed: 390
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -1137,23 +1140,23 @@ areas:
     spawner:
     - count: 10
       radius: 23
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 5
       radius: 23
-      speed: 4
+      speed: 120
       types:
       - flower
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1194,23 +1197,23 @@ areas:
     spawner:
     - count: 20
       radius: 27
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 11
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - flower
     - count: 11
       radius: 20
-      speed: 7
+      speed: 210
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1251,23 +1254,23 @@ areas:
     spawner:
     - count: 20
       radius: 30
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 11
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - flower
     - count: 11
       radius: 23
-      speed: 8
+      speed: 240
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1308,23 +1311,23 @@ areas:
     spawner:
     - count: 20
       radius: 34
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 11
       radius: 34
-      speed: 6
+      speed: 180
       types:
       - flower
     - count: 11
       radius: 25
-      speed: 9
+      speed: 270
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1365,23 +1368,23 @@ areas:
     spawner:
     - count: 20
       radius: 38
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 11
       radius: 38
-      speed: 7
+      speed: 210
       types:
       - flower
     - count: 11
       radius: 28
-      speed: 11
+      speed: 330
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1422,23 +1425,23 @@ areas:
     spawner:
     - count: 20
       radius: 42
-      speed: 3
+      speed: 90
       powered: True
       types:
       - grass
     - count: 11
       radius: 42
-      speed: 8
+      speed: 240
       types:
       - flower
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - seedling
     - count: 5
       radius: 38
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1457,6 +1460,7 @@ areas:
 # 28
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - type: exit
     x: 0
@@ -1479,29 +1483,29 @@ areas:
     spawner:
     - count: 20
       radius: 45
-      speed: 4
+      speed: 120
       powered: True
       types:
       - grass
     - count: 11
       radius: 45
-      speed: 9
+      speed: 270
       types:
       - flower
     - count: 11
       radius: 33
-      speed: 13
+      speed: 390
       types:
       - seedling
     - count: 1
       radius: 90
-      speed: 4
+      speed: 120
       powered: True
       types:
       - grass
     - count: 5
       radius: 38
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe

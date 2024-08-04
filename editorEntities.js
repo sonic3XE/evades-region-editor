@@ -118,7 +118,7 @@ function spawnEntities(area=current_Area){
 				var enemyY=prop(spawner,"y");
 				var boundary={left,right,bottom,top,width:activeZone.width,height:activeZone.height};
 				var angle=prop(spawner,"angle");
-				var speed=prop(spawner,"speed");
+				var speed=prop(spawner,"speed")/30;
 				if(enemyX!=undefined){
 					if(String(enemyX).split(",").length>1){
 						var min=parseInt(enemyX.split(",")[0]);
@@ -389,7 +389,7 @@ this.canGainEnergy=true;
 	this.flashlight=false;
 	this.chronoPos=[];
 this.distance_moved_previously = [0,0];
-    this.speed=5;
+    this.speed=150;
     this.energy=30;
     this.defaultRadius=15;
     this.radius=15;
@@ -957,10 +957,10 @@ this.isGuest=!1;
           this.shift = 2;
         } else {this.shift = 1;}
         if(!this.reaperShade)if(input.keys.has(controls.UPGRADE_SPEED[0])||input.keys.has(controls.UPGRADE_SPEED[1])) {
-          if (this.speed < 17 && this.upgradePoints > 0) {
-            this.speed += 0.5;
+          if (this.speed < 17*30 && this.upgradePoints > 0) {
+            this.speed += 15;
             this.upgradePoints--;
-            if(this.speed > 17){this.speed = 17;}
+            if(this.speed > 17*30){this.speed = 17*30;}
           }
         }
         if (input.keys.has(controls.UPGRADE_MAX_ENERGY[0])||input.keys.has(controls.UPGRADE_MAX_ENERGY[1])) {
@@ -1274,7 +1274,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 	map.areas[this.area].properties?.partial_magnetism
 	)&&this.pointInActiveZone){
 		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
-      var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):10)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
+      var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
       if(this.magnetDirection.toLowerCase() == "down"){this.y += (magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
       else if(this.magnetDirection.toLowerCase() == "up"){this.y += (-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
     }
@@ -1299,10 +1299,10 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 	}
 
     if(this.speedghost){
-      this.speed-=(0.1*this.effectImmune)/this.effectReplayer*timeFix;
-      this.statSpeed-=(0.1*this.effectImmune)/this.effectReplayer*timeFix;
-      if(this.speed < 5){this.speed = 5;}
-      if(this.statSpeed < 5){this.statSpeed = 5;}
+      this.speed-=(0.1*this.effectImmune)/this.effectReplayer*timeFix*30;
+      this.statSpeed-=(0.1*this.effectImmune)/this.effectReplayer*timeFix*30;
+      if(this.speed < 150){this.speed = 150;}
+      if(this.statSpeed < 150){this.statSpeed = 150;}
     }
 
     if(this.regenghost){
@@ -1409,7 +1409,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     var vel;
 		var isMagnet=Boolean(map.properties?.magnetism)||Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
 		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
-      var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):10)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
+      var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
     var yaxis = (this.velY>=0)?1:-1;
     if(!isMagnet){magneticSpeed*=yaxis;}
     if(this.magnetDirection.toLowerCase() == "up"){magneticSpeed=-magneticSpeed}
@@ -1419,8 +1419,8 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 	this.magneticReduction=false;
 	this.magneticNullification=false;
     if (!this.wasFrozen&&!this.isDowned()) {
-      this.x += vel.x * timeFix;
-      this.y += vel.y * timeFix;
+      this.x += vel.x * timeFix / 30;
+      this.y += vel.y * timeFix / 30;
     }
     if(this.isIced&&isMagnet){this.y += vel.y * timeFix;}
     this.speedMultiplier = 1;

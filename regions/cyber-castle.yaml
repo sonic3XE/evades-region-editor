@@ -51,14 +51,14 @@ areas:
     x: 32
     y: 416
   - height: 352
-    properties: {minimum_speed: 10}
+    properties: {minimum_speed: 300}
     type: safe
     width: 288
     x: 32
     y: 64
   - height: 96
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     type: safe
     width: 32
     x: 0
@@ -67,7 +67,7 @@ areas:
     spawner:
     - count: 1
       radius: 12
-      speed: 6
+      speed: 180
       x: 332
       y: 48
       angle: 0
@@ -76,7 +76,7 @@ areas:
       - radar
     - count: 1
       radius: 12
-      speed: 6
+      speed: 180
       x: 332
       y: 240
       angle: 0
@@ -85,7 +85,7 @@ areas:
       - radar
     - count: 1
       radius: 12
-      speed: 6
+      speed: 180
       x: 332
       y: 432
       angle: 0
@@ -94,7 +94,7 @@ areas:
       - radar
     - count: 1
       radius: 12
-      speed: 12
+      speed: 360
       x: 2868
       y: 192
       angle: 180
@@ -103,7 +103,7 @@ areas:
       - radar
     - count: 1
       radius: 12
-      speed: 12
+      speed: 360
       x: 2868
       y: 288
       angle: 180
@@ -144,19 +144,19 @@ areas:
     spawner:
     - count: 25
       radius: 4
-      speed: 9
+      speed: 270
       slowing_radius: 50
       types:
       - slowing
     - count: 25
       radius: 4
-      speed: 9
+      speed: 270
       draining_radius: 50
       types:
       - draining
     - count: 1
       radius: 8
-      speed: 2
+      speed: 60
       x: 240
       y: 2720
       angle: 90
@@ -164,7 +164,7 @@ areas:
       - barrier
     - count: 1
       radius: 8
-      speed: 2
+      speed: 60
       x: 240
       y: 480
       angle: 270
@@ -220,36 +220,67 @@ areas:
     y: 0
   - height: 64
     translate: {x: 192, y: 288}
-    type: exit
+    type: teleport
     width: 256
     x: 0
     y: 416
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - aibot_not_defeated
   - {height: 352, type: safe, width: 256, x: 0, y: 64}
   - height: 480
     spawner:
-    - count: 15
-      radius: 72
-      speed: 5
+    - count: 7
+      radius: 36
+      speed: 150
+      y: 276
+      angle: 180
+      types:
+      - wind_ghost
+    - count: 8
+      radius: 36
+      speed: 150
+      y: 204
+      angle: 0
+      types:
+      - wind_ghost
+    - count: 8
+      radius: 36
+      speed: 150
+      y: 276
+      angle: 0
+      types:
+      - wind_ghost
+    - count: 7
+      radius: 36
+      speed: 150
+      y: 204
+      angle: 180
       types:
       - wind_ghost
     - count: 15
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - repelling_ghost
     - count: 15
       radius: 54
-      speed: 5
+      speed: 150
       types:
       - disabling_ghost
     - count: 5
       radius: 90
-      speed: 15
+      speed: 450
       types:
       - wind_sniper
     - count: 5
       radius: 16
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -259,46 +290,90 @@ areas:
   - {height: 480, type: safe, width: 256, x: 2816, y: 0}
   - height: 480
     translate: {x: 160, y: 0}
-    type: exit
+    type: teleport
     width: 64
     x: 3072
     y: 0
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - cybot_not_defeated
+  - height: 480
+    translate: {x: 768, y: 0}
+    type: teleport
+    width: 64
+    x: 3072
+    y: 0
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - cybot_defeated
 - name: Watery Tunnel
   x: 5696
   y: 144592
   zones:
   - height: 480
     translate: {x: -160, y: 0}
-    type: exit
+    type: teleport
     width: 64
     x: 0
     y: 0
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - cybot_not_defeated
+  - height: 480
+    translate: {x: -768, y: 0}
+    type: teleport
+    width: 64
+    x: 0
+    y: 0
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - cybot_defeated
   - {height: 480, type: safe, width: 256, x: 64, y: 0}
   - height: 480
     spawner:
     - count: 7
       radius: 15
-      speed: 5
+      speed: 150
       types:
       - liquid
     - count: 3
       radius: 3
-      speed: 15
+      speed: 450
       types:
       - freezing
     - count: 7
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - icicle
     - count: 7
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - snowman
     - count: 5
       radius: 16
-      speed: 10
+      speed: 300
       move_clockwise: False
       types:
       - wall
@@ -315,10 +390,18 @@ areas:
     y: 0
   - height: 64
     translate: {x: -160, y: 160}
-    type: exit
+    type: teleport
     width: 256
     x: 2880
     y: 416
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - wabot_not_defeated
 - name: Router Hall B
   x: 1952
   y: 141392
@@ -326,16 +409,16 @@ areas:
   - height: 64
     translate: {x: 0, y: -160}
     type: exit
-    width: 256
+    width: 192
     x: 0
     y: 0
   - {height: 256, type: safe, width: 480, x: 0, y: 64}
-  - {height: 64, type: safe, width: 224, x: 256, y: 0}
+  - {height: 64, type: safe, width: 288, x: 192, y: 0}
   - height: 2560
     spawner:
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 384
       y: 2752
       angle: 270
@@ -343,7 +426,7 @@ areas:
       - immune
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 96
       y: 2496
       angle: 270
@@ -351,7 +434,7 @@ areas:
       - immune
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 384
       y: 2240
       angle: 270
@@ -359,7 +442,7 @@ areas:
       - immune
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 96
       y: 1984
       angle: 270
@@ -367,7 +450,7 @@ areas:
       - immune
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 384
       y: 1728
       angle: 270
@@ -375,7 +458,7 @@ areas:
       - immune
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 96
       y: 1472
       angle: 90
@@ -383,7 +466,7 @@ areas:
       - immune
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 384
       y: 1216
       angle: 90
@@ -391,7 +474,7 @@ areas:
       - immune
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 96
       y: 960
       angle: 90
@@ -399,7 +482,7 @@ areas:
       - immune
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 384
       y: 704
       angle: 90
@@ -407,7 +490,7 @@ areas:
       - immune
     - count: 1
       radius: 96
-      speed: 0.5
+      speed: 15
       x: 96
       y: 448
       angle: 90
@@ -415,7 +498,7 @@ areas:
       - immune
     - count: 1
       radius: 32
-      speed: 6
+      speed: 180
       radar_radius: 200
       x: 240
       y: 496
@@ -424,16 +507,16 @@ areas:
       - radar
     - count: 1
       radius: 32
-      speed: 6
+      speed: 180
       radar_radius: 200
       x: 240
       y: 816
-      angle: 180
+      angle: 0
       types:
       - radar
     - count: 1
       radius: 32
-      speed: 6
+      speed: 180
       radar_radius: 200
       x: 240
       y: 1136
@@ -442,16 +525,16 @@ areas:
       - radar
     - count: 1
       radius: 32
-      speed: 6
+      speed: 180
       radar_radius: 200
       x: 240
       y: 1456
-      angle: 180
+      angle: 0
       types:
       - radar
     - count: 1
       radius: 32
-      speed: 6
+      speed: 180
       radar_radius: 200
       x: 240
       y: 1776
@@ -460,16 +543,16 @@ areas:
       - radar
     - count: 1
       radius: 32
-      speed: 6
+      speed: 180
       radar_radius: 200
       x: 240
       y: 2096
-      angle: 180
+      angle: 0
       types:
       - radar
     - count: 1
       radius: 32
-      speed: 6
+      speed: 180
       radar_radius: 200
       x: 240
       y: 2416
@@ -478,11 +561,11 @@ areas:
       - radar
     - count: 1
       radius: 32
-      speed: 6
+      speed: 180
       radar_radius: 200
       x: 240
       y: 2736
-      angle: 180
+      angle: 0
       types:
       - radar
     type: active
@@ -490,11 +573,11 @@ areas:
     x: 0
     y: 320
   - {height: 256, type: safe, width: 480, x: 0, y: 2880}
-  - {height: 64, type: safe, width: 224, x: 256, y: 3136}
+  - {height: 64, type: safe, width: 288, x: 192, y: 3136}
   - height: 64
     translate: {x: 0, y: 160}
     type: exit
-    width: 256
+    width: 192
     x: 0
     y: 3136
 - name: Router Hall A
@@ -504,16 +587,16 @@ areas:
   - height: 64
     translate: {x: 0, y: -160}
     type: exit
-    width: 256
-    x: 224
+    width: 192
+    x: 288
     y: 0
   - {height: 256, type: safe, width: 480, x: 0, y: 64}
-  - {height: 64, type: safe, width: 224, x: 0, y: 0}
+  - {height: 64, type: safe, width: 288, x: 0, y: 0}
   - height: 2560
     spawner:
     - count: 1
       radius: 48
-      speed: 3
+      speed: 90
       radar_radius: 360
       x: 240
       y: 880
@@ -522,16 +605,16 @@ areas:
       - radar
     - count: 1
       radius: 48
-      speed: 3
+      speed: 90
       radar_radius: 360
       x: 240
       y: 1360
-      angle: 180
+      angle: 0
       types:
       - radar
     - count: 1
       radius: 48
-      speed: 3
+      speed: 90
       radar_radius: 360
       x: 240
       y: 1840
@@ -540,203 +623,155 @@ areas:
       - radar
     - count: 1
       radius: 48
-      speed: 3
+      speed: 90
       radar_radius: 360
       x: 240
       y: 2320
-      angle: 180
+      angle: 0
       types:
       - radar
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 2688
-      angle: 45
+      angle: 0
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 2688
-      angle: 135
+      angle: 180
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 2496
-      angle: 45
+      angle: 0
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 2496
-      angle: 135
+      angle: 180
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 2304
-      angle: 45
+      angle: 0
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 2304
-      angle: 135
+      angle: 180
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 2112
-      angle: 45
+      angle: 0
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 2122
-      angle: 135
+      angle: 180
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
-      x: 240
-      y: 1920
-      angle: 45
-      types:
-      - corrosive
-    - count: 1
-      radius: 18
-      speed: 5
-      x: 240
-      y: 1920
-      angle: 135
-      types:
-      - corrosive
-    - count: 1
-      radius: 18
-      speed: 5
-      x: 240
-      y: 1728
-      angle: 45
-      types:
-      - corrosive
-    - count: 1
-      radius: 18
-      speed: 5
-      x: 240
-      y: 1728
-      angle: 135
-      types:
-      - corrosive
-    - count: 1
-      radius: 18
-      speed: 5
-      x: 240
-      y: 1536
-      angle: 225
-      types:
-      - corrosive
-    - count: 1
-      radius: 18
-      speed: 5
-      x: 240
-      y: 1536
-      angle: 315
-      types:
-      - corrosive
-    - count: 1
-      radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 1344
-      angle: 225
+      angle: 180
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 1344
-      angle: 315
+      angle: 0
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 1152
-      angle: 225
+      angle: 180
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 1152
-      angle: 315
+      angle: 0
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 960
-      angle: 225
+      angle: 180
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 960
-      angle: 315
+      angle: 0
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 768
-      angle: 225
+      angle: 180
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 768
-      angle: 315
+      angle: 0
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 576
-      angle: 225
+      angle: 180
       types:
       - corrosive
     - count: 1
       radius: 18
-      speed: 5
+      speed: 150
       x: 240
       y: 576
-      angle: 315
+      angle: 0
       types:
       - corrosive
     type: active
@@ -744,12 +779,12 @@ areas:
     x: 0
     y: 320
   - {height: 256, type: safe, width: 480, x: 0, y: 2880}
-  - {height: 64, type: safe, width: 224, x: 0, y: 3136}
+  - {height: 64, type: safe, width: 288, x: 0, y: 3136}
   - height: 64
     translate: {x: 0, y: 160}
     type: exit
-    width: 256
-    x: 224
+    width: 192
+    x: 288
     y: 3136
 - name: Earthy Tunnel
   x: 1952
@@ -757,10 +792,18 @@ areas:
   zones:
   - height: 64
     translate: {x: 160, y: -160}
-    type: exit
+    type: teleport
     width: 256
     x: 0
     y: 0
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - eabot_not_defeated
   - height: 64
     translate: {x: 0, y: 160}
     type: exit
@@ -772,28 +815,28 @@ areas:
     spawner:
     - count: 7
       radius: 24
-      speed: 5
+      speed: 150
       types:
       - sand
     - count: 7
       radius: 14
-      speed: 15
+      speed: 450
       types:
       - sandrock
     - count: 1
       radius: 30
-      speed: 8
+      speed: 240
       quicksand_radius: 1000
       types:
       - quicksand
     - count: 7
       radius: 48
-      speed: 4
+      speed: 120
       types:
       - crumbling
     - count: 5
       radius: 16
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -838,28 +881,28 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - fire_trail
     - count: 1
       radius: 30
-      speed: 8
+      speed: 240
       lava_radius: 1000
       types:
       - lava
     - count: 7
       radius: 24
-      speed: 14
+      speed: 420
       types:
       - lunging
     - count: 7
       radius: 14
-      speed: 11
+      speed: 330
       types:
       - sizing
     - count: 5
       radius: 16
-      speed: 10
+      speed: 300
       move_clockwise: False
       types:
       - wall
@@ -870,10 +913,18 @@ areas:
   - {height: 352, type: safe, width: 256, x: 2880, y: 64}
   - height: 64
     translate: {x: -160, y: -160}
-    type: exit
+    type: teleport
     width: 256
     x: 2880
     y: 0
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - fibot_not_defeated
   - height: 64
     translate: {x: 0, y: 160}
     type: exit
@@ -907,8 +958,6 @@ areas:
     y: 240
     properties:
       background_color: [0, 181, 133, 255]
-    requirements:
-    - all_elements_gained
   - height: 16
     translate: {x: 432, y: 7040}
     type: teleport
@@ -917,8 +966,6 @@ areas:
     y: 240
     properties:
       background_color: [49, 155, 176, 255]
-    requirements:
-    - all_elements_gained
   - height: 16
     translate: {x: 432, y: 7040}
     type: teleport
@@ -927,8 +974,6 @@ areas:
     y: 224
     properties:
       background_color: [176, 115, 49, 255]
-    requirements:
-    - all_elements_gained
   - height: 16
     translate: {x: 432, y: 7040}
     type: teleport
@@ -937,8 +982,6 @@ areas:
     y: 224
     properties:
       background_color: [232, 132, 9, 255]
-    requirements:
-    - all_elements_gained
 - name: Data Center A
   x: 1952
   y: 145072
@@ -950,18 +993,18 @@ areas:
     spawner:
     - count: 6
       radius: 48
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 6
       radius: 48
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
     - count: 1
       radius: 30
-      speed: 7.2
+      speed: 216
       x: 480
       y: 480
       types:
@@ -972,12 +1015,14 @@ areas:
     y: 0
   - height: 32
     translate: {x: 0, y: -160}
-    type: exit
+    type: teleport
     width: 32
     x: 0
     y: 0
     properties:
       background_color: [0, 0, 0, 175]
+    requirements:
+    - aibot_defeated
 - name: Data Center B
   x: 7872
   y: 145072
@@ -989,18 +1034,18 @@ areas:
     spawner:
     - count: 2
       radius: 16
-      speed: 11
+      speed: 330
       types:
       - wall
     - count: 2
       radius: 16
-      speed: 11
+      speed: 330
       move_clockwise: False
       types:
       - wall
     - count: 1
       radius: 30
-      speed: 7.2
+      speed: 216
       x: 480
       y: 480
       types:
@@ -1011,12 +1056,14 @@ areas:
     y: 0
   - height: 32
     translate: {x: 0, y: -160}
-    type: exit
+    type: teleport
     width: 32
     x: 928
     y: 0
     properties:
       background_color: [0, 0, 0, 175]
+    requirements:
+    - wabot_defeated
 - name: Data Center C
   x: 1952
   y: 139952
@@ -1028,18 +1075,18 @@ areas:
     spawner:
     - count: 2
       radius: 16
-      speed: 11
+      speed: 330
       types:
       - wall
     - count: 2
       radius: 16
-      speed: 11
+      speed: 330
       move_clockwise: False
       types:
       - wall
     - count: 1
       radius: 30
-      speed: 7.2
+      speed: 216
       x: 480
       y: 480
       types:
@@ -1050,12 +1097,14 @@ areas:
     y: 0
   - height: 32
     translate: {x: 0, y: 160}
-    type: exit
+    type: teleport
     width: 32
     x: 0
     y: 928
     properties:
       background_color: [0, 0, 0, 175]
+    requirements:
+    - eabot_defeated
 - name: Data Center D
   x: 7872
   y: 139952
@@ -1067,18 +1116,18 @@ areas:
     spawner:
     - count: 2
       radius: 16
-      speed: 11
+      speed: 330
       types:
       - wall
     - count: 2
       radius: 16
-      speed: 11
+      speed: 330
       move_clockwise: False
       types:
       - wall
     - count: 1
       radius: 30
-      speed: 7.2
+      speed: 216
       x: 480
       y: 480
       types:
@@ -1095,6 +1144,8 @@ areas:
     y: 928
     properties:
       background_color: [0, 0, 0, 175]
+    requirements:
+    - fibot_defeated
 - name: FINAL BOSS
   x: 4816
   y: 142416
@@ -1103,18 +1154,18 @@ areas:
     spawner:
     - count: 4
       radius: 17
-      speed: 7
+      speed: 210
       types:
       - wall
     - count: 4
       radius: 17
-      speed: 7
+      speed: 210
       move_clockwise: False
       types:
       - wall
     - count: 1
       radius: 15
-      speed: 4
+      speed: 120
       x: 576
       y: 576
       types:
@@ -1130,12 +1181,6 @@ areas:
     width: 1152
     x: 0
     y: 0
-  - height: 32
-    translate: {x: 0, y: 1088}
-    type: exit
-    width: 64
-    x: 544
-    y: 1120
   - height: 64
     translate: {x: 0, y: -544}
     type: teleport
@@ -1161,4 +1206,42 @@ areas:
     width: 512
     x: 0
     y: 128
-  - {height: 128, type: removal, width: 512, x: 0, y: 0}
+  - height: 128
+    type: victory
+    width: 64
+    x: 0
+    y: 0
+  - height: 128
+    type: victory
+    width: 64
+    x: 448
+    y: 0
+  - height: 128
+    type: victory
+    width: 128
+    x: 192
+    y: 0
+  - height: 128
+    type: exit
+    width: 128
+    x: 64
+    y: 0
+    translate: {x: -384, y: 3136}
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+  - height: 128
+    type: exit
+    width: 128
+    x: 320
+    y: 0
+    translate: {x: 384, y: 3136}
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150

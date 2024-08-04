@@ -30,12 +30,12 @@ areas:
     width: 288
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - height: 480
     spawner:
     - count: 6
       radius: 20
-      speed: 5
+      speed: 150
       types:
       - sizing
     type: active
@@ -75,7 +75,7 @@ areas:
     spawner:
     - count: 11
       radius: 20
-      speed: 5
+      speed: 150
       types:
       - sizing
     type: active
@@ -115,12 +115,12 @@ areas:
     spawner:
     - count: 6
       radius: 20
-      speed: 9
+      speed: 270
       types:
       - sizing
     - count: 7
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -160,12 +160,12 @@ areas:
     spawner:
     - count: 11
       radius: 20
-      speed: 9
+      speed: 270
       types:
       - sizing
     - count: 7
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -205,17 +205,17 @@ areas:
     spawner:
     - count: 6
       radius: 35
-      speed: 9
+      speed: 270
       types:
       - sizing
     - count: 6
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - slowing
     - count: 7
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -255,17 +255,17 @@ areas:
     spawner:
     - count: 11
       radius: 35
-      speed: 9
+      speed: 270
       types:
       - sizing
     - count: 6
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - slowing
     - count: 7
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -305,22 +305,22 @@ areas:
     spawner:
     - count: 6
       radius: 12
-      speed: 14
+      speed: 420
       types:
       - sizing
     - count: 6
       radius: 20
-      speed: 9
+      speed: 270
       types:
       - sizing
     - count: 6
       radius: 35
-      speed: 5
+      speed: 150
       types:
       - sizing
     - count: 7
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -360,27 +360,27 @@ areas:
     spawner:
     - count: 8
       radius: 12
-      speed: 14
+      speed: 420
       types:
       - sizing
     - count: 8
       radius: 20
-      speed: 9
+      speed: 270
       types:
       - sizing
     - count: 8
       radius: 35
-      speed: 5
+      speed: 150
       types:
       - sizing
     - count: 6
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - draining
     - count: 7
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -420,17 +420,17 @@ areas:
     spawner:
     - count: 8
       radius: 35
-      speed: 18
+      speed: 540
       types:
       - sizing
     - count: 6
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - draining
     - count: 7
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -470,22 +470,22 @@ areas:
     spawner:
     - count: 21
       radius: 25
-      speed: 9
+      speed: 270
       types:
       - sizing
     - count: 3
       radius: 75
-      speed: 5
+      speed: 150
       types:
       - sizing
     - count: 4
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - slowing
     - count: 7
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -505,6 +505,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -525,12 +526,12 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -570,12 +571,12 @@ areas:
     spawner:
     - count: 11
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -615,17 +616,17 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - turning
     - count: 4
       radius: 12
-      speed: 8
+      speed: 240
       types:
       - slowing
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -665,17 +666,17 @@ areas:
     spawner:
     - count: 11
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - turning
     - count: 4
       radius: 12
-      speed: 8
+      speed: 240
       types:
       - draining
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -715,22 +716,22 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 18
+      speed: 540
       types:
       - turning
     - count: 6
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - normal
     - count: 3
       radius: 35
-      speed: 14
+      speed: 420
       types:
       - sizing
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -770,22 +771,22 @@ areas:
     spawner:
     - count: 6
       radius: 30
-      speed: 18
+      speed: 540
       types:
       - turning
     - count: 4
       radius: 30
-      speed: 18
+      speed: 540
       types:
       - normal
     - count: 3
       radius: 12
-      speed: 8
+      speed: 240
       types:
       - draining
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -825,27 +826,27 @@ areas:
     spawner:
     - count: 4
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 4
       radius: 24
-      speed: 14
+      speed: 420
       types:
       - turning
     - count: 3
       radius: 18
-      speed: 18
+      speed: 540
       types:
       - turning
     - count: 3
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -885,27 +886,27 @@ areas:
     spawner:
     - count: 4
       radius: 30
-      speed: 14
+      speed: 420
       types:
       - turning
     - count: 3
       radius: 24
-      speed: 18
+      speed: 540
       types:
       - turning
     - count: 3
       radius: 18
-      speed: 23
+      speed: 690
       types:
       - turning
     - count: 4
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -945,17 +946,17 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 11
+      speed: 330
       types:
       - turning
     - count: 3
       radius: 12
-      speed: 15
+      speed: 450
       types:
       - draining
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -995,22 +996,22 @@ areas:
     spawner:
     - count: 17
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - normal
     - count: 10
       radius: 18
-      speed: 17
+      speed: 510
       types:
       - turning
     - count: 3
       radius: 95
-      speed: 17
+      speed: 510
       types:
       - turning
     - count: 7
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -1030,6 +1031,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -1050,12 +1052,12 @@ areas:
     spawner:
     - count: 11
       radius: 3
-      speed: 14
+      speed: 420
       types:
       - freezing
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1095,12 +1097,12 @@ areas:
     spawner:
     - count: 17
       radius: 3
-      speed: 14
+      speed: 420
       types:
       - freezing
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1140,22 +1142,22 @@ areas:
     spawner:
     - count: 6
       radius: 3
-      speed: 14
+      speed: 420
       types:
       - freezing
     - count: 6
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - homing
     - count: 3
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1195,17 +1197,17 @@ areas:
     spawner:
     - count: 6
       radius: 3
-      speed: 9
+      speed: 270
       types:
       - freezing
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1245,22 +1247,22 @@ areas:
     spawner:
     - count: 6
       radius: 3
-      speed: 5
+      speed: 150
       types:
       - freezing
     - count: 6
       radius: 30
-      speed: 14
+      speed: 420
       types:
       - homing
     - count: 6
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - turning
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1300,17 +1302,17 @@ areas:
     spawner:
     - count: 6
       radius: 3
-      speed: 5
+      speed: 150
       types:
       - freezing
     - count: 16
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - normal
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1350,22 +1352,22 @@ areas:
     spawner:
     - count: 4
       radius: 3
-      speed: 5
+      speed: 150
       types:
       - freezing
     - count: 3
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 32
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - normal
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1405,22 +1407,22 @@ areas:
     spawner:
     - count: 6
       radius: 3
-      speed: 5
+      speed: 150
       types:
       - freezing
     - count: 10
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - slowing
     - count: 10
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - draining
     - count: 11
       radius: 20
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1460,22 +1462,22 @@ areas:
     spawner:
     - count: 4
       radius: 3
-      speed: 9
+      speed: 270
       types:
       - freezing
     - count: 7
       radius: 18
-      speed: 18
+      speed: 540
       types:
       - slowing
     - count: 7
       radius: 18
-      speed: 18
+      speed: 540
       types:
       - draining
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1515,12 +1517,12 @@ areas:
     spawner:
     - count: 23
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - freezing
     - count: 11
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
     type: active
@@ -1540,6 +1542,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -1560,12 +1563,12 @@ areas:
     spawner:
     - count: 6
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 11
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1605,12 +1608,12 @@ areas:
     spawner:
     - count: 10
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 11
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1650,17 +1653,17 @@ areas:
     spawner:
     - count: 7
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - normal
     - count: 11
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1700,17 +1703,17 @@ areas:
     spawner:
     - count: 7
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 8
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - normal
     - count: 11
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1750,17 +1753,17 @@ areas:
     spawner:
     - count: 7
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 7
       radius: 18
-      speed: 14
+      speed: 420
       types:
       - homing
     - count: 11
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1800,17 +1803,17 @@ areas:
     spawner:
     - count: 7
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 7
       radius: 6
-      speed: 14
+      speed: 420
       types:
       - slowing
     - count: 11
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1850,17 +1853,17 @@ areas:
     spawner:
     - count: 10
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - sniper
     - count: 10
       radius: 6
-      speed: 14
+      speed: 420
       types:
       - draining
     - count: 20
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -1900,22 +1903,22 @@ areas:
     spawner:
     - count: 10
       radius: 12
-      speed: 14
+      speed: 420
       types:
       - sniper
     - count: 10
       radius: 3
-      speed: 9
+      speed: 270
       types:
       - freezing
     - count: 6
       radius: 6
-      speed: 14
+      speed: 420
       types:
       - draining
     - count: 11
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1955,22 +1958,22 @@ areas:
     spawner:
     - count: 8
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - sniper
     - count: 4
       radius: 3
-      speed: 9
+      speed: 270
       types:
       - freezing
     - count: 6
       radius: 10
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 11
       radius: 30
-      speed: 23
+      speed: 690
       types:
       - wall
     type: active
@@ -2010,27 +2013,27 @@ areas:
     spawner:
     - count: 6
       radius: 60
-      speed: 14
+      speed: 420
       types:
       - sniper
     - count: 6
       radius: 12
-      speed: 14
+      speed: 420
       types:
       - sniper
     - count: 4
       radius: 3
-      speed: 14
+      speed: 420
       types:
       - freezing
     - count: 6
       radius: 10
-      speed: 14
+      speed: 420
       types:
       - homing
     - count: 11
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -2050,6 +2053,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:

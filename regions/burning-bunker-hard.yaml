@@ -23,20 +23,20 @@ areas:
     width: 288
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - immune
       count: 1
       radius: 240
-      speed: 10
+      speed: 300
       x: 864
       y: 240
       angle: 180
@@ -44,196 +44,196 @@ areas:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 336
       y: 16
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 656
       y: 128
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 336
       y: 240
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 656
       y: 352
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 336
       y: 464
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 976
       y: 16
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 1616
       y: 16
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 2256
       y: 16
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 2896
       y: 16
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 3536
       y: 16
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 1296
       y: 128
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 1936
       y: 128
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 2576
       y: 128
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 3216
       y: 128
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 976
       y: 240
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 1616
       y: 240
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 2256
       y: 240
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 2896
       y: 240
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 3536
       y: 240
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 1296
       y: 352
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 1936
       y: 352
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 3216
       y: 352
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 2576
       y: 352
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 976
       y: 464
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 1616
       y: 464
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 2256
       y: 464
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 2896
       y: 464
     - types:
       - lunging
       count: 1
       radius: 16
-      speed: 12
+      speed: 360
       x: 3536
       y: 464
   - type: safe
@@ -242,7 +242,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 4416
     y: 0
@@ -459,7 +459,6 @@ areas:
   properties:
     pellet_count: 1
     pellet_multiplier: 15
-    charge_reduced: True
   zones:
   - type: exit
     x: 0
@@ -481,20 +480,27 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
     spawner:
     - types:
       - sizing
       count: 1
       radius: 64
-      speed: 0.12
+      speed: 3.6
+      x: 160
+      y: 480
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 32
+      speed: 0
       x: 160
       y: 480
   - type: safe
@@ -503,7 +509,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -598,74 +604,138 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 7168
     height: 480
     properties:
-      minimum_speed: 20
+      minimum_speed: 600
     spawner:
     - types:
       - lunging
       count: 55
       radius: 24
-      speed: 18
+      speed: 540
     - types:
       - sizing
       count: 1
       radius: 96
-      speed: 0.12
+      speed: 3.6
+      angle: 90
       x: 768
       y: 240
     - types:
       - sizing
       count: 1
       radius: 96
-      speed: 0.12
+      speed: 3.6
+      angle: 90
       x: 1664
       y: 240
     - types:
       - sizing
       count: 1
       radius: 96
-      speed: 0.12
+      speed: 3.6
+      angle: 90
       x: 2560
       y: 240
     - types:
       - sizing
       count: 1
       radius: 96
-      speed: 0.12
+      speed: 3.6
+      angle: 90
       x: 3456
       y: 240
     - types:
       - sizing
       count: 1
       radius: 96
-      speed: 0.12
+      speed: 3.6
+      angle: 90
       x: 4352
       y: 240
     - types:
       - sizing
       count: 1
       radius: 96
-      speed: 0.12
+      speed: 3.6
+      angle: 90
       x: 5248
       y: 240
     - types:
       - sizing
       count: 1
       radius: 96
-      speed: 0.12
+      speed: 3.6
+      angle: 90
       x: 6114
       y: 240
     - types:
       - sizing
       count: 1
       radius: 96
-      speed: 0.12
+      speed: 3.6
+      angle: 90
+      x: 7040
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 768
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 1664
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 2560
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 3456
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 4352
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 5248
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 6114
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
       x: 7040
       y: 240
   - type: safe
@@ -674,7 +744,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 7744
     y: 0
@@ -709,7 +779,6 @@ areas:
   properties:
     pellet_count: 1
     pellet_multiplier: 15
-    charge_reduced: True
   zones:
   - type: exit
     x: 0
@@ -731,20 +800,27 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
     spawner:
     - types:
       - sizing
       count: 1
       radius: 64
-      speed: 0.12
+      speed: 3.6
+      x: 160
+      y: 480
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 32
+      speed: 0
       x: 160
       y: 480
   - type: safe
@@ -753,7 +829,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -904,14 +980,14 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 480
     y: 0
     width: 3840
     height: 3840
     properties:
-      minimum_speed: 15.25
+      minimum_speed: 457.5
     spawner:
     - types:
       - sizing
@@ -1080,7 +1156,7 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 4736
     y: 0
@@ -1966,8 +2042,6 @@ areas:
   name: Level 26
 - x: 113740
   y: 122952
-  properties:
-    charge_reduced: True
   zones:
   - type: exit
     x: 0
@@ -1989,27 +2063,27 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 1056
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 7.2
+      speed: 216
   - type: safe
     x: 1376
     y: 0
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 1632
     y: 0
@@ -2221,7 +2295,7 @@ areas:
     width: 320
     height: 12800
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -2242,18 +2316,18 @@ areas:
     width: 12800
     height: 12800
     properties:
-      minimum_speed: 40
+      minimum_speed: 1200
     spawner:
     - types:
       - lunging
       count: 52
       radius: 20
-      speed: 24
+      speed: 720
     - types:
       - sizing
       count: 4
       radius: 400
-      speed: 12
+      speed: 360
   assets:
 #Center Torch
   - type: torch
@@ -2292,20 +2366,20 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 14
+      minimum_speed: 420
     spawner:
     - types:
       - immune
       count: 1
       radius: 240
-      speed: 14
+      speed: 420
       x: 864
       y: 240
       angle: 180
@@ -2313,14 +2387,14 @@ areas:
       - sizing
       count: 40
       radius: 4
-      speed: 5
+      speed: 150
   - type: safe
     x: 4160
     y: 0
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 4416
     y: 0
@@ -2899,7 +2973,6 @@ areas:
   properties:
     pellet_count: 1
     pellet_multiplier: 15
-    charge_reduced: True
   zones:
   - type: exit
     x: 0
@@ -2921,20 +2994,27 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
     spawner:
     - types:
       - sizing
       count: 1
       radius: 64
-      speed: 0.12
+      speed: 3.6
+      x: 160
+      y: 480
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 32
+      speed: 0
       x: 160
       y: 480
   - type: safe
@@ -2943,7 +3023,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -2982,20 +3062,20 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 11
+      minimum_speed: 330
     spawner:
     - types:
       - immune
       count: 1
       radius: 240
-      speed: 7.5
+      speed: 225
       x: 1920
       y: 240
       angle: 180
@@ -3003,28 +3083,28 @@ areas:
       - lunging
       count: 1
       radius: 60
-      speed: 12
+      speed: 360
       x: 976
       y: 160
     - types:
       - lunging
       count: 1
       radius: 60
-      speed: 12
+      speed: 360
       x: 1616
       y: 320
     - types:
       - lunging
       count: 1
       radius: 60
-      speed: 12
+      speed: 360
       x: 2256
       y: 96
     - types:
       - lunging
       count: 1
       radius: 28
-      speed: 12
+      speed: 360
       x: 2608
       y: 448
   - type: safe
@@ -3033,7 +3113,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 4416
     y: 0
@@ -3516,7 +3596,6 @@ areas:
   properties:
     pellet_count: 1
     pellet_multiplier: 15
-    charge_reduced: True
   zones:
   - type: exit
     x: 0
@@ -3538,20 +3617,27 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
     spawner:
     - types:
       - sizing
       count: 1
       radius: 64
-      speed: 0.12
+      speed: 3.6
+      x: 160
+      y: 480
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 32
+      speed: 0
       x: 160
       y: 480
   - type: safe
@@ -3560,7 +3646,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -3599,20 +3685,20 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 12
+      minimum_speed: 360
     spawner:
     - types:
       - immune
       count: 1
       radius: 240
-      speed: 14
+      speed: 420
       x: 1600
       y: 240
       angle: 180
@@ -3620,49 +3706,49 @@ areas:
       - lunging
       count: 1
       radius: 7
-      speed: 6
+      speed: 180
       x: 512
       y: 256
     - types:
       - lunging
       count: 1
       radius: 7
-      speed: 6
+      speed: 180
       x: 912
       y: 448
     - types:
       - lunging
       count: 1
       radius: 36
-      speed: 12
+      speed: 360
       x: 1168
       y: 240
     - types:
       - lunging
       count: 1
       radius: 7
-      speed: 6
+      speed: 180
       x: 1424
       y: 32
     - types:
       - lunging
       count: 1
       radius: 36
-      speed: 12
+      speed: 360
       x: 1680
       y: 240
     - types:
       - lunging
       count: 1
       radius: 7
-      speed: 6
+      speed: 180
       x: 1936
       y: 448
     - types:
       - lunging
       count: 1
       radius: 7
-      speed: 6
+      speed: 180
       x: 2336
       y: 256
   - type: safe
@@ -3671,7 +3757,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 4416
     y: 0
@@ -4426,7 +4512,6 @@ areas:
   properties:
     pellet_count: 1
     pellet_multiplier: 15
-    charge_reduced: True
   zones:
   - type: exit
     x: 0
@@ -4448,20 +4533,27 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
     spawner:
     - types:
       - sizing
       count: 1
       radius: 64
-      speed: 0.12
+      speed: 3.6
+      x: 160
+      y: 480
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 32
+      speed: 0
       x: 160
       y: 480
   - type: safe
@@ -4470,7 +4562,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -4509,20 +4601,20 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 12
+      minimum_speed: 360
     spawner:
     - types:
       - immune
       count: 1
       radius: 240
-      speed: 17
+      speed: 510
       x: 1600
       y: 240
       angle: 180
@@ -4530,42 +4622,42 @@ areas:
       - lunging
       count: 1
       radius: 32
-      speed: 20
+      speed: 600
       x: 960
       y: 96
     - types:
       - lunging
       count: 1
       radius: 32
-      speed: 20
+      speed: 600
       x: 928
       y: 384
     - types:
       - lunging
       count: 1
       radius: 32
-      speed: 20
+      speed: 600
       x: 1728
       y: 384
     - types:
       - lunging
       count: 1
       radius: 32
-      speed: 20
+      speed: 600
       x: 1888
       y: 288
     - types:
       - lunging
       count: 1
       radius: 32
-      speed: 20
+      speed: 600
       x: 1920
       y: 128
     - types:
       - lunging
       count: 1
       radius: 32
-      speed: 20
+      speed: 600
       x: 2144
       y: 96
   - type: safe
@@ -4574,7 +4666,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 4416
     y: 0
@@ -5537,13 +5629,13 @@ areas:
     translate:
       x: 352
       y: -256
-  name: Level 22 Boss
+  name: Level 22
+  boss: true
 - x: 131340
   y: 118632
   properties:
     pellet_count: 1
     pellet_multiplier: 15
-    charge_reduced: True
   zones:
   - type: exit
     x: 0
@@ -5565,20 +5657,27 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
     spawner:
     - types:
       - sizing
       count: 1
       radius: 64
-      speed: 0.12
+      speed: 3.6
+      x: 160
+      y: 480
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 32
+      speed: 0
       x: 160
       y: 480
   - type: safe
@@ -5587,7 +5686,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -5612,30 +5711,30 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - sizing
       count: 21
       radius: 16
-      speed: 7.2
+      speed: 216
     - types:
       - fire_trail
       count: 13
       radius: 28
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 3.6
+      speed: 108
   - type: exit
     x: 0
     y: 0
@@ -5975,23 +6074,23 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - sizing
       count: 30
       radius: 32
-      speed: 4.8
+      speed: 144
     - types:
       - fire_trail
       count: 7
       radius: 14
-      speed: 7.2
+      speed: 216
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 3.6
+      speed: 108
       move_clockwise: false
   - type: safe
     x: 1568
@@ -5999,7 +6098,7 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 1824
     y: 0
@@ -6465,20 +6564,20 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 480
     y: 0
     width: 3840
     height: 3840
     properties:
-      minimum_speed: 15
+      minimum_speed: 450
     spawner:
     - types:
       - fire_trail
       count: 1
       radius: 250
-      speed: 18
+      speed: 540
       x: 2400
       y: 1920
       angle: 0
@@ -6486,7 +6585,7 @@ areas:
       - fire_trail
       count: 1
       radius: 250
-      speed: 18
+      speed: 540
       x: 2400
       y: 1920
       angle: 90
@@ -6494,7 +6593,7 @@ areas:
       - fire_trail
       count: 1
       radius: 250
-      speed: 18
+      speed: 540
       x: 2400
       y: 1920
       angle: 180
@@ -6502,7 +6601,7 @@ areas:
       - fire_trail
       count: 1
       radius: 250
-      speed: 18
+      speed: 540
       x: 2400
       y: 1920
       angle: 270
@@ -6510,7 +6609,7 @@ areas:
       - homing
       count: 91
       radius: 60
-      speed: 8.4
+      speed: 252
   - type: exit
     x: 2304
     y: 1824
@@ -6615,7 +6714,7 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 4736
     y: 0
@@ -7508,25 +7607,25 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - sizing
       count: 55
       radius: 24
-      speed: 6.6
+      speed: 198
     - types:
       - wall
       count: 13
       radius: 30
-      speed: 3.6
+      speed: 108
       move_clockwise: false
   - type: exit
     x: 0
@@ -7797,40 +7896,40 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - sizing
       count: 8
       radius: 16
-      speed: 13
+      speed: 390
     - types:
       - sizing
       count: 10
       radius: 32
-      speed: 8
+      speed: 240
     - types:
       - slowing
       count: 10
       radius: 12
-      speed: 7.2
+      speed: 216
     - types:
       - fire_trail
       count: 16
       radius: 14
-      speed: 3.6
+      speed: 108
     - types:
       - wall
       count: 13
       radius: 30
-      speed: 3.6
+      speed: 108
   - type: safe
     x: 1568
     y: 0
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 1824
     y: 0
@@ -8114,35 +8213,35 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 2816
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - sizing
       count: 13
       radius: 16
-      speed: 11
+      speed: 330
     - types:
       - slowing
       count: 13
       radius: 24
-      speed: 10
+      speed: 300
     - types:
       - fire_trail
       count: 5
       radius: 28
-      speed: 4
+      speed: 120
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
     - types:
       - wind_ghost
       count: 1
@@ -8191,7 +8290,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 3392
     y: 0
@@ -8230,30 +8329,30 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 2816
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - draining
       count: 29
       radius: 28
-      speed: 8
+      speed: 240
     - types:
       - fire_trail
       count: 5
       radius: 56
-      speed: 6.5
+      speed: 195
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
     - types:
       - wind_ghost
       count: 1
@@ -8302,7 +8401,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 3392
     y: 0
@@ -8331,7 +8430,8 @@ areas:
     translate:
       x: 160
       y: -256
-  name: Level 15 Boss
+  name: Level 15
+  boss: true
 - x: 143372
   y: 119592
   zones:
@@ -8346,28 +8446,28 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - normal
       count: 22
       radius: 18
-      speed: 8.4
+      speed: 252
     - types:
       - lava
       count: 12
       radius: 8
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 3.6
+      speed: 108
     - types:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 336
       y: 240
       angle: 0
@@ -8376,7 +8476,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 1648
       y: 1904
       angle: 270
@@ -8385,7 +8485,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 1648
       y: 16
       angle: 90
@@ -8394,7 +8494,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 336
       y: 1680
       angle: 0
@@ -8738,33 +8838,33 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - normal
       count: 23
       radius: 32
-      speed: 10
+      speed: 300
     - types:
       - lava
       count: 7
       radius: 12
-      speed: 8.4
+      speed: 252
     - types:
       - sizing
       count: 5
       radius: 12
-      speed: 7.2
+      speed: 216
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 3.6
+      speed: 108
     - types:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 1552
       y: 240
       angle: 180
@@ -8773,7 +8873,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 240
       y: 1904
       angle: 270
@@ -8782,7 +8882,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 240
       y: 16
       angle: 90
@@ -8791,7 +8891,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 1552
       y: 1680
       angle: 180
@@ -8802,7 +8902,7 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 1824
     y: 0
@@ -9268,14 +9368,14 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 480
     y: 0
     width: 3840
     height: 3840
     properties:
-      minimum_speed: 15
+      minimum_speed: 450
     spawner:
     - types:
       - switch
@@ -9288,12 +9388,12 @@ areas:
       - slowing
       count: 91
       radius: 30
-      speed: 8.4
+      speed: 252
     - types:
       - lava
       count: 39
       radius: 20
-      speed: 8.4
+      speed: 252
   - type: exit
     x: 2304
     y: 1824
@@ -9398,7 +9498,7 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 4736
     y: 0
@@ -10291,41 +10391,41 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - normal
       count: 10
       radius: 16
-      speed: 11
+      speed: 330
     - types:
       - lava
       count: 60
       radius: 12
-      speed: 5
+      speed: 150
     - types:
       - draining
       count: 4
       radius: 12
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 3.6
+      speed: 108
       move_clockwise: false
     - types:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 336
       y: 240
       angle: 0
@@ -10334,7 +10434,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 1648
       y: 1904
       angle: 270
@@ -10343,7 +10443,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 1648
       y: 16
       angle: 90
@@ -10352,7 +10452,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 336
       y: 1680
       angle: 0
@@ -10626,23 +10726,23 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - lava
       count: 55
       radius: 40
-      speed: 3
+      speed: 90
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 3.6
+      speed: 108
     - types:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 1552
       y: 240
       angle: 180
@@ -10651,7 +10751,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 240
       y: 1904
       angle: 270
@@ -10660,7 +10760,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 240
       y: 16
       angle: 90
@@ -10669,7 +10769,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 1552
       y: 1680
       angle: 180
@@ -10680,7 +10780,7 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 1824
     y: 0
@@ -10964,25 +11064,25 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 2816
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - lava
       count: 40
       radius: 12
-      speed: 10
+      speed: 300
     - types:
       - draining
       count: 1
       radius: 32
-      speed: 6
+      speed: 180
       x: 336
       y: 240
       draining_radius: 240
@@ -10991,7 +11091,7 @@ areas:
       - draining
       count: 1
       radius: 32
-      speed: 6
+      speed: 180
       x: 3120
       y: 240
       angle: 180
@@ -11000,7 +11100,7 @@ areas:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
     - types:
       - wind_ghost
       count: 1
@@ -11049,7 +11149,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 3392
     y: 0
@@ -11088,20 +11188,20 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 2784
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - draining
       count: 1
       radius: 32
-      speed: 6.6
+      speed: 198
       x: 336
       y: 240
       draining_radius: 240
@@ -11110,7 +11210,7 @@ areas:
       - draining
       count: 1
       radius: 32
-      speed: 6.6
+      speed: 198
       x: 3120
       y: 240
       angle: 180
@@ -11119,22 +11219,22 @@ areas:
       - lava
       count: 8
       radius: 36
-      speed: 11
+      speed: 330
     - types:
       - slowing
       count: 8
       radius: 36
-      speed: 11
+      speed: 330
     - types:
       - normal
       count: 8
       radius: 36
-      speed: 11
+      speed: 330
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 11
+      speed: 330
     - types:
       - wind_ghost
       count: 1
@@ -11183,7 +11283,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 3360
     y: 0
@@ -11212,7 +11312,8 @@ areas:
     translate:
       x: 160
       y: -256
-  name: Level 8 Boss
+  name: Level 8
+  boss: true
 - x: 155052
   y: 119592
   zones:
@@ -11222,35 +11323,35 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - sizing
       count: 5
       radius: 20
-      speed: 7
+      speed: 210
     - types:
       - fire_trail
       count: 22
       radius: 28
-      speed: 4
+      speed: 120
     - types:
       - fire_trail
       count: 28
       radius: 8
-      speed: 2
+      speed: 60
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 7.2
+      speed: 216
   - type: exit
     x: 0
     y: 0
@@ -11590,23 +11691,23 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - lunging
       count: 16
       radius: 63
-      speed: 12
+      speed: 360
     - types:
       - sizing
       count: 38
       radius: 16
-      speed: 8
+      speed: 240
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 7.2
+      speed: 216
       move_clockwise: false
   - type: safe
     x: 1568
@@ -11614,7 +11715,7 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 1824
     y: 0
@@ -12080,53 +12181,53 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 480
     y: 0
     width: 3840
     height: 3840
     properties:
-      minimum_speed: 15
+      minimum_speed: 450
     spawner:
     - types:
       - lunging
       count: 1
       radius: 96
-      speed: 14
+      speed: 420
       x: 2304
       y: 1824
     - types:
       - lunging
       count: 1
       radius: 96
-      speed: 14
+      speed: 420
       x: 2304
       y: 2016
     - types:
       - lunging
       count: 1
       radius: 96
-      speed: 14
+      speed: 420
       x: 2496
       y: 1824
     - types:
       - lunging
       count: 1
       radius: 96
-      speed: 14
+      speed: 420
       x: 2496
       y: 2016
     - types:
       - lava
       count: 8
       radius: 24
-      speed: 12
+      speed: 360
     - types:
       - immune
       count: 90
       radius: 12
-      speed: 15
+      speed: 450
   - type: exit
     x: 2304
     y: 1824
@@ -12231,7 +12332,7 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 4736
     y: 0
@@ -13124,35 +13225,35 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - immune
       count: 20
       radius: 60
-      speed: 7.5
+      speed: 225
     - types:
       - slowing
       count: 20
       radius: 6
-      speed: 8
+      speed: 240
     - types:
       - fire_trail
       count: 18
       radius: 10
-      speed: 2.4
+      speed: 72
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 7.2
+      speed: 216
       move_clockwise: false
   - type: exit
     x: 0
@@ -13423,28 +13524,28 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - lunging
       count: 55
       radius: 10
-      speed: 9
+      speed: 270
     - types:
       - lava
       count: 45
       radius: 12
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 20
       radius: 30
-      speed: 7.2
+      speed: 216
     - types:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 1552
       y: 240
       angle: 180
@@ -13453,7 +13554,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 240
       y: 1904
       angle: 270
@@ -13462,7 +13563,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 7.375
+      speed: 221.2
       x: 240
       y: 16
       angle: 90
@@ -13471,7 +13572,7 @@ areas:
       - draining
       count: 1
       radius: 16
-      speed: 6
+      speed: 180
       x: 1552
       y: 1680
       angle: 180
@@ -13482,7 +13583,7 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 1824
     y: 0
@@ -13766,20 +13867,20 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 2816
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - draining
       count: 1
       radius: 32
-      speed: 4
+      speed: 120
       x: 336
       y: 240
       draining_radius: 240
@@ -13788,7 +13889,7 @@ areas:
       - draining
       count: 1
       radius: 32
-      speed: 4
+      speed: 120
       x: 3120
       y: 240
       angle: 180
@@ -13797,22 +13898,22 @@ areas:
       - immune
       count: 32
       radius: 36
-      speed: 3.6
+      speed: 108
     - types:
       - slowing
       count: 3
       radius: 12
-      speed: 2.4
+      speed: 72
     - types:
       - lava
       count: 32
       radius: 12
-      speed: 3.6
+      speed: 108
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 11
+      speed: 330
     - types:
       - wind_ghost
       count: 1
@@ -13861,7 +13962,7 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 3392
     y: 0
@@ -13928,40 +14029,40 @@ areas:
     width: 256
     height: 1056
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
     width: 2816
     height: 1056
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - immune
       count: 50
       radius: 24
-      speed: 4
+      speed: 120
     - types:
       - sizing
       count: 28
       radius: 24
-      speed: 5
+      speed: 150
     - types:
       - lava
       count: 10
       radius: 12
-      speed: 2
+      speed: 60
     - types:
       - fire_trail
       count: 18
       radius: 34
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 14
       radius: 32
-      speed: 13
+      speed: 390
     - types:
       - wind_ghost
       count: 1
@@ -14094,7 +14195,7 @@ areas:
     width: 256
     height: 1056
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 3392
     y: 0
@@ -14137,7 +14238,8 @@ areas:
     translate:
       x: 160
       y: -704
-  name: Level 1 Boss
+  name: Level 1
+  boss: true
 - x: 166764
   y: 119592
   zones:
@@ -14172,3 +14274,4 @@ properties:
   - 0
   - 0
   - 100
+  lighting: 0.5

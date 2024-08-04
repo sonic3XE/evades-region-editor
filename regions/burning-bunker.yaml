@@ -50,21 +50,21 @@ areas:
     width: 288
     height: 352
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 56
+      minimum_speed: 1680
 #Spawners
     spawner:
     - types:
       - wall
       count: 1
       radius: 240
-      speed: 51
+      speed: 1530
       move_clockwise: False
   - type: safe
     x: last_right
@@ -72,7 +72,7 @@ areas:
     width: 256
     height: last_height
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0 
@@ -673,7 +673,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
@@ -684,7 +684,7 @@ areas:
       - slowing
       count: 1
       radius: 38
-      speed: 4
+      speed: 120
       x: 38
       y: 358
       angle: 0
@@ -692,7 +692,7 @@ areas:
       - slowing
       count: 1
       radius: 38
-      speed: 4
+      speed: 120
       x: 282
       y: 358
       angle: 270
@@ -700,7 +700,7 @@ areas:
       - slowing
       count: 1
       radius: 38
-      speed: 4
+      speed: 120
       x: 38
       y: 678
       angle: 90
@@ -708,7 +708,7 @@ areas:
       - slowing
       count: 1
       radius: 38
-      speed: 4
+      speed: 120
       x: 282
       y: 678
       angle: 180
@@ -716,19 +716,19 @@ areas:
       - gravity_ghost
       count: 1
       radius: 101
-      speed: 1
+      speed: 30
     - types:
       - repelling_ghost
       count: 1
       radius: 7
-      speed: 6
+      speed: 180
   - type: safe
     x: 0
     y: 64 
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: dummy
     x: 256
     y: 672
@@ -802,14 +802,14 @@ areas:
     width: 320
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 7168
     height: 480
     properties:
-      minimum_speed: 85
+      minimum_speed: 2550
 #Spawners
     spawner:
     - types:
@@ -1044,13 +1044,216 @@ areas:
       angle: 90
       x: 7233
       y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 574
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 797
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 1036
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 1275
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 1514
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 1753
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 1992
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 2231
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 2470
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 2709
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 2948
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 3187
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 3426
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 3665
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 3904
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 4142
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 4381
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 4620
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 4859
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 5098
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 5337
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 5576
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 5815
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 6054
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 6293
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 6532
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 6771
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 7010
+      y: 240
+    - types:
+      - wind_ghost
+      count: 1
+      radius: 48
+      speed: 0
+      x: 7233
+      y: 240
   - type: safe
     x: last_right
     y: 0 
     width: 256
     height: last_height
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0
@@ -1911,14 +2114,14 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
 #Spawners
     spawner:
     - types:
@@ -1932,7 +2135,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -2097,14 +2300,14 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 3840
     height: 3840
     properties:
-      minimum_speed: 15
+      minimum_speed: 450
 #Spawners
     spawner:
     - types:
@@ -2116,7 +2319,7 @@ areas:
       - sizing
       count: 35
       radius: 64
-      speed: 7
+      speed: 210
 # center warp
   - type: exit
     x: 2304 
@@ -2226,7 +2429,7 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #last exit 
   - type: exit
     x: 4736
@@ -3470,27 +3673,27 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 1056
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0
@@ -3705,7 +3908,7 @@ areas:
     width: 320
     height: 12800
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -3726,18 +3929,18 @@ areas:
     width: 12800
     height: 12800
     properties:
-      minimum_speed: 40
+      minimum_speed: 1200
     spawner:
     - types:
       - fire_trail
       count: 3
       radius: 128
-      speed: 30
+      speed: 900
     - types:
       - snowman
       count: 30
       radius: 20
-      speed: 10
+      speed: 300
   assets:
 #Center Torch
   - type: torch
@@ -3782,21 +3985,21 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 38
+      minimum_speed: 1140
 #Spawners
     spawner:
     - types:
       - wall
       count: 1
       radius: 240
-      speed: 39
+      speed: 1170
       move_clockwise: False
   - type: safe
     x: last_right
@@ -3804,7 +4007,7 @@ areas:
     width: 256
     height: last_height
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0 
@@ -4573,14 +4776,14 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
 #Spawners
     spawner:
     - types:
@@ -4594,7 +4797,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -4647,21 +4850,21 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 34
+      minimum_speed: 1020
 #Spawners
     spawner:
     - types:
       - wall
       count: 1
       radius: 240
-      speed: 35
+      speed: 1050
       move_clockwise: False
   - type: safe
     x: last_right
@@ -4669,7 +4872,7 @@ areas:
     width: 256
     height: last_height
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0 
@@ -5352,14 +5555,14 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
 #Spawners
     spawner:
     - types:
@@ -5373,7 +5576,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -5426,21 +5629,21 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 40
+      minimum_speed: 1200
 #Spawners
     spawner:
     - types:
       - wall
       count: 1
       radius: 240
-      speed: 41
+      speed: 1230
       move_clockwise: False
   - type: safe
     x: last_right
@@ -5448,7 +5651,7 @@ areas:
     width: 256
     height: last_height
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0 
@@ -6422,14 +6625,14 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
 #Spawners
     spawner:
     - types:
@@ -6443,7 +6646,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -6472,7 +6675,8 @@ areas:
 # 7 
 - x: 30528
   y: 119592
-  name: Level 22 Boss
+  name: Level 22
+  boss: true
   properties:
     lighting: 0.1
   zones:    
@@ -6496,21 +6700,21 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 3840
     height: 480
     properties:
-      minimum_speed: 36
+      minimum_speed: 1080
 #Spawners
     spawner:
     - types:
       - wall
       count: 1
       radius: 240
-      speed: 37
+      speed: 1110
       move_clockwise: False
   - type: safe
     x: last_right
@@ -6518,7 +6722,7 @@ areas:
     width: 256
     height: last_height
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0 
@@ -7735,14 +7939,14 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 0
     y: 320
     width: 320
     height: 320
     properties:
-      minimum_speed: 72
+      minimum_speed: 2160
 #Spawners
     spawner:
     - types:
@@ -7756,7 +7960,7 @@ areas:
     width: 320
     height: 256
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: 0
     y: 0
@@ -7796,31 +8000,31 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - homing
       count: 16
       radius: 16
-      speed: 2
+      speed: 60
     - types:
       - fire_trail
       count: 5
       radius: 14
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 3
+      speed: 90
 #top exit
   - type: exit
     x: 0
@@ -8363,24 +8567,24 @@ areas:
     width: 1568 
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - homing
       count: 20
       radius: 32
-      speed: 2
+      speed: 60
     - types:
       - fire_trail
       count: 5
       radius: 7
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 3
+      speed: 90
       move_clockwise: False
   - type: safe
     x: last_right
@@ -8388,7 +8592,7 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #exit top
   - type: exit
     x: 1824
@@ -9056,14 +9260,14 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 3840
     height: 3840
     properties:
-      minimum_speed: 15
+      minimum_speed: 450
 #Spawners
     spawner:
     - types:
@@ -9075,12 +9279,12 @@ areas:
       - fire_trail
       count: 5
       radius: 58
-      speed: 6
+      speed: 180
     - types:
       - homing
       count: 16
       radius: 96
-      speed: 3
+      speed: 90
 # center warp
   - type: exit
     x: 2304 
@@ -9190,7 +9394,7 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #last exit 
   - type: exit
     x: 4736
@@ -10582,26 +10786,26 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - homing
       count: 45
       radius: 16
-      speed: 2.1
+      speed: 63
     - types:
       - wall
       count: 10
       radius: 30
-      speed: 3
+      speed: 90
       move_clockwise: False
 #top exit
   - type: exit
@@ -10892,41 +11096,41 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - homing
       count: 8
       radius: 16
-      speed: 3
+      speed: 90
     - types:
       - homing
       count: 8
       radius: 32
-      speed: 2
+      speed: 60
     - types:
       - slowing
       count: 6
       radius: 8
-      speed: 2
+      speed: 60
     - types:
       - fire_trail
       count: 12
       radius: 7
-      speed: 3
+      speed: 90
     - types:
       - wall
       count: 10
       radius: 30
-      speed: 3
+      speed: 90
   - type: safe
     x: last_right
     y: 0
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #exit top
   - type: exit
     x: 1824
@@ -11229,42 +11433,42 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 2816
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - homing
       count: 10
       radius: 16
-      speed: 5
+      speed: 150
     - types:
       - slowing
       count: 10
       radius: 16
-      speed: 3
+      speed: 90
     - types:
       - fire_trail
       count: 2
       radius: 14
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0
@@ -11498,7 +11702,8 @@ areas:
 # 14
 - x: 43264
   y: 119592
-  name: Level 15 Boss
+  name: Level 15
+  boss: true
   properties:
     lighting: 0
   zones:
@@ -11522,42 +11727,42 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 2816
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - homing
       count: 4
       radius: 48
-      speed: 2.5
+      speed: 75
     - types:
       - homing
       count: 15
       radius: 16
-      speed: 4
+      speed: 120
     - types:
       - fire_trail
       count: 4
       radius: 28
-      speed: 8.5
+      speed: 255
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0
@@ -11814,31 +12019,31 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - dasher
       count: 20
       radius: 16
-      speed: 10
+      speed: 300
     - types:
       - fire_trail
       count: 4
       radius: 14
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 3
+      speed: 90
 #top exit
   - type: exit
     x: 0
@@ -12372,36 +12577,36 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - dasher
       count: 18
       radius: 32
-      speed: 8
+      speed: 240
     - types:
       - fire_trail
       count: 5
       radius: 29
-      speed: 7
+      speed: 210
     - types:
       - enlarging
       count: 4
       radius: 8
-      speed: 4
+      speed: 120
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 3
+      speed: 90
   - type: safe
     x: last_right
     y: 0 
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #exit top
   - type: exit
     x: 1824
@@ -13060,14 +13265,14 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 3840
     height: 3840
     properties:
-      minimum_speed: 15
+      minimum_speed: 450
 #Spawners
     spawner:
     - types:
@@ -13079,12 +13284,12 @@ areas:
       - slowing
       count: 20
       radius: 48
-      speed: 6
+      speed: 180
     - types:
       - dasher
       count: 15
       radius: 96
-      speed: 10
+      speed: 300
 # center warp
   - type: exit
     x: 2304 
@@ -13194,7 +13399,7 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #last exit 
   - type: exit
     x: 4736
@@ -14586,31 +14791,31 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - dasher
       count: 19
       radius: 16
-      speed: 17
+      speed: 510
     - types:
       - fire_trail
       count: 5
       radius: 29
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 3
+      speed: 90
       move_clockwise: False
 #top exit
   - type: exit
@@ -15074,26 +15279,26 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - enlarging
       count: 29
       radius: 16
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 3
+      speed: 90
   - type: safe
     x: last_right
     y: 0 
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #exit top
   - type: exit
     x: 1824
@@ -15569,42 +15774,42 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 2816
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - enlarging 
       count: 7
       radius: 16
-      speed: 8.5
+      speed: 255
     - types:
       - dasher 
       count: 12
       radius: 16
-      speed: 16
+      speed: 480
     - types:
       - dasher 
       count: 5
       radius: 48
-      speed: 10
+      speed: 300
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0
@@ -15838,7 +16043,8 @@ areas:
 # 21
 - x: 54976
   y: 119592
-  name: Level 8 Boss
+  name: Level 8
+  boss: true
   properties:
     lighting: 0
   zones:
@@ -15862,52 +16068,52 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 2784
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - enlarging 
       count: 6
       radius: 16
-      speed: 11
+      speed: 330
     - types:
       - dasher 
       count: 15
       radius: 16
-      speed: 14
+      speed: 420
     - types:
       - dasher 
       count: 6
       radius: 48
-      speed: 11
+      speed: 330
     - types:
       - dasher 
       count: 2
       radius: 70
-      speed: 5
+      speed: 150
     - types:
       - fire_trail 
       count: 4
       radius: 20
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0
@@ -16086,41 +16292,41 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - sizing
       count: 9
       radius: 16
-      speed: 4.5
+      speed: 135
     - types:
       - fire_trail
       count: 4
       radius: 7
-      speed: 5
+      speed: 150
     - types:
       - homing
       count: 7
       radius: 16
-      speed: 3.5
+      speed: 105
     - types:
       - draining
       count: 6
       radius: 16
-      speed: 4
+      speed: 120
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 6
+      speed: 180
 #top exit
   - type: exit
     x: 0
@@ -16663,39 +16869,39 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - sizing
       count: 5
       radius: 32
-      speed: 5
+      speed: 150
     - types:
       - sizing
       count: 4
       radius: 16
-      speed: 7
+      speed: 210
     - types:
       - homing
       count: 5
       radius: 16
-      speed: 6
+      speed: 180
     - types:
       - fire_trail
       count: 2
       radius: 14
-      speed: 8
+      speed: 240
     - types:
       - draining
       count: 4
       radius: 16
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 6
+      speed: 180
       move_clockwise: False
   - type: safe
     x: last_right
@@ -16703,7 +16909,7 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #exit top
   - type: exit
     x: 1824
@@ -17362,14 +17568,14 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 3840
     height: 3840
     properties:
-      minimum_speed: 15
+      minimum_speed: 450
 #Spawners
     spawner:
     - types:
@@ -17381,17 +17587,17 @@ areas:
       - fire_trail
       count: 6
       radius: 29
-      speed: 6
+      speed: 180
     - types:
       - draining    
       count: 21
       radius: 16
-      speed: 10
+      speed: 300
     - types:
       - sizing
       count: 12
       radius: 64
-      speed: 6
+      speed: 180
 # center warp
   - type: exit
     x: 2304 
@@ -17501,7 +17707,7 @@ areas:
     width: 416
     height: 3840
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #last exit 
   - type: exit
     x: 4736
@@ -18893,31 +19099,31 @@ areas:
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - homing
       count: 5
       radius: 60
-      speed: 7
+      speed: 210
     - types:
       - draining
       count: 15
       radius: 8
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 6
+      speed: 180
       move_clockwise: False
 #top exit
   - type: exit
@@ -19381,36 +19587,36 @@ areas:
     width: 1568
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #Spawners
     spawner:
     - types:
       - draining
       count: 2
       radius: 8
-      speed: 8
+      speed: 240
     - types:
       - fire_trail
       count: 5
       radius: 21
-      speed: 9
+      speed: 270
     - types:
       - sizing
       count: 14
       radius: 16
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 15
       radius: 30
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0    
     width: 320
     height: 1920
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
 #exit top
   - type: exit
     x: 1824
@@ -19886,32 +20092,32 @@ areas:
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 2816
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - sizing
       count: 29
       radius: 24
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 7
       radius: 30
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
     width: 256
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0
@@ -20145,7 +20351,8 @@ areas:
 # 28
 - x: 66656
   y: 119592
-  name: Level 1 Boss
+  name: Level 1
+  boss: true
   properties:
     lighting: 0
   zones:
@@ -20197,37 +20404,37 @@ areas:
     width: 256
     height: 1056
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
     width: 2816
     height: 1056
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     spawner:
     - types:
       - sizing
       count: 20
       radius: 32
-      speed: 7
+      speed: 210
     - types:
       - fire_trail
       count: 6
       radius: 60
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 11
       radius: 30
-      speed: 8
+      speed: 240
   - type: safe
     x: last_right
     y: 0
     width: 256
     height: 1056
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: exit
     x: last_right
     y: 0

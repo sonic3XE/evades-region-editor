@@ -18,7 +18,7 @@ areas:
     height: 64
     translate:
       x: 0
-      y: -1120
+      y: -864
   - type: teleport
     x: 32
     y: 416
@@ -47,12 +47,12 @@ areas:
     width: 288
     height: 352
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - height: 480
     spawner:
     - count: 4
       radius: 20
-      speed: 21
+      speed: 630
       types:
       - teleporting
     type: active
@@ -92,7 +92,7 @@ areas:
     spawner:
     - count: 7
       radius: 20
-      speed: 21
+      speed: 630
       types:
       - teleporting
     type: active
@@ -132,12 +132,12 @@ areas:
     spawner:
     - count: 4
       radius: 20
-      speed: 42
+      speed: 1260
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -177,12 +177,12 @@ areas:
     spawner:
     - count: 7
       radius: 20
-      speed: 42
+      speed: 1260
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -222,12 +222,12 @@ areas:
     spawner:
     - count: 5
       radius: 35
-      speed: 42
+      speed: 1260
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -267,12 +267,12 @@ areas:
     spawner:
     - count: 9
       radius: 35
-      speed: 42
+      speed: 1260
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -312,22 +312,22 @@ areas:
     spawner:
     - count: 4
       radius: 12
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 4
       radius: 20
-      speed: 42
+      speed: 1260
       types:
       - teleporting
     - count: 4
       radius: 35
-      speed: 21
+      speed: 630
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -367,22 +367,22 @@ areas:
     spawner:
     - count: 6
       radius: 12
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 6
       radius: 20
-      speed: 42
+      speed: 1260
       types:
       - teleporting
     - count: 6
       radius: 35
-      speed: 21
+      speed: 630
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -422,12 +422,12 @@ areas:
     spawner:
     - count: 13
       radius: 35
-      speed: 74
+      speed: 2220
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -467,22 +467,22 @@ areas:
     spawner:
     - count: 21
       radius: 25
-      speed: 42
+      speed: 1260
       types:
       - teleporting
     - count: 2
       radius: 90
-      speed: 21
+      speed: 630
       types:
       - teleporting
     - count: 3
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - slowing
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -502,6 +502,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -522,12 +523,12 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - gravity
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -567,12 +568,12 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - gravity
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -612,17 +613,17 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - gravity
     - count: 5
       radius: 18
-      speed: 42
+      speed: 1260
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -662,17 +663,17 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - gravity
     - count: 7
       radius: 18
-      speed: 42
+      speed: 1260
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -712,17 +713,17 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 3
       radius: 35
-      speed: 7
+      speed: 210
       types:
       - homing
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -762,17 +763,17 @@ areas:
     spawner:
     - count: 7
       radius: 30
-      speed: 11
+      speed: 330
       types:
       - gravity
     - count: 4
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -812,27 +813,27 @@ areas:
     spawner:
     - count: 4
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - gravity
     - count: 4
       radius: 24
-      speed: 7
+      speed: 210
       types:
       - gravity
     - count: 4
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 7
       radius: 18
-      speed: 74
+      speed: 2220
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -872,32 +873,32 @@ areas:
     spawner:
     - count: 3
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - gravity
     - count: 3
       radius: 24
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 3
       radius: 18
-      speed: 11
+      speed: 330
       types:
       - gravity
     - count: 3
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - homing
     - count: 7
       radius: 18
-      speed: 74
+      speed: 2220
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -937,17 +938,17 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - gravity
     - count: 7
       radius: 12
-      speed: 84
+      speed: 2520
       types:
       - teleporting
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -987,22 +988,22 @@ areas:
     spawner:
     - count: 18
       radius: 18
-      speed: 53
+      speed: 1590
       types:
       - teleporting
     - count: 6
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - gravity
     - count: 3
       radius: 70
-      speed: 8
+      speed: 240
       types:
       - gravity
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -1022,6 +1023,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -1042,12 +1044,12 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - repelling
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1087,12 +1089,12 @@ areas:
     spawner:
     - count: 13
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - repelling
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1132,22 +1134,22 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - repelling
     - count: 4
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - homing
     - count: 4
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1187,22 +1189,22 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - repelling
     - count: 7
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - homing
     - count: 4
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1242,22 +1244,22 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - repelling
     - count: 5
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - homing
     - count: 7
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1297,17 +1299,17 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - repelling
     - count: 14
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1347,22 +1349,22 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - repelling
     - count: 5
       radius: 12
-      speed: 3
+      speed: 90
       types:
       - slowing
     - count: 18
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1402,22 +1404,22 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - repelling
     - count: 7
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - slowing
     - count: 7
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - draining
     - count: 7
       radius: 20
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1457,22 +1459,22 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 6
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - slowing
     - count: 6
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - draining
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1512,22 +1514,22 @@ areas:
     spawner:
     - count: 11
       radius: 18
-      speed: 11
+      speed: 330
       types:
       - repelling
     - count: 3
       radius: 70
-      speed: 11
+      speed: 330
       types:
       - repelling
     - count: 6
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1547,6 +1549,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -1567,17 +1570,17 @@ areas:
     spawner:
     - count: 5
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - gravity
     - count: 5
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - repelling
     - count: 7
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - wall
     type: active
@@ -1617,17 +1620,17 @@ areas:
     spawner:
     - count: 7
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - gravity
     - count: 7
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - repelling
     - count: 7
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - wall
     type: active
@@ -1667,22 +1670,22 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - gravity
     - count: 7
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - repelling
     - count: 5
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 7
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - wall
     type: active
@@ -1722,22 +1725,22 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - gravity
     - count: 10
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - repelling
     - count: 5
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 7
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - wall
     type: active
@@ -1777,27 +1780,27 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - gravity
     - count: 6
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - repelling
     - count: 3
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 5
       radius: 12
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 7
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - wall
     type: active
@@ -1837,27 +1840,27 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - gravity
     - count: 10
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - repelling
     - count: 3
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 5
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 7
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - wall
     type: active
@@ -1897,27 +1900,27 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 3
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 5
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - sniper
     - count: 13
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
     type: active
@@ -1957,27 +1960,27 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 6
       radius: 18
-      speed: 63
+      speed: 1890
       types:
       - teleporting
     - count: 5
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - draining
     - count: 7
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - wall
     type: active
@@ -2017,32 +2020,32 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 11
+      speed: 330
       types:
       - gravity
     - count: 5
       radius: 18
-      speed: 11
+      speed: 330
       types:
       - repelling
     - count: 3
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 3
       radius: 18
-      speed: 74
+      speed: 2220
       types:
       - teleporting
     - count: 3
       radius: 12
-      speed: 11
+      speed: 330
       types:
       - draining
     - count: 7
       radius: 30
-      speed: 11
+      speed: 330
       types:
       - wall
     type: active
@@ -2062,7 +2065,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 40
 - x: last_right
   y: last_y
   zones:
@@ -2083,22 +2085,22 @@ areas:
     spawner:
     - count: 7
       radius: 60
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 7
       radius: 60
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 14
       radius: 14
-      speed: 84
+      speed: 2520
       types:
       - teleporting
     - count: 7
       radius: 30
-      speed: 7
+      speed: 210
       types:
       - wall
     type: active
@@ -2118,7 +2120,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 41 (Victory)
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -2143,7 +2145,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 42
 - x: last_right
   y: last_y
   zones:
@@ -2164,7 +2165,7 @@ areas:
     spawner:
     - count: 10
       radius: 20
-      speed: 30
+      speed: 900
       types:
       - teleporting
     type: active
@@ -2204,12 +2205,12 @@ areas:
     spawner:
     - count: 5
       radius: 20
-      speed: 60
+      speed: 1800
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2249,12 +2250,12 @@ areas:
     spawner:
     - count: 10
       radius: 20
-      speed: 60
+      speed: 1800
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2294,12 +2295,12 @@ areas:
     spawner:
     - count: 6
       radius: 35
-      speed: 60
+      speed: 1800
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2339,12 +2340,12 @@ areas:
     spawner:
     - count: 12
       radius: 35
-      speed: 60
+      speed: 1800
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2384,22 +2385,22 @@ areas:
     spawner:
     - count: 5
       radius: 12
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 5
       radius: 20
-      speed: 60
+      speed: 1800
       types:
       - teleporting
     - count: 5
       radius: 35
-      speed: 30
+      speed: 900
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2439,22 +2440,22 @@ areas:
     spawner:
     - count: 8
       radius: 12
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 8
       radius: 20
-      speed: 60
+      speed: 1800
       types:
       - teleporting
     - count: 8
       radius: 35
-      speed: 30
+      speed: 900
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2494,12 +2495,12 @@ areas:
     spawner:
     - count: 18
       radius: 35
-      speed: 105
+      speed: 3150
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2539,22 +2540,22 @@ areas:
     spawner:
     - count: 30
       radius: 25
-      speed: 60
+      speed: 1800
       types:
       - teleporting
     - count: 2
       radius: 90
-      speed: 30
+      speed: 900
       types:
       - teleporting
     - count: 3
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - slowing
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2574,6 +2575,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -2594,12 +2596,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - gravity
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2639,12 +2641,12 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - gravity
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2684,17 +2686,17 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 6
       radius: 18
-      speed: 60
+      speed: 1800
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2734,17 +2736,17 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 9
       radius: 18
-      speed: 60
+      speed: 1800
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2784,17 +2786,17 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - gravity
     - count: 4
       radius: 35
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2834,17 +2836,17 @@ areas:
     spawner:
     - count: 10
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - gravity
     - count: 5
       radius: 12
-      speed: 12
+      speed: 360
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2884,27 +2886,27 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - gravity
     - count: 5
       radius: 24
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 5
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - gravity
     - count: 10
       radius: 18
-      speed: 105
+      speed: 3150
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2944,32 +2946,32 @@ areas:
     spawner:
     - count: 4
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 4
       radius: 24
-      speed: 12
+      speed: 360
       types:
       - gravity
     - count: 4
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - gravity
     - count: 4
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 10
       radius: 18
-      speed: 105
+      speed: 3150
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3009,17 +3011,17 @@ areas:
     spawner:
     - count: 22
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - gravity
     - count: 10
       radius: 12
-      speed: 120
+      speed: 3600
       types:
       - teleporting
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3059,22 +3061,22 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 75
+      speed: 2250
       types:
       - teleporting
     - count: 8
       radius: 18
-      speed: 11
+      speed: 330
       types:
       - gravity
     - count: 4
       radius: 70
-      speed: 11
+      speed: 330
       types:
       - gravity
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3094,6 +3096,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -3114,12 +3117,12 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 9
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3159,12 +3162,12 @@ areas:
     spawner:
     - count: 18
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 9
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3204,22 +3207,22 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 5
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - homing
     - count: 5
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 9
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3259,22 +3262,22 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - repelling
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - homing
     - count: 5
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 9
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3314,22 +3317,22 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - repelling
     - count: 6
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 10
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 9
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3369,17 +3372,17 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - repelling
     - count: 20
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 9
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3419,22 +3422,22 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - repelling
     - count: 6
       radius: 12
-      speed: 3
+      speed: 90
       types:
       - slowing
     - count: 25
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 9
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3474,22 +3477,22 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 10
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - slowing
     - count: 10
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - draining
     - count: 9
       radius: 20
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3529,22 +3532,22 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - repelling
     - count: 8
       radius: 12
-      speed: 12
+      speed: 360
       types:
       - slowing
     - count: 8
       radius: 12
-      speed: 12
+      speed: 360
       types:
       - draining
     - count: 9
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3584,22 +3587,22 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - repelling
     - count: 4
       radius: 70
-      speed: 15
+      speed: 450
       types:
       - repelling
     - count: 8
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 9
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -3619,6 +3622,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -3639,17 +3643,17 @@ areas:
     spawner:
     - count: 6
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - gravity
     - count: 6
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - repelling
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3689,17 +3693,17 @@ areas:
     spawner:
     - count: 9
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - gravity
     - count: 9
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - repelling
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3739,22 +3743,22 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 9
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 6
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3794,22 +3798,22 @@ areas:
     spawner:
     - count: 14
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 14
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 6
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3849,27 +3853,27 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 4
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 6
       radius: 12
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3909,27 +3913,27 @@ areas:
     spawner:
     - count: 13
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - gravity
     - count: 13
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - repelling
     - count: 4
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 6
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - sniper
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3969,27 +3973,27 @@ areas:
     spawner:
     - count: 11
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - gravity
     - count: 11
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - repelling
     - count: 4
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 6
       radius: 12
-      speed: 12
+      speed: 360
       types:
       - sniper
     - count: 18
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4029,27 +4033,27 @@ areas:
     spawner:
     - count: 11
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - gravity
     - count: 11
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - repelling
     - count: 8
       radius: 18
-      speed: 90
+      speed: 2700
       types:
       - teleporting
     - count: 6
       radius: 12
-      speed: 12
+      speed: 360
       types:
       - draining
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -4089,32 +4093,32 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - gravity
     - count: 6
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - repelling
     - count: 4
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - sniper
     - count: 4
       radius: 18
-      speed: 105
+      speed: 3150
       types:
       - teleporting
     - count: 4
       radius: 12
-      speed: 15
+      speed: 450
       types:
       - draining
     - count: 9
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -4154,22 +4158,22 @@ areas:
     spawner:
     - count: 9
       radius: 60
-      speed: 12
+      speed: 360
       types:
       - gravity
     - count: 9
       radius: 60
-      speed: 12
+      speed: 360
       types:
       - repelling
     - count: 20
       radius: 14
-      speed: 120
+      speed: 3600
       types:
       - teleporting
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -4189,6 +4193,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 - x: last_right
   y: last_y
   zones:

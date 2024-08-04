@@ -124,12 +124,14 @@ var curLang={
   "editor.enemy.stalactite": "Stalactite",
   "editor.enemy.force_sniper_a": "Force Sniper A",
   "editor.enemy.force_sniper_b": "Force Sniper B",
-/*"editor.enemy.flaming": "Flaming",
+  "editor.enemy.flaming": "Flaming",
   "editor.enemy.stumbling": "Stumbling",
   "editor.enemy.disarming": "Disarming",
   "editor.enemy.lurching": "Lurching",
   "editor.enemy.infectious": "Infectious",
-  "editor.enemy.mutating": "Mutating",*/
+  "editor.enemy.mutating": "Mutating",
+  "editor.enemy.vengeful_soul": "Vengeful Soul",
+  "editor.enemy.lost_soul": "Lost Soul",
   "editor.pattern.none":"None",
   "editor.pattern.spiral": "Spiral",
   "editor.pattern.twinspiral": "Twin Spiral",
@@ -140,6 +142,7 @@ var curLang={
   "editor.pattern.twin": "Twin",
   "editor.pattern.singlebig": "Single Big",
   "editor.property.share_to_drive":"Share To Drive",
+  "editor.property.boss":"Boss",
   "editor.property.name":"Name",
   "editor.property.types": "Types",
   "editor.property.reverse": "Reverse",
@@ -361,6 +364,7 @@ if(elmnt.onmousedown)return;
 }
 var defaultValues={
 	share_to_drive:true,
+	boss:false,
 	spawner:{
 		horizontal:false,
 		move_clockwise:true,

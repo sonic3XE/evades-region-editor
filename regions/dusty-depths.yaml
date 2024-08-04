@@ -41,8 +41,7 @@ areas:
             types:
               - quicksand
             quicksand_radius: 484
-            push_direction: 90
-            quicksand_strength: 1
+            quicksand_strength: 30
       - type: teleport
         x: 0
         y: 928
@@ -71,7 +70,7 @@ areas:
         height: 320
         spawner:
           - radius: 10
-            speed: 7.2
+            speed: 216
             count: 20
             types:
               - sandrock
@@ -108,7 +107,7 @@ areas:
         height: 320
         spawner:
           - radius: 12
-            speed: 7.2
+            speed: 216
             count: 21
             types:
               - sandrock
@@ -153,7 +152,7 @@ areas:
         height: 320
         spawner:
           - radius: 14
-            speed: 7.2
+            speed: 216
             count: 22
             types:
               - sandrock
@@ -198,7 +197,7 @@ areas:
         height: 320
         spawner:
           - radius: 16
-            speed: 7.2
+            speed: 216
             count: 23
             types:
               - sandrock
@@ -245,14 +244,14 @@ areas:
           - x: '400, 5360'
             y: '208, 464'
             radius: 10
-            speed: 7.2
+            speed: 216
             count: 70
             types:
               - sandrock
           - x: '400, 5360'
             y: '208, 464'
             radius: 30
-            speed: 7.2
+            speed: 216
             count: 70
             types:
               - switch
@@ -1433,7 +1432,7 @@ areas:
             y: 96
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1441,7 +1440,7 @@ areas:
             y: 112
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1449,7 +1448,7 @@ areas:
             y: 560
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1457,7 +1456,7 @@ areas:
             y: 560
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1465,7 +1464,7 @@ areas:
             y: 592
             radius: 16
             angle: 180
-            speed: 8
+            speed: 240
             count: 1
             types:
               - stalactite
@@ -1473,7 +1472,7 @@ areas:
             y: 144
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1481,7 +1480,7 @@ areas:
             y: 560
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1489,7 +1488,7 @@ areas:
             y: 144
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1497,7 +1496,7 @@ areas:
             y: 112
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1505,7 +1504,7 @@ areas:
             y: 144
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1513,7 +1512,7 @@ areas:
             y: 144
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -1521,28 +1520,28 @@ areas:
             y: 560
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
           - x: '400, 5360'
             y: '240, 464'
             radius: 10
-            speed: 7.2
+            speed: 216
             count: 65
             types:
               - sandrock
           - x: '400, 5360'
             y: '240, 464'
             radius: 30
-            speed: 7.2
+            speed: 216
             count: 35
             types:
               - switch
           - x: '400, 5360'
             y: '240, 464'
             radius: 40
-            speed: 8.5
+            speed: 255
             count: 20
             types:
               - switch
@@ -2802,7 +2801,7 @@ areas:
             y: 113
             radius: 16
             angle: 180
-            speed: 6.5
+            speed: 195
             count: 1
             types:
               - stalactite
@@ -2810,7 +2809,7 @@ areas:
             y: 528
             radius: 16
             angle: 180
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -2818,7 +2817,7 @@ areas:
             y: 560
             radius: 16
             angle: 180
-            speed: 9.6
+            speed: 288
             count: 1
             types:
               - stalactite
@@ -2826,7 +2825,7 @@ areas:
             y: 144
             radius: 16
             angle: 0
-            speed: 13.6
+            speed: 408
             count: 1
             types:
               - stalactite
@@ -2834,7 +2833,7 @@ areas:
             y: 176
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -2842,7 +2841,7 @@ areas:
             y: 592
             radius: 16
             angle: 0
-            speed: 4.2
+            speed: 126
             count: 1
             types:
               - stalactite
@@ -2850,7 +2849,7 @@ areas:
             y: 112
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -2858,7 +2857,7 @@ areas:
             y: 496
             radius: 16
             angle: 180
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -2866,7 +2865,7 @@ areas:
             y: 112
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -2874,7 +2873,7 @@ areas:
             y: 560
             radius: 16
             angle: 180
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -2882,7 +2881,7 @@ areas:
             y: 144
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -2890,7 +2889,7 @@ areas:
             y: 144
             radius: 16
             angle: 180
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -2898,7 +2897,7 @@ areas:
             y: 528
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -2906,28 +2905,28 @@ areas:
             y: 112
             radius: 16
             angle: 0
-            speed: 10.7
+            speed: 321
             count: 1
             types:
               - stalactite
           - x: '400, 5360'
             y: '272, 400'
             radius: 14
-            speed: 4.3
+            speed: 129
             count: 100
             types:
               - switch
           - x: '400, 5360'
             y: '272, 400'
             radius: 36
-            speed: 1.4
+            speed: 42
             count: 50
             types:
               - switch
           - x: '400, 5360'
             y: '272, 400'
             radius: 20
-            speed: 7.9
+            speed: 237
             count: 20
             types:
               - sandrock
@@ -4241,7 +4240,7 @@ areas:
             y: 592
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4249,7 +4248,7 @@ areas:
             y: 144
             radius: 16
             angle: 180
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4257,7 +4256,7 @@ areas:
             y: 113
             radius: 16
             angle: 180
-            speed: 14.4
+            speed: 432
             count: 1
             types:
               - stalactite
@@ -4265,7 +4264,7 @@ areas:
             y: 528
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4273,7 +4272,7 @@ areas:
             y: 176
             radius: 16
             angle: 180
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4281,7 +4280,7 @@ areas:
             y: 560
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4289,7 +4288,7 @@ areas:
             y: 144
             radius: 16
             angle: 180
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4297,7 +4296,7 @@ areas:
             y: 112
             radius: 16
             angle: 0
-            speed: 7.8
+            speed: 234
             count: 1
             types:
               - stalactite
@@ -4305,7 +4304,7 @@ areas:
             y: 560
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4313,7 +4312,7 @@ areas:
             y: 592
             radius: 16
             angle: 180
-            speed: 6.2
+            speed: 186
             count: 1
             types:
               - stalactite
@@ -4321,7 +4320,7 @@ areas:
             y: 144
             radius: 16
             angle: 180
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4329,7 +4328,7 @@ areas:
             y: 240
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4337,7 +4336,7 @@ areas:
             y: 592
             radius: 16
             angle: 180
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
@@ -4345,28 +4344,28 @@ areas:
             y: 592
             radius: 16
             angle: 0
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - stalactite
           - x: '784, 5392'
             y: '240, 464'
             radius: 10
-            speed: 2.2
+            speed: 66
             count: 120
             types:
               - switch
           - x: '784, 5392'
             y: '240, 464'
             radius: 20
-            speed: 5.1
+            speed: 153
             count: 65
             types:
               - switch
           - x: '784, 5392'
             y: '240, 464'
             radius: 6
-            speed: 7.2
+            speed: 216
             count: 10
             types:
               - switch
@@ -5831,7 +5830,7 @@ areas:
             y: '336, 368'
             radius: 16
             angle: 90
-            speed: 11.4
+            speed: 342
             count: 7
             types:
               - stalactite
@@ -5839,28 +5838,28 @@ areas:
             y: '336, 368'
             radius: 16
             angle: 270
-            speed: 11.4
+            speed: 342
             count: 7
             types:
               - stalactite
           - x: '368, 5232'
             y: '240, 464'
             radius: 16
-            speed: 4.3
+            speed: 129
             count: 100
             types:
               - switch
           - x: '368, 5232'
             y: '240, 464'
             radius: 10
-            speed: 1.4
+            speed: 42
             count: 40
             types:
               - normal
           - x: '432, 5168'
             y: '240, 464'
             radius: 76
-            speed: 4.3
+            speed: 129
             count: 2
             types:
               - crumbling
@@ -7565,7 +7564,7 @@ areas:
             y: '512, 544'
             radius: 16
             angle: 90
-            speed: 8.6
+            speed: 258
             count: 10
             types:
               - stalactite
@@ -7573,28 +7572,28 @@ areas:
             y: '512, 544'
             radius: 16
             angle: 270
-            speed: 8.6
+            speed: 258
             count: 10
             types:
               - stalactite
           - x: '384, 5376'
             y: '368, 688'
             radius: 16
-            speed: 5.7
+            speed: 171
             count: 20
             types:
               - crumbling
           - x: '384, 5376'
             y: '368, 688'
             radius: 25
-            speed: 4.3
+            speed: 129
             count: 50
             types:
               - switch
           - x: '384, 5376'
             y: '368, 688'
             radius: 10
-            speed: 4.3
+            speed: 129
             count: 50
             types:
               - normal
@@ -10155,77 +10154,77 @@ areas:
           - x: 822
             y: 350
             radius: 40
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 1268
             y: 710
             radius: 40
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 1618
             y: 278
             radius: 40
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 1812
             y: 752
             radius: 40
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 2270
             y: 734
             radius: 80
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 2472
             y: 240
             radius: 60
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 2832
             y: 340
             radius: 40
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 3378
             y: 714
             radius: 40
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 4660
             y: 214
             radius: 40
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 4146
             y: 370
             radius: 40
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
           - x: 4754
             y: 812
             radius: 40
-            speed: 14.3
+            speed: 429
             count: 1
             types:
               - lunging
@@ -10233,7 +10232,7 @@ areas:
             y: '512, 544'
             radius: 16
             angle: 90
-            speed: 4.3
+            speed: 129
             count: 6
             types:
               - stalactite
@@ -10241,7 +10240,7 @@ areas:
             y: '512, 544'
             radius: 16
             angle: 90
-            speed: 4.3
+            speed: 129
             count: 10
             types:
               - stalactite
@@ -10249,7 +10248,7 @@ areas:
             y: '512, 544'
             radius: 16
             angle: 270
-            speed: 4.3
+            speed: 129
             count: 6
             types:
               - stalactite
@@ -10257,35 +10256,35 @@ areas:
             y: '512, 544'
             radius: 16
             angle: 270
-            speed: 4.3
+            speed: 129
             count: 10
             types:
               - stalactite
           - x: '496, 2096'
             y: '272, 720'
             radius: 30
-            speed: 4.3
+            speed: 129
             count: 25
             types:
               - crumbling
           - x: '2288, 5072'
             y: '272, 720'
             radius: 30
-            speed: 4.3
+            speed: 129
             count: 40
             types:
               - crumbling
           - x: '496, 2096'
             y: '272, 720'
             radius: 10
-            speed: 4.3
+            speed: 129
             count: 10
             types:
               - normal
           - x: '2656, 5072'
             y: '272, 720'
             radius: 10
-            speed: 4.3
+            speed: 129
             count: 10
             types:
               - normal
@@ -13158,84 +13157,84 @@ areas:
           - x: 460
             y: 436
             radius: 40
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 524
             y: 556
             radius: 40
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 824
             y: 300
             radius: 60
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 1224
             y: 694
             radius: 60
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 1724
             y: 366
             radius: 60
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 2770
             y: 394
             radius: 75
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 3500
             y: 340
             radius: 90
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 2260
             y: 780
             radius: 120
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 3146
             y: 650
             radius: 60
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 3976
             y: 348
             radius: 60
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 4346
             y: 694
             radius: 90
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
           - x: 4846
             y: 372
             radius: 100
-            speed: 17.2
+            speed: 516
             count: 1
             types:
               - lunging
@@ -13243,7 +13242,7 @@ areas:
             y: '432, 656'
             radius: 16
             angle: 90
-            speed: 4.3
+            speed: 129
             count: 20
             types:
               - stalactite
@@ -13251,28 +13250,28 @@ areas:
             y: '432, 656'
             radius: 16
             angle: 270
-            speed: 4.3
+            speed: 129
             count: 20
             types:
               - stalactite
           - x: '624, 5328'
             y: '272, 688'
             radius: 40
-            speed: 8.6
+            speed: 258
             count: 35
             types:
               - crumbling
           - x: '624, 5328'
             y: '272, 688'
             radius: 20
-            speed: 2.9
+            speed: 87
             count: 20
             types:
               - sizing
           - x: '624, 5328'
             y: '272, 688'
             radius: 10
-            speed: 4.3
+            speed: 129
             count: 50
             types:
               - normal
@@ -15324,7 +15323,7 @@ areas:
             y: '336, 688'
             radius: 40
             angle: 90
-            speed: 8.6
+            speed: 258
             count: 17
             types:
               - stalactite
@@ -15332,21 +15331,21 @@ areas:
             y: '336, 688'
             radius: 40
             angle: 270
-            speed: 8.6
+            speed: 258
             count: 17
             types:
               - stalactite
           - x: '400, 5360'
             y: '336, 688'
             radius: 30
-            speed: 8.6
+            speed: 258
             count: 20
             types:
               - sizing
           - x: '400, 5360'
             y: '224, 864'
             radius: 20
-            speed: 17.2
+            speed: 516
             count: 30
             types:
               - lunging
@@ -17423,122 +17422,122 @@ areas:
           - x: 510
             y: 190
             radius: 190
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 751
             y: 100
             radius: 120
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 420
             y: 431
             radius: 100
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 2160
             y: 890
             radius: 70
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 540
             y: 352
             radius: 80
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 380
             y: 558
             radius: 60
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 663
             y: 288
             radius: 90
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 3816
             y: 610
             radius: 150
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 3606
             y: 610
             radius: 100
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 3696
             y: 510
             radius: 70
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 3576
             y: 490
             radius: 60
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 3456
             y: 550
             radius: 100
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 4026
             y: 600
             radius: 120
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 4176
             y: 550
             radius: 90
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 4148
             y: 650
             radius: 40
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - radius: 16
-            speed: 10
+            speed: 300
             count: 6
             types:
               - fire_trail
           - radius: 26
-            speed: 4.3
+            speed: 129
             count: 80
             types:
               - sizing
           - x: 4288
             y: 560
             radius: 80
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
@@ -18524,76 +18523,76 @@ areas:
           - x: 570
             y: 710
             radius: 250
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 3960
             y: 640
             radius: 60
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 4030
             y: 610
             radius: 66
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 4120
             y: 640
             radius: 50
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 4206
             y: 610
             radius: 70
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 4300
             y: 650
             radius: 50
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 4310
             y: 570
             radius: 60
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - x: 2880
             y: 860
             radius: 100
-            speed: 4.3
+            speed: 129
             count: 1
             types:
               - lunging
           - radius: 16
-            speed: 10
+            speed: 300
             count: 12
             types:
               - fire_trail
           - radius: 30
-            speed: 2.9
+            speed: 87
             count: 20
             types:
               - wavy
           - radius: 40
-            speed: 2.9
+            speed: 87
             count: 5
             types:
               - slowing
           - radius: 16
-            speed: 4.3
+            speed: 129
             count: 70
             types:
               - sizing
@@ -18806,22 +18805,21 @@ areas:
             types:
               - quicksand
             quicksand_radius: 1431
-            push_direction: 180
-            quicksand_strength: 3
+            quicksand_strength: 60
             immune: true
           - radius: 20
-            speed: 2.9
+            speed: 87
             count: 35
             types:
               - wavy
           - radius: 10
-            speed: 10
+            speed: 300
             count: 95
             types:
               - slowing
             slowing_radius: 50
           - radius: 50
-            speed: 4.3
+            speed: 129
             count: 10
             types:
               - fire_trail
@@ -18829,7 +18827,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 5.958333333333333
+            speed: 178.8
             types:
             - slowing
             x: 384
@@ -18838,7 +18836,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 5.958333333333333
+            speed: 178.8
             types:
             - slowing
             x: 384
@@ -18847,7 +18845,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 5.958333333333333
+            speed: 178.8
             types:
             - slowing
             x: 384
@@ -18856,7 +18854,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 5.958333333333333
+            speed: 178.8
             types:
             - slowing
             x: 384
@@ -18865,7 +18863,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 5.958333333333333
+            speed: 178.8
             types:
             - slowing
             x: 2816
@@ -18874,7 +18872,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 5.958333333333333
+            speed: 178.8
             types:
             - slowing
             x: 2816
@@ -18883,7 +18881,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 5.958333333333333
+            speed: 178.8
             types:
             - slowing
             x: 2816
@@ -18892,7 +18890,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 5.958333333333333
+            speed: 178.8
             types:
             - slowing
             x: 2816
@@ -18901,7 +18899,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 12.55833333333333
+            speed: 376.7
             types:
             - slowing
             x: 2816
@@ -18910,7 +18908,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 12.55833333333333
+            speed: 376.7
             types:
             - slowing
             x: 384
@@ -18919,7 +18917,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 12.55833333333333
+            speed: 376.7
             types:
             - slowing
             x: 1600
@@ -18928,7 +18926,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 12.55833333333333
+            speed: 376.7
             types:
             - slowing
             x: 1600
@@ -18937,7 +18935,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 12.55833333333333
+            speed: 376.7
             types:
             - slowing
             x: 2816
@@ -18946,7 +18944,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 12.55833333333333
+            speed: 376.7
             types:
             - slowing
             x: 384
@@ -18955,7 +18953,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 12.55833333333333
+            speed: 376.7
             types:
             - slowing
             x: 1600
@@ -18964,7 +18962,7 @@ areas:
             count: 1
             radius: 64
             slowing_radius: 80
-            speed: 12.55833333333333
+            speed: 376.7
             types:
             - slowing
             x: 1600
@@ -19180,27 +19178,26 @@ areas:
             types:
               - quicksand
             quicksand_radius: 2605
-            push_direction: 180
-            quicksand_strength: 3
+            quicksand_strength: 60
             immune: true
           - radius: 10
-            speed: 10
+            speed: 300
             count: 70
             types:
               - slowing
             slowing_radius: 75
           - radius: 40
-            speed: 10
+            speed: 300
             count: 80
             types:
               - sandrock
           - radius: 10
-            speed: 5.7
+            speed: 171
             count: 90
             types:
               - normal
           - radius: 100
-            speed: 4.3
+            speed: 129
             count: 5
             types:
               - wavy
@@ -19208,7 +19205,7 @@ areas:
             y: 32
             radius: 32
             angle: 90
-            speed: 8.891666666666667
+            speed: 266.8
             count: 1
             types:
               - slowing
@@ -19217,7 +19214,7 @@ areas:
             y: 480
             radius: 32
             angle: 90
-            speed: 8.891666666666667
+            speed: 266.8
             count: 1
             types:
               - slowing
@@ -19226,7 +19223,7 @@ areas:
             y: 480
             radius: 32
             angle: 270
-            speed: 8.891666666666667
+            speed: 266.8
             count: 1
             types:
               - slowing
@@ -19235,7 +19232,7 @@ areas:
             y: 928
             radius: 32
             angle: 270
-            speed: 8.891666666666667
+            speed: 266.8
             count: 1
             types:
               - slowing
@@ -19244,7 +19241,7 @@ areas:
             y: 32
             radius: 32
             angle: 90
-            speed: 8.891666666666667
+            speed: 266.8
             count: 1
             types:
               - slowing
@@ -19253,7 +19250,7 @@ areas:
             y: 480
             radius: 32
             angle: 90
-            speed: 8.891666666666667
+            speed: 266.8
             count: 1
             types:
               - slowing
@@ -19262,7 +19259,7 @@ areas:
             y: 480
             radius: 32
             angle: 270
-            speed: 8.891666666666667
+            speed: 266.8
             count: 1
             types:
               - slowing
@@ -19271,7 +19268,7 @@ areas:
             y: 928
             radius: 32
             angle: 270
-            speed: 8.891666666666667
+            speed: 266.8
             count: 1
             types:
               - slowing
@@ -19280,7 +19277,7 @@ areas:
             y: 928
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19289,7 +19286,7 @@ areas:
             y: 928
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19298,7 +19295,7 @@ areas:
             y: 928
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19307,7 +19304,7 @@ areas:
             y: 928
             radius: 32
             angle: 0
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19316,7 +19313,7 @@ areas:
             y: 928
             radius: 32
             angle: 0
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19325,7 +19322,7 @@ areas:
             y: 928
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19334,7 +19331,7 @@ areas:
             y: 928
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19343,7 +19340,7 @@ areas:
             y: 928
             radius: 32
             angle: 0
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19352,7 +19349,7 @@ areas:
             y: 32
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19361,7 +19358,7 @@ areas:
             y: 32
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19370,7 +19367,7 @@ areas:
             y: 32
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19379,7 +19376,7 @@ areas:
             y: 32
             radius: 32
             angle: 0
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19388,7 +19385,7 @@ areas:
             y: 32
             radius: 32
             angle: 0
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19397,7 +19394,7 @@ areas:
             y: 32
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19406,7 +19403,7 @@ areas:
             y: 32
             radius: 32
             angle: 180
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19415,7 +19412,7 @@ areas:
             y: 32
             radius: 32
             angle: 0
-            speed: 25.08720238095238
+            speed: 752.6
             count: 1
             types:
               - slowing
@@ -19551,32 +19548,31 @@ areas:
             types:
               - quicksand
             quicksand_radius: 2580
-            push_direction: 180
-            quicksand_strength: 3
+            quicksand_strength: 60
             immune: true
           - radius: 10
-            speed: 10
+            speed: 300
             count: 25
             types:
               - slowing
             slowing_radius: 100
           - radius: 30
-            speed: 4.3
+            speed: 129
             count: 18
             types:
               - sand
           - radius: 10
-            speed: 4.3
+            speed: 129
             count: 160
             types:
               - normal
           - radius: 20
-            speed: 5.7
+            speed: 171
             count: 18
             types:
               - sandrock
           - radius: 100
-            speed: 4.3
+            speed: 129
             count: 4
             types:
               - slowing
@@ -19585,7 +19581,7 @@ areas:
             y: 16
             radius: 16
             angle: 90
-            speed: 7.15
+            speed: 214.5
             count: 1
             types:
               - slowing
@@ -19594,7 +19590,7 @@ areas:
             y: 320
             radius: 16
             angle: 90
-            speed: 7.15
+            speed: 214.5
             count: 1
             types:
               - slowing
@@ -19603,7 +19599,7 @@ areas:
             y: 320
             radius: 16
             angle: 270
-            speed: 7.15
+            speed: 214.5
             count: 1
             types:
               - slowing
@@ -19612,7 +19608,7 @@ areas:
             y: 624
             radius: 16
             angle: 270
-            speed: 7.15
+            speed: 214.5
             count: 1
             types:
               - slowing
@@ -19621,7 +19617,7 @@ areas:
             y: 16
             radius: 16
             angle: 90
-            speed: 7.15
+            speed: 214.5
             count: 1
             types:
               - slowing
@@ -19630,7 +19626,7 @@ areas:
             y: 320
             radius: 16
             angle: 90
-            speed: 7.15
+            speed: 214.5
             count: 1
             types:
               - slowing
@@ -19639,7 +19635,7 @@ areas:
             y: 320
             radius: 16
             angle: 270
-            speed: 7.15
+            speed: 214.5
             count: 1
             types:
               - slowing
@@ -19648,7 +19644,7 @@ areas:
             y: 624
             radius: 16
             angle: 270
-            speed: 7.15
+            speed: 214.5
             count: 1
             types:
               - slowing
@@ -19657,7 +19653,7 @@ areas:
             y: 624
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19666,7 +19662,7 @@ areas:
             y: 624
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19675,7 +19671,7 @@ areas:
             y: 624
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19684,7 +19680,7 @@ areas:
             y: 624
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19693,7 +19689,7 @@ areas:
             y: 624
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19702,7 +19698,7 @@ areas:
             y: 624
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19711,7 +19707,7 @@ areas:
             y: 624
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19720,7 +19716,7 @@ areas:
             y: 624
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19729,7 +19725,7 @@ areas:
             y: 624
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19738,7 +19734,7 @@ areas:
             y: 624
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19747,7 +19743,7 @@ areas:
             y: 624
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19756,7 +19752,7 @@ areas:
             y: 624
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19765,7 +19761,7 @@ areas:
             y: 624
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19774,7 +19770,7 @@ areas:
             y: 624
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19783,7 +19779,7 @@ areas:
             y: 624
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19792,7 +19788,7 @@ areas:
             y: 624
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19801,7 +19797,7 @@ areas:
             y: 16
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19810,7 +19806,7 @@ areas:
             y: 16
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19819,7 +19815,7 @@ areas:
             y: 16
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19828,7 +19824,7 @@ areas:
             y: 16
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19837,7 +19833,7 @@ areas:
             y: 16
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19846,7 +19842,7 @@ areas:
             y: 16
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19855,7 +19851,7 @@ areas:
             y: 16
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19864,7 +19860,7 @@ areas:
             y: 16
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19873,7 +19869,7 @@ areas:
             y: 16
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19882,7 +19878,7 @@ areas:
             y: 16
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19891,7 +19887,7 @@ areas:
             y: 16
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19900,7 +19896,7 @@ areas:
             y: 16
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19909,7 +19905,7 @@ areas:
             y: 16
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19918,7 +19914,7 @@ areas:
             y: 16
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19927,7 +19923,7 @@ areas:
             y: 16
             radius: 16
             angle: 0
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -19936,7 +19932,7 @@ areas:
             y: 16
             radius: 16
             angle: 180
-            speed: 29.75
+            speed: 892.5
             count: 1
             types:
               - slowing
@@ -20072,38 +20068,37 @@ areas:
             types:
               - quicksand
             quicksand_radius: 3843
-            push_direction: 180
-            quicksand_strength: 3
+            quicksand_strength: 60
             immune: true
           - radius: 40
-            speed: 5.7
+            speed: 171
             count: 12
             types:
               - crumbling
           - radius: 20
-            speed: 10
+            speed: 300
             count: 15
             types:
               - sandrock
           - radius: 30
-            speed: 4.3
+            speed: 129
             count: 15
             types:
               - sand
           - radius: 10
-            speed: 4.3
+            speed: 129
             count: 120
             types:
               - normal
           - radius: 36
             angle: 90
-            speed: 7.2
+            speed: 216
             count: 7
             types:
               - stalactite
           - radius: 36
             angle: 270
-            speed: 7.2
+            speed: 216
             count: 7
             types:
               - stalactite

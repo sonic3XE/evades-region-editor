@@ -48,7 +48,7 @@ areas:
     width: 288
     height: 352
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -57,7 +57,7 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - dasher
       - enlarging
@@ -107,7 +107,7 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - dasher
       - enlarging
@@ -157,7 +157,7 @@ areas:
     spawner:
     - count: 10
       radius: 10
-      speed: 4.5
+      speed: 135
       types:
       - dasher
       - enlarging
@@ -171,7 +171,7 @@ areas:
       - switch
     - count: 7
       radius: 20
-      speed: 9.5
+      speed: 285
       types:
       - dasher
       - enlarging
@@ -185,7 +185,7 @@ areas:
       - switch
     - count: 7
       radius: 10
-      speed: 7.5
+      speed: 225
       types:
       - dasher
       - enlarging
@@ -199,7 +199,7 @@ areas:
       - switch
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
   - type: safe
@@ -240,7 +240,7 @@ areas:
     spawner:
     - count: 16
       radius: 30
-      speed: 7.5
+      speed: 225
       types:
       - dasher
       - enlarging
@@ -254,7 +254,7 @@ areas:
       - switch
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
   - type: safe
@@ -295,7 +295,7 @@ areas:
     spawner:
     - count: 10
       radius: 7
-      speed: 10
+      speed: 300
       types:
       - dasher
       - enlarging
@@ -309,7 +309,7 @@ areas:
       - switch
     - count: 10
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - dasher
       - enlarging
@@ -323,7 +323,7 @@ areas:
       - switch
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
   - type: safe
@@ -364,7 +364,7 @@ areas:
     spawner:
     - count: 18
       radius: 12
-      speed: 10
+      speed: 300
       types:
       - dasher
       - enlarging
@@ -378,7 +378,7 @@ areas:
       - switch
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
   - type: safe
@@ -419,7 +419,7 @@ areas:
     spawner:
     - count: 30
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - dasher
       - enlarging
@@ -433,7 +433,7 @@ areas:
       - switch
     - count: 2
       radius: 80
-      speed: 8
+      speed: 240
       types:
       - dasher
       - enlarging
@@ -447,7 +447,7 @@ areas:
       - switch
     - count: 5
       radius: 30
-      speed: 4
+      speed: 120
       types:
       - wall
   - type: safe
@@ -488,7 +488,7 @@ areas:
     spawner:
     - count: 15
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - corrosive
       - dasher
@@ -506,7 +506,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -547,7 +547,7 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 3.5
+      speed: 105
       types:
       - corrosive
       - dasher
@@ -565,7 +565,7 @@ areas:
       - toxic
     - count: 13
       radius: 24
-      speed: 9.5
+      speed: 285
       types:
       - corrosive
       - dasher
@@ -583,7 +583,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -624,7 +624,7 @@ areas:
     spawner:
     - count: 7
       radius: 40
-      speed: 4
+      speed: 120
       types:
       - corrosive
       - dasher
@@ -642,7 +642,7 @@ areas:
       - toxic
     - count: 7
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - corrosive
       - dasher
@@ -660,7 +660,7 @@ areas:
       - toxic
     - count: 7
       radius: 20
-      speed: 8
+      speed: 240
       types:
       - corrosive
       - dasher
@@ -678,7 +678,7 @@ areas:
       - toxic
     - count: 7
       radius: 10
-      speed: 10
+      speed: 300
       types:
       - corrosive
       - dasher
@@ -696,7 +696,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -737,7 +737,7 @@ areas:
     spawner:
     - count: 31
       radius: 12
-      speed: 9
+      speed: 270
       types:
       - corrosive
       - dasher
@@ -755,7 +755,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -796,7 +796,7 @@ areas:
     spawner:
     - count: 17
       radius: 12
-      speed: 8.5
+      speed: 255
       types:
       - corrosive
       - dasher
@@ -814,7 +814,7 @@ areas:
       - toxic
     - count: 7
       radius: 18
-      speed: 12.5
+      speed: 375
       types:
       - corrosive
       - dasher
@@ -832,7 +832,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -873,7 +873,7 @@ areas:
     spawner:
     - count: 24
       radius: 18
-      speed: 9.5
+      speed: 285
       types:
       - corrosive
       - dasher
@@ -891,7 +891,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -932,7 +932,7 @@ areas:
     spawner:
     - count: 34
       radius: 12
-      speed: 9.5
+      speed: 285
       types:
       - corrosive
       - dasher
@@ -950,7 +950,7 @@ areas:
       - toxic
     - count: 2
       radius: 80
-      speed: 9
+      speed: 270
       types:
       - corrosive
       - dasher
@@ -968,7 +968,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -1009,7 +1009,7 @@ areas:
     spawner:
     - count: 8
       radius: 45
-      speed: 6
+      speed: 180
       types:
       - corrosive
       - dasher
@@ -1029,7 +1029,7 @@ areas:
       - toxic
     - count: 11
       radius: 11
-      speed: 8
+      speed: 240
       types:
       - corrosive
       - dasher
@@ -1049,7 +1049,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
   - type: safe
@@ -1090,7 +1090,7 @@ areas:
     spawner:
     - count: 9
       radius: 12
-      speed: 4
+      speed: 120
       types:
       - corrosive
       - dasher
@@ -1110,7 +1110,7 @@ areas:
       - toxic
     - count: 8
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - corrosive
       - dasher
@@ -1130,7 +1130,7 @@ areas:
       - toxic
     - count: 8
       radius: 12
-      speed: 10
+      speed: 300
       types:
       - corrosive
       - dasher
@@ -1150,7 +1150,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
   - type: safe
@@ -1191,7 +1191,7 @@ areas:
     spawner:
     - count: 15
       radius: 48
-      speed: 10
+      speed: 300
       types:
       - corrosive
       - dasher
@@ -1211,7 +1211,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
   - type: safe
@@ -1252,7 +1252,7 @@ areas:
     spawner:
     - count: 4
       radius: 8
-      speed: 15
+      speed: 450
       types:
       - corrosive
       - dasher
@@ -1272,7 +1272,7 @@ areas:
       - toxic
     - count: 20
       radius: 36
-      speed: 8
+      speed: 240
       types:
       - corrosive
       - dasher
@@ -1292,7 +1292,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
   - type: safe
@@ -1333,7 +1333,7 @@ areas:
     spawner:
     - count: 17
       radius: 28
-      speed: 9.5
+      speed: 285
       types:
       - corrosive
       - dasher
@@ -1353,7 +1353,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
   - type: safe
@@ -1394,7 +1394,7 @@ areas:
     spawner:
     - count: 6
       radius: 14
-      speed: 11
+      speed: 330
       types:
       - corrosive
       - dasher
@@ -1414,7 +1414,7 @@ areas:
       - toxic
     - count: 6
       radius: 12
-      speed: 11
+      speed: 330
       types:
       - corrosive
       - dasher
@@ -1434,7 +1434,7 @@ areas:
       - toxic
     - count: 7
       radius: 10
-      speed: 11
+      speed: 330
       types:
       - corrosive
       - dasher
@@ -1454,7 +1454,7 @@ areas:
       - toxic
     - count: 7
       radius: 10
-      speed: 8
+      speed: 240
       types:
       - corrosive
       - dasher
@@ -1474,7 +1474,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
   - type: safe
@@ -1515,7 +1515,7 @@ areas:
     spawner:
     - count: 18
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - corrosive
       - dasher
@@ -1535,7 +1535,7 @@ areas:
       - toxic
     - count: 2
       radius: 80
-      speed: 10
+      speed: 300
       types:
       - corrosive
       - dasher
@@ -1555,7 +1555,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
   - type: safe
@@ -1596,7 +1596,7 @@ areas:
     spawner:
     - count: 6
       radius: 50
-      speed: 9
+      speed: 270
       types:
       - corrosive
       - dasher
@@ -1619,7 +1619,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
   - type: safe
@@ -1660,7 +1660,7 @@ areas:
     spawner:
     - count: 22
       radius: 25
-      speed: 5
+      speed: 150
       types:
       - corrosive
       - dasher
@@ -1683,7 +1683,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
   - type: safe
@@ -1724,7 +1724,7 @@ areas:
     spawner:
     - count: 11
       radius: 10
-      speed: 14
+      speed: 420
       types:
       - corrosive
       - dasher
@@ -1747,7 +1747,7 @@ areas:
       - toxic
     - count: 3
       radius: 40
-      speed: 5
+      speed: 150
       types:
       - corrosive
       - dasher
@@ -1770,7 +1770,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
   - type: safe
@@ -1811,7 +1811,7 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - corrosive
       - dasher
@@ -1834,7 +1834,7 @@ areas:
       - toxic
     - count: 13
       radius: 18
-      speed: 4
+      speed: 120
       types:
       - corrosive
       - dasher
@@ -1857,7 +1857,7 @@ areas:
       - toxic
     - count: 4
       radius: 24
-      speed: 12
+      speed: 360
       types:
       - corrosive
       - dasher
@@ -1880,7 +1880,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
   - type: safe
@@ -1921,7 +1921,7 @@ areas:
     spawner:
     - count: 11
       radius: 9
-      speed: 12
+      speed: 360
       types:
       - corrosive
       - dasher
@@ -1944,7 +1944,7 @@ areas:
       - toxic
     - count: 13
       radius: 12
-      speed: 4
+      speed: 120
       types:
       - corrosive
       - dasher
@@ -1967,7 +1967,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
   - type: safe
@@ -2008,7 +2008,7 @@ areas:
     spawner:
     - count: 19
       radius: 38
-      speed: 9
+      speed: 270
       types:
       - corrosive
       - dasher
@@ -2031,7 +2031,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
   - type: safe
@@ -2072,7 +2072,7 @@ areas:
     spawner:
     - count: 24
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - corrosive
       - dasher
@@ -2095,7 +2095,7 @@ areas:
       - toxic
     - count: 2
       radius: 80
-      speed: 12
+      speed: 360
       types:
       - corrosive
       - dasher
@@ -2118,7 +2118,7 @@ areas:
       - toxic
     - count: 5
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
   - type: safe

@@ -32,7 +32,7 @@ areas:
     width: 288
     height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -41,7 +41,7 @@ areas:
     spawner:
     - count: 4
       radius: 18
-      speed: 8.1
+      speed: 243
       types:
       - enlarging
       - homing
@@ -87,7 +87,7 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 10.8
+      speed: 324
       types:
       - enlarging
       - homing
@@ -133,7 +133,7 @@ areas:
     spawner:
     - count: 8
       radius: 10
-      speed: 6.3
+      speed: 189
       types:
       - enlarging
       - homing
@@ -143,7 +143,7 @@ areas:
       - switch
     - count: 6
       radius: 20
-      speed: 12.6
+      speed: 378
       types:
       - enlarging
       - homing
@@ -153,7 +153,7 @@ areas:
       - switch
     - count: 6
       radius: 10
-      speed: 9.9
+      speed: 297
       types:
       - enlarging
       - homing
@@ -163,7 +163,7 @@ areas:
       - switch
     - count: 4
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -204,7 +204,7 @@ areas:
     spawner:
     - count: 12
       radius: 30
-      speed: 9.9
+      speed: 297
       types:
       - enlarging
       - homing
@@ -214,7 +214,7 @@ areas:
       - switch
     - count: 4
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -255,7 +255,7 @@ areas:
     spawner:
     - count: 8
       radius: 7
-      speed: 13.5
+      speed: 405
       types:
       - enlarging
       - homing
@@ -265,7 +265,7 @@ areas:
       - switch
     - count: 8
       radius: 18
-      speed: 10.8
+      speed: 324
       types:
       - enlarging
       - homing
@@ -275,7 +275,7 @@ areas:
       - switch
     - count: 4
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -316,7 +316,7 @@ areas:
     spawner:
     - count: 14
       radius: 12
-      speed: 13.5
+      speed: 405
       types:
       - enlarging
       - homing
@@ -326,7 +326,7 @@ areas:
       - switch
     - count: 4
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -367,7 +367,7 @@ areas:
     spawner:
     - count: 23
       radius: 18
-      speed: 10.8
+      speed: 324
       types:
       - enlarging
       - homing
@@ -377,7 +377,7 @@ areas:
       - switch
     - count: 2
       radius: 80
-      speed: 10.8
+      speed: 324
       types:
       - enlarging
       - homing
@@ -387,7 +387,7 @@ areas:
       - switch
     - count: 4
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
   - type: safe
@@ -428,7 +428,7 @@ areas:
     spawner:
     - count: 12
       radius: 12
-      speed: 10.45
+      speed: 313.5
       types:
       - corrosive
       - enlarging
@@ -442,7 +442,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -483,7 +483,7 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 5.7
+      speed: 171
       types:
       - corrosive
       - enlarging
@@ -497,7 +497,7 @@ areas:
       - toxic
     - count: 10
       radius: 24
-      speed: 13.3
+      speed: 399
       types:
       - corrosive
       - enlarging
@@ -511,7 +511,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -552,7 +552,7 @@ areas:
     spawner:
     - count: 6
       radius: 40
-      speed: 5.7
+      speed: 171
       types:
       - corrosive
       - enlarging
@@ -566,7 +566,7 @@ areas:
       - toxic
     - count: 6
       radius: 30
-      speed: 8.55
+      speed: 256.5
       types:
       - corrosive
       - enlarging
@@ -580,7 +580,7 @@ areas:
       - toxic
     - count: 6
       radius: 20
-      speed: 11.4
+      speed: 342
       types:
       - corrosive
       - enlarging
@@ -594,7 +594,7 @@ areas:
       - toxic
     - count: 6
       radius: 10
-      speed: 14.25
+      speed: 427.5
       types:
       - corrosive
       - enlarging
@@ -608,7 +608,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -649,7 +649,7 @@ areas:
     spawner:
     - count: 24
       radius: 12
-      speed: 13.3
+      speed: 399
       types:
       - corrosive
       - enlarging
@@ -663,7 +663,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -704,7 +704,7 @@ areas:
     spawner:
     - count: 13
       radius: 12
-      speed: 12.35
+      speed: 370.5
       types:
       - corrosive
       - enlarging
@@ -718,7 +718,7 @@ areas:
       - toxic
     - count: 6
       radius: 18
-      speed: 18.05
+      speed: 541.5
       types:
       - corrosive
       - enlarging
@@ -732,7 +732,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -773,7 +773,7 @@ areas:
     spawner:
     - count: 18
       radius: 18
-      speed: 13.3
+      speed: 399
       types:
       - corrosive
       - enlarging
@@ -787,7 +787,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -828,7 +828,7 @@ areas:
     spawner:
     - count: 26
       radius: 12
-      speed: 13.3
+      speed: 399
       types:
       - corrosive
       - enlarging
@@ -842,7 +842,7 @@ areas:
       - toxic
     - count: 2
       radius: 80
-      speed: 13.3
+      speed: 399
       types:
       - corrosive
       - enlarging
@@ -856,7 +856,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 9
+      speed: 270
       types:
       - wall
   - type: safe
@@ -897,7 +897,7 @@ areas:
     spawner:
     - count: 6
       radius: 45
-      speed: 8.55
+      speed: 256.5
       types:
       - corrosive
       - disabling
@@ -912,7 +912,7 @@ areas:
       - toxic
     - count: 9
       radius: 11
-      speed: 11.4
+      speed: 342
       types:
       - corrosive
       - disabling
@@ -927,7 +927,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -968,7 +968,7 @@ areas:
     spawner:
     - count: 7
       radius: 12
-      speed: 5.7
+      speed: 171
       types:
       - corrosive
       - disabling
@@ -983,7 +983,7 @@ areas:
       - toxic
     - count: 6
       radius: 12
-      speed: 10.45
+      speed: 313.5
       types:
       - corrosive
       - disabling
@@ -998,7 +998,7 @@ areas:
       - toxic
     - count: 6
       radius: 12
-      speed: 14.25
+      speed: 427.5
       types:
       - corrosive
       - disabling
@@ -1013,7 +1013,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -1054,7 +1054,7 @@ areas:
     spawner:
     - count: 12
       radius: 48
-      speed: 14.25
+      speed: 427.5
       types:
       - corrosive
       - disabling
@@ -1069,7 +1069,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -1110,7 +1110,7 @@ areas:
     spawner:
     - count: 3
       radius: 8
-      speed: 20.9
+      speed: 627
       types:
       - corrosive
       - disabling
@@ -1125,7 +1125,7 @@ areas:
       - toxic
     - count: 15
       radius: 36
-      speed: 11.4
+      speed: 342
       types:
       - corrosive
       - disabling
@@ -1140,7 +1140,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -1181,7 +1181,7 @@ areas:
     spawner:
     - count: 13
       radius: 28
-      speed: 13.3
+      speed: 399
       types:
       - corrosive
       - disabling
@@ -1196,7 +1196,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -1237,7 +1237,7 @@ areas:
     spawner:
     - count: 5
       radius: 14
-      speed: 15.2
+      speed: 456
       types:
       - corrosive
       - disabling
@@ -1252,7 +1252,7 @@ areas:
       - toxic
     - count: 5
       radius: 12
-      speed: 15.2
+      speed: 456
       types:
       - corrosive
       - disabling
@@ -1267,7 +1267,7 @@ areas:
       - toxic
     - count: 6
       radius: 10
-      speed: 15.2
+      speed: 456
       types:
       - corrosive
       - disabling
@@ -1282,7 +1282,7 @@ areas:
       - toxic
     - count: 6
       radius: 10
-      speed: 11.4
+      speed: 342
       types:
       - corrosive
       - disabling
@@ -1297,7 +1297,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -1338,7 +1338,7 @@ areas:
     spawner:
     - count: 14
       radius: 18
-      speed: 20.9
+      speed: 627
       types:
       - corrosive
       - disabling
@@ -1353,7 +1353,7 @@ areas:
       - toxic
     - count: 2
       radius: 80
-      speed: 14.25
+      speed: 427.5
       types:
       - corrosive
       - disabling
@@ -1368,7 +1368,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 12
+      speed: 360
       types:
       - wall
   - type: safe
@@ -1409,7 +1409,7 @@ areas:
     spawner:
     - count: 5
       radius: 50
-      speed: 16
+      speed: 480
       types:
       - corrosive
       - disabling
@@ -1425,7 +1425,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1466,7 +1466,7 @@ areas:
     spawner:
     - count: 17
       radius: 25
-      speed: 9
+      speed: 270
       types:
       - corrosive
       - disabling
@@ -1482,7 +1482,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1523,7 +1523,7 @@ areas:
     spawner:
     - count: 9
       radius: 10
-      speed: 25
+      speed: 750
       types:
       - corrosive
       - disabling
@@ -1539,7 +1539,7 @@ areas:
       - toxic
     - count: 3
       radius: 40
-      speed: 9
+      speed: 270
       types:
       - corrosive
       - disabling
@@ -1555,7 +1555,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1596,7 +1596,7 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 18
+      speed: 540
       types:
       - corrosive
       - disabling
@@ -1612,7 +1612,7 @@ areas:
       - toxic
     - count: 10
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - corrosive
       - disabling
@@ -1628,7 +1628,7 @@ areas:
       - toxic
     - count: 3
       radius: 24
-      speed: 21
+      speed: 630
       types:
       - corrosive
       - disabling
@@ -1644,7 +1644,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1685,7 +1685,7 @@ areas:
     spawner:
     - count: 9
       radius: 9
-      speed: 21
+      speed: 630
       types:
       - corrosive
       - disabling
@@ -1701,7 +1701,7 @@ areas:
       - toxic
     - count: 10
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - corrosive
       - disabling
@@ -1717,7 +1717,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1758,7 +1758,7 @@ areas:
     spawner:
     - count: 15
       radius: 38
-      speed: 16
+      speed: 480
       types:
       - corrosive
       - disabling
@@ -1774,7 +1774,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe
@@ -1815,7 +1815,7 @@ areas:
     spawner:
     - count: 18
       radius: 18
-      speed: 22
+      speed: 660
       types:
       - corrosive
       - disabling
@@ -1831,7 +1831,7 @@ areas:
       - toxic
     - count: 2
       radius: 80
-      speed: 18
+      speed: 540
       types:
       - corrosive
       - disabling
@@ -1847,7 +1847,7 @@ areas:
       - toxic
     - count: 4
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
   - type: safe

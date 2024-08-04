@@ -7,7 +7,6 @@ properties:
   - 255
   - 75
 areas:
-# Area 1
 - properties:
     snow: 0.1
   x: var x
@@ -49,7 +48,7 @@ areas:
     width: 288
     height: 352
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -84,7 +83,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 2
 - properties:
     snow: 0.2
   x: last_right
@@ -109,7 +107,7 @@ areas:
       x: 1600
       y: 50
       angle: 0
-      turn_speed: 2
+      turn_speed: 60
       pattern: spiral
       types:
       - frost_giant
@@ -117,7 +115,7 @@ areas:
       x: 1600
       y: 430
       angle: 0
-      turn_speed: -2
+      turn_speed: -60
       pattern: spiral
       types:
       - frost_giant
@@ -138,7 +136,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 3
 - properties:
     snow: 0.3
   x: last_right
@@ -164,7 +161,7 @@ areas:
       y: 50
       angle: 0
       shot_interval: 200
-      turn_speed: 2
+      turn_speed: 60
       pattern: spiral
       types:
       - frost_giant
@@ -173,7 +170,7 @@ areas:
       y: 430
       angle: 0
       shot_interval: 200
-      turn_speed: -2
+      turn_speed: -60
       pattern: spiral
       types:
       - frost_giant
@@ -182,7 +179,7 @@ areas:
       y: 240
       angle: 0
       shot_interval: 200
-      turn_speed: 1
+      turn_speed: 30
       pattern: quadspiral
       types:
       - frost_giant
@@ -191,7 +188,7 @@ areas:
       y: 50
       angle: 0
       shot_interval: 200
-      turn_speed: 2
+      turn_speed: 60
       pattern: spiral
       types:
       - frost_giant
@@ -200,7 +197,7 @@ areas:
       y: 430
       angle: 0
       shot_interval: 200
-      turn_speed: -2
+      turn_speed: -60
       pattern: spiral
       types:
       - frost_giant
@@ -221,7 +218,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 4
 - properties:
     snow: 0.4
   x: last_right
@@ -318,7 +314,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 5
 - properties:
     snow: 0.5
   x: last_right
@@ -413,7 +408,7 @@ areas:
       pattern: twinspiral
       x: 2400
       y: 240
-      turn_speed: 4
+      turn_speed: 120
       shot_interval: 200
       types:
       - frost_giant
@@ -434,7 +429,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 6
 - properties:
     snow: 0.6
   x: last_right
@@ -459,7 +453,7 @@ areas:
       pattern: twincone
       angle: 180
       cone_angle: 120
-      turn_speed: 1.5
+      turn_speed: 45
       shot_interval: 250
       x: 600
       y: 240
@@ -469,8 +463,8 @@ areas:
       pattern: spiral
       pause_interval: 5000
       pause_duration: 5000
-      turn_acceleration: 0.8
-      shot_acceleration: 5
+      turn_acceleration: 24
+      shot_acceleration: 150
       x: 1600
       y: 240
       types:
@@ -480,8 +474,8 @@ areas:
       angle: 90
       pause_interval: 5000
       pause_duration: 5000
-      turn_acceleration: 0.05
-      shot_acceleration: 2
+      turn_acceleration: 1.5
+      shot_acceleration: 60
       x: 2600
       y: 50
       types:
@@ -492,8 +486,8 @@ areas:
       angle: -90
       pause_interval: 5000
       pause_duration: 5000
-      turn_acceleration: 0.05
-      shot_acceleration: 2
+      turn_acceleration: 1.5
+      shot_acceleration: 60
       x: 2600
       y: 430
       types:
@@ -515,7 +509,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 7
 - properties:
     snow: 0.7
   x: last_right
@@ -607,7 +600,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 8
 - properties:
     snow: 0.8
   x: last_right
@@ -708,7 +700,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 9
 - properties:
     snow: 0.9
   x: last_right
@@ -818,7 +809,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 10
 - properties:
     snow: 1
   x: last_right
@@ -877,7 +867,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 11
+  boss: true
 - properties:
     lighting: 0.5
     background_color:
@@ -906,7 +896,7 @@ areas:
     spawner:
     - count: 1
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -926,7 +916,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 12
 - properties:
     lighting: 0.5
     background_color:
@@ -955,7 +944,7 @@ areas:
     spawner:
     - count: 2
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -975,7 +964,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 13
 - properties:
     lighting: 0.5
     background_color:
@@ -1004,7 +992,7 @@ areas:
     spawner:
     - count: 4
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -1024,7 +1012,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 14
 - properties:
     lighting: 0.5
     background_color:
@@ -1053,7 +1040,7 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -1073,7 +1060,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 15
 - properties:
     lighting: 0.5
     background_color:
@@ -1102,7 +1088,7 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -1122,7 +1108,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 16
 - x: last_right
   y: last_y - 224
   properties:
@@ -1145,12 +1130,12 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     - count: 6
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     type: active
@@ -1177,7 +1162,6 @@ areas:
     width: 2240
     height: 480
     texture: ice
-# Area 17
 - x: last_right
   y: last_y
   properties:
@@ -1200,12 +1184,12 @@ areas:
     spawner:
     - count: 14
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     - count: 6
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     type: active
@@ -1232,7 +1216,6 @@ areas:
     width: 2368
     height: 608
     texture: ice
-# Area 18
 - x: last_right
   y: last_y
   properties:
@@ -1255,24 +1238,24 @@ areas:
     spawner:
     - count: 14
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     - count: 6
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       horizontal: true
       y: 0, 128
       types:
       - icicle
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       horizontal: true
       y: 672, 800
       types:
@@ -1307,7 +1290,6 @@ areas:
     width: 2240
     height: 224
     texture: ice
-# Area 19
 - x: last_right
   y: last_y
   properties:
@@ -1330,17 +1312,17 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - snowman
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - icicle
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       horizontal: true
       types:
       - icicle
@@ -1386,7 +1368,6 @@ areas:
     width: 320
     height: 224
     texture: ice
-# Area 20
 - x: last_right
   y: last_y
   properties:
@@ -1409,12 +1390,12 @@ areas:
     spawner:
     - count: 15
       radius: 36
-      speed: 10
+      speed: 300
       types:
       - icicle
     - count: 15
       radius: 36
-      speed: 10
+      speed: 300
       horizontal: true
       types:
       - icicle
@@ -1460,7 +1441,7 @@ areas:
     width: 320
     height: 224
     texture: ice
-# Area 21
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -1483,7 +1464,7 @@ areas:
     spawner:
     - count: 30
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - snowman
     type: active
@@ -1648,7 +1629,6 @@ areas:
     width: 160
     height: 96
     texture: ice
-# Area 22
 - x: last_right
   y: last_y
   properties:
@@ -1671,12 +1651,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - ice_sniper
     - count: 30
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - snowman
     type: active
@@ -1841,7 +1821,6 @@ areas:
     width: 160
     height: 96
     texture: ice
-# Area 23
 - x: last_right
   y: last_y
   properties:
@@ -1864,17 +1843,17 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - ice_sniper
     - count: 30
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - snowman
     - count: 10
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - slippery
     type: active
@@ -2039,7 +2018,6 @@ areas:
     width: 160
     height: 96
     texture: ice
-# Area 24
 - x: last_right
   y: last_y
   properties:
@@ -2062,27 +2040,27 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - ice_sniper
     - count: 30
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - snowman
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - slippery
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - icicle
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       horizontal: true
       types:
       - icicle
@@ -2248,7 +2226,6 @@ areas:
     width: 160
     height: 96
     texture: ice
-# Area 25
 - properties:
     lighting: 0.5
     background_color:
@@ -2277,12 +2254,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - icicle
     - count: 3
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     type: active
@@ -2302,7 +2279,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 26
 - properties:
     lighting: 0.5
     background_color:
@@ -2331,12 +2307,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - icicle
     - count: 4
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     type: active
@@ -2356,7 +2332,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 27
 - properties:
     lighting: 0.5
     background_color:
@@ -2385,17 +2360,17 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - icicle
     - count: 3
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     - count: 3
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - ice_sniper
     type: active
@@ -2415,7 +2390,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 28
 - properties:
     lighting: 0.5
     background_color:
@@ -2444,22 +2418,22 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - icicle
     - count: 3
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     - count: 3
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - ice_sniper
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -2479,7 +2453,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 29
 - properties:
     lighting: 0.5
     background_color:
@@ -2508,22 +2481,22 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - icicle
     - count: 3
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     - count: 3
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - ice_sniper
     - count: 3
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - snowman
     type: active
@@ -2543,7 +2516,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 30
 - properties:
     snow: 0.1
     background_color:
@@ -2571,12 +2543,12 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - icicle
     - count: 40
       radius: 18
-      speed: 5
+      speed: 150
       horizontal: true
       types:
       - icicle
@@ -2910,7 +2882,7 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 31
+  boss: true
 - properties:
     snow: 0.2
     background_color:
@@ -2938,18 +2910,18 @@ areas:
     spawner:
     - count: 30
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - icicle
     - count: 30
       radius: 18
-      speed: 5
+      speed: 150
       horizontal: true
       types:
       - icicle
     - count: 10
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - slippery
     type: active
@@ -3282,7 +3254,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 32
 - properties:
     snow: 0.3
     background_color:
@@ -3310,23 +3281,23 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - icicle
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       horizontal: true
       types:
       - icicle
     - count: 10
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - slippery
     - count: 10
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - ice_sniper
     type: active
@@ -3659,7 +3630,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 33
 - properties:
     snow: 0.4
     background_color:
@@ -3687,12 +3657,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - icicle
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       horizontal: true
       types:
       - icicle
@@ -3701,8 +3671,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 3000
-      speed: 5
-      turn_speed: 5
+      speed: 150
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -4035,7 +4005,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 34
 - properties:
     snow: 0.4
     background_color:
@@ -4063,12 +4032,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - icicle
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       horizontal: true
       types:
       - icicle
@@ -4077,8 +4046,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 3000
-      speed: 5
-      turn_speed: 5
+      speed: 150
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -4411,7 +4380,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 35
 - properties:
     snow: 0.5
     background_color:
@@ -4439,12 +4407,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - icicle
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       horizontal: true
       types:
       - icicle
@@ -4453,8 +4421,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 3000
-      speed: 5
-      turn_speed: 5
+      speed: 150
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -4787,7 +4755,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 36
 - properties:
     snow: 0.6
     background_color:
@@ -4818,8 +4785,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 3000
-      speed: 5
-      turn_speed: 5
+      speed: 150
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -4924,7 +4891,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 37
 - properties:
     snow: 0.7
     background_color:
@@ -4955,8 +4921,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 2000
-      speed: 5
-      turn_speed: 5
+      speed: 150
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -5061,7 +5027,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 38
 - properties:
     snow: 0.8
     background_color:
@@ -5092,8 +5057,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 1000
-      speed: 5
-      turn_speed: 5
+      speed: 150
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -5198,7 +5163,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 39
 - properties:
     snow: 0.9
     background_color:
@@ -5229,8 +5193,8 @@ areas:
       pattern: quadspiral
       immune: false
       shot_interval: 500
-      speed: 5
-      turn_speed: 5
+      speed: 150
+      turn_speed: 150
       types:
       - frost_giant
     type: active
@@ -5335,7 +5299,6 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 40
 - properties:
     snow: 1
     background_color:
@@ -5365,29 +5328,29 @@ areas:
       radius: 20
       pattern: quadspiral
       immune: false
-      speed: 5
-      turn_speed: 5
+      speed: 150
+      turn_speed: 150
       types:
       - frost_giant
     - count: 8
       radius: 20
-      speed: 5
+      speed: 150
       types:
       - icicle
     - count: 8
       radius: 20
-      speed: 5
+      speed: 150
       horizontal: true
       types:
       - icicle
     - count: 5
       radius: 20
-      speed: 5
+      speed: 150
       types:
       - slippery
     - count: 5
       radius: 20
-      speed: 5
+      speed: 150
       types:
       - ice_sniper
     type: active
@@ -5492,7 +5455,7 @@ areas:
     width: 96
     height: 96
     texture: ice
-# Area 41
+  boss: true
 - x: last_right
   y: last_y + 160
   zones:

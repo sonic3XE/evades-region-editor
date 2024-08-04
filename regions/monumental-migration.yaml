@@ -8,24 +8,9 @@ properties:
   max_level: 1000
   friction: 0.75
 areas:
-# Area 1
 - x: var x
   y: var y
   zones:
-  # - type: teleport
-  #   x: 0
-  #   y: 0
-  #   width: 32
-  #   height: 480
-  #   translate:
-  #     x: 1539298
-  #     y: 0
-  #   properties:
-  #     background_color:
-  #     - 0
-  #     - 0
-  #     - 0
-  #     - 100
   - type: teleport
     x: 0
     y: 0
@@ -48,7 +33,7 @@ areas:
     width: 320
     height: 352
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -57,7 +42,7 @@ areas:
     spawner:
     - count: 4
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
   - height: last_height
@@ -73,7 +58,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 2
 - x: last_right
   y: last_y
   zones:
@@ -94,7 +78,7 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
     type: active
@@ -114,7 +98,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 3
 - x: last_right
   y: last_y
   zones:
@@ -135,7 +118,7 @@ areas:
     spawner:
     - count: 7
       radius: 12
-      speed: 3
+      speed: 90
       types:
       - normal
     type: active
@@ -155,7 +138,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 4
 - x: last_right
   y: last_y
   zones:
@@ -176,12 +158,12 @@ areas:
     spawner:
     - count: 7
       radius: 24
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -201,7 +183,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 5
 - x: last_right
   y: last_y
   zones:
@@ -222,12 +203,12 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -247,7 +228,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 6
 - x: last_right
   y: last_y
   zones:
@@ -268,12 +248,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -293,7 +273,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 7
 - x: last_right
   y: last_y
   zones:
@@ -314,12 +293,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -339,7 +318,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 8
 - x: last_right
   y: last_y
   zones:
@@ -360,12 +338,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -385,7 +363,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 9
 - x: last_right
   y: last_y
   zones:
@@ -406,12 +383,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -431,7 +408,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 10
 - x: last_right
   y: last_y
   zones:
@@ -452,17 +428,17 @@ areas:
     spawner:
     - count: 5
       radius: 24
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 5
       radius: 24
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -482,7 +458,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 11
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -503,13 +479,13 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - homing
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -529,7 +505,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 12
 - x: last_right
   y: last_y
   zones:
@@ -550,13 +525,13 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - homing
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -576,7 +551,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 13
 - x: last_right
   y: last_y
   zones:
@@ -597,13 +571,13 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - homing
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -623,7 +597,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 14
 - x: last_right
   y: last_y
   zones:
@@ -644,14 +617,14 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - homing
       - normal
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -671,7 +644,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 15
 - x: last_right
   y: last_y
   zones:
@@ -692,12 +664,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -717,7 +689,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 16
 - x: last_right
   y: last_y
   zones:
@@ -738,17 +709,17 @@ areas:
     spawner:
     - count: 2
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - slowing
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -768,7 +739,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 17
 - x: last_right
   y: last_y
   zones:
@@ -789,13 +759,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - slowing
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -815,7 +785,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 18
 - x: last_right
   y: last_y
   zones:
@@ -836,13 +805,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slowing
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -862,7 +831,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 19
 - x: last_right
   y: last_y
   zones:
@@ -883,14 +851,14 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slowing
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -910,7 +878,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 20
 - x: last_right
   y: last_y
   zones:
@@ -931,14 +898,14 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - slowing
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -958,7 +925,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 21
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -979,12 +946,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1004,7 +971,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 22
 - x: last_right
   y: last_y
   zones:
@@ -1025,12 +991,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1050,7 +1016,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 23
 - x: last_right
   y: last_y
   zones:
@@ -1071,12 +1036,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1096,7 +1061,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 24
 - x: last_right
   y: last_y
   zones:
@@ -1117,12 +1081,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1142,7 +1106,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 25
 - x: last_right
   y: last_y
   zones:
@@ -1163,13 +1126,13 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - draining
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1189,7 +1152,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 26
 - x: last_right
   y: last_y
   zones:
@@ -1210,12 +1172,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - wavy
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1235,7 +1197,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 27
 - x: last_right
   y: last_y
   zones:
@@ -1256,13 +1217,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - wavy
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1282,7 +1243,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 28
 - x: last_right
   y: last_y
   zones:
@@ -1303,19 +1263,19 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - wavy
       - zigzag
     - count: 3
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slowing
       - draining
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1335,7 +1295,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 29
 - x: last_right
   y: last_y
   zones:
@@ -1356,19 +1315,19 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slowing
       - draining
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1388,7 +1347,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 30
 - x: last_right
   y: last_y
   zones:
@@ -1409,14 +1367,14 @@ areas:
     spawner:
     - count: 45
       radius: 18
-      speed: 2
+      speed: 60
       types:
       - wavy
       - zigzag
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1436,7 +1394,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 31
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -1457,12 +1415,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - spiral
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -1482,7 +1440,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 32
 - x: last_right
   y: last_y
   zones:
@@ -1503,12 +1460,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - zoning
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -1528,7 +1485,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 33
 - x: last_right
   y: last_y
   zones:
@@ -1549,13 +1505,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - spiral
       - zoning
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -1575,7 +1531,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 34
 - x: last_right
   y: last_y
   zones:
@@ -1596,19 +1551,19 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - spiral
       - zoning
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - dasher
       - normal
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -1628,7 +1583,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 35
 - x: last_right
   y: last_y
   zones:
@@ -1649,13 +1603,13 @@ areas:
     spawner:
     - count: 10
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - spiral
       - zoning
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -1675,7 +1629,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 36
 - x: last_right
   y: last_y
   zones:
@@ -1696,12 +1649,12 @@ areas:
     spawner:
     - count: 10
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - oscillating
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -1721,7 +1674,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 37
 - x: last_right
   y: last_y
   zones:
@@ -1742,13 +1694,13 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
       - oscillating
     - count: 18
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1768,7 +1720,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 38
 - x: last_right
   y: last_y
   zones:
@@ -1789,13 +1740,13 @@ areas:
     spawner:
     - count: 35
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
       - oscillating
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -1815,7 +1766,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 39
 - x: last_right
   y: last_y
   zones:
@@ -1836,13 +1786,13 @@ areas:
     spawner:
     - count: 15
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - normal
       - oscillating
     - count: 9
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1862,7 +1812,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 40
 - x: last_right
   y: last_y
   zones:
@@ -1883,17 +1832,17 @@ areas:
     spawner:
     - count: 3
       radius: 90
-      speed: 6
+      speed: 180
       types:
       - oscillating
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - homing
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -1913,7 +1862,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 1
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -1940,7 +1889,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 42
 - x: last_right
   y: last_y
   zones:
@@ -1961,7 +1909,7 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - switch
     type: active
@@ -1981,7 +1929,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 43
 - x: last_right
   y: last_y
   zones:
@@ -2002,7 +1949,7 @@ areas:
     spawner:
     - count: 17
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - switch
     type: active
@@ -2022,7 +1969,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 44
 - x: last_right
   y: last_y
   zones:
@@ -2043,13 +1989,13 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - switch
       - normal
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2069,7 +2015,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 45
 - x: last_right
   y: last_y
   zones:
@@ -2090,13 +2035,13 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 4
+      speed: 120
       types:
       - switch
       - homing
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2116,7 +2061,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 46
 - x: last_right
   y: last_y
   zones:
@@ -2137,12 +2081,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2162,7 +2106,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 47
 - x: last_right
   y: last_y
   zones:
@@ -2183,12 +2126,12 @@ areas:
     spawner:
     - count: 17
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2208,7 +2151,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 48
 - x: last_right
   y: last_y
   zones:
@@ -2229,13 +2171,13 @@ areas:
     spawner:
     - count: 17
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
       - homing
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2255,7 +2197,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 49
 - x: last_right
   y: last_y
   zones:
@@ -2276,13 +2217,13 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
       - slowing
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2302,7 +2243,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 50
 - x: last_right
   y: last_y
   zones:
@@ -2323,17 +2263,17 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
     - count: 6
       radius: 105
-      speed: 6
+      speed: 180
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -2353,7 +2293,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 51
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -2374,12 +2314,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2399,7 +2339,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 52
 - x: last_right
   y: last_y
   zones:
@@ -2420,12 +2359,12 @@ areas:
     spawner:
     - count: 17
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2445,7 +2384,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 53
 - x: last_right
   y: last_y
   zones:
@@ -2466,12 +2404,12 @@ areas:
     spawner:
     - count: 30
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2491,7 +2429,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 54
 - x: last_right
   y: last_y
   zones:
@@ -2512,12 +2449,12 @@ areas:
     spawner:
     - count: 45
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2537,7 +2474,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 55
 - x: last_right
   y: last_y
   zones:
@@ -2558,12 +2494,12 @@ areas:
     spawner:
     - count: 10
       radius: 50
-      speed: 6
+      speed: 180
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2583,7 +2519,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 56
 - x: last_right
   y: last_y
   zones:
@@ -2604,17 +2539,17 @@ areas:
     spawner:
     - count: 2
       radius: 3
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2634,7 +2569,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 57
 - x: last_right
   y: last_y
   zones:
@@ -2655,19 +2589,19 @@ areas:
     spawner:
     - count: 5
       radius: 3
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2687,7 +2621,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 58
 - x: last_right
   y: last_y
   zones:
@@ -2708,19 +2641,19 @@ areas:
     spawner:
     - count: 10
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - freezing
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2740,7 +2673,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 59
 - x: last_right
   y: last_y
   zones:
@@ -2761,19 +2693,19 @@ areas:
     spawner:
     - count: 15
       radius: 3
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2793,7 +2725,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 60
 - x: last_right
   y: last_y
   zones:
@@ -2814,17 +2745,17 @@ areas:
     spawner:
     - count: 25
       radius: 3
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 15
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2844,7 +2775,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 61
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -2865,12 +2796,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2890,7 +2821,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 62
 - x: last_right
   y: last_y
   zones:
@@ -2911,12 +2841,12 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2936,7 +2866,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 63
 - x: last_right
   y: last_y
   zones:
@@ -2957,12 +2886,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -2982,7 +2911,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 64
 - x: last_right
   y: last_y
   zones:
@@ -3003,12 +2931,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3028,7 +2956,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 65
 - x: last_right
   y: last_y
   zones:
@@ -3049,12 +2976,12 @@ areas:
     spawner:
     - count: 15
       radius: 35
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3074,7 +3001,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 66
 - x: last_right
   y: last_y
   zones:
@@ -3095,12 +3021,12 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3120,7 +3046,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 67
 - x: last_right
   y: last_y
   zones:
@@ -3141,12 +3066,12 @@ areas:
     spawner:
     - count: 10
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3166,7 +3091,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 68
 - x: last_right
   y: last_y
   zones:
@@ -3187,12 +3111,12 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3212,7 +3136,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 69
 - x: last_right
   y: last_y
   zones:
@@ -3233,12 +3156,12 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3258,7 +3181,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 70
 - x: last_right
   y: last_y
   zones:
@@ -3279,13 +3201,13 @@ areas:
     spawner:
     - count: 20
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3305,7 +3227,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 71
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -3326,12 +3248,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 0.5
+      speed: 15
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3351,7 +3273,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 72
 - x: last_right
   y: last_y
   zones:
@@ -3372,12 +3293,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 0.5
+      speed: 15
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3397,7 +3318,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 73
 - x: last_right
   y: last_y
   zones:
@@ -3418,12 +3338,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 1
+      speed: 30
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3443,7 +3363,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 74
 - x: last_right
   y: last_y
   zones:
@@ -3464,12 +3383,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 1
+      speed: 30
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3489,7 +3408,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 75
 - x: last_right
   y: last_y
   zones:
@@ -3510,12 +3428,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 1.5
+      speed: 45
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3535,7 +3453,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 76
 - x: last_right
   y: last_y
   zones:
@@ -3556,12 +3473,12 @@ areas:
     spawner:
     - count: 10
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - icicle
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3581,7 +3498,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 77
 - x: last_right
   y: last_y
   zones:
@@ -3602,13 +3518,13 @@ areas:
     spawner:
     - count: 15
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - icicle
       - normal
     - count: 18
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -3628,7 +3544,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 78
 - x: last_right
   y: last_y
   zones:
@@ -3649,13 +3564,13 @@ areas:
     spawner:
     - count: 15
       radius: 28
-      speed: 9
+      speed: 270
       types:
       - icicle
       - normal
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -3675,7 +3590,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 79
 - x: last_right
   y: last_y
   zones:
@@ -3696,13 +3610,13 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
       - normal
     - count: 9
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -3722,7 +3636,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 80
 - x: last_right
   y: last_y
   zones:
@@ -3743,19 +3656,19 @@ areas:
     spawner:
     - count: 18
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
       - normal
     - count: 5
       radius: 90
-      speed: 12
+      speed: 360
       types:
       - icicle
       - normal
     - count: 9
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -3775,7 +3688,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 2
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -3802,7 +3715,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 82
 - x: last_right
   y: last_y
   zones:
@@ -3823,7 +3735,7 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     type: active
@@ -3843,7 +3755,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 83
 - x: last_right
   y: last_y
   zones:
@@ -3864,7 +3775,7 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     type: active
@@ -3884,7 +3795,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 84
 - x: last_right
   y: last_y
   zones:
@@ -3905,13 +3815,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
       - normal
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -3931,7 +3841,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 85
 - x: last_right
   y: last_y
   zones:
@@ -3952,13 +3861,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
       - homing
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -3978,7 +3887,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 86
 - x: last_right
   y: last_y
   zones:
@@ -3999,13 +3907,13 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -4025,7 +3933,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 87
 - x: last_right
   y: last_y
   zones:
@@ -4046,13 +3953,13 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 4
+      speed: 120
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -4072,7 +3979,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 88
 - x: last_right
   y: last_y
   zones:
@@ -4093,13 +3999,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -4119,7 +4025,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 89
 - x: last_right
   y: last_y
   zones:
@@ -4140,13 +4045,13 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -4166,7 +4071,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 90
 - x: last_right
   y: last_y
   zones:
@@ -4187,19 +4091,19 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - slowing
       - draining
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -4219,7 +4123,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 91
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -4240,19 +4144,19 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 5
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4272,7 +4176,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 92
 - x: last_right
   y: last_y
   zones:
@@ -4293,19 +4196,19 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 5
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4325,7 +4228,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 93
 - x: last_right
   y: last_y
   zones:
@@ -4346,19 +4248,19 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 5
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4378,7 +4280,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 94
 - x: last_right
   y: last_y
   zones:
@@ -4399,19 +4300,19 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 5
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4431,7 +4332,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 95
 - x: last_right
   y: last_y
   zones:
@@ -4452,19 +4352,19 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 15
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4484,7 +4384,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 96
 - x: last_right
   y: last_y
   zones:
@@ -4505,14 +4404,14 @@ areas:
     spawner:
     - count: 20
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4532,7 +4431,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 97
 - x: last_right
   y: last_y
   zones:
@@ -4553,14 +4451,14 @@ areas:
     spawner:
     - count: 20
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4580,7 +4478,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 98
 - x: last_right
   y: last_y
   zones:
@@ -4601,14 +4498,14 @@ areas:
     spawner:
     - count: 20
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4628,7 +4525,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 99
 - x: last_right
   y: last_y
   zones:
@@ -4649,14 +4545,14 @@ areas:
     spawner:
     - count: 20
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4676,7 +4572,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 100
 - x: last_right
   y: last_y
   zones:
@@ -4697,14 +4592,14 @@ areas:
     spawner:
     - count: 30
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4724,7 +4619,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 101
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -4745,7 +4640,7 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -4754,7 +4649,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4774,7 +4669,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 102
 - x: last_right
   y: last_y
   zones:
@@ -4795,7 +4689,7 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -4804,7 +4698,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4824,7 +4718,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 103
 - x: last_right
   y: last_y
   zones:
@@ -4845,7 +4738,7 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -4854,7 +4747,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4874,7 +4767,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 104
 - x: last_right
   y: last_y
   zones:
@@ -4895,7 +4787,7 @@ areas:
     spawner:
     - count: 30
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -4904,7 +4796,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4924,7 +4816,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 105
 - x: last_right
   y: last_y
   zones:
@@ -4945,7 +4836,7 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -4954,7 +4845,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -4974,7 +4865,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 106
 - x: last_right
   y: last_y
   zones:
@@ -4995,17 +4885,17 @@ areas:
     spawner:
     - count: 3
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - radiating_bullets
     - count: 10
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -5025,7 +4915,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 107
 - x: last_right
   y: last_y
   zones:
@@ -5046,17 +4935,17 @@ areas:
     spawner:
     - count: 3
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - radiating_bullets
     - count: 10
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -5076,7 +4965,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 108
 - x: last_right
   y: last_y
   zones:
@@ -5097,17 +4985,17 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - radiating_bullets
     - count: 10
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -5127,7 +5015,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 109
 - x: last_right
   y: last_y
   zones:
@@ -5148,17 +5035,17 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - radiating_bullets
     - count: 15
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -5178,7 +5065,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 110
 - x: last_right
   y: last_y
   zones:
@@ -5199,17 +5085,17 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - radiating_bullets
     - count: 25
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -5229,7 +5115,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 111
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -5250,13 +5136,13 @@ areas:
     spawner:
     - count: 10
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -5276,7 +5162,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 112
 - x: last_right
   y: last_y
   zones:
@@ -5297,13 +5182,13 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -5323,7 +5208,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 113
 - x: last_right
   y: last_y
   zones:
@@ -5344,13 +5228,13 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -5370,7 +5254,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 114
 - x: last_right
   y: last_y
   zones:
@@ -5391,13 +5274,13 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -5417,7 +5300,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 115
 - x: last_right
   y: last_y
   zones:
@@ -5438,13 +5320,13 @@ areas:
     spawner:
     - count: 20
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -5464,7 +5346,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 116
 - x: last_right
   y: last_y
   zones:
@@ -5485,12 +5366,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -5510,7 +5391,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 117
 - x: last_right
   y: last_y
   zones:
@@ -5531,12 +5411,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 18
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -5556,7 +5436,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 118
 - x: last_right
   y: last_y
   zones:
@@ -5577,12 +5456,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 9
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -5602,7 +5481,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 119
 - x: last_right
   y: last_y
   zones:
@@ -5623,19 +5501,19 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - normal
       - homing
       - dasher
     - count: 9
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -5655,7 +5533,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 120
 - x: last_right
   y: last_y
   zones:
@@ -5676,19 +5553,19 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 6
       radius: 90
-      speed: 9
+      speed: 270
       types:
       - normal
       - homing
       - dasher
     - count: 9
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -5708,7 +5585,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 3
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -5735,7 +5612,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 2
 - x: last_right
   y: last_y
   zones:
@@ -5756,7 +5632,7 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - normal
     type: active
@@ -5776,7 +5652,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 3
 - x: last_right
   y: last_y
   zones:
@@ -5797,7 +5672,7 @@ areas:
     spawner:
     - count: 7
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - normal
     type: active
@@ -5817,7 +5692,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 4
 - x: last_right
   y: last_y
   zones:
@@ -5838,12 +5712,12 @@ areas:
     spawner:
     - count: 7
       radius: 24
-      speed: 5
+      speed: 150
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -5863,7 +5737,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 5
 - x: last_right
   y: last_y
   zones:
@@ -5884,12 +5757,12 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -5909,7 +5782,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 6
 - x: last_right
   y: last_y
   zones:
@@ -5930,12 +5802,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -5955,7 +5827,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 7
 - x: last_right
   y: last_y
   zones:
@@ -5976,12 +5847,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -6001,7 +5872,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 8
 - x: last_right
   y: last_y
   zones:
@@ -6022,12 +5892,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 13
+      speed: 390
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -6047,7 +5917,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 9
 - x: last_right
   y: last_y
   zones:
@@ -6068,12 +5937,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 13
+      speed: 390
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -6093,7 +5962,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 10
 - x: last_right
   y: last_y
   zones:
@@ -6114,17 +5982,17 @@ areas:
     spawner:
     - count: 5
       radius: 24
-      speed: 10
+      speed: 300
       types:
       - normal
     - count: 5
       radius: 24
-      speed: 13
+      speed: 390
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -6144,7 +6012,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 11
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -6165,13 +6033,13 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - homing
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6191,7 +6059,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 12
 - x: last_right
   y: last_y
   zones:
@@ -6212,13 +6079,13 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - homing
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6238,7 +6105,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 13
 - x: last_right
   y: last_y
   zones:
@@ -6259,13 +6125,13 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - homing
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6285,7 +6151,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 14
 - x: last_right
   y: last_y
   zones:
@@ -6306,14 +6171,14 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - homing
       - normal
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6333,7 +6198,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 15
 - x: last_right
   y: last_y
   zones:
@@ -6354,12 +6218,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6379,7 +6243,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 16
 - x: last_right
   y: last_y
   zones:
@@ -6400,17 +6263,17 @@ areas:
     spawner:
     - count: 2
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - slowing
     - count: 5
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6430,7 +6293,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 17
 - x: last_right
   y: last_y
   zones:
@@ -6451,13 +6313,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - slowing
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6477,7 +6339,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 18
 - x: last_right
   y: last_y
   zones:
@@ -6498,13 +6359,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - slowing
       - homing
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6524,7 +6385,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 19
 - x: last_right
   y: last_y
   zones:
@@ -6545,14 +6405,14 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - slowing
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6572,7 +6432,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 20
 - x: last_right
   y: last_y
   zones:
@@ -6593,14 +6452,14 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - slowing
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6620,7 +6479,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 21
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -6641,12 +6500,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6666,7 +6525,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 22
 - x: last_right
   y: last_y
   zones:
@@ -6687,12 +6545,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6712,7 +6570,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 23
 - x: last_right
   y: last_y
   zones:
@@ -6733,12 +6590,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6758,7 +6615,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 24
 - x: last_right
   y: last_y
   zones:
@@ -6779,12 +6635,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6804,7 +6660,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 25
 - x: last_right
   y: last_y
   zones:
@@ -6825,13 +6680,13 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - draining
       - homing
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6851,7 +6706,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 26
 - x: last_right
   y: last_y
   zones:
@@ -6872,12 +6726,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - wavy
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6897,7 +6751,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 27
 - x: last_right
   y: last_y
   zones:
@@ -6918,13 +6771,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - wavy
       - homing
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6944,7 +6797,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 28
 - x: last_right
   y: last_y
   zones:
@@ -6965,19 +6817,19 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - wavy
       - zigzag
     - count: 3
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - slowing
       - draining
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -6997,7 +6849,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 29
 - x: last_right
   y: last_y
   zones:
@@ -7018,19 +6869,19 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
     - count: 5
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - slowing
       - draining
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -7050,7 +6901,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 30
 - x: last_right
   y: last_y
   zones:
@@ -7071,14 +6921,14 @@ areas:
     spawner:
     - count: 45
       radius: 18
-      speed: 4
+      speed: 120
       types:
       - wavy
       - zigzag
       - homing
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -7098,7 +6948,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 31
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -7119,12 +6969,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - spiral
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -7144,7 +6994,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 32
 - x: last_right
   y: last_y
   zones:
@@ -7165,12 +7014,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - zoning
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -7190,7 +7039,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 33
 - x: last_right
   y: last_y
   zones:
@@ -7211,13 +7059,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - spiral
       - zoning
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -7237,7 +7085,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 34
 - x: last_right
   y: last_y
   zones:
@@ -7258,19 +7105,19 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - spiral
       - zoning
     - count: 10
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - dasher
       - normal
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -7290,7 +7137,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 35
 - x: last_right
   y: last_y
   zones:
@@ -7311,13 +7157,13 @@ areas:
     spawner:
     - count: 10
       radius: 35
-      speed: 10
+      speed: 300
       types:
       - spiral
       - zoning
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -7337,7 +7183,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 36
 - x: last_right
   y: last_y
   zones:
@@ -7358,12 +7203,12 @@ areas:
     spawner:
     - count: 10
       radius: 35
-      speed: 10
+      speed: 300
       types:
       - oscillating
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -7383,7 +7228,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 37
 - x: last_right
   y: last_y
   zones:
@@ -7404,13 +7248,13 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - normal
       - oscillating
     - count: 18
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -7430,7 +7274,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 38
 - x: last_right
   y: last_y
   zones:
@@ -7451,13 +7294,13 @@ areas:
     spawner:
     - count: 35
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - normal
       - oscillating
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -7477,7 +7320,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 39
 - x: last_right
   y: last_y
   zones:
@@ -7498,13 +7340,13 @@ areas:
     spawner:
     - count: 15
       radius: 35
-      speed: 10
+      speed: 300
       types:
       - normal
       - oscillating
     - count: 9
       radius: 30
-      speed: 24
+      speed: 720
       types:
       - wall
     type: active
@@ -7524,7 +7366,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 40
 - x: last_right
   y: last_y
   zones:
@@ -7545,17 +7386,17 @@ areas:
     spawner:
     - count: 3
       radius: 90
-      speed: 10
+      speed: 300
       types:
       - oscillating
     - count: 6
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - homing
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -7575,7 +7416,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 1
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -7602,7 +7443,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 42
 - x: last_right
   y: last_y
   zones:
@@ -7623,7 +7463,7 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - switch
     type: active
@@ -7643,7 +7483,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 43
 - x: last_right
   y: last_y
   zones:
@@ -7664,7 +7503,7 @@ areas:
     spawner:
     - count: 17
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - switch
     type: active
@@ -7684,7 +7523,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 44
 - x: last_right
   y: last_y
   zones:
@@ -7705,13 +7543,13 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - switch
       - normal
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -7731,7 +7569,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 45
 - x: last_right
   y: last_y
   zones:
@@ -7752,13 +7589,13 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - switch
       - homing
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -7778,7 +7615,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 46
 - x: last_right
   y: last_y
   zones:
@@ -7799,12 +7635,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - sizing
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -7824,7 +7660,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 47
 - x: last_right
   y: last_y
   zones:
@@ -7845,12 +7680,12 @@ areas:
     spawner:
     - count: 17
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - sizing
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -7870,7 +7705,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 48
 - x: last_right
   y: last_y
   zones:
@@ -7891,13 +7725,13 @@ areas:
     spawner:
     - count: 17
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - sizing
       - homing
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -7917,7 +7751,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 49
 - x: last_right
   y: last_y
   zones:
@@ -7938,13 +7771,13 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - sizing
       - slowing
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -7964,7 +7797,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 50
 - x: last_right
   y: last_y
   zones:
@@ -7985,17 +7817,17 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - sizing
     - count: 6
       radius: 105
-      speed: 10
+      speed: 300
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -8015,7 +7847,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 51
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -8036,12 +7868,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8061,7 +7893,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 52
 - x: last_right
   y: last_y
   zones:
@@ -8082,12 +7913,12 @@ areas:
     spawner:
     - count: 17
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8107,7 +7938,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 53
 - x: last_right
   y: last_y
   zones:
@@ -8128,12 +7958,12 @@ areas:
     spawner:
     - count: 30
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8153,7 +7983,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 54
 - x: last_right
   y: last_y
   zones:
@@ -8174,12 +8003,12 @@ areas:
     spawner:
     - count: 45
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8199,7 +8028,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 55
 - x: last_right
   y: last_y
   zones:
@@ -8220,12 +8048,12 @@ areas:
     spawner:
     - count: 10
       radius: 50
-      speed: 10
+      speed: 300
       types:
       - turning
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8245,7 +8073,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 56
 - x: last_right
   y: last_y
   zones:
@@ -8266,17 +8093,17 @@ areas:
     spawner:
     - count: 2
       radius: 3
-      speed: 5
+      speed: 150
       types:
       - freezing
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8296,7 +8123,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 57
 - x: last_right
   y: last_y
   zones:
@@ -8317,19 +8143,19 @@ areas:
     spawner:
     - count: 5
       radius: 3
-      speed: 5
+      speed: 150
       types:
       - freezing
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8349,7 +8175,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 58
 - x: last_right
   y: last_y
   zones:
@@ -8370,19 +8195,19 @@ areas:
     spawner:
     - count: 10
       radius: 3
-      speed: 10
+      speed: 300
       types:
       - freezing
     - count: 5
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8402,7 +8227,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 59
 - x: last_right
   y: last_y
   zones:
@@ -8423,19 +8247,19 @@ areas:
     spawner:
     - count: 15
       radius: 3
-      speed: 5
+      speed: 150
       types:
       - freezing
     - count: 5
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8455,7 +8279,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 60
 - x: last_right
   y: last_y
   zones:
@@ -8476,17 +8299,17 @@ areas:
     spawner:
     - count: 25
       radius: 3
-      speed: 5
+      speed: 150
       types:
       - freezing
     - count: 15
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8506,7 +8329,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 61
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -8527,12 +8350,12 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8552,7 +8375,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 62
 - x: last_right
   y: last_y
   zones:
@@ -8573,12 +8395,12 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8598,7 +8420,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 63
 - x: last_right
   y: last_y
   zones:
@@ -8619,12 +8440,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8644,7 +8465,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 64
 - x: last_right
   y: last_y
   zones:
@@ -8665,12 +8485,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8690,7 +8510,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 65
 - x: last_right
   y: last_y
   zones:
@@ -8711,12 +8530,12 @@ areas:
     spawner:
     - count: 15
       radius: 35
-      speed: 5
+      speed: 150
       types:
       - sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8736,7 +8555,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 66
 - x: last_right
   y: last_y
   zones:
@@ -8757,12 +8575,12 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - speed_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8782,7 +8600,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 67
 - x: last_right
   y: last_y
   zones:
@@ -8803,12 +8620,12 @@ areas:
     spawner:
     - count: 10
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - speed_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8828,7 +8645,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 68
 - x: last_right
   y: last_y
   zones:
@@ -8849,12 +8665,12 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - speed_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8874,7 +8690,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 69
 - x: last_right
   y: last_y
   zones:
@@ -8895,12 +8710,12 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8920,7 +8735,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 70
 - x: last_right
   y: last_y
   zones:
@@ -8941,13 +8755,13 @@ areas:
     spawner:
     - count: 20
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -8967,7 +8781,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 71
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -8988,12 +8802,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 1
+      speed: 30
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -9013,7 +8827,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 72
 - x: last_right
   y: last_y
   zones:
@@ -9034,12 +8847,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 1
+      speed: 30
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -9059,7 +8872,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 73
 - x: last_right
   y: last_y
   zones:
@@ -9080,12 +8892,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 2
+      speed: 60
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -9105,7 +8917,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 74
 - x: last_right
   y: last_y
   zones:
@@ -9126,12 +8937,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 2
+      speed: 60
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -9151,7 +8962,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 75
 - x: last_right
   y: last_y
   zones:
@@ -9172,12 +8982,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - liquid
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -9197,7 +9007,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 76
 - x: last_right
   y: last_y
   zones:
@@ -9218,12 +9027,12 @@ areas:
     spawner:
     - count: 10
       radius: 35
-      speed: 10
+      speed: 300
       types:
       - icicle
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -9243,7 +9052,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 77
 - x: last_right
   y: last_y
   zones:
@@ -9264,13 +9072,13 @@ areas:
     spawner:
     - count: 15
       radius: 35
-      speed: 10
+      speed: 300
       types:
       - icicle
       - normal
     - count: 18
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -9290,7 +9098,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 78
 - x: last_right
   y: last_y
   zones:
@@ -9311,13 +9118,13 @@ areas:
     spawner:
     - count: 15
       radius: 28
-      speed: 15
+      speed: 450
       types:
       - icicle
       - normal
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -9337,7 +9144,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 79
 - x: last_right
   y: last_y
   zones:
@@ -9358,13 +9164,13 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - icicle
       - normal
     - count: 9
       radius: 30
-      speed: 24
+      speed: 720
       types:
       - wall
     type: active
@@ -9384,7 +9190,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 80
 - x: last_right
   y: last_y
   zones:
@@ -9405,19 +9210,19 @@ areas:
     spawner:
     - count: 18
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - icicle
       - normal
     - count: 5
       radius: 90
-      speed: 20
+      speed: 600
       types:
       - icicle
       - normal
     - count: 9
       radius: 30
-      speed: 24
+      speed: 720
       types:
       - wall
     type: active
@@ -9437,7 +9242,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 2
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -9464,7 +9269,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 82
 - x: last_right
   y: last_y
   zones:
@@ -9485,7 +9289,7 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - slippery
     type: active
@@ -9505,7 +9309,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 83
 - x: last_right
   y: last_y
   zones:
@@ -9526,7 +9329,7 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - slippery
     type: active
@@ -9546,7 +9349,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 84
 - x: last_right
   y: last_y
   zones:
@@ -9567,13 +9369,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - slippery
       - normal
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -9593,7 +9395,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 85
 - x: last_right
   y: last_y
   zones:
@@ -9614,13 +9415,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - slippery
       - homing
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -9640,7 +9441,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 86
 - x: last_right
   y: last_y
   zones:
@@ -9661,13 +9461,13 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -9687,7 +9487,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 87
 - x: last_right
   y: last_y
   zones:
@@ -9708,13 +9507,13 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 7
+      speed: 210
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -9734,7 +9533,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 88
 - x: last_right
   y: last_y
   zones:
@@ -9755,13 +9553,13 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -9781,7 +9579,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 89
 - x: last_right
   y: last_y
   zones:
@@ -9802,13 +9599,13 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -9828,7 +9625,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 90
 - x: last_right
   y: last_y
   zones:
@@ -9849,19 +9645,19 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - ice_sniper
       - normal
     - count: 6
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - slowing
       - draining
     - count: 6
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -9881,7 +9677,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 91
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -9902,19 +9698,19 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - liquid
       - icicle
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -9934,7 +9730,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 92
 - x: last_right
   y: last_y
   zones:
@@ -9955,19 +9750,19 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - liquid
       - icicle
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -9987,7 +9782,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 93
 - x: last_right
   y: last_y
   zones:
@@ -10008,19 +9802,19 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - liquid
       - icicle
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10040,7 +9834,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 94
 - x: last_right
   y: last_y
   zones:
@@ -10061,19 +9854,19 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - liquid
       - icicle
     - count: 5
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10093,7 +9886,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 95
 - x: last_right
   y: last_y
   zones:
@@ -10114,19 +9906,19 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - liquid
       - icicle
     - count: 15
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10146,7 +9938,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 96
 - x: last_right
   y: last_y
   zones:
@@ -10167,14 +9958,14 @@ areas:
     spawner:
     - count: 20
       radius: 3
-      speed: 10
+      speed: 300
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10194,7 +9985,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 97
 - x: last_right
   y: last_y
   zones:
@@ -10215,14 +10005,14 @@ areas:
     spawner:
     - count: 20
       radius: 3
-      speed: 10
+      speed: 300
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10242,7 +10032,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 98
 - x: last_right
   y: last_y
   zones:
@@ -10263,14 +10052,14 @@ areas:
     spawner:
     - count: 20
       radius: 3
-      speed: 10
+      speed: 300
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10290,7 +10079,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 99
 - x: last_right
   y: last_y
   zones:
@@ -10311,14 +10099,14 @@ areas:
     spawner:
     - count: 20
       radius: 3
-      speed: 10
+      speed: 300
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10338,7 +10126,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 100
 - x: last_right
   y: last_y
   zones:
@@ -10359,14 +10146,14 @@ areas:
     spawner:
     - count: 30
       radius: 3
-      speed: 10
+      speed: 300
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10386,7 +10173,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 101
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -10407,7 +10194,7 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -10416,7 +10203,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10436,7 +10223,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 102
 - x: last_right
   y: last_y
   zones:
@@ -10457,7 +10243,7 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -10466,7 +10252,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10486,7 +10272,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 103
 - x: last_right
   y: last_y
   zones:
@@ -10507,7 +10292,7 @@ areas:
     spawner:
     - count: 25
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -10516,7 +10301,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10536,7 +10321,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 104
 - x: last_right
   y: last_y
   zones:
@@ -10557,7 +10341,7 @@ areas:
     spawner:
     - count: 30
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -10566,7 +10350,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10586,7 +10370,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 105
 - x: last_right
   y: last_y
   zones:
@@ -10607,7 +10390,7 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -10616,7 +10399,7 @@ areas:
       - oscillating
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10636,7 +10419,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 106
 - x: last_right
   y: last_y
   zones:
@@ -10657,17 +10439,17 @@ areas:
     spawner:
     - count: 3
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - radiating_bullets
     - count: 10
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10687,7 +10469,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 107
 - x: last_right
   y: last_y
   zones:
@@ -10708,17 +10489,17 @@ areas:
     spawner:
     - count: 3
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - radiating_bullets
     - count: 10
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10738,7 +10519,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 108
 - x: last_right
   y: last_y
   zones:
@@ -10759,17 +10539,17 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - radiating_bullets
     - count: 10
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10789,7 +10569,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 109
 - x: last_right
   y: last_y
   zones:
@@ -10810,17 +10589,17 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - radiating_bullets
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10840,7 +10619,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 110
 - x: last_right
   y: last_y
   zones:
@@ -10861,17 +10639,17 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - radiating_bullets
     - count: 25
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -10891,7 +10669,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 111
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -10912,13 +10690,13 @@ areas:
     spawner:
     - count: 10
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -10938,7 +10716,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 112
 - x: last_right
   y: last_y
   zones:
@@ -10959,13 +10736,13 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -10985,7 +10762,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 113
 - x: last_right
   y: last_y
   zones:
@@ -11006,13 +10782,13 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -11032,7 +10808,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 114
 - x: last_right
   y: last_y
   zones:
@@ -11053,13 +10828,13 @@ areas:
     spawner:
     - count: 15
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -11079,7 +10854,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 115
 - x: last_right
   y: last_y
   zones:
@@ -11100,13 +10874,13 @@ areas:
     spawner:
     - count: 20
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -11126,7 +10900,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 116
 - x: last_right
   y: last_y
   zones:
@@ -11147,12 +10920,12 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - disabling
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -11172,7 +10945,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 117
 - x: last_right
   y: last_y
   zones:
@@ -11193,12 +10965,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - disabling
     - count: 18
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -11218,7 +10990,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 118
 - x: last_right
   y: last_y
   zones:
@@ -11239,12 +11010,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - disabling
     - count: 9
       radius: 30
-      speed: 16
+      speed: 480
       types:
       - wall
     type: active
@@ -11264,7 +11035,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 119
 - x: last_right
   y: last_y
   zones:
@@ -11285,19 +11055,19 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - disabling
     - count: 10
       radius: 18
-      speed: 15
+      speed: 450
       types:
       - normal
       - homing
       - dasher
     - count: 9
       radius: 30
-      speed: 24
+      speed: 720
       types:
       - wall
     type: active
@@ -11317,7 +11087,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 120
 - x: last_right
   y: last_y
   zones:
@@ -11338,19 +11107,19 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 10
+      speed: 300
       types:
       - disabling
     - count: 6
       radius: 90
-      speed: 15
+      speed: 450
       types:
       - normal
       - homing
       - dasher
     - count: 9
       radius: 30
-      speed: 24
+      speed: 720
       types:
       - wall
     type: active
@@ -11370,7 +11139,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 3
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -11397,7 +11166,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 2
 - x: last_right
   y: last_y
   zones:
@@ -11418,7 +11186,7 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
     type: active
@@ -11438,7 +11206,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 3
 - x: last_right
   y: last_y
   zones:
@@ -11459,7 +11226,7 @@ areas:
     spawner:
     - count: 12
       radius: 12
-      speed: 3
+      speed: 90
       types:
       - normal
     type: active
@@ -11479,7 +11246,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 4
 - x: last_right
   y: last_y
   zones:
@@ -11500,12 +11266,12 @@ areas:
     spawner:
     - count: 12
       radius: 24
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -11525,7 +11291,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 5
 - x: last_right
   y: last_y
   zones:
@@ -11546,12 +11311,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -11571,7 +11336,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 6
 - x: last_right
   y: last_y
   zones:
@@ -11592,12 +11356,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - dasher
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -11617,7 +11381,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 7
 - x: last_right
   y: last_y
   zones:
@@ -11638,12 +11401,12 @@ areas:
     spawner:
     - count: 13
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - dasher
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -11663,7 +11426,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 8
 - x: last_right
   y: last_y
   zones:
@@ -11684,12 +11446,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -11709,7 +11471,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 9
 - x: last_right
   y: last_y
   zones:
@@ -11730,12 +11491,12 @@ areas:
     spawner:
     - count: 13
       radius: 18
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -11755,7 +11516,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 10
 - x: last_right
   y: last_y
   zones:
@@ -11776,17 +11536,17 @@ areas:
     spawner:
     - count: 8
       radius: 24
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 8
       radius: 24
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -11806,7 +11566,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 11
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -11827,13 +11587,13 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - homing
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -11853,7 +11613,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 12
 - x: last_right
   y: last_y
   zones:
@@ -11874,13 +11633,13 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - homing
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -11900,7 +11659,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 13
 - x: last_right
   y: last_y
   zones:
@@ -11921,13 +11679,13 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - homing
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -11947,7 +11705,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 14
 - x: last_right
   y: last_y
   zones:
@@ -11968,14 +11725,14 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - homing
       - normal
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -11995,7 +11752,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 15
 - x: last_right
   y: last_y
   zones:
@@ -12016,12 +11772,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12041,7 +11797,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 16
 - x: last_right
   y: last_y
   zones:
@@ -12062,17 +11817,17 @@ areas:
     spawner:
     - count: 4
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - slowing
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12092,7 +11847,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 17
 - x: last_right
   y: last_y
   zones:
@@ -12113,13 +11867,13 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - slowing
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12139,7 +11893,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 18
 - x: last_right
   y: last_y
   zones:
@@ -12160,13 +11913,13 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slowing
       - homing
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12186,7 +11939,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 19
 - x: last_right
   y: last_y
   zones:
@@ -12207,14 +11959,14 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - slowing
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12234,7 +11986,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 20
 - x: last_right
   y: last_y
   zones:
@@ -12255,14 +12006,14 @@ areas:
     spawner:
     - count: 64
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - slowing
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12282,7 +12033,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 21
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -12303,12 +12054,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - draining
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12328,7 +12079,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 22
 - x: last_right
   y: last_y
   zones:
@@ -12349,12 +12099,12 @@ areas:
     spawner:
     - count: 26
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - draining
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12374,7 +12124,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 23
 - x: last_right
   y: last_y
   zones:
@@ -12395,12 +12144,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - draining
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12420,7 +12169,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 24
 - x: last_right
   y: last_y
   zones:
@@ -12441,12 +12189,12 @@ areas:
     spawner:
     - count: 26
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - draining
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12466,7 +12214,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 25
 - x: last_right
   y: last_y
   zones:
@@ -12487,13 +12234,13 @@ areas:
     spawner:
     - count: 26
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - draining
       - homing
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12513,7 +12260,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 26
 - x: last_right
   y: last_y
   zones:
@@ -12534,12 +12280,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - wavy
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12559,7 +12305,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 27
 - x: last_right
   y: last_y
   zones:
@@ -12580,13 +12325,13 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - wavy
       - homing
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12606,7 +12351,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 28
 - x: last_right
   y: last_y
   zones:
@@ -12627,19 +12371,19 @@ areas:
     spawner:
     - count: 26
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - wavy
       - zigzag
     - count: 5
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slowing
       - draining
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12659,7 +12403,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 29
 - x: last_right
   y: last_y
   zones:
@@ -12680,19 +12423,19 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slowing
       - draining
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12712,7 +12455,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 30
 - x: last_right
   y: last_y
   zones:
@@ -12733,14 +12475,14 @@ areas:
     spawner:
     - count: 72
       radius: 18
-      speed: 2
+      speed: 60
       types:
       - wavy
       - zigzag
       - homing
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -12760,7 +12502,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 31
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -12781,12 +12523,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - spiral
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -12806,7 +12548,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 32
 - x: last_right
   y: last_y
   zones:
@@ -12827,12 +12568,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - zoning
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -12852,7 +12593,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 33
 - x: last_right
   y: last_y
   zones:
@@ -12873,13 +12613,13 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - spiral
       - zoning
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -12899,7 +12639,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 34
 - x: last_right
   y: last_y
   zones:
@@ -12920,19 +12659,19 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - spiral
       - zoning
     - count: 16
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - dasher
       - normal
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -12952,7 +12691,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 35
 - x: last_right
   y: last_y
   zones:
@@ -12973,13 +12711,13 @@ areas:
     spawner:
     - count: 16
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - spiral
       - zoning
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -12999,7 +12737,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 36
 - x: last_right
   y: last_y
   zones:
@@ -13020,12 +12757,12 @@ areas:
     spawner:
     - count: 16
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - oscillating
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -13045,7 +12782,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 37
 - x: last_right
   y: last_y
   zones:
@@ -13066,13 +12802,13 @@ areas:
     spawner:
     - count: 24
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
       - oscillating
     - count: 29
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -13092,7 +12828,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 38
 - x: last_right
   y: last_y
   zones:
@@ -13113,13 +12848,13 @@ areas:
     spawner:
     - count: 56
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
       - oscillating
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -13139,7 +12874,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 39
 - x: last_right
   y: last_y
   zones:
@@ -13160,13 +12894,13 @@ areas:
     spawner:
     - count: 24
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - normal
       - oscillating
     - count: 15
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -13186,7 +12920,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 40
 - x: last_right
   y: last_y
   zones:
@@ -13207,17 +12940,17 @@ areas:
     spawner:
     - count: 5
       radius: 90
-      speed: 6
+      speed: 180
       types:
       - oscillating
     - count: 10
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - homing
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -13237,7 +12970,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 1
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -13264,7 +12997,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 42
 - x: last_right
   y: last_y
   zones:
@@ -13285,7 +13017,7 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - switch
     type: active
@@ -13305,7 +13037,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 43
 - x: last_right
   y: last_y
   zones:
@@ -13326,7 +13057,7 @@ areas:
     spawner:
     - count: 28
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - switch
     type: active
@@ -13346,7 +13077,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 44
 - x: last_right
   y: last_y
   zones:
@@ -13367,13 +13097,13 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - switch
       - normal
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -13393,7 +13123,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 45
 - x: last_right
   y: last_y
   zones:
@@ -13414,13 +13143,13 @@ areas:
     spawner:
     - count: 64
       radius: 18
-      speed: 4
+      speed: 120
       types:
       - switch
       - homing
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -13440,7 +13169,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 46
 - x: last_right
   y: last_y
   zones:
@@ -13461,12 +13189,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -13486,7 +13214,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 47
 - x: last_right
   y: last_y
   zones:
@@ -13507,12 +13234,12 @@ areas:
     spawner:
     - count: 28
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -13532,7 +13259,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 48
 - x: last_right
   y: last_y
   zones:
@@ -13553,13 +13279,13 @@ areas:
     spawner:
     - count: 28
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
       - homing
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -13579,7 +13305,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 49
 - x: last_right
   y: last_y
   zones:
@@ -13600,13 +13325,13 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
       - slowing
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -13626,7 +13351,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 50
 - x: last_right
   y: last_y
   zones:
@@ -13647,17 +13371,17 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - sizing
     - count: 10
       radius: 105
-      speed: 6
+      speed: 180
       types:
       - homing
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -13677,7 +13401,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 51
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -13698,12 +13422,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -13723,7 +13447,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 52
 - x: last_right
   y: last_y
   zones:
@@ -13744,12 +13467,12 @@ areas:
     spawner:
     - count: 28
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -13769,7 +13492,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 53
 - x: last_right
   y: last_y
   zones:
@@ -13790,12 +13512,12 @@ areas:
     spawner:
     - count: 48
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - turning
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -13815,7 +13537,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 54
 - x: last_right
   y: last_y
   zones:
@@ -13836,12 +13557,12 @@ areas:
     spawner:
     - count: 72
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - turning
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -13861,7 +13582,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 55
 - x: last_right
   y: last_y
   zones:
@@ -13882,12 +13602,12 @@ areas:
     spawner:
     - count: 16
       radius: 50
-      speed: 6
+      speed: 180
       types:
       - turning
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -13907,7 +13627,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 56
 - x: last_right
   y: last_y
   zones:
@@ -13928,17 +13647,17 @@ areas:
     spawner:
     - count: 4
       radius: 3
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -13958,7 +13677,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 57
 - x: last_right
   y: last_y
   zones:
@@ -13979,19 +13697,19 @@ areas:
     spawner:
     - count: 8
       radius: 3
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14011,7 +13729,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 58
 - x: last_right
   y: last_y
   zones:
@@ -14032,19 +13749,19 @@ areas:
     spawner:
     - count: 16
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - freezing
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14064,7 +13781,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 59
 - x: last_right
   y: last_y
   zones:
@@ -14085,19 +13801,19 @@ areas:
     spawner:
     - count: 24
       radius: 3
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14117,7 +13833,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 60
 - x: last_right
   y: last_y
   zones:
@@ -14138,17 +13853,17 @@ areas:
     spawner:
     - count: 40
       radius: 3
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 24
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14168,7 +13883,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 61
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -14189,12 +13904,12 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14214,7 +13929,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 62
 - x: last_right
   y: last_y
   zones:
@@ -14235,12 +13949,12 @@ areas:
     spawner:
     - count: 12
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14260,7 +13974,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 63
 - x: last_right
   y: last_y
   zones:
@@ -14281,12 +13994,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14306,7 +14019,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 64
 - x: last_right
   y: last_y
   zones:
@@ -14327,12 +14039,12 @@ areas:
     spawner:
     - count: 24
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14352,7 +14064,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 65
 - x: last_right
   y: last_y
   zones:
@@ -14373,12 +14084,12 @@ areas:
     spawner:
     - count: 24
       radius: 35
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14398,7 +14109,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 66
 - x: last_right
   y: last_y
   zones:
@@ -14419,12 +14129,12 @@ areas:
     spawner:
     - count: 8
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14444,7 +14154,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 67
 - x: last_right
   y: last_y
   zones:
@@ -14465,12 +14174,12 @@ areas:
     spawner:
     - count: 16
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14490,7 +14199,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 68
 - x: last_right
   y: last_y
   zones:
@@ -14511,12 +14219,12 @@ areas:
     spawner:
     - count: 24
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14536,7 +14244,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 69
 - x: last_right
   y: last_y
   zones:
@@ -14557,12 +14264,12 @@ areas:
     spawner:
     - count: 24
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14582,7 +14289,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 70
 - x: last_right
   y: last_y
   zones:
@@ -14603,13 +14309,13 @@ areas:
     spawner:
     - count: 32
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14629,7 +14335,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 71
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -14650,12 +14356,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 0.5
+      speed: 15
       types:
       - liquid
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -14675,7 +14381,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 72
 - x: last_right
   y: last_y
   zones:
@@ -14696,12 +14401,12 @@ areas:
     spawner:
     - count: 24
       radius: 18
-      speed: 0.5
+      speed: 15
       types:
       - liquid
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -14721,7 +14426,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 73
 - x: last_right
   y: last_y
   zones:
@@ -14742,12 +14446,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 1
+      speed: 30
       types:
       - liquid
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -14767,7 +14471,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 74
 - x: last_right
   y: last_y
   zones:
@@ -14788,12 +14491,12 @@ areas:
     spawner:
     - count: 24
       radius: 18
-      speed: 1
+      speed: 30
       types:
       - liquid
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -14813,7 +14516,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 75
 - x: last_right
   y: last_y
   zones:
@@ -14834,12 +14536,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 1.5
+      speed: 45
       types:
       - liquid
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -14859,7 +14561,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 76
 - x: last_right
   y: last_y
   zones:
@@ -14880,12 +14581,12 @@ areas:
     spawner:
     - count: 16
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - icicle
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -14905,7 +14606,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 77
 - x: last_right
   y: last_y
   zones:
@@ -14926,13 +14626,13 @@ areas:
     spawner:
     - count: 24
       radius: 35
-      speed: 6
+      speed: 180
       types:
       - icicle
       - normal
     - count: 29
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -14952,7 +14652,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 78
 - x: last_right
   y: last_y
   zones:
@@ -14973,13 +14672,13 @@ areas:
     spawner:
     - count: 24
       radius: 28
-      speed: 9
+      speed: 270
       types:
       - icicle
       - normal
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -14999,7 +14698,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 79
 - x: last_right
   y: last_y
   zones:
@@ -15020,13 +14718,13 @@ areas:
     spawner:
     - count: 32
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
       - normal
     - count: 15
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -15046,7 +14744,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 80
 - x: last_right
   y: last_y
   zones:
@@ -15067,19 +14764,19 @@ areas:
     spawner:
     - count: 29
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - icicle
       - normal
     - count: 8
       radius: 90
-      speed: 12
+      speed: 360
       types:
       - icicle
       - normal
     - count: 15
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -15099,7 +14796,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 2
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -15126,7 +14823,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 82
 - x: last_right
   y: last_y
   zones:
@@ -15147,7 +14843,7 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     type: active
@@ -15167,7 +14863,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 83
 - x: last_right
   y: last_y
   zones:
@@ -15188,7 +14883,7 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
     type: active
@@ -15208,7 +14903,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 84
 - x: last_right
   y: last_y
   zones:
@@ -15229,13 +14923,13 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
       - normal
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -15255,7 +14949,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 85
 - x: last_right
   y: last_y
   zones:
@@ -15276,13 +14969,13 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - slippery
       - homing
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -15302,7 +14995,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 86
 - x: last_right
   y: last_y
   zones:
@@ -15323,13 +15015,13 @@ areas:
     spawner:
     - count: 8
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - ice_sniper
       - normal
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -15349,7 +15041,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 87
 - x: last_right
   y: last_y
   zones:
@@ -15370,13 +15061,13 @@ areas:
     spawner:
     - count: 13
       radius: 18
-      speed: 4
+      speed: 120
       types:
       - ice_sniper
       - normal
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -15396,7 +15087,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 88
 - x: last_right
   y: last_y
   zones:
@@ -15417,13 +15107,13 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - ice_sniper
       - normal
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -15443,7 +15133,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 89
 - x: last_right
   y: last_y
   zones:
@@ -15464,13 +15153,13 @@ areas:
     spawner:
     - count: 24
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - ice_sniper
       - normal
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -15490,7 +15179,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 90
 - x: last_right
   y: last_y
   zones:
@@ -15511,19 +15199,19 @@ areas:
     spawner:
     - count: 24
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - ice_sniper
       - normal
     - count: 10
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - slowing
       - draining
     - count: 10
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -15543,7 +15231,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 91
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -15564,19 +15252,19 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 8
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -15596,7 +15284,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 92
 - x: last_right
   y: last_y
   zones:
@@ -15617,19 +15304,19 @@ areas:
     spawner:
     - count: 32
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 8
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -15649,7 +15336,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 93
 - x: last_right
   y: last_y
   zones:
@@ -15670,19 +15356,19 @@ areas:
     spawner:
     - count: 32
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 8
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -15702,7 +15388,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 94
 - x: last_right
   y: last_y
   zones:
@@ -15723,19 +15408,19 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 8
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -15755,7 +15440,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 95
 - x: last_right
   y: last_y
   zones:
@@ -15776,19 +15460,19 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - liquid
       - icicle
     - count: 24
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - freezing
       - ice_sniper
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -15808,7 +15492,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 96
 - x: last_right
   y: last_y
   zones:
@@ -15829,14 +15512,14 @@ areas:
     spawner:
     - count: 32
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -15856,7 +15539,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 97
 - x: last_right
   y: last_y
   zones:
@@ -15877,14 +15559,14 @@ areas:
     spawner:
     - count: 32
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -15904,7 +15586,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 98
 - x: last_right
   y: last_y
   zones:
@@ -15925,14 +15606,14 @@ areas:
     spawner:
     - count: 32
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -15952,7 +15633,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 99
 - x: last_right
   y: last_y
   zones:
@@ -15973,14 +15653,14 @@ areas:
     spawner:
     - count: 32
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16000,7 +15680,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 100
 - x: last_right
   y: last_y
   zones:
@@ -16021,14 +15700,14 @@ areas:
     spawner:
     - count: 48
       radius: 3
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16048,7 +15727,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 101
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -16069,7 +15748,7 @@ areas:
     spawner:
     - count: 32
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -16078,7 +15757,7 @@ areas:
       - oscillating
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16098,7 +15777,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 102
 - x: last_right
   y: last_y
   zones:
@@ -16119,7 +15797,7 @@ areas:
     spawner:
     - count: 32
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -16128,7 +15806,7 @@ areas:
       - oscillating
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16148,7 +15826,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 103
 - x: last_right
   y: last_y
   zones:
@@ -16169,7 +15846,7 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -16178,7 +15855,7 @@ areas:
       - oscillating
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16198,7 +15875,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 104
 - x: last_right
   y: last_y
   zones:
@@ -16219,7 +15895,7 @@ areas:
     spawner:
     - count: 48
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -16228,7 +15904,7 @@ areas:
       - oscillating
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16248,7 +15924,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 105
 - x: last_right
   y: last_y
   zones:
@@ -16269,7 +15944,7 @@ areas:
     spawner:
     - count: 64
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
@@ -16278,7 +15953,7 @@ areas:
       - oscillating
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16298,7 +15973,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 106
 - x: last_right
   y: last_y
   zones:
@@ -16319,17 +15993,17 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - radiating_bullets
     - count: 16
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16349,7 +16023,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 107
 - x: last_right
   y: last_y
   zones:
@@ -16370,17 +16043,17 @@ areas:
     spawner:
     - count: 5
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - radiating_bullets
     - count: 16
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16400,7 +16073,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 108
 - x: last_right
   y: last_y
   zones:
@@ -16421,17 +16093,17 @@ areas:
     spawner:
     - count: 8
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - radiating_bullets
     - count: 16
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16451,7 +16123,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 109
 - x: last_right
   y: last_y
   zones:
@@ -16472,17 +16143,17 @@ areas:
     spawner:
     - count: 8
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - radiating_bullets
     - count: 24
       radius: 30
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16502,7 +16173,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 110
 - x: last_right
   y: last_y
   zones:
@@ -16523,17 +16193,17 @@ areas:
     spawner:
     - count: 8
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - radiating_bullets
     - count: 40
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 10
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16553,7 +16223,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 111
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -16574,13 +16244,13 @@ areas:
     spawner:
     - count: 16
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -16600,7 +16270,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 112
 - x: last_right
   y: last_y
   zones:
@@ -16621,13 +16290,13 @@ areas:
     spawner:
     - count: 24
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -16647,7 +16316,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 113
 - x: last_right
   y: last_y
   zones:
@@ -16668,13 +16336,13 @@ areas:
     spawner:
     - count: 24
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -16694,7 +16362,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 114
 - x: last_right
   y: last_y
   zones:
@@ -16715,13 +16382,13 @@ areas:
     spawner:
     - count: 24
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -16741,7 +16408,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 115
 - x: last_right
   y: last_y
   zones:
@@ -16762,13 +16428,13 @@ areas:
     spawner:
     - count: 32
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -16788,7 +16454,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 116
 - x: last_right
   y: last_y
   zones:
@@ -16809,12 +16474,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -16834,7 +16499,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 117
 - x: last_right
   y: last_y
   zones:
@@ -16855,12 +16519,12 @@ areas:
     spawner:
     - count: 24
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 29
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -16880,7 +16544,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 118
 - x: last_right
   y: last_y
   zones:
@@ -16901,12 +16564,12 @@ areas:
     spawner:
     - count: 32
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 15
       radius: 30
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -16926,7 +16589,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 119
 - x: last_right
   y: last_y
   zones:
@@ -16947,19 +16609,19 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 16
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - normal
       - homing
       - dasher
     - count: 15
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -16979,7 +16641,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 120
 - x: last_right
   y: last_y
   zones:
@@ -17000,19 +16661,19 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - disabling
     - count: 10
       radius: 90
-      speed: 9
+      speed: 270
       types:
       - normal
       - homing
       - dasher
     - count: 15
       radius: 30
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -17032,7 +16693,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 3
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -17059,7 +16720,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 2
 - x: last_right
   y: last_y
   zones:
@@ -17080,7 +16740,7 @@ areas:
     spawner:
     - count: 7
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - normal
     type: active
@@ -17100,7 +16760,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 3
 - x: last_right
   y: last_y
   zones:
@@ -17121,7 +16780,7 @@ areas:
     spawner:
     - count: 7
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
     type: active
@@ -17141,7 +16800,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 4
 - x: last_right
   y: last_y
   zones:
@@ -17162,12 +16820,12 @@ areas:
     spawner:
     - count: 7
       radius: 36
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -17187,7 +16845,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 5
 - x: last_right
   y: last_y
   zones:
@@ -17208,12 +16865,12 @@ areas:
     spawner:
     - count: 12
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -17233,7 +16890,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 6
 - x: last_right
   y: last_y
   zones:
@@ -17254,12 +16910,12 @@ areas:
     spawner:
     - count: 5
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - dasher
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -17279,7 +16935,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 7
 - x: last_right
   y: last_y
   zones:
@@ -17300,12 +16955,12 @@ areas:
     spawner:
     - count: 8
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - dasher
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -17325,7 +16980,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 8
 - x: last_right
   y: last_y
   zones:
@@ -17346,12 +17000,12 @@ areas:
     spawner:
     - count: 5
       radius: 27
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -17371,7 +17025,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 9
 - x: last_right
   y: last_y
   zones:
@@ -17392,12 +17045,12 @@ areas:
     spawner:
     - count: 8
       radius: 27
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -17417,7 +17070,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 10
 - x: last_right
   y: last_y
   zones:
@@ -17438,17 +17090,17 @@ areas:
     spawner:
     - count: 5
       radius: 36
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 5
       radius: 36
-      speed: 8
+      speed: 240
       types:
       - dasher
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -17468,7 +17120,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 11
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -17489,13 +17141,13 @@ areas:
     spawner:
     - count: 5
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - homing
       - normal
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17515,7 +17167,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 12
 - x: last_right
   y: last_y
   zones:
@@ -17536,13 +17187,13 @@ areas:
     spawner:
     - count: 9
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - homing
       - normal
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17562,7 +17213,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 13
 - x: last_right
   y: last_y
   zones:
@@ -17583,13 +17233,13 @@ areas:
     spawner:
     - count: 5
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - homing
       - normal
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17609,7 +17259,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 14
 - x: last_right
   y: last_y
   zones:
@@ -17630,14 +17279,14 @@ areas:
     spawner:
     - count: 9
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - homing
       - normal
       - dasher
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17657,7 +17306,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 15
 - x: last_right
   y: last_y
   zones:
@@ -17678,12 +17326,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17703,7 +17351,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 16
 - x: last_right
   y: last_y
   zones:
@@ -17724,17 +17371,17 @@ areas:
     spawner:
     - count: 2
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - slowing
     - count: 5
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17754,7 +17401,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 17
 - x: last_right
   y: last_y
   zones:
@@ -17775,13 +17421,13 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - slowing
       - normal
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17801,7 +17447,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 18
 - x: last_right
   y: last_y
   zones:
@@ -17822,13 +17467,13 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - slowing
       - homing
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17848,7 +17493,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 19
 - x: last_right
   y: last_y
   zones:
@@ -17869,14 +17513,14 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - slowing
       - homing
       - dasher
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17896,7 +17540,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 20
 - x: last_right
   y: last_y
   zones:
@@ -17917,14 +17560,14 @@ areas:
     spawner:
     - count: 40
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - slowing
       - homing
       - dasher
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17944,7 +17587,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 21
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -17965,12 +17608,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - draining
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -17990,7 +17633,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 22
 - x: last_right
   y: last_y
   zones:
@@ -18011,12 +17653,12 @@ areas:
     spawner:
     - count: 16
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - draining
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18036,7 +17678,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 23
 - x: last_right
   y: last_y
   zones:
@@ -18057,12 +17698,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - draining
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18082,7 +17723,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 24
 - x: last_right
   y: last_y
   zones:
@@ -18103,12 +17743,12 @@ areas:
     spawner:
     - count: 16
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - draining
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18128,7 +17768,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 25
 - x: last_right
   y: last_y
   zones:
@@ -18149,13 +17788,13 @@ areas:
     spawner:
     - count: 16
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - draining
       - homing
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18175,7 +17814,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 26
 - x: last_right
   y: last_y
   zones:
@@ -18196,12 +17834,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - wavy
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18221,7 +17859,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 27
 - x: last_right
   y: last_y
   zones:
@@ -18242,13 +17879,13 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - wavy
       - homing
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18268,7 +17905,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 28
 - x: last_right
   y: last_y
   zones:
@@ -18289,19 +17925,19 @@ areas:
     spawner:
     - count: 16
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - wavy
       - zigzag
     - count: 3
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - slowing
       - draining
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18321,7 +17957,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 29
 - x: last_right
   y: last_y
   zones:
@@ -18342,19 +17977,19 @@ areas:
     spawner:
     - count: 25
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - wavy
       - zigzag
     - count: 5
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - slowing
       - draining
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18374,7 +18009,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 30
 - x: last_right
   y: last_y
   zones:
@@ -18395,14 +18029,14 @@ areas:
     spawner:
     - count: 45
       radius: 27
-      speed: 2
+      speed: 60
       types:
       - wavy
       - zigzag
       - homing
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18422,7 +18056,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 31
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -18443,12 +18077,12 @@ areas:
     spawner:
     - count: 5
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - spiral
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -18468,7 +18102,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 32
 - x: last_right
   y: last_y
   zones:
@@ -18489,12 +18122,12 @@ areas:
     spawner:
     - count: 5
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - zoning
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -18514,7 +18147,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 33
 - x: last_right
   y: last_y
   zones:
@@ -18535,13 +18167,13 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - spiral
       - zoning
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -18561,7 +18193,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 34
 - x: last_right
   y: last_y
   zones:
@@ -18582,19 +18213,19 @@ areas:
     spawner:
     - count: 5
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - spiral
       - zoning
     - count: 10
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - dasher
       - normal
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -18614,7 +18245,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 35
 - x: last_right
   y: last_y
   zones:
@@ -18635,13 +18265,13 @@ areas:
     spawner:
     - count: 10
       radius: 53
-      speed: 6
+      speed: 180
       types:
       - spiral
       - zoning
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -18661,7 +18291,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 36
 - x: last_right
   y: last_y
   zones:
@@ -18682,12 +18311,12 @@ areas:
     spawner:
     - count: 10
       radius: 53
-      speed: 6
+      speed: 180
       types:
       - oscillating
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -18707,7 +18336,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 37
 - x: last_right
   y: last_y
   zones:
@@ -18728,13 +18356,13 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - normal
       - oscillating
     - count: 18
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -18754,7 +18382,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 38
 - x: last_right
   y: last_y
   zones:
@@ -18775,13 +18402,13 @@ areas:
     spawner:
     - count: 35
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - normal
       - oscillating
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -18801,7 +18428,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 39
 - x: last_right
   y: last_y
   zones:
@@ -18822,13 +18448,13 @@ areas:
     spawner:
     - count: 15
       radius: 53
-      speed: 6
+      speed: 180
       types:
       - normal
       - oscillating
     - count: 9
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -18848,7 +18474,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 40
 - x: last_right
   y: last_y
   zones:
@@ -18869,17 +18494,17 @@ areas:
     spawner:
     - count: 3
       radius: 135
-      speed: 6
+      speed: 180
       types:
       - oscillating
     - count: 6
       radius: 45
-      speed: 6
+      speed: 180
       types:
       - homing
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -18899,7 +18524,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 1
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -18926,7 +18551,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 42
 - x: last_right
   y: last_y
   zones:
@@ -18947,7 +18571,7 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - switch
     type: active
@@ -18967,7 +18591,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 43
 - x: last_right
   y: last_y
   zones:
@@ -18988,7 +18611,7 @@ areas:
     spawner:
     - count: 17
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - switch
     type: active
@@ -19008,7 +18631,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 44
 - x: last_right
   y: last_y
   zones:
@@ -19029,13 +18651,13 @@ areas:
     spawner:
     - count: 25
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - switch
       - normal
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -19055,7 +18677,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 45
 - x: last_right
   y: last_y
   zones:
@@ -19076,13 +18697,13 @@ areas:
     spawner:
     - count: 40
       radius: 27
-      speed: 4
+      speed: 120
       types:
       - switch
       - homing
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -19102,7 +18723,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 46
 - x: last_right
   y: last_y
   zones:
@@ -19123,12 +18743,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - sizing
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -19148,7 +18768,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 47
 - x: last_right
   y: last_y
   zones:
@@ -19169,12 +18788,12 @@ areas:
     spawner:
     - count: 17
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - sizing
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -19194,7 +18813,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 48
 - x: last_right
   y: last_y
   zones:
@@ -19215,13 +18833,13 @@ areas:
     spawner:
     - count: 17
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - sizing
       - homing
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -19241,7 +18859,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 49
 - x: last_right
   y: last_y
   zones:
@@ -19262,13 +18879,13 @@ areas:
     spawner:
     - count: 25
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - sizing
       - slowing
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -19288,7 +18905,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 50
 - x: last_right
   y: last_y
   zones:
@@ -19309,17 +18925,17 @@ areas:
     spawner:
     - count: 5
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - sizing
     - count: 6
       radius: 158
-      speed: 6
+      speed: 180
       types:
       - homing
     - count: 6
       radius: 45
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -19339,7 +18955,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 51
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -19360,12 +18976,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19385,7 +19001,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 52
 - x: last_right
   y: last_y
   zones:
@@ -19406,12 +19021,12 @@ areas:
     spawner:
     - count: 17
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - turning
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19431,7 +19046,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 53
 - x: last_right
   y: last_y
   zones:
@@ -19452,12 +19066,12 @@ areas:
     spawner:
     - count: 30
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - turning
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19477,7 +19091,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 54
 - x: last_right
   y: last_y
   zones:
@@ -19498,12 +19111,12 @@ areas:
     spawner:
     - count: 45
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - turning
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19523,7 +19136,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 55
 - x: last_right
   y: last_y
   zones:
@@ -19544,12 +19156,12 @@ areas:
     spawner:
     - count: 10
       radius: 75
-      speed: 6
+      speed: 180
       types:
       - turning
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19569,7 +19181,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 56
 - x: last_right
   y: last_y
   zones:
@@ -19590,17 +19201,17 @@ areas:
     spawner:
     - count: 2
       radius: 5
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 10
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19620,7 +19231,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 57
 - x: last_right
   y: last_y
   zones:
@@ -19641,19 +19251,19 @@ areas:
     spawner:
     - count: 5
       radius: 5
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 10
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19673,7 +19283,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 58
 - x: last_right
   y: last_y
   zones:
@@ -19694,19 +19303,19 @@ areas:
     spawner:
     - count: 10
       radius: 5
-      speed: 6
+      speed: 180
       types:
       - freezing
     - count: 5
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19726,7 +19335,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 59
 - x: last_right
   y: last_y
   zones:
@@ -19747,19 +19355,19 @@ areas:
     spawner:
     - count: 15
       radius: 5
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 5
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - normal
       - homing
       - dasher
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19779,7 +19387,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 60
 - x: last_right
   y: last_y
   zones:
@@ -19800,17 +19407,17 @@ areas:
     spawner:
     - count: 25
       radius: 5
-      speed: 3
+      speed: 90
       types:
       - freezing
     - count: 15
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19830,7 +19437,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 61
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -19851,12 +19458,12 @@ areas:
     spawner:
     - count: 5
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19876,7 +19483,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 62
 - x: last_right
   y: last_y
   zones:
@@ -19897,12 +19503,12 @@ areas:
     spawner:
     - count: 7
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19922,7 +19528,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 63
 - x: last_right
   y: last_y
   zones:
@@ -19943,12 +19548,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -19968,7 +19573,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 64
 - x: last_right
   y: last_y
   zones:
@@ -19989,12 +19593,12 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20014,7 +19618,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 65
 - x: last_right
   y: last_y
   zones:
@@ -20035,12 +19638,12 @@ areas:
     spawner:
     - count: 15
       radius: 53
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20060,7 +19663,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 66
 - x: last_right
   y: last_y
   zones:
@@ -20081,12 +19683,12 @@ areas:
     spawner:
     - count: 5
       radius: 45
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20106,7 +19708,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 67
 - x: last_right
   y: last_y
   zones:
@@ -20127,12 +19728,12 @@ areas:
     spawner:
     - count: 10
       radius: 45
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20152,7 +19753,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 68
 - x: last_right
   y: last_y
   zones:
@@ -20173,12 +19773,12 @@ areas:
     spawner:
     - count: 15
       radius: 45
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20198,7 +19798,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 69
 - x: last_right
   y: last_y
   zones:
@@ -20219,12 +19818,12 @@ areas:
     spawner:
     - count: 15
       radius: 45
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20244,7 +19843,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 70
 - x: last_right
   y: last_y
   zones:
@@ -20265,13 +19863,13 @@ areas:
     spawner:
     - count: 20
       radius: 45
-      speed: 1
+      speed: 30
       types:
       - regen_sniper
       - speed_sniper
     - count: 6
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20291,7 +19889,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 71
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -20312,12 +19910,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 0.5
+      speed: 15
       types:
       - liquid
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -20337,7 +19935,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 72
 - x: last_right
   y: last_y
   zones:
@@ -20358,12 +19955,12 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 0.5
+      speed: 15
       types:
       - liquid
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -20383,7 +19980,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 73
 - x: last_right
   y: last_y
   zones:
@@ -20404,12 +20000,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 1
+      speed: 30
       types:
       - liquid
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -20429,7 +20025,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 74
 - x: last_right
   y: last_y
   zones:
@@ -20450,12 +20045,12 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 1
+      speed: 30
       types:
       - liquid
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -20475,7 +20070,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 75
 - x: last_right
   y: last_y
   zones:
@@ -20496,12 +20090,12 @@ areas:
     spawner:
     - count: 10
       radius: 27
-      speed: 1.5
+      speed: 45
       types:
       - liquid
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -20521,7 +20115,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 76
 - x: last_right
   y: last_y
   zones:
@@ -20542,12 +20135,12 @@ areas:
     spawner:
     - count: 10
       radius: 53
-      speed: 6
+      speed: 180
       types:
       - icicle
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -20567,7 +20160,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 77
 - x: last_right
   y: last_y
   zones:
@@ -20588,13 +20180,13 @@ areas:
     spawner:
     - count: 15
       radius: 53
-      speed: 6
+      speed: 180
       types:
       - icicle
       - normal
     - count: 18
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20614,7 +20206,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 78
 - x: last_right
   y: last_y
   zones:
@@ -20635,13 +20226,13 @@ areas:
     spawner:
     - count: 15
       radius: 42
-      speed: 9
+      speed: 270
       types:
       - icicle
       - normal
     - count: 9
       radius: 45
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -20661,7 +20252,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 79
 - x: last_right
   y: last_y
   zones:
@@ -20682,13 +20272,13 @@ areas:
     spawner:
     - count: 20
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - icicle
       - normal
     - count: 9
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -20708,7 +20298,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 80
 - x: last_right
   y: last_y
   zones:
@@ -20729,19 +20318,19 @@ areas:
     spawner:
     - count: 18
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - icicle
       - normal
     - count: 5
       radius: 135
-      speed: 12
+      speed: 360
       types:
       - icicle
       - normal
     - count: 9
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -20761,7 +20350,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 2
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -20788,7 +20377,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 82
 - x: last_right
   y: last_y
   zones:
@@ -20809,7 +20397,7 @@ areas:
     spawner:
     - count: 8
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - slippery
     type: active
@@ -20829,7 +20417,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 83
 - x: last_right
   y: last_y
   zones:
@@ -20850,7 +20437,7 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - slippery
     type: active
@@ -20870,7 +20457,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 84
 - x: last_right
   y: last_y
   zones:
@@ -20891,13 +20477,13 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - slippery
       - normal
     - count: 9
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20917,7 +20503,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 85
 - x: last_right
   y: last_y
   zones:
@@ -20938,13 +20523,13 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - slippery
       - homing
     - count: 9
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -20964,7 +20549,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 86
 - x: last_right
   y: last_y
   zones:
@@ -20985,13 +20569,13 @@ areas:
     spawner:
     - count: 8
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - ice_sniper
       - normal
     - count: 9
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -21011,7 +20595,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 87
 - x: last_right
   y: last_y
   zones:
@@ -21032,13 +20615,13 @@ areas:
     spawner:
     - count: 12
       radius: 27
-      speed: 6
+      speed: 180
       types:
       - ice_sniper
       - normal
     - count: 9
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -21058,7 +20641,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 88
 - x: last_right
   y: last_y
   zones:
@@ -21079,13 +20661,13 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 8
+      speed: 240
       types:
       - ice_sniper
       - normal
     - count: 9
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -21105,7 +20687,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 89
 - x: last_right
   y: last_y
   zones:
@@ -21126,13 +20707,13 @@ areas:
     spawner:
     - count: 23
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - ice_sniper
       - normal
     - count: 9
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -21152,7 +20733,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 90
 - x: last_right
   y: last_y
   zones:
@@ -21173,19 +20753,19 @@ areas:
     spawner:
     - count: 23
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - ice_sniper
       - normal
     - count: 9
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - slowing
       - draining
     - count: 9
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -21205,7 +20785,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 91
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -21226,19 +20806,19 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - liquid
       - icicle
     - count: 8
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21258,7 +20838,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 92
 - x: last_right
   y: last_y
   zones:
@@ -21279,19 +20858,19 @@ areas:
     spawner:
     - count: 30
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - liquid
       - icicle
     - count: 8
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21311,7 +20890,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 93
 - x: last_right
   y: last_y
   zones:
@@ -21332,19 +20910,19 @@ areas:
     spawner:
     - count: 30
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - liquid
       - icicle
     - count: 8
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21364,7 +20942,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 94
 - x: last_right
   y: last_y
   zones:
@@ -21385,19 +20962,19 @@ areas:
     spawner:
     - count: 38
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - liquid
       - icicle
     - count: 8
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21417,7 +20994,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 95
 - x: last_right
   y: last_y
   zones:
@@ -21438,19 +21014,19 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - liquid
       - icicle
     - count: 23
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - freezing
       - ice_sniper
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21470,7 +21046,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 96
 - x: last_right
   y: last_y
   zones:
@@ -21491,14 +21066,14 @@ areas:
     spawner:
     - count: 30
       radius: 5
-      speed: 9
+      speed: 270
       types:
       - normal
       - homing
       - dasher
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21518,7 +21093,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 97
 - x: last_right
   y: last_y
   zones:
@@ -21539,14 +21113,14 @@ areas:
     spawner:
     - count: 30
       radius: 5
-      speed: 9
+      speed: 270
       types:
       - normal
       - homing
       - dasher
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21566,7 +21140,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 98
 - x: last_right
   y: last_y
   zones:
@@ -21587,14 +21160,14 @@ areas:
     spawner:
     - count: 30
       radius: 5
-      speed: 9
+      speed: 270
       types:
       - normal
       - homing
       - dasher
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21614,7 +21187,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 99
 - x: last_right
   y: last_y
   zones:
@@ -21635,14 +21207,14 @@ areas:
     spawner:
     - count: 30
       radius: 5
-      speed: 9
+      speed: 270
       types:
       - normal
       - homing
       - dasher
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21662,7 +21234,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 100
 - x: last_right
   y: last_y
   zones:
@@ -21683,14 +21254,14 @@ areas:
     spawner:
     - count: 45
       radius: 5
-      speed: 9
+      speed: 270
       types:
       - normal
       - homing
       - dasher
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21710,7 +21281,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 101
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -21731,7 +21302,7 @@ areas:
     spawner:
     - count: 30
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -21740,7 +21311,7 @@ areas:
       - oscillating
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21760,7 +21331,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 102
 - x: last_right
   y: last_y
   zones:
@@ -21781,7 +21351,7 @@ areas:
     spawner:
     - count: 30
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -21790,7 +21360,7 @@ areas:
       - oscillating
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21810,7 +21380,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 103
 - x: last_right
   y: last_y
   zones:
@@ -21831,7 +21400,7 @@ areas:
     spawner:
     - count: 38
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -21840,7 +21409,7 @@ areas:
       - oscillating
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21860,7 +21429,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 104
 - x: last_right
   y: last_y
   zones:
@@ -21881,7 +21449,7 @@ areas:
     spawner:
     - count: 45
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -21890,7 +21458,7 @@ areas:
       - oscillating
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21910,7 +21478,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 105
 - x: last_right
   y: last_y
   zones:
@@ -21931,7 +21498,7 @@ areas:
     spawner:
     - count: 60
       radius: 27
-      speed: 5
+      speed: 150
       types:
       - wavy
       - zigzag
@@ -21940,7 +21507,7 @@ areas:
       - oscillating
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -21960,7 +21527,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 106
 - x: last_right
   y: last_y
   zones:
@@ -21981,17 +21547,17 @@ areas:
     spawner:
     - count: 5
       radius: 45
-      speed: 2
+      speed: 60
       types:
       - radiating_bullets
     - count: 15
       radius: 45
-      speed: 9
+      speed: 270
       types:
       - normal
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -22011,7 +21577,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 107
 - x: last_right
   y: last_y
   zones:
@@ -22032,17 +21597,17 @@ areas:
     spawner:
     - count: 5
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - radiating_bullets
     - count: 15
       radius: 45
-      speed: 9
+      speed: 270
       types:
       - normal
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -22062,7 +21627,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 108
 - x: last_right
   y: last_y
   zones:
@@ -22083,17 +21647,17 @@ areas:
     spawner:
     - count: 8
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - radiating_bullets
     - count: 15
       radius: 45
-      speed: 9
+      speed: 270
       types:
       - normal
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -22113,7 +21677,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 109
 - x: last_right
   y: last_y
   zones:
@@ -22134,17 +21697,17 @@ areas:
     spawner:
     - count: 8
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - radiating_bullets
     - count: 23
       radius: 45
-      speed: 9
+      speed: 270
       types:
       - normal
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -22164,7 +21727,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 110
 - x: last_right
   y: last_y
   zones:
@@ -22185,17 +21747,17 @@ areas:
     spawner:
     - count: 8
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - radiating_bullets
     - count: 38
       radius: 45
-      speed: 5
+      speed: 150
       types:
       - normal
     - count: 9
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -22215,7 +21777,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 111
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -22236,13 +21798,13 @@ areas:
     spawner:
     - count: 15
       radius: 45
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 14
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -22262,7 +21824,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 112
 - x: last_right
   y: last_y
   zones:
@@ -22283,13 +21844,13 @@ areas:
     spawner:
     - count: 23
       radius: 45
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 14
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -22309,7 +21870,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 113
 - x: last_right
   y: last_y
   zones:
@@ -22330,13 +21890,13 @@ areas:
     spawner:
     - count: 23
       radius: 45
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 14
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -22356,7 +21916,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 114
 - x: last_right
   y: last_y
   zones:
@@ -22377,13 +21936,13 @@ areas:
     spawner:
     - count: 23
       radius: 45
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 14
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -22403,7 +21962,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 115
 - x: last_right
   y: last_y
   zones:
@@ -22424,13 +21982,13 @@ areas:
     spawner:
     - count: 30
       radius: 45
-      speed: 2
+      speed: 60
       types:
       - regen_sniper
       - speed_sniper
     - count: 14
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -22450,7 +22008,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 116
 - x: last_right
   y: last_y
   zones:
@@ -22471,12 +22028,12 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - disabling
     - count: 14
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -22496,7 +22053,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 117
 - x: last_right
   y: last_y
   zones:
@@ -22517,12 +22073,12 @@ areas:
     spawner:
     - count: 23
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - disabling
     - count: 27
       radius: 45
-      speed: 8
+      speed: 240
       types:
       - wall
     type: active
@@ -22542,7 +22098,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 118
 - x: last_right
   y: last_y
   zones:
@@ -22563,12 +22118,12 @@ areas:
     spawner:
     - count: 30
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - disabling
     - count: 14
       radius: 45
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -22588,7 +22143,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 119
 - x: last_right
   y: last_y
   zones:
@@ -22609,19 +22163,19 @@ areas:
     spawner:
     - count: 15
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - disabling
     - count: 15
       radius: 27
-      speed: 14
+      speed: 420
       types:
       - normal
       - homing
       - dasher
     - count: 14
       radius: 45
-      speed: 23
+      speed: 690
       types:
       - wall
     type: active
@@ -22641,7 +22195,6 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Area 120
 - x: last_right
   y: last_y
   zones:
@@ -22662,19 +22215,19 @@ areas:
     spawner:
     - count: 14
       radius: 27
-      speed: 9
+      speed: 270
       types:
       - disabling
     - count: 9
       radius: 135
-      speed: 14
+      speed: 420
       types:
       - normal
       - homing
       - dasher
     - count: 14
       radius: 45
-      speed: 23
+      speed: 690
       types:
       - wall
     type: active
@@ -22694,7 +22247,7 @@ areas:
     width: 64
     x: last_right
     y: 0
-# Victory Area 3
+  boss: true
 - x: last_right
   y: last_y
   zones:

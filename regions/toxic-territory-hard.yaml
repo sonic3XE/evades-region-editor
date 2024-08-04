@@ -31,7 +31,7 @@ areas:
     width: 288
     height: 192
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -42,7 +42,7 @@ areas:
       - corrosive
       count: 10
       radius: 18
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -83,17 +83,17 @@ areas:
       - corrosive
       count: 18
       radius: 12
-      speed: 10
+      speed: 300
     - types:
       - toxic
       count: 2
       radius: 12
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 5
       radius: 10
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -134,22 +134,22 @@ areas:
       - corrosive
       count: 26
       radius: 12
-      speed: 5
+      speed: 150
     - types:
       - corrosive
       count: 6
       radius: 18
-      speed: 17
+      speed: 510
     - types:
       - toxic
       count: 5
       radius: 12
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -190,27 +190,27 @@ areas:
       - corrosive
       count: 16
       radius: 48
-      speed: 3
+      speed: 90
     - types:
       - corrosive
       count: 22
       radius: 30
-      speed: 3
+      speed: 90
     - types:
       - corrosive
       count: 29
       radius: 12
-      speed: 4
+      speed: 120
     - types:
       - toxic
       count: 2
       radius: 12
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 5
       radius: 20
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -227,6 +227,7 @@ areas:
 # 5
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - type: exit
     x: 0
@@ -251,27 +252,27 @@ areas:
       - corrosive
       count: 2
       radius: 135
-      speed: 7
+      speed: 210
     - types:
       - corrosive
       count: 52
       radius: 18
-      speed: 2
+      speed: 60
     - types:
       - corrosive
       count: 52
       radius: 12
-      speed: 2
+      speed: 60
     - types:
       - toxic
       count: 3
       radius: 12
-      speed: 2
+      speed: 60
     - types:
       - wall
       count: 5
       radius: 25
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -312,22 +313,22 @@ areas:
       - corrosive
       count: 12
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - corrosive
       count: 20
       radius: 12
-      speed: 3
+      speed: 90
     - types:
       - corrosive_sniper
       count: 2
       radius: 12
-      speed: 3
+      speed: 90
     - types:
       - wall
       count: 5
       radius: 25
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
@@ -368,22 +369,22 @@ areas:
       - corrosive
       count: 16
       radius: 24
-      speed: 9
+      speed: 270
     - types:
       - toxic
       count: 2
       radius: 12
-      speed: 10
+      speed: 300
     - types:
       - corrosive_sniper
       count: 4
       radius: 24
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 5
       radius: 20
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
@@ -424,22 +425,22 @@ areas:
       - corrosive
       count: 24
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - corrosive_sniper
       count: 4
       radius: 12
-      speed: 5
+      speed: 150
     - types:
       - corrosive_sniper
       count: 3
       radius: 6
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
@@ -480,22 +481,22 @@ areas:
       - corrosive
       count: 8
       radius: 24
-      speed: 5
+      speed: 150
     - types:
       - corrosive
       count: 16
       radius: 12
-      speed: 7
+      speed: 210
     - types:
       - corrosive_sniper
       count: 3
       radius: 32
-      speed: 10
+      speed: 300
     - types:
       - wall
       count: 5
       radius: 10
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
@@ -512,6 +513,7 @@ areas:
 # 10
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - type: exit
     x: 0
@@ -536,22 +538,22 @@ areas:
       - corrosive
       count: 12
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - toxic
       count: 3
       radius: 12
-      speed: 5
+      speed: 150
     - types:
       - corrosive_sniper
       count: 2
       radius: 36
-      speed: 3
+      speed: 90
     - types:
       - corrosive_sniper
       count: 6
       radius: 12
-      speed: 2
+      speed: 60
   - type: safe
     x: last_right
     y: 0
@@ -592,17 +594,17 @@ areas:
       - corrosive
       count: 8
       radius: 26
-      speed: 6
+      speed: 180
     - types:
       - corrosive
       count: 8
       radius: 32
-      speed: 3
+      speed: 90
     - types:
       - enlarging
       count: 4
       radius: 12
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -643,22 +645,22 @@ areas:
       - corrosive
       count: 11
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - corrosive_sniper
       count: 4
       radius: 12
-      speed: 10
+      speed: 300
     - types:
       - enlarging
       count: 4
       radius: 12
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 5
       radius: 10
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -699,22 +701,22 @@ areas:
       - corrosive
       count: 20
       radius: 24
-      speed: 5
+      speed: 150
     - types:
       - toxic
       count: 6
       radius: 12
-      speed: 12
+      speed: 360
     - types:
       - enlarging
       count: 6
       radius: 12
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -755,22 +757,22 @@ areas:
       - corrosive_sniper
       count: 3
       radius: 12
-      speed: 13
+      speed: 390
     - types:
       - corrosive_sniper
       count: 4
       radius: 30
-      speed: 3
+      speed: 90
     - types:
       - enlarging
       count: 16
       radius: 12
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 5
       radius: 20
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -787,6 +789,7 @@ areas:
 # 15
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - type: exit
     x: 0
@@ -811,27 +814,27 @@ areas:
       - corrosive
       count: 10
       radius: 12
-      speed: 14
+      speed: 420
     - types:
       - toxic
       count: 10
       radius: 12
-      speed: 5
+      speed: 150
     - types:
       - corrosive_sniper
       count: 4
       radius: 12
-      speed: 5
+      speed: 150
     - types:
       - enlarging
       count: 15
       radius: 30
-      speed: 11
+      speed: 330
     - types:
       - wall
       count: 5
       radius: 25
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -872,17 +875,17 @@ areas:
       - enlarging
       count: 8
       radius: 12
-      speed: 9
+      speed: 270
     - types:
       - poison_ghost
       count: 10
       radius: 24
-      speed: 4.2
+      speed: 126
     - types:
       - wall
       count: 5
       radius: 25
-      speed: 9
+      speed: 270
   - type: safe
     x: last_right
     y: 0
@@ -923,22 +926,22 @@ areas:
       - corrosive
       count: 12
       radius: 30
-      speed: 5
+      speed: 150
     - types:
       - toxic
       count: 15
       radius: 12
-      speed: 14
+      speed: 420
     - types:
       - poison_ghost
       count: 8
       radius: 60
-      speed: 4.2
+      speed: 126
     - types:
       - wall
       count: 5
       radius: 20
-      speed: 9
+      speed: 270
   - type: safe
     x: last_right
     y: 0
@@ -979,22 +982,22 @@ areas:
       - toxic
       count: 15
       radius: 12
-      speed: 3
+      speed: 90
     - types:
       - enlarging
       count: 15
       radius: 12
-      speed: 3
+      speed: 90
     - types:
       - poison_ghost
       count: 16
       radius: 36
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 5
       radius: 15
-      speed: 9
+      speed: 270
   - type: safe
     x: last_right
     y: 0
@@ -1035,27 +1038,27 @@ areas:
       - toxic
       count: 10
       radius: 12
-      speed: 3
+      speed: 90
     - types:
       - corrosive_sniper
       count: 4
       radius: 12
-      speed: 5
+      speed: 150
     - types:
       - enlarging
       count: 10
       radius: 12
-      speed: 3
+      speed: 90
     - types:
       - poison_ghost
       count: 8
       radius: 52
-      speed: 9.8
+      speed: 294
     - types:
       - wall
       count: 5
       radius: 10
-      speed: 9
+      speed: 270
   - type: safe
     x: last_right
     y: 0
@@ -1072,6 +1075,7 @@ areas:
 # 20
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - type: exit
     x: 0
@@ -1096,27 +1100,27 @@ areas:
       - corrosive
       count: 5
       radius: 12
-      speed: 9
+      speed: 270
     - types:
       - toxic
       count: 5
       radius: 12
-      speed: 9
+      speed: 270
     - types:
       - enlarging
       count: 12
       radius: 12
-      speed: 9
+      speed: 270
     - types:
       - poison_ghost
       count: 6
       radius: 36
-      speed: 7.35
+      speed: 220.5
     - types:
       - poison_ghost
       count: 9
       radius: 12
-      speed: 12.6
+      speed: 378
   - type: safe
     x: last_right
     y: 0

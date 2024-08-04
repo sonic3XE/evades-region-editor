@@ -80,6 +80,11 @@ function customAREAgui(area){
     nameInput.addEventListener("input", () => {
         area.name = nameInput.value;
     });
+    const bossInput = document.createElement("input");
+    bossInput.checked = area.boss;
+    bossInput.addEventListener("input", () => {
+        area.boss = bossInput.checked;
+    });
 
     const xInput = document.createElement("input");
     xInput.value = area.rx;
@@ -104,6 +109,7 @@ function customAREAgui(area){
   var props=createPropertyObj(area.properties);
   area.properties=props;
     area.element = createFolder(formatString(curLang,"editor.area"), [
+        createProperty(formatString(curLang,"editor.property.boss"), bossInput, "switch", {value: area.boss ?? defaultValues.boss}),
         createProperty(formatString(curLang,"editor.property.name"), nameInput, "text"),
         createProperty(formatString(curLang,"editor.property.x"), xInput, "text"),
         createProperty(formatString(curLang,"editor.property.y"), yInput, "text"),

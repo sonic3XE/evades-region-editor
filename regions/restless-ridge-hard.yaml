@@ -37,23 +37,23 @@ areas:
         x: 32
         y: 0
         properties:
-          minimum_speed: 10
+          minimum_speed: 300
       # First exit 1
       - height: 480
         spawner:
           - count: 12
             radius: 12
-            speed: 5
+            speed: 150
             types:
               - icicle
           - count: 5
             radius: 10
-            speed: 5
+            speed: 150
             types:
               - slippery
           - count: 3
             radius: 20
-            speed: 5
+            speed: 150
             types:
               - snowman
         # Active 1
@@ -100,27 +100,27 @@ areas:
         spawner:
           - count: 1
             radius: 1
-            speed: 7.5
+            speed: 225
             types:
               - slippery
           - count: 8
             radius: 24
-            speed: 2
+            speed: 60
             types:
               - homing
           - count: 7
             radius: 24
-            speed: 2.5
+            speed: 75
             types:
               - normal
           - count: 4
             radius: 32
-            speed: 2
+            speed: 60
             types:
               - wall
           - count: 4
             radius: 32
-            speed: 3
+            speed: 90
             move_clockwise: False
             types:
               - wall
@@ -376,17 +376,17 @@ areas:
         spawner:
           - count: 2
             radius: 4
-            speed: 1.65
+            speed: 49.5
             types:
               - slippery
           - count: 35
             radius: 16
-            speed: 2
+            speed: 60
             types:
               - switch
           - count: 8
             radius: 32
-            speed: 3
+            speed: 90
             move_clockwise: False
             types:
               - wall
@@ -482,138 +482,138 @@ areas:
         spawner:
           - count: 1
             radius: 16
-            speed: 1
+            speed: 30
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 1.1
+            speed: 33
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 1.2
+            speed: 36
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 1.3
+            speed: 39
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 1.4
+            speed: 42
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 1.5
+            speed: 45
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 1.6
+            speed: 48
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 1.7
+            speed: 51
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 1.8
+            speed: 54
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 1.9
+            speed: 57
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 2
+            speed: 60
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 0.5
+            speed: 15
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 0.6
+            speed: 18
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 0.7
+            speed: 21
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 0.8
+            speed: 24
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 0.9
+            speed: 27
             types:
               - normal
           - count: 1
             radius: 16
-            speed: 2
+            speed: 60
             types:
               - normal
           - count: 1
             radius: 17
-            speed: 1.9
+            speed: 57
             types:
               - normal
           - count: 1
             radius: 18
-            speed: 1.8
+            speed: 54
             types:
               - normal
           - count: 1
             radius: 19
-            speed: 1.7
+            speed: 51
             types:
               - normal
           - count: 1
             radius: 20
-            speed: 1.6
+            speed: 48
             types:
               - normal
           - count: 1
             radius: 21
-            speed: 1.5
+            speed: 45
             types:
               - normal
           - count: 1
             radius: 22
-            speed: 1.4
+            speed: 42
             types:
               - normal
           - count: 1
             radius: 23
-            speed: 1.3
+            speed: 39
             types:
               - normal
           - count: 1
             radius: 24
-            speed: 1.2
+            speed: 36
             types:
               - normal
           - count: 10
             radius: 64
-            speed: 2.5
+            speed: 75
             move_clockwise: False
             types:
               - wall
           - count: 13
             radius: 15
-            speed: 3
+            speed: 90
             types:
               - dasher
         # Active 4
@@ -756,22 +756,22 @@ areas:
         spawner:
           - count: 9
             radius: 24
-            speed: 1.5
+            speed: 45
             types:
               - homing
           - count: 12
             radius: 16
-            speed: 2
+            speed: 60
             types:
               - normal
           - count: 4
             radius: 70
-            speed: 2
+            speed: 60
             types:
               - turning
           - count: 3
             radius: 100
-            speed: 3
+            speed: 90
             move_clockwise: False
             types:
               - wall
@@ -862,27 +862,27 @@ areas:
       - types:
         - slippery
         radius: 2
-        speed: 3
+        speed: 90
         count: 3
       - types:
         - normal
         radius: 24
-        speed: 5
+        speed: 150
         count: 7
       - types:
         - normal
         radius: 24
-        speed: 3
+        speed: 90
         count: 7
       - types:
         - wall
         radius: 48
-        speed: 5
+        speed: 150
         count: 5
       - types:
         - wall
         radius: 32
-        speed: 3
+        speed: 90
         count: 5
     - type: safe
       x: 2400
@@ -1153,33 +1153,33 @@ areas:
         spawner:
           - count: 2
             radius: 16
-            speed: 3.3
+            speed: 99
             types:
               - slippery
           - count: 5
             radius: 24
-            speed: 2
+            speed: 60
             types:
               - homing
           - count: 1
             radius: 16
-            speed: 2
+            speed: 60
             types:
               - homing
           - count: 3
             radius: 24
-            speed: 4
+            speed: 120
             types:
               - normal
           - count: 5
             radius: 64
-            speed: 3
+            speed: 90
             move_clockwise: False
             types:
               - wall
           - count: 3
             radius: 32
-            speed: 3
+            speed: 90
             types: 
               - radiating_bullets
         # Active 7
@@ -1301,17 +1301,17 @@ areas:
       - types:
         - normal
         radius: 20
-        speed: 5
+        speed: 150
         count: 60
       - types:
         - fire_trail
         radius: 32
-        speed: 5
+        speed: 150
         count: 13
       - types:
         - wall
         radius: 160
-        speed: 6
+        speed: 180
         move_clockwise: False
         count: 4
     - type: safe
@@ -1559,97 +1559,97 @@ areas:
         spawner:
           - count: 2
             radius: 16
-            speed: 4.3
+            speed: 129
             types:
               - slippery
           - count: 2
             radius: 16
-            speed: 4
+            speed: 120
             types:
               - homing
           - count: 1
             radius: 18
-            speed: 3.8
+            speed: 114
             types:
               - homing
           - count: 1
             radius: 20
-            speed: 3.6
+            speed: 108
             types:
               - homing
           - count: 1
             radius: 16
-            speed: 6
+            speed: 180
             types:
               - normal
           - count: 1
             radius: 17
-            speed: 5.9
+            speed: 177
             types:
               - normal
           - count: 1
             radius: 18
-            speed: 5.8
+            speed: 174
             types:
               - normal
           - count: 1
             radius: 19
-            speed: 5.7
+            speed: 171
             types:
               - normal
           - count: 1
             radius: 20
-            speed: 5.6
+            speed: 168
             types:
               - normal
           - count: 1
             radius: 21
-            speed: 5.5
+            speed: 165
             types:
               - normal
           - count: 1
             radius: 22
-            speed: 5.4
+            speed: 162
             types:
               - normal
           - count: 1
             radius: 23
-            speed: 5.3
+            speed: 159
             types:
               - normal
           - count: 1
             radius: 24
-            speed: 5.4
+            speed: 162
             types:
               - normal
           - count: 1
             radius: 25
-            speed: 5.3
+            speed: 159
             types:
               - normal
           - count: 1
             radius: 26
-            speed: 5.2
+            speed: 156
             types:
               - normal
           - count: 1
             radius: 27
-            speed: 5.1
+            speed: 153
             types:
               - normal
           - count: 40
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - normal
           - count: 8
             radius: 13
-            speed: 5
+            speed: 150
             types:
               - slowing
           - count: 6
             radius: 48
-            speed: 3
+            speed: 90
             types:
               - wall
         # Active 9
@@ -1908,7 +1908,8 @@ areas:
   # Area 10
   - x: 164812
     y: 43040
-    name: Area 10
+    name: "10"
+    boss: true
     zones:
       # Safe 1
       - height: 704
@@ -1929,22 +1930,22 @@ areas:
         spawner:
           - count: 5
             radius: 16
-            speed: 3.3
+            speed: 99
             types:
               - normal
           - count: 8
             radius: 64
-            speed: 2
+            speed: 60
             types:
               - switch
           - count: 20
             radius: 16
-            speed: 2
+            speed: 60
             types:
               - switch
           - count: 2
             radius: 16
-            speed: 3
+            speed: 90
             types:
               - wall
         type: active
@@ -2310,37 +2311,37 @@ areas:
         spawner:
           - count: 20
             radius: 16
-            speed: 4
+            speed: 120
             types:
               - freezing
           - count: 55
             radius: 16
-            speed: 3
+            speed: 90
             types:
               - normal
           - count: 10
             radius: 8
-            speed: 4
+            speed: 120
             types:
               - normal
           - count: 3
             radius: 12
-            speed: 6
+            speed: 180
             types:
               - normal
           - count: 60
             radius: 40
-            speed: 6
+            speed: 180
             types: 
               - ice_ghost
           - count: 5
             radius: 160
-            speed: 9
+            speed: 270
             types:
               - wall
           - count: 20
             radius: 80
-            speed: 1
+            speed: 30
             move_clockwise: False
             types:
               - wall
@@ -2596,42 +2597,42 @@ areas:
         spawner:
           - count: 15
             radius: 16
-            speed: 4
+            speed: 120
             types:
               - freezing
           - count: 25
             radius: 24
-            speed: 1
+            speed: 30
             types:
               - normal
           - count: 30
             radius: 32
-            speed: 2
+            speed: 60
             types:
               - normal
           - count: 5
             radius: 12
-            speed: 6
+            speed: 180
             types:
               - normal
           - count: 38
             radius: 20
-            speed: 10
+            speed: 300
             types:
               - icicle
           - count: 16
             radius: 20
-            speed: 7
+            speed: 210
             types:
               - zoning
           - count: 8
             radius: 160
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 20
             radius: 32
-            speed: 1
+            speed: 30
             move_clockwise: False
             types:
               - wall
@@ -2890,24 +2891,24 @@ areas:
       - types:
         - sizing
         radius: 20
-        speed: 3
+        speed: 90
         count: 27
       - types:
         - gravity
         radius: 1
-        speed: 5
+        speed: 150
         count: 4
       - types:
         - wall
         radius: 50
         count: 4
-        speed: 9
+        speed: 270
         move_clockwise: false
       - types:
         - wall
         radius: 50
         count: 4
-        speed: 9
+        speed: 270
     - type: safe
       x: 2400
       y: 0
@@ -3273,27 +3274,27 @@ areas:
       - types:
         - freezing
         radius: 8
-        speed: 6
+        speed: 180
         count: 9
       - types:
         - normal
         radius: 24
-        speed: 2
+        speed: 60
         count: 40
       - types:
         - normal
         radius: 28
-        speed: 4
+        speed: 120
         count: 5
       - types:
         - wavy
         radius: 18
-        speed: 3
+        speed: 90
         count: 25
       - types:
         - wall
         radius: 128
-        speed: 11
+        speed: 330
         count: 5
     - type: safe
       x: 8160
@@ -3855,52 +3856,52 @@ areas:
       - types:
         - normal
         radius: 16
-        speed: 2
+        speed: 60
         count: 30
       - types:
         - normal
         radius: 18
-        speed: 1.9
+        speed: 57
         count: 25
       - types:
         - normal
         radius: 20
-        speed: 1.8
+        speed: 54
         count: 25
       - types:
         - normal
         radius: 22
-        speed: 1.5
+        speed: 45
         count: 25
       - types:
         - normal
         radius: 24
-        speed: 1.4
+        speed: 42
         count: 25
       - types:
         - normal
         radius: 26
-        speed: 1
+        speed: 30
         count: 25
       - types:
         - switch
         radius: 120
-        speed: 4
+        speed: 120
         count: 11
       - types:
         - enlarging
         count: 20
         radius: 18
-        speed: 4
+        speed: 120
       - types:
         - wall
         radius: 240
-        speed: 3.5
+        speed: 105
         count: 7
       - types:
         - wall
         radius: 40
-        speed: 1
+        speed: 30
         count: 18
         move_clockwise: false
     - type: safe
@@ -4348,34 +4349,34 @@ areas:
         spawner:
           - count: 9
             radius: 8
-            speed: 4
+            speed: 120
             types:
               - freezing
           - count: 9
             radius: 8
-            speed: 4
+            speed: 120
             types:
               - slowing
           - count: 22
             radius: 24
-            speed: 2
+            speed: 60
             types:
               - normal
               - homing
           - count: 20
             radius: 24
-            speed: 4
+            speed: 120
             types:
               - normal
               - homing
           - count: 5
             radius: 112
-            speed: 11
+            speed: 330
             types:
               - wall
           - count: 7
             radius: 18
-            speed: 12
+            speed: 360
             types:
               - poison_sniper
         # Active 16
@@ -4561,7 +4562,7 @@ areas:
       - types:
         - repelling
         radius: 1
-        speed: 2
+        speed: 60
         count: 16
     - type: safe
       x: 2080
@@ -4696,22 +4697,22 @@ areas:
         spawner:
           - count: 17
             radius: 32
-            speed: 2
+            speed: 60
             types:
               - liquid
           - count: 9
             radius: 18
-            speed: 6
+            speed: 180
             types:
               - turning
           - count: 3
             radius: 16
-            speed: 5
+            speed: 150
             types:
               - wall
           - count: 2
             radius: 16
-            speed: 5
+            speed: 150
             move_clockwise: false
             types:
               - wall
@@ -5095,22 +5096,22 @@ areas:
         spawner:
           - count: 6
             radius: 16
-            speed: 6
+            speed: 180
             types:
               - freezing
           - count: 27
             radius: 18
-            speed: 13
+            speed: 390
             types:
               - dasher
           - count: 12
             radius: 80
-            speed: 7
+            speed: 210
             types:
               - wall
           - count: 12
             radius: 12
-            speed: 5
+            speed: 150
             types:
               - sniper
         # Active 19
@@ -5304,7 +5305,8 @@ areas:
   # Area 20
   - x: 228076
     y: 43040
-    name: Area 20
+    name: "20"
+    boss: true
     zones:
       # Safe 1
       - height: 640
@@ -5325,48 +5327,48 @@ areas:
         spawner:
           - count: 20
             radius: 16
-            speed: 6.5
+            speed: 195
             types:
               - freezing
           - count: 10
             radius: 8
-            speed: 8.5
+            speed: 255
             types:
               - freezing
           - count: 65
             radius: 24
-            speed: 6
+            speed: 180
             types:
               - normal
           - count: 7
             radius: 24
-            speed: 10
+            speed: 300
             types:
               - normal
           - count: 4
             radius: 64
-            speed: 5
+            speed: 150
             types:
               - normal
           - count: 25
             radius: 24
-            speed: 6
+            speed: 180
             types:
               - homing
           - count: 4
             radius: 125
-            speed: 14
+            speed: 420
             types:
               - normal
               - homing
           - count: 6
             radius: 160
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 14
             radius: 8
-            speed: 2
+            speed: 60
             move_clockwise: False
             types:
               - wall
@@ -5668,32 +5670,32 @@ areas:
         - fire_trail
         count: 8
         radius: 45
-        speed: 7
+        speed: 210
       - types: 
         - pumpkin
         count: 45
         radius: 30
-        speed: 9
+        speed: 270
       - types:
         - fake_pumpkin
         count: 20
         radius: 30
-        speed: 9
+        speed: 270
       - types:
         - snowman
         count: 6
         radius: 20
-        speed: 6
+        speed: 180
       - types:
         - snowman
         count: 8
         radius: 30
-        speed: 6
+        speed: 180
       - types:
         - snowman
         count: 6
         radius: 10
-        speed: 6
+        speed: 180
     - type: safe
       x: 4480
       y: 0
@@ -5731,24 +5733,24 @@ areas:
         spawner:
           - count: 7
             radius: 240
-            speed: 11
+            speed: 330
             types:
               - wall
           - count: 1
             radius: 272
-            speed: 5
+            speed: 150
             move_clockwise: False
             types:
               - wall
           - count: 150
             radius: 32
-            speed: 7
+            speed: 210
             types:
               - switch
               - wind_ghost
           - count: 50
             radius: 24
-            speed: 6
+            speed: 180
             types:
               - homing
               - normal
@@ -5990,33 +5992,33 @@ areas:
         spawner:
         - count: 40
           radius: 16
-          speed: 6
+          speed: 180
           types:
           - immune
         - count: 7
           radius: 8
-          speed: 6
+          speed: 180
           types:
           - dasher
         - count: 80
           radius: 18
-          speed: 7
+          speed: 210
           types:
           - icicle
         - count: 4
           radius: 144
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 2
           radius: 144
-          speed: 5
+          speed: 150
           move_clockwise: false
           types:
           - wall
         - count: 20
           radius: 32
-          speed: 1
+          speed: 30
           move_clockwise: false
           types:
           - wall
@@ -6225,49 +6227,49 @@ areas:
         spawner:
           - count: 65
             radius: 16
-            speed: 6
+            speed: 180
             types:
               - immune
           - count: 10
             radius: 8
-            speed: 6
+            speed: 180
             types:
               - dasher
           - count: 75
             radius: 12
-            speed: 3
+            speed: 90
             types:
               - disabling
           - count: 9
             radius: 48
-            speed: 5
+            speed: 150
             types:
               - normal
           - count: 20
             radius: 40
-            speed: 5
+            speed: 150
             types:
               - tree
           - count: 4
             radius: 192
-            speed: 6
+            speed: 180
             types:
               - wall
           - count: 2
             radius: 110
-            speed: 3
+            speed: 90
             move_clockwise: False
             types:
               - wall
           - count: 4
             radius: 32
-            speed: 1
+            speed: 30
             move_clockwise: False
             types:
               - wall
           - count: 40
             radius: 18
-            speed: 6
+            speed: 180
             types:
               - normal
         # Active 23
@@ -6525,12 +6527,12 @@ areas:
       - types:
         - dasher
         radius: 16
-        speed: 5
+        speed: 150
         count: 15
       - types:
         - radiating_bullets
         radius: 18
-        speed: 3
+        speed: 90
         count: 3
     - type: safe
       x: 0
@@ -6812,22 +6814,22 @@ areas:
       - types:
         - switch
         radius: 32
-        speed: 6
+        speed: 180
         count: 4
       - types:
         - radiating_bullets
         radius: 10
-        speed: 1
+        speed: 30
         count: 1
       - types:
         - wall
         radius: 24
-        speed: 4.5
+        speed: 135
         count: 6
       - types:
         - wall
         radius: 160
-        speed: 4.5
+        speed: 135
         count: 1
         move_clockwise: false
     - type: safe
@@ -7254,47 +7256,47 @@ areas:
       - types:
         - normal
         radius: 16
-        speed: 3
+        speed: 90
         count: 35
       - types:
         - dasher
         radius: 8
-        speed: 5
+        speed: 150
         count: 10
       - types:
         - turning
         radius: 32
-        speed: 6
+        speed: 180
         count: 8
       - types:
         - normal
         radius: 17
-        speed: 3
+        speed: 90
         count: 9
       - types:
         - teleporting
         radius: 18
-        speed: 75
+        speed: 2250
         count: 25
       - types:
         - spiral
         radius: 18
-        speed: 7
+        speed: 210
         count: 18
       - types:
         - wall
         radius: 112
-        speed: 8
+        speed: 240
         count: 4
       - types:
         - wall
         radius: 112
-        speed: 8
+        speed: 240
         count: 1
       - types:
         - wall
         radius: 8
-        speed: 1
+        speed: 30
         count: 10
     - type: safe
       x: 0
@@ -7533,42 +7535,42 @@ areas:
         spawner:
           - count: 60
             radius: 16
-            speed: 3
+            speed: 90
             types:
               - immune
           - count: 20
             radius: 8
-            speed: 3
+            speed: 90
             types:
               - dasher
           - count: 8
             radius: 32
-            speed: 7
+            speed: 210
             types:
               - turning
           - count: 10
             radius: 18
-            speed: 6
+            speed: 180
             types:
               - radiating_bullets
           - count: 20
             radius: 20
-            speed: 3
+            speed: 90
             types:
               - immune
           - count: 20
             radius: 40
-            speed: 4
+            speed: 120
             types:
               - radiating_bullets
           - count: 5
             radius: 333
-            speed: 15
+            speed: 450
             types:
               - wall
           - count: 10
             radius: 8
-            speed: 4
+            speed: 120
             move_clockwise: False
             types:
               - wall
@@ -7848,43 +7850,43 @@ areas:
         spawner:
           - count: 100
             radius: 16
-            speed: 2
+            speed: 60
             types:
               - immune
           - count: 10
             radius: 16
-            speed: 4
+            speed: 120
             types:
               - slowing
           - count: 8
             radius: 18
-            speed: 3
+            speed: 90
             types:
               - normal
           - count: 4
             radius: 20
-            speed: 2
+            speed: 60
             types:
               - normal
           - count: 6
             radius: 20
-            speed: 6
+            speed: 180
             types:
               - freezing
           - count: 3
             radius: 16
-            speed: 8
+            speed: 240
             types:
               - poison_sniper
           - count: 3
             radius: 144
-            speed: 25
+            speed: 750
             move_clockwise: False
             types:
               - wall
           - count: 8
             radius: 8
-            speed: 4
+            speed: 120
             move_clockwise: False
             types:
               - wall
@@ -8156,16 +8158,16 @@ areas:
         - wind_ghost
         radius: 32
         count: 40
-        speed: 9
+        speed: 270
       - types:
         - wall
         radius: 192
-        speed: 9
+        speed: 270
         count: 6
       - types:
         - wall
         radius: 128
-        speed: 9
+        speed: 270
         count: 6
         move_clockwise: false
     - type: safe
@@ -8552,7 +8554,8 @@ areas:
   # Area 30
   - x: 164972
     y: 50816
-    name: Area 30
+    name: "30"
+    boss: true
     zones:
     - type: safe
       x: 10080
@@ -8575,53 +8578,53 @@ areas:
       spawner:
       - count: 25
         radius: 16
-        speed: 5.5
+        speed: 165
         types:
         - immune
       - count: 7
         radius: 17
-        speed: 10.5
+        speed: 315
         types:
         - dasher
       - count: 10
         radius: 16
-        speed: 4.5
+        speed: 135
         types:
         - turning
       - count: 8
         radius: 16
-        speed: 3.5
+        speed: 105
         types:
         - dasher
       - count: 4
         radius: 48
-        speed: 2.5
+        speed: 75
         types:
         - normal
       - count: 10
         radius: 12
-        speed: 7.5
+        speed: 225
         types:
         - disabling
       - count: 27
         radius: 30
-        speed: 8
+        speed: 240
         types:
         - pumpkin
       - count: 15
         radius: 160
-        speed: 5
+        speed: 150
         types:
         - wall
       - count: 3
         radius: 160
-        speed: 10
+        speed: 300
         move_clockwise: false
         types:
         - wall
       - count: 30
         radius: 80
-        speed: 5
+        speed: 150
         move_clockwise: false
         types:
         - wall
@@ -9014,27 +9017,27 @@ areas:
         spawner:
           - count: 3
             radius: 16
-            speed: 3
+            speed: 90
             types:
               - icicle
           - count: 5
             radius: 32
-            speed: 1
+            speed: 30
             types:
               - icicle
           - count: 7
             radius: 16
-            speed: 4
+            speed: 120
             types:
               - normal
           - count: 8
             radius: 24
-            speed: 5
+            speed: 150
             types:
               - normal
           - count: 10
             radius: 8
-            speed: 3
+            speed: 90
             types:
               - normal
           - count: 5
@@ -9042,13 +9045,13 @@ areas:
             pattern: quadspiral
             immune: false
             shot_interval: 3000
-            speed: 5
-            turn_speed: 5
+            speed: 150
+            turn_speed: 150
             types:
             - frost_giant
           - count: 10
             radius: 32
-            speed: 3
+            speed: 90
             move_clockwise: False
             types:
               - wall
@@ -9139,12 +9142,12 @@ areas:
       - types:
         - liquid
         radius: 32
-        speed: 0.8
+        speed: 24
         count: 30
       - types:
         - repelling
         radius: 1
-        speed: 2
+        speed: 60
         count: 12
       - types:
         - frost_giant
@@ -9152,7 +9155,7 @@ areas:
         pattern: quadspiral
         x: 240
         y: 3900
-        turn_speed: 4
+        turn_speed: 120
         shot_interval: 400
         count: 1
       - types:
@@ -9161,8 +9164,8 @@ areas:
         pattern: spiral
         pause_interval: 5000
         pause_duration: 5000
-        turn_acceleration: 0.8
-        shot_acceleration: 5
+        turn_acceleration: 24
+        shot_acceleration: 150
         x: 208
         y: 4624
         count: 1
@@ -9172,22 +9175,22 @@ areas:
         pattern: cone
         x: 240
         y: 2192
-        turn_speed: 1
+        turn_speed: 30
         shot_interval: 300
         count: 1
         angle: 90
-        projectile_speed: 5
+        projectile_speed: 150
       - types:
         - frost_giant
         radius: 48
         pattern: spiral
         x: 352
         y: 1904
-        turn_speed: -0.001
+        turn_speed: -0.0
         shot_interval: 8000
         count: 1
         angle: -90
-        projectile_speed: 1.5
+        projectile_speed: 45
         projectile_radius: 48
         projectile_duration: 25000
       - types:
@@ -9196,11 +9199,11 @@ areas:
         pattern: spiral
         x: 128
         y: 1904
-        turn_speed: 0.001
+        turn_speed: 0.0
         shot_interval: 8000
         count: 1
         angle: -90
-        projectile_speed: 1.5
+        projectile_speed: 45
         projectile_radius: 48
         projectile_duration: 25000
     - type: safe
@@ -10128,12 +10131,12 @@ areas:
         spawner:
           - count: 60
             radius: 16
-            speed: 2
+            speed: 60
             types:
               - draining
           - count: 150
             radius: 50
-            speed: 3
+            speed: -90
             reverse: True
             types:
               - homing
@@ -10589,7 +10592,7 @@ areas:
         spawner:
           - count: 35
             radius: 16
-            speed: 5
+            speed: 150
             types:
               - immune
           - radius: 50
@@ -10722,7 +10725,7 @@ areas:
             - frost_giant
           - radius: 20
             count: 5
-            speed: 2
+            speed: 60
             types:
               - slowing
         # Active 34
@@ -10948,12 +10951,12 @@ areas:
       - types:
         - wall
         radius: 128
-        speed: 18
+        speed: 540
         count: 4
       - types:
         - wall
         radius: 128
-        speed: 28
+        speed: 840
         count: 2
         move_clockwise: 0
       - types:
@@ -10967,7 +10970,7 @@ areas:
         angle: 90
         shot_interval: 1000
         projectile_radius: 5
-        projectile_speed: 10
+        projectile_speed: 300
     - type: safe
       x: 0
       y: 6880
@@ -11399,43 +11402,43 @@ areas:
         spawner:
           - count: 25
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - icicle
           - count: 2
             radius: 50
-            speed: 4
+            speed: 120
             types:
               - icicle
           - count: 10
             radius: 30
-            speed: 3
+            speed: 90
             horizontal: true
             types:
               - icicle
           - count: 15
             radius: 16
-            speed: 4
+            speed: 120
             types:
               - zigzag
           - count: 4
             radius: 16
-            speed: 1
+            speed: 30
             types:
               - homing
           - count: 7
             radius: 32
-            speed: 6
+            speed: 180
             types:
               - slowing
           - count: 5
             radius: 20
-            speed: 5
+            speed: 150
             types:
               - snowman
           - count: 10
             radius: 32
-            speed: 3
+            speed: 90
             move_clockwise: False
             types:
               - wall
@@ -11579,32 +11582,32 @@ areas:
         spawner:
           - count: 8
             radius: 16
-            speed: 4.5
+            speed: 135
             types:
               - immune
           - count: 5
             radius: 24
-            speed: 1.5
+            speed: 45
             types:
               - icicle
           - count: 1
             radius: 8
-            speed: 0.5
+            speed: 15
             types:
               - icicle
           - count: 15
             radius: 16
-            speed: 3.5
+            speed: 105
             types:
               - zigzag
           - count: 12
             radius: 16
-            speed: 4.5
+            speed: 135
             types:
               - homing
           - count: 12
             radius: 16
-            speed: 6
+            speed: 180
             types:
               - slowing
           - count: 5
@@ -11612,25 +11615,25 @@ areas:
             pattern: quadspiral
             immune: false
             shot_interval: 1600
-            speed: 5
-            turn_speed: 5
+            speed: 150
+            turn_speed: 150
             types:
               - frost_giant
           - count: 20
             radius: 20
-            speed: 5
+            speed: 150
             horizontal: true
             types:
               - icicle
           - count: 10
             radius: 32
-            speed: 3
+            speed: 90
             move_clockwise: False
             types:
               - wall
           - count: 10
             radius: 32
-            speed: 3
+            speed: 90
             types:
               - wall
         # Active 37
@@ -11872,22 +11875,22 @@ areas:
       - types:
         - repelling
         radius: 16
-        speed: 5
+        speed: 150
         count: 30
       - types:
         - wind_ghost
         radius: 30
-        speed: 3
+        speed: 90
         count: 50
       - types:
         - ice_ghost
         radius: 30
-        speed: 3
+        speed: 90
         count: 10
       - types:
         - wall
         radius: 240
-        speed: 8
+        speed: 240
         count: 5
         move_clockwise: False
     - type: safe
@@ -12548,12 +12551,12 @@ areas:
       spawner:
       - count: 20
         radius: 16
-        speed: 8
+        speed: 240
         types:
         - immune
       - count: 6
         radius: 1
-        speed: 6
+        speed: 180
         types:
         - gravity
       - types:
@@ -12565,9 +12568,9 @@ areas:
         y: 1632
         pattern: spiral
         angle: 90
-        turn_speed: 123
+        turn_speed: 3690
         shot_interval: 60
-        projectile_speed: 3
+        projectile_speed: 90
       - types:
         - frost_giant
         count: 1
@@ -12579,7 +12582,7 @@ areas:
         angle: -45
         turn_speed: 0
         shot_interval: 50
-        projectile_speed: 20
+        projectile_speed: 600
         pause_interval: 2000
         pause_duration: 1000
       - types:
@@ -12593,7 +12596,7 @@ areas:
         angle: -135
         turn_speed: 0
         shot_interval: 50
-        projectile_speed: 20
+        projectile_speed: 600
         pause_interval: 2000
         pause_duration: 1000
       - types:
@@ -12607,7 +12610,7 @@ areas:
         angle: 135
         turn_speed: 0
         shot_interval: 50
-        projectile_speed: 20
+        projectile_speed: 600
         pause_interval: 2000
         pause_duration: 1000
       - types:
@@ -12621,7 +12624,7 @@ areas:
         angle: 135
         turn_speed: 0
         shot_interval: 50
-        projectile_speed: 20
+        projectile_speed: 600
         pause_interval: 2000
         pause_duration: 1000
       - types:
@@ -12633,9 +12636,9 @@ areas:
         y: 2144
         pattern: quadspiral
         angle: 45
-        turn_speed: 45
+        turn_speed: 1350
         shot_interval: 800
-        projectile_speed: 4.5
+        projectile_speed: 135
         projectile_radius: 6
       - types:
         - frost_giant
@@ -12646,9 +12649,9 @@ areas:
         y: 2528
         pattern: twinspiral
         angle: 0
-        turn_speed: 96
+        turn_speed: 2880
         shot_interval: 500
-        projectile_speed: 4.5
+        projectile_speed: 135
         projectile_radius: 24
       - types:
         - frost_giant
@@ -12661,7 +12664,7 @@ areas:
         angle: 45
         turn_speed: 0
         shot_interval: 50
-        projectile_speed: 20
+        projectile_speed: 600
         pause_interval: 2000
         pause_duration: 1000
     - type: safe
@@ -13917,7 +13920,8 @@ areas:
   # Area 40
   - x: 169932
     y: 83360
-    name: Area 40
+    name: "40"
+    boss: true
     zones:
     - type: safe
       x: 0
@@ -13941,7 +13945,7 @@ areas:
       - types:
         - wall
         radius: 320
-        speed: 6.5
+        speed: 195
         count: 4
     - type: safe
       x: 0
@@ -14989,6 +14993,14 @@ areas:
         x: 480
         y: 704
     - type: exit
+      x: 1216
+      y: 6880
+      width: 64
+      height: 224
+      translate:
+        x: 480
+        y: 320
+    - type: exit
       x: 1152
       y: 5568
       width: 64
@@ -15508,7 +15520,7 @@ areas:
         spawner:
           - count: 8
             radius: 80
-            speed: 7
+            speed: 210
             move_clockwise: false
             types:
               - wall
@@ -15517,16 +15529,16 @@ areas:
             pattern: quadspiral
             immune: false
             shot_interval: 3000
-            speed: 6
-            turn_speed: 5
+            speed: 180
+            turn_speed: 150
             types:
               - frost_giant
           - count: 1
             radius: 30
             pattern: quadspiral
             immune: false
-            speed: 5
-            turn_speed: 5
+            speed: 150
+            turn_speed: 150
             types:
               - frost_giant
         # Active 19
@@ -15733,7 +15745,7 @@ areas:
         spawner:
           - count: 1
             radius: 50
-            speed: 14
+            speed: 420
             types:
               - pumpkin
               - fake_pumpkin
@@ -15833,12 +15845,12 @@ areas:
       - types:
         - wall
         radius: 16
-        speed: 6
+        speed: 180
         count: 15
       - types:
         - wall
         radius: 16
-        speed: 4
+        speed: 120
         count: 15
         move_clockwise: false
     - type: safe
@@ -16006,11 +16018,13 @@ areas:
       translate:
         x: -1744
         y: -352
-    - type: exit
+    - type: teleport
       x: 1888
       y: 0
       width: 64
       height: 480
+      requirements:
+        - exact_index:Restless Ridge Hard:47
       translate:
         x: 160
         y: -42880
@@ -16040,44 +16054,58 @@ areas:
       - types:
         - sniper
         radius: 288
-        speed: 1
+        speed: 30
         count: 1
+        recharge: 1500
       - types:
-        - snowman
+        - normal
         radius: 40
-        speed: 12
+        speed: 360
         count: 7
       - types:
         - pumpkin
         radius: 60
-        speed: 8
+        speed: 240
         count: 10
       - types:
-        - tree
+        - sniper
         radius: 80
-        speed: 4
+        speed: 120
         count: 3
+        recharge: 500
       - types:
         - immune
+        radius: 36
+        speed: 240
+        count: 18
+      - types:
         - homing
         radius: 36
-        speed: 8
-        count: 25
+        speed: 240
+        count: 18
+        increment: 2.5
+        home_range: 400
       - types:
         - turning
         radius: 150
-        speed: 6
+        speed: 180
         count: 4
       - types:
-        - slowing
         - draining
         radius: 24
-        speed: 10
-        count: 25
+        speed: 300
+        count: 13
+        drain: 45
+      - types:
+        - slowing
+        radius: 24
+        speed: 300
+        count: 13
+        slow: 0.45
       - types:
         - wall
         radius: 200
-        speed: 12
+        speed: 360
         count: 10
     - type: safe
       x: 6080
@@ -16118,45 +16146,64 @@ areas:
       - types:
         - sniper
         radius: 288
-        speed: 1
+        speed: 30
         count: 1
+        recharge: 1500
       - types: 
         - icicle
         radius: 36
-        speed: 5
+        speed: 150
         count: 45
       - types:
-        - fire_trail
+        - radiating_bullets
         radius: 40
-        speed: 7
+        speed: 210
         count: 7
+        release_interval: 2000
       - types:
         - icicle
         radius: 36
-        speed: 5
+        speed: 150
         count: 20
         horizontal: true
       - types:
         - immune
+        radius: 36
+        speed: 240
+        count: 18
+      - types:
         - homing
         radius: 36
-        speed: 8
-        count: 35
+        speed: 240
+        count: 18
+        increment: 2.5
+        home_range: 400
       - types:
         - turning
         radius: 150
-        speed: 6
+        speed: 180
         count: 4
       - types:
-        - slowing
+        - normal
+        radius: 35
+        speed: 180
+        count: 10
+      - types:
         - draining
         radius: 24
-        speed: 10
-        count: 25
+        speed: 300
+        count: 13
+        drain: 45
+      - types:
+        - slowing
+        radius: 24
+        speed: 300
+        count: 13
+        slow: 0.45
       - types:
         - wall
         radius: 200
-        speed: 12
+        speed: 360
         count: 10
     - type: safe
       x: 6080
@@ -16197,54 +16244,64 @@ areas:
       - types:
         - sniper
         radius: 288
-        speed: 1
+        speed: 30
         count: 1
+        recharge: 1500
       - types:
         - switch
         radius: 36
-        speed: 6
+        speed: 180
         count: 87
+        switch_interval: 1000
       - types:
         - switch
         radius: 138
-        speed: 8
+        speed: 240
         count: 6
+        switch_interval: 1000
       - types:
-        - immune
         - homing
         radius: 36
-        speed: 8
-        count: 25
+        speed: 240
+        count: 13
+        increment: 2.5
+        home_range: 400
+      - types:
+        - immune
+        radius: 36
+        speed: 240
+        count: 13
       - types:
         - turning
         radius: 150
-        speed: 6
+        speed: 180
         count: 4
       - types:
         - draining
         radius: 24
-        speed: 10
+        speed: 300
         count: 25
+        drain: 45
       - types:
         - teleporting
         count: 1
         radius: 12
-        speed: 262
+        speed: 7860
       - types:
         - wall
         radius: 240
-        speed: 15
+        speed: 450
         count: 10
       - types:
         - wall
         radius: 32
-        speed: 10
+        speed: 300
         count: 1
         move_clockwise: false
       - types:
         - wall
         radius: 120
-        speed: 18
+        speed: 540
         count: 2
         move_clockwise: false
     - type: safe
@@ -16260,30 +16317,6 @@ areas:
       translate:
         x: 0
         y: -160
-  - x: 193884
-    y: 47040
-    zones:
-    - type: exit
-      x: 0
-      y: 576
-      width: 640
-      height: 64
-      translate:
-        x: 0
-        y: 160
-    - type: victory
-      x: 0
-      y: 64
-      width: 640
-      height: 512
-    - type: exit
-      x: 0
-      y: 0
-      width: 640
-      height: 64
-      translate:
-        x: -23904
-        y: 43296
   # Victory
   - x: 170252
     y: 82720
@@ -16314,3 +16347,28 @@ areas:
         width: 640
         x: 0
         y: 0
+  # Armageddon Victory
+  - x: 193884
+    y: 47040
+    zones:
+    - type: exit
+      x: 0
+      y: 576
+      width: 640
+      height: 64
+      translate:
+        x: 0
+        y: 160
+    - type: victory
+      x: 0
+      y: 64
+      width: 640
+      height: 512
+    - type: exit
+      x: 0
+      y: 0
+      width: 640
+      height: 64
+      translate:
+        x: -23904
+        y: 43296

@@ -19,7 +19,7 @@ areas:
     y: 0
   - height: 480
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
     type: safe
     width: 288
     x: 32
@@ -28,7 +28,7 @@ areas:
     spawner:
     - count: 5
       radius: 36
-      speed: 4.5
+      speed: 135
       types:
       - normal
     type: active
@@ -52,7 +52,6 @@ areas:
   properties:
     pellet_count: 5
     pellet_multiplier: 2.5
-    charge_reduced: True
   x: 287744
   y: 4800
   zones:
@@ -78,7 +77,7 @@ areas:
     spawner:
     - count: 3
       radius: 36
-      speed: 4.5
+      speed: 135
       types:
       - normal
     type: active
@@ -107,7 +106,6 @@ areas:
   properties:
     pellet_count: 10
     pellet_multiplier: 1.5
-    charge_reduced: True
   x: 287744
   y: 5760
   zones:
@@ -136,12 +134,12 @@ areas:
     spawner:
     - count: 5
       radius: 36
-      speed: 4.5
+      speed: 135
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -165,7 +163,6 @@ areas:
   properties:
     pellet_count: 5
     pellet_multiplier: 2.5
-    charge_reduced: True
   x: 289056
   y: 4640
   zones:
@@ -186,12 +183,12 @@ areas:
     spawner:
     - count: 7
       radius: 36
-      speed: 4.5
+      speed: 135
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -242,12 +239,12 @@ areas:
     spawner:
     - count: 10
       radius: 36
-      speed: 9
+      speed: 270
       types:
       - normal
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -299,17 +296,17 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - normal
     - count: 6
       radius: 27
-      speed: 2.25
+      speed: 67.5
       types:
       - radiating_bullets
     - count: 6
       radius: 15
-      speed: 10
+      speed: 300
       types:
       - wall
     type: active
@@ -355,12 +352,12 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 15
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - dasher
     type: active
@@ -406,17 +403,17 @@ areas:
     spawner:
     - count: 13
       radius: 28
-      speed: 12
+      speed: 360
       types:
       - normal
     - count: 13
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -457,17 +454,17 @@ areas:
     spawner:
     - count: 25
       radius: 28
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 13
       radius: 18
-      speed: 6
+      speed: 180
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -513,17 +510,17 @@ areas:
     spawner:
     - count: 13
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - dasher
     - count: 13
       radius: 28
-      speed: 12
+      speed: 360
       types:
       - dasher
     - count: 8
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -574,22 +571,22 @@ areas:
     spawner:
     - count: 10
       radius: 12
-      speed: 12
+      speed: 360
       types:
       - dasher
     - count: 10
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - dasher
     - count: 10
       radius: 28
-      speed: 12
+      speed: 360
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -635,17 +632,17 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - homing
     - count: 10
       radius: 18
-      speed: 18
+      speed: 540
       types:
       - dasher
     - count: 6
       radius: 30
-      speed: 7.5
+      speed: 225
       types:
       - wall
     type: active
@@ -686,12 +683,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -750,17 +747,17 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 18
+      speed: 540
       types:
       - normal
     - count: 10
       radius: 18
-      speed: 18
+      speed: 540
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -817,22 +814,22 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - normal
     - count: 6
       radius: 36
-      speed: 4.5
+      speed: 135
       types:
       - radiating_bullets
     - count: 6
       radius: 36
-      speed: 0.75
+      speed: 22.5
       types:
       - sniper
     - count: 6
       radius: 15
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -879,17 +876,17 @@ areas:
     spawner:
     - count: 15
       radius: 18
-      speed: 75
+      speed: 2250
       types:
       - teleporting
     - count: 5
       radius: 18
-      speed: 4.5
+      speed: 135
       types:
       - disabling
     - count: 6
       radius: 15
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -936,17 +933,17 @@ areas:
     spawner:
     - count: 45
       radius: 18
-      speed: 75
+      speed: 2250
       types:
       - teleporting
     - count: 15
       radius: 18
-      speed: 4.5
+      speed: 135
       types:
       - disabling
     - count: 6
       radius: 15
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -993,17 +990,17 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 13.5
+      speed: 405
       types:
       - normal
     - count: 13
       radius: 36
-      speed: 4.5
+      speed: 135
       types:
       - speed_sniper
     - count: 6
       radius: 15
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1050,17 +1047,17 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 13.5
+      speed: 405
       types:
       - normal
     - count: 13
       radius: 36
-      speed: 4.5
+      speed: 135
       types:
       - regen_sniper
     - count: 6
       radius: 15
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1125,17 +1122,17 @@ areas:
     spawner:
     - count: 9
       radius: 36
-      speed: 6.75
+      speed: 202.5
       types:
       - speed_sniper
     - count: 9
       radius: 36
-      speed: 6.75
+      speed: 202.5
       types:
       - regen_sniper
     - count: 6
       radius: 15
-      speed: 15
+      speed: 450
       types:
       - wall
     type: active
@@ -1187,17 +1184,17 @@ areas:
     spawner:
     - count: 10
       radius: 18
-      speed: 4.5
+      speed: 135
       types:
       - slowing
     - count: 10
       radius: 18
-      speed: 9
+      speed: 270
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1249,17 +1246,17 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 4.5
+      speed: 135
       types:
       - slowing
     - count: 5
       radius: 18
-      speed: 4.5
+      speed: 135
       types:
       - homing
     - count: 6
       radius: 30
-      speed: 7.5
+      speed: 225
       types:
       - wall
     type: active
@@ -1306,12 +1303,12 @@ areas:
     spawner:
     - count: 20
       radius: 18
-      speed: 13.5
+      speed: 405
       types:
       - slowing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1376,12 +1373,12 @@ areas:
     spawner:
     - count: 40
       radius: 18
-      speed: 4.5
+      speed: 135
       types:
       - slowing
     - count: 6
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     type: active
@@ -1438,17 +1435,17 @@ areas:
     spawner:
     - count: 27
       radius: 18
-      speed: 5.25
+      speed: 157.5
       types:
       - slowing
     - count: 9
       radius: 18
-      speed: 5.25
+      speed: 157.5
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 5.775
+      speed: 173.2
       types:
       - wall
     type: active
@@ -1500,17 +1497,17 @@ areas:
     spawner:
     - count: 9
       radius: 18
-      speed: 5.25
+      speed: 157.5
       types:
       - slowing
     - count: 18
       radius: 18
-      speed: 5.25
+      speed: 157.5
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 8.75
+      speed: 262.5
       types:
       - wall
     type: active
@@ -1557,12 +1554,12 @@ areas:
     spawner:
     - count: 16
       radius: 18
-      speed: 12
+      speed: 360
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 6.6
+      speed: 198
       types:
       - wall
     type: active
@@ -1627,17 +1624,17 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 20
+      speed: 600
       types:
       - slowing
     - count: 5
       radius: 18
-      speed: 20
+      speed: 600
       types:
       - draining
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -1694,17 +1691,17 @@ areas:
     spawner:
     - count: 6
       radius: 18
-      speed: 24
+      speed: 720
       types:
       - normal
     - count: 6
       radius: 18
-      speed: 24
+      speed: 720
       types:
       - slowing
     - count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
       types:
       - wall
     type: active
@@ -1792,18 +1789,18 @@ areas:
     spawner:
     - count: 44
       radius: 18
-      speed: 1
+      speed: 30
       types:
       - speed_sniper
     - count: 6
       radius: 50
-      speed: 11
+      speed: 330
       types:
       - speed_sniper
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1072
@@ -1811,7 +1808,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1072
@@ -1819,7 +1816,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1072
@@ -1827,7 +1824,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1072
@@ -1835,7 +1832,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1072
@@ -1843,7 +1840,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1104
@@ -1851,7 +1848,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1104
@@ -1859,7 +1856,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1136
@@ -1867,7 +1864,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1136
@@ -1875,7 +1872,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1136
@@ -1883,7 +1880,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1200
@@ -1891,7 +1888,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1200
@@ -1899,7 +1896,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1200
@@ -1907,7 +1904,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1200
@@ -1915,7 +1912,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1200
@@ -1923,7 +1920,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1232
@@ -1931,7 +1928,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1232
@@ -1939,7 +1936,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1264
@@ -1947,7 +1944,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1264
@@ -1955,7 +1952,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1264
@@ -1963,7 +1960,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1328
@@ -1971,7 +1968,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1328
@@ -1979,7 +1976,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1328
@@ -1987,7 +1984,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1328
@@ -1995,7 +1992,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1328
@@ -2003,7 +2000,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1360
@@ -2011,7 +2008,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1392
@@ -2019,7 +2016,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1392
@@ -2027,7 +2024,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1392
@@ -2035,7 +2032,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1392
@@ -2043,7 +2040,7 @@ areas:
     - angle: 90
       count: 1
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - speed_sniper
       x: 1392

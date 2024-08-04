@@ -87,6 +87,9 @@ regions:
 - file: regions/infinite-inferno.yaml
   x: 1952
   y: 149392
+- file: regions/infinite-inferno-old.yaml
+  x: 1952
+  y: 149392
 - file: regions/magnetic-monopole.yaml
   x: 1952
   y: 108480

@@ -7,7 +7,6 @@ properties:
   - 209
   - 30
 areas:
-# 1
 - x: var x
   y: var y
   zones:
@@ -33,7 +32,7 @@ areas:
     width: 320
     height: 352
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -44,7 +43,7 @@ areas:
       - wavy
       count: 4
       radius: 18
-      speed: 3
+      speed: 90
   - type: safe
     x: last_right
     y: 0
@@ -58,7 +57,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 2
 - x: last_right
   y: last_y
   zones:
@@ -85,7 +83,7 @@ areas:
       - wavy
       count: 6
       radius: 18
-      speed: 3
+      speed: 90
   - type: safe
     x: last_right
     y: 0
@@ -99,7 +97,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 3
 - x: last_right
   y: last_y
   zones:
@@ -126,12 +123,12 @@ areas:
       - wavy
       count: 4
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 4
       radius: 30
-      speed: 3.3
+      speed: 99
   - type: safe
     x: last_right
     y: 0
@@ -145,7 +142,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 4
 - x: last_right
   y: last_y
   zones:
@@ -172,12 +168,12 @@ areas:
       - wavy
       count: 6
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
   - type: safe
     x: last_right
     y: 0
@@ -191,7 +187,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 5
 - x: last_right
   y: last_y
   zones:
@@ -218,17 +213,17 @@ areas:
       - wavy
       count: 3
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - zigzag
       count: 3
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
   - type: safe
     x: last_right
     y: 0
@@ -242,7 +237,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 6
 - x: last_right
   y: last_y
   zones:
@@ -269,17 +263,17 @@ areas:
       - wavy
       count: 5
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - zigzag
       count: 5
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
   - type: safe
     x: last_right
     y: 0
@@ -293,7 +287,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 7
 - x: last_right
   y: last_y
   zones:
@@ -320,17 +313,17 @@ areas:
       - wavy
       count: 5
       radius: 30
-      speed: 5
+      speed: 150
     - types:
       - zigzag
       count: 5
       radius: 30
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
   - type: safe
     x: last_right
     y: 0
@@ -344,7 +337,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 8
 - x: last_right
   y: last_y
   zones:
@@ -371,22 +363,22 @@ areas:
       - wavy
       count: 3
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - wavy
       count: 3
       radius: 24
-      speed: 7
+      speed: 210
     - types:
       - wavy
       count: 3
       radius: 30
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
   - type: safe
     x: last_right
     y: 0
@@ -400,7 +392,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 9
 - x: last_right
   y: last_y
   zones:
@@ -427,22 +418,22 @@ areas:
       - zigzag
       count: 3
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - zigzag
       count: 3
       radius: 24
-      speed: 7
+      speed: 210
     - types:
       - zigzag
       count: 3
       radius: 30
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
   - type: safe
     x: last_right
     y: 0
@@ -456,7 +447,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 10
 - x: last_right
   y: last_y
   zones:
@@ -483,27 +473,27 @@ areas:
       - wavy
       count: 3
       radius: 80
-      speed: 5
+      speed: 150
     - types:
       - zigzag
       count: 3
       radius: 80
-      speed: 5
+      speed: 150
     - types:
       - zigzag
       count: 4
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - wavy
       count: 4
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 3.3
+      speed: 99
   - type: safe
     x: last_right
     y: 0
@@ -517,7 +507,7 @@ areas:
     translate:
       x: 160
       y: 0
-# 11
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -544,12 +534,12 @@ areas:
       - spiral
       count: 6
       radius: 18
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -563,7 +553,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 12
 - x: last_right
   y: last_y
   zones:
@@ -590,12 +579,12 @@ areas:
       - spiral
       count: 10
       radius: 18
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -609,7 +598,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 13
 - x: last_right
   y: last_y
   zones:
@@ -636,17 +624,17 @@ areas:
       - spiral
       count: 4
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - spiral
       count: 4
       radius: 35
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -660,7 +648,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 14
 - x: last_right
   y: last_y
   zones:
@@ -687,17 +674,17 @@ areas:
       - spiral
       count: 7
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - spiral
       count: 7
       radius: 35
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -711,7 +698,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 15
 - x: last_right
   y: last_y
   zones:
@@ -738,12 +724,12 @@ areas:
       - switch
       count: 12
       radius: 40
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -757,7 +743,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 16
 - x: last_right
   y: last_y
   zones:
@@ -784,17 +769,17 @@ areas:
       - spiral
       count: 4
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - zoning
       count: 5
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -808,7 +793,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 17
 - x: last_right
   y: last_y
   zones:
@@ -835,17 +819,17 @@ areas:
       - spiral
       count: 4
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - zoning
       count: 3
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -859,7 +843,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 18
 - x: last_right
   y: last_y
   zones:
@@ -886,12 +869,12 @@ areas:
       - spiral
       count: 16
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -905,7 +888,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 19
 - x: last_right
   y: last_y
   zones:
@@ -932,12 +914,12 @@ areas:
       - zoning
       count: 18
       radius: 18
-      speed: 5
+      speed: 150
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -951,7 +933,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 20
 - x: last_right
   y: last_y
   zones:
@@ -978,27 +959,27 @@ areas:
       - spiral
       count: 2
       radius: 80
-      speed: 6
+      speed: 180
     - types:
       - spiral
       count: 5
       radius: 35
-      speed: 6
+      speed: 180
     - types:
       - zoning
       count: 2
       radius: 80
-      speed: 6
+      speed: 180
     - types:
       - zoning
       count: 5
       radius: 35
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -1012,7 +993,7 @@ areas:
     translate:
       x: 160
       y: 0
-# 21
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -1039,12 +1020,12 @@ areas:
       - oscillating
       count: 5
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 8
+      speed: 240
   - type: safe
     x: last_right
     y: 0
@@ -1058,7 +1039,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 22
 - x: last_right
   y: last_y
   zones:
@@ -1085,7 +1065,7 @@ areas:
       - oscillating
       count: 5
       radius: 18
-      speed: 9
+      speed: 270
   - type: safe
     x: last_right
     y: 0
@@ -1099,7 +1079,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 23
 - x: last_right
   y: last_y
   zones:
@@ -1126,12 +1105,12 @@ areas:
       - oscillating
       count: 5
       radius: 18
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 8
+      speed: 240
   - type: safe
     x: last_right
     y: 0
@@ -1145,7 +1124,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 24
 - x: last_right
   y: last_y
   zones:
@@ -1172,12 +1150,12 @@ areas:
       - oscillating
       count: 8
       radius: 18
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 8
+      speed: 240
   - type: safe
     x: last_right
     y: 0
@@ -1191,7 +1169,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 25
 - x: last_right
   y: last_y
   zones:
@@ -1218,7 +1195,7 @@ areas:
       - switch
       count: 6
       radius: 45
-      speed: 9
+      speed: 270
   - type: safe
     x: last_right
     y: 0
@@ -1232,7 +1209,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 26
 - x: last_right
   y: last_y
   zones:
@@ -1259,12 +1235,12 @@ areas:
       - oscillating
       count: 10
       radius: 35
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 8
+      speed: 240
   - type: safe
     x: last_right
     y: 0
@@ -1278,7 +1254,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 27
 - x: last_right
   y: last_y
   zones:
@@ -1305,12 +1280,12 @@ areas:
       - oscillating
       count: 22
       radius: 12
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 8
+      speed: 240
   - type: safe
     x: last_right
     y: 0
@@ -1324,7 +1299,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 28
 - x: last_right
   y: last_y
   zones:
@@ -1351,12 +1325,12 @@ areas:
       - oscillating
       count: 21
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 20
-      speed: 8
+      speed: 240
   - type: safe
     x: last_right
     y: 0
@@ -1370,7 +1344,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 29
 - x: last_right
   y: last_y
   zones:
@@ -1397,7 +1370,7 @@ areas:
       - oscillating
       count: 11
       radius: 30
-      speed: 6
+      speed: 180
   - type: safe
     x: last_right
     y: 0
@@ -1411,7 +1384,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 30
 - x: last_right
   y: last_y
   zones:
@@ -1438,17 +1410,17 @@ areas:
       - oscillating
       count: 2
       radius: 80
-      speed: 9
+      speed: 270
     - types:
       - oscillating
       count: 11
       radius: 35
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 8
+      speed: 240
   - type: safe
     x: last_right
     y: 0
@@ -1462,7 +1434,7 @@ areas:
     translate:
       x: 160
       y: 0
-# 31
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -1489,12 +1461,12 @@ areas:
       - switch
       count: 10
       radius: 35
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
   - type: safe
     x: last_right
     y: 0
@@ -1508,7 +1480,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 32
 - x: last_right
   y: last_y
   zones:
@@ -1535,12 +1506,12 @@ areas:
       - switch
       count: 18
       radius: 35
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
   - type: safe
     x: last_right
     y: 0
@@ -1554,7 +1525,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 33
 - x: last_right
   y: last_y
   zones:
@@ -1581,12 +1551,12 @@ areas:
       - switch
       count: 10
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
   - type: safe
     x: last_right
     y: 0
@@ -1600,7 +1570,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 34
 - x: last_right
   y: last_y
   zones:
@@ -1627,12 +1596,12 @@ areas:
       - switch
       count: 18
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
   - type: safe
     x: last_right
     y: 0
@@ -1646,7 +1615,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 35
 - x: last_right
   y: last_y
   zones:
@@ -1673,12 +1641,12 @@ areas:
       - switch
       count: 40
       radius: 18
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
   - type: safe
     x: last_right
     y: 0
@@ -1692,7 +1660,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 36
 - x: last_right
   y: last_y
   zones:
@@ -1719,12 +1686,12 @@ areas:
       - switch
       count: 40
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
   - type: safe
     x: last_right
     y: 0
@@ -1738,7 +1705,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 37
 - x: last_right
   y: last_y
   zones:
@@ -1765,12 +1731,12 @@ areas:
       - switch
       count: 25
       radius: 12
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 18
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -1784,7 +1750,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 38
 - x: last_right
   y: last_y
   zones:
@@ -1811,12 +1776,12 @@ areas:
       - switch
       count: 20
       radius: 35
-      speed: 6
+      speed: 180
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
   - type: safe
     x: last_right
     y: 0
@@ -1830,7 +1795,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 39
 - x: last_right
   y: last_y
   zones:
@@ -1857,17 +1821,17 @@ areas:
       - switch
       count: 30
       radius: 35
-      speed: 6
+      speed: 180
     - types:
       - homing
       count: 5
       radius: 18
-      speed: 12
+      speed: 360
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 15
+      speed: 450
   - type: safe
     x: last_right
     y: 0
@@ -1881,7 +1845,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 40
 - x: last_right
   y: last_y
   zones:
@@ -1908,27 +1871,27 @@ areas:
       - switch
       count: 4
       radius: 90
-      speed: 6
+      speed: 180
     - types:
       - switch
       count: 6
       radius: 18
-      speed: 15
+      speed: 450
     - types:
       - switch
       count: 6
       radius: 28
-      speed: 12
+      speed: 360
     - types:
       - switch
       count: 6
       radius: 38
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 10
+      speed: 300
   - type: safe
     x: last_right
     y: 0
@@ -1942,7 +1905,7 @@ areas:
     translate:
       x: 160
       y: 0
-# Victory 1
+  boss: true
 - x: last_right
   y: last_y
   properties:
@@ -1969,7 +1932,6 @@ areas:
       y: 0
     x: 3040
     y: 0
-# 2
 - x: last_right
   y: last_y
   zones:
@@ -1996,7 +1958,7 @@ areas:
       - wavy
       count: 6
       radius: 18
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -2010,7 +1972,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 3
 - x: last_right
   y: last_y
   zones:
@@ -2037,12 +1998,12 @@ areas:
       - wavy
       count: 4
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 4
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -2056,7 +2017,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 4
 - x: last_right
   y: last_y
   zones:
@@ -2083,12 +2043,12 @@ areas:
       - wavy
       count: 6
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -2102,7 +2062,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 5
 - x: last_right
   y: last_y
   zones:
@@ -2129,17 +2088,17 @@ areas:
       - wavy
       count: 3
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - zigzag
       count: 3
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -2153,7 +2112,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 6
 - x: last_right
   y: last_y
   zones:
@@ -2180,17 +2138,17 @@ areas:
       - wavy
       count: 5
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - zigzag
       count: 5
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -2204,7 +2162,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 7
 - x: last_right
   y: last_y
   zones:
@@ -2231,17 +2188,17 @@ areas:
       - wavy
       count: 5
       radius: 30
-      speed: 7
+      speed: 210
     - types:
       - zigzag
       count: 5
       radius: 30
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -2255,7 +2212,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 8
 - x: last_right
   y: last_y
   zones:
@@ -2282,22 +2238,22 @@ areas:
       - wavy
       count: 3
       radius: 18
-      speed: 13
+      speed: 390
     - types:
       - wavy
       count: 3
       radius: 24
-      speed: 10
+      speed: 300
     - types:
       - wavy
       count: 3
       radius: 30
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -2311,7 +2267,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 9
 - x: last_right
   y: last_y
   zones:
@@ -2338,22 +2293,22 @@ areas:
       - zigzag
       count: 3
       radius: 18
-      speed: 13
+      speed: 390
     - types:
       - zigzag
       count: 3
       radius: 24
-      speed: 10
+      speed: 300
     - types:
       - zigzag
       count: 3
       radius: 30
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -2367,7 +2322,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 10
 - x: last_right
   y: last_y
   zones:
@@ -2394,27 +2348,27 @@ areas:
       - wavy
       count: 3
       radius: 80
-      speed: 7
+      speed: 210
     - types:
       - zigzag
       count: 3
       radius: 80
-      speed: 7
+      speed: 210
     - types:
       - zigzag
       count: 4
       radius: 18
-      speed: 10
+      speed: 300
     - types:
       - wavy
       count: 4
       radius: 18
-      speed: 10
+      speed: 300
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 5
+      speed: 150
   - type: safe
     x: last_right
     y: 0
@@ -2428,7 +2382,7 @@ areas:
     translate:
       x: 160
       y: 0
-# 11
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -2455,12 +2409,12 @@ areas:
       - spiral
       count: 6
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2474,7 +2428,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 12
 - x: last_right
   y: last_y
   zones:
@@ -2501,12 +2454,12 @@ areas:
       - spiral
       count: 10
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2520,7 +2473,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 13
 - x: last_right
   y: last_y
   zones:
@@ -2547,17 +2499,17 @@ areas:
       - spiral
       count: 4
       radius: 18
-      speed: 13
+      speed: 390
     - types:
       - spiral
       count: 4
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2571,7 +2523,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 14
 - x: last_right
   y: last_y
   zones:
@@ -2598,17 +2549,17 @@ areas:
       - spiral
       count: 7
       radius: 18
-      speed: 13
+      speed: 390
     - types:
       - spiral
       count: 7
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2622,7 +2573,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 15
 - x: last_right
   y: last_y
   zones:
@@ -2649,12 +2599,12 @@ areas:
       - switch
       count: 12
       radius: 40
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2668,7 +2618,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 16
 - x: last_right
   y: last_y
   zones:
@@ -2695,17 +2644,17 @@ areas:
       - spiral
       count: 4
       radius: 18
-      speed: 13
+      speed: 390
     - types:
       - zoning
       count: 5
       radius: 18
-      speed: 13
+      speed: 390
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2719,7 +2668,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 17
 - x: last_right
   y: last_y
   zones:
@@ -2746,17 +2694,17 @@ areas:
       - spiral
       count: 4
       radius: 35
-      speed: 13
+      speed: 390
     - types:
       - zoning
       count: 3
       radius: 35
-      speed: 13
+      speed: 390
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2770,7 +2718,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 18
 - x: last_right
   y: last_y
   zones:
@@ -2797,12 +2744,12 @@ areas:
       - spiral
       count: 16
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2816,7 +2763,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 19
 - x: last_right
   y: last_y
   zones:
@@ -2843,12 +2789,12 @@ areas:
       - zoning
       count: 18
       radius: 18
-      speed: 7
+      speed: 210
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2862,7 +2808,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 20
 - x: last_right
   y: last_y
   zones:
@@ -2889,27 +2834,27 @@ areas:
       - spiral
       count: 2
       radius: 80
-      speed: 9
+      speed: 270
     - types:
       - spiral
       count: 5
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - zoning
       count: 2
       radius: 80
-      speed: 9
+      speed: 270
     - types:
       - zoning
       count: 5
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 6
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -2923,7 +2868,7 @@ areas:
     translate:
       x: 160
       y: 0
-# 21
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -2950,12 +2895,12 @@ areas:
       - oscillating
       count: 5
       radius: 18
-      speed: 13
+      speed: 390
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 11
+      speed: 330
   - type: safe
     x: last_right
     y: 0
@@ -2969,7 +2914,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 22
 - x: last_right
   y: last_y
   zones:
@@ -2996,7 +2940,7 @@ areas:
       - oscillating
       count: 5
       radius: 18
-      speed: 13
+      speed: 390
   - type: safe
     x: last_right
     y: 0
@@ -3010,7 +2954,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 23
 - x: last_right
   y: last_y
   zones:
@@ -3037,12 +2980,12 @@ areas:
       - oscillating
       count: 5
       radius: 18
-      speed: 17
+      speed: 510
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 11
+      speed: 330
   - type: safe
     x: last_right
     y: 0
@@ -3056,7 +2999,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 24
 - x: last_right
   y: last_y
   zones:
@@ -3083,12 +3025,12 @@ areas:
       - oscillating
       count: 8
       radius: 18
-      speed: 17
+      speed: 510
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 11
+      speed: 330
   - type: safe
     x: last_right
     y: 0
@@ -3102,7 +3044,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 25
 - x: last_right
   y: last_y
   zones:
@@ -3129,7 +3070,7 @@ areas:
       - switch
       count: 6
       radius: 45
-      speed: 13
+      speed: 390
   - type: safe
     x: last_right
     y: 0
@@ -3143,7 +3084,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 26
 - x: last_right
   y: last_y
   zones:
@@ -3170,12 +3110,12 @@ areas:
       - oscillating
       count: 10
       radius: 35
-      speed: 17
+      speed: 510
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 11
+      speed: 330
   - type: safe
     x: last_right
     y: 0
@@ -3189,7 +3129,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 27
 - x: last_right
   y: last_y
   zones:
@@ -3216,12 +3155,12 @@ areas:
       - oscillating
       count: 22
       radius: 12
-      speed: 13
+      speed: 390
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 11
+      speed: 330
   - type: safe
     x: last_right
     y: 0
@@ -3235,7 +3174,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 28
 - x: last_right
   y: last_y
   zones:
@@ -3262,12 +3200,12 @@ areas:
       - oscillating
       count: 21
       radius: 18
-      speed: 13
+      speed: 390
     - types:
       - wall
       count: 9
       radius: 20
-      speed: 11
+      speed: 330
   - type: safe
     x: last_right
     y: 0
@@ -3281,7 +3219,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 29
 - x: last_right
   y: last_y
   zones:
@@ -3308,7 +3245,7 @@ areas:
       - oscillating
       count: 11
       radius: 30
-      speed: 9
+      speed: 270
   - type: safe
     x: last_right
     y: 0
@@ -3322,7 +3259,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 30
 - x: last_right
   y: last_y
   zones:
@@ -3349,17 +3285,17 @@ areas:
       - oscillating
       count: 2
       radius: 80
-      speed: 13
+      speed: 390
     - types:
       - oscillating
       count: 11
       radius: 35
-      speed: 17
+      speed: 510
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 11
+      speed: 330
   - type: safe
     x: last_right
     y: 0
@@ -3373,7 +3309,7 @@ areas:
     translate:
       x: 160
       y: 0
-# 31
+  boss: true
 - x: last_right
   y: last_y
   zones:
@@ -3400,12 +3336,12 @@ areas:
       - switch
       count: 10
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 14
+      speed: 420
   - type: safe
     x: last_right
     y: 0
@@ -3419,7 +3355,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 32
 - x: last_right
   y: last_y
   zones:
@@ -3446,12 +3381,12 @@ areas:
       - switch
       count: 18
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 14
+      speed: 420
   - type: safe
     x: last_right
     y: 0
@@ -3465,7 +3400,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 33
 - x: last_right
   y: last_y
   zones:
@@ -3492,12 +3426,12 @@ areas:
       - switch
       count: 10
       radius: 35
-      speed: 13
+      speed: 390
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 14
+      speed: 420
   - type: safe
     x: last_right
     y: 0
@@ -3511,7 +3445,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 34
 - x: last_right
   y: last_y
   zones:
@@ -3538,12 +3471,12 @@ areas:
       - switch
       count: 18
       radius: 35
-      speed: 13
+      speed: 390
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 14
+      speed: 420
   - type: safe
     x: last_right
     y: 0
@@ -3557,7 +3490,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 35
 - x: last_right
   y: last_y
   zones:
@@ -3584,12 +3516,12 @@ areas:
       - switch
       count: 40
       radius: 18
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 14
+      speed: 420
   - type: safe
     x: last_right
     y: 0
@@ -3603,7 +3535,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 36
 - x: last_right
   y: last_y
   zones:
@@ -3630,12 +3561,12 @@ areas:
       - switch
       count: 40
       radius: 18
-      speed: 13
+      speed: 390
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 14
+      speed: 420
   - type: safe
     x: last_right
     y: 0
@@ -3649,7 +3580,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 37
 - x: last_right
   y: last_y
   zones:
@@ -3676,12 +3606,12 @@ areas:
       - switch
       count: 25
       radius: 12
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 18
       radius: 30
-      speed: 7
+      speed: 210
   - type: safe
     x: last_right
     y: 0
@@ -3695,7 +3625,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 38
 - x: last_right
   y: last_y
   zones:
@@ -3722,12 +3651,12 @@ areas:
       - switch
       count: 20
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 14
+      speed: 420
   - type: safe
     x: last_right
     y: 0
@@ -3741,7 +3670,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 39
 - x: last_right
   y: last_y
   zones:
@@ -3768,17 +3696,17 @@ areas:
       - switch
       count: 30
       radius: 35
-      speed: 9
+      speed: 270
     - types:
       - homing
       count: 5
       radius: 18
-      speed: 17
+      speed: 510
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 21
+      speed: 630
   - type: safe
     x: last_right
     y: 0
@@ -3792,7 +3720,6 @@ areas:
     translate:
       x: 160
       y: 0
-# 40
 - x: last_right
   y: last_y
   zones:
@@ -3819,27 +3746,27 @@ areas:
       - switch
       count: 4
       radius: 90
-      speed: 9
+      speed: 270
     - types:
       - switch
       count: 6
       radius: 18
-      speed: 21
+      speed: 630
     - types:
       - switch
       count: 6
       radius: 28
-      speed: 17
+      speed: 510
     - types:
       - switch
       count: 6
       radius: 38
-      speed: 13
+      speed: 390
     - types:
       - wall
       count: 9
       radius: 30
-      speed: 14
+      speed: 420
   - type: safe
     x: last_right
     y: 0
@@ -3853,7 +3780,7 @@ areas:
     translate:
       x: 160
       y: 0
-# Victory 2
+  boss: true
 - x: last_right
   y: last_y
   zones:

@@ -2,7 +2,6 @@ name: Ominous Occult
 properties:
   friction: 0.75
   crumble_reduced: true
-  lightning_reduced: true
   pellet_count: 50
   pellet_multiplier: 5
   background_color:
@@ -51,11 +50,11 @@ areas:
     width: 288
     height: 192
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - height: 320
     spawner:
     - count: 50
-      speed: 3
+      speed: 90
       radius: 9
       types:
       - normal
@@ -96,7 +95,7 @@ areas:
   - height: last_height
     spawner:
     - count: 75
-      speed: 3
+      speed: 90
       radius: 9
       types:
       - normal
@@ -138,7 +137,7 @@ areas:
   - height: last_height
     spawner:
     - count: 50
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - normal
@@ -179,7 +178,7 @@ areas:
   - height: last_height
     spawner:
     - count: 75
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - normal
@@ -221,7 +220,7 @@ areas:
   - height: last_height
     spawner:
     - count: 50
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - normal
@@ -264,7 +263,7 @@ areas:
   - height: last_height
     spawner:
     - count: 75
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - normal
@@ -307,12 +306,12 @@ areas:
   - height: last_height
     spawner:
     - count: 50
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - normal
     - count: 10
-      speed: 3
+      speed: 90
       radius: 9
       types:
       - sniper
@@ -353,12 +352,12 @@ areas:
   - height: last_height
     spawner:
     - count: 25
-      speed: 3
+      speed: 90
       radius: 9
       types:
       - sniper
     - count: 15
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - normal
@@ -399,7 +398,7 @@ areas:
   - height: last_height
     spawner:
     - count: 20
-      speed: 12
+      speed: 360
       radius: 9
       types:
       - normal
@@ -440,7 +439,7 @@ areas:
   - height: last_height
     spawner:
     - count: 50
-      speed: 12
+      speed: 360
       radius: 9
       types:
       - normal
@@ -481,7 +480,7 @@ areas:
   - height: last_height
     spawner:
     - count: 50
-      speed: 12
+      speed: 360
       radius: 9
       types:
       - normal
@@ -523,7 +522,7 @@ areas:
   - height: last_height
     spawner:
     - count: 50
-      speed: 12
+      speed: 360
       radius: 9
       types:
       - normal
@@ -566,12 +565,12 @@ areas:
   - height: last_height
     spawner:
     - count: 30
-      speed: 15
+      speed: 450
       radius: 18
       types:
       - immune
     - count: 20
-      speed: 3
+      speed: 90
       radius: 18
       types:
       - disabling
@@ -612,7 +611,7 @@ areas:
   - height: last_height
     spawner:
     - count: 40
-      speed: 18
+      speed: 540
       radius: 21
       types:
       - immune
@@ -653,12 +652,12 @@ areas:
   - height: last_height
     spawner:
     - count: 100
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - immune
     - count: 25
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - slowing
@@ -700,12 +699,12 @@ areas:
   - height: last_height
     spawner:
     - count: 150
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - immune
     - count: 30
-      speed: 6
+      speed: 180
       radius: 9
       types:
       - slowing

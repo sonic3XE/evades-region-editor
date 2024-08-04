@@ -19,6 +19,8 @@ areas:
         y: 0
         width: 64
         height: 480
+        requirements:
+          - exact_index:Mysterious Mansion:61
         translate:
           x: -22720
           y: 0
@@ -33,12 +35,12 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 2.5
+        - speed: 75
           radius: 18
           count: 10
           types:
           - charging
-        - speed: 6
+        - speed: 180
           radius: 12
           count: 2
           types:
@@ -79,12 +81,12 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 2.5
+        - speed: 75
           radius: 24
           count: 10
           types:
           - charging
-        - speed: 6
+        - speed: 180
           radius: 12
           count: 6
           types:
@@ -125,12 +127,12 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 4
+        - speed: 120
           radius: 36
           count: 8
           types:
           - charging
-        - speed: 8
+        - speed: 240
           radius: 12
           count: 12
           types:
@@ -171,17 +173,17 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 2.5
+        - speed: 75
           radius: 48
           count: 6
           types:
           - charging
-        - speed: 2
+        - speed: 60
           radius: 18
           count: 12
           types:
           - charging
-        - speed: 6
+        - speed: 180
           radius: 12
           count: 10
           types:
@@ -222,22 +224,22 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 2.5
+        - speed: 75
           radius: 75
           count: 2
           types:
           - charging
-        - speed: 3
+        - speed: 90
           radius: 75
           count: 2
           types:
           - reducing
-        - speed: 3
+        - speed: 90
           radius: 18
           count: 15
           types:
           - charging
-        - speed: 6
+        - speed: 180
           radius: 18
           count: 5
           types:
@@ -278,17 +280,17 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 3.5
+        - speed: 105
           radius: 15
           count: 12
           types:
           - charging
-        - speed: 4
+        - speed: 120
           radius: 30
           count: 7
           types:
           - reducing
-        - speed: 6
+        - speed: 180
           radius: 18
           count: 8
           types:
@@ -329,17 +331,17 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 4
+        - speed: 120
           radius: 15
           count: 13
           types:
           - charging
-        - speed: 4
+        - speed: 120
           radius: 60
           count: 7
           types:
           - reducing
-        - speed: 10
+        - speed: 300
           radius: 24
           count: 10
           types:
@@ -380,17 +382,17 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 4.5
+        - speed: 135
           radius: 24
           count: 6
           types:
           - charging
-        - speed: 12
+        - speed: 360
           radius: 24
           count: 6
           types:
           - reducing
-        - speed: 12
+        - speed: 360
           radius: 24
           count: 12
           types:
@@ -431,17 +433,17 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 1.5
+        - speed: 45
           radius: 28
           count: 15
           types:
           - charging
-        - speed: 1.5
+        - speed: 45
           radius: 24
           count: 3
           types:
           - reducing
-        - speed: 2
+        - speed: 60
           radius: 14
           count: 30
           types:
@@ -482,32 +484,32 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 3
+        - speed: 90
           radius: 14
           count: 15
           types:
           - charging
-        - speed: 3.5
+        - speed: 105
           radius: 75
           count: 2
           types:
           - charging
-        - speed: 6
+        - speed: 180
           radius: 16
           count: 10
           types:
           - reducing
-        - speed: 7
+        - speed: 210
           radius: 75
           count: 2
           types:
           - reducing
-        - speed: 6
+        - speed: 180
           radius: 16
           count: 26
           types:
           - switch
-        - speed: 7
+        - speed: 210
           radius: 75
           count: 5
           types:
@@ -548,17 +550,17 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 4
+        - speed: 120
           radius: 20
           count: 10
           types:
           - charging
-        - speed: 6
+        - speed: 180
           radius: 20
           count: 5
           types:
           - reducing
-        - speed: 6
+        - speed: 180
           radius: 18
           count: 6
           types:
@@ -599,17 +601,17 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 4.5
+        - speed: 135
           radius: 30
           count: 12
           types:
           - charging
-        - speed: 6
+        - speed: 180
           radius: 30
           count: 6
           types:
           - reducing
-        - speed: 6
+        - speed: 180
           radius: 18
           count: 7
           types:
@@ -650,17 +652,17 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 5.5
+        - speed: 165
           radius: 10
           count: 6
           types:
           - charging
-        - speed: 8
+        - speed: 240
           radius: 10
           count: 6
           types:
           - reducing
-        - speed: 4
+        - speed: 120
           radius: 30
           count: 6
           types:
@@ -701,17 +703,17 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 1
+        - speed: 30
           radius: 18
           count: 30
           types:
           - charging
-        - speed: 1
+        - speed: 30
           radius: 18
           count: 10
           types:
           - reducing
-        - speed: 1
+        - speed: 30
           radius: 18
           count: 5
           types:
@@ -752,32 +754,32 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 3.5
+        - speed: 105
           radius: 18
           count: 20
           types:
           - charging
-        - speed: 5
+        - speed: 150
           radius: 75
           count: 2
           types:
           - charging
-        - speed: 5
+        - speed: 150
           radius: 18
           count: 10
           types:
           - reducing
-        - speed: 6
+        - speed: 180
           radius: 75
           count: 2
           types:
           - reducing
-        - speed: 5
+        - speed: 150
           radius: 18
           count: 5
           types:
           - lead_sniper
-        - speed: 3
+        - speed: 90
           radius: 75
           count: 2
           types:
@@ -818,22 +820,22 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 5
+        - speed: 150
           radius: 18
           count: 8
           types:
           - charging
-        - speed: 7
+        - speed: 210
           radius: 18
           count: 3
           types:
           - reducing
-        - speed: 7
+        - speed: 210
           radius: 18
           count: 10
           types:
           - switch
-        - speed: 7
+        - speed: 210
           radius: 18
           count: 2
           types:
@@ -874,22 +876,22 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 5.5
+        - speed: 165
           radius: 36
           count: 9
           types:
           - charging
-        - speed: 7
+        - speed: 210
           radius: 36
           count: 4
           types:
           - reducing
-        - speed: 7
+        - speed: 210
           radius: 36
           count: 12
           types:
           - switch
-        - speed: 7
+        - speed: 210
           radius: 36
           count: 3
           types:
@@ -930,22 +932,22 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 7
+        - speed: 210
           radius: 24
           count: 5
           types:
           - charging
-        - speed: 11
+        - speed: 330
           radius: 24
           count: 5
           types:
           - reducing
-        - speed: 11
+        - speed: 330
           radius: 24
           count: 10
           types:
           - switch
-        - speed: 11
+        - speed: 330
           radius: 24
           count: 5
           types:
@@ -986,22 +988,22 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 3.5
+        - speed: 105
           radius: 12
           count: 11
           types:
           - charging
-        - speed: 5
+        - speed: 150
           radius: 12
           count: 11
           types:
           - reducing
-        - speed: 5
+        - speed: 150
           radius: 12
           count: 22
           types:
           - switch
-        - speed: 4
+        - speed: 120
           radius: 12
           count: 7
           types:
@@ -1042,42 +1044,42 @@ areas:
         width: 2560
         height: 480
         spawner:
-        - speed: 4
+        - speed: 120
           radius: 75
           count: 2
           types:
           - charging
-        - speed: 5
+        - speed: 150
           radius: 75
           count: 2
           types:
           - reducing
-        - speed: 5
+        - speed: 150
           radius: 75
           count: 4
           types:
           - switch
-        - speed: 4
+        - speed: 120
           radius: 75
           count: 2
           types:
           - lead_sniper
-        - speed: 3.5
+        - speed: 105
           radius: 18
           count: 7
           types:
           - charging
-        - speed: 5
+        - speed: 150
           radius: 18
           count: 6
           types:
           - reducing
-        - speed: 5
+        - speed: 150
           radius: 18
           count: 15
           types:
           - switch
-        - speed: 3
+        - speed: 90
           radius: 18
           count: 4
           types:
@@ -1134,6 +1136,8 @@ areas:
         y: 0
         width: 64
         height: 480
+        requirements:
+          - exact_index:Mysterious Mansion:60
         translate:
           x: -11392
           y: 0
@@ -1150,12 +1154,12 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 2
+          speed: 60
           radius: 20
           count: 6
         - types:
           - enlarging
-          speed: 3
+          speed: 90
           radius: 18
           count: 6
       - type: safe
@@ -1196,17 +1200,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 2.5
+          speed: 75
           radius: 22
           count: 7
         - types:
           - enlarging
-          speed: 5
+          speed: 150
           radius: 18
           count: 5
         - types:
           - enlarging
-          speed: 4
+          speed: 120
           radius: 34
           count: 3
       - type: safe
@@ -1247,17 +1251,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 6
+          speed: 180
           radius: 22
           count: 5
         - types:
           - zigzag
-          speed: 4
+          speed: 120
           radius: 30
           count: 6
         - types:
           - enlarging
-          speed: 5
+          speed: 150
           radius: 15
           count: 5
       - type: safe
@@ -1298,17 +1302,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 2.5
+          speed: 75
           radius: 30
           count: 16
         - types:
           - enlarging
-          speed: 2
+          speed: 60
           radius: 28
           count: 6
         - types:
           - enlarging
-          speed: 4
+          speed: 120
           radius: 16
           count: 12
       - type: safe
@@ -1349,17 +1353,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 4.5
+          speed: 135
           radius: 65
           count: 3
         - types:
           - zigzag
-          speed: 3.5
+          speed: 105
           radius: 18
           count: 12
         - types:
           - enlarging
-          speed: 3
+          speed: 90
           radius: 11
           count: 20
       - type: safe
@@ -1400,17 +1404,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 3.5
+          speed: 105
           radius: 30
           count: 10
         - types:
           - enlarging
-          speed: 2
+          speed: 60
           radius: 14
           count: 6
         - types:
           - mist
-          speed: 7
+          speed: 210
           radius: 18
           count: 8
       - type: safe
@@ -1451,22 +1455,22 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 3.5
+          speed: 105
           radius: 30
           count: 7
         - types:
           - zigzag
-          speed: 5
+          speed: 150
           radius: 24
           count: 5
         - types:
           - enlarging
-          speed: 2
+          speed: 60
           radius: 18
           count: 5
         - types:
           - mist
-          speed: 7.5
+          speed: 225
           radius: 22
           count: 11
       - type: safe
@@ -1507,17 +1511,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 7.5
+          speed: 225
           radius: 35
           count: 4
         - types:
           - enlarging
-          speed: 10
+          speed: 300
           radius: 18
           count: 4
         - types:
           - mist
-          speed: 6
+          speed: 180
           radius: 24
           count: 8
       - type: safe
@@ -1558,17 +1562,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 4
+          speed: 120
           radius: 35
           count: 15
         - types:
           - enlarging
-          speed: 2.5
+          speed: 75
           radius: 22
           count: 10
         - types:
           - mist
-          speed: 5
+          speed: 150
           radius: 28
           count: 15
       - type: safe
@@ -1610,17 +1614,17 @@ areas:
         - types:
           - zigzag
           - mist
-          speed: 5.5
+          speed: 165
           radius: 55
           count: 5
         - types:
           - enlarging
-          speed: 3
+          speed: 90
           radius: 18
           count: 12
         - types:
           - mist
-          speed: 4
+          speed: 120
           radius: 20
           count: 18
       - type: safe
@@ -1661,17 +1665,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 2.5
+          speed: 75
           radius: 18
           count: 8
         - types:
           - enlarging
-          speed: 3
+          speed: 90
           radius: 16
           count: 11
         - types:
           - poison_sniper
-          speed: 5
+          speed: 150
           radius: 18
           count: 4
       - type: safe
@@ -1712,17 +1716,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 3
+          speed: 90
           radius: 19
           count: 4
         - types:
           - enlarging
-          speed: 3.5
+          speed: 105
           radius: 22
           count: 13
         - types:
           - poison_sniper
-          speed: 5
+          speed: 150
           radius: 20
           count: 6
       - type: safe
@@ -1763,17 +1767,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 5
+          speed: 150
           radius: 20
           count: 7
         - types:
           - enlarging
-          speed: 7
+          speed: 210
           radius: 17
           count: 9
         - types:
           - poison_sniper
-          speed: 8
+          speed: 240
           radius: 15
           count: 5
       - type: safe
@@ -1814,17 +1818,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 3.5
+          speed: 105
           radius: 22
           count: 15
         - types:
           - enlarging
-          speed: 2
+          speed: 60
           radius: 15
           count: 12
         - types:
           - poison_sniper
-          speed: 3
+          speed: 90
           radius: 18
           count: 12
       - type: safe
@@ -1866,27 +1870,27 @@ areas:
         - types:
           - zigzag
           - enlarging
-          speed: 3
+          speed: 90
           radius: 19
           count: 22
         - types:
           - zigzag
-          speed: 4
+          speed: 120
           radius: 45
           count: 1
         - types:
           - enlarging
-          speed: 5
+          speed: 150
           radius: 45
           count: 1
         - types:
           - poison_sniper
-          speed: 3
+          speed: 90
           radius: 18
           count: 8
         - types:
           - poison_sniper
-          speed: 4.5
+          speed: 135
           radius: 55
           count: 2
       - type: safe
@@ -1928,17 +1932,17 @@ areas:
         - types:
           - zigzag
           - enlarging
-          speed: 3
+          speed: 90
           radius: 20
           count: 9
         - types:
           - mist
-          speed: 8
+          speed: 240
           radius: 22
           count: 4
         - types:
           - poison_sniper
-          speed: 4
+          speed: 120
           radius: 20
           count: 5
       - type: safe
@@ -1980,22 +1984,22 @@ areas:
         - types:
           - zigzag
           - enlarging
-          speed: 3
+          speed: 90
           radius: 23
           count: 12
         - types:
           - zigzag
-          speed: 6
+          speed: 180
           radius: 28
           count: 2
         - types:
           - mist
-          speed: 8.5
+          speed: 255
           radius: 22
           count: 6
         - types:
           - poison_sniper
-          speed: 7
+          speed: 210
           radius: 25
           count: 6
       - type: safe
@@ -2036,17 +2040,17 @@ areas:
         spawner:
         - types:
           - enlarging
-          speed: 1.5
+          speed: 45
           radius: 15
           count: 20
         - types:
           - mist
-          speed: 4
+          speed: 120
           radius: 22
           count: 12
         - types:
           - poison_sniper
-          speed: 2
+          speed: 60
           radius: 22
           count: 12
       - type: safe
@@ -2087,17 +2091,17 @@ areas:
         spawner:
         - types:
           - zigzag
-          speed: 3
+          speed: 90
           radius: 25
           count: 18
         - types:
           - mist
-          speed: 4.5
+          speed: 135
           radius: 20
           count: 12
         - types:
           - poison_sniper
-          speed: 2.5
+          speed: 75
           radius: 20
           count: 12
       - type: safe
@@ -2139,33 +2143,33 @@ areas:
         - types:
           - zigzag
           - enlarging
-          speed: 2.5
+          speed: 75
           radius: 25
           count: 16
         - types:
           - mist
           - poison_sniper
-          speed: 3
+          speed: 90
           radius: 25
           count: 12
         - types:
           - zigzag
-          speed: 4
+          speed: 120
           radius: 32
           count: 1
         - types:
           - enlarging
-          speed: 3
+          speed: 90
           radius: 48
           count: 1
         - types:
           - mist
-          speed: 5.5
+          speed: 165
           radius: 60
           count: 1
         - types:
           - poison_sniper
-          speed: 4.5
+          speed: 135
           radius: 60
           count: 1
       - type: safe
@@ -2227,13 +2231,13 @@ areas:
         spawner:
         - count: 10
           radius: 14
-          speed: 5
+          speed: 150
           types:
           - charging
           - reducing
         - count: 10
           radius: 16
-          speed: 3
+          speed: 90
           types:
           - switch
           - lead_sniper
@@ -2275,13 +2279,13 @@ areas:
         spawner:
         - count: 10
           radius: 14
-          speed: 5
+          speed: 150
           types:
           - zigzag
           - enlarging
         - count: 10
           radius: 16
-          speed: 3
+          speed: 90
           types:
           - mist
           - poison_sniper
@@ -2323,12 +2327,12 @@ areas:
         spawner:
         - count: 7
           radius: 25
-          speed: 2.5
+          speed: 75
           types:
           - lead_sniper
         - count: 13
           radius: 28
-          speed: 3
+          speed: 90
           types:
           - charging
           - zigzag
@@ -2370,23 +2374,23 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 7
           radius: 28
-          speed: 2.5
+          speed: 75
           types:
           - poison_sniper
         - count: 5
           radius: 22
-          speed: 4.5
+          speed: 135
           types:
           - charging
           - zigzag
         - count: 8
           radius: 24
-          speed: 3
+          speed: 90
           types:
           - charging
           - zigzag
@@ -2428,17 +2432,17 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 6
           radius: 22
-          speed: 6
+          speed: 180
           types:
           - lead_sniper
         - count: 9
           radius: 24
-          speed: 7
+          speed: 210
           types:
           - charging
           - zigzag
@@ -2480,18 +2484,18 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 3
           radius: 20
-          speed: 3
+          speed: 90
           types:
           - lead_sniper
           - poison_sniper
         - count: 19
           radius: 24
-          speed: 1.5
+          speed: 45
           types:
           - charging
           - zigzag
@@ -2533,34 +2537,34 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 3
           radius: 20
-          speed: 3
+          speed: 90
           types:
           - lead_sniper
           - poison_sniper
         - count: 20
           radius: 24
-          speed: 2
+          speed: 60
           types:
           - charging
           - zigzag
         - count: 1
           radius: 70
-          speed: 6
+          speed: 180
           types:
           - charging
         - count: 1
           radius: 70
-          speed: 6
+          speed: 180
           types:
           - zigzag
         - count: 3
           radius: 65
-          speed: 4
+          speed: 120
           types:
           - charging
           - zigzag
@@ -2602,22 +2606,22 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 6
           radius: 20
-          speed: 3
+          speed: 90
           types:
           - reducing
         - count: 8
           radius: 25
-          speed: 2
+          speed: 60
           types:
           - switch
         - count: 8
           radius: 30
-          speed: 4
+          speed: 120
           types:
           - zigzag
       - type: safe
@@ -2658,22 +2662,22 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - reducing
         - count: 10
           radius: 25
-          speed: 3
+          speed: 90
           types:
           - switch
         - count: 10
           radius: 32
-          speed: 4.5
+          speed: 135
           types:
           - zigzag
       - type: safe
@@ -2714,22 +2718,22 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 3
           radius: 22
-          speed: 9
+          speed: 270
           types:
           - reducing
         - count: 10
           radius: 28
-          speed: 11
+          speed: 330
           types:
           - switch
         - count: 8
           radius: 28
-          speed: 7
+          speed: 210
           types:
           - zigzag
       - type: safe
@@ -2770,22 +2774,22 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 9
           radius: 24
-          speed: 1.5
+          speed: 45
           types:
           - reducing
         - count: 26
           radius: 26
-          speed: 2
+          speed: 60
           types:
           - switch
         - count: 12
           radius: 32
-          speed: 3
+          speed: 90
           types:
           - zigzag
       - type: safe
@@ -2826,27 +2830,27 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 3
           radius: 24
-          speed: 1.5
+          speed: 45
           types:
           - reducing
         - count: 28
           radius: 25
-          speed: 2
+          speed: 60
           types:
           - switch
         - count: 14
           radius: 30
-          speed: 3
+          speed: 90
           types:
           - zigzag
         - count: 6
           radius: 75
-          speed: 5
+          speed: 150
           types:
           - zigzag
           - switch
@@ -2888,22 +2892,22 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 6
           radius: 22
-          speed: 5
+          speed: 150
           types:
           - enlarging
         - count: 5
           radius: 25
-          speed: 3
+          speed: 90
           types:
           - mist
         - count: 10
           radius: 25
-          speed: 4
+          speed: 120
           types:
           - charging
       - type: safe
@@ -2944,22 +2948,22 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 7
           radius: 22
-          speed: 5
+          speed: 150
           types:
           - enlarging
         - count: 8
           radius: 26
-          speed: 4
+          speed: 120
           types:
           - mist
         - count: 8
           radius: 28
-          speed: 6
+          speed: 180
           types:
           - charging
       - type: safe
@@ -3000,22 +3004,22 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 5
           radius: 22
-          speed: 8
+          speed: 240
           types:
           - enlarging
         - count: 6
           radius: 26
-          speed: 12
+          speed: 360
           types:
           - mist
         - count: 6
           radius: 28
-          speed: 5.5
+          speed: 165
           types:
           - charging
       - type: safe
@@ -3056,22 +3060,22 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 6
           radius: 28
-          speed: 1.5
+          speed: 45
           types:
           - enlarging
         - count: 12
           radius: 22
-          speed: 2.5
+          speed: 75
           types:
           - mist
         - count: 20
           radius: 22
-          speed: 3
+          speed: 90
           types:
           - charging
       - type: safe
@@ -3112,32 +3116,32 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 5
           radius: 28
-          speed: 2
+          speed: 60
           types:
           - enlarging
         - count: 12
           radius: 22
-          speed: 3
+          speed: 90
           types:
           - mist
         - count: 18
           radius: 22
-          speed: 4
+          speed: 120
           types:
           - charging
         - count: 2
           radius: 78
-          speed: 6
+          speed: 180
           types:
           - mist
         - count: 2
           radius: 74
-          speed: 5
+          speed: 150
           types:
           - charging
       - type: safe
@@ -3178,23 +3182,23 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 10
           radius: 22
-          speed: 4
+          speed: 120
           types:
           - mist
           - switch
         - count: 5
           radius: 24
-          speed: 2
+          speed: 60
           types:
           - lead_sniper
         - count: 5
           radius: 22
-          speed: 2
+          speed: 60
           types:
           - charging
           - zigzag
@@ -3236,23 +3240,23 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 10
           radius: 20
-          speed: 5
+          speed: 150
           types:
           - mist
           - switch
         - count: 5
           radius: 24
-          speed: 4
+          speed: 120
           types:
           - poison_sniper
         - count: 11
           radius: 20
-          speed: 4.5
+          speed: 135
           types:
           - charging
           - zigzag
@@ -3294,23 +3298,23 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 7
           radius: 20
-          speed: 8
+          speed: 240
           types:
           - mist
           - switch
         - count: 2
           radius: 29
-          speed: 8
+          speed: 240
           types:
           - lead_sniper
         - count: 7
           radius: 20
-          speed: 5.5
+          speed: 165
           types:
           - charging
           - zigzag
@@ -3352,23 +3356,23 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 17
           radius: 18
-          speed: 1
+          speed: 30
           types:
           - mist
           - switch
         - count: 3
           radius: 30
-          speed: 0.5
+          speed: 15
           types:
           - poison_sniper
         - count: 17
           radius: 20
-          speed: 2
+          speed: 60
           types:
           - charging
           - zigzag
@@ -3410,39 +3414,39 @@ areas:
         spawner:
         - count: 8
           radius: 25
-          speed: 5
+          speed: 150
           types:
           - wall
         - count: 14
           radius: 19
-          speed: 1.5
+          speed: 45
           types:
           - mist
           - switch
         - count: 1
           radius: 30
-          speed: 1.5
+          speed: 45
           types:
           - poison_sniper
         - count: 1
           radius: 30
-          speed: 1.5
+          speed: 45
           types:
           - lead_sniper
         - count: 22
           radius: 24
-          speed: 2
+          speed: 60
           types:
           - charging
           - zigzag
         - count: 2
           radius: 85
-          speed: 3
+          speed: 90
           types:
           - switch
         - count: 4
           radius: 80
-          speed: 4
+          speed: 120
           types:
           - charging
           - zigzag

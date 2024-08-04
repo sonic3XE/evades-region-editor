@@ -135,16 +135,18 @@ areas:
         width: 256
         x: last_right
         y: 0
+        properties:
+          minimum_speed: 300
       - height: 480
         spawner:
           - count: 8
             radius: 45
-            speed: 7.5
+            speed: 225
             types:
               - pumpkin
           - count: 30
             radius: 45
-            speed: 7.5
+            speed: 225
             types:
               - fake_pumpkin
         type: active
@@ -295,22 +297,22 @@ areas:
         spawner:
           - count: 7
             radius: 28
-            speed: 7
+            speed: 210
             types:
               - pumpkin
           - count: 25
             radius: 28
-            speed: 7
+            speed: 210
             types:
               - fake_pumpkin
           - count: 7
             radius: 16
-            speed: 8
+            speed: 240
             types:
               - pumpkin
           - count: 25
             radius: 16
-            speed: 8
+            speed: 240
             types:
               - fake_pumpkin
         type: active
@@ -461,42 +463,42 @@ areas:
         spawner:
           - count: 4
             radius: 40
-            speed: 7
+            speed: 210
             types:
               - pumpkin
           - count: 15
             radius: 40
-            speed: 7
+            speed: 210
             types:
               - fake_pumpkin
           - count: 4
             radius: 25
-            speed: 8
+            speed: 240
             types:
               - pumpkin
           - count: 15
             radius: 25
-            speed: 8
+            speed: 240
             types:
               - fake_pumpkin
           - count: 4
             radius: 25
-            speed: 9
+            speed: 270
             types:
               - pumpkin
           - count: 12
             radius: 25
-            speed: 9
+            speed: 270
             types:
               - fake_pumpkin
           - count: 4
             radius: 12
-            speed: 10
+            speed: 300
             types:
               - pumpkin
           - count: 12
             radius: 12
-            speed: 10
+            speed: 300
             types:
               - fake_pumpkin
         type: active
@@ -591,21 +593,41 @@ areas:
         width: 64
         x: 0
         y: 0
-      - height: last_height
+      - x: 64
+        y: 0
+        width: 256
+        height: 32
+        type: teleport
+        requirements:
+          - coupled_corridors_found
+        translate:
+          x: 28160
+          y: 2016
+      - x: 64
+        y: 448
+        width: 256
+        height: 32
+        type: teleport
+        requirements:
+          - coupled_corridors_found
+        translate:
+          x: 28160
+          y: 12032
+      - height: 416
         type: safe
         width: 256
-        x: last_right
-        y: 0
+        x: 64
+        y: 32
       - height: 480
         spawner:
           - count: 40
             radius: 18
-            speed: 2.4
+            speed: 72
             types:
               - glowy
           - count: 6
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - wall
         type: active
@@ -683,17 +705,17 @@ areas:
         spawner:
           - count: 4
             radius: 80
-            speed: 1.6
+            speed: 48
             types:
               - glowy
           - count: 24
             radius: 18
-            speed: 3
+            speed: 90
             types:
               - glowy
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -887,42 +909,42 @@ areas:
         spawner:
           - count: 8
             radius: 12
-            speed: 1
+            speed: 30
             types:
               - slowing
           - count: 8
             radius: 12
-            speed: 1
+            speed: 30
             types:
               - draining
           - count: 8
             radius: 12
-            speed: 1
+            speed: 30
             types:
               - toxic
           - count: 9
             radius: 12
-            speed: 5
+            speed: 150
             types:
               - normal
           - count: 9
             radius: 12
-            speed: 5
+            speed: 150
             types:
               - dasher
           - count: 9
             radius: 12
-            speed: 5
+            speed: 150
             types:
               - homing
           - count: 9
             radius: 12
-            speed: 5
+            speed: 150
             types:
               - glowy
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -989,17 +1011,17 @@ areas:
         spawner:
           - count: 18
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - switch
           - count: 12
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - glowy
           - count: 6
             radius: 30
-            speed: 6
+            speed: 180
             types:
               - wall
         type: active
@@ -1058,17 +1080,17 @@ areas:
         spawner:
           - count: 16
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - switch
           - count: 10
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - glowy
           - count: 8
             radius: 30
-            speed: 6
+            speed: 180
             types:
               - wall
         type: active
@@ -1127,17 +1149,17 @@ areas:
         spawner:
           - count: 22
             radius: 30
-            speed: 2
+            speed: 60
             types:
               - switch
           - count: 12
             radius: 30
-            speed: 2
+            speed: 60
             types:
               - glowy
           - count: 10
             radius: 30
-            speed: 6
+            speed: 180
             types:
               - wall
         type: active
@@ -1196,22 +1218,22 @@ areas:
         spawner:
           - count: 2
             radius: 80
-            speed: 3
+            speed: 90
             types:
               - switch
           - count: 18
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - switch
           - count: 18
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - glowy
           - count: 10
             radius: 30
-            speed: 6
+            speed: 180
             types:
               - wall
         type: active
@@ -1270,22 +1292,22 @@ areas:
         spawner:
           - count: 4
             radius: 48
-            speed: 9
+            speed: 270
             types:
               - switch
           - count: 9
             radius: 16
-            speed: 3
+            speed: 90
             types:
               - switch
           - count: 9
             radius: 16
-            speed: 3
+            speed: 90
             types:
               - glowy
           - count: 8
             radius: 30
-            speed: 6
+            speed: 180
             types:
               - wall
         type: active
@@ -1344,37 +1366,37 @@ areas:
         spawner:
           - count: 9
             radius: 6
-            speed: 6
+            speed: 180
             types:
               - switch
           - count: 6
             radius: 24
-            speed: 5
+            speed: 150
             types:
               - switch
           - count: 6
             radius: 36
-            speed: 2
+            speed: 60
             types:
               - switch
           - count: 9
             radius: 6
-            speed: 6
+            speed: 180
             types:
               - glowy
           - count: 6
             radius: 24
-            speed: 5
+            speed: 150
             types:
               - glowy
           - count: 5
             radius: 36
-            speed: 2
+            speed: 60
             types:
               - glowy
           - count: 10
             radius: 30
-            speed: 6
+            speed: 180
             types:
               - wall
         type: active
@@ -1433,52 +1455,52 @@ areas:
         spawner:
           - count: 7
             radius: 8
-            speed: 8
+            speed: 240
             types:
               - switch
           - count: 7
             radius: 16
-            speed: 4
+            speed: 120
             types:
               - switch
           - count: 3
             radius: 32
-            speed: 3
+            speed: 90
             types:
               - switch
           - count: 2
             radius: 64
-            speed: 2
+            speed: 60
             types:
               - switch
           - count: 7
             radius: 8
-            speed: 8
+            speed: 240
             types:
               - glowy
           - count: 7
             radius: 16
-            speed: 4
+            speed: 120
             types:
               - glowy
           - count: 3
             radius: 32
-            speed: 3
+            speed: 90
             types:
               - glowy
           - count: 2
             radius: 64
-            speed: 2
+            speed: 60
             types:
               - glowy
           - count: 5
             radius: 24
-            speed: 24
+            speed: 720
             types:
               - dasher
           - count: 10
             radius: 30
-            speed: 6
+            speed: 180
             types:
               - wall
         type: active
@@ -1585,12 +1607,12 @@ areas:
         spawner:
           - count: 8
             radius: 18
-            speed: 3
+            speed: 90
             types:
               - zigzag
           - count: 6
             radius: 15
-            speed: 3
+            speed: 90
             types:
               - wall
         type: active
@@ -1697,12 +1719,12 @@ areas:
         spawner:
           - count: 8
             radius: 18
-            speed: 5
+            speed: 150
             types:
               - zigzag
           - count: 6
             radius: 15
-            speed: 5
+            speed: 150
             types:
               - wall
         type: active
@@ -1809,12 +1831,12 @@ areas:
         spawner:
           - count: 12
             radius: 18
-            speed: 3
+            speed: 90
             types:
               - zigzag
           - count: 9
             radius: 15
-            speed: 3
+            speed: 90
             types:
               - wall
         type: active
@@ -1929,12 +1951,12 @@ areas:
         spawner:
           - count: 8
             radius: 27
-            speed: 3
+            speed: 90
             types:
               - zigzag
           - count: 6
             radius: 27
-            speed: 3
+            speed: 90
             types:
               - wall
         type: active
@@ -2084,22 +2106,22 @@ areas:
         spawner:
           - count: 8
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - wavy
           - count: 4
             radius: 9
-            speed: 5
+            speed: 150
             types:
               - sizing
           - count: 6
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - mist
           - count: 8
             radius: 30
-            speed: 5
+            speed: 150
             types:
               - wall
         type: active
@@ -2249,22 +2271,22 @@ areas:
         spawner:
           - count: 8
             radius: 18
-            speed: 5
+            speed: 150
             types:
               - wavy
           - count: 4
             radius: 9
-            speed: 6
+            speed: 180
             types:
               - sizing
           - count: 6
             radius: 40
-            speed: 3
+            speed: 90
             types:
               - mist
           - count: 8
             radius: 30
-            speed: 5
+            speed: 150
             types:
               - wall
         type: active
@@ -2431,27 +2453,27 @@ areas:
         spawner:
           - count: 12
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - icicle
           - count: 6
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - icicle
           - count: 3
             radius: 24
-            speed: 2
+            speed: 60
             types:
               - spiral
           - count: 12
             radius: 18
-            speed: 3
+            speed: 90
             types:
               - mist
           - count: 8
             radius: 30
-            speed: 5
+            speed: 150
             types:
               - wall
         type: active
@@ -2601,22 +2623,22 @@ areas:
         spawner:
           - count: 10
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - wavy
           - count: 5
             radius: 9
-            speed: 5
+            speed: 150
             types:
               - sizing
           - count: 12
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - mist
           - count: 8
             radius: 30
-            speed: 5
+            speed: 150
             types:
               - wall
         type: active
@@ -2747,32 +2769,32 @@ areas:
         spawner:
           - count: 18
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - icicle
           - count: 4
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - icicle
           - count: 4
             radius: 45
-            speed: 2
+            speed: 60
             types:
               - icicle
           - count: 4
             radius: 24
-            speed: 2
+            speed: 60
             types:
               - spiral
           - count: 30
             radius: 12
-            speed: 3
+            speed: 90
             types:
               - mist
           - count: 8
             radius: 30
-            speed: 5
+            speed: 150
             types:
               - wall
         type: active
@@ -2936,27 +2958,27 @@ areas:
         spawner:
           - count: 15
             radius: 18
-            speed: 5
+            speed: 150
             types:
               - wavy
           - count: 3
             radius: 35
-            speed: 5
+            speed: 150
             types:
               - wavy
           - count: 6
             radius: 9
-            speed: 6
+            speed: 180
             types:
               - sizing
           - count: 15
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - mist
           - count: 8
             radius: 30
-            speed: 5
+            speed: 150
             types:
               - wall
         type: active
@@ -3093,32 +3115,32 @@ areas:
         spawner:
           - count: 24
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - icicle
           - count: 7
             radius: 30
-            speed: 3
+            speed: 90
             types:
               - icicle
           - count: 5
             radius: 45
-            speed: 2
+            speed: 60
             types:
               - icicle
           - count: 5
             radius: 24
-            speed: 2
+            speed: 60
             types:
               - spiral
           - count: 20
             radius: 12
-            speed: 3
+            speed: 90
             types:
               - mist
           - count: 8
             radius: 30
-            speed: 5
+            speed: 150
             types:
               - wall
         type: active
@@ -3192,17 +3214,17 @@ areas:
         spawner:
           - count: 16
             radius: 12
-            speed: 1
+            speed: 30
             types:
               - slowing
           - count: 15
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - glowy
           - count: 8
             radius: 15
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -3296,17 +3318,17 @@ areas:
         spawner:
           - count: 20
             radius: 12
-            speed: 1
+            speed: 30
             types:
               - draining
           - count: 18
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - glowy
           - count: 8
             radius: 15
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -3365,22 +3387,22 @@ areas:
         spawner:
           - count: 7
             radius: 18
-            speed: 5
+            speed: 150
             types:
               - snowman
           - count: 5
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - fire_trail
           - count: 3
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - phantom
           - count: 9
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -3447,22 +3469,22 @@ areas:
         spawner:
           - count: 9
             radius: 18
-            speed: 8
+            speed: 240
             types:
               - snowman
           - count: 5
             radius: 18
-            speed: 6
+            speed: 180
             types:
               - fire_trail
           - count: 4
             radius: 18
-            speed: 5
+            speed: 150
             types:
               - phantom
           - count: 9
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -3561,22 +3583,22 @@ areas:
         spawner:
           - count: 11
             radius: 18
-            speed: 5
+            speed: 150
             types:
               - snowman
           - count: 6
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - fire_trail
           - count: 4
             radius: 18
-            speed: 5
+            speed: 150
             types:
               - phantom
           - count: 9
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -3627,22 +3649,22 @@ areas:
         spawner:
           - count: 5
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - snowman
           - count: 10
             radius: 18
-            speed: 5
+            speed: 150
             types:
               - fire_trail
           - count: 4
             radius: 18
-            speed: 5
+            speed: 150
             types:
               - phantom
           - count: 9
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -3709,22 +3731,22 @@ areas:
         spawner:
           - count: 9
             radius: 18
-            speed: 7
+            speed: 210
             types:
               - snowman
           - count: 7
             radius: 12
-            speed: 5
+            speed: 150
             types:
               - fire_trail
           - count: 6
             radius: 18
-            speed: 6
+            speed: 180
             types:
               - phantom
           - count: 9
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -3783,22 +3805,22 @@ areas:
         spawner:
           - count: 6
             radius: 21
-            speed: 5
+            speed: 150
             types:
               - snowman
           - count: 12
             radius: 14
-            speed: 8
+            speed: 240
             types:
               - snowman
           - count: 5
             radius: 18
-            speed: 7
+            speed: 210
             types:
               - phantom
           - count: 9
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -3857,22 +3879,22 @@ areas:
         spawner:
           - count: 4
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - fire_trail
           - count: 6
             radius: 18
-            speed: 7
+            speed: 210
             types:
               - fire_trail
           - count: 5
             radius: 18
-            speed: 6
+            speed: 180
             types:
               - phantom
           - count: 9
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -3945,32 +3967,32 @@ areas:
         spawner:
           - count: 3
             radius: 27
-            speed: 4
+            speed: 120
             types:
               - snowman
           - count: 7
             radius: 18
-            speed: 7
+            speed: 210
             types:
               - snowman
           - count: 3
             radius: 35
-            speed: 5
+            speed: 150
             types:
               - fire_trail
           - count: 7
             radius: 18
-            speed: 8
+            speed: 240
             types:
               - fire_trail
           - count: 6
             radius: 18
-            speed: 7
+            speed: 210
             types:
               - phantom
           - count: 9
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -4029,32 +4051,32 @@ areas:
         spawner:
           - count: 2
             radius: 45
-            speed: 2
+            speed: 60
             types:
               - snowman
           - count: 10
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - snowman
           - count: 2
             radius: 80
-            speed: 3
+            speed: 90
             types:
               - fire_trail
           - count: 10
             radius: 18
-            speed: 3
+            speed: 90
             types:
               - fire_trail
           - count: 10
             radius: 18
-            speed: 3
+            speed: 90
             types:
               - phantom
           - count: 9
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
         type: active
@@ -4119,12 +4141,12 @@ areas:
         spawner:
           - count: 6
             radius: 96
-            speed: 3
+            speed: 90
             types:
               - wall
           - count: 32
             radius: 16
-            speed: 2
+            speed: 60
             types:
               - wall
           - count: 5
@@ -4134,7 +4156,7 @@ areas:
             pause_interval: 1000
             radius: 24
             shot_interval: 250
-            speed: 1
+            speed: 30
             types:
               - frost_giant
         type: active
@@ -4193,18 +4215,18 @@ areas:
         spawner:
           - count: 8
             radius: 48
-            speed: 6
+            speed: 180
             types:
               - wall
           - count: 18
             radius: 12
-            speed: 3
+            speed: 90
             types:
               - wall
           - count: 4
             move_clockwise: false
             radius: 30
-            speed: 2
+            speed: 60
             types:
               - wall
         type: active
@@ -4263,18 +4285,18 @@ areas:
         spawner:
           - count: 8
             radius: 96
-            speed: 9
+            speed: 270
             types:
               - wall
           - count: 18
             radius: 24
-            speed: 4.5
+            speed: 135
             types:
               - wall
           - count: 4
             move_clockwise: false
             radius: 60
-            speed: 3
+            speed: 90
             types:
               - wall
         type: active
@@ -4333,27 +4355,27 @@ areas:
         spawner:
           - count: 8
             radius: 48
-            speed: 6
+            speed: 180
             types:
               - wall
           - count: 5
             radius: 48
-            speed: 6
+            speed: 180
             types:
               - normal
           - count: 17
             radius: 24
-            speed: 4
+            speed: 120
             types:
               - normal
           - count: 2
             radius: 48
-            speed: 6
+            speed: 180
             types:
               - immune
           - count: 2
             radius: 24
-            speed: 4
+            speed: 120
             types:
               - immune
           - count: 1
@@ -4363,7 +4385,7 @@ areas:
             pause_interval: 1000
             radius: 48
             shot_interval: 250
-            speed: 6
+            speed: 180
             types:
               - frost_giant
           - count: 1
@@ -4373,7 +4395,7 @@ areas:
             pause_interval: 1000
             radius: 24
             shot_interval: 250
-            speed: 4
+            speed: 120
             types:
               - frost_giant
         type: active
@@ -4432,27 +4454,27 @@ areas:
         spawner:
           - count: 12
             radius: 48
-            speed: 6
+            speed: 180
             types:
               - wall
           - count: 7
             radius: 48
-            speed: 6
+            speed: 180
             types:
               - normal
           - count: 18
             radius: 24
-            speed: 4
+            speed: 120
             types:
               - normal
           - count: 3
             radius: 48
-            speed: 6
+            speed: 180
             types:
               - immune
           - count: 7
             radius: 24
-            speed: 4
+            speed: 120
             types:
               - immune
         type: active
@@ -4511,22 +4533,22 @@ areas:
         spawner:
           - count: 16
             radius: 48
-            speed: 5
+            speed: 150
             types:
               - wall
           - count: 4
             radius: 48
-            speed: 5
+            speed: 150
             types:
               - immune
           - count: 36
             radius: 24
-            speed: 1
+            speed: 30
             types:
               - immune
           - count: 36
             radius: 12
-            speed: 1
+            speed: 30
             types:
               - immune
         type: active
@@ -4735,17 +4757,17 @@ areas:
         spawner:
           - count: 30
             radius: 12
-            speed: 1
+            speed: 30
             types:
               - toxic
           - count: 30
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - glowy
           - count: 8
             radius: 15
-            speed: 5
+            speed: 150
             types:
               - wall
         type: active
@@ -4812,12 +4834,12 @@ areas:
         spawner:
           - count: 4
             radius: 24
-            speed: 4
+            speed: 120
             types:
               - tree
           - count: 3
             radius: 36
-            speed: 2
+            speed: 60
             types:
               - tree
           - count: 6
@@ -4826,23 +4848,23 @@ areas:
               - fake_pumpkin
           - count: 2
             radius: 48
-            speed: 8
+            speed: 240
             types:
               - pumpkin
           - count: 5
             radius: 35
-            speed: 6
+            speed: 180
             types:
               - firefly
           - count: 6
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 8
+            speed: 240
             types:
               - wall
         type: active
@@ -4901,33 +4923,33 @@ areas:
         spawner:
           - count: 3
             radius: 65
-            speed: 4
+            speed: 120
             types:
               - firefly
           - count: 6
             radius: 35
-            speed: 4
+            speed: 120
             types:
               - firefly
           - count: 10
             radius: 25
-            speed: 4
+            speed: 120
             types:
               - firefly
           - count: 15
             radius: 20
-            speed: 4
+            speed: 120
             types:
               - firefly
           - count: 6
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 12
+            speed: 360
             types:
               - wall
         type: active
@@ -4986,12 +5008,12 @@ areas:
         spawner:
           - count: 3
             radius: 30
-            speed: 5
+            speed: 150
             types:
               - tree
           - count: 3
             radius: 45
-            speed: 3
+            speed: 90
             types:
               - tree
           - count: 5
@@ -5000,23 +5022,23 @@ areas:
               - fake_pumpkin
           - count: 2
             radius: 56
-            speed: 6
+            speed: 180
             types:
               - pumpkin
           - count: 4
             radius: 35
-            speed: 6
+            speed: 180
             types:
               - firefly
           - count: 6
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 12
+            speed: 360
             types:
               - wall
         type: active
@@ -5075,18 +5097,18 @@ areas:
         spawner:
           - count: 15
             radius: 24
-            speed: 1
+            speed: 30
             types:
               - tree
           - count: 6
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 16
+            speed: 480
             types:
               - wall
         type: active
@@ -5145,18 +5167,18 @@ areas:
         spawner:
           - count: 7
             radius: 96
-            speed: 3
+            speed: 90
             types:
               - tree
           - count: 6
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 16
+            speed: 480
             types:
               - wall
         type: active
@@ -5215,43 +5237,43 @@ areas:
         spawner:
           - count: 26
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - disabling
           - count: 3
             radius: 30
-            speed: 9
+            speed: 270
             types:
               - turning
           - count: 3
             radius: 30
-            speed: 9
+            speed: 270
             types:
               - oscillating
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 20
+            speed: 600
             types:
               - wall
         type: active
@@ -5318,39 +5340,39 @@ areas:
         spawner:
           - count: 30
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - firefly
           - count: 16
             horizontal: true
             radius: 30
-            speed: 8
+            speed: 240
             types:
               - icicle
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 20
+            speed: 600
             types:
               - wall
         type: active
@@ -5409,43 +5431,43 @@ areas:
         spawner:
           - count: 26
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - disabling
           - count: 3
             radius: 30
-            speed: 9
+            speed: 270
             types:
               - turning
           - count: 3
             radius: 30
-            speed: 9
+            speed: 270
             types:
               - oscillating
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 20
+            speed: 600
             types:
               - wall
         type: active
@@ -5504,39 +5526,39 @@ areas:
         spawner:
           - count: 30
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - firefly
           - count: 16
             horizontal: true
             radius: 30
-            speed: 8
+            speed: 240
             types:
               - icicle
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 20
+            speed: 600
             types:
               - wall
         type: active
@@ -5595,43 +5617,43 @@ areas:
         spawner:
           - count: 26
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - disabling
           - count: 3
             radius: 30
-            speed: 9
+            speed: 270
             types:
               - turning
           - count: 3
             radius: 30
-            speed: 9
+            speed: 270
             types:
               - oscillating
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 20
+            speed: 600
             types:
               - wall
         type: active
@@ -5698,39 +5720,39 @@ areas:
         spawner:
           - count: 30
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - firefly
           - count: 16
             horizontal: true
             radius: 30
-            speed: 8
+            speed: 240
             types:
               - icicle
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 20
+            speed: 600
             types:
               - wall
         type: active
@@ -5789,43 +5811,43 @@ areas:
         spawner:
           - count: 26
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - disabling
           - count: 3
             radius: 30
-            speed: 9
+            speed: 270
             types:
               - turning
           - count: 3
             radius: 30
-            speed: 9
+            speed: 270
             types:
               - oscillating
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 20
+            speed: 600
             types:
               - wall
         type: active
@@ -5892,39 +5914,39 @@ areas:
         spawner:
           - count: 30
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - firefly
           - count: 16
             horizontal: true
             radius: 30
-            speed: 8
+            speed: 240
             types:
               - icicle
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 20
+            speed: 600
             types:
               - wall
         type: active
@@ -5983,53 +6005,53 @@ areas:
         spawner:
           - count: 10
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - slowing
           - count: 10
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - draining
           - count: 10
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - toxic
           - count: 2
             radius: 50
-            speed: 1
+            speed: 30
             types:
               - sniper
           - count: 1
             radius: 50
-            speed: 1
+            speed: 30
             types:
               - corrosive_sniper
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 24
+            speed: 720
             types:
               - wall
         type: active
@@ -6080,53 +6102,53 @@ areas:
         spawner:
           - count: 10
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - slowing
           - count: 10
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - draining
           - count: 10
             radius: 12
-            speed: 4
+            speed: 120
             types:
               - toxic
           - count: 2
             radius: 50
-            speed: 1
+            speed: 30
             types:
               - sniper
           - count: 1
             radius: 50
-            speed: 1
+            speed: 30
             types:
               - corrosive_sniper
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 24
+            speed: 720
             types:
               - wall
         type: active
@@ -6185,39 +6207,39 @@ areas:
         spawner:
           - count: 30
             radius: 18
-            speed: 4
+            speed: 120
             types:
               - firefly
           - count: 16
             horizontal: true
             radius: 30
-            speed: 8
+            speed: 240
             types:
               - icicle
           - count: 1
             radius: 60
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 45
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 1
             radius: 30
-            speed: 10
+            speed: 300
             types:
               - wall
           - count: 8
             radius: 30
-            speed: 4
+            speed: 120
             types:
               - wall
           - count: 1
             move_clockwise: false
             radius: 30
-            speed: 20
+            speed: 600
             types:
               - wall
         type: active

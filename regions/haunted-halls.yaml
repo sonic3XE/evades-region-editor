@@ -42,7 +42,7 @@ areas:
       - 6
       - 79
       - 125
-      minimum_speed: 10
+      minimum_speed: 300
     requirements:
     - mansion_discovered
   - type: safe
@@ -51,7 +51,7 @@ areas:
     width: 320
     height: 352
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: last_right
     y: 0
@@ -60,7 +60,7 @@ areas:
     spawner:
     - count: 2
       radius: 45
-      speed: 4
+      speed: 120
       types:
       - tree
   - height: last_height
@@ -108,7 +108,7 @@ areas:
     spawner:
     - count: 4
       radius: 45
-      speed: 4
+      speed: 120
       types:
       - tree
   - height: last_height
@@ -156,7 +156,7 @@ areas:
     spawner:
     - count: 6
       radius: 45
-      speed: 4
+      speed: 120
       types:
       - tree
   - height: last_height
@@ -204,12 +204,12 @@ areas:
     spawner:
     - count: 6
       radius: 45
-      speed: 4
+      speed: 120
       types:
       - tree
     - count: 2
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
   - height: last_height
@@ -257,12 +257,12 @@ areas:
     spawner:
     - count: 6
       radius: 45
-      speed: 4
+      speed: 120
       types:
       - tree
     - count: 2
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     - count: 3
@@ -314,12 +314,12 @@ areas:
     spawner:
     - count: 6
       radius: 45
-      speed: 4
+      speed: 120
       types:
       - tree
     - count: 4
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     - count: 10
@@ -382,12 +382,12 @@ areas:
     spawner:
     - count: 5
       radius: 45
-      speed: 4
+      speed: 120
       types:
       - tree
     - count: 4
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     - count: 10
@@ -396,7 +396,7 @@ areas:
       - fake_pumpkin
     - count: 5
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: last_height
@@ -455,12 +455,12 @@ areas:
     spawner:
     - count: 4
       radius: 45
-      speed: 4
+      speed: 120
       types:
       - tree
     - count: 4
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     - count: 15
@@ -469,7 +469,7 @@ areas:
       - fake_pumpkin
     - count: 10
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: last_height
@@ -528,12 +528,12 @@ areas:
     spawner:
     - count: 2
       radius: 45
-      speed: 4
+      speed: 120
       types:
       - tree
     - count: 2
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     - count: 25
@@ -542,7 +542,7 @@ areas:
       - fake_pumpkin
     - count: 10
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: last_height
@@ -601,7 +601,7 @@ areas:
     spawner:
     - count: 2
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     - count: 35
@@ -610,7 +610,7 @@ areas:
       - fake_pumpkin
     - count: 15
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: last_height
@@ -672,7 +672,7 @@ areas:
     spawner:
     - count: 2
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - wall
     - count: 50
@@ -681,7 +681,7 @@ areas:
       - fake_pumpkin
     - count: 20
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: last_height
@@ -747,7 +747,7 @@ areas:
       - fake_pumpkin
     - count: 25
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: last_height
@@ -869,7 +869,7 @@ areas:
       - fake_pumpkin
     - count: 30
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: last_height
@@ -991,7 +991,7 @@ areas:
       - fake_pumpkin
     - count: 35
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: last_height
@@ -1110,7 +1110,7 @@ areas:
       - fake_pumpkin
     - count: 40
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: last_height
@@ -1229,7 +1229,7 @@ areas:
       - fake_pumpkin
     - count: 135
       radius: 30
-      speed: 8
+      speed: 240
       types:
       - pumpkin
   - height: 480

@@ -32,7 +32,7 @@ areas:
     width: 288
     height: 128
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: teleport
     x: 32
     y: 0
@@ -55,14 +55,14 @@ areas:
     width: 32
     height: 32
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: safe
     x: 288
     y: 160
     width: 32
     height: 32
     properties:
-      minimum_speed: 10
+      minimum_speed: 300
   - type: active
     x: 320
     y: 0
@@ -71,7 +71,7 @@ areas:
     spawner:
     - count: 2
       radius: 15
-      speed: 2.5
+      speed: 75
       move_clockwise: False
       types:
       - wall
@@ -117,17 +117,17 @@ areas:
     spawner:
     - count: 6
       radius: 24
-      speed: 1
+      speed: 30
       types:
       - normal
     - count: 3
       radius: 12
-      speed: 4
+      speed: 120
       types:
       - normal
     - count: 1
       radius: 6
-      speed: 1
+      speed: 30
       types:
       - magnetic_reduction
     type: active
@@ -168,33 +168,33 @@ areas:
     spawner:
     - count: 3
       radius: 24
-      speed: 1.5
+      speed: 45
       types:
       - normal
     - count: 4
       radius: 12
-      speed: 0.5
+      speed: 15
       types:
       - normal
     - count: 2
       radius: 36
-      speed: 2.5
+      speed: 75
       types:
       - normal
     - count: 3
       radius: 6
-      speed: 2
+      speed: 60
       types:
       - magnetic_reduction
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -235,27 +235,27 @@ areas:
     spawner:
     - count: 8
       radius: 24
-      speed: 1.5
+      speed: 45
       types:
       - normal
     - count: 4
       radius: 48
-      speed: 1.5
+      speed: 45
       types:
       - normal
     - count: 2
       radius: 6
-      speed: 7
+      speed: 210
       types:
       - magnetic_reduction
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
@@ -297,23 +297,23 @@ areas:
     spawner:
     - count: 8
       radius: 9
-      speed: 2
+      speed: 60
       types:
       - normal
     - count: 10
       radius: 6
-      speed: 2.5
+      speed: 75
       types:
       - magnetic_reduction
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     type: active
@@ -354,27 +354,27 @@ areas:
     spawner:
     - count: 4
       radius: 36
-      speed: 7
+      speed: 210
       types:
       - normal
     - count: 9
       radius: 7
-      speed: 1
+      speed: 30
       types:
       - normal
     - count: 2
       radius: 6
-      speed: 1
+      speed: 30
       types:
       - magnetic_reduction
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
@@ -398,6 +398,7 @@ areas:
 # 7
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - height: 320
     translate:
@@ -421,27 +422,27 @@ areas:
     spawner:
     - count: 5
       radius: 12
-      speed: 4
+      speed: 120
       types:
       - normal
     - count: 8
       radius: 12
-      speed: 1
+      speed: 30
       types:
       - magnetic_reduction
     - count: 2
       radius: 70
-      speed: 2
+      speed: 60
       types:
       - magnetic_reduction
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
@@ -488,28 +489,28 @@ areas:
     spawner:
     - count: 4
       radius: 12
-      speed: 2
+      speed: 60
       types:
       - normal
     - count: 3
       radius: 18
-      speed: 1
+      speed: 30
       types:
       - normal
     - count: 2
       radius: 12
-      speed: 2
+      speed: 60
       types:
       - negative_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       types:
       - wall
     type: active
@@ -550,32 +551,32 @@ areas:
     spawner:
     - count: 3
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 5
       radius: 24
-      speed: 4
+      speed: 120
       types:
       - normal
     - count: 1
       radius: 6
-      speed: 5
+      speed: 150
       types:
       - magnetic_reduction
     - count: 2
       radius: 18
-      speed: 2
+      speed: 60
       types:
       - negative_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       move_clockwise: False
       types:
       - wall
@@ -617,33 +618,33 @@ areas:
     spawner:
     - count: 5
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 4
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - normal
     - count: 2
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - negative_magnetic_sniper
     - count: 2
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - negative_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       types:
       - wall
     type: active
@@ -684,62 +685,62 @@ areas:
     spawner:
     - count: 3
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 3
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - normal
     - count: 2
       radius: 24
-      speed: 4
+      speed: 120
       types:
       - normal
     - count: 2
       radius: 30
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 1
       radius: 36
-      speed: 2
+      speed: 60
       types:
       - normal
     - count: 1
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - negative_magnetic_sniper
     - count: 1
       radius: 18
-      speed: 6.5
+      speed: 195
       types:
       - negative_magnetic_sniper
     - count: 1
       radius: 24
-      speed: 5.5
+      speed: 165
       types:
       - negative_magnetic_sniper
     - count: 1
       radius: 30
-      speed: 4.5
+      speed: 135
       types:
       - negative_magnetic_sniper
     - count: 1
       radius: 36
-      speed: 3.5
+      speed: 105
       types:
       - negative_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       move_clockwise: False
       types:
       - wall
@@ -781,23 +782,23 @@ areas:
     spawner:
     - count: 5
       radius: 6
-      speed: 9
+      speed: 270
       types:
       - magnetic_reduction
     - count: 5
       radius: 24
-      speed: 2
+      speed: 60
       types:
       - negative_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       types:
       - wall
     type: active
@@ -838,22 +839,22 @@ areas:
     spawner:
     - count: 8
       radius: 30
-      speed: 1
+      speed: 30
       types:
       - normal
     - count: 3
       radius: 30
-      speed: 11
+      speed: 330
       types:
       - negative_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       move_clockwise: False
       types:
       - wall
@@ -877,6 +878,7 @@ areas:
 # 14
 - x: last_right
   y: 108480
+  boss: true
   zones:
   - height: 320
     translate:
@@ -900,27 +902,27 @@ areas:
     spawner:
     - count: 4
       radius: 12
-      speed: 5
+      speed: 150
       types:
       - normal
     - count: 2
       radius: 42
-      speed: 4
+      speed: 120
       types:
       - negative_magnetic_sniper
     - count: 2
       radius: 70
-      speed: 2
+      speed: 60
       types:
       - negative_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 4.5
+      speed: 135
       move_clockwise: False
       types:
       - wall
@@ -967,23 +969,23 @@ areas:
     spawner:
     - count: 2
       radius: 54
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 2
       radius: 30
-      speed: 5
+      speed: 150
       types:
       - positive_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1024,27 +1026,27 @@ areas:
     spawner:
     - count: 6
       radius: 24
-      speed: 4
+      speed: 120
       types:
       - normal
     - count: 1
       radius: 12
-      speed: 4
+      speed: 120
       types:
       - negative_magnetic_sniper
     - count: 1
       radius: 12
-      speed: 4
+      speed: 120
       types:
       - positive_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
@@ -1086,28 +1088,28 @@ areas:
     spawner:
     - count: 8
       radius: 6
-      speed: 3
+      speed: 90
       types:
       - magnetic_reduction
     - count: 1
       radius: 36
-      speed: 3
+      speed: 90
       types:
       - negative_magnetic_sniper
     - count: 3
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - positive_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1148,27 +1150,27 @@ areas:
     spawner:
     - count: 13
       radius: 8
-      speed: 3
+      speed: 90
       types:
       - normal
     - count: 2
       radius: 10
-      speed: 5
+      speed: 150
       types:
       - negative_magnetic_sniper
     - count: 2
       radius: 10
-      speed: 5
+      speed: 150
       types:
       - positive_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
@@ -1210,28 +1212,28 @@ areas:
     spawner:
     - count: 9
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 3
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - negative_magnetic_sniper
     - count: 2
       radius: 36
-      speed: 8
+      speed: 240
       types:
       - positive_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     type: active
@@ -1272,27 +1274,27 @@ areas:
     spawner:
     - count: 15
       radius: 12
-      speed: 1.5
+      speed: 45
       types:
       - normal
     - count: 1
       radius: 36
-      speed: 10
+      speed: 300
       types:
       - negative_magnetic_sniper
     - count: 1
       radius: 36
-      speed: 10
+      speed: 300
       types:
       - positive_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
@@ -1316,6 +1318,7 @@ areas:
 # 21
 - x: last_right
   y: last_y
+  boss: true
   zones:
   - height: 320
     translate:
@@ -1339,32 +1342,32 @@ areas:
     spawner:
     - count: 4
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - normal
     - count: 2
       radius: 24
-      speed: 4
+      speed: 120
       types:
       - negative_magnetic_sniper
     - count: 1
       radius: 24
-      speed: 4
+      speed: 120
       types:
       - positive_magnetic_sniper
     - count: 2
       radius: 70
-      speed: 2
+      speed: 60
       types:
       - positive_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
@@ -1411,23 +1414,23 @@ areas:
     spawner:
     - count: 5
       radius: 24
-      speed: 2
+      speed: 60
       types:
       - normal
     - count: 3
       radius: 6
-      speed: 2
+      speed: 60
       types:
       - magnetic_nullification
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       types:
       - wall
     type: active
@@ -1468,27 +1471,27 @@ areas:
     spawner:
     - count: 5
       radius: 18
-      speed: 0.5
+      speed: 15
       types:
       - normal
     - count: 6
       radius: 6
-      speed: 3
+      speed: 90
       types:
       - magnetic_reduction
     - count: 3
       radius: 6
-      speed: 3
+      speed: 90
       types:
       - magnetic_nullification
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       move_clockwise: False
       types:
       - wall
@@ -1530,23 +1533,23 @@ areas:
     spawner:
     - count: 10
       radius: 12
-      speed: 4.5
+      speed: 135
       types:
       - normal
     - count: 2
       radius: 6
-      speed: 9
+      speed: 270
       types:
       - magnetic_nullification
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       types:
       - wall
     type: active
@@ -1587,27 +1590,27 @@ areas:
     spawner:
     - count: 5
       radius: 24
-      speed: 2
+      speed: 60
       types:
       - normal
     - count: 4
       radius: 36
-      speed: 3
+      speed: 90
       types:
       - negative_magnetic_sniper
     - count: 6
       radius: 6
-      speed: 2
+      speed: 60
       types:
       - magnetic_nullification
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       move_clockwise: False
       types:
       - wall
@@ -1649,28 +1652,28 @@ areas:
     spawner:
     - count: 4
       radius: 9
-      speed: 7
+      speed: 210
       types:
       - normal
     - count: 2
       radius: 12
-      speed: 11
+      speed: 330
       types:
       - positive_magnetic_sniper
     - count: 3
       radius: 6
-      speed: 7
+      speed: 210
       types:
       - magnetic_nullification
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       move_clockwise: False
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       types:
       - wall
     type: active
@@ -1711,32 +1714,32 @@ areas:
     spawner:
     - count: 3
       radius: 15
-      speed: 5
+      speed: 150
       types:
       - normal
     - count: 3
       radius: 15
-      speed: 5
+      speed: 150
       types:
       - negative_magnetic_sniper
     - count: 3
       radius: 15
-      speed: 5
+      speed: 150
       types:
       - positive_magnetic_sniper
     - count: 3
       radius: 6
-      speed: 5
+      speed: 150
       types:
       - magnetic_nullification
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       move_clockwise: False
       types:
       - wall
@@ -1760,6 +1763,7 @@ areas:
 # 28
 - x: last_right
   y: 108480
+  boss: true
   zones:
   - height: 320
     translate:
@@ -1783,37 +1787,37 @@ areas:
     spawner:
     - count: 2
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - normal
     - count: 10
       radius: 6
-      speed: 4
+      speed: 120
       types:
       - magnetic_reduction
     - count: 2
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - negative_magnetic_sniper
     - count: 2
       radius: 12
-      speed: 7
+      speed: 210
       types:
       - positive_magnetic_sniper
     - count: 2
       radius: 70
-      speed: 3
+      speed: 90
       types:
       - magnetic_nullification
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       types:
       - wall
     - count: 3
       radius: 15
-      speed: 7.5
+      speed: 225
       move_clockwise: False
       types:
       - wall
@@ -1853,12 +1857,12 @@ areas:
     spawner:
     - count: 20
       radius: 12
-      speed: 3
+      speed: 90
       types:
       - magnetic_reduction
     - count: 8
       radius: 30
-      speed: 2
+      speed: 60
       types:
       - spiral
     type: active
@@ -1913,33 +1917,33 @@ areas:
     spawner:
     - count: 5
       radius: 12
-      speed: 12
+      speed: 360
       types:
       - draining
     - count: 10
       radius: 16
-      speed: 12
+      speed: 360
       types:
       - negative_magnetic_sniper
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
@@ -1989,33 +1993,33 @@ areas:
     spawner:
     - count: 7
       radius: 12
-      speed: 10
+      speed: 300
       types:
       - draining
     - count: 9
       radius: 20
-      speed: 10
+      speed: 300
       types:
       - negative_magnetic_sniper
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
@@ -2065,33 +2069,33 @@ areas:
     spawner:
     - count: 20
       radius: 12
-      speed: 8
+      speed: 240
       types:
       - slowing
     - count: 8
       radius: 24
-      speed: 8
+      speed: 240
       types:
       - positive_magnetic_sniper
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
@@ -2141,33 +2145,33 @@ areas:
     spawner:
     - count: 35
       radius: 12
-      speed: 6
+      speed: 180
       types:
       - slowing
     - count: 7
       radius: 28
-      speed: 6
+      speed: 180
       types:
       - positive_magnetic_sniper
     - count: 5
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
@@ -2217,38 +2221,38 @@ areas:
     spawner:
     - count: 25
       radius: 12
-      speed: 4
+      speed: 120
       types:
       - magnetic_reduction
     - count: 5
       radius: 12
-      speed: 4
+      speed: 120
       types:
       - magnetic_nullification
     - count: 6
       radius: 32
-      speed: 4
+      speed: 120
       types:
       - poison_sniper
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall
@@ -2298,38 +2302,38 @@ areas:
     spawner:
     - count: 25
       radius: 12
-      speed: 2
+      speed: 60
       types:
       - magnetic_reduction
     - count: 12
       radius: 12
-      speed: 2
+      speed: 60
       types:
       - magnetic_nullification
     - count: 5
       radius: 36
-      speed: 2
+      speed: 60
       types:
       - poison_sniper
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 3
+      speed: 90
       move_clockwise: False
       types:
       - wall
     - count: 5
       radius: 15
-      speed: 6
+      speed: 180
       move_clockwise: False
       types:
       - wall

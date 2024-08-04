@@ -1,11 +1,11 @@
 name: Stellar Square
 properties:
   friction: 0.75
-  warping_disabled: True
+  warping_disabled: true
   max_level: 1000
   death_timer: 1500
   pellet_count: 50
-  charge_reduced: True
+  charge_reduced: true
 areas:
 - x: var x
   y: var y
@@ -19,7 +19,11 @@ areas:
       x: 848
       y: 384
     properties:
-      background_color: [0, 50, 0, 50]
+      background_color:
+      - 0
+      - 50
+      - 0
+      - 50
   - type: teleport
     x: 1216
     y: 384
@@ -29,7 +33,11 @@ areas:
       x: 848
       y: 0
     properties:
-      background_color: [0, 50, 0, 50]
+      background_color:
+      - 0
+      - 50
+      - 0
+      - 50
   - type: teleport
     x: 1216
     y: 832
@@ -39,26 +47,26 @@ areas:
       x: 848
       y: -384
     properties:
-      background_color: [0, 50, 0, 50]
-  # Left
+      background_color:
+      - 0
+      - 50
+      - 0
+      - 50
   - type: safe
     x: 0
     y: 128
     width: 128
     height: 960
-  # Right
   - type: safe
     x: 1088
     y: 128
     width: 128
     height: 960
-  # Top
   - type: safe
     x: 0
     y: 0
     width: 1216
     height: 128
-  # Bottom
   - type: safe
     x: 0
     y: 1088
@@ -72,12 +80,12 @@ areas:
     spawner:
     - count: 3
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - normal
     - count: 3
       radius: 18
-      speed: 5
+      speed: 150
       types:
       - wavy
       - dasher
@@ -85,11 +93,11 @@ areas:
       - sizing
     - count: 3
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - sniper
     - count: 15
       radius: 18
-      speed: 3
+      speed: 90
       types:
       - wall
