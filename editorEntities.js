@@ -1569,7 +1569,7 @@ this.collides=this.collision(delta);
 			ctx.fill());
 		ctx.fillStyle = t;
 	}
-	render(e, t) {
+	render(e, t, delta) {
 		if(this.area!=current_Area)return;
 		this.updateDashTrailEffect(e, t),
 		settings.confetti && this.isDowned() ? (this.drawnConfetti || (this.makeConfetti(),
@@ -1674,7 +1674,7 @@ this.collides=this.collision(delta);
 		this.renderLeadEffect(e, a, r),
 		this.renderContinuousReviveEffect(e, a, r),
 		this.renderFlamingEffect(e, a, r),
-		this.renderAccessory(e, a, r);
+		this.renderAccessory(e, a, r, delta/(1e3/30));
 		let s = "blue"
 		  , f = "rgb(68, 118, 255)"
 		  , l = this.energy / this.maxEnergy
@@ -1911,7 +1911,7 @@ this.collides=this.collision(delta);
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderAccessory(e, t, a) {
+	renderAccessory(e, t, a,dt) {
 		if (void 0 === this.hatName && void 0 === this.bodyName || this.isDeparted)
 			return;
 		this.bodyName && this.bodyName !== this.storedBodyName && (this.bodyImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("cosmetics/" + this.bodyName),
@@ -1920,15 +1920,15 @@ this.collides=this.collision(delta);
 		this.storedHatName = this.hatName);
 		this.gemName && this.gemName !== this.storedGemName && (this.gemImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("accessories/" + this.gemName.toString() + "-gem"),
 		this.storedGemName = this.gemName);
-		const r = ()=>e.drawImage(this.bodyImage.getImage(), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
-		  , c = ()=>e.drawImage(this.hatImage.getImage(), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
+		const r = ()=>e.drawImage(this.bodyImage.getImage(dt), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
+		  , c = ()=>e.drawImage(this.hatImage.getImage(dt), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
 		  , o = ()=>{
 			if (!this.hatName || !this.hatName.endsWith("-crown"))
 				return;
 			const r = [1e4, 7500, 5e3, 3500, 2500, 2e3, 1500, 1e3, 750, 500, 250, 100, 50];
 			(r=>{
 				null !== r && (null === this.gemImage && (this.gemImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("accessories/" + r.toString() + "-gem")),
-				e.drawImage(this.gemImage.getImage(), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3))
+				e.drawImage(this.gemImage.getImage(dt), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3))
 			}
 			)((e=>{
 				if (this.gemName)
