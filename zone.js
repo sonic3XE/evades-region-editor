@@ -1003,17 +1003,43 @@ function createZone(e) {
 
   //REQUIREMENTS
   function createReq(requirement="",Zone){
-    const point1={requirement}
-		li = createProperty("", null, "select", {
-			value: requirement,
-			event: e=>{point1.requirement=e},
-			selectOptions: [[formatString(curLang,"editor.requirement.none"),""],...[
-        "mansion_discovered","research_lab_discovered","all_heroes_unlocked",
-        "mystery_keycard","cybot_defeated","all_elements_gained","inaccessible",
-        "ten_hard_variants","cybot_hard_mode_defeated","cybot_castle_defeated","dusty_depths_found",
-      ].map(e=>[formatString(curLang,"editor.requirement."+e),e])],
+    const point1={requirement,regionName:"First Map",areaIndex:0};
+	var e=requirement.split(":");
+	if(e[0]=="exact_index"){
+		console.log(requirement,"exact_index:".length,(e[e.length-1].length+1),requirement.slice("exact_index:".length,(e[e.length-1].length+1)).replaceAll("\\:",":"));
+		point1.regionName=requirement.slice("exact_index:".length,-(e[e.length-1].length+1)).replaceAll("\\:",":");
+		point1.areaIndex=parseInt(e[e.length-1]);
+	}
+	const txInput = document.createElement("input");
+	txInput.value = point1.regionName;
+	txInput.addEventListener("input", () => {
+		point1.regionName = txInput.value;
+		point1.requirement = `exact_index:${point1.regionName.replaceAll(":","\\:")}:${point1.areaIndex}`;
+	});
+	txInput.disabled=e[0]!=="exact_index";
+	const tyInput = document.createElement("input");
+	tyInput.value = point1.areaIndex;
+	tyInput.addEventListener("input", () => {
+		point1.areaIndex = Number(tyInput.value);
+		point1.requirement = `exact_index:${point1.regionName.replaceAll(":","\\:")}:${point1.areaIndex}`;
+	});
+	tyInput.disabled=e[0]!=="exact_index";
+	li = createFolder("",[
+		createProperty(formatString(curLang,"editor.requirement"), null, "select", {
+			value: e[0],
+			event: e=>{
+				txInput.disabled=e!="exact_index";
+				tyInput.disabled=e!="exact_index";
+				if(e=="exact_index")point1.requirement = `${e}:${point1.regionName.replaceAll(":","\\:")}:${point1.areaIndex}`;
+				else point1.requirement=e;
+			},
+			selectOptions: [[formatString(curLang,"editor.requirement.none"),""],...['inaccessible', 'cybot_castle_defeated', 'ten_hard_variants', 'mystery_keycard', 'icbot_not_defeated', 'cybot_hard_mode_not_defeated', 'cybot_hard_mode_defeated', 'elbot_not_defeated', 'plbot_not_defeated', 'mebot_not_defeated', 'libot_not_defeated', 'dabot_not_defeated', 'icbot_defeated', 'elbot_defeated', 'plbot_defeated', 'mebot_defeated', 'libot_defeated', 'dabot_defeated', 'research_lab_discovered', 'all_heroes_unlocked', 'aibot_not_defeated', 'cybot_not_defeated', 'cybot_defeated', 'wabot_not_defeated', 'eabot_not_defeated', 'fibot_not_defeated', 'aibot_defeated', 'wabot_defeated', 'eabot_defeated', 'fibot_defeated', 'coupled_corridors_found', 'dusty_depths_found', 'mansion_discovered', 'exact_index'].sort().map(e=>[formatString(curLang,"editor.requirement."+e),e])],
 			selectType: "text"
-  	});
+		}),
+		createProperty(formatString(curLang,"editor.requirement.exact_region_name"), txInput, "text"),
+		createProperty(formatString(curLang,"editor.requirement.exact_area_index"), tyInput, "number"),
+		
+	]);
     li.children[0].classList.add("counter");
     const remove = document.createElement("button");
     remove.classList.add("remove");
