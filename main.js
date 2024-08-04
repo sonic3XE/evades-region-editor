@@ -752,12 +752,20 @@ document.addEventListener("keydown", e => {
 	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.E){
 	  map.areas[current_Area].entities=[];
 	  current_Area=Math.max(Math.min(current_Area-1,map.areas.length-1),0)
+	  var safezone=map.areas[current_Area].zones.filter(e=>e.type=="safe")[0]??map.areas[current_Area].zones[0],
+	  plr.x=safezone.x+16+(safezone.width-32)*Math.random();
+	  plr.y=safezone.y+16+(safezone.height-32)*Math.random();
+	  plr.onTele=true;
 	  spawnEntities();
 	  plr.area=current_Area;
 	}
 	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.T){
 	  map.areas[current_Area].entities=[];
 	  current_Area=Math.max(Math.min(current_Area+1,map.areas.length-1),0);
+	  var safezone=map.areas[current_Area].zones.filter(e=>e.type=="safe")[0]??map.areas[current_Area].zones[0],
+	  plr.x=safezone.x+16+(safezone.width-32)*Math.random();
+	  plr.y=safezone.y+16+(safezone.height-32)*Math.random();
+	  plr.onTele=true;
 	  spawnEntities();
 	  plr.area=current_Area;
 	}
