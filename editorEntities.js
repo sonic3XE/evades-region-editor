@@ -3570,15 +3570,15 @@ class ZigzagEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zigzag_enemy",boundary);
     this.switchInterval = 500;
-    this.switchTime = 500;
+    this.zigTime = 500;
     this.switchAdd = false;
     this.turnAngle = Math.PI / 2;
   }
   update(delta){
-    if (this.switchTime > 0) {
-      this.switchTime -= delta;
+    if (this.zigTime > 0) {
+      this.zigTime -= delta;
     } else {
-      this.switchTime = this.switchInterval
+      this.zigTime = this.switchInterval
       if (!this.switchAdd) {
         this.angle = Math.atan2(this.velY, this.velX);
         this.angle -= this.turnAngle;
@@ -3600,15 +3600,15 @@ class ZoningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zoning_enemy",boundary);
     this.switchInterval = 1000;
-    this.switchTime = Math.random() * this.switchInterval;
+    this.zoneTime = Math.random() * this.switchInterval;
     this.turnAngle = Math.PI / 2
     this.turnAngle *= (Math.floor(Math.random() * 2) * 2) - 1
   }
   update(delta){
-    if (this.switchTime > 0) {
-      this.switchTime -= delta
+    if (this.zoneTime > 0) {
+      this.zoneTime -= delta
     } else {
-      this.switchTime = this.switchInterval;
+      this.zoneTime = this.switchInterval;
       this.angle = Math.atan2(this.velY, this.velX);
       this.angle += this.turnAngle;
       this.velX = Math.cos(this.angle) * this.speed;
@@ -4494,13 +4494,13 @@ class WavyEnemy extends Enemy{
     this.circleSize = 100;
     this.dir = 1;
     this.switchInterval = 800;
-    this.switchTime = 0;
+    this.waveTime = 0;
     this.angleIncrement = (this.speed + 6) / this.circleSize;
   }
   update(delta) {
-    this.switchTime += delta
-    if (this.switchTime >= this.switchInterval) {
-      this.switchTime %= this.switchInterval;
+    this.waveTime += delta
+    if (this.waveTime >= this.switchInterval) {
+      this.waveTime %= this.switchInterval;
       this.dir *= -1;
     }
     this.velangle();
