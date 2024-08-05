@@ -1196,13 +1196,17 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
       return (e.isDowned() || e.deathTimer!=-1) && e.area == this.area && (distance(e, this) < e.radius + this.radius);
     });
 	for(var i in deadPlayers){
-		if(deadPlayers[i]!==this&&this.deathTimer==-1){
-			this.rescueable&&(deadPlayers[i].deathTimer=-1,this.rescuedCount++,this.interactions.indexOf(deadPlayers[i])==-1&&this.interactions.push(deadPlayers[i]),this.playerInteractions=this.interactions.length);
+		if(deadPlayers[i]!==this&&this.deathTimer==-1&&this.rescueable){
+			deadPlayers[i].deathTimer=-1;
+			this.rescuedCount++;
+			this.interactions.indexOf(deadPlayers[i])==-1&&this.interactions.push(deadPlayers[i]);
+			deadPlayers[i].interactions.indexOf(this)==-1&&deadPlayers[i].interactions.push(this);
+			this.playerInteractions=this.interactions.length;
 		}
 	}
 	if(this.area!=0){
 		for(var otherplayer of map.players){
-			if(otherplayer.area == this.area){
+			if(otherplayer.area == this.area && otherplayer != this){
 				this.interactions.indexOf(otherplayer)==-1&&
 				this.interactions.push(otherplayer);
 				this.playerInteractions=this.interactions.length;
