@@ -638,7 +638,7 @@ let selectedObjects=[];
 		settings[t.target.id.split("_")[0]]=t.target.selectedIndex;
 	})
 });
-[legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>{
+[fadingEffects,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>{
 	e.addEventListener("input",(t)=>{
 		settings[t.target.id]=t.target.checked;
 	})
@@ -646,8 +646,14 @@ let selectedObjects=[];
 snapX.addEventListener("input",(e)=>{
   settings.snapX=e.target.value;
 })
+pelletTransparency.addEventListener("input",(e)=>{
+  settings.pelletTransparency=e.target.value;
+})
 snapY.addEventListener("input",(e)=>{
   settings.snapY=e.target.value;
+})
+displayEnergyBars.addEventListener("input",(e)=>{
+  settings.displayEnergyBars=e.target.selectedIndex;
 })
 tileMode.addEventListener("input",(e)=>{
   settings.tileMode=e.target.selectedIndex;

@@ -172,7 +172,7 @@ function spawnEntities(area=current_Area){
 					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,`push_direction`)??quicksandDir,prop(spawner,`quicksand_strength`),boundary);break;
 					case "turning":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"circle_size"),boundary);break;
 					case "liquid":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"player_detection_radius"),boundary);break;
-					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),prop(spawner,"switch_time"),boundary);break;
+					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),prop(spawner,"switch_time"),prop(spawner,"switched_harmless"),boundary);break;
 					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
 					case "flower":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"growth_multiplier"),boundary);break;
 					case "homing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"reverse"),prop(spawner,"home_range"),prop(spawner,"increment"),boundary);break;
@@ -1594,37 +1594,37 @@ this.collides=this.collision(delta);
 			ctx.fill());
 		ctx.fillStyle = t;
 	}
-	render(e, t, delta) {
+		render(e, t, delta) {
 		if(this.area!=current_Area)return;
 		this.updateDashTrailEffect(e, t),
-		settings.confetti && this.isDowned() ? (this.drawnConfetti || (this.makeConfetti(),
-		this.drawnConfetti = !0),
+		settings.confetti && (!this.createdConfetti && this.isDowned() ? (this.makeConfetti(),
+		this.createdConfetti = !0) : this.createdConfetti && !this.isDowned() && (this.createdConfetti = !1),
 		this.animateConfetti(),
-		this.drawConfetti(e, t)) : this.drawnConfetti && (this.drawnConfetti = !1);
-		const a = this.x + t.x
+		this.drawConfetti(e, t));
+		const n = this.x + t.x
 		  , r = this.y + t.y;
-		function c(t, c, o, n=0) {
+		function i(t, i, a, o=0) {
 			e.beginPath(),
-			e.arc(a + t, r + c, o, 0, 2 * Math.PI, !1),
-			n > 0 && e.arc(a + t, r + c, n, 0, 2 * Math.PI, !0),
+			e.arc(n + t, r + i, a, 0, 2 * Math.PI, !1),
+			o > 0 && e.arc(n + t, r + i, o, 0, 2 * Math.PI, !0),
 			e.fill(),
 			e.closePath()
 		}
-		function o(e, t, a) {
-			c(e, t, a / 2),
-			c(e, -t, a / 2),
-			c(-e, t, a / 2),
-			c(-e, -t, a / 2)
+		function a(e, t, n) {
+			i(e, t, n / 2),
+			i(e, -t, n / 2),
+			i(-e, t, n / 2),
+			i(-e, -t, n / 2)
 		}
-		let n = 1;
-		const $ = this.isDowned() && !this.rescueable && !this.isEmber;
-		$ && (n = this.deathTimer / this.deathTimerTotal);
-		const i = this.getColor();
-		if ($ && (e.globalAlpha = n),
+		let o = 1;
+		const s = this.isDowned() && !this.rescueable;
+		s && (o = this.deathTimer / this.deathTimerTotal);
+		const l = this.getColor();
+		if (s && (e.globalAlpha = o),
 		"sticky-coat" === this.bodyName && !this.isDeparted) {
 			const t = this.radius + ("sticky-coat" === this.bodyName ? 5 : 1);
 			e.beginPath(),
-			e.arc(a, r, t, 0, 2 * Math.PI, !1),
+			e.arc(n, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "rgba(0, 199, 0, 0.6)",
 			e.fill(),
 			e.closePath()
@@ -1632,7 +1632,7 @@ this.collides=this.collision(delta);
 		if ("toxic-coat" === this.bodyName && !this.isDeparted) {
 			const t = this.radius + ("toxic-coat" === this.bodyName ? 5 : 1);
 			e.beginPath(),
-			e.arc(a, r, t, 0, 2 * Math.PI, !1),
+			e.arc(n, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "rgba(77, 1, 99, 0.6)",
 			e.fill(),
 			e.closePath()
@@ -1640,7 +1640,7 @@ this.collides=this.collision(delta);
 		if ((this.isBandaged || this.isUnbandaging) && !this.isDeparted) {
 			const t = this.radius + (this.isBandaged ? 3 : 1);
 			e.beginPath(),
-			e.arc(a, r, t, 0, 2 * Math.PI, !1),
+			e.arc(n, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "#dedabe",
 			e.fill(),
 			e.closePath(),
@@ -1650,7 +1650,7 @@ this.collides=this.collision(delta);
 		if (this.isStickyCoatActivated && 1 === this.stickyCoatDisabled) {
 			const t = 15 + (this.isStickyCoatActivated ? 20 : 1);
 			e.beginPath(),
-			e.arc(a, r, t, 0, 2 * Math.PI, !1),
+			e.arc(n, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "rgba(0, 199, 0, 0.2)",
 			e.fill(),
 			e.closePath()
@@ -1658,18 +1658,18 @@ this.collides=this.collision(delta);
 		if (this.ictosInvulnerability) {
 			const t = this.radius + 5;
 			e.beginPath(),
-			e.arc(a, r, t, 0, 2 * Math.PI, !1),
+			e.arc(n, r, t, 0, 2 * Math.PI, !1),
 			e.fillStyle = "rgba(231, 175, 218, 0.5)",
 			e.fill(),
 			e.closePath()
 		}
 		if (this.mutatiorbBuffBackShield && !this.isDeparted && !this.isDowned() && this.mutatiorbBuffed) {
 			const t = this.radius + (this.mutatiorbBuffBackShield ? 4 : 1)
-			  , c = this.shieldAngle;
-			let o = .5 * Math.PI;
-			this.isFactorb && (o = .75 * Math.PI),
+			  , i = this.shieldAngle;
+			let a = .5 * Math.PI;
+			this.isFactorb && (a = .75 * Math.PI),
 			e.beginPath(),
-			e.arc(a, r, t, c - o, o + c, !1),
+			e.arc(n, r, t, i - a, a + i, !1),
 			e.lineWidth = 2,
 			e.fillStyle = "#a6532d",
 			e.fill(),
@@ -1678,57 +1678,60 @@ this.collides=this.collision(delta);
 			e.lineWidth = 1,
 			e.closePath()
 		}
-		const d = 1e3 / 30;
+		const c = 1e3 / 30;
 		if (this.mortarTime > 3e3)
-			e.fillStyle = i,
-			this.mortarTime % !0 ? c(1, 1, this.radius) : this.mortarTime % !0 ? c(1, -1, this.radius) : this.mortarTime % !0 ? c(-1, 1, this.radius) : c(-1, -1, this.radius);
+			e.fillStyle = l,
+			this.mortarTime % (4 * c > 3 * c) ? i(1, 1, this.radius) : this.mortarTime % (4 * c > 2 * c) ? i(1, -1, this.radius) : this.mortarTime % (4 * c > c) ? i(-1, 1, this.radius) : i(-1, -1, this.radius);
 		else if (this.mortarTime < 3e3 && this.mortarTime > 0)
 			e.fillStyle = "rgba(75, 60, 60, 0.6)",
-			this.mortarTime > 3e3 - d ? o(5, 5, this.radius) : this.mortarTime > 3e3 - 2 * d ? o(30, 30, this.radius) : this.mortarTime > 2900 ? o(50, 50, this.radius) : this.mortarTime > 3e3 - 4 * d ? o(65, 65, this.radius) : this.mortarTime > 3e3 - 5 * d ? o(75, 75, this.radius) : o(Math.floor(this.mortarTime / 3e3 * 75), Math.floor(this.mortarTime / 3e3 * 75), this.radius);
+			this.mortarTime > 3e3 - c ? a(5, 5, this.radius) : this.mortarTime > 3e3 - 2 * c ? a(30, 30, this.radius) : this.mortarTime > 3e3 - 3 * c ? a(50, 50, this.radius) : this.mortarTime > 3e3 - 4 * c ? a(65, 65, this.radius) : this.mortarTime > 3e3 - 5 * c ? a(75, 75, this.radius) : a(Math.floor(this.mortarTime / 3e3 * 75), Math.floor(this.mortarTime / 3e3 * 75), this.radius);
 		else {
-			e.fillStyle = i;
+			e.fillStyle = l;
 			let t = 0;
 			"doughnut" === this.bodyName && (t = .2 * this.radius),
-			c(0, 0, this.radius, t)
+			i(0, 0, this.radius, t)
 		}
 		e.globalAlpha = 1,
-		this.renderIcedEffect(e, a, r),
-		this.renderSnowballedEffect(e, a, r),
-		this.renderPoisonedEffect(e, a, r),
-		this.renderShadowedInvulnerabilityEffect(e, a, r),
-		this.renderLeadEffect(e, a, r),
-		this.renderContinuousReviveEffect(e, a, r),
-		this.renderFlamingEffect(e, a, r),
-		this.renderAccessory(e, a, r, delta/(1e3/30));
-		let s = "blue"
-		  , f = "rgb(68, 118, 255)"
-		  , l = this.energy / this.maxEnergy
+		this.renderIcedEffect(e, n, r),
+		this.renderSnowballedEffect(e, n, r),
+		this.renderPoisonedEffect(e, n, r),
+		this.renderShadowedInvulnerabilityEffect(e, n, r),
+		this.renderLeadEffect(e, n, r),
+		this.renderContinuousReviveEffect(e, n, r),
+		this.renderFlamingEffect(e, n, r),
+		this.renderAccessory(e, n, r,delta);
+		let u = "blue"
+		  , d = "rgb(68, 118, 255)"
+		  , f = this.energy / this.maxEnergy
+		  , h = 0
 		  , p = 0;
-		if (this.energy > this.maxEnergy && (l = 1),
-		this.energy < 0 && (l = 0),
-		this.energized && (s = "rgb(255, 255, 0)",
-		f = "rgb(211, 211, 0)"),
-		this.sweetToothConsumed && (s = "rgb(255, 43, 143)",
-		f = "rgb(212, 0, 100)"),
-		this.energized && this.sweetToothConsumed && (s = "rgb(255, 43, 143)",
-		f = "rgb(212, 0, 100)"),
-		this.canGainEnergy || (s = "rgb(110, 110, 117)",
-		f = "rgb(87, 87, 92)"),
-		this.hasRadioactiveGloop && (p = 15 - this.radius),
-		$ && (e.globalAlpha = n),
+		if (this.energy > this.maxEnergy && (f = 1),
+		this.energy < 0 && (f = 0),
+		this.energized && (u = "rgb(255, 255, 0)",
+		d = "rgb(211, 211, 0)"),
+		this.sweetToothConsumed && (u = "rgb(255, 43, 143)",
+		d = "rgb(212, 0, 100)"),
+		this.energized && this.sweetToothConsumed && (u = "rgb(255, 43, 143)",
+		d = "rgb(212, 0, 100)"),
+		this.canGainEnergy || (u = "rgb(110, 110, 117)",
+		d = "rgb(87, 87, 92)"),
+		this.hasRadioactiveGloop && (h = 15 - this.radius),
+		s && (e.globalAlpha = o),
 		!this.isDeparted || this.hasRadioactiveGloop) {
-			this.isClinging && (e.globalAlpha = .3),
-			e.fillStyle = s,
-			e.fillRect(a - 18, r - this.radius - p - 8, 36 * l, 7),
-			e.strokeStyle = f,
-			e.strokeRect(a - 18, r - this.radius - p - 8, 36, 7),
+			this.shouldDrawEnergyBar() || (e.globalAlpha = 0,
+			void 0 === this.hatName && (p = 3.5)),
+			e.fillStyle = u,
+			e.fillRect(n - 18, r - this.radius - h - 8, 36 * f, 7),
+			e.strokeStyle = d,
+			e.strokeRect(n - 18, r - this.radius - h - 8, 36, 7),
+			e.globalAlpha = 1,
 			e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(12/camScale),
 			e.textAlign = "center",
-			e.fillStyle = "black",
-			e.fillText(this.name, a, r - this.radius - p - 11);
+			settings.tileMode > 1 ? e.fillStyle = "white" : e.fillStyle = "black",
+			e.fillText(this.name, n, r - this.radius - h + p - 11);
 			let t = 25;
 			if (this.magnetized && (e.beginPath(),
-			e.arc(a + t, r - this.radius - p - 5, 3.5, 0, 2 * Math.PI, !1),
+			e.arc(n + t, r - this.radius - h - 5, 3.5, 0, 2 * Math.PI, !1),
 			e.strokeStyle = "rgb(149, 124, 0)",
 			e.fillStyle = "rgb(210, 190, 90)",
 			e.lineWidth = 2,
@@ -1738,7 +1741,7 @@ this.collides=this.collision(delta);
 			e.closePath(),
 			t += 10),
 			this.hasUndeadInfection && (e.beginPath(),
-			e.arc(a + t, r - this.radius - p - 5, 3.5, 0, 2 * Math.PI, !1),
+			e.arc(n + t, r - this.radius - h - 5, 3.5, 0, 2 * Math.PI, !1),
 			e.strokeStyle = "rgb(100, 168, 0)",
 			e.fillStyle = "rgb(174, 227, 95)",
 			e.lineWidth = 2,
@@ -1748,7 +1751,7 @@ this.collides=this.collision(delta);
 			e.closePath(),
 			t += 10),
 			this.mutatiorbBuffEffectsReduction && this.mutatiorbBuffed && (e.beginPath(),
-			e.arc(a + t, r - this.radius - p - 5, 3.5, 0, 2 * Math.PI, !1),
+			e.arc(n + t, r - this.radius - h - 5, 3.5, 0, 2 * Math.PI, !1),
 			e.strokeStyle = "rgb(59, 33, 19)",
 			e.fillStyle = "rgb(110, 57, 30)",
 			e.lineWidth = 2,
@@ -1759,13 +1762,13 @@ this.collides=this.collision(delta);
 			t += 10),
 			this.underLibotEffect) {
 				const t = 10
-				  , c = 10
-				  , o = a - 30
-				  , n = r - this.radius - p - 9;
+				  , i = 10
+				  , a = n - 30
+				  , o = r - this.radius - h - 9;
 				e.beginPath(),
-				e.moveTo(o + t, n),
-				e.lineTo(o + t / 2, n + c),
-				e.lineTo(o, n),
+				e.moveTo(a + t, o),
+				e.lineTo(a + t / 2, o + i),
+				e.lineTo(a, o),
 				e.closePath(),
 				e.fillStyle = "rgb(255, 250, 189)",
 				e.fill(),
@@ -1775,13 +1778,13 @@ this.collides=this.collision(delta);
 			}
 			if (this.underDabotEffect) {
 				const t = 10
-				  , c = 10
-				  , o = a - 30
-				  , n = r - this.radius - p - 9;
+				  , i = 10
+				  , a = n - 30
+				  , o = r - this.radius - h - 9;
 				e.beginPath(),
-				e.moveTo(o + t, n),
-				e.lineTo(o + t / 2, n + c),
-				e.lineTo(o, n),
+				e.moveTo(a + t, o),
+				e.lineTo(a + t / 2, o + i),
+				e.lineTo(a, o),
 				e.closePath(),
 				e.fillStyle = "rgb(61, 0, 110)",
 				e.fill(),
@@ -1789,42 +1792,78 @@ this.collides=this.collision(delta);
 				e.lineWidth = 1,
 				e.stroke()
 			}
-			this.cybotDefeated && (this.hasWindDebuff ? (e.strokeStyle = "rgb(0, 133, 97)",
-			e.fillStyle = "rgb(0, 181, 133)",
-			e.fillRect(a + t, r - this.radius - p - 2.5, 7, 7),
-			e.strokeRect(a + t, r - this.radius - p - 2.5, 7, 7)) : (e.strokeStyle = "rgba(0, 133, 97, 0.3)",
-			e.fillStyle = "rgba(0, 181, 133, 0.3)",
-			e.fillRect(a + t, r - this.radius - p - 2.5, 7, 7),
-			e.strokeRect(a + t, r - this.radius - p - 2.5, 7, 7)),
-			this.hasWaterDebuff ? (e.strokeStyle = "rgb(32, 103, 117)",
-			e.fillStyle = "rgb(49, 155, 176)",
-			e.fillRect(a + t + 12, r - this.radius - p - 2.5, 7, 7),
-			e.strokeRect(a + t + 12, r - this.radius - p - 2.5, 7, 7)) : (e.strokeStyle = "rgba(32, 103, 117, 0.3)",
-			e.fillStyle = "rgba(49, 155, 176, 0.3)",
-			e.fillRect(a + t + 12, r - this.radius - p - 2.5, 7, 7),
-			e.strokeRect(a + t + 12, r - this.radius - p - 2.5, 7, 7)),
-			this.hasFireDebuff ? (e.strokeStyle = "rgb(179, 101, 5)",
-			e.fillStyle = "rgb(232, 132, 9)",
-			e.fillRect(a + t + 12, r - this.radius - p - 13.5, 7, 7),
-			e.strokeRect(a + t + 12, r - this.radius - p - 13.5, 7, 7)) : (e.strokeStyle = "rgba(179, 101, 5, 0.3)",
-			e.fillStyle = "rgba(232, 132, 9, 0.3)",
-			e.fillRect(a + t + 12, r - this.radius - p - 13.5, 7, 7),
-			e.strokeRect(a + t + 12, r - this.radius - p - 13.5, 7, 7)),
-			this.hasEarthDebuff ? (e.strokeStyle = "rgb(125, 82, 35)",
-			e.fillStyle = "rgb(176, 115, 49)",
-			e.fillRect(a + t, r - this.radius - p - 13.5, 7, 7),
-			e.strokeRect(a + t, r - this.radius - p - 13.5, 7, 7)) : (e.strokeStyle = "rgba(125, 82, 35, 0.3)",
-			e.fillStyle = "rgba(176, 115, 49, 0.3)",
-			e.fillRect(a + t, r - this.radius - p - 13.5, 7, 7),
-			e.strokeRect(a + t, r - this.radius - p - 13.5, 7, 7)),
-			t += 25)
+			if (this.hasWindDebuff) {
+				const t = 10
+				  , i = 10
+				  , a = n - 30
+				  , o = r - this.radius - h - 9;
+				e.beginPath(),
+				e.moveTo(a + t, o),
+				e.lineTo(a + t / 2, o + i),
+				e.lineTo(a, o),
+				e.closePath(),
+				e.fillStyle = "rgb(0, 181, 133)",
+				e.fill(),
+				e.strokeStyle = "rgb(0, 0, 0)",
+				e.lineWidth = 1,
+				e.stroke()
+			}
+			if (this.hasWaterDebuff) {
+				const t = 10
+				  , i = 10
+				  , a = n - 30
+				  , o = r - this.radius - h - 9;
+				e.beginPath(),
+				e.moveTo(a + t, o),
+				e.lineTo(a + t / 2, o + i),
+				e.lineTo(a, o),
+				e.closePath(),
+				e.fillStyle = "rgb(49, 155, 176)",
+				e.fill(),
+				e.strokeStyle = "rgb(0, 0, 0)",
+				e.lineWidth = 1,
+				e.stroke()
+			}
+			if (this.hasFireDebuff) {
+				const t = 10
+				  , i = 10
+				  , a = n - 30
+				  , o = r - this.radius - h - 9;
+				e.beginPath(),
+				e.moveTo(a + t, o),
+				e.lineTo(a + t / 2, o + i),
+				e.lineTo(a, o),
+				e.closePath(),
+				e.fillStyle = "rgb(232, 132, 9)",
+				e.fill(),
+				e.strokeStyle = "rgb(0, 0, 0)",
+				e.lineWidth = 1,
+				e.stroke()
+			}
+			if (this.hasEarthDebuff) {
+				const t = 10
+				  , i = 10
+				  , a = n - 30
+				  , o = r - this.radius - h - 9;
+				e.beginPath(),
+				e.moveTo(a + t, o),
+				e.lineTo(a + t / 2, o + i),
+				e.lineTo(a, o),
+				e.closePath(),
+				e.fillStyle = "rgb(176, 115, 49)",
+				e.fill(),
+				e.strokeStyle = "rgb(0, 0, 0)",
+				e.lineWidth = 1,
+				e.stroke()
+			}
+			t += 25
 		}
 		e.globalAlpha = 1,
-		this.isDowned() && !$ && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16/camScale),
+		this.isDowned() && !s && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16/camScale),
 		e.textAlign = "center",
 		e.fillStyle = "red",
 		this.mutatiorbBuffSlowerDeathTimer && this.mutatiorbBuffed && (e.fillStyle = "rgb(110, 57, 30)"),
-		e.fillText((this.deathTimer / 1e3).toFixed(0), a, r + 6))
+		e.fillText((this.deathTimer / 1e3).toFixed(0), n, r + 6))
 	}
 	renderIcedEffect(e, t, a) {
 		if (!this.isIced)
@@ -2078,6 +2117,10 @@ this.collides=this.collision(delta);
 			color: this.color,
 			lifetime: 5
 		})
+	}
+	shouldDrawEnergyBar() {
+		const e = settings.displayEnergyBars;
+		return e < 1 || 1 == e && this.isLocalPlayer || 2 == e && !this.isLocalPlayer
 	}
 }
 let $9bc26d320fe964d6$var$totalConfettiRendered = 0;
@@ -2379,31 +2422,35 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 			ctx.fill());
 		ctx.fillStyle = t;
 	}
-	render(e, t) {
-		if (this.isHarmless && !this.isDestroyed && (e.globalAlpha = .4),
+	
+	render(e, t, delta) {
+		(this.isHarmless || this.grassHarmless) && (e.globalAlpha = .4);
+		let n = this.harmlessTime;
+		if (this.grassHarmless && this.grassTime > 0 && (n = Math.max(this.grassTime, n)),
+		settings.fadingEffects && n < 1e3 && n > 0 && (e.globalAlpha = .4 + .6 * (1 - n / 1e3)),
 		this.duration < 500 && (e.globalAlpha = Math.min(e.globalAlpha, this.duration / 500 + .2)),
-		this.grassTime < 1e3 ? e.globalAlpha = Math.max(.4, this.grassTime / 1e3) : 1e3 === this.grassTime && this.grassHarmless && (e.globalAlpha = .4),
+		this.fadeInTime <= 1500 && this.soulFading && (e.globalAlpha = 1 - this.fadeInTime / 1500),
 		this.isDestroyed && (e.globalAlpha = 0),
 		this.brightness > 0 && (e.globalAlpha = Math.min(this.brightness, 1)),
 		this.maxHealth > 0) {
-			const a = "rgb(140, 59, 59)"
+			const n = "rgb(140, 59, 59)"
 			  , r = "red"
-			  , c = "rgb(255, 68, 68)"
-			  , o = this.health / this.maxHealth;
-			e.fillStyle = a,
+			  , i = "rgb(255, 68, 68)"
+			  , a = this.health / this.maxHealth;
+			e.fillStyle = n,
 			e.fillRect(this.x + t.x - 18, this.y + t.y - this.radius - 8, 36, 7),
 			e.fillStyle = r,
-			e.fillRect(this.x + t.x - 18, this.y + t.y - this.radius - 8, 36 * o, 7),
-			e.strokeStyle = c,
+			e.fillRect(this.x + t.x - 18, this.y + t.y - this.radius - 8, 36 * a, 7),
+			e.strokeStyle = i,
 			e.strokeRect(this.x + t.x - 18, this.y + t.y - this.radius - 8, 36, 7)
 		}
-		if (this.name && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(12/camScale),
+		if (this.name && (e.font = Lu.font(12),
 		e.textAlign = "center",
 		e.fillStyle = "black",
 		e.fillText(this.name, this.x + t.x, this.y + t.y - this.radius - 11)),
 		this.inFear ? (e.font = "bolder 20px Arz",
 		e.fillStyle = "#d32323",
-		e.fillText("!", this.x + t.x, this.y + t.y - this.radius - 5)) : this.provoked && (e.font = "bolder 20px Arz",
+		e.fillText("!", this.x + t.x, this.y + t.y - this.radius - 5)) : this.provoked && (e.font = "bolder 20px Arial",
 		e.fillStyle = "#A0A7AD",
 		e.fillText("!", this.x + t.x, this.y + t.y - this.radius - 5)),
 		this.reduced && (e.font = "bolder 32px Arz",
@@ -2414,13 +2461,13 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 		else if (this.mortarTime > 0)
 			this.drawExploded(e, t);
 		else {
-			let a = this.radius;
-			if (void 0 !== this.visualRadius && (a = this.visualRadius),
+			let n = this.radius;
+			if (void 0 !== this.visualRadius && (n = this.visualRadius),
 			e.beginPath(),
-			e.arc(this.x + t.x, this.y + t.y, a, 0, 2 * Math.PI, !1),
+			e.arc(this.x + t.x, this.y + t.y, n, 0, 2 * Math.PI, !1),
 			void 0 === this.image ? (e.fillStyle = this.getColorChange(),
-			e.fill()) : e.drawImage(this.image.getImage(), this.x + t.x - this.radius, this.y + t.y - this.radius, 2 * a, 2 * a),
-			this.isRepelling && (e.fillStyle = "rgba(109, 109, 255, 0.9)",
+			e.fill()) : e.drawImage(this.image.getImage(delta/(1e3/30)), this.x + t.x - this.radius, this.y + t.y - this.radius, 2 * n, 2 * n),
+			this.isRepelling && (e.fillStyle = "rgba(255, 0, 93, 0.9)",
 			e.fill()),
 			this.decayed && !this.healingTime > 0 && (e.fillStyle = "rgba(0, 0, 128, 0.2)",
 			e.fill()),
@@ -2436,14 +2483,18 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 				const t = (500 - Math.max(this.releaseTime, 0)) / 500 * .2 + .05;
 				e.fillStyle = `rgba(1, 1, 1, ${t})`,
 				e.fill()
-			};
-			(settings.enemyOutlines && this.outline) && (e.lineWidth = 2,
-			e.strokeStyle = "black",
+			}
+			if (settings.fadingEffects && this.switchTime <= 1500) {
+				const t = .3 - .3 * Math.cos((1500 - this.switchTime) / 220 * Math.PI);
+				this.switchedHarmless ? e.fillStyle = `rgba(25, 25, 25, ${t})` : e.fillStyle = `rgba(147, 147, 147, ${t})`,
+				e.fill()
+			}
+			settings.enemyOutlines && this.outline && (e.lineWidth = 2,
+			settings.tileMode > 1 ? e.strokeStyle = "white" : e.strokeStyle = "black",
 			e.stroke(),
 			e.lineWidth = 1),
 			e.closePath()
-		};
-		this.decayed=false;
+		}
 		e.globalAlpha = 1
 	}
 }
@@ -2532,26 +2583,30 @@ function death(player){
 //PELLETS
 class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
 	update(delta) {
-		this.increasing ? (this.value += this.increment*delta/(1e3/30),
+		this.increasing ? (this.value += this.increment*delta/1e3,
 		this.value >= this.max && (this.value = this.max,
-		this.increasing = !1)) : (this.value -= this.increment*delta/(1e3/30),
+		this.increasing = !1)) : (this.value -= this.increment*delta/1e3,
 		this.value <= this.min && (this.value = this.min,
 		this.increasing = !0))
 	}
-	constructor(e, a, t, r, c) {
+	constructor(e, t, n, r, i) {
 		this.value = e,
-		this.min = a,
-		this.max = t,
+		this.min = t,
+		this.max = n,
 		this.increment = r,
-		this.increasing = c
+		this.increasing = i
 	}
 }
 class PelletEntity extends SimulatorEntity{
   constructor(x,y,radius,boundary,pellet_zones){
     super(x,y,null,radius,"pellet",0,0,boundary);
-    this.colors = ["#b84dd4", "#a32dd8", "#3b96fd", "#43c59b", "#f98f6b", "#61c736", "#d192bd"];
-    this.scaleOscillator = new $4e83b777e56fdf48$export$2e2bcd8739ae039(1.1,1.1,1.2,.005,!0);
-    this.color=this.colors[Math.floor((Math.abs(this.x) + Math.abs(this.y)) % this.colors.length)];
+	const Cm = ["#b84dd4", "#a32dd8", "#3b96fd", "#43c59b", "#f98f6b", "#61c736"]
+	, Tm = ["#621c74", "#52146e", "#02499a", "#1f654e", "#ab3107", "#30631b"];
+	null !== this.color && void 0 !== this.color || (this.color = Cm[Math.floor((Math.abs(this.x) + Math.abs(this.y)) % Cm.length)],
+	Math.random() < 1e-5 && (this.color = "#333333")),
+	null !== this.darkColor && void 0 !== this.darkColor || (this.darkColor = Tm[Math.floor((Math.abs(this.x) + Math.abs(this.y)) % Tm.length)],
+	Math.random() < 1e-5 && (this.darkColor = "#cccccc")),
+    this.scaleOscillator = new $4e83b777e56fdf48$export$2e2bcd8739ae039(1.1,1.1,1.2,.15,!0);
 	this.pellet_zones=pellet_zones;
   }
   playerInteraction(player){
@@ -2598,9 +2653,11 @@ class PelletEntity extends SimulatorEntity{
   render(e,t) {
 	e.beginPath(),
 	e.arc(this.x + t.x, this.y + t.y, this.radius * this.scaleOscillator.value, 0, 2 * Math.PI, !1),
-	e.fillStyle = this.color,
+	settings.tileMode > 1 ? e.fillStyle = this.darkColor : e.fillStyle = this.color,
+	e.globalAlpha = 1 - settings.pelletTransparency,
 	e.fill(),
-	e.closePath()
+	e.closePath(),
+	e.globalAlpha = 1;
   }
 }
 //	EvadesClassic enemy files: server\src\game\entities\enemies\{{type}}_enemy.py
@@ -2735,8 +2792,6 @@ class LeafProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"leaf_projectile",boundary);
     this.immune=true;
-	this.outline=false;
-	this.isEnemy=false;
 	this.clock=0;
 	this.dir=this.speed/150;
   }
@@ -2952,9 +3007,7 @@ class RadarEnemy extends Enemy{
 class RadarProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,owner,boundary){
     super(x,y,radius,speed,angle,"radar_projectile",boundary);
-    this.outline=false;
 	this.owner=owner;
-	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
   }
@@ -4312,23 +4365,27 @@ class LiquidEnemy extends Enemy{
   }
 }
 class SwitchEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,switch_inverval,switch_time,boundary){
+  constructor(x,y,radius,speed,angle,switch_inverval,switch_time,switched_harmless,boundary){
     super(x,y,radius,speed,angle,"switch_enemy",boundary);
     this.switch_inverval = switch_inverval;
-	this.switch_time=switch_time;
-    this.disabled = false;
-    if (Math.round(Math.random()) === 1) {
-      this.disabled = true;
-    }
+	this.switchTime=switch_time;
+	if(switched_harmless==void 0){
+      this.switchedHarmless = this.disabled = false;
+      if (Math.round(Math.random()) === 1) {
+        this.switchedHarmless = this.disabled = true;
+      }
+	}else{
+	  this.switchedHarmless = this.disabled = switched_harmless;
+	}
     this.isHarmless = this.disabled;
   }
   update(delta) {
-    this.switch_time += delta;
-    if (this.switch_time > this.switch_inverval) {
-      this.disabled = !this.disabled;
-      this.isHarmless = this.disabled
+    this.switchTime -= delta;
+    if (this.switchTime <= 0) {
+      this.switchedHarmless = this.disabled = !this.disabled;
+      this.isHarmless = this.disabled;
+	  this.switchTime += this.switch_inverval;
     }
-    this.switch_time = this.switch_time % this.switch_inverval;
     super.update(delta);
   }
 }
@@ -4418,8 +4475,6 @@ class RadiatingBulletsEnemy extends Enemy{
 class RadiatingBulletsProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"radiating_bullets_projectile",boundary);
-	this.outline=false;
-	this.isEnemy=false;
 	this.immune=true;
     this.clock = 0;
   }
@@ -4507,10 +4562,8 @@ class SniperEnemy extends Enemy{
 class SniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"sniper_projectile",boundary);
-    this.outline=false;
-    this.immune=true;
-	this.isEnemy=false;
     this.clock = 0;
+    this.immune=true;
   }
   onCollide(){
     this.remove=true;
@@ -4679,9 +4732,7 @@ class ResidueEnemy extends Enemy{
 class PredictionSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"prediction_sniper_projectile",boundary);
-    this.outline=false;
     this.immune=true;
-	this.isEnemy=false;
     this.clock = 0;
   }
   onCollide(){
@@ -4740,9 +4791,7 @@ class IceSniperEnemy extends Enemy{
 class IceSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"ice_sniper_projectile",boundary);
-    this.outline=false;
     this.immune=true;
-	this.isEnemy=false;
     this.clock = 0;
   }
   playerInteraction(player){
@@ -4805,9 +4854,7 @@ class PoisonSniperEnemy extends Enemy{
 class PoisonSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"poison_sniper_projectile",boundary);
-    this.outline=false;
     this.immune=true;
-	this.isEnemy=false;
     this.clock = 0;
   }
   playerInteraction(player){
@@ -4871,8 +4918,6 @@ class SpeedSniperEnemy extends Enemy{
 class SpeedSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,speed_loss,boundary){
     super(x,y,radius,speed,angle,"speed_sniper_projectile",boundary);
-    this.outline=false;
-	this.isEnemy=false;
     this.speed_loss=speed_loss;
     this.immune=true;
     this.clock = 0;
@@ -4940,8 +4985,6 @@ class LeadSniperEnemy extends Enemy{
 class LeadSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"lead_sniper_projectile",boundary);
-    this.outline=false;
-	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
   }
@@ -5007,8 +5050,6 @@ class RegenSniperEnemy extends Enemy{
 class RegenSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,regen_loss,boundary){
     super(x,y,radius,speed,angle,"regen_sniper_projectile",boundary);
-    this.outline=false;
-	this.isEnemy=false;
     this.regen_loss=regen_loss;
     this.immune=true;
     this.clock = 0;
@@ -5331,8 +5372,6 @@ class PositiveMagneticSniperEnemy extends Enemy{
 class PositiveMagneticSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"positive_magnetic_sniper_projectile",boundary);
-    this.outline=false;
-	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
   }
@@ -5412,8 +5451,6 @@ class NegativeMagneticSniperEnemy extends Enemy{
 class NegativeMagneticSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"negative_magnetic_sniper_projectile",boundary);
-    this.outline=false;
-	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
   }
@@ -5491,8 +5528,6 @@ class ForceSniperAEnemy extends Enemy{
 class ForceSniperAProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"force_sniper_a_projectile",boundary);
-    this.outline=false;
-	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
 	this.touchedPlayers=[];
@@ -5559,8 +5594,6 @@ class ForceSniperBEnemy extends Enemy{
 class ForceSniperBProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"force_sniper_b_projectile",boundary);
-    this.outline=false;
-	this.isEnemy=false;
     this.immune=true;
     this.clock = 0;
 	this.touchedPlayers=[];
@@ -5658,8 +5691,6 @@ class WindSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"wind_sniper_projectile",boundary);
 	this.gravity=1;
-	this.outline=false;
-	this.isEnemy=false;
 	this.immune=true;
 	this.clock=0;
   }

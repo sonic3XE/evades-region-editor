@@ -22,9 +22,13 @@ const settings={
 	},set confetti(e){
 		localStorage.confetti=e;
 	},get tileMode(){
-		return parseFloat(localStorage.tileMode??0)
+		return parseInt(localStorage.tileMode??"0")
 	},set tileMode(e){
 		localStorage.tileMode=e;
+	},get displayEnergyBars(){
+		return parseInt(localStorage.displayEnergyBars??"0")
+	},set displayEnergyBars(e){
+		localStorage.displayEnergyBars=e;
 	},get isSandbox(){
 		return localStorage.sandbox=="true";
 	},set isSandbox(e){
@@ -53,6 +57,14 @@ const settings={
 		return (localStorage.legacySpeedUnits??"true")=="true";
 	},set legacySpeedUnits(e){
 		localStorage.legacySpeedUnits=e;
+	},get fadingEffects(){
+		return (localStorage.fadingEffects??"true")=="true";
+	},set fadingEffects(e){
+		localStorage.fadingEffects=e;
+	},get pelletTransparency(){
+		return Number(localStorage.pelletTransparency??"0");
+	},set pelletTransparency(e){
+		localStorage.pelletTransparency=Math.min(Math.max(Number(e),0),1);
 	},get joystickDeadzone(){
 		return parseFloat(localStorage.joystickDeadzone??0.05);
 	},set joystickDeadzone(e){
@@ -762,6 +774,7 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.speed_loss"), splsInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.switch"), [
+		createProperty(formatString(curLang,"editor.property.switched_harmless"), null, "select", {value:point1.switched_harmless ?? defaultValues.properties.switched_harmless,event:e=>{point1.switched_harmless=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.none"),void 0],...[true, false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType: "switch"}),
 		createProperty(formatString(curLang,"editor.property.switch_interval"), switchintInput, "number"),
 		createProperty(formatString(curLang,"editor.property.switch_time"), switchtimeInput, "number"),
       ],!0),
