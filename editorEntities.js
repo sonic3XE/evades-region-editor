@@ -353,6 +353,7 @@ this.cybotDefeated=false;
 this.energized=false;
 this.rescueable=true;
 this.playerInteractions=0;
+this.interactions=[];
 this.achievementCount=0;
 this.underLibotEffect=false;
 this.underDabotEffect=false;
@@ -1192,11 +1193,20 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
         }
       }
 	const deadPlayers=map.players.filter(e=>{
-      return (e.isDowned() || e.deathTimer!=-1) && (distance(e, this) < e.radius + this.radius);
+      return (e.isDowned() || e.deathTimer!=-1) && e.area == this.area && (distance(e, this) < e.radius + this.radius);
     });
 	for(var i in deadPlayers){
 		if(deadPlayers[i]!==this&&this.deathTimer==-1){
-			this.rescueable&&(deadPlayers[i].deathTimer=-1,this.rescuedCount++);
+			this.rescueable&&(deadPlayers[i].deathTimer=-1,this.rescuedCount++,this.interactions.indexOf(deadPlayers[i])==-1&&this.interactions.push(deadPlayers[i]),this.playerInteractions=this.interactions.length);
+		}
+	}
+	if(this.area!=0){
+		for(var otherplayer of map.players){
+			if(otherplayer.area == this.area){
+				this.interactions.indexOf(otherplayer)==-1&&
+				this.interactions.push(otherplayer);
+				this.playerInteractions=this.interactions.length;
+			}
 		}
 	}
       var onTele=false;
