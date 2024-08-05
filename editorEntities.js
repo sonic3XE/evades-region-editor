@@ -1016,6 +1016,12 @@ this.isGuest=!1;
         if (this.fusion) {
           this.speedMultiplier *= 0.7;
         }
+        if (this.slowing && this.slowing[0]) {
+          this.speedMultiplier *= (1-this.effectImmune*this.slowing[1])*this.effectReplayer;
+        }
+        if (this.freezing) {
+          this.speedMultiplier *= (1-this.effectImmune*(1-0.2))*this.effectReplayer;
+        }
         this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
         this.mouseActive = false;
           if (input.isMouse&&!this.cent_is_moving&&!this.isMovementKeyPressed(input)) {
@@ -2561,15 +2567,10 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
 function death(player){
     switch(player.area){
       case 0:player.deathTimer=player.deathTimerTotal=10000;break;
-      case 1:player.deathTimer=player.deathTimerTotal=15000;break;
-      case 2:player.deathTimer=player.deathTimerTotal=15000;break;
-      case 3:player.deathTimer=player.deathTimerTotal=20000;break;
-      case 4:player.deathTimer=player.deathTimerTotal=20000;break;
-      case 5:player.deathTimer=player.deathTimerTotal=20000;break;
-      case 6:player.deathTimer=player.deathTimerTotal=25000;break;
-      case 7:player.deathTimer=player.deathTimerTotal=25000;break;
-      case 8:player.deathTimer=player.deathTimerTotal=30000;break;
-      case 9:player.deathTimer=player.deathTimerTotal=30000;break;
+      case 1:case 2:player.deathTimer=player.deathTimerTotal=15000;break;
+      case 3:case 4:case 5:player.deathTimer=player.deathTimerTotal=20000;break;
+      case 6:case 7:player.deathTimer=player.deathTimerTotal=25000;break;
+      case 8:case 9:player.deathTimer=player.deathTimerTotal=30000;break;
       default:player.deathTimer=player.deathTimerTotal=60000;break;
     }
     if(map.areas[player.area].properties.death_timer!==void 0){
@@ -2880,10 +2881,7 @@ class FreezingEnemy extends Enemy{
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
-	if(!player.freezing){
-	  player.freezing=true;
-	  player.speedMultiplier*=0.15;
-	}
+	player.freezing=true;
   }
 }
 class DrainingEnemy extends Enemy{

@@ -540,7 +540,7 @@ point1.projectile_radius=undefined;
 		const slowInput = document.createElement("input");
 		slowInput.value = point1.slow ?? defaultValues.spawner.slow;
 		slowInput.addEventListener("input", () => {
-			point1.slow = slowInput.checked;spawnEntities()
+			point1.slow = slowInput.value;spawnEntities()
 		});
         const ckwsInput = document.createElement("input");
 		ckwsInput.addEventListener("input", () => {
