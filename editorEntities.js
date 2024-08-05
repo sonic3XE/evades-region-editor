@@ -151,14 +151,12 @@ function spawnEntities(area=current_Area){
 							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
 						}
 					};break;
-/*					84 / 98 implemented
+/*					84 / 106 implemented
 */					case "experience_drain":
 					case "blocking":
 					case "slippery":
 					case "barrier":
 					case "radar":
-					case "draining":
-					case "slowing":
 					case "magnetic_reduction":
 					case "magnetic_nullification":
 					case "freezing":
@@ -167,6 +165,8 @@ function spawnEntities(area=current_Area){
 					case "enlarging":
 					case "disabling":
 					case "reducing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "draining":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"drain"),boundary);break;
+					case "slowing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"slow"),boundary);break;
 					case "gravity":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"gravity"),boundary);break;
 					case "repelling":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"repulsion"),boundary);break;
 					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,`push_direction`)??quicksandDir,prop(spawner,`quicksand_strength`),boundary);break;
@@ -175,13 +175,14 @@ function spawnEntities(area=current_Area){
 					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),prop(spawner,"switch_time"),boundary);break;
 					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
 					case "flower":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"growth_multiplier"),boundary);break;
-					case "homing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"reverse"),boundary);break;
+					case "homing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"reverse"),prop(spawner,"home_range"),prop(spawner,"increment"),boundary);break;
 					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
 					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),prop(spawner,"move_clockwise"),prop(spawner,"spawn_top"));break;
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
 					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),checkAreaProperties("wind_ghosts_do_not_push_while_downed"),boundary);break;
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
 					case "fake_pumpkin":entity=new PumpkinEnemy(enemyX,enemyY,radius,speed,angle,boundary,true);break;
+					case "sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"recharge"),boundary);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
 					case "frost_giant":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"immune"),prop(spawner,"projectile_duration"),prop(spawner,"projectile_radius"),prop(spawner,"projectile_speed"),prop(spawner,"pause_interval"),prop(spawner,"pause_duration"),prop(spawner,"turn_speed"),prop(spawner,"turn_acceleration"),prop(spawner,"shot_interval"),prop(spawner,"shot_acceleration"),prop(spawner,"direction"),prop(spawner,"pattern"),prop(spawner,"cone_angle"),boundary);break;
 					case "seedling":
@@ -196,7 +197,6 @@ function spawnEntities(area=current_Area){
 					case "normal":
 					case "wavy":
 					case "immune":
-					case "sniper":
 					case "ring_sniper":
 					case "speed_ghost":
 					case "gravity_ghost":
@@ -1212,9 +1212,35 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
         this.speedMultiplier *= 0.5;
         this.speedAdditioner *= 0.5;
       }
-      if (this.slowing) {
-        this.speedMultiplier *= (1-this.effectImmune*(1-0.7))*this.effectReplayer;
+	  this.slowing??=[false];
+	  this.draining??=[false];
+      if (this.slowing[0]) {
+        this.speedMultiplier *= (1-this.effectImmune*this.slowing[1])*this.effectReplayer;
       }
+      if (this.draining[0]) {
+        this.energyRate -= this.draining[1]*this.effectImmune*this.effectReplayer;
+      }
+      if (this.lava) {
+        this.energyRate += 15;
+	    if(this.energy>=this.maxEnergy){
+          death(this);this.energy=0;
+	    }
+      }
+		if(this.experienceDraining){
+			this.experience-=2*this.level*delta/1e3;
+			this.experience=Math.max(0,this.experience);
+			if(this.experience<this.previousLevelExperience){
+				var diff=this.previousLevelExperience-this.experience;
+				this.previousLevelExperience-=diff;
+				this.nextLevelExperience+=diff;
+				this.previousLevelExperience=Number(this.previousLevelExperience.toFixed(5));
+				this.nextLevelExperience=Number(this.nextLevelExperience.toFixed(5));
+			}
+		}
+	  if(this.enlarging)this.radiusAdditioner+=10;
+	  if(this.toxic){
+		this.energy=Math.min(this.energy,this.maxEnergy*0.7);
+	  }
       if (this.freezing) {
         this.speedMultiplier *= (1-this.effectImmune*(1-0.2))*this.effectReplayer;
       }
@@ -1318,6 +1344,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 	  this.radiusMultiplier*=1-this.reducingTime/2e3;
     }
     if (this.reducingTime>0&&this.reducing){
+	  this.reducingTime+=delta;
 	  if(this.reducingTime>2e3){
 		this.reducingTime=2e3;
 		death(this);
@@ -1384,28 +1411,26 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
 	evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling;
 	evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling;
 	evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling;
-	this.enemyEffects=[
-		this.slowing,this.freezing,this.toxic,this.experienceDraining,
-		this.reducing,this.enlarging,this.draining,this.lava,this.slippery,
-		this.disabling,this.inEnemyBarrier,this.magneticReduction,this.magneticNullification,
-	]
-    this.slowing = false;
-    this.freezing = false;
-    this.web = false;
-    this.cobweb = false;
-    this.sticky = false;
-	this.toxic=false;
-	this.experienceDraining=false;
-	this.reducing = false;
-	this.enlarging = false;
-    this.draining = false;
-    this.lava = false;
-    this.speedghost = false;
-    this.regenghost = false;
-    this.inEnemyBarrier=false;
-    this.slippery = false;
+	if(!this.blocking){
+		this.slowing = [false];
+		this.freezing = false;
+		this.web = false;
+		this.cobweb = false;
+		this.sticky = false;
+		this.toxic=false;
+		this.experienceDraining=false;
+		this.reducing = false;
+		this.enlarging = false;
+		this.draining = [false];
+		this.lava = false;
+		this.speedghost = false;
+		this.regenghost = false;
+		this.inEnemyBarrier=false;
+		this.slippery = false;
+		this.disabling=false;
+	}
+	this.blocking=false;
     this.tempColor=this.color;
-    this.disabling=false;
     var vel;
 		var isMagnet=Boolean(map.properties?.magnetism)||Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
 		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
@@ -2749,18 +2774,7 @@ class ExperienceDrainEnemy extends Enemy{
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
-	if(!player.experienceDraining){
-	  player.experienceDraining=true;
-	  player.experience-=2*player.level*delta/1e3;
-	  player.experience=Math.max(0,player.experience);
-	  if(player.experience<player.previousLevelExperience){
-		var diff=player.previousLevelExperience-player.experience;
-		player.previousLevelExperience-=diff;
-		player.nextLevelExperience+=diff;
-		player.previousLevelExperience=Number(player.previousLevelExperience.toFixed(5));
-		player.nextLevelExperience=Number(player.nextLevelExperience.toFixed(5));
-	  }
-	}
+	player.experienceDraining=true;
   }
 }
 class BlockingEnemy extends Enemy{
@@ -2769,67 +2783,18 @@ class BlockingEnemy extends Enemy{
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
-	if(!player.slowing&&player.enemyEffects[0]){
-	  player.slowing=player.enemyEffects[0];
-	  player.speedMultiplier*=0.7;
-	}
-	if(!player.freezing&&player.enemyEffects[1]){
-	  player.freezing=player.enemyEffects[1];
-	  player.speedMultiplier*=0.15;
-	}
-	if(!player.draining&&player.enemyEffects[6]){
-	  player.draining=player.enemyEffects[6];
-	  player.energyRate-=15;
-	}
-	if(!player.lava&&player.enemyEffects[7]){
-	  player.lava=player.enemyEffects[7];
-	  player.energyRate+=15;
-	  if(player.energy>=player.maxEnergy){
-            death(player);player.energy=0;
-	  }
-	}
-	if(!player.toxic&&player.enemyEffects[2]){
-	  player.toxic=player.enemyEffects[2];
-	  player.energy=Math.min(player.energy,player.maxEnergy*0.7);
-	}
-	if(!player.reducing&&player.enemyEffects[4]){
-	  player.reducing=player.enemyEffects[4];
-	  player.reducingTime+=delta;
-	}
-	if(!player.enlarging&&player.enemyEffects[5]){
-	  player.enlarging=player.enemyEffects[5];
-	  player.radiusAdditioner+=10;
-	}
-	if(!player.slippery&&player.enemyEffects[8]){player.slippery=player.enemyEffects[8]}
-	if(!player.disabling&&player.enemyEffects[9]){player.disabling=player.enemyEffects[9]}
-	if(!player.inEnemyBarrier&&player.enemyEffects[10]){player.inEnemyBarrier=player.enemyEffects[10]}
-	if(!player.magneticReduction&&player.enemyEffects[11]){player.magneticReduction=player.enemyEffects[11]}
-	if(!player.magneticNullification&&player.enemyEffects[12]){player.magneticNullification=player.enemyEffects[12]}
-	if(!player.experienceDraining&&player.enemyEffects[3]){
-	  player.experienceDraining=player.experienceDraining=player.enemyEffects[3];
-	  player.experience-=2*player.level*delta/1e3;
-	  player.experience=Math.max(0,player.experience);
-	  if(player.experience<player.previousLevelExperience){
-		var diff=player.previousLevelExperience-player.experience;
-		player.previousLevelExperience-=diff;
-		player.nextLevelExperience+=diff;
-		player.previousLevelExperience=Number(player.previousLevelExperience.toFixed(5));
-		player.nextLevelExperience=Number(player.nextLevelExperience.toFixed(5));
-	  }
-	}
+	player.blocking=true;
   }
 }
 class SlowingEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+  constructor(x,y,radius,speed,angle,aura_radius,slow,boundary){
     super(x,y,radius,speed,angle,"slowing_enemy",boundary);
 	this.auraRadius=aura_radius;
+	this.slow=slow;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
-	if(!player.slowing){
-	  player.slowing=true;
-	  player.speedMultiplier*=0.7;
-	}
+	player.slowing=[true,this.slow];
   }
 }
 class MagneticReductionEnemy extends Enemy{
@@ -2866,16 +2831,14 @@ class FreezingEnemy extends Enemy{
   }
 }
 class DrainingEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+  constructor(x,y,radius,speed,angle,aura_radius,drain,boundary){
     super(x,y,radius,speed,angle,"draining_enemy",boundary);
 	this.auraRadius=aura_radius;
+	this.drain=drain;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
-	if(!player.draining){
-	  player.draining=true;
-	  player.energyRate-=15;
-	}
+	player.draining=[true,this.drain];
   }
 }
 class LavaEnemy extends Enemy{
@@ -2885,13 +2848,7 @@ class LavaEnemy extends Enemy{
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
-	if(!player.lava){
-	  player.lava=true;
-	  player.energyRate+=15;
-	  if(player.energy>=player.maxEnergy){
-            death(player);player.energy=0;
-	  }
-	}
+	player.lava=true;
   }
 }
 class ToxicEnemy extends Enemy{
@@ -2914,10 +2871,7 @@ class EnlargingEnemy extends Enemy{
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
-	if(!player.enlarging){
-	  player.enlarging=true;
-	  player.radiusAdditioner+=10;
-	}
+	player.enlarging=true;
   }
 }
 class ReducingEnemy extends Enemy{
@@ -2927,10 +2881,7 @@ class ReducingEnemy extends Enemy{
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
-	if(!player.reducing){
-	  player.reducing=true;
-	  player.reducingTime+=delta;
-	}
+	player.reducing=true;
   }
 }
 class SlipperyEnemy extends Enemy{
@@ -3023,7 +2974,7 @@ class GravityEnemy extends Enemy{
     super(x,y,radius,speed,angle,"gravity_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-	this.gravity=gravity;
+	this.gravity=gravity/30;
   }
   auraEffect(player,delta){
 	if (!player.invulnerable) {
@@ -3085,7 +3036,7 @@ class RepellingEnemy extends Enemy{
     super(x,y,radius,speed,angle,"repelling_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-	this.repulsion=repulsion;
+	this.repulsion=repulsion/30;
   }
   auraEffect(player,delta){
 	if (!player.invulnerable) {
@@ -3338,10 +3289,12 @@ class ChargingEnemy extends Enemy{
   }
 }
 class HomingEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,reverse,boundary){
+  constructor(x,y,radius,speed,angle,reverse,home_range,increment,boundary){
     super(x,y,radius,speed,angle,"homing_enemy",boundary);
     this.target_angle=this.angle;
     this.reverse=reverse;
+	this.home_range=home_range;
+	this.increment=increment;
   }
   update(delta){
     var closest_entity,closest_entity_distance,information;
@@ -3358,7 +3311,7 @@ class HomingEnemy extends Enemy{
       distance_x = this.x - entity.x;
       distance_y = this.y - entity.y;
       distance = distance_x**2 + distance_y**2
-      if(distance > 200**2)continue;
+      if(distance > this.home_range**2)continue;
       if(closest_entity==void 0){
         closest_entity=entity;
         closest_entity_distance = distance;
@@ -3375,7 +3328,7 @@ class HomingEnemy extends Enemy{
       target_angle = this.target_angle;
     }
     var angle_difference = modulus(this.angle - target_angle,Math.PI*2)
-    var angle_increment = 0.05;
+    var angle_increment = this.increment;
     if(angle_difference<angle_increment){
     }else if(angle_difference < Math.PI){
       this.angle-=angle_increment*delta/(1000/30);
@@ -4510,9 +4463,9 @@ class WavyEnemy extends Enemy{
   }
 }
 class SniperEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
+  constructor(x,y,radius,speed,angle,recharge,boundary){
     super(x,y,radius,speed,angle,"sniper_enemy",boundary);
-    this.release_interval = 3000,
+    this.release_interval = recharge,
     this.releaseTime = (Math.random()*this.release_interval);
   }
   update(delta,area) {
@@ -4876,7 +4829,7 @@ class SpeedSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,speed_loss,boundary){
     super(x,y,radius,speed,angle,"speed_sniper_enemy",boundary);
     this.release_interval = 2500,
-    this.speed_loss=speed_loss;
+    this.speed_loss=speed_loss*30;
     this.releaseTime = (Math.random()*this.release_interval);
   }
   update(delta,area) {
@@ -4928,8 +4881,8 @@ class SpeedSniperProjectile extends Enemy{
     this.remove=true;
     player.speed-=this.speed_loss;
     player.statSpeed-=this.speed_loss;
-    player.speed=Math.max(5,player.speed);
-    player.statSpeed=Math.max(5,player.statSpeed);
+    player.speed=Math.max(150,player.speed);
+    player.statSpeed=Math.max(150,player.statSpeed);
   }
   onCollide(){
     this.remove=true;
@@ -5155,15 +5108,15 @@ class FrostGiantEnemy extends Enemy{
     this.immune=immune,
     this.projectile_duration=projectile_duration,
     this.projectile_radius=projectile_radius??10,
-    this.projectile_speed=projectile_speed??4,
+    this.projectile_speed=(projectile_speed??120)/30,
     this.pause_interval=pause_interval,
     this.pause_duration=pause_duration,
-    this.turn_speed=turn_speed,
-    this.initial_turn_speed=turn_speed,
-    this.turn_acceleration=turn_acceleration,
+    this.turn_speed=turn_speed/30,
+    this.initial_turn_speed=this.turn_speed,
+    this.turn_acceleration=turn_acceleration/30,
     this.shot_interval=shot_interval,
     this.initial_shot_interval=shot_interval,
-    this.shot_acceleration=shot_acceleration,
+    this.shot_acceleration=shot_acceleration/30,
     this.direction=direction,
     this.pattern=this.get_pattern_generator(pattern),
     this.cone_angle=cone_angle;
@@ -5303,9 +5256,6 @@ class FrostGiantEnemy extends Enemy{
   }
   addBullet(area,x,y,speed,radius,angle,duration,boundary){
 	  area.entities.push(new FrostGiantIceProjectile(x,y,radius,speed,angle,duration,boundary));
-  }
-  onBeforeCollide(){
-	this.anglevel();
   }
   update(delta,area) {
     if(!this.rotation){

@@ -516,6 +516,16 @@ point1.projectile_radius=undefined;
 		hInput.addEventListener("input", () => {
 			point1.horizontal = hInput.checked;spawnEntities()
 		});
+		const drainInput = document.createElement("input");
+		drainInput.value = point1.drain ?? defaultValues.spawner.drain;
+		drainInput.addEventListener("input", () => {
+			point1.drain = drainInput.value;spawnEntities()
+		});
+		const slowInput = document.createElement("input");
+		slowInput.value = point1.slow ?? defaultValues.spawner.slow;
+		slowInput.addEventListener("input", () => {
+			point1.slow = slowInput.checked;spawnEntities()
+		});
         const ckwsInput = document.createElement("input");
 		ckwsInput.addEventListener("input", () => {
 			point1.move_clockwise= ckwsInput.checked;spawnEntities()
@@ -540,6 +550,17 @@ point1.projectile_radius=undefined;
 		reinInput.addEventListener("input", () => {
 			reinInput.value = Math.max(Number(reinInput.value),0);
 			point1.release_interval = Math.max(Number(reinInput.value),0);spawnEntities()
+		});
+        const hrInput = document.createElement("input");
+        hrInput.value = point1.home_range ?? defaultValues.spawner.home_range;
+		hrInput.addEventListener("input", () => {
+			hrInput.value = Math.max(Number(hrInput.value),0);
+			point1.home_range = Math.max(Number(hrInput.value),0);spawnEntities()
+		});
+        const incInput = document.createElement("input");
+        incInput.value = point1.increment ?? defaultValues.spawner.increment;
+		incInput.addEventListener("input", () => {
+			point1.increment = Number(incInput.value);spawnEntities()
 		});
         const retiInput = document.createElement("input");
         retiInput.value = point1.release_time ?? defaultValues.spawner.release_time;
@@ -656,13 +677,9 @@ point1.projectile_radius=undefined;
 			createProperty(formatString(curLang,"editor.property.y"), yInput, "text"),
 			createProperty(formatString(curLang,"editor.property.angle"), angleInput, "number"),
       createFolder(formatString(curLang,"editor.category.aura"),[
-		createProperty(formatString(curLang,"editor.property.slowing_radius"), aura1Input, "number"),
-		createProperty(formatString(curLang,"editor.property.draining_radius"), aura2Input, "number"),
 		createProperty(formatString(curLang,"editor.property.freezing_radius"), aura3Input, "number"),
 		createProperty(formatString(curLang,"editor.property.slippery_radius"), aura4Input, "number"),
 		createProperty(formatString(curLang,"editor.property.enlarging_radius"), aura5Input, "number"),
-		createProperty(formatString(curLang,"editor.property.gravity_radius"), aura6Input, "number"),
-		createProperty(formatString(curLang,"editor.property.repelling_radius"), aura7Input, "number"),
 		createProperty(formatString(curLang,"editor.property.lava_radius"), aura8Input, "number"),
 		createProperty(formatString(curLang,"editor.property.magnetic_reduction_radius"), aura9Input, "number"),
 		createProperty(formatString(curLang,"editor.property.magnetic_nullification_radius"), aura10Input, "number"),
@@ -670,7 +687,6 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.toxic_radius"), aura12Input, "number"),
 		createProperty(formatString(curLang,"editor.property.radar_radius"), aura13Input, "number"),
 		createProperty(formatString(curLang,"editor.property.barrier_radius"), aura14Input, "number"),
-		createProperty(formatString(curLang,"editor.property.quicksand_radius"), aura15Input, "number"),
 		createProperty(formatString(curLang,"editor.property.experience_drain_radius"), aura16Input, "number"),
 		createProperty(formatString(curLang,"editor.property.reducing_radius"), aura17Input, "number"),
 		createProperty(formatString(curLang,"editor.property.blocking_radius"), aura18Input, "number"),
@@ -696,13 +712,20 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.pattern"), null, "select", {value:point1.pattern ?? defaultValues.spawner.pattern,event:e=>{point1.pattern=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.pattern.none"),void 0],...['spiral', 'twinspiral', 'quadspiral', 'cone', 'twincone', 'cone_edges', 'twin', 'singlebig'].map(e=>[formatString(curLang,"editor.pattern."+e),e])],selectType: "text"}),
 		createProperty(formatString(curLang,"editor.property.cone_angle"), coneAngleInput, "number"),
       ],!0),
+      createFolder(formatString(curLang,"editor.category.draining"), [
+		createProperty(formatString(curLang,"editor.property.draining_radius"), aura2Input, "number"),
+		createProperty(formatString(curLang,"editor.property.drain"), drainInput, "number"),
+      ],!0),
       createFolder(formatString(curLang,"editor.category.grass"), [
 		createProperty(formatString(curLang,"editor.property.powered"), powInput, "switch", {value: point1.powered ?? defaultValues.spawner.powered}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.gravity"), [
+		createProperty(formatString(curLang,"editor.property.gravity_radius"), aura6Input, "number"),
 		createProperty(formatString(curLang,"editor.property.gravity"), gravInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.homing"), [
+		createProperty(formatString(curLang,"editor.property.home_range"), hrInput, "number"),
+		createProperty(formatString(curLang,"editor.property.increment"), incInput, "number"),
 		createProperty(formatString(curLang,"editor.property.reverse"), reversInput, "switch", {value: point1.reverse ?? defaultValues.spawner.reverse}),
       ],!0),
       createFolder(formatString(curLang,"editor.category.icicle"),[
@@ -712,6 +735,7 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.player_detection_radius"), pdrInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.quicksand"), [
+		createProperty(formatString(curLang,"editor.property.quicksand_radius"), aura15Input, "number"),
 		createProperty(formatString(curLang,"editor.property.quicksand_strength"), quicksandStrengthInput, "number"),
 		createProperty(formatString(curLang,"editor.property.push_direction"), pushDirInput, "number"),
       ],!0),
@@ -723,7 +747,12 @@ point1.projectile_radius=undefined;
 		createProperty(formatString(curLang,"editor.property.regen_loss"), rglsInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.repelling"), [
+		createProperty(formatString(curLang,"editor.property.repelling_radius"), aura7Input, "number"),
 		createProperty(formatString(curLang,"editor.property.repulsion"), repelInput, "number"),
+      ],!0),
+      createFolder(formatString(curLang,"editor.category.slowing"), [
+		createProperty(formatString(curLang,"editor.property.slowing_radius"), aura1Input, "number"),
+		createProperty(formatString(curLang,"editor.property.slow"), slowInput, "number"),
       ],!0),
       createFolder(formatString(curLang,"editor.category.speed_sniper"),[
 		createProperty(formatString(curLang,"editor.property.speed_loss"), splsInput, "number"),
@@ -908,8 +937,14 @@ function cloneSpawner(e){
 	obj.speed = e.speed;
 	obj.count = e.count;
 	obj.types = e.types.map(t => { return t.i });
-	obj.types.includes("slowing") && (obj.slowing_radius = e.slowing_radius);
-	obj.types.includes("draining") && (obj.draining_radius = e.draining_radius);
+	obj.types.includes("slowing") && (
+		obj.slowing_radius = e.slowing_radius,
+		obj.slow = e.slow
+	);
+	obj.types.includes("draining") && (
+		obj.draining_radius = e.draining_radius,
+		obj.drain = e.drain
+	);
 	obj.types.includes("experience_drain") && (obj.experience_drain_radius = e.experience_drain_radius);
 	obj.types.includes("liquid") && (obj.player_detection_radius = e.player_detection_radius);
 	obj.types.includes("turning") && (obj.circle_size = e.circle_size);
@@ -931,6 +966,7 @@ function cloneSpawner(e){
 		obj.quicksand_radius = e.quicksand_radius,
 		obj.push_direction = e.push_direction
 	);
+	obj.types.includes("sniper") && (obj.recharge = e.recharge);
 	obj.types.includes("blocking") && (obj.blocking_radius = e.blocking_radius);
 	obj.types.includes("freezing") && (obj.freezing_radius = e.freezing_radius);
 	obj.types.includes("reducing") && (obj.reducing_radius = e.reducing_radius);
@@ -950,7 +986,9 @@ function cloneSpawner(e){
 		obj.switch_time = e.switch_time
 	);
 	obj.types.includes("homing") && (
-		obj.reverse = e.reverse
+		obj.reverse = e.reverse,
+		obj.home_range = e.home_range,
+		obj.increment = e.increment
 	);
 	obj.types.includes("cybot") && (obj.hard_mode = e.hard_mode);
 	obj.types.includes("frost_giant") && (
