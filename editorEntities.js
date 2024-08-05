@@ -4208,7 +4208,7 @@ class Torch extends SimulatorEntity{
 	this.image = null,
 	this.baseLightRadius = 100,
 	this.randomFlickerRadius = 10,
-	this.flickerChance = .15,
+	this.flickerChance = 4.5 / 30,
 	this.lightRadius = this.baseLightRadius;
 	this.renderFirst=true;
 	this.flipped=upside_down;
