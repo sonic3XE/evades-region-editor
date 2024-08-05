@@ -58,9 +58,7 @@ try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.
 		  }
         }
         selectedObjects = [];
-		map.areas=obj.areas.map(e=>{
-            return createArea(e);
-		});
+		map.areas=obj.areas.map(_=>createArea(_));
         customAREAgui(map.areas[0]);
         areamenu.appendChild(map.areas[0].element);
         fromLocal&&customAlert("Successfully imported region in "+(performance.now()-noew)+" ms.",1);
