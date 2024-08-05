@@ -381,7 +381,7 @@ this.ictosChance=false;
 this.flamingTimeLeft=1e3;
 this.canGainEnergy=true;
     this.deathTimerTotal=0;
-	this.quicksand=[0,0,5];
+	this.quicksand=[0,0,150];
     this.color=e.foregroundColor;
 	this.strokeColor = e.strokeColor;
     this.name=username;
@@ -1353,8 +1353,8 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     }
 
     if(this.quicksand[0]&&!this.invulnerable){
-      this.x += Math.cos(this.quicksand[1] * (Math.PI/180)) * this.quicksand[2] * timeFix;
-      this.y += Math.sin(this.quicksand[1] * (Math.PI/180)) * this.quicksand[2] * timeFix;
+      this.x += Math.cos(this.quicksand[1] * (Math.PI/180)) * this.quicksand[2] * timeFix / 30;
+      this.y += Math.sin(this.quicksand[1] * (Math.PI/180)) * this.quicksand[2] * timeFix / 30;
       this.quicksand[0] = false;
     }
 
