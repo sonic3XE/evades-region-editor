@@ -1191,6 +1191,14 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
           }
         }
       }
+	const deadPlayers=map.players.filter(e=>{
+      return (e.isDowned() || e.deathTimer!=-1) && (distance(e, this) < e.radius + this.radius);
+    });
+	for(var i in deadPlayers){
+		if(deadPlayers[i]!==this&&this.deathTimer==-1){
+			this.rescueable&&(deadPlayers[i].deathTimer=-1,this.rescuecount++);
+		}
+	}
       var onTele=false;
       this.speedMultiplier = 1;
       if(this.collides&&this.slippery){
@@ -1533,7 +1541,7 @@ this.areaNumber=this.area+1;
 this.regionName=map.name;
 this.collides=this.collision(delta);
     if(this.deathTimer==0){
-      map.players.splice(map.players.indexOf(this));
+      map.players.splice(map.players.indexOf(this),1);
     }
 	}
 	  knockback_player(delta,enemy,push_time,radius){
