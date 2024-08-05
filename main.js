@@ -330,6 +330,7 @@ var pushY=0;
     }
   }
   spawnEntities();
+  evadesRenderer.minimap.updateZones();
 }
 var copiedObjects=[];
 function roundTo(x, y) { return Math.round(x / y) * y }
