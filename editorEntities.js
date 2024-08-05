@@ -1196,7 +1196,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
     });
 	for(var i in deadPlayers){
 		if(deadPlayers[i]!==this&&this.deathTimer==-1){
-			this.rescueable&&(deadPlayers[i].deathTimer=-1,this.rescuecount++);
+			this.rescueable&&(deadPlayers[i].deathTimer=-1,this.rescuedCount++);
 		}
 	}
       var onTele=false;
