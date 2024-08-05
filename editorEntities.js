@@ -823,7 +823,6 @@ this.isGuest=!1;
 	controlActions(input,delta){
 	var cent=this.isCent;
 	if(this.isLead)cent=!cent;
-	cent&&console.log(cent);
     if (input.keys) {
       this.firstAbility = false;
       this.secondAbility = false;
@@ -2555,7 +2554,7 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
   if((((inBarrier&&player.inBarrier)||player.invulnerable)&&!corrosive)||harmless||enemy.radius<1){
     dead=false;
   }
-  if(player.deathTimer==-1&&dead){console.log("mega dead shit")
+  if(player.deathTimer==-1&&dead){
     death(player);
   }
 }
@@ -2826,6 +2825,7 @@ class CorrosiveEnemy extends Enemy{
 class ExperienceDrainEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"experience_drain_enemy",boundary);
+	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
@@ -2835,6 +2835,7 @@ class ExperienceDrainEnemy extends Enemy{
 class BlockingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"blocking_enemy",boundary);
+	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
@@ -3167,9 +3168,7 @@ class DisablingGhostEnemy extends Enemy{
 	this.disabled=true;
   }
   playerInteraction(player){
-	if(!player.disabling){
-	  player.disabling=true;
-	}
+	player.disabling=true;
   }
 }
 class SpeedGhostEnemy extends Enemy{
@@ -3233,9 +3232,7 @@ class DisablingEnemy extends Enemy{
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
   auraEffect(player,delta){
-	if(!player.disabling){
-	  player.disabling=true;
-	}
+	player.disabling=true;
   }
 }
 class QuicksandEnemy extends Enemy{
