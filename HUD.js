@@ -817,6 +817,7 @@ class TitleText extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.regionName.length || (c = r);
 		const o = this.areaNumber;
 		this.victoryArea ? c = `${this.regionName}: Victory!` : this.bossArea && (c = `${this.regionName}: BOSS AREA ${this.areaName}`);
+		this.bossArea=false;
 		const n = as.width / 2;
 		if (e.font = `bold ${$f36928166e04fda7$export$2e2bcd8739ae039.font(35)}`,
 		e.textAlign = "center",
