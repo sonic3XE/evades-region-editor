@@ -3294,7 +3294,7 @@ class HomingEnemy extends Enemy{
     this.target_angle=this.angle;
     this.reverse=reverse;
 	this.home_range=home_range;
-	this.increment=increment;
+	this.increment=increment/30;
   }
   update(delta){
     var closest_entity,closest_entity_distance,information;
