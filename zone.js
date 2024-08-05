@@ -49,6 +49,10 @@ const settings={
 		return localStorage.enableMouseMovement=="true";
 	},set enableMouseMovement(e){
 		localStorage.enableMouseMovement=e;
+	},get legacySpeedUnits(){
+		return (localStorage.legacySpeedUnits??"true")=="true";
+	},set legacySpeedUnits(e){
+		localStorage.legacySpeedUnits=e;
 	},get joystickDeadzone(){
 		return parseFloat(localStorage.joystickDeadzone??0.05);
 	},set joystickDeadzone(e){

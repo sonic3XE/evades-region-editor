@@ -638,7 +638,7 @@ let selectedObjects=[];
 		settings[t.target.id.split("_")[0]]=t.target.selectedIndex;
 	})
 });
-[realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>{
+[legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>{
 	e.addEventListener("input",(t)=>{
 		settings[t.target.id]=t.target.checked;
 	})

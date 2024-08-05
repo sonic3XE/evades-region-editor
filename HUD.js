@@ -1363,121 +1363,123 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			e.interactive = !this.hidden,
 			e.visible = !this.hidden
 	}
-	render(e, a, t,delta) {
-		var io=e.lineWidth;
-		e.lineWidth=io*camScale;
+	render(e, t, n,delta) {
 		if (!this.ready || this.hidden)
 			return;
-		const r = a.viewportSize
-		  , c = r.width / 2 - this.width / 2*camScale
-		  , o = r.height/2 + 360*camScale - this.height*camScale;
-		this.x = c,
-		this.y = o;
-		let n, $ = c, d = o;
+		const r = t.viewportSize
+		  , i = r.width / 2 - this.width / 2*camScale
+		  , a = r.height/2 + 360*camScale - this.height*camScale;
+		this.x = i,
+		this.y = a;
+		let o, s = i, l = a;
 		e.strokeStyle = "#000000",
 		e.fillStyle = "rgba(0, 0, 0, 0.8)",
-		n = (void 0 !== this.abilityThree.abilityType ? this.width + 80 : this.width)*camScale,
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, c, o, n, this.height*camScale, !0, !1),
-		$ = c + 55*camScale,
-		d = o + 20*camScale,
-		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font($1c037512d4c36cef$var$HERO_NAME_FONT_SIZE),
+		o = (void 0 === this.abilityThree.abilityType || this.abilityRemoved ? this.width : this.width + 80)*camScale,
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, i, a, o, this.height*camScale, !0, !1),
+		s = i + 55*camScale,
+		l = a + 20*camScale,
+		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(18),
 		e.textAlign = "center",
 		e.fillStyle = this.heroColor,
-		e.fillText(this.heroName??"Default", $, d),
-		$ = c + 55*camScale,
-		d = o + 55*camScale,
+		e.fillText(this.heroName, s, l),
+		s = i + 55*camScale,
+		l = a + 55*camScale,
 		e.fillStyle = this.heroColor,
-		$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, $, d, 23*camScale, !0, !1),
-		$ = c + 55*camScale,
-		d = o + 63*camScale,
+		$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, s, l, 23*camScale, !0, !1),
+		s = i + 55*camScale,
+		l = a + 63*camScale,
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(22),
 		e.textAlign = "center",
 		e.fillStyle = "white",
-		e.fillText(this.level, $, d),
-		0 === this.playerInteractions ? ($ = c + 4*camScale,
-		d = o + 71*camScale,
+		this.mutatiorbBuffExperienceGain && this.mutatiorbBuffed && (e.fillStyle = "yellow"),
+		e.fillText(this.level, s, l),
+		0 === this.playerInteractions ? (s = i + 4*camScale,
+		l = a + 71*camScale,
 		e.fillStyle = "#666666",
 		e.beginPath(),
-		e.moveTo($, d + 10*camScale),
-		e.lineTo($ + 6*camScale, d),
-		e.lineTo($ + 12*camScale, d + 10*camScale),
-		e.fill()) : 1 === this.playerInteractions && ($ = c + 4*camScale,
-		d = o + 71*camScale,
+		e.moveTo(s, l + 10*camScale),
+		e.lineTo(s + 6*camScale, l),
+		e.lineTo(s + 12*camScale, l + 10*camScale),
+		e.fill()) : 1 === this.playerInteractions && (s = i + 4*camScale,
+		l = a + 71*camScale,
 		e.fillStyle = "#666666",
 		e.beginPath(),
-		e.moveTo($, d),
-		e.lineTo($ + 10*camScale, d),
-		e.lineTo($ + 10*camScale, d + 10*camScale),
-		e.lineTo($, d + 10*camScale),
+		e.moveTo(s, l),
+		e.lineTo(s + 10*camScale, l),
+		e.lineTo(s + 10*camScale, l + 10*camScale),
+		e.lineTo(s, l + 10*camScale),
 		e.fill()),
-		this.buttons.interactionIndicator.x = $,
-		this.buttons.interactionIndicator.y = d,
+		this.buttons.interactionIndicator.x = s,
+		this.buttons.interactionIndicator.y = l,
 		this.buttons.interactionIndicator.width = 10*camScale,
 		this.buttons.interactionIndicator.height = 10*camScale,
 		this.playerInteractions <= 1 && this.buttons.interactionIndicator.mouseOver && (e.fillStyle = "rgba(0, 0, 0, 0.65)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, $ - 14*camScale, d - 22*camScale, 40*camScale, 20*camScale, !0, !1),
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, s - 14*camScale, l - 22*camScale, 40*camScale, 20*camScale, !0, !1),
 		e.textAlign = "center",
 		e.fillStyle = "white",
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(14),
-		e.fillText(0 === this.playerInteractions ? "Solo" : "Duo", $ + 5*camScale, d - (22 - 15)*camScale)),
-		$ = c + 105*camScale,
-		d = o,
+		e.fillText(0 === this.playerInteractions ? "Solo" : "Duo", s + 5*camScale, l - 22*camScale + 15*camScale)),
+		s = i + 105*camScale,
+		l = a,
 		e.strokeStyle = "rgb(128, 128, 128)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.line(e, $, d, $, d + this.height*camScale),
+		$f36928166e04fda7$export$2e2bcd8739ae039.line(e, s, l, s, l + this.height*camScale),
 		this.upgradeBrightness.update(delta);
-		this.upgradePoints > 0 && ($ = c + 136*camScale,
-		d = o + 16*camScale,
+		this.upgradePoints > 0 && (s = i + 136*camScale,
+		l = a + 16*camScale,
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(13),
 		e.fillStyle = "white",
-		e.fillText("Points:", $, d));
-		const i = Math.round((this.upgradeBrightness.value - this.upgradeBrightness.min) / 3);
-		let s = 200
-		  , f = 200
-		  , l = 0;
-		if (e.fillStyle = `rgb(${200 + i}, ${200 + i}, ${i})`,
+		e.fillText("Points:", s, l));
+		const c = Math.round(10 * this.speed) / 10
+		  , u = Math.round(1e3 * this.energyRegen) / 1e3
+		  , d = c < $3d7c57289a41f86c$exports.upgrades.speed.max
+		  , f = this.maxEnergy.toFixed(3) < $3d7c57289a41f86c$exports.upgrades.max_energy.max
+		  , h = u < $3d7c57289a41f86c$exports.upgrades.energy_regen.max
+		  , p = this.abilityOne && this.abilityOne.level !== this.abilityOne.maxLevel
+		  , m = this.abilityTwo && this.abilityTwo.level !== this.abilityTwo.maxLevel
+		  , g = this.abilityThree && this.abilityThree.level !== this.abilityThree.maxLevel
+		  , b = d || f || h || p || m || g ? Math.round((this.upgradeBrightness.value - this.upgradeBrightness.min) / 3) : 0;
+		let y = 200
+		  , v = 200
+		  , x = 0;
+		if (e.fillStyle = `rgb(${200 + b}, ${200 + b}, ${b})`,
 		this.upgradePoints > 8) {
-			const a = 8*camScale;
-			$ = c + 169*camScale,
-			d = o + 12*camScale,
-			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, $, d, a, !0, !1),
-			d = o + 16*camScale,
+			s = i + 169*camScale,
+			l = a + 12*camScale,
+			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, s, l, 8*camScale, !0, !1),
+			l = a + 16*camScale,
 			e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(10),
 			e.textAlign = "center",
-			s = 0,
-			f = 0,
-			l = 0,
-			e.fillStyle = `rgb(${s + i}, ${f + i}, ${l + i})`,
-			e.fillText(this.upgradePoints, $, d)
+			y = 0,
+			v = 0,
+			x = 0,
+			e.fillStyle = `rgb(${y + b}, ${v + b}, ${x + b})`,
+			e.fillText(this.upgradePoints, s, l)
 		} else
-			for (let a = 0; a < this.upgradePoints; a++)
-				d = o + 12*camScale,
-				$ = c + (169 + 20 * a)*camScale,
-				$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, $, d, 6*camScale, !0, !1);
-		const p = 105*camScale;
-		$ = c + p,
-		d = o + 17*camScale;
-		const b = Math.round(10 * this.speed) / 10;
-		let u = !0;
-		this.renderStat(e, "Speed", "Zoom zoom!\nHold shift to slow down.", b, $, d, this.buttons.speed),
-		u = b < $3d7c57289a41f86c$exports.upgrades.speed.max,
-		this.renderUpgrade(e, $ + 41*camScale, d + 52*camScale, u, t.usingGamepad ? "R←" : 1, this.buttons.upgradeSpeed),
-		$ = c + p + 82*camScale,
-		this.renderStat(e, "Energy", "Used for abilities.", this.energyInfo(), $, d, this.buttons.maxEnergy),
-		u = this.maxEnergy.toFixed(3) < $3d7c57289a41f86c$exports.upgrades.max_energy.max,
-		this.renderUpgrade(e, $ + 41*camScale, d + 52*camScale, u, t.usingGamepad ? "R↑" : 2, this.buttons.upgradeEnergy),
-		$ = c + p + 164*camScale;
-		const h = Math.round(1e3 * this.energyRegen) / 1e3;
-		this.renderStat(e, "Regen", "How quickly your\nenergy comes back.", Math.round(10 * h) / 10, $, d, this.buttons.energyRegen),
-		u = h < $3d7c57289a41f86c$exports.upgrades.energy_regen.max,
-		this.renderUpgrade(e, $ + 41*camScale, d + 52*camScale, u, t.usingGamepad ? "R→" : 3, this.buttons.upgradeRegen),
-		$ = c + p + 246*camScale,
-		d = o + 17*camScale,
-		this.renderAbility(e, this.abilityOne, $, d, t.usingGamepad ? ["ZL"] : ["Z", "J"], t.usingGamepad ? "L" : 4, this.buttons.useAbilityOne, this.buttons.upgradeAbilityOne),
-		$ = c + p + 328*camScale,
-		this.renderAbility(e, this.abilityTwo, $, d, t.usingGamepad ? ["ZR"] : ["X", "K"], t.usingGamepad ? "R" : 5, this.buttons.useAbilityTwo, this.buttons.upgradeAbilityTwo),
-		void 0 !== this.abilityThree.abilityType && ($ = c + p + 410*camScale,
-		this.renderAbility(e, this.abilityThree, $, d, t.usingGamepad ? ["Y"] : ["C", "L"], t.usingGamepad ? ["X"] : 6, this.buttons.useAbilityThree, this.buttons.upgradeAbilityThree)),
-		e.lineWidth=io
+			for (let t = 0; t < this.upgradePoints; t++)
+				l = a + 12*camScale,
+				s = i + 169*camScale + 20*camScale * t,
+				$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, s, l, 6*camScale, !0, !1);
+		const w = 105*camScale;
+		s = i + w,
+		l = a + 17*camScale;
+		let S = this.speed;
+		settings.legacySpeedUnits && (S /= 30);
+		const _ = Math.round(10 * S) / 10;
+		this.renderStat(e, "Speed", "Zoom zoom!\nHold shift to slow down.", _, s, l, this.buttons.speed, this.mutatiorbBuffSpeedBoost && this.mutatiorbBuffed),
+		this.renderUpgrade(e, s + 41*camScale, l + 52*camScale, d, n.usingGamepad ? "R←" : 1, this.buttons.upgradeSpeed),
+		s = i + w + 82*camScale,
+		this.renderStat(e, "Energy", "Used for abilities.", this.energyInfo(), s, l, this.buttons.maxEnergy, !1, this.energized, this.sweetToothConsumed),
+		this.renderUpgrade(e, s + 41*camScale, l + 52*camScale, f, n.usingGamepad ? "R↑" : 2, this.buttons.upgradeEnergy),
+		s = i + w + 164*camScale,
+		this.renderStat(e, "Regen", "How quickly your\nenergy comes back.", Math.round(10 * u) / 10, s, l, this.buttons.energyRegen),
+		this.renderUpgrade(e, s + 41*camScale, l + 52*camScale, h, n.usingGamepad ? "R→" : 3, this.buttons.upgradeRegen),
+		s = i + w + 246*camScale,
+		l = a + 17*camScale,
+		this.renderAbility(e, this.abilityOne, s, l, n.usingGamepad ? ["ZL"] : ["Z", "J"], n.usingGamepad ? "L" : 4, this.buttons.useAbilityOne, this.buttons.upgradeAbilityOne, this.mutatiorbBuffCooldownReduction && this.mutatiorbBuffed),
+		s = i + w + 328*camScale,
+		this.renderAbility(e, this.abilityTwo, s, l, n.usingGamepad ? ["ZR"] : ["X", "K"], n.usingGamepad ? "R" : 5, this.buttons.useAbilityTwo, this.buttons.upgradeAbilityTwo, this.mutatiorbBuffCooldownReduction && this.mutatiorbBuffed),
+		void 0 === this.abilityThree.abilityType || this.abilityRemoved || (s = i + w + 410*camScale,
+		this.renderAbility(e, this.abilityThree, s, l, n.usingGamepad ? ["Y"] : ["C", "L"], n.usingGamepad ? ["X"] : 6, this.buttons.useAbilityThree, this.buttons.upgradeAbilityThree, this.mutatiorbBuffCooldownReduction && this.mutatiorbBuffed))
 	}
 	energyInfo() {
 		return `${Math.floor(this.energy)} / ${this.maxEnergy}`
