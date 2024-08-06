@@ -311,7 +311,7 @@ this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
 this.abilityOne={abilityType:2};
-this.abilityTwo={abilityType:3};
+this.abilityTwo={abilityType:18};
 //this.abilityThree={abilityType:98};
 this.abilityIndex=0;
 this.cachedAbilities=[];
@@ -1145,7 +1145,7 @@ let timeFix=delta/(1e3/30);
       if(this.lastAngle<0)this.lastAngle+=360;
       if(this.lastAngle<=angle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=angle-rotationSpeed*delta/(1e3/30)){this.lastAngle = angle}
 this.chronoPos.push([this.x,this.y,this.deathTimer]);
-this.chronoPos=this.chronoPos.slice(-Math.round(75/timeFix))
+this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
     this.inBarrier = false;
 	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
 	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
