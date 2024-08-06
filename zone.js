@@ -165,48 +165,6 @@ function AsciiToBase64(str){
     }
     return res.map(e=>map[e]).join("");
 }
-function addZone(type) {
-//    var snap={x:localStorage.getItem("snapX")||16,y:localStorage.getItem("snapY")||16}
-//    lockCursor = true;
-    updateMouseEntity=true;
-//    canvas.style.cursor = `url(/tile/${type}.png),auto`;
-  let posX = roundTo(Math.round(mouseEntity.x),settings.snapX);
-  let posY = roundTo(Math.round(mouseEntity.y),settings.snapY);
-let ActiveZone = createZone({x:posX,y:posY,width:160,height:160,type:"active"});
-    map.areas[current_Area].zones.push(ActiveZone);
-    updateMap();
-/*    function mousedown(e) {
-        if (e.button === 2) {
-            lockCursor = false;
-            canvas.style.cursor = "initial";
-            canvas.removeEventListener("mousedown", mousedown);
-            return;
-        }
-        canvas.style.cursor = "nwse-resize";
-
-        let posX = roundTo(Math.round((e.offsetX - canvas.width / 2) / camScale + camX),snap.x);
-        let posY = roundTo(Math.round((e.offsetY - canvas.height / 2) / camScale + camY),snap.y);
-        selectedObject = ActiveZone;
-
-        function mousemove(e) {
-            let x = roundTo(Math.round((e.offsetX - canvas.width / 2) / camScale + camX),snap.x);
-            let y = roundTo(Math.round((e.offsetY - canvas.height / 2) / camScale + camY),snap.y);
-            ActiveZone.rw = ActiveZone.width = Math.max(0,roundTo(x - posX,snap.x));
-            ActiveZone.rh = ActiveZone.height = Math.max(0,roundTo(y - posY,snap.y));
-            ActiveZone.inputs.width.value = ActiveZone.width;
-            ActiveZone.inputs.height.value = ActiveZone.height;
-            updateMap();
-        }
-
-        canvas.addEventListener("mousemove", mousemove);
-        canvas.addEventListener("mouseup", () => {
-            lockCursor = false;
-            canvas.removeEventListener("mousedown", mousedown);
-            canvas.removeEventListener("mousemove", mousemove);
-        });
-    }
-    canvas.addEventListener("mousedown", mousedown);*/
-}
 /**
  * @param {Spawner} e
  * @returns {Spawner}
@@ -1030,7 +988,7 @@ function cloneSpawner(e){
 	);
 	return obj;
 }
-function createZone(e) {
+function newZone(e) {
     const Zone = e;
 	Zone.rx=Zone.x;
 	Zone.rw=Zone.width;

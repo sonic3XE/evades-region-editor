@@ -1,155 +1,94 @@
-function loadFile(str,fromLocal=!0,socketSend=true) {
-		if(consumed_by_ink_demon&&useractive.hasBeenActive)return;
-		var noew=performance.now();
-        try{
-        current_Area = 0;
-        alertMessages=[];
-        var e = jsyaml.load(str);
-        let obj = e;
+function loadFile(str,fromLocal=!0,socketSend=true){
+	if(consumed_by_ink_demon&&useractive.hasBeenActive)return;
+	const noew=performance.now();
+    try{
+		const obj=jsyaml.load(str);
+		current_Area=0;alertMessages=[];
+		"element" in map && (map.element.remove(),delete map.element);
+		map.element=createFolder(formatString(curLang,"editor.region"), [
+			createProperty(formatString(curLang,"editor.property.name"),createInput(map.name=obj.name,_=>{map.name=nameInput.value}),"text"),
+			createProperty(formatString(curLang,"editor.property.share_to_drive"),createInput(map.share_to_drive,_=>{map.share_to_drive=boolInput.checked}),"switch",{value:obj.share_to_drive??defaultValues.share_to_drive}),
+			(map.properties=createPropertyObj({...defaultValues.properties,...obj.properties})).element,
+		]);
+		map.element.classList.add("closed");
+		menu.insertBefore(map.element,areamenu);
 		try{
-      socketSend&&socket.send(msgpack.encode({content:str,
-        name:obj.name
-		}));}catch(e){
+			socketSend&&socket.send(msgpack.encode({content:str,
+				name:obj.name
+			}));
+		}catch(e){
 			console.log("Unable to send message to socket.", e)
 		};
-  obj.properties=createPropertyObj({...defaultValues.properties,...obj.properties},"region");
-  var objKeys=Object.keys(obj.properties);
-        map.inputs.name.value = map.name = obj.name;
-        map.inputs.share_to_drive.checked = map.share_to_drive = obj.share_to_drive ?? defaultValues.share_to_drive;
-map.properties.background_color??=[0,0,0,0];
-try{map.properties.inputs.opacity.value=map.properties.background_color[3]=Math.round(obj.properties.background_color[3]);
-}catch(e){map.properties.inputs.opacity.value=map.properties.background_color[3]=0}
-
-          for(var i in objKeys){
-            if(map.properties.inputs.hasOwnProperty(objKeys[i])){
-              if(map.properties.inputs[objKeys[i]].type=="checkbox"){
-                map.properties.inputs[objKeys[i]].checked=map.properties[objKeys[i]]=obj.properties[objKeys[i]];
-              }else{
-                map.properties.inputs[objKeys[i]].value=map.properties[objKeys[i]]=obj.properties[objKeys[i]];
-              }
-            }
-          }
-          map.properties.inputs.color.value = RGBtoHex(obj.properties?.background_color||[0,0,0,0]);
-        try{
-        map.properties.background_color[0]=Math.round(obj.properties?.background_color[0]||0);
-        map.properties.background_color[1]=Math.round(obj.properties?.background_color[1]||0);
-        map.properties.background_color[2]=Math.round(obj.properties?.background_color[2]||0);
-        map.properties.texture=obj.properties?.texture||"normal";
-        }catch(e){
-        map.properties.background_color[0]=0
-        map.properties.background_color[1]=0
-        map.properties.background_color[2]=0
-        map.properties.texture="normal";
-        }
-        menu.childNodes[3].childNodes[1].childNodes[2].childNodes[1].childNodes[2].childNodes[1].selectedIndex=["normal","leaves","wooden","baguette"].indexOf(map.properties.texture.toLowerCase());
-        menu.childNodes[3].childNodes[1].childNodes[2].childNodes[1].childNodes[0].childNodes[1].childNodes[0].style.borderLeftColor=
-        menu.childNodes[3].childNodes[1].childNodes[2].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].style.background=
-        menu.childNodes[3].childNodes[1].childNodes[2].childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[0].textContent=RGBtoHex(map.properties.background_color)
-        map.areas = [];
-        areamenu.firstChild && areamenu.removeChild(areamenu.firstChild);
-        if (selectedObjects){
-		  for(var obj2 of selectedObjects){
-            obj2.element.remove();
-            obj2.properties.element.remove();
-            delete obj2.element;
-            delete obj2.properties.element;
-            delete obj2.inputs;
-            delete obj2.properties.inputs;
-		  }
-        }
-        selectedObjects = [];
-		map.areas=obj.areas.map(_=>createArea(_));
-        customAREAgui(map.areas[0]);
-        areamenu.appendChild(map.areas[0].element);
-        fromLocal&&customAlert("Successfully imported region in "+(performance.now()-noew)+" ms.",1);
-        }catch(err){
-			//var rng=Math.random()<0.1;
-			//(rng?consumed_by_ink_demon=1:customAlert("Import error. Please check your file to see the problems.",1/0));
-			customAlert(`Failed to import region due to an error in ${fromLocal?"your file":"the regions directory"}.`,10)
-			err.stack.split("\n").map(e=>customAlert(e,10,"#F00"))
-			console.log(err);
+		map.areas = [];
+		areamenu.firstChild && areamenu.removeChild(areamenu.firstChild);
+		if(selectedObjects){
+			for(var obj2 of selectedObjects){
+				obj2.element.remove();
+				obj2.properties.element.remove();
+				delete obj2.element;
+				delete obj2.properties.element;
+				delete obj2.inputs;
+				delete obj2.properties.inputs;
+			}
 		}
-      updateMap();
-  if(alertMessages.filter(e=>e.color=="#FF3333").length){throw "Missing properties. T_T"}
+		selectedObjects=[];
+		map.areas=obj.areas.map(_=>newArea(_));
+		customAREAgui(map.areas[0]);
+		areamenu.appendChild(map.areas[0].element);
+		fromLocal&&customAlert("Successfully imported region in "+(performance.now()-noew)+" ms.",1);
+	}catch(err){
+		//var rng=Math.random()<0.1;
+		//(rng?consumed_by_ink_demon=1:customAlert("Import error. Please check your file to see the problems.",1/0));
+		customAlert(`Failed to import region due to an error in ${fromLocal?"your file":"the regions directory"}.`,10)
+		err.stack.split("\n").map(e=>customAlert(e,10,"#F00"))
+		console.log(err);
+	}
+	updateMap();
+	if(alertMessages.filter(e=>e.color=="#FF3333").length){throw "Missing properties. T_T"}
 }
-function saveToStorage(slot){
-  return localStorage.setItem("map"+String(slot),mapToJSON(map));
-}
-/**
- * @param {string} obj
- * @param {string} exportName 
- */
 function download(exportName = "map") {
-	if(consumed_by_ink_demon)return;
-    try{customAlert("Exporting region...",1);
-    // Copied from stackoverflow
-	let dataStr;
-	if(ExportFormatType.selectedIndex==0){
-		dataStr = "data:text/yaml;charset=utf-8," + encodeURIComponent(YAML.stringify(JSON.parse(mapToJSON(map))));
-	}else if(ExportFormatType.selectedIndex==1){
-		dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(mapToJSON(map));
-	}
-
-    const a = document.createElement('a');
-    a.setAttribute("href", dataStr);
-	if(ExportFormatType.selectedIndex==0){
-		a.setAttribute("download", exportName.replace(/ /g,"-").toLowerCase() + ".yaml");
-	}else if(ExportFormatType.selectedIndex==1){
-		a.setAttribute("download", exportName.replace(/ /g,"-").toLowerCase() + ".json");
-	}
-
-    document.body.appendChild(a); // required for firefox
-    a.click();
-    a.remove();}catch(e){
-		customAlert("Export error.",60);
-		customAlert(e,60);
+    if(!consumed_by_ink_demon){
+		try{
+			let dataStr;(customAlert("Exporting region...",1),!ExportFormatType.selectedIndex)?(dataStr="data:text/yaml;charset=utf-8,"+encodeURIComponent(YAML.stringify(JSON.parse(mapToJSON(map))))):(dataStr="data:text/json;charset=utf-8,"+encodeURIComponent(mapToJSON(map)))
+			const a=document.createElement('a');a.setAttribute("href",dataStr),a.setAttribute("download",exportName.replace(/ /g,"-").toLowerCase()+(ExportFormatType.selectedIndex?".json":".yaml")),document.body.appendChild(a),a.click(),a.remove();
+		}catch(e){
+			customAlert("Export error.",60);
+			customAlert(e,60);
+		}
+	}else{
+		customAlert("A fatal error has occurred while exporting.",1/0,"#F00");
 	}
 }
-
 function deepEquals(obj1, obj2, parents1, parents2) {
     "use strict";
     var i;
-    // compare null and undefined
     if (obj1 === undefined || obj2 === undefined || 
         obj1 === null || obj2 === null) {
         return obj1 === obj2;
     }
-
-    // compare primitives
     if (typeof (obj1) !== 'object' || typeof (obj2) !== 'object') {
         return obj1.valueOf() === obj2.valueOf();
     }
-
-    // if objects are of different types or lengths they can't be equal
     if (obj1.constructor !== obj2.constructor || (obj1.length !== undefined && obj1.length !== obj2.length)) {
         return false;
     }
-
-    // iterate the objects
     for (i in obj1) {
-        // build the parents list for object on the left (obj1)
         if (parents1 === undefined) parents1 = [];
         if (obj1.constructor === Object) parents1.push(obj1);
-        // build the parents list for object on the right (obj2)
         if (parents2 === undefined) parents2 = [];
         if (obj2.constructor === Object) parents2.push(obj2);
-        // walk through object properties
         if (obj1.propertyIsEnumerable(i)) {
             if (obj2.propertyIsEnumerable(i)) {
-                // if object at i was met while going down here
-                // it's a self reference
                 if ((obj1[i].constructor === Object && parents1.indexOf(obj1[i]) >= 0) || (obj2[i].constructor === Object && parents2.indexOf(obj2[i]) >= 0)) {
                     if (obj1[i] !== obj2[i]) {
                         return false;
                     }
                     continue;
                 }
-                // it's not a self reference so we are here
                 if (!deepEquals(obj1[i], obj2[i], parents1, parents2)) {
                     return false;
                 }
             } else {
-                // obj2[i] does not exist
                 return false;
             }
         }
@@ -213,7 +152,7 @@ function areaToJSON(area) {
       res[props[i]]=area.properties[props[i]]
     }
   }
-  return `{${(area.name==""||area.name==void 0)?"":`"name":${JSON.stringify(area.name)},`}"properties":${JSON.stringify(res)},"x":${typeof area.rx=="number"?area.rx:''.concat('"',area.rx,'"')},"y":${typeof area.ry=="number"?area.ry:''.concat('"',area.ry,'"')},"zones":[${objects.join()}],"assets":[${assets.join()}]}`.replace(`,"assets":[]`,"");
+  return `{${!area.boss?"":`"boss":${area.boss},`}${(area.name==""||area.name==void 0)?"":`"name":${JSON.stringify(area.name)},`}"properties":${JSON.stringify(res)},"x":${typeof area.rx=="number"?area.rx:''.concat('"',area.rx,'"')},"y":${typeof area.ry=="number"?area.ry:''.concat('"',area.ry,'"')},"zones":[${objects.join()}],"assets":[${assets.join()}]}`.replace(`,"assets":[]`,"");
 }
 
 /**

@@ -1,167 +1,15 @@
-var global = typeof window != 'undefined' && window.Math == Math
-  ? window : typeof self != 'undefined' && self.Math == Math ? self
-  : Function('return this')();
-const config={get isImagesLoaded(){
-  global.tiles=loadImage("./maps/tiles.png");
-  global.tilesDark=loadImage("./maps/tilesDark.png");
-  //fetch("/EvadesRegionEditorTileMap").then(e=>e.arrayBuffer().then(t=>global.tileMap=QOItoPNG(bz2.decompress(new Uint8Array(t).slice(12)))))
-	return true;
-}};
-/*
-(from Discord) amasterclasher — Thu, Aug 1, 2024 01:16:33 EDT
+const global=typeof window!='undefined'&&window.Math==Math?window:typeof self!='undefined'&&self.Math==Math?self:Function('return this')(),isForked=location.origin+location.pathname!=="https://sonic3xe.github.io/evades-region-editor/",reloadPage=location.reload.bind(location),canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),map={name: "No Name",share_to_drive:true,players:[],properties:{},areas:[]},camSpeed=10,selectBuffer=5,manageExtensions=function(str){(activated_extensions.indexOf(str)==-1)?activated_extensions.push(str):activated_extensions.splice(activated_extensions.indexOf(str),1),localStorage.activatedExtensions=activated_extensions},getObjects=function(){return [...map.areas[current_Area].zones,...map.areas[current_Area].assets]},cons=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4"),prec=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3"),luma=function(arr){return arr.map(e=>{var v=e/255;return v<.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)}).map((e,t)=>{return[.2126,.7152,0.0722,0][t]*e}).reduce((e,t)=>{return e+t},0)*255},customAlert=function(text,duration=2,color="#fff"){if(duration<=0)return;alertMessages.push({text,color});duration!=1/0&&setTimeout(e=>alertMessages.splice(alertMessages.map(e=>e.text).indexOf(text),1),duration*1e3)},hexToArr=function(hex){return[parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)]},arrtoRGBA=function(arr){return`rgba(${arr.join()})`},fillZeros=function(str="0",digits=2,filler="0"){return filler.repeat(digits-str.length)+str},RGBtoHex=function(arr){return`#${fillZeros(Number(arr[0]).toString(16))}${fillZeros(Number(arr[1]).toString(16))}${fillZeros(Number(arr[2]).toString(16))}`},RGBAtoHex=function(arr){return`${RGBtoHex(arr)}${fillZeros(Number(arr[3]).toString(16))}`},ExtractDiff=function(e){e=e.replace(/ /g,"");const t=e.split("+"),i=e.split("-");return t.length>1?parseInt(t[1]||0):i.length>1?-parseInt(i[1]||0):0},
+loadData=async function(){await fetch("world.yaml").then(e=>{if(e?.status>=400&&!e?.ok)return customAlert(`[Error ${e.target.status}]: Unable to fetch data "${url}"`,20,"#FF0000");if(e?.status>=200&&e?.ok)return e?.text().then(t=>{return WORLD=YAML.parse(t)});console.log("bruh",e)}).catch(e=>{return customAlert(e,1/0,"#FFFF00")})};
+global.tiles=loadImage("./maps/tiles.png"),global.tilesDark=loadImage("./maps/tilesDark.png")
+/*(from Discord) amasterclasher — Thu, Aug 1, 2024 01:16:33 EDT
 	added a maximum speed property so if any mapmakers would like to put that in to their maps, it does work now
 	also @Sοηiς.εχэ will ping you since you seem to care about this stuff
 */
-const isForked=location.origin+location.pathname!=="https://sonic3xe.github.io/evades-region-editor/";
-const reloadPage=location.reload.bind(location);
-function manageExtensions(str){
-	if(activated_extensions.indexOf(str)==-1)
-		activated_extensions.push(str);
-	else
-		activated_extensions.splice(activated_extensions.indexOf(str),1);
-	localStorage.activatedExtensions=activated_extensions;
-}
-/** @type {HTMLCanvasElement} */
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-
+let camScale=5/32,camX=0,camY=0,selectMode=null,lockCursor=false,resizing=false,alertMessages=[];
 const types = ["wall", "light_region", "flashlight_spawner", "torch", "gate", "active", "safe", "exit", "teleport", "victory", "removal"];
-function getObjects(type = "active") {
-  return [...map.areas[current_Area].zones, ...map.areas[current_Area].assets];
-}
-let timeOnEnter = Date.now();
-
-const randomMapNames = ["editor test", "My Map", "EPIC MAP", "{{map->name}}"];
-const randomMapCreators = ["anonymous", "xXDark_L0rd_69420Xx", "Editor", "{{map->creator}}"];
-
-/**
- * @type {{name:string,share_to_drive:boolean,properties:Properties,areas:Area[]}}
- */
-const map = {
-  name: "No Name",
-  share_to_drive:true,
-  players: [],
-  properties: {},
-  areas: [],
-  players: [],
-};
-
-{
-  const tips = ["Scroll on numbers to increment.<br>You can click on the switch to enable/disable like applies_lantern.","You can create an area by context menu and<br>press an arrow key to see a new area.","Click on properties folder to see inside."];
-  const i = Math.floor(Math.random() * tips.length);
-  document.getElementById("tip").innerHTML=document.getElementById("tip").innerHTML.replace("Tip {{tip_index}}: {{tip_name}}<br>","")//`Tip ${i + 1}: ${tips[i]}`);
-  //document.getElementById("tip").style.display = `block`;
-}
-
-let camScale = 5 / 32;
-const camSpeed = 10;
-let camX = 0;
-let camY = 0;
-let currentArea = null;
-
-const selectBuffer = 5;
-/** @type {null | "u" | "ur" | "r" | "dr" | "d" | "dl" | "l" | "ul"} */
-let selectMode = null;
-let lockCursor = false;
-
-const menu = document.getElementById("menu");
-const areamenu = document.getElementById("areamenu");
-const objectmenu = document.getElementById("objectmenu");
-const togglemenu = document.getElementById("togglemenu");
-const resizemenu = document.getElementById("resizemenu");
-let resizing = false;
-
-const downloadBtn = document.getElementById("download");
-const importInput = document.getElementById("import");
-const contextmenu = document.getElementById("contextmenu");
-const contextBtns = {
-  zone: document.getElementById("createZone"),
-  asset: document.getElementById("createAsset"),
-  deleteObject: document.getElementById("deleteObject"),
-  duplicateObject: document.getElementById("duplicateObject"),
-  rotateObject: document.getElementById("rotateObject"),
-  copyObject: document.getElementById("copyObject"),
-  cutObject: document.getElementById("cutObject"),
-  pasteObject: document.getElementById("pasteObject"),
-  area: document.getElementById("createArea"),
-  deleteArea: document.getElementById("deleteArea"),
-  duplicateArea: document.getElementById("duplicateArea"),
-};
-
-const togglebottommenu = document.getElementById("togglebottommenu");
-const bottommenu = document.getElementById("bottommenu");
-const areaList = document.getElementById("areaList");
-config.isImagesLoaded;
-/**
- * @param {string} hex
- */
-function hexToArr(hex) {
-  return [
-    parseInt(hex.slice(1, 3), 16),
-    parseInt(hex.slice(3, 5), 16),
-    parseInt(hex.slice(5, 7), 16)
-  ];
-}
-/**
- * @param {ColorArr} arr 
- */
-function arrtoRGBA(arr) {
-  return `rgba(${arr.join()})`;
-}
-function fillZeros(str = "0", digits = 2, filler = "0") {
-  return filler.repeat(digits - str.length) + str;
-}
-/**
- * @param {ColorArr} arr 
- */
-function arrtoHex(arr) {
-  return `#${fillZeros(Number(arr[0]).toString(16))}${fillZeros(Number(arr[1]).toString(16))}${fillZeros(Number(arr[2]).toString(16))}`;
-}
-function RGBtoHex(arr) {
-  return `#${fillZeros(Number(arr[0]).toString(16))}${fillZeros(Number(arr[1]).toString(16))}${fillZeros(Number(arr[2]).toString(16))}`;
-}
-function RGBAtoHex(arr) {
-  return `#${fillZeros(Number(arr[0]).toString(16))}${fillZeros(Number(arr[1]).toString(16))}${fillZeros(Number(arr[2]).toString(16))}${fillZeros(Number(arr[3]).toString(16))}`;
-}
-/**
- * @param {ColorArr} color 
- * @param {number} opacity
- */
-function blend240([r, g, b], opacity) {
-  return "rgb(" +
-    (240 + (r - 240) * opacity) + "," +
-    (240 + (g - 240) * opacity) + "," +
-    (240 + (b - 240) * opacity) + ")";
-}
-/**
- * @param {ColorArr} arr
- */
-function luma(arr) {
-  return arr.map(e => { var v = e / 255; return v < .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4) }).map((e, t) => { return [.2126, .7152, 0.0722, 0][t] * e }).reduce((e, t) => { return e + t }, 0) * 255
-}
-var alertMessages=[];
-/** 
- * @params {string} text
- * @params {number} duration
- * @params {string} color
-*/
-function customAlert(text,duration=2,color="#fff"){
-  if(duration<=0)return;
-  alertMessages.push({text,color});
-  duration!=1/0&&setTimeout(e=>{
-    alertMessages.splice(alertMessages.map(e=>e.text).indexOf(text),1);
-  },duration*1e3)
-}
-var keysDown = new Set();
-document.addEventListener("keydown", e => {
-  if (e.repeat) return;
-  if (e.target instanceof HTMLInputElement) return;
-  if (e.ctrlKey) return;
-  keysDown.add(e.which);
-});
-document.addEventListener("keyup", e => {
-  keysDown.delete(e.which);
-})
+const keysDown = new Set();
+document.addEventListener("keydown",e=>{!(e.repeat||e.ctrlKey||e.target instanceof HTMLInputElement)&&keysDown.add(e.which)});
+document.addEventListener("keyup",e=>keysDown.delete(e.which))
 var abilities=loadImage("abilities.png");
 var txtr_abilities=[
 	{x: 53,y:715,w:50,h:50},
@@ -177,8 +25,8 @@ txtr_abilities[31] ={x:313,y:625,w:50,h:50};
 txtr_abilities[98] ={x: 53,y:923,w:50,h:50};
 txtr_abilities[100]={x:261,y:937,w:50,h:50};
 txtr_abilities[101]={x:105,y:729,w:50,h:50};
-txtr_abilities[-1]={x:  1,y:923,w:50,h:50};
-var zoneconsts = {
+txtr_abilities[-1] ={x:  1,y:923,w:50,h:50};
+var zoneconsts={
   normal: {
     active: createOffscreenCanvas(128, 128),
     safe: createOffscreenCanvas(128, 128),
@@ -213,16 +61,6 @@ var zoneconsts = {
     dummy: createOffscreenCanvas(128, 128)
   }, ice: { active: createOffscreenCanvas(512, 512) }
 }
-function ExtractDiff(e){e=e.replace(/ /g,"");const t=e.split("+"),i=e.split("-");return t.length>1?parseInt(t[1]||0):i.length>1?-parseInt(i[1]||0):0};
-async function loadData(){
-	await fetch("world.yaml").then(e=>{
-		if(e?.status>=400&&!e?.ok)return customAlert(`[Error ${e.target.status}]: Unable to fetch data "${url}"`,20,"#FF0000");
-		if(e?.status>=200&&e?.ok)return e?.text().then(t=>{return WORLD=YAML.parse(t)});
-		console.log("bruh",e);
-	}).catch(e=>{
-		return customAlert(e,1/0,"#FFFF00");
-	});
-};
 importer.addEventListener("input",e=>{
   if(!importer.selectedIndex)return;
   var req=new XMLHttpRequest,url=WORLD.regions[importer.selectedIndex-1].file;
@@ -517,63 +355,14 @@ canvas.addEventListener("mousemove", e => {
   }
   canvas.style.cursor = "initial";
 });
-let updateMouseEntity=true;
-canvas.addEventListener("contextmenu", e => {
-  if (e.target === contextmenu || playtesting) return;
-  e.preventDefault();
-
-  contextmenu.style.left = e.x + 1 + "px";
-  contextmenu.style.top = e.y + 1 + "px";
-  var eng="Active,Safe,Exit,Teleport,Victory,Removal,Dummy,Wall,Light_region,Flashlight_spawner,Torch,Gate".split(",");
-  var рус="Актив,Сафе,Эксит,Телепорт,Викторэ,Ремовал,Думми,Валл,Лигхт_регион,Флашлигхт_cпавнер,Торч,Гате".split(",");
-  contextBtns.duplicateObject.disabled=!selectedObjects.length;
-  contextBtns.deleteObject.disabled=!selectedObjects.length;
-  contextBtns.copyObject.disabled=!selectedObjects.length;
-  contextBtns.cutObject.disabled=!selectedObjects.length;
-  contextBtns.pasteObject.disabled=!copyObjects.length;
-  contextBtns.rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
-  contextBtns.deleteArea.disabled=map.areas.length==1;
-
-  show(contextmenu);updateMouseEntity=false;
-});
-let selectedObjects=[];
-[body_collection,hat_collection,gem_collection].map(e=>{
-	e.addEventListener("input",(t)=>{
-		settings[t.target.id.split("_")[0]]=t.target.selectedIndex;
-	})
-});
-[fadingEffects,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>{
-	e.addEventListener("input",(t)=>{
-		settings[t.target.id]=t.target.checked;
-	})
-})
-snapX.addEventListener("input",(e)=>{
-  settings.snapX=e.target.value;
-})
-pelletTransparency.addEventListener("input",(e)=>{
-  settings.pelletTransparency=e.target.value;
-})
-snapY.addEventListener("input",(e)=>{
-  settings.snapY=e.target.value;
-})
-displayEnergyBars.addEventListener("input",(e)=>{
-  settings.displayEnergyBars=e.target.selectedIndex;
-})
-tileMode.addEventListener("input",(e)=>{
-  settings.tileMode=e.target.selectedIndex;
-})
-joystickDeadzone.addEventListener("input",(e)=>{
-  settings.joystickDeadzone=e.target.selectedIndex/20;
-})
-document.addEventListener("click", e => {
-  if (e.target === contextmenu || e.target.parentNode === contextmenu && e.button === 2) return;
-  if (e.target === canvas && e.button === 2) return;
-  hide(contextmenu);
-  updateMouseEntity=true;
-});
-var hitbox = true;
-reset.addEventListener("click",e=>{
-  (1==confirm("Are you sure because it will erase the current region?"))&&loadFile(`name: No Name
+let updateMouseEntity=true,selectedObjects=[],hitbox=true;
+canvas.addEventListener("contextmenu",e=>{if(e.preventDefault(),e.target===contextmenu||playtesting)return;contextmenu.style.left=e.x+1+"px";contextmenu.style.top=e.y+1+"px";duplicateObject.disabled=deleteObject.disabled=copyObject.disabled=cutObject.disabled=!selectedObjects.length;pasteObject.disabled=!copyObjects.length;rotateObject.disabled=(!selectedObjects.length)||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));deleteArea.disabled=map.areas.length<2;show(contextmenu,updateMouseEntity=false)});
+[displayEnergyBars,tileMode,body_collection,hat_collection,gem_collection].map(e=>e.addEventListener("input",t=>{settings[t.target.id.split("_")[0]]=t.target.selectedIndex}));
+[fadingEffects,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.checked}));
+[snapX,pelletTransparency,snapY].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.value}));
+joystickDeadzone.addEventListener("input",e=>{settings.joystickDeadzone=e.target.selectedIndex/20});
+document.addEventListener("click",e=>{if(e.target==contextmenu||e.target.parentNode==contextmenu&&e.button==2)return;if(e.target==canvas&&e.button==2)return;hide(contextmenu,updateMouseEntity=true)});
+reset.addEventListener("click",e=>{1==confirm("Are you sure because it will erase the current region?")&&loadFile(`name: No Name
 areas:
   - x: var x
     y: var y
@@ -583,10 +372,7 @@ areas:
         y: 0
         width: 160
         height: 160
-`,false,false);
-})
-var cons=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4");
-var prec=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3");
+`,false,false)})
 Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
 		if(!prec.ended && prec.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
@@ -776,12 +562,12 @@ document.addEventListener("keydown", e => {
 			});
 		});
 		selectedObjects=[];
-		contextBtns.duplicateObject.disabled=!selectedObjects.length;
-		contextBtns.deleteObject.disabled=!selectedObjects.length;
-		contextBtns.copyObject.disabled=!selectedObjects.length;
-		contextBtns.cutObject.disabled=!selectedObjects.length;
-		contextBtns.pasteObject.disabled=!copyObjects.length;
-		contextBtns.rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
+		duplicateObject.disabled=!selectedObjects.length;
+		deleteObject.disabled=!selectedObjects.length;
+		copyObject.disabled=!selectedObjects.length;
+		cutObject.disabled=!selectedObjects.length;
+		pasteObject.disabled=!copyObjects.length;
+		rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
     };
   }
   if (e.which === controls.NEXT_AREA&&!lockCursor) {
@@ -821,49 +607,24 @@ document.addEventListener("keydown", e => {
 			});
 		});
 		selectedObjects=[];
-		contextBtns.duplicateObject.disabled=!selectedObjects.length;
-		contextBtns.deleteObject.disabled=!selectedObjects.length;
-		contextBtns.copyObject.disabled=!selectedObjects.length;
-		contextBtns.cutObject.disabled=!selectedObjects.length;
-		contextBtns.pasteObject.disabled=!copyObjects.length;
-		contextBtns.rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
+		duplicateObject.disabled=!selectedObjects.length;
+		deleteObject.disabled=!selectedObjects.length;
+		copyObject.disabled=!selectedObjects.length;
+		cutObject.disabled=!selectedObjects.length;
+		pasteObject.disabled=!copyObjects.length;
+		rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
     };
   }
   if (e.which === controls.DELETE_ZONE) {deleteObjs();spawnEntities();}
 });
-resizemenu.addEventListener("mousedown", () => {
-  resizing = true;
-});
-document.addEventListener("mouseup", () => {
-  resizing = false;
-});
-document.addEventListener("mousemove", e => {
-  if (resizing) {
-    menu.style.width = Math.max(window.innerWidth - e.pageX - 15, 200) + "px";
-  }
-});
-document.addEventListener("DOMContentLoaded",e=>{
-	loadData();
-})
-togglemenu.addEventListener("click", () => {
-  menu.classList.toggle("hidden");
-});
-downloadBtn.addEventListener("click", () => {
-  download(map.name || "map");
-});
-importInput.addEventListener("input", () => {
-  if (importInput.files.length) importInput.files[0].text()
-    .then(value => loadFile(value))
-    .catch(e => {
-		customAlert(e,1/0,"#FF0000");
-		console.error("OH SHIT!!\n",e)
-	});
-});
-
-window.addEventListener("beforeunload", e => {
-  e.preventDefault();
-  return e.returnValue = "Have you saved your map?";
-});
+resizemenu.addEventListener("mousedown",_=>(resizing=true));
+document.addEventListener("mouseup",_=>(resizing=false));
+document.addEventListener("mousemove",e=>resizing&&(menu.style.width=Math.max(window.innerWidth-e.pageX-15,200)+"px"));
+document.addEventListener("DOMContentLoaded",loadData);
+togglemenu.addEventListener("click",_=>menu.classList.toggle("hidden"));
+exportFile.addEventListener("click",_=>download(map.name));
+importFile.addEventListener("input",_=>(importFile.files.length&&importFile.files[0].text().then(value=>loadFile(value)).catch(e=>(customAlert(e,1/0,"#FF0000"),console.error("OH SHIT!!\n",e)))));
+window.addEventListener("beforeunload",e=>(e.preventDefault(),e.returnValue="Have you saved your map?"));
 function createInput(value, event, type = "string") {
   var e = document.createElement("input");
   (type == "number" || type == "string") && (e.value = value);
@@ -898,46 +659,11 @@ nickname.addEventListener("input",e=>{
 	socket.send(msgpack.encode({nick:nickname.value}));
 })
 function socketreceive(e){
-  console.log("websocket has received a message.");
-  var message=msgpack.decode(new Uint8Array(e.data));
-  if(message.chatmsg){
-    var chatmsg=document.createElement("div");
-    chatmsg.setAttribute("class","chat-message")
-    chatmsg.setAttribute("style","color:#"+(message.color ?? 16777215).toString(16).padStart(6,"0"))
-    chatmsg.innerHTML="<b>"+message.id+"</b>: "+message.chatmsg;
-    try{
-	document.getElementById("chat-window").appendChild(chatmsg);
-    document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
-    if(document.getElementById("chat-window").childNodes.length>100){
-      document.getElementById("chat-window").childNodes[0].remove()
-    }}catch(e){}
-  }
-  if(message.leaderboard){
-	leaderboard.innerHTML=`
-	<span class="leaderboard-title">Region Editor</span>
-	<div class="leaderboard-title-break"><br><span class="leaderboard-world-title">Online: ${message.leaderboard.length}/1000</span></div>
-	${message.leaderboard.map(e=>{
-		return `<div class="leaderboard-line"><span class="leaderboard-name">${e}</span>`
-	}).join("")}</div>`
-  }
-  if(message.chathistory){
-	try{
-    var chatmsgs=message.chathistory;
-    chatmsgs.map(t=>{
-    var chatmsg=document.createElement("div");
-    chatmsg.setAttribute("class","chat-message")
-    chatmsg.setAttribute("style","color:#"+(t.color ?? 16777215).toString(16).padStart(6,"0"))
-    chatmsg.innerHTML="<b>"+t.id+"</b>: "+t.chatmsg;
-    document.getElementById("chat-window").appendChild(chatmsg);
-    document.getElementById("chat-window").scrollTop = document.getElementById("chat-window").scrollHeight - document.getElementById("chat-window").clientHeight;
-    if(document.getElementById("chat-window").childNodes.length>100){
-		document.getElementById("chat-window").childNodes[0].remove()
-    }
-    })}catch(e){}
-  }
-  if(message.nick!==null && message.nick!==undefined){
-	  nickname.value=message.nick;
-  }
+  var c=document.getElementById("chat-window"),message=msgpack.decode(new Uint8Array(e.data)),M;
+  while(message.chatmsg&&(M=document.createElement("div"),M.setAttribute("class","chat-message"),M.setAttribute("style","color:#"+(message.color??(2**24-1)).toString(16).padStart(6,"0")),M.innerHTML="<b>"+message.id+"</b>: "+message.chatmsg,c.appendChild(M),c.scrollTop=c.scrollHeight-c.clientHeight),c.childNodes.length>100){c.childNodes[0].remove()};
+  message.leaderboard&&(leaderboard.innerHTML=`<span class="leaderboard-title">Region Editor</span><div class="leaderboard-title-break"><br><span class="leaderboard-world-title">Online: ${message.leaderboard.length}/1000</span></div>${message.leaderboard.map(e=>`<div class="leaderboard-line"><span class="leaderboard-name">${e}</span>`).join("")}</div>`);
+  (message.chathistory??[]).map(t=>{var M=document.createElement("div");while(M.setAttribute("class","chat-message"),M.setAttribute("style","color:#"+(t.color??(2**24-1)).toString(16).padStart(6,"0")),M.innerHTML="<b>"+t.id+"</b>: "+t.chatmsg,c.appendChild(M),c.scrollTop=c.scrollHeight-c.clientHeight,c.childNodes.length>100){c.childNodes[0].remove()}});
+  (message.nick!==null&&message.nick!==undefined)&&(nickname.value=message.nick);
 }
 socket.addEventListener("close",socketclosed);
 socket.addEventListener("message",socketreceive);
@@ -1125,7 +851,7 @@ allow_solo_with_group = False
   const colorInput = document.createElement("input");
   const opacityInput = document.createElement("input");
 var col=properties.background_color ?? defaultValues.properties.background_color;
-  colorInput.value = arrtoHex(col);
+  colorInput.value = RGBtoHex(col);
   colorInput.addEventListener("input", () => {
 	properties.background_color??=[...defaultValues.properties.background_color];
     properties.background_color[0] = hexToArr(colorInput.value)[0];
@@ -1217,33 +943,10 @@ if(t=="region"){
 }
   return properties;
 }
-// Setup Evades Region Editor
-function setup(){
-  const boolInput = document.createElement("input");
-  boolInput.addEventListener("input", () => {
-    map.share_to_drive = boolInput.checked;
-  });
-  boolInput.disabled=true;
-  const nameInput = createInput(map.name, () => { map.name = nameInput.value })
-  map.element = createFolder(formatString(curLang,"editor.region"), [
-    createProperty(formatString(curLang,"editor.property.name"), nameInput, "text"),
-    createProperty(formatString(curLang,"editor.property.share_to_drive"), boolInput, "switch", { value: map.share_to_drive ?? defaultValues.share_to_drive }),
-    (map.properties=createPropertyObj()).element,
-  ]);
-  map.element.classList.add("closed");
-  menu.insertBefore(map.element, areamenu);
-  map.inputs = {name:nameInput,share_to_drive:boolInput};
-}
-setup();
-
-contextBtns.zone.addEventListener("click", e => addZone("active"));
-contextBtns.asset.addEventListener("click", e => addAsset("wall"));
-contextBtns.duplicateArea.addEventListener("click", () => {
-  var area=map.areas[current_Area];
-  map.areas.push(createArea(JSON.parse(areaToJSON(area))));
-  updateMap();
-});
-contextBtns.pasteObject.addEventListener("click",global.pasteObjs=()=>{
+createZone.addEventListener("click",e=>{map.areas[current_Area].zones.push(newZone({x:roundTo(Math.round(mouseEntity.x),settings.snapX),y:roundTo(Math.round(mouseEntity.y),settings.snapY),width:160,height:160,type:"active"})),updateMap(updateMouseEntity=true)});
+createAsset.addEventListener("click", e=>{map.areas[current_Area].assets.push(newAsset(Math.round(mouseEntity.x),Math.round(mouseEntity.y),160,160,"wall")),updateMap(updateMouseEntity=true)});
+duplicateArea.addEventListener("click",_=>{map.areas.push(createArea(JSON.parse(areaToJSON(map.areas[current_Area]))));updateMap()});
+pasteObject.addEventListener("click",global.pasteObjs=_=>{
 	updateMouseEntity=true;
 	let posX=roundTo(Math.round(mouseEntity.x),settings.snapX);
 	let posY=roundTo(Math.round(mouseEntity.y),settings.snapY);
@@ -1261,16 +964,16 @@ contextBtns.pasteObject.addEventListener("click",global.pasteObjs=()=>{
 			requirements:[..._.requirements],
 			spawner:_.spawner.map(e => cloneSpawner(e))
 			};
-			sel = createZone(zone);
+			sel = newZone(zone);
 			map.areas[current_Area].zones.push(sel);
 		} else {
-			sel = createAsset(_.x+posX, _.y+posY, _.width, _.height, _.type, _.upside_down, _.texture);
+			sel = newAsset(_.x+posX, _.y+posY, _.width, _.height, _.type, _.upside_down, _.texture);
 			map.areas[current_Area].assets.push(sel);
 		}
 	});
 	updateMap();
 })
-contextBtns.copyObject.addEventListener("click",global.copyObjs=()=>{
+copyObject.addEventListener("click",global.copyObjs=_=>{
 	copyObjects=[];
 	selectedObjects.map(_=>{
 		var sel;
@@ -1294,15 +997,15 @@ contextBtns.copyObject.addEventListener("click",global.copyObjs=()=>{
 			requirements:[..._.requirements],
 			spawner:_.spawner.map(e => cloneSpawner(e))
 			};
-			sel = createZone(zone);
+			sel = newZone(zone);
 			copyObjects.push(sel);
 		} else {
-			sel = createAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
+			sel = newAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
 			copyObjects.push(sel);
 		}
 	});
 })
-contextBtns.cutObject.addEventListener("click",global.cutObjs=()=>{
+cutObject.addEventListener("click",global.cutObjs=_=>{
 	copyObjects=[];
 	selectedObjects.map(_=>{
 		var sel;
@@ -1326,16 +1029,16 @@ contextBtns.cutObject.addEventListener("click",global.cutObjs=()=>{
 			requirements:[..._.requirements],
 			spawner:_.spawner.map(e => cloneSpawner(e))
 			};
-			sel = createZone(zone);
+			sel = newZone(zone);
 			copyObjects.push(sel);
 		} else {
-			sel = createAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
+			sel = newAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
 			copyObjects.push(sel);
 		}
 	});
 	deleteObjs();
 })
-contextBtns.duplicateObject.addEventListener("click",()=>{
+duplicateObject.addEventListener("click",$=>{
 	selectedObjects.map(_=>{
 		var sel;
 		if(_.properties){
@@ -1358,17 +1061,17 @@ contextBtns.duplicateObject.addEventListener("click",()=>{
 			requirements:[..._.requirements],
 			spawner:_.spawner.map(e => cloneSpawner(e))
 			};
-			sel = createZone(zone);
+			sel = newZone(zone);
 			map.areas[current_Area].zones.push(sel);
 		} else {
-			sel = createAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
+			sel = newAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
 			map.areas[current_Area].assets.push(sel);
 		}
 	});
 	selectedObjects=[];
 	updateMap();
 });
-contextBtns.rotateObject.addEventListener("click",()=>{
+rotateObject.addEventListener("click",_=>{
 	var sel;
 	var e,t=0;
 	if(selectedObjects.length>1){
@@ -1419,8 +1122,8 @@ contextBtns.rotateObject.addEventListener("click",()=>{
 	}
 	updateMap();
 });
-contextBtns.area.addEventListener("click", () => addArea());
-contextBtns.deleteObject.addEventListener("click",global.deleteObjs=()=>{
+createArea.addEventListener("click",_=>{if(!map.areas[current_Area])return map.areas.push(newArea({x:"var x",y:"var y"})),updateMap();map.areas.push(newArea({x:"last_right",y:"last_y"})),updateMap()});
+deleteObject.addEventListener("click",global.deleteObjs=_=>{
   selectedObjects.map(e=>{
     let arr = map.areas[current_Area].zones;
     if (arr.includes(e)) {
@@ -1438,7 +1141,7 @@ contextBtns.deleteObject.addEventListener("click",global.deleteObjs=()=>{
   selectedObjects=[];
   updateMap();
 });
-contextBtns.deleteArea.addEventListener("click", () => {
+deleteArea.addEventListener("click",_=>{
   let arr = map.areas;
   if (!confirm("are you sure to delete the current area?"))return;
   if (map.areas.includes(map.areas[current_Area])) {

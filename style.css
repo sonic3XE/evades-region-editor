@@ -227,7 +227,7 @@ body {
     flex-direction: column;
     background: #00000080;
 }
-#download {
+#exportFile {
     position: relative;
     background: #00a000;
     border: none;
@@ -249,18 +249,18 @@ body {
     cursor: pointer;
     overflow: hidden;
 }
-#download svg,#slot svg {
+#exportFile svg,#slot svg {
     position: relative;
     z-index: 1;
     transition: 0.4s;
 }
-#download path,#slot path {
+#exportFile path,#slot path {
     transition: 0.4s;
 }
-#download:hover path,#slot:hover path {
+#exportFile:hover path,#slot:hover path {
     fill: #ffffff;
 }
-#download::before, #slot::before {
+#exportFile::before, #slot::before {
     content: "";
     display: block;
     width: 100%;
@@ -272,7 +272,7 @@ body {
     transition: transform 0.4s;
     transform: translateY(-100%);
 }
-#download:hover::before,#slot:hover::before {
+#exportFile:hover::before,#slot:hover::before {
     transform: translateY(0%);
 }
 #importer{

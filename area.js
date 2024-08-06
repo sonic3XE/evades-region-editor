@@ -34,45 +34,6 @@ function generate_guest_username(){
     code=code[0].toUpperCase()+code.slice(1);
     return username+code;
 }
-function addArea(t=true,name = "") {
-
-    function mousedown(e) {
-        if (e.button === 2) {   
-            lockCursor = false;
-            canvas.style.cursor = "initial";
-            canvas.removeEventListener("mousedown", mousedown);
-            return;
-        }
-        canvas.style.cursor = "initial";
-        let posX = Math.round((e.offsetX - canvas.width / 2) / camScale + camX);
-        let posY = Math.round((e.offsetY - canvas.height / 2) / camScale + camY);
-        let area = createArea(name,"last_right","last_y",void 0,map.areas[map.areas.length-1]);
-        map.areas.push(area);
-        current_Area=map.areas.length-1;
-        canvas.addEventListener("mouseup", () => {
-            lockCursor = false;
-            canvas.removeEventListener("mousedown", mousedown);
-        });
-    }
-    /*if(t){
-    lockCursor = true;
-    canvas.style.cursor = "crosshair";
-    canvas.addEventListener("mousedown", mousedown);
-    }else*/{
-      var area;
-  map.areas[current_Area]?
-  (area=createArea({name,x:"last_right",y:"last_y"})):
-  (area=createArea());
-    map.areas.push(area);
-    }
-    if (selectedObject){
-      selectedObject.element.remove();
-      delete selectedObject.element;
-      delete selectedObject.inputs;
-    };
-    selectedObject = null;
-  updateMap();
-}
 function customAREAgui(area){
 	area.name??="";
     const nameInput = document.createElement("input");
@@ -145,7 +106,7 @@ function getAreaSize(area){
   }
   return {x:maxRight,y:maxBottom}
 }
-function createArea(e={}) {
+function newArea(e={}){
 	const area = e;
 	area.entities=[];
 	area.rx=area.x,area.ry=area.y;
@@ -161,12 +122,10 @@ function createArea(e={}) {
           a[t]&=255;
         })
       }
-	  return createZone(t);
+	  return newZone(t);
 	})
 	area.assets??=[];
-	area.assets=area.assets.map(t=>{
-      return createAsset(t.x,t.y,t.width,t.height,t.type,t.upside_down,t.texture);
-	})
+	area.assets=area.assets.map(t=>newAsset(t.x,t.y,t.width,t.height,t.type,t.upside_down,t.texture))
 	area.properties??={};
 
     return area;
