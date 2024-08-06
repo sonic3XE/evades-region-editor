@@ -381,7 +381,7 @@ body {
 #importLabel:hover::before {
     transform: translateY(0%);
 }
-#import {
+#importFile {
     display: none;
 }
 
