@@ -1970,20 +1970,20 @@ const $00741949c3252cd2$exports = {"minimap-mode": "./buttons/minimap-mode.png"}
 loadPackage("./accessories.tex.pak",13,assets=>{
 	var u=0;
 	$31e8cfefa331e399$var$addImages("accessories",{
-	"100-gem":   assets[u++].url,
-	"1000-gem":  assets[u++].url,
-	"10000-gem": assets[u++].url,
-	"1500-gem":  assets[u++].url,
-	"2000-gem":  assets[u++].url,
-	"250-gem":   assets[u++].url,
-	"2500-gem":  assets[u++].url,
-	"3500-gem":  assets[u++].url,
-	"50-gem":    assets[u++].url,
-	"500-gem":   assets[u++].url,
-	"5000-gem":  assets[u++].url,
-	"750-gem":   assets[u++].url,
-	"7500-gem":  assets[u++].url
-	}
+		"100-gem":   assets[u++].url,
+		"1000-gem":  assets[u++].url,
+		"10000-gem": assets[u++].url,
+		"1500-gem":  assets[u++].url,
+		"2000-gem":  assets[u++].url,
+		"250-gem":   assets[u++].url,
+		"2500-gem":  assets[u++].url,
+		"3500-gem":  assets[u++].url,
+		"50-gem":    assets[u++].url,
+		"500-gem":   assets[u++].url,
+		"5000-gem":  assets[u++].url,
+		"750-gem":   assets[u++].url,
+		"7500-gem":  assets[u++].url
+	})
 });
 const $86bad78618ce6a0c$exports = {"autumn-wreath":"./cosmetics/autumn-wreath.png","blue-flames-1":"./cosmetics/blue-flames-1.png","blue-flames-2":"./cosmetics/blue-flames-2.png","blue-flames-3":"./cosmetics/blue-flames-3.png","blue-flames-4":"./cosmetics/blue-flames-4.png","blue-santa-hat":"./cosmetics/blue-santa-hat.png","bronze-crown":"./cosmetics/bronze-crown.png","bronze-jewels":"./cosmetics/bronze-jewels.png","broomstick-reversed":"./cosmetics/broomstick-reversed.png","broomstick":"./cosmetics/broomstick.png","clouds":"./cosmetics/clouds.png","doughnut":"./cosmetics/doughnut.png","flames-1":"./cosmetics/flames-1.png","flames-2":"./cosmetics/flames-2.png","flames-3":"./cosmetics/flames-3.png","flames-4":"./cosmetics/flames-4.png","flower-headband":"./cosmetics/flower-headband.png","gold-crown":"./cosmetics/gold-crown.png","gold-jewels":"./cosmetics/gold-jewels.png","gold-wreath":"./cosmetics/gold-wreath.png","halo":"./cosmetics/halo.png","orbit-ring":"./cosmetics/orbit-ring.png","pirate-hat":"./cosmetics/pirate-hat.png","rose-wreath":"./cosmetics/rose-wreath.png","santa-hat":"./cosmetics/santa-hat.png","silver-crown":"./cosmetics/silver-crown.png","silver-jewels":"./cosmetics/silver-jewels.png","snowglobe-1":"./cosmetics/snowglobe-1.png","snowglobe-2":"./cosmetics/snowglobe-2.png","snowglobe-3":"./cosmetics/snowglobe-3.png","spring-wreath":"./cosmetics/spring-wreath.png","stardust":"./cosmetics/stardust.png","stars":"./cosmetics/stars.png","sticky-coat":"./cosmetics/sticky-coat.png","storm-clouds-1":"./cosmetics/storm-clouds-1.png","storm-clouds-2":"./cosmetics/storm-clouds-2.png","storm-clouds-3":"./cosmetics/storm-clouds-3.png","storm-clouds-4":"./cosmetics/storm-clouds-4.png","summer-olympics-wreath-2":"./cosmetics/summer-olympics-wreath-2.png","summer-olympics-wreath":"./cosmetics/summer-olympics-wreath.png","summer-wreath":"./cosmetics/summer-wreath.png","sunglasses-1":"./cosmetics/sunglasses-1.png","sunglasses-10":"./cosmetics/sunglasses-10.png","sunglasses-11":"./cosmetics/sunglasses-11.png","sunglasses-12":"./cosmetics/sunglasses-12.png","sunglasses-13":"./cosmetics/sunglasses-13.png","sunglasses-14":"./cosmetics/sunglasses-14.png","sunglasses-15":"./cosmetics/sunglasses-15.png","sunglasses-2":"./cosmetics/sunglasses-2.png","sunglasses-3":"./cosmetics/sunglasses-3.png","sunglasses-4":"./cosmetics/sunglasses-4.png","sunglasses-5":"./cosmetics/sunglasses-5.png","sunglasses-6":"./cosmetics/sunglasses-6.png","sunglasses-7":"./cosmetics/sunglasses-7.png","sunglasses-8":"./cosmetics/sunglasses-8.png","sunglasses-9":"./cosmetics/sunglasses-9.png","toxic-coat":"./cosmetics/toxic-coat.png","tuxedo":"./cosmetics/tuxedo.png","winter-olympics-wreath":"./cosmetics/winter-olympics-wreath.png","winter-wreath":"./cosmetics/winter-wreath.png","witch-hat-reversed":"./cosmetics/witch-hat-reversed.png","witch-hat":"./cosmetics/witch-hat.png"};
 const $267958ee7ba6f424$exports = {"experiorb_item":"./entities/experiorb_item.png","flashlight_item":"./entities/flashlight_item.png","pumpkin_off":"./entities/pumpkin_off.png","pumpkin_on":"./entities/pumpkin_on.png","snowball_projectile":"./entities/snowball_projectile.png","sweet_tooth_item":"./entities/sweet_tooth_item.png","torch-1":"./entities/torch-1.png","torch-2":"./entities/torch-2.png","torch-3":"./entities/torch-3.png","torch-4":"./entities/torch-4.png","torch-5":"./entities/torch-5.png","torch-6":"./entities/torch-6.png","vengeance_projectile":"./entities/vengeance_projectile.png"};
