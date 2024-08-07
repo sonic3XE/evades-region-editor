@@ -1,5 +1,5 @@
 function $01bb7fd9b3660a1e$export$e1851a6e64efa609(e, a, t) {
-	$01bb7fd9b3660a1e$export$304370d6b87d514e(e, a, $3d7c57289a41f86c$exports.defaults[t])
+	$01bb7fd9b3660a1e$export$304370d6b87d514e(e, a, EvadesConfig.defaults[t])
 }
 function $01bb7fd9b3660a1e$export$304370d6b87d514e(e, a, t) {
 	for (let r = 0; r < a.length; r++) {
@@ -12,7 +12,7 @@ function $01bb7fd9b3660a1e$export$304370d6b87d514e(e, a, t) {
 }
 
 function $01bb7fd9b3660a1e$export$a1dfcc7b3a7a0b52(e) {
-return $3d7c57289a41f86c$exports.abilities[e];
+return EvadesConfig.abilities[e];
 }
 function $01bb7fd9b3660a1e$export$6ca246516fec3cbe(e) {
 	let a = "";
@@ -30,7 +30,7 @@ function capitaliseName(s){
   return t.join(" ");
 }
 function getEntityColor(type){
-	return $3d7c57289a41f86c$exports.defaults[type].color;
+	return EvadesConfig.defaults[type].color;
 }
 function spawnEntities(area=current_Area){
 	var areaC=map.areas[area];
@@ -312,7 +312,7 @@ this.isDeparted=false;
 this.magnetDirection="DOWN";
 this.abilityOne={abilityType:2};
 this.abilityTwo={abilityType:3};
-this.abilityThree={abilityType:0};
+this.abilityThree={abilityType:98};
 this.abilityIndex=0;
 this.cachedAbilities=[];
 this.availableAbilities=[0,1,2,14,18,31,96,98];
@@ -1328,8 +1328,8 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
 	)&&this.pointInActiveZone){
 		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
       var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
-      if(this.magnetDirection.toLowerCase() == "down"){this.y += (magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
-      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
+      if(this.magnetDirection.toLowerCase() == "down"){this.y += (!this.isIced&&!this.isDowned())*(magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
+      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (!this.isIced&&!this.isDowned())*(-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
     }
     if(this.radiusAdditioner!=0){this.radius+=this.radiusAdditioner}
     this.radius *= this.radiusMultiplier;
@@ -1474,7 +1474,6 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
       this.x += vel.x * delta/1e3;
       this.y += vel.y * delta/1e3;
     }
-    if(this.isIced&&isMagnet){this.y += vel.y * delta/1e3;}
     this.speedMultiplier = 1;
     this.speedAdditioner = 0;
     this.regenAdditioner = 0;
@@ -1962,7 +1961,7 @@ this.collides=this.collision(delta);
 	renderLeadEffect(e, t, a) {
 		if (this.leadTime <= 0)
 			return;
-		const r = 1e3 * $3d7c57289a41f86c$exports.defaults.lead_sniper_projectile.effect_time
+		const r = 1e3 * EvadesConfig.defaults.lead_sniper_projectile.effect_time
 		  , c = (r - this.leadTime) / r
 		  , o = .75;
 		e.globalAlpha = o - o * c,
@@ -2774,7 +2773,7 @@ class TreeEnemy extends Enemy{
     if (this.clock > this.totalReleaseTime) {
       var count = Math.floor(Math.random()*6)+2
       for (var i = 0; i < count; i++) {
-        area.entities.push(new LeafProjectile(this.x,this.y, 12, 6,i * 180 / (count/2),this.boundary))
+        area.entities.push(new LeafProjectile(this.x,this.y,EvadesConfig.defaults.leaf_projectile.radius,EvadesConfig.defaults.leaf_projectile.speed,i*180/(count/2),this.boundary))
       }
       this.clock = 0;
       this.velX = this.beforeShakeVelX
@@ -2823,7 +2822,7 @@ class LeafProjectile extends Enemy{
   update(delta,area){
 	this.clock+=delta;
     this.velangle();
-    this.angle += this.dir * (delta/30);
+    this.angle += this.dir/30 * (delta/30);
     this.anglevel();
     if(this.clock>1700){
       this.remove = true;
@@ -3016,7 +3015,7 @@ class RadarEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new RadarProjectile(this.x,this.y,this.radius/3,5+this.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this,this.boundary))
+      area.entities.push(new RadarProjectile(this.x,this.y,this.radius/3,150+this.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this,this.boundary))
       this.release_time = this.releaseInterval;
     }
     }else{
@@ -4480,7 +4479,7 @@ class RadiatingBulletsEnemy extends Enemy{
     this.releaseTime -= delta;
     if (this.releaseTime < 0) {
 		for(var i=0;i<8;i++){
-			area.entities.push(new RadiatingBulletsProjectile(this.x,this.y,8,8,45*i,this.boundary))
+			area.entities.push(new RadiatingBulletsProjectile(this.x,this.y,EvadesConfig.defaults.radiating_bullets_projectile.radius,EvadesConfig.defaults.radiating_bullets_projectile.speed,45*i,this.boundary))
 		}
 		this.releaseTime = this.releaseTime % this.release_interval;
 		this.releaseTime+=this.release_interval
@@ -4567,7 +4566,7 @@ class SniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new SniperProjectile(this.x,this.y,this.radius/2,10,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new SniperProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -4628,7 +4627,7 @@ class RingSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new RingSniperProjectile(this.x,this.y,24,3,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new RingSniperProjectile(this.x,this.y,EvadesConfig.defaults.ring_sniper_projectile.radius,EvadesConfig.defaults.ring_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -4723,7 +4722,7 @@ class PredictionSniperEnemy extends Enemy{
       var dX=diff.x + lead * radial.x;
       var dY=diff.y + lead * radial.y;
 	  if(!isNaN(lead) && lead >=0){
-        area.entities.push(new PredictionSniperProjectile(this.x,this.y,this.radius/2,11,Math.atan2(dY,dX)/Math.PI*180,this.boundary))
+        area.entities.push(new PredictionSniperProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.prediction_sniper_projectile.speed,Math.atan2(dY,dX)/Math.PI*180,this.boundary))
         this.releaseTime = this.release_interval;
 	  }
     }
@@ -4796,7 +4795,7 @@ class IceSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new IceSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new IceSniperProjectile(this.x,this.y,EvadesConfig.defaults.ice_sniper_projectile.radius,EvadesConfig.defaults.ice_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -4859,7 +4858,7 @@ class PoisonSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new PoisonSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new PoisonSniperProjectile(this.x,this.y,EvadesConfig.defaults.poison_sniper_projectile.radius,EvadesConfig.defaults.poison_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -4923,7 +4922,7 @@ class SpeedSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new SpeedSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.speed_loss,this.boundary))
+      area.entities.push(new SpeedSniperProjectile(this.x,this.y,EvadesConfig.defaults.speed_sniper_projectile.radius,EvadesConfig.defaults.speed_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.speed_loss,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -4990,7 +4989,7 @@ class LeadSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new LeadSniperProjectile(this.x,this.y,this.radius*2/3,10,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new LeadSniperProjectile(this.x,this.y,this.radius*2/3,EvadesConfig.defaults.lead_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -5055,7 +5054,7 @@ class RegenSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new RegenSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.regen_loss,this.boundary))
+      area.entities.push(new RegenSniperProjectile(this.x,this.y,EvadesConfig.defaults.regen_sniper_projectile.radius,EvadesConfig.defaults.regen_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.regen_loss,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -5120,7 +5119,7 @@ class CorrosiveSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new CorrosiveSniperProjectile(this.x,this.y,this.radius/2,10,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new CorrosiveSniperProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.corrosive_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -5376,7 +5375,7 @@ class PositiveMagneticSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new PositiveMagneticSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new PositiveMagneticSniperProjectile(this.x,this.y,EvadesConfig.defaults.positive_magnetic_sniper_projectile.radius,EvadesConfig.defaults.positive_magnetic_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -5455,7 +5454,7 @@ class NegativeMagneticSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new NegativeMagneticSniperProjectile(this.x,this.y,10,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new NegativeMagneticSniperProjectile(this.x,this.y,EvadesConfig.defaults.negative_magnetic_sniper_projectile.radius,EvadesConfig.defaults.negative_magnetic_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -5532,7 +5531,7 @@ class ForceSniperAEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new ForceSniperAProjectile(this.x,this.y,this.radius/2,12,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new ForceSniperAProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.force_sniper_a_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -5598,7 +5597,7 @@ class ForceSniperBEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new ForceSniperBProjectile(this.x,this.y,this.radius/2,12,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new ForceSniperBProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.force_sniper_b_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -5694,7 +5693,7 @@ class WindSniperEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new WindSniperProjectile(this.x,this.y,this.radius/2,16,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      area.entities.push(new WindSniperProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.wind_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
       this.releaseTime = this.release_interval;
     }
     }else{
@@ -5863,7 +5862,7 @@ class StalactiteEnemy extends Enemy {
   }
   update(delta, area) {
     if (this.hasCollided){
-      !this.collideTime && map.areas[current_Area].entities.push(new StalactiteEnemyProjectile(this.x,this.y,this.radius/2,this.boundary));
+      !this.collideTime && map.areas[current_Area].entities.push(new StalactiteEnemyProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.stalactite_enemy_projectile.speed,void 0,this.boundary));
       this.collideTime += delta;
       if (this.collideTime > 500) {
         this.hasCollided = false;
@@ -5879,8 +5878,8 @@ class StalactiteEnemy extends Enemy {
   }
 }
 class StalactiteEnemyProjectile extends Enemy{
-  constructor(x,y,radius,boundary){
-    super(x,y,radius,3,void 0,"stalactite_enemy_projectile",boundary);
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"stalactite_enemy_projectile",boundary);
 	this.duration=1500;
   }
   update(delta) {
