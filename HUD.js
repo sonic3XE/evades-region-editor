@@ -1967,6 +1967,10 @@ function $31e8cfefa331e399$var$addImages(e, a) {
 	}
 }
 const $00741949c3252cd2$exports = {"minimap-mode": "./buttons/minimap-mode.png"}
+const $267958ee7ba6f424$exports = {"experiorb_item":"./entities/experiorb_item.png","flashlight_item":"./entities/flashlight_item.png","pumpkin_off":"./entities/pumpkin_off.png","pumpkin_on":"./entities/pumpkin_on.png","snowball_projectile":"./entities/snowball_projectile.png","sweet_tooth_item":"./entities/sweet_tooth_item.png","torch-1":"./entities/torch-1.png","torch-2":"./entities/torch-2.png","torch-3":"./entities/torch-3.png","torch-4":"./entities/torch-4.png","torch-5":"./entities/torch-5.png","torch-6":"./entities/torch-6.png","vengeance_projectile":"./entities/vengeance_projectile.png"};
+const $621fe074d84a8c6e$exports = JSON.parse('{"cosmetics":{"sunglasses":{"startRandom":true,"frames":[{"path":"sunglasses-1","duration":60},{"path":"sunglasses-2","duration":1},{"path":"sunglasses-3","duration":1},{"path":"sunglasses-4","duration":1},{"path":"sunglasses-5","duration":1},{"path":"sunglasses-6","duration":1},{"path":"sunglasses-7","duration":1},{"path":"sunglasses-8","duration":1},{"path":"sunglasses-9","duration":1},{"path":"sunglasses-10","duration":1},{"path":"sunglasses-11","duration":1},{"path":"sunglasses-12","duration":1},{"path":"sunglasses-13","duration":1},{"path":"sunglasses-14","duration":1},{"path":"sunglasses-15","duration":1}]},"storm-clouds":{"startRandom":true,"frames":[{"path":"storm-clouds-1","duration":60},{"path":"storm-clouds-2","duration":3},{"path":"storm-clouds-3","duration":3},{"path":"storm-clouds-4","duration":3},{"path":"storm-clouds-1","duration":120},{"path":"storm-clouds-2","duration":5},{"path":"storm-clouds-1","duration":80},{"path":"storm-clouds-4","duration":3},{"path":"storm-clouds-3","duration":3},{"path":"storm-clouds-2","duration":3},{"path":"storm-clouds-1","duration":45},{"path":"storm-clouds-4","duration":5}]},"flames":{"startRandom":true,"frames":[{"path":"flames-1","duration":5},{"path":"flames-2","duration":5},{"path":"flames-3","duration":5},{"path":"flames-4","duration":5}]},"blue-flames":{"startRandom":true,"frames":[{"path":"blue-flames-1","duration":5},{"path":"blue-flames-2","duration":5},{"path":"blue-flames-3","duration":5},{"path":"blue-flames-4","duration":5}]},"snowglobe":{"startRandom":false,"frames":[{"path":"snowglobe-1","duration":3},{"path":"snowglobe-2","duration":3},{"path":"snowglobe-3","duration":3}]}},"entities":{"torch":{"startRandom":true,"frames":[{"path":"torch-1","duration":4},{"path":"torch-2","duration":4},{"path":"torch-3","duration":4},{"path":"torch-4","duration":4},{"path":"torch-5","duration":4},{"path":"torch-6","duration":4}]}}}');
+$8c8b0520d9402d48$exports = {"experiorb_item":"./entities/experiorb_item.png","flashlight_item":"./entities/flashlight_item.png","pumpkin_off":"./entities/pumpkin_off.png","pumpkin_on":"./entities/pumpkin_on.png","snowball_projectile":"./entities/snowball_projectile.png","sweet_tooth_item":"./entities/sweet_tooth_item.png","torch-1":"./entities/torch-1.png","torch-2":"./entities/torch-2.png","torch-3":"./entities/torch-3.png","torch-4":"./entities/torch-4.png","torch-5":"./entities/torch-5.png","torch-6":"./entities/torch-6.png","vengeance_projectile":"./entities/vengeance_projectile.png"};
+/*$31e8cfefa331e399$var$addImages("abilities", $parcel$interopDefault($f50e04d93f2d03ab$exports)),*/
 loadPackage("./accessories.tex.pak",13,assets=>{
 	var u=0;
 	$31e8cfefa331e399$var$addImages("accessories",{
@@ -1982,17 +1986,78 @@ loadPackage("./accessories.tex.pak",13,assets=>{
 		"500-gem":   assets[u++].url,
 		"5000-gem":  assets[u++].url,
 		"750-gem":   assets[u++].url,
-		"7500-gem":  assets[u++].url
+		"7500-gem":  assets[u++].url,
 	})
 });
-const $86bad78618ce6a0c$exports = {"autumn-wreath":"./cosmetics/autumn-wreath.png","blue-flames-1":"./cosmetics/blue-flames-1.png","blue-flames-2":"./cosmetics/blue-flames-2.png","blue-flames-3":"./cosmetics/blue-flames-3.png","blue-flames-4":"./cosmetics/blue-flames-4.png","blue-santa-hat":"./cosmetics/blue-santa-hat.png","bronze-crown":"./cosmetics/bronze-crown.png","bronze-jewels":"./cosmetics/bronze-jewels.png","broomstick-reversed":"./cosmetics/broomstick-reversed.png","broomstick":"./cosmetics/broomstick.png","clouds":"./cosmetics/clouds.png","doughnut":"./cosmetics/doughnut.png","flames-1":"./cosmetics/flames-1.png","flames-2":"./cosmetics/flames-2.png","flames-3":"./cosmetics/flames-3.png","flames-4":"./cosmetics/flames-4.png","flower-headband":"./cosmetics/flower-headband.png","gold-crown":"./cosmetics/gold-crown.png","gold-jewels":"./cosmetics/gold-jewels.png","gold-wreath":"./cosmetics/gold-wreath.png","halo":"./cosmetics/halo.png","orbit-ring":"./cosmetics/orbit-ring.png","pirate-hat":"./cosmetics/pirate-hat.png","rose-wreath":"./cosmetics/rose-wreath.png","santa-hat":"./cosmetics/santa-hat.png","silver-crown":"./cosmetics/silver-crown.png","silver-jewels":"./cosmetics/silver-jewels.png","snowglobe-1":"./cosmetics/snowglobe-1.png","snowglobe-2":"./cosmetics/snowglobe-2.png","snowglobe-3":"./cosmetics/snowglobe-3.png","spring-wreath":"./cosmetics/spring-wreath.png","stardust":"./cosmetics/stardust.png","stars":"./cosmetics/stars.png","sticky-coat":"./cosmetics/sticky-coat.png","storm-clouds-1":"./cosmetics/storm-clouds-1.png","storm-clouds-2":"./cosmetics/storm-clouds-2.png","storm-clouds-3":"./cosmetics/storm-clouds-3.png","storm-clouds-4":"./cosmetics/storm-clouds-4.png","summer-olympics-wreath-2":"./cosmetics/summer-olympics-wreath-2.png","summer-olympics-wreath":"./cosmetics/summer-olympics-wreath.png","summer-wreath":"./cosmetics/summer-wreath.png","sunglasses-1":"./cosmetics/sunglasses-1.png","sunglasses-10":"./cosmetics/sunglasses-10.png","sunglasses-11":"./cosmetics/sunglasses-11.png","sunglasses-12":"./cosmetics/sunglasses-12.png","sunglasses-13":"./cosmetics/sunglasses-13.png","sunglasses-14":"./cosmetics/sunglasses-14.png","sunglasses-15":"./cosmetics/sunglasses-15.png","sunglasses-2":"./cosmetics/sunglasses-2.png","sunglasses-3":"./cosmetics/sunglasses-3.png","sunglasses-4":"./cosmetics/sunglasses-4.png","sunglasses-5":"./cosmetics/sunglasses-5.png","sunglasses-6":"./cosmetics/sunglasses-6.png","sunglasses-7":"./cosmetics/sunglasses-7.png","sunglasses-8":"./cosmetics/sunglasses-8.png","sunglasses-9":"./cosmetics/sunglasses-9.png","toxic-coat":"./cosmetics/toxic-coat.png","tuxedo":"./cosmetics/tuxedo.png","winter-olympics-wreath":"./cosmetics/winter-olympics-wreath.png","winter-wreath":"./cosmetics/winter-wreath.png","witch-hat-reversed":"./cosmetics/witch-hat-reversed.png","witch-hat":"./cosmetics/witch-hat.png"};
-const $267958ee7ba6f424$exports = {"experiorb_item":"./entities/experiorb_item.png","flashlight_item":"./entities/flashlight_item.png","pumpkin_off":"./entities/pumpkin_off.png","pumpkin_on":"./entities/pumpkin_on.png","snowball_projectile":"./entities/snowball_projectile.png","sweet_tooth_item":"./entities/sweet_tooth_item.png","torch-1":"./entities/torch-1.png","torch-2":"./entities/torch-2.png","torch-3":"./entities/torch-3.png","torch-4":"./entities/torch-4.png","torch-5":"./entities/torch-5.png","torch-6":"./entities/torch-6.png","vengeance_projectile":"./entities/vengeance_projectile.png"};
-const $621fe074d84a8c6e$exports = JSON.parse('{"cosmetics":{"sunglasses":{"startRandom":true,"frames":[{"path":"sunglasses-1","duration":60},{"path":"sunglasses-2","duration":1},{"path":"sunglasses-3","duration":1},{"path":"sunglasses-4","duration":1},{"path":"sunglasses-5","duration":1},{"path":"sunglasses-6","duration":1},{"path":"sunglasses-7","duration":1},{"path":"sunglasses-8","duration":1},{"path":"sunglasses-9","duration":1},{"path":"sunglasses-10","duration":1},{"path":"sunglasses-11","duration":1},{"path":"sunglasses-12","duration":1},{"path":"sunglasses-13","duration":1},{"path":"sunglasses-14","duration":1},{"path":"sunglasses-15","duration":1}]},"storm-clouds":{"startRandom":true,"frames":[{"path":"storm-clouds-1","duration":60},{"path":"storm-clouds-2","duration":3},{"path":"storm-clouds-3","duration":3},{"path":"storm-clouds-4","duration":3},{"path":"storm-clouds-1","duration":120},{"path":"storm-clouds-2","duration":5},{"path":"storm-clouds-1","duration":80},{"path":"storm-clouds-4","duration":3},{"path":"storm-clouds-3","duration":3},{"path":"storm-clouds-2","duration":3},{"path":"storm-clouds-1","duration":45},{"path":"storm-clouds-4","duration":5}]},"flames":{"startRandom":true,"frames":[{"path":"flames-1","duration":5},{"path":"flames-2","duration":5},{"path":"flames-3","duration":5},{"path":"flames-4","duration":5}]},"blue-flames":{"startRandom":true,"frames":[{"path":"blue-flames-1","duration":5},{"path":"blue-flames-2","duration":5},{"path":"blue-flames-3","duration":5},{"path":"blue-flames-4","duration":5}]},"snowglobe":{"startRandom":false,"frames":[{"path":"snowglobe-1","duration":3},{"path":"snowglobe-2","duration":3},{"path":"snowglobe-3","duration":3}]}},"entities":{"torch":{"startRandom":true,"frames":[{"path":"torch-1","duration":4},{"path":"torch-2","duration":4},{"path":"torch-3","duration":4},{"path":"torch-4","duration":4},{"path":"torch-5","duration":4},{"path":"torch-6","duration":4}]}}}');
-$8c8b0520d9402d48$exports = {"experiorb_item":"./entities/experiorb_item.png","flashlight_item":"./entities/flashlight_item.png","pumpkin_off":"./entities/pumpkin_off.png","pumpkin_on":"./entities/pumpkin_on.png","snowball_projectile":"./entities/snowball_projectile.png","sweet_tooth_item":"./entities/sweet_tooth_item.png","torch-1":"./entities/torch-1.png","torch-2":"./entities/torch-2.png","torch-3":"./entities/torch-3.png","torch-4":"./entities/torch-4.png","torch-5":"./entities/torch-5.png","torch-6":"./entities/torch-6.png","vengeance_projectile":"./entities/vengeance_projectile.png"};
-/*$31e8cfefa331e399$var$addImages("abilities", $parcel$interopDefault($f50e04d93f2d03ab$exports)),*/
 $31e8cfefa331e399$var$addImages("buttons", $00741949c3252cd2$exports),
-$31e8cfefa331e399$var$addImages("entities", $267958ee7ba6f424$exports),
-$31e8cfefa331e399$var$addImages("cosmetics", $86bad78618ce6a0c$exports);/*,
+$31e8cfefa331e399$var$addImages("entities", $267958ee7ba6f424$exports);
+loadPackage("./cosmetics.tex.pak",62,assets=>{
+	var u=0;
+	$31e8cfefa331e399$var$addImages("cosmetics",{
+		"autumn-wreath":            assets[u++].url,
+		"blue-flames-1":            assets[u++].url,
+		"blue-flames-2":            assets[u++].url,
+		"blue-flames-3":            assets[u++].url,
+		"blue-flames-4":            assets[u++].url,
+		"blue-santa-hat":           assets[u++].url,
+		"bronze-crown":             assets[u++].url,
+		"bronze-jewels":            assets[u++].url,
+		"broomstick-reversed":      assets[u++].url,
+		"broomstick":               assets[u++].url,
+		"clouds":                   assets[u++].url,
+		"doughnut":                 assets[u++].url,
+		"flames-1":                 assets[u++].url,
+		"flames-2":                 assets[u++].url,
+		"flames-3":                 assets[u++].url,
+		"flames-4":                 assets[u++].url,
+		"flower-headband":          assets[u++].url,
+		"gold-crown":               assets[u++].url,
+		"gold-jewels":              assets[u++].url,
+		"gold-wreath":              assets[u++].url,
+		"halo":                     assets[u++].url,
+		"orbit-ring":               assets[u++].url,
+		"pirate-hat":               assets[u++].url,
+		"rose-wreath":              assets[u++].url,
+		"santa-hat":                assets[u++].url,
+		"silver-crown":             assets[u++].url,
+		"silver-jewels":            assets[u++].url,
+		"snowglobe-1":              assets[u++].url,
+		"snowglobe-2":              assets[u++].url,
+		"snowglobe-3":              assets[u++].url,
+		"spring-wreath":            assets[u++].url,
+		"stardust":                 assets[u++].url,
+		"stars":                    assets[u++].url,
+		"sticky-coat":              assets[u++].url,
+		"storm-clouds-1":           assets[u++].url,
+		"storm-clouds-2":           assets[u++].url,
+		"storm-clouds-3":           assets[u++].url,
+		"storm-clouds-4":           assets[u++].url,
+		"summer-olympics-wreath-2": assets[u++].url,
+		"summer-olympics-wreath":   assets[u++].url,
+		"summer-wreath":            assets[u++].url,
+		"sunglasses-1":             assets[u++].url,
+		"sunglasses-10":            assets[u++].url,
+		"sunglasses-11":            assets[u++].url,
+		"sunglasses-12":            assets[u++].url,
+		"sunglasses-13":            assets[u++].url,
+		"sunglasses-14":            assets[u++].url,
+		"sunglasses-15":            assets[u++].url,
+		"sunglasses-2":             assets[u++].url,
+		"sunglasses-3":             assets[u++].url,
+		"sunglasses-4":             assets[u++].url,
+		"sunglasses-5":             assets[u++].url,
+		"sunglasses-6":             assets[u++].url,
+		"sunglasses-7":             assets[u++].url,
+		"sunglasses-8":             assets[u++].url,
+		"sunglasses-9":             assets[u++].url,
+		"toxic-coat":               assets[u++].url,
+		"tuxedo":                   assets[u++].url,
+		"winter-olympics-wreath":   assets[u++].url,
+		"winter-wreath":            assets[u++].url,
+		"witch-hat-reversed":       assets[u++].url,
+		"witch-hat":                assets[u++].url,
+	})
+});/*,
 $31e8cfefa331e399$var$addImages("maps", $parcel$interopDefault($b3b8ba677f29b0ff$exports)),
 $31e8cfefa331e399$var$addImages("abilities", $parcel$interopDefault($0e72c96dabf2533f$exports)),
 $31e8cfefa331e399$var$addImages("accessories", $parcel$interopDefault($439cce75c9d4cd74$exports)),
