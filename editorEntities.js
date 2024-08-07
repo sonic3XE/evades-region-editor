@@ -118,7 +118,7 @@ function spawnEntities(area=current_Area){
 				var enemyY=prop(spawner,"y");
 				var boundary={left,right,bottom,top,width:activeZone.width,height:activeZone.height};
 				var angle=prop(spawner,"angle");
-				var speed=prop(spawner,"speed")/30;
+				var speed=prop(spawner,"speed");
 				if(enemyX!=undefined){
 					if(String(enemyX).split(",").length>1){
 						var min=parseInt(enemyX.split(",")[0]);
@@ -1131,19 +1131,19 @@ this.isGuest=!1;
 let timeFix=delta/(1e3/30);
 	  var cent=this.isCent;
 	  if(this.isLead)cent=!cent;
-		var rotationSpeed = 15;
+		var rotationSpeed = 450;
 		var angle=this.input_angle/Math.PI*180;
       if(angle<0){angle+=360}
       if(angle>=360){angle-=360}
       var distanceOne = angle - Math.abs(this.lastAngle);
-      if(this.lastAngle<=angle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=angle-rotationSpeed*delta/(1e3/30)){}
-      else if(distanceOne<-180){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
-      else if(distanceOne>=180){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
-      else if(distanceOne<0){this.lastAngle-=rotationSpeed*delta/(1e3/30);}
-      else if(distanceOne>0){this.lastAngle+=rotationSpeed*delta/(1e3/30);}
+      if(this.lastAngle<=angle+rotationSpeed*delta/1e3&&this.lastAngle>=angle-rotationSpeed*delta/1e3){}
+      else if(distanceOne<-180){this.lastAngle+=rotationSpeed*delta/1e3;}
+      else if(distanceOne>=180){this.lastAngle-=rotationSpeed*delta/1e3;}
+      else if(distanceOne<0){this.lastAngle-=rotationSpeed*delta/1e3;}
+      else if(distanceOne>0){this.lastAngle+=rotationSpeed*delta/1e3;}
       if(this.lastAngle>=360)this.lastAngle-=360;
       if(this.lastAngle<0)this.lastAngle+=360;
-      if(this.lastAngle<=angle+rotationSpeed*delta/(1e3/30)&&this.lastAngle>=angle-rotationSpeed*delta/(1e3/30)){this.lastAngle = angle}
+      if(this.lastAngle<=angle+rotationSpeed*delta/1e3&&this.lastAngle>=angle-rotationSpeed*delta/1e3){this.lastAngle = angle}
 this.chronoPos.push([this.x,this.y,this.deathTimer]);
 this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
     this.inBarrier = false;
@@ -1328,8 +1328,8 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
 	)&&this.pointInActiveZone){
 		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
       var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
-      if(this.magnetDirection.toLowerCase() == "down"){this.y += (magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
-      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*timeFix}
+      if(this.magnetDirection.toLowerCase() == "down"){this.y += (magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
+      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
     }
     if(this.radiusAdditioner!=0){this.radius+=this.radiusAdditioner}
     this.radius *= this.radiusMultiplier;
@@ -1352,8 +1352,8 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
 	}
 
     if(this.speedghost){
-      this.speed-=(0.1*this.effectImmune)/this.effectReplayer*timeFix*30;
-      this.statSpeed-=(0.1*this.effectImmune)/this.effectReplayer*timeFix*30;
+      this.speed-=(0.1*this.effectImmune)/this.effectReplayer*delta/1e3;
+      this.statSpeed-=(0.1*this.effectImmune)/this.effectReplayer*delta/1e3;
       if(this.speed < 150){this.speed = 150;}
       if(this.statSpeed < 150){this.statSpeed = 150;}
     }
@@ -1380,12 +1380,12 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
     }
 
     if(this.quicksand[0]&&!this.invulnerable){
-      this.x += Math.cos(this.quicksand[1] * (Math.PI/180)) * this.quicksand[2] * timeFix / 30;
-      this.y += Math.sin(this.quicksand[1] * (Math.PI/180)) * this.quicksand[2] * timeFix / 30;
+      this.x += Math.cos(this.quicksand[1]*Math.PI/180)*this.quicksand[2]*delta/1e3;
+      this.y += Math.sin(this.quicksand[1]*Math.PI/180)*this.quicksand[2]*delta/1e3;
       this.quicksand[0] = false;
     }
 
-    this.energy += this.energyRate * delta / 1000;
+    this.energy += this.energyRate * delta/1e3;
 	this.energyRate=this.energyRegen+this.regenAdditioner;
 	if(this.energy > this.maxEnergy)this.energy=this.maxEnergy;
 	if(this.energy < 0)this.energy=0;
@@ -1471,10 +1471,10 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
 	this.magneticReduction=false;
 	this.magneticNullification=false;
     if (!this.wasFrozen&&!this.isDowned()) {
-      this.x += vel.x * timeFix / 30;
-      this.y += vel.y * timeFix / 30;
+      this.x += vel.x * delta/1e3;
+      this.y += vel.y * delta/1e3;
     }
-    if(this.isIced&&isMagnet){this.y += vel.y * timeFix;}
+    if(this.isIced&&isMagnet){this.y += vel.y * delta/1e3;}
     this.speedMultiplier = 1;
     this.speedAdditioner = 0;
     this.regenAdditioner = 0;
@@ -2231,8 +2231,8 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	if(this.health <= 0 && this.maxHealth != 0)this.remove=true;
 	this.radius=this.ogradius*this.radiusMultiplier;
 	this.radiusMultiplier=1;
-    this.x+=this.velX*this.speedMultiplier*delta/(1e3/30);
-    this.y+=this.velY*this.speedMultiplier*delta/(1e3/30);
+    this.x+=this.velX*this.speedMultiplier*delta/1e3;
+    this.y+=this.velY*this.speedMultiplier*delta/1e3;
     this.speedMultiplier=1;
     this.collision(delta);
   }
@@ -5166,15 +5166,15 @@ class FrostGiantEnemy extends Enemy{
     this.immune=immune,
     this.projectile_duration=projectile_duration,
     this.projectile_radius=projectile_radius??10,
-    this.projectile_speed=(projectile_speed??120)/30,
+    this.projectile_speed=projectile_speed??120,
     this.pause_interval=pause_interval,
     this.pause_duration=pause_duration,
-    this.turn_speed=turn_speed/30,
+    this.turn_speed=turn_speed,
     this.initial_turn_speed=this.turn_speed,
-    this.turn_acceleration=turn_acceleration/30,
+    this.turn_acceleration=turn_acceleration,
     this.shot_interval=shot_interval,
     this.initial_shot_interval=shot_interval,
-    this.shot_acceleration=shot_acceleration/30,
+    this.shot_acceleration=shot_acceleration,
     this.direction=direction,
     this.pattern=this.get_pattern_generator(pattern),
     this.cone_angle=cone_angle;
@@ -5224,9 +5224,9 @@ class FrostGiantEnemy extends Enemy{
 	  return x*Math.PI/180;
   }
   generate_entities(delta,area){
-    this.angle += this.deg_to_rad(this.turn_speed * this.direction*delta/(1e3/30));
-    this.shot_interval -= this.shot_acceleration*delta/(1e3/30);
-    this.turn_speed += this.turn_acceleration*delta/(1e3/30);
+    this.angle+=this.deg_to_rad(this.turn_speed*this.direction*delta/1e3);
+    this.shot_interval-=this.shot_acceleration*delta/1e3;
+    this.turn_speed+=this.turn_acceleration*delta/1e3;
 	try{
     this.pattern(delta,area);
 	}catch(e){};
@@ -5320,7 +5320,7 @@ class FrostGiantEnemy extends Enemy{
     }
     if(this.rotation){
       this.velangle();
-      this.angle += this.deg_to_rad(2*this.turn_speed*this.direction*delta/(1e3/30));
+      this.angle += this.deg_to_rad(2*this.turn_speed*this.direction*delta/1e3);
       this.anglevel();
     }
     super.update(delta);
@@ -5775,7 +5775,6 @@ class LungingEnemy extends Enemy{
   	`rgb(${e.r}, ${e.g}, ${e.b})`
   }
   update(delta, area){
-	  const timefix=delta/(1e3/30);
     this.heating = false;
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
