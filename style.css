@@ -185,6 +185,18 @@ helpText b{
     background: url(./miscellaneous/question-hover.png) 0 0/32px;
 }
 
+#inputIndicator {
+	z-index: 1000;
+	position: absolute;
+	top: 10px;
+	right: 10px
+}
+
+#inputIndicator img {
+	width: 32px;
+	height: 32px
+}
+
 :root {
     --number: #2fa1d6;
     --text: #1ed36f;

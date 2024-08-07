@@ -4875,8 +4875,8 @@ class PoisonSniperProjectile extends Enemy{
     this.clock = 0;
   }
   playerInteraction(player){
-	  player.isPoisoned=true;
-	  player.poisonedTimeLeft=1000;
+    player.isPoisoned=true;
+    player.poisonedTimeLeft=1000;
   }
   onCollide(){
     this.remove=true;
@@ -4893,7 +4893,7 @@ class SpeedSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,speed_loss,boundary){
     super(x,y,radius,speed,angle,"speed_sniper_enemy",boundary);
     this.release_interval = 2500,
-    this.speed_loss=speed_loss*30;
+    this.speed_loss = speed_loss;
     this.releaseTime = (Math.random()*this.release_interval);
   }
   update(delta,area) {

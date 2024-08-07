@@ -1258,9 +1258,20 @@ function rungame(){
 	var actually=(settings.isSandbox?delta:(1e3/30*(ti>(1e3/30-delta/2))))*isActive;
 	ti>(1e3/30-delta/2)&&(ti=0);
 	map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
+	var isVisible = settings.enableMouseMovement && settings.toggleMouseMovement && playtesting;
+	inputIndicator.hidden=!isVisible;
 	if(!settings.isSandbox){
 		while(actually>=1e3/60&&actually!=0){
-			(settings.realTime||playtesting)&&(global.mouseDown==void 0&&(global.mouseDown=null),selfId&&controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},1e3/60),map.players.map(e=>{e.update(1e3/60)}),map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area])));
+			if(settings.realTime||playtesting){global.mouseDown==void 0&&(global.mouseDown=null);
+			var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
+			selfId&&controlPlayer(selfId,input,1e3/60),
+			map.players.map(e=>{e.update(1e3/60)});
+			if(input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-off.png">`){
+				inputIndicator.innerHTML=`<img src="./buttons/mouse-on.png">`;
+			}else if(!input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-on.png">`){
+				inputIndicator.innerHTML=`<img src="./buttons/mouse-off.png">`;
+			}
+			map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area]))};
 			actually-=1e3/60;
 		}
 	}else{

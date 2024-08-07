@@ -424,7 +424,7 @@ var defaultValues={
 		powered:false,
 		growth_multiplier:1,
 		ignore_invulnerability:false,
-		speed_loss:1,
+		speed_loss:30,
 		regen_loss:0.4,
 		release_time:void 0,
 		release_interval:4000,
