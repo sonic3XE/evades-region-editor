@@ -1580,6 +1580,17 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			this.renderUpgrade(e, n + 24*camScale, r + tv + 4*camScale, i, a, s)
 		}
 	}
+	renderAbilityTooltip(e, t, n, r, i, a, o) {
+		const Lu=$f36928166e04fda7$export$2e2bcd8739ae039;
+		e.fillStyle = "rgba(0, 0, 0, 0.65)",
+		Lu.rect(e, r, i, a, o, !0, !1),
+		e.textAlign = "center",
+		e.fillStyle = "white",
+		e.font = Lu.font(22),
+		e.fillText(t.name, r + a / 2, i + 25),
+		e.font = Lu.font(16),
+		Lu.multilineText(e, n, r + a / 2, i + 50)
+	}
 	renderUpgrade(e, a, t, r, c, o) {
 		if (0 === this.upgradePoints)
 			return void (o.interactive = !1);
