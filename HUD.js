@@ -1320,6 +1320,12 @@ class $e7009c797811e935$var$InputLayer {
 }
 var $e7009c797811e935$export$2e2bcd8739ae039 = new $e7009c797811e935$var$InputLayer;
 
+function Dd(e) {
+	const t = settings.legacySpeedUnits;
+	return e.replace(/\{\{speed\|([0-9\/.]+)}}/g, ((e,n)=>function(e) {
+		return t ? e.split("/").map((e=>parseFloat(e) / 30)).join("/") : e
+	}(n)))
+}
 const $1c037512d4c36cef$var$HERO_NAME_FONT_SIZE = 18
   , $1c037512d4c36cef$var$ABILITY_DESCRIPTION_FONT_SIZE = 10
   , $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE = 48
@@ -1477,23 +1483,26 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	energyInfo() {
 		return `${Math.floor(this.energy)} / ${this.maxEnergy}`
 	}
-	renderStat(e, a, t, r, c, o, n) {
-		if (n.x = c,
-		n.y = o + 10*camScale,
-		n.width = 82*camScale,
-		n.height = 40*camScale,
-		n.mouseOver) {
-			const a = 185*camScale
+	renderStat(e, t, n, r, i, a, o, s=!1, l=!1, c=!1) {
+		if (o.x = i,
+		o.y = a + 10*camScale,
+		o.width = 82*camScale,
+		o.height = 40*camScale,
+		o.mouseOver) {
+			const t = 185*camScale
 			  , r = 60*camScale;
-			this.renderStatTooltip(e, t, c + n.width / 2 - a / 2, o - r - 35*camScale, a, r)
+			this.renderStatTooltip(e, n, i + o.width / 2 - t / 2, a - r - 35*camScale, t, r)
 		}
-		c += 41*camScale,
-		o += 44*camScale,
+		i += 41*camScale,
+		a += 44*camScale,
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(10),
 		e.fillStyle = "white",
-		e.fillText(`${a}`, c, o),
+		s && (e.fillStyle = "yellow"),
+		settings.displayEnergyBars > 1 && (l && (e.fillStyle = "yellow"),
+		c && (e.fillStyle = "rgb(255, 43, 143)")),
+		e.fillText(`${t}`, i, a),
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(22),
-		e.fillText(r, c, o - 17*camScale)
+		e.fillText(r, i, a - 17*camScale)
 	}
 	renderStatTooltip(e, a, t, r, c, o) {
 		e.fillStyle = "rgba(0, 0, 0, 0.65)",
@@ -1506,7 +1515,7 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	renderAbility(e, a, t, r, c, o, n, $) {
 		var ab=txtr_abilities[a.abilityType];
 		a.maxLevel=abilityConfig[a.abilityType].levels.length;
-		if (t += 41*camScale - $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE / 2*camScale,
+		if (t += 17*camScale,
 		n.interactive = !0,
 		a.locked ? (e.drawImage(abilities,ab.x,ab.y,ab.w,ab.h, t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale),
 		e.fillStyle = "rgba(0, 0, 0, 0.6)",
@@ -1527,8 +1536,9 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		}
 		if (n.mouseOver) {
 			const c = 235*camScale
-			  , o = (20 * a.description.split("\n").length + 40)*camScale;
-			this.renderAbilityTooltip(e, a, t + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE / 2*camScale - c / 2, r - o - 35*camScale, c, o)
+			  , ua = Dd(a.description)
+			  , o = (20 * ua.split("\n").length + 40)*camScale;
+			this.renderAbilityTooltip(e, a, ua, t + 24*camScale - c / 2, r - o - 35*camScale, c, o)
 		}
 		n.x = t,
 		n.y = r,
@@ -1564,15 +1574,15 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			this.renderUpgrade(e, t + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE / 2*camScale, r + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale + 4*camScale, c, o, $)
 		}
 	}
-	renderAbilityTooltip(e, a, t, r, c, o) {
+	renderAbilityTooltip(e, t, n, r, i, a, o) {
 		e.fillStyle = "rgba(0, 0, 0, 0.65)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t, r, c, o, !0, !1),
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, r, i, a, o, !0, !1),
 		e.textAlign = "center",
 		e.fillStyle = "white",
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(22),
-		e.fillText(a.name, t + c / 2, r + 25*camScale),
+		e.fillText(t.name, r + a / 2, i + 25*camScale),
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16),
-		$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e, a.description, t + c / 2, r + 50*camScale)
+		$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e, n, r + a / 2, i + 50*camScale)
 	}
 	renderUpgrade(e, a, t, r, c, o) {
 		if (0 === this.upgradePoints)
