@@ -1951,10 +1951,9 @@ let $31e8cfefa331e399$export$4d6139e2c3698967 = !1
 function $31e8cfefa331e399$export$93e5c64e4cc246c8(e) {
 	return $31e8cfefa331e399$var$images[e] ? $31e8cfefa331e399$var$images[e].clone ? $31e8cfefa331e399$var$images[e].clone() : $31e8cfefa331e399$var$images[e] : new $31e8cfefa331e399$var$SimpleImage
 }
-const missingTex=new Image();
-missingTex.src=`data:image/svg,<svg%20width%3D"50"%20height%3D"50"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"><rect%20width%3D"50"%20height%3D"50"><%2Frect><path%20d%3D"M0%200l25%200l0%2050l25%200l0%20-25l-50%200"%20fill%3D"%23F0F"><%2Fpath><%2Fsvg>`;
 function $31e8cfefa331e399$var$addImages(e, a) {
-	const t = ()=>{
+	const t = (e)=>{
+		e.target.src.startsWith("blob") && URL.revokeObjectURL(e.target.src);
 		assetsLoaded.count++,
 		$31e8cfefa331e399$var$imagesLoadedCount++,
 		$31e8cfefa331e399$var$imagesLoadedCount >= $31e8cfefa331e399$var$imagesCount && ($31e8cfefa331e399$export$4d6139e2c3698967 = !0)
