@@ -4173,7 +4173,12 @@ class SeedlingEnemy extends Enemy{
     super(x,y,radius,speed,angle,"seedling_enemy",boundary);
 	this.hasEntity=false;
 	this.immune=true;
-	map.areas[current_Area].entities.push(new SeedlingProjectile(this.x,this.y,this.radius,0,0,this,this.boundary))
+  }
+  update(delta,area){
+	if(!this.hasEntity){
+		this.hasEntity=true;
+		area.entities.push(new SeedlingProjectile(this.x,this.y,this.radius,0,0,this,this.boundary))
+	}
   }
 }
 class SeedlingProjectile extends Enemy{

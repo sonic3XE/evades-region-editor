@@ -24,7 +24,39 @@
         <meta content="https://sonic3xe.github.io/evades-region-editor/title.png" property="twitter:image">
         <!--<meta content="https://home.sonicexe66.repl.co/EXE/sally.exe" property="og:url">-->
         <meta content="#0088ee" name="theme-color">
-		<script>
+		<script>const global=typeof window!='undefined'&&window.Math==Math?window:typeof self!='undefined'&&self.Math==Math?self:Function('return this')()
+		function loadPackage(fileURL,count,callback=()=>{}){
+      var sounds = [];
+      fetch(`./${fileURL}`).then(e=>e.arrayBuffer().then(a=>{
+    var restable=[...new Uint32Array(a.slice(0,count*4))];
+    var offset=0,nextOffset=0;
+    for(var i in restable){
+      offset=restable[Number(i)];
+      var fileKey=new Uint32Array(a.slice(offset,offset+4))[0];
+      var isRIFF=false;
+      var formatType="audio/octet-stream";
+      switch(fileKey){
+        case 0x5367674f: formatType="audio/ogg";break;
+        case 0x474E5089: formatType="image/png";break;
+        case 0x46464952: {
+          isRIFF=true;
+          if(new Uint32Array(a.slice(offset+8,offset+12))[0]==0x45564157){
+            formatType="audio/wave";
+          }
+        };break;
+        default: {
+          formatType="audio/mp3";
+        }
+      }
+      nextOffset=restable[Number(i)+1] ?? a.byteLength;
+      sounds.push({
+        url:URL.createObjectURL(new Blob([a.slice(offset,nextOffset)],{type:formatType})),
+        type:formatType.replace("audio/","").replace("wave","wav")
+      });
+    };
+    callback(sounds);
+    }))
+}
 			//top.location.href=("https://github.com/sonic3XE/evades-region-editor/discussions/11")
 		</script>
     </head>
