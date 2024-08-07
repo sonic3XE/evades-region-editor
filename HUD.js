@@ -1587,9 +1587,9 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		e.textAlign = "center",
 		e.fillStyle = "white",
 		e.font = Lu.font(22),
-		e.fillText(t.name, r + a / 2, i + 25),
+		e.fillText(t.name, r + a / 2, i + 25*camScale),
 		e.font = Lu.font(16),
-		Lu.multilineText(e, n, r + a / 2, i + 50)
+		Lu.multilineText(e, n, r + a / 2, i + 50*camScale)
 	}
 	renderUpgrade(e, a, t, r, c, o) {
 		if (0 === this.upgradePoints)
