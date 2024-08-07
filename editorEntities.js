@@ -4088,14 +4088,14 @@ class FlowerEnemy extends Enemy{
 	this.hasEntity=false;
 	this.growth_multiplier=growth_multiplier;
   }
-  update(){
+  update(delta,area){
 	if(!this.hasEntity){
 		this.hasEntity=true;
 		for(var i=0;i<5;i++){
-			arguments[1].entities.push(new FlowerProjectile(this.x,this.y,this.radius,0,0,this,i,this.growth_multiplier,this.boundary))
+			area.entities.push(new FlowerProjectile(this.x,this.y,this.radius,0,0,this,i,this.growth_multiplier,this.boundary))
 		}
 	}
-	super.update(...arguments)
+	super.update(delta)
   }
 }
 class FlowerProjectile extends Enemy{
@@ -4107,7 +4107,7 @@ class FlowerProjectile extends Enemy{
 	this.growth_multiplier=growth_multiplier;
 	this.immune=true;
 	this.staticRadius=this.radius;
-	this.trigger_radius=150;
+	this.trigger_radius=100;
 	this.shrinkRate=4000/30;
 	this.growRate=2000/30;
 	this.state=1;
@@ -4128,7 +4128,7 @@ class FlowerProjectile extends Enemy{
       distance_x = this.owner.x - entity.x;
       distance_y = this.owner.y - entity.y;
       distance = distance_x**2 + distance_y**2
-      if(distance > (this.trigger_radius+this.owner.radius+this.radius+(entity.radius??0))**2)continue;
+      if(distance > (this.trigger_radius+this.staticRadius+(entity.radius??0))**2)continue;
       if(closest_entity==void 0){
         closest_entity=entity;
         closest_entity_distance = distance;
