@@ -1512,77 +1512,73 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16),
 		$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e, a, t + c / 2, r + 25*camScale)
 	}
-	renderAbility(e, a, t, r, c, o, n, $) {
-		var ab=txtr_abilities[a.abilityType];
-		a.maxLevel=abilityConfig[a.abilityType].levels.length;
-		if (t += 17*camScale,
-		n.interactive = !0,
-		a.locked ? (e.drawImage(abilities,ab.x,ab.y,ab.w,ab.h, t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale),
+	renderAbility(e, t, n, r, i, a, o, s, l=!1) {
+		const tv=48*camScale,td=$31e8cfefa331e399$export$93e5c64e4cc246c8;
+		t.maxLevel=abilityConfig[t.abilityType].levels.length;
+		if (n += 17*camScale,
+		o.interactive = !0,
+		l) {
+			const t = 2*camScale;
+			e.fillStyle = "rgb(110, 57, 30)",
+			e.fillRect(n - t, r - t, tv + 2 * t, tv + 2 * t)
+		}
+		if (t.locked ? (e.drawImage(t.image.getImage(0), n, r, tv, tv),
 		e.fillStyle = "rgba(0, 0, 0, 0.6)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, !0, !1),
-		n.interactive = !1) : (e.drawImage(abilities,ab.x,ab.y,ab.w,ab.h, t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale),
-		!n.mouseDown && n.mouseOver ? (e.fillStyle = "rgba(0, 0, 0, 0.1)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, !0, !1)) : n.mouseDown || n.mouseOver || (e.fillStyle = "rgba(0, 0, 0, 0.2)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, !0, !1))),
-		a.disabled)
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, n, r, tv, tv, !0, !1),
+		o.interactive = !1) : (e.drawImage(t.image.getImage(0), n, r, tv, tv),
+		"Mutatiorb" === t.name && (1 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_1").getImage(), n, r, tv, tv) : 2 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_2").getImage(), n, r, tv, tv) : 3 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_3").getImage(), n, r, tv, tv) : 4 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_4").getImage(), n, r, tv, tv) : 5 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_5").getImage(), n, r, tv, tv) : 6 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_6").getImage(), n, r, tv, tv) : 7 === this.storedPellets && e.drawImage(td("abilities/mutatiorb_7").getImage(), n, r, tv, tv)),
+		!o.mouseDown && o.mouseOver ? (e.fillStyle = "rgba(0, 0, 0, 0.1)",
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, n, r, tv, tv, !0, !1)) : o.mouseDown || o.mouseOver || (e.fillStyle = "rgba(0, 0, 0, 0.2)",
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, n, r, tv, tv, !0, !1))),
+		t.disabled)
 			e.fillStyle = "rgba(0, 0, 0, 0.7)",
-			e.fillRect(t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale),
-			n.interactive = !1;
-		else if (a.cooldown > 0) {
+			e.fillRect(n, r, tv, tv),
+			o.interactive = !1;
+		else if (t.cooldown > 0) {
 			e.fillStyle = "rgba(0, 0, 0, 0.7)";
-			const c = a.cooldown / a.totalCooldown;
-			1 === c ? $f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, !0, !1) : $f36928166e04fda7$export$2e2bcd8739ae039.sectorInRect(e, t, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, 360 * (1 - c) - 90),
-			n.interactive = !1
+			const i = t.cooldown / t.totalCooldown;
+			1 === i ? $f36928166e04fda7$export$2e2bcd8739ae039.rect(e, n, r, tv, tv, !0, !1) : $f36928166e04fda7$export$2e2bcd8739ae039.sectorInRect(e, n, r, tv, tv, 360 * (1 - i) - 90),
+			o.interactive = !1
 		}
-		if (n.mouseOver) {
-			const c = 235*camScale
-			  , ua = Dd(a.description)
-			  , o = (20 * ua.split("\n").length + 40)*camScale;
-			this.renderAbilityTooltip(e, a, ua, t + 24*camScale - c / 2, r - o - 35*camScale, c, o)
+		if (o.mouseOver) {
+			const i = 235*camScale
+			  , a = Dd(t.description)
+			  , o = (20 * a.split("\n").length + 40)*camScale;
+			this.renderAbilityTooltip(e, t, a, n + 24*camScale - i / 2, r - o - 35*camScale, i, o)
 		}
-		n.x = t,
-		n.y = r,
-		n.width = $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale,
-		n.height = $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale;
-		const d = t + 5*camScale
-		  , i = t + 45*camScale
-		  , s = r - 9*camScale;
-		a.locked ? e.strokeStyle = "rgb(150, 150, 150)" : e.strokeStyle = "rgb(200, 200, 200)";
-		for (let t = 0; t < a.maxLevel; t++) {
-			let r = d + (i - d) / 2;
-			a.maxLevel > 1 && (r = d + (i - d) * (t / (a.maxLevel - 1))),
-			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, r, s, 3*camScale, !1, !0)
+		o.x = n,
+		o.y = r,
+		o.width = tv,
+		o.height = tv;
+		const c = n + 5*camScale
+		  , u = n + 45*camScale
+		  , d = r - 9*camScale;
+		t.locked ? e.strokeStyle = "rgb(150, 150, 150)" : e.strokeStyle = "rgb(200, 200, 200)";
+		for (let n = 0; n < t.maxLevel; n++) {
+			let r = c + (u - c) / 2;
+			t.maxLevel > 1 && (r = c + (u - c) * (n / (t.maxLevel - 1))),
+			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, r, d, 3*camScale, !1, !0)
 		}
 		e.strokeStyle = "rgb(255, 255, 0)",
 		e.fillStyle = e.strokeStyle;
-		for (let t = 0; t < a.level; t++) {
-			let r = d + (i - d) / 2;
-			a.maxLevel > 1 && (r = d + (i - d) * (t / (a.maxLevel - 1))),
-			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, r, s, 3*camScale, !0, !0)
+		for (let n = 0; n < t.level; n++) {
+			let r = c + (u - c) / 2;
+			t.maxLevel > 1 && (r = c + (u - c) * (n / (t.maxLevel - 1))),
+			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, r, d, 3*camScale, !0, !0)
 		}
-		if (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font($1c037512d4c36cef$var$ABILITY_DESCRIPTION_FONT_SIZE),
+		if (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(10),
 		e.textAlign = "center",
 		e.fillStyle = "white",
-		a.locked && 0 === this.upgradePoints) {
-			const a = "Locked";
-			e.fillText(a, t + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE / 2*camScale, r + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale + 12*camScale)
+		t.locked && 0 === this.upgradePoints) {
+			const t = "Locked";
+			e.fillText(t, n + 24*camScale, r + tv + 12*camScale)
 		} else if (0 === this.upgradePoints) {
-			const a = `[${c.join("] or [")}]`;
-			e.fillText(a, t + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE / 2*camScale, r + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale + 12*camScale)
+			const t = `[${i.join("] or [")}]`;
+			e.fillText(t, n + 24*camScale, r + tv + 12*camScale)
 		} else {
-			const c = a.level !== a.maxLevel;
-			this.renderUpgrade(e, t + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE / 2*camScale, r + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale + 4*camScale, c, o, $)
+			const i = t.level !== t.maxLevel;
+			this.renderUpgrade(e, n + 24*camScale, r + tv + 4*camScale, i, a, s)
 		}
-	}
-	renderAbilityTooltip(e, t, n, r, i, a, o) {
-		e.fillStyle = "rgba(0, 0, 0, 0.65)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, r, i, a, o, !0, !1),
-		e.textAlign = "center",
-		e.fillStyle = "white",
-		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(22),
-		e.fillText(t.name, r + a / 2, i + 25*camScale),
-		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16),
-		$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e, n, r + a / 2, i + 50*camScale)
 	}
 	renderUpgrade(e, a, t, r, c, o) {
 		if (0 === this.upgradePoints)
@@ -1967,10 +1963,124 @@ function $31e8cfefa331e399$var$addImages(e, a) {
 	}
 }
 const $00741949c3252cd2$exports = {"minimap-mode": "./buttons/minimap-mode.png"}
-const $267958ee7ba6f424$exports = {"experiorb_item":"./entities/experiorb_item.png","flashlight_item":"./entities/flashlight_item.png","pumpkin_off":"./entities/pumpkin_off.png","pumpkin_on":"./entities/pumpkin_on.png","snowball_projectile":"./entities/snowball_projectile.png","sweet_tooth_item":"./entities/sweet_tooth_item.png","torch-1":"./entities/torch-1.png","torch-2":"./entities/torch-2.png","torch-3":"./entities/torch-3.png","torch-4":"./entities/torch-4.png","torch-5":"./entities/torch-5.png","torch-6":"./entities/torch-6.png","vengeance_projectile":"./entities/vengeance_projectile.png"};
 const $621fe074d84a8c6e$exports = JSON.parse('{"cosmetics":{"sunglasses":{"startRandom":true,"frames":[{"path":"sunglasses-1","duration":60},{"path":"sunglasses-2","duration":1},{"path":"sunglasses-3","duration":1},{"path":"sunglasses-4","duration":1},{"path":"sunglasses-5","duration":1},{"path":"sunglasses-6","duration":1},{"path":"sunglasses-7","duration":1},{"path":"sunglasses-8","duration":1},{"path":"sunglasses-9","duration":1},{"path":"sunglasses-10","duration":1},{"path":"sunglasses-11","duration":1},{"path":"sunglasses-12","duration":1},{"path":"sunglasses-13","duration":1},{"path":"sunglasses-14","duration":1},{"path":"sunglasses-15","duration":1}]},"storm-clouds":{"startRandom":true,"frames":[{"path":"storm-clouds-1","duration":60},{"path":"storm-clouds-2","duration":3},{"path":"storm-clouds-3","duration":3},{"path":"storm-clouds-4","duration":3},{"path":"storm-clouds-1","duration":120},{"path":"storm-clouds-2","duration":5},{"path":"storm-clouds-1","duration":80},{"path":"storm-clouds-4","duration":3},{"path":"storm-clouds-3","duration":3},{"path":"storm-clouds-2","duration":3},{"path":"storm-clouds-1","duration":45},{"path":"storm-clouds-4","duration":5}]},"flames":{"startRandom":true,"frames":[{"path":"flames-1","duration":5},{"path":"flames-2","duration":5},{"path":"flames-3","duration":5},{"path":"flames-4","duration":5}]},"blue-flames":{"startRandom":true,"frames":[{"path":"blue-flames-1","duration":5},{"path":"blue-flames-2","duration":5},{"path":"blue-flames-3","duration":5},{"path":"blue-flames-4","duration":5}]},"snowglobe":{"startRandom":false,"frames":[{"path":"snowglobe-1","duration":3},{"path":"snowglobe-2","duration":3},{"path":"snowglobe-3","duration":3}]}},"entities":{"torch":{"startRandom":true,"frames":[{"path":"torch-1","duration":4},{"path":"torch-2","duration":4},{"path":"torch-3","duration":4},{"path":"torch-4","duration":4},{"path":"torch-5","duration":4},{"path":"torch-6","duration":4}]}}}');
-$8c8b0520d9402d48$exports = {"experiorb_item":"./entities/experiorb_item.png","flashlight_item":"./entities/flashlight_item.png","pumpkin_off":"./entities/pumpkin_off.png","pumpkin_on":"./entities/pumpkin_on.png","snowball_projectile":"./entities/snowball_projectile.png","sweet_tooth_item":"./entities/sweet_tooth_item.png","torch-1":"./entities/torch-1.png","torch-2":"./entities/torch-2.png","torch-3":"./entities/torch-3.png","torch-4":"./entities/torch-4.png","torch-5":"./entities/torch-5.png","torch-6":"./entities/torch-6.png","vengeance_projectile":"./entities/vengeance_projectile.png"};
-/*$31e8cfefa331e399$var$addImages("abilities", $parcel$interopDefault($f50e04d93f2d03ab$exports)),*/
+loadPackage("./abilities.tex.pak",112,assets=>{
+	var u=0;
+	$31e8cfefa331e399$var$addImages("abilities",{
+		"atonement":              assets[u++].url,
+		"attract":                assets[u++].url,
+		"backtrack":              assets[u++].url,
+		"bandages":               assets[u++].url,
+		"barrier":                assets[u++].url,
+		"black_hole":             assets[u++].url,
+		"blocking":               assets[u++].url,
+		"bloom":                  assets[u++].url,
+		"charge":                 assets[u++].url,
+		"corrosive_sniper":       assets[u++].url,
+		"crumble":                assets[u++].url,
+		"dash":                   assets[u++].url,
+		"decay":                  assets[u++].url,
+		"default":                assets[u++].url,
+		"depart":                 assets[u++].url,
+		"disabling":              assets[u++].url,
+		"distort":                assets[u++].url,
+		"draining":               assets[u++].url,
+		"earthquake":             assets[u++].url,
+		"echo":                   assets[u++].url,
+		"ember":                  assets[u++].url,
+		"energize":               assets[u++].url,
+		"enlarging":              assets[u++].url,
+		"experience_drain":       assets[u++].url,
+		"experiorb":              assets[u++].url,
+		"flashlight":             assets[u++].url,
+		"flow":                   assets[u++].url,
+		"flower":                 assets[u++].url,
+		"force_a":                assets[u++].url,
+		"force_b":                assets[u++].url,
+		"freezing":               assets[u++].url,
+		"frost_giant":            assets[u++].url,
+		"fusion":                 assets[u++].url,
+		"grave":                  assets[u++].url,
+		"gravekeeper":            assets[u++].url,
+		"gravity":                assets[u++].url,
+		"harden":                 assets[u++].url,
+		"ice_sniper":             assets[u++].url,
+		"ictos":                  assets[u++].url,
+		"incinerate":             assets[u++].url,
+		"lantern":                assets[u++].url,
+		"latch":                  assets[u++].url,
+		"lava":                   assets[u++].url,
+		"lead_sniper":            assets[u++].url,
+		"lightning":              assets[u++].url,
+		"magnetic_nullification": assets[u++].url,
+		"magnetic_reduction":     assets[u++].url,
+		"magnetism_down":         assets[u++].url,
+		"magnetism_up":           assets[u++].url,
+		"magnetize":              assets[u++].url,
+		"minimize":               assets[u++].url,
+		"mortar":                 assets[u++].url,
+		"mutatiorb":              assets[u++].url,
+		"mutatiorb_1":            assets[u++].url,
+		"mutatiorb_2":            assets[u++].url,
+		"mutatiorb_3":            assets[u++].url,
+		"mutatiorb_4":            assets[u++].url,
+		"mutatiorb_5":            assets[u++].url,
+		"mutatiorb_6":            assets[u++].url,
+		"mutatiorb_7":            assets[u++].url,
+		"mystery_keycard":        assets[u++].url,
+		"negative_sniper":        assets[u++].url,
+		"network_control":        assets[u++].url,
+		"night":                  assets[u++].url,
+		"obscure":                assets[u++].url,
+		"orbit":                  assets[u++].url,
+		"paralysis":              assets[u++].url,
+		"petrify":                assets[u++].url,
+		"poison_sniper":          assets[u++].url,
+		"pollinate":              assets[u++].url,
+		"positive_sniper":        assets[u++].url,
+		"prediction_sniper":      assets[u++].url,
+		"quicksand":              assets[u++].url,
+		"radar":                  assets[u++].url,
+		"radiating_bullets":      assets[u++].url,
+		"radioactive_gloop":      assets[u++].url,
+		"reanimate":              assets[u++].url,
+		"reduce":                 assets[u++].url,
+		"reducing":               assets[u++].url,
+		"regen_sniper":           assets[u++].url,
+		"repel":                  assets[u++].url,
+		"repelling":              assets[u++].url,
+		"resurrection":           assets[u++].url,
+		"reverse":                assets[u++].url,
+		"rewind":                 assets[u++].url,
+		"robo_scanner":           assets[u++].url,
+		"shadow":                 assets[u++].url,
+		"shatter":                assets[u++].url,
+		"shield":                 assets[u++].url,
+		"shift":                  assets[u++].url,
+		"shriek":                 assets[u++].url,
+		"slippery":               assets[u++].url,
+		"slowing":                assets[u++].url,
+		"sniper":                 assets[u++].url,
+		"snowball":               assets[u++].url,
+		"spark":                  assets[u++].url,
+		"speed_sniper":           assets[u++].url,
+		"sticky_coat":            assets[u++].url,
+		"stomp":                  assets[u++].url,
+		"stream":                 assets[u++].url,
+		"sugar_rush":             assets[u++].url,
+		"supernova":              assets[u++].url,
+		"sweet_tooth":            assets[u++].url,
+		"toxic":                  assets[u++].url,
+		"tree":                   assets[u++].url,
+		"undead_infection":       assets[u++].url,
+		"vengeance":              assets[u++].url,
+		"vigor":                  assets[u++].url,
+		"warp":                   assets[u++].url,
+		"wildfire":               assets[u++].url,
+		"wind_sniper":            assets[u++].url,
+		"wormhole":               assets[u++].url,
+	});
+})
 loadPackage("./accessories.tex.pak",13,assets=>{
 	var u=0;
 	$31e8cfefa331e399$var$addImages("accessories",{
@@ -1989,8 +2099,32 @@ loadPackage("./accessories.tex.pak",13,assets=>{
 		"7500-gem":  assets[u++].url,
 	})
 });
-$31e8cfefa331e399$var$addImages("buttons", $00741949c3252cd2$exports),
-$31e8cfefa331e399$var$addImages("entities", $267958ee7ba6f424$exports);
+$31e8cfefa331e399$var$addImages("buttons", $00741949c3252cd2$exports);
+loadPackage("./entities.tex.pak",20,assets=>{
+	var u=0;
+	$31e8cfefa331e399$var$addImages("entities",{
+		"experiorb_item":       assets[u++].url,
+		"experiorb_item_1":     assets[u++].url,
+		"experiorb_item_2":     assets[u++].url,
+		"experiorb_item_3":     assets[u++].url,
+		"experiorb_item_4":     assets[u++].url,
+		"experiorb_item_5":     assets[u++].url,
+		"experiorb_item_6":     assets[u++].url,
+		"experiorb_item_7":     assets[u++].url,
+		"flashlight_item":      assets[u++].url,
+		"pumpkin_off":          assets[u++].url,
+		"pumpkin_on":           assets[u++].url,
+		"snowball_projectile":  assets[u++].url,
+		"sweet_tooth_item":     assets[u++].url,
+		"torch-1":              assets[u++].url,
+		"torch-2":              assets[u++].url,
+		"torch-3":              assets[u++].url,
+		"torch-4":              assets[u++].url,
+		"torch-5":              assets[u++].url,
+		"torch-6":              assets[u++].url,
+		"vengeance_projectile": assets[u++].url,
+	})
+})
 loadPackage("./cosmetics.tex.pak",62,assets=>{
 	var u=0;
 	$31e8cfefa331e399$var$addImages("cosmetics",{
@@ -2057,13 +2191,7 @@ loadPackage("./cosmetics.tex.pak",62,assets=>{
 		"witch-hat-reversed":       assets[u++].url,
 		"witch-hat":                assets[u++].url,
 	})
-});/*,
-$31e8cfefa331e399$var$addImages("maps", $parcel$interopDefault($b3b8ba677f29b0ff$exports)),
-$31e8cfefa331e399$var$addImages("abilities", $parcel$interopDefault($0e72c96dabf2533f$exports)),
-$31e8cfefa331e399$var$addImages("accessories", $parcel$interopDefault($439cce75c9d4cd74$exports)),
-$31e8cfefa331e399$var$addImages("buttons", $f594bd11bce4f0eb$exports),
-$31e8cfefa331e399$var$addImages("entities", $52de0329024b0d27$exports);
-$31e8cfefa331e399$var$addImages("cosmetics", $parcel$interopDefault($b1b11c67aebfa575$exports));*/
+});
 for (const [e,t] of Object.entries($621fe074d84a8c6e$exports))
 	for (const [a,r] of Object.entries(t))
 		$31e8cfefa331e399$var$images[e + "/" + a] = new $31e8cfefa331e399$var$AnimatedImage(e,r);

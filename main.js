@@ -10,22 +10,6 @@ const types = ["wall", "light_region", "flashlight_spawner", "torch", "gate", "a
 const keysDown = new Set();
 document.addEventListener("keydown",e=>{!(e.repeat||e.ctrlKey||e.target instanceof HTMLInputElement)&&keysDown.add(e.which)});
 document.addEventListener("keyup",e=>keysDown.delete(e.which))
-var abilities=loadImage("abilities.png");
-var txtr_abilities=[
-	{x: 53,y:715,w:50,h:50},
-	{x:157,y:573,w:50,h:50},
-	{x:209,y:157,w:50,h:50},
-	{x:157,y:521,w:50,h:50},
-	{x:313,y:313,w:50,h:50},
-	{x:105,y: 53,w:50,h:50},
-];
-txtr_abilities[14] ={x:313,y:677,w:50,h:50};
-txtr_abilities[18] ={x:313,y:573,w:50,h:50};
-txtr_abilities[31] ={x:313,y:625,w:50,h:50};
-txtr_abilities[98] ={x: 53,y:923,w:50,h:50};
-txtr_abilities[100]={x:261,y:937,w:50,h:50};
-txtr_abilities[101]={x:105,y:729,w:50,h:50};
-txtr_abilities[-1] ={x:  1,y:923,w:50,h:50};
 var zoneconsts={
   normal: {
     active: createOffscreenCanvas(128, 128),
