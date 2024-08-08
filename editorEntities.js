@@ -1892,111 +1892,97 @@ this.collides=this.collision(delta);
 		this.mutatiorbBuffSlowerDeathTimer && this.mutatiorbBuffed && (e.fillStyle = "rgb(110, 57, 30)"),
 		e.fillText((this.deathTimer / 1e3).toFixed(0), n, r + 6))
 	}
-	renderIcedEffect(e, t, a) {
+	renderIcedEffect(e, t, n) {
 		if (!this.isIced)
 			return;
-		const r = (this.icedTime - this.icedTimeLeft) / this.iceddelta;
+		const r = (this.icedTime - this.icedTimeLeft) / this.icedTime;
 		e.globalAlpha = .7 - .7 * r,
 		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, n, this.radius, 0, 2 * Math.PI, !1),
 		4e3 === this.electrifyInterval ? e.fillStyle = "rgb(176, 73, 0)" : e.fillStyle = "rgb(137, 231, 255)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderSnowballedEffect(e, t, a) {
+	renderSnowballedEffect(e, t, n) {
 		if (!this.isSnowballed)
 			return;
-		const r = (this.snowballedTime - this.snowballedTimeLeft) / this.snowballeddelta;
+		const r = (this.snowballedTime - this.snowballedTimeLeft) / this.snowballedTime;
 		e.globalAlpha = .7 - .7 * r,
 		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, n, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(191, 0, 255)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderPoisonedEffect(e, t, a) {
+	renderPoisonedEffect(e, t, n) {
 		if (!this.isPoisoned)
 			return;
-		const r = (this.poisonedTime - this.poisonedTimeLeft) / this.poisoneddelta;
+		const r = (this.poisonedTime - this.poisonedTimeLeft) / this.poisonedTime;
 		e.globalAlpha = .7 - .7 * r,
 		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, n, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(83, 13, 105)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderCrumbledInvulnerabilityEffect(e, t, a) {
-		if (!this.crumbledInvulnerability)
-			return;
-		const r = (this.crumbledTime - this.crumbledTimeLeft) / this.crumbledTime
-		  , c = .95;
-		e.globalAlpha = c - c * r,
-		(e.globalAlpha < 0 || e.globalAlpha > c) && (e.globalAlpha = 0),
-		e.beginPath(),
-		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
-		e.fillStyle = "rgb(49, 43, 30)",
-		e.fill(),
-		e.closePath(),
-		e.globalAlpha = 1
-	}
-	renderShadowedInvulnerabilityEffect(e, t, a) {
+	renderShadowedInvulnerabilityEffect(e, t, n) {
 		if (!this.shadowedInvulnerability)
 			return;
 		const r = (this.shadowedTime - this.shadowedTimeLeft) / this.shadowedTime
-		  , c = .95;
-		e.globalAlpha = c - c * r,
-		(e.globalAlpha < 0 || e.globalAlpha > c) && (e.globalAlpha = 0),
+		  , i = .95;
+		e.globalAlpha = i - i * r,
+		(e.globalAlpha < 0 || e.globalAlpha > i) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
-		this.isFactorb ? e.fillStyle = "rgb(222, 163, 133)" : e.fillStyle = "rgb(0, 0, 0)",
+		e.arc(t, n, this.radius, 0, 2 * Math.PI, !1),
+		e.fillStyle = "rgb(0, 0, 0)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderLeadEffect(e, t, a) {
+	renderLeadEffect(e, t, n) {
 		if (this.leadTime <= 0)
 			return;
 		const r = 1e3 * EvadesConfig.defaults.lead_sniper_projectile.effect_time
-		  , c = (r - this.leadTime) / r
-		  , o = .75;
-		e.globalAlpha = o - o * c,
-		(e.globalAlpha < 0 || e.globalAlpha > o) && (e.globalAlpha = 0),
+		  , i = (r - this.leadTime) / r
+		  , a = .75;
+		e.globalAlpha = a - a * i,
+		(e.globalAlpha < 0 || e.globalAlpha > a) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, n, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(33, 33, 39)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderContinuousReviveEffect(e, t, a) {
+	renderContinuousReviveEffect(e, t, n) {
 		if (!this.continuousRevive)
 			return;
 		const r = (this.continuousReviveTime - this.continuousReviveTimeLeft) / this.continuousReviveTime
-		  , c = .95;
-		e.globalAlpha = c - c * r,
-		(e.globalAlpha < 0 || e.globalAlpha > c) && (e.globalAlpha = 0),
+		  , i = .95;
+		e.globalAlpha = i - i * r,
+		(e.globalAlpha < 0 || e.globalAlpha > i) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, n, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "rgb(255, 255, 255)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderFlamingEffect(e, t, a) {
+	renderFlamingEffect(e, t, n) {
 		if (this.flamingTimeLeft >= 1e3)
 			return;
 		const r = this.flamingTimeLeft / 1e3
-		  , c = .95;
-		e.globalAlpha = c - c * r,
-		(e.globalAlpha < 0 || e.globalAlpha > c) && (e.globalAlpha = 0),
+		  , i = .95;
+		e.globalAlpha = i - i * r,
+		(e.globalAlpha < 0 || e.globalAlpha > i) && (e.globalAlpha = 0),
 		e.beginPath(),
-		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.arc(t, n, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "#aa2f2f",
 		e.fill(),
 		e.closePath(),
