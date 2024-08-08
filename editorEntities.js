@@ -3034,18 +3034,19 @@ class GravityEnemy extends Enemy{
     super(x,y,radius,speed,angle,"gravity_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-	this.gravity=gravity/30;
+	this.gravity=gravity;
   }
   auraEffect(player,delta){
 	if (!player.invulnerable) {
       var dx = player.x - this.x;
       var dy = player.y - this.y;
       var dist = distance({x:0,y:0},{x:dx,y:dy});
-      var attractionAmplitude = Math.pow(2, -(dist / 100));
-      var moveDist = (this.gravity * attractionAmplitude);
+      var attractionAmplitude = Math.pow(2,-dist/100);
+      var moveDist = this.gravity*attractionAmplitude;
       var angleToPlayer = Math.atan2(dy, dx);
-      player.x -= (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
-      player.y -= (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+      player.x-=moveDist*Math.cos(angleToPlayer)*delta/1000;
+      player.y-=moveDist*Math.sin(angleToPlayer)*delta/1000;
+	  player.collision(0);
     }
   }
 }
@@ -3059,14 +3060,15 @@ class GravityGhostEnemy extends Enemy{
   }
   playerInteraction(player,delta){
 	if (!player.invulnerable) {
-      var dx = player.x - this.x;
-      var dy = player.y - this.y;
+      var dx = player.x-this.x;
+      var dy = player.y-this.y;
       var dist = distance({x:0,y:0},{x:dx,y:dy});
-      var attractionAmplitude = Math.pow(2, -(dist / 100));
-      var moveDist = (this.gravity * attractionAmplitude);
-      var angleToPlayer = Math.atan2(dy, dx);
+      var attractionAmplitude = Math.pow(2,-dist/100);
+      var moveDist = this.gravity*attractionAmplitude;
+      var angleToPlayer = Math.atan2(dy,dx);
       player.x -= (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
       player.y -= (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+	  player.collision(0);
     }
   }
 }
@@ -3088,6 +3090,7 @@ class RepellingGhostEnemy extends Enemy{
       var angleToPlayer = Math.atan2(dy, dx);
       player.x += (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
       player.y += (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
+	  player.collision(0);
     }
   }
 }
@@ -3096,7 +3099,7 @@ class RepellingEnemy extends Enemy{
     super(x,y,radius,speed,angle,"repelling_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-	this.repulsion=repulsion/30;
+	this.repulsion=repulsion;
   }
   auraEffect(player,delta){
 	if (!player.invulnerable) {
@@ -3106,9 +3109,9 @@ class RepellingEnemy extends Enemy{
       var attractionAmplitude = Math.pow(2, -(dist / 100));
       var moveDist = (this.repulsion * attractionAmplitude);
       var angleToPlayer = Math.atan2(dy, dx);
-      player.x += (moveDist * Math.cos(angleToPlayer)) * (delta / (1000 / 30));
-      player.y += (moveDist * Math.sin(angleToPlayer)) * (delta / (1000 / 30));
-	  player.collision();
+      player.x+=moveDist*Math.cos(angleToPlayer)*delta/1000;
+      player.y+=moveDist*Math.sin(angleToPlayer)*delta/1000;
+	  player.collision(0);
     }
   }
 }
