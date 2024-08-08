@@ -3668,11 +3668,11 @@ class TurningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,circle_size,boundary){
     super(x,y,radius,speed,angle,"turning_enemy",boundary);
     this.circle_size = circle_size;
-    this.dir = speed / circle_size;
+    this.dir = speed / this.circle_size;
   }
   update(delta) {
     this.velangle()
-    this.angle += this.dir * (delta / 30);
+    this.angle += this.dir / 30 * (delta / 30);
     this.anglevel();
     super.update(delta);
   }
