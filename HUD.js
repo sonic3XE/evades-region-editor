@@ -1898,7 +1898,8 @@ const $31e8cfefa331e399$var$images = {};
 class $31e8cfefa331e399$var$SimpleImage extends Image {
 	constructor(url) {
 		super();
-		this.src = url;
+		this.src = url ?? "default.svg";
+		super.onerror=e=>this.src="default.svg";
 	}
 	getImage() {
 		return this
@@ -1972,6 +1973,7 @@ function $31e8cfefa331e399$var$addImages(e, a) {
 		$31e8cfefa331e399$var$images[e + "/" + r] = c
 	}
 }
+var loadedTexturePacks=0
 const $00741949c3252cd2$exports = {"minimap-mode": "./buttons/minimap-mode.png"}
 const $621fe074d84a8c6e$exports = JSON.parse('{"cosmetics":{"sunglasses":{"startRandom":true,"frames":[{"path":"sunglasses-1","duration":60},{"path":"sunglasses-2","duration":1},{"path":"sunglasses-3","duration":1},{"path":"sunglasses-4","duration":1},{"path":"sunglasses-5","duration":1},{"path":"sunglasses-6","duration":1},{"path":"sunglasses-7","duration":1},{"path":"sunglasses-8","duration":1},{"path":"sunglasses-9","duration":1},{"path":"sunglasses-10","duration":1},{"path":"sunglasses-11","duration":1},{"path":"sunglasses-12","duration":1},{"path":"sunglasses-13","duration":1},{"path":"sunglasses-14","duration":1},{"path":"sunglasses-15","duration":1}]},"storm-clouds":{"startRandom":true,"frames":[{"path":"storm-clouds-1","duration":60},{"path":"storm-clouds-2","duration":3},{"path":"storm-clouds-3","duration":3},{"path":"storm-clouds-4","duration":3},{"path":"storm-clouds-1","duration":120},{"path":"storm-clouds-2","duration":5},{"path":"storm-clouds-1","duration":80},{"path":"storm-clouds-4","duration":3},{"path":"storm-clouds-3","duration":3},{"path":"storm-clouds-2","duration":3},{"path":"storm-clouds-1","duration":45},{"path":"storm-clouds-4","duration":5}]},"flames":{"startRandom":true,"frames":[{"path":"flames-1","duration":5},{"path":"flames-2","duration":5},{"path":"flames-3","duration":5},{"path":"flames-4","duration":5}]},"blue-flames":{"startRandom":true,"frames":[{"path":"blue-flames-1","duration":5},{"path":"blue-flames-2","duration":5},{"path":"blue-flames-3","duration":5},{"path":"blue-flames-4","duration":5}]},"snowglobe":{"startRandom":false,"frames":[{"path":"snowglobe-1","duration":3},{"path":"snowglobe-2","duration":3},{"path":"snowglobe-3","duration":3}]}},"entities":{"torch":{"startRandom":true,"frames":[{"path":"torch-1","duration":4},{"path":"torch-2","duration":4},{"path":"torch-3","duration":4},{"path":"torch-4","duration":4},{"path":"torch-5","duration":4},{"path":"torch-6","duration":4}]}}}');
 loadPackage("./abilities.tex.pak",112,assets=>{
@@ -2090,6 +2092,12 @@ loadPackage("./abilities.tex.pak",112,assets=>{
 		"wind_sniper":            assets[u++].url,
 		"wormhole":               assets[u++].url,
 	});
+	loadedTexturePacks++;
+	if(loadedTexturePacks==4){
+		for (const [e,t] of Object.entries($621fe074d84a8c6e$exports))
+			for (const [a,r] of Object.entries(t))
+				$31e8cfefa331e399$var$images[e + "/" + a] = new $31e8cfefa331e399$var$AnimatedImage(e,r);
+	}
 })
 loadPackage("./accessories.tex.pak",13,assets=>{
 	var u=0;
@@ -2107,7 +2115,13 @@ loadPackage("./accessories.tex.pak",13,assets=>{
 		"5000-gem":  assets[u++].url,
 		"750-gem":   assets[u++].url,
 		"7500-gem":  assets[u++].url,
-	})
+	});
+	loadedTexturePacks++;
+	if(loadedTexturePacks==4){
+		for (const [e,t] of Object.entries($621fe074d84a8c6e$exports))
+			for (const [a,r] of Object.entries(t))
+				$31e8cfefa331e399$var$images[e + "/" + a] = new $31e8cfefa331e399$var$AnimatedImage(e,r);
+	}
 });
 $31e8cfefa331e399$var$addImages("buttons", $00741949c3252cd2$exports);
 loadPackage("./entities.tex.pak",20,assets=>{
@@ -2133,7 +2147,13 @@ loadPackage("./entities.tex.pak",20,assets=>{
 		"torch-5":              assets[u++].url,
 		"torch-6":              assets[u++].url,
 		"vengeance_projectile": assets[u++].url,
-	})
+	});
+	loadedTexturePacks++;
+	if(loadedTexturePacks==4){
+		for (const [e,t] of Object.entries($621fe074d84a8c6e$exports))
+			for (const [a,r] of Object.entries(t))
+				$31e8cfefa331e399$var$images[e + "/" + a] = new $31e8cfefa331e399$var$AnimatedImage(e,r);
+	}
 })
 loadPackage("./cosmetics.tex.pak",62,assets=>{
 	var u=0;
@@ -2200,8 +2220,11 @@ loadPackage("./cosmetics.tex.pak",62,assets=>{
 		"winter-wreath":            assets[u++].url,
 		"witch-hat-reversed":       assets[u++].url,
 		"witch-hat":                assets[u++].url,
-	})
+	});
+	loadedTexturePacks++;
+	if(loadedTexturePacks==4){
+		for (const [e,t] of Object.entries($621fe074d84a8c6e$exports))
+			for (const [a,r] of Object.entries(t))
+				$31e8cfefa331e399$var$images[e + "/" + a] = new $31e8cfefa331e399$var$AnimatedImage(e,r);
+	}
 });
-for (const [e,t] of Object.entries($621fe074d84a8c6e$exports))
-	for (const [a,r] of Object.entries(t))
-		$31e8cfefa331e399$var$images[e + "/" + a] = new $31e8cfefa331e399$var$AnimatedImage(e,r);

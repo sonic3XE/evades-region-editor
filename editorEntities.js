@@ -1402,11 +1402,9 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
     this.slide_x = this.distance_moved_previously[0];
     this.slide_y = this.distance_moved_previously[1];
 
-    this.slide_x *= 1-((1-friction_factor)*timeFix);
-    this.slide_y *= 1-((1-friction_factor)*timeFix);
+    this.slide_x *= friction_factor;
+    this.slide_y *= friction_factor;
 
-	this.d_x*=timeFix;
-	this.d_y*=timeFix;
     this.d_x += this.slide_x;
     this.d_y += this.slide_y;
     this.abs_d_x = Math.abs(this.d_x)
@@ -3819,7 +3817,7 @@ class PumpkinEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary,fake=false){
     super(x,y,radius,speed,angle,"pumpkin_enemy",boundary);
 	this.texture="entities/pumpkin_off";
-	this.image=$31e8cfefa331e399$var$images[this.texture];
+	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8(this.texture);
 	this.detectedDuration=2500;
 	this.hasDetected=false;
 	this.targetAngle=0;
@@ -3867,7 +3865,7 @@ class PumpkinEnemy extends Enemy{
 		this.lightRadius = this.radius + 30;
 		this.absoluteZIndex=null;
 		this.relativeZIndex=1;
-		this.image=$31e8cfefa331e399$var$images[this.texture];
+		this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8(this.texture);
 	  }
     }else{
 		  this.targetAngle=this.angle;
@@ -3890,7 +3888,7 @@ class PumpkinEnemy extends Enemy{
 	  this.lightRadius=null;
 	  this.absoluteZIndex=-1;
 	  this.relativeZIndex=0;
-	  this.image=$31e8cfefa331e399$var$images[this.texture];
+	  this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8(this.texture);
 	  this.detectedTime=0;
 	}}
     super.update(delta);
@@ -4241,7 +4239,9 @@ class Torch extends SimulatorEntity{
 	this.lightRadius = this.baseLightRadius;
 	this.renderFirst=true;
 	this.flipped=upside_down;
-	this.image=$31e8cfefa331e399$var$images['entities/torch'].clone();
+	this.imageName="torch";
+	this.loadedImageName="torch";
+	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8("entities/" + this.imageName);
 	this.width=13;
 	this.height=36;
   }
