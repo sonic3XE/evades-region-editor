@@ -4196,7 +4196,7 @@ class FireTrailEnemy extends Enemy{
   update(delta,area) {
     this.clock+=delta;
 	if(!this.isDecay){
-	var duration=(1000*(this.radius*2)/this.speed)/32;
+	var duration=(1000*(this.radius*2)/(this.speed/30))/32;
     if (this.clock>=duration) {
         this.spawnTrail(area);
         this.clock=0;
@@ -4301,7 +4301,7 @@ class FlashlightItem extends SimulatorEntity{
   constructor(x,y){
     super(x,y,null,null,"flashlight_spawner",null,null,null,null,null);
 	this.renderFirst=true;
-	this.texture=$31e8cfefa331e399$var$images['entities/flashlight_item'];
+	this.texture=$31e8cfefa331e399$export$93e5c64e4cc246c8('entities/flashlight_item');
 	this.spawnInterval=1e3;
 	this.width=32;
 	this.height=16;
