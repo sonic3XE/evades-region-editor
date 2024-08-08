@@ -648,6 +648,7 @@ function socketreceive(e){
   message.leaderboard&&(leaderboard.innerHTML=`<span class="leaderboard-title">Region Editor</span><div class="leaderboard-title-break"><br><span class="leaderboard-world-title">Online: ${message.leaderboard.length}/1000</span></div>${message.leaderboard.map(e=>`<div class="leaderboard-line"><span class="leaderboard-name">${e}</span>`).join("")}</div>`);
   (message.chathistory??[]).map(t=>{var M=document.createElement("div");while(M.setAttribute("class","chat-message"),M.setAttribute("style","color:#"+(t.color??(2**24-1)).toString(16).padStart(6,"0")),M.innerHTML="<b>"+t.id+"</b>: "+t.chatmsg,c.appendChild(M),c.scrollTop=c.scrollHeight-c.clientHeight,c.childNodes.length>100){c.childNodes[0].remove()}});
   (message.nick!==null&&message.nick!==undefined)&&(nickname.value=message.nick);
+  message.ping&&socket.send(msgpack.encode({pong:true}));
 }
 socket.addEventListener("close",socketclosed);
 socket.addEventListener("message",socketreceive);
