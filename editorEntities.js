@@ -1516,6 +1516,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
           spawnEntities(this.area);
 		  this.hasTranslated=true;
 		  this.chronoPos=[];
+		  break;
           }
         }
         if(zone.type=="removal"){
@@ -1526,6 +1527,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
           var dist = this.distance({x:this.x,y:this.y},teleporter)
           if(dist < this.radius){
             map.players.splice(map.players.indexOf(this));
+			break;
           }
         }
       }
