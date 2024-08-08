@@ -264,6 +264,7 @@ class SimulatedPlayer extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
   constructor(x,y,hero,username=nickname.value||"Local Player") {
 	super();
     this.x=x;
+	this.accessories={"collection":{"gold-crown":false,"silver-crown":false,"bronze-crown":false,"santa-hat":false,"gold-wreath":false,"spring-wreath":false,"autumn-wreath":false,"winter-wreath":false,"summer-wreath":false,"summer-olympics-wreath":false,"summer-olympics-wreath-2":false,"winter-olympics-wreath":false,"halo":false,"blue-santa-hat":false,"flames":false,"blue-flames":false,"stars":false,"witch-hat":false,"sunglasses":false,"flower-headband":false,"pirate-hat":false,"rose-wreath":false,"gold-jewels":false,"silver-jewels":false,"bronze-jewels":false,"sticky-coat":false,"toxic-coat":false,"orbit-ring":false,"clouds":false,"storm-clouds":false,"tuxedo":false,"doughnut":false,"stardust":false,"broomstick":false,"snowglobe":false},"hat_selection":null,"body_selection":null,"gem_selection":null,"version_number":0};
 	this.showOnMap=true;
 	this.dashTrails=[];
 	this.fullMapOpacity=true;
