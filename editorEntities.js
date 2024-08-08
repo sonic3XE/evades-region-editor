@@ -165,11 +165,11 @@ function spawnEntities(area=current_Area){
 					case "enlarging":
 					case "disabling":
 					case "reducing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
-					case "draining":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"drain"),boundary);break;
-					case "slowing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"slow"),boundary);break;
-					case "gravity":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"gravity"),boundary);break;
-					case "repelling":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"repulsion"),boundary);break;
-					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,`push_direction`)??quicksandDir,prop(spawner,`quicksand_strength`),boundary);break;
+					case "draining":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`draining_radius`),prop(spawner,"drain"),boundary);break;
+					case "slowing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`slowing_radius`),prop(spawner,"slow"),boundary);break;
+					case "gravity":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`gravity_radius`),prop(spawner,"gravity"),boundary);break;
+					case "repelling":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`repelling_radius`),prop(spawner,"repulsion"),boundary);break;
+					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`quicksand_radius`),prop(spawner,`push_direction`)??quicksandDir,prop(spawner,`quicksand_strength`),boundary);break;
 					case "turning":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"circle_size"),boundary);break;
 					case "liquid":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"player_detection_radius"),boundary);break;
 					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),prop(spawner,"switch_time"),prop(spawner,"switched_harmless"),boundary);break;
@@ -1360,7 +1360,7 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
     }
 
     if(this.regenghost){
-      this.energyRegen-=(0.04*this.effectImmune)/this.effectReplayer*timeFix;
+      this.energyRegen-=(1.2*this.effectImmune)/this.effectReplayer*delta/1e3;
       if(this.energyRegen < 1){this.energyRegen = 1;}
     }
 
@@ -4441,12 +4441,13 @@ class CyclingEnemy extends Enemy{
 			this.velangle();
 		}
 		switch(rand){
-			case"SlowingEnemy":this.entity=new SlowingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
-			case"DrainingEnemy":this.entity=new DrainingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
-			case"FreezingEnemy":this.entity=new FreezingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,100,this.boundary);break;
-			case"DisablingEnemy":this.entity=new DisablingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
-			case"ToxicEnemy":this.entity=new ToxicEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
-			case"EnlargingEnemy":this.entity=new EnlargingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,150,this.boundary);break;
+			case"SlowingEnemy":this.entity=new SlowingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,defaultValues.spawner.slowing_radius,defaultValues.spawner.slow,this.boundary);break;
+			case"DrainingEnemy":this.entity=new DrainingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,defaultValues.spawner.draining_radius,defaultValues.spawner.drain,this.boundary);break;
+			case"FreezingEnemy":this.entity=new FreezingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,defaultValues.spawner.freezing_radius,this.boundary);break;
+			case"DisablingEnemy":this.entity=new DisablingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,defaultValues.spawner.disabling_radius,this.boundary);break;
+			case"ToxicEnemy":this.entity=new ToxicEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,defaultValues.spawner.toxic_radius,this.boundary);break;
+			case"EnlargingEnemy":this.entity=new EnlargingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,defaultValues.spawner.enlarging_radius,this.boundary);break;
+			case"HomingEnemy":this.entity=new HomingEnemy(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,defaultValues.spawner.reverse,defaultValues.spawner.home_range,defaultValues.spawner.increment,this.boundary);break;
 			default:this.entity=new (eval(rand))(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180,this.boundary);break;
 		}
 		area.entities.push(this.entity);
