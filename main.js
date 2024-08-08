@@ -342,7 +342,7 @@ canvas.addEventListener("mousemove", e => {
 let updateMouseEntity=true,selectedObjects=[],hitbox=true;
 canvas.addEventListener("contextmenu",e=>{if(e.preventDefault(),e.target===contextmenu||playtesting)return;contextmenu.style.left=e.x+1+"px";contextmenu.style.top=e.y+1+"px";duplicateObject.disabled=deleteObject.disabled=copyObject.disabled=cutObject.disabled=!selectedObjects.length;pasteObject.disabled=!copyObjects.length;rotateObject.disabled=(!selectedObjects.length)||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));deleteArea.disabled=map.areas.length<2;show(contextmenu,updateMouseEntity=false)});
 [displayEnergyBars,tileMode,body_collection,hat_collection,gem_collection].map(e=>e.addEventListener("input",t=>{settings[t.target.id.split("_")[0]]=t.target.selectedIndex}));
-[fadingEffects,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,isSandbox,displayTimer].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.checked}));
+[fadingEffects,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,legacy30FPS,displayTimer].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.checked}));
 [snapX,pelletTransparency,snapY].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.value}));
 joystickDeadzone.addEventListener("input",e=>{settings.joystickDeadzone=e.target.selectedIndex/20});
 document.addEventListener("click",e=>{if(e.target==contextmenu||e.target.parentNode==contextmenu&&e.button==2)return;if(e.target==canvas&&e.button==2)return;hide(contextmenu,updateMouseEntity=true)});
@@ -1233,35 +1233,48 @@ localStorage.getItem("leaderboard")&&(
             <label for="posX">X: <input id="posX" step="1" style="width:50px" type="number"></label><br>
             <label for="posY">Y: <input id="posY" step="1" style="width:50px" type="number"></label>
         </p>*/
-var fpsHist=[],lastTime=0,ti=0;
+var fpsHist=[],lastTime=0,ti=[0,0];
 function rungame(){
 	var r=performance.now()
 	var delta=r-lastTime;
 	lastTime=r;
 	(delta/1e3)**-1<24&&(delta=0);
-	ti+=delta;
-	var actually=(settings.isSandbox?delta:(1e3/30*(ti>(1e3/30-delta/2))))*isActive;
-	ti>(1e3/30-delta/2)&&(ti=0);
+	ti[0]+=delta;
+	ti[1]+=delta;
+	var actually=(settings.legacy30FPS?(1e3/30*(ti[0]>(1e3/30-delta/2))):delta)*isActive;
+	ti[0]>(1e3/30-delta/2)&&(ti[0]=0);
 	var isVisible = settings.enableMouseMovement && settings.toggleMouseMovement && playtesting;
 	inputIndicator.hidden=!isVisible;
-	if(!settings.isSandbox){
+	if(settings.legacy30FPS){
 		while(actually>=1e3/60&&actually!=0){
 			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
 			if(settings.realTime||playtesting){global.mouseDown==void 0&&(global.mouseDown=null);
 			var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
-			selfId&&controlPlayer(selfId,input,1e3/60),
-			map.players.map(e=>{e.update(1e3/60)});
 			if(input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-off.png">`){
 				inputIndicator.innerHTML=`<img src="./buttons/mouse-on.png">`;
 			}else if(!input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-on.png">`){
 				inputIndicator.innerHTML=`<img src="./buttons/mouse-off.png">`;
 			}
+			selfId&&controlPlayer(selfId,input,1e3/60),
+			map.players.map(e=>{e.update(1e3/60)});
 			map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area]))};
 			actually-=1e3/60;
 		}
 	}else{
-		map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
-		(settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),selfId&&controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
+		while(ti[1]>=1e3/60&&actually!=0){
+			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
+			if(settings.realTime||playtesting){global.mouseDown==void 0&&(global.mouseDown=null);
+			var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
+			if(input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-off.png">`){
+				inputIndicator.innerHTML=`<img src="./buttons/mouse-on.png">`;
+			}else if(!input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-on.png">`){
+				inputIndicator.innerHTML=`<img src="./buttons/mouse-off.png">`;
+			}
+			selfId&&controlPlayer(selfId,input,1e3/60),
+			map.players.map(e=>{e.update(1e3/60)});
+			map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area]))};
+			ti[1]-=1e3/60;
+		}
 	}
 	//setTimeout(rungame);
 }

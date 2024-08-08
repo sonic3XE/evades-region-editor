@@ -29,10 +29,10 @@ const settings={
 		return parseInt(localStorage.displayEnergyBars??"0")
 	},set displayEnergyBars(e){
 		localStorage.displayEnergyBars=e;
-	},get isSandbox(){
-		return localStorage.sandbox=="true";
-	},set isSandbox(e){
-		localStorage.sandbox=e;
+	},get legacy30FPS(){
+		return (localStorage.legacy30FPS??"true")=="true";
+	},set legacy30FPS(e){
+		localStorage.legacy30FPS=e;
 	},get toggleMouseMovement(){
 		return (localStorage.toggleMouseMovement??"true")=="true";
 	},set toggleMouseMovement(e){
