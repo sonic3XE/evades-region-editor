@@ -4933,13 +4933,15 @@ class SpeedSniperProjectile extends Enemy{
     this.immune=true;
     this.clock = 0;
   }
-  playerInteraction(player){
-    this.remove=true;
-    player.speed-=this.speed_loss;
-    player.statSpeed-=this.speed_loss;
-    player.speed=Math.max(150,player.speed);
-    player.statSpeed=Math.max(150,player.statSpeed);
-  }
+	playerInteraction(player){
+		if(!player.isDowned()){
+			this.remove=true;
+			player.speed-=this.speed_loss;
+			player.statSpeed-=this.speed_loss;
+			player.speed=Math.max(150,player.speed);
+			player.statSpeed=Math.max(150,player.statSpeed);
+		}
+	}
   onCollide(){
     this.remove=true;
   }
@@ -5065,11 +5067,13 @@ class RegenSniperProjectile extends Enemy{
     this.immune=true;
     this.clock = 0;
   }
-  playerInteraction(player){
-    this.remove=true;
-    player.energyRegen-=this.regen_loss;
-    player.energyRegen=Math.max(1,player.energyRegen);
-  }
+	playerInteraction(player){
+		if(!player.isDowned()){
+			this.remove=true;
+			player.energyRegen-=this.regen_loss;
+			player.energyRegen=Math.max(1,player.energyRegen);
+		}
+	}
   onCollide(){
     this.remove=true;
   }
