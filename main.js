@@ -1242,11 +1242,11 @@ function rungame(){
 	ti+=delta;
 	var actually=(settings.isSandbox?delta:(1e3/30*(ti>(1e3/30-delta/2))))*isActive;
 	ti>(1e3/30-delta/2)&&(ti=0);
-	map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
 	var isVisible = settings.enableMouseMovement && settings.toggleMouseMovement && playtesting;
 	inputIndicator.hidden=!isVisible;
 	if(!settings.isSandbox){
 		while(actually>=1e3/60&&actually!=0){
+			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
 			if(settings.realTime||playtesting){global.mouseDown==void 0&&(global.mouseDown=null);
 			var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
 			selfId&&controlPlayer(selfId,input,1e3/60),
@@ -1260,6 +1260,7 @@ function rungame(){
 			actually-=1e3/60;
 		}
 	}else{
+		map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
 		(settings.realTime||playtesting)&&actually&&(global.mouseDown==void 0&&(global.mouseDown=null),selfId&&controlPlayer(selfId,{isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}},actually),map.players.map(e=>{e.update(actually)}),map.areas[current_Area].entities.map(e=>e.update(actually,map.areas[current_Area])));
 	}
 	//setTimeout(rungame);
