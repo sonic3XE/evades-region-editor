@@ -3499,8 +3499,8 @@ class TeleportingEnemy extends Enemy{
     }else{
 	  this.speedMultiplier *= 0;
 	}
-    this.x+=this.velX*this.speedMultiplier;
-    this.y+=this.velY*this.speedMultiplier;
+    this.x+=this.velX/30*this.speedMultiplier;
+    this.y+=this.velY/30*this.speedMultiplier;
 	this.speedMultiplier=1;
     this.collision(delta);
   }
@@ -3522,8 +3522,8 @@ class StarEnemy extends Enemy{
     }else{
 	  this.speedMultiplier *= 0;
 	}
-    this.x+=this.velX*this.speedMultiplier*2;
-    this.y+=this.velY*this.speedMultiplier*2;
+    this.x+=this.velX/30*this.speedMultiplier*2;
+    this.y+=this.velY/30*this.speedMultiplier*2;
 	this.speedMultiplier=1;
     this.collision(delta);
   }
