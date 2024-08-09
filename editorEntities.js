@@ -2458,7 +2458,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 			e.strokeStyle = i,
 			e.strokeRect(this.x + t.x - 18, this.y + t.y - this.radius - 8, 36, 7)
 		}
-		if (this.name && (e.font = Lu.font(12),
+		if (this.name && (e.font = Lu.font(12/camScale),
 		e.textAlign = "center",
 		e.fillStyle = "black",
 		e.fillText(this.name, this.x + t.x, this.y + t.y - this.radius - 11)),
