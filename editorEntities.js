@@ -2854,7 +2854,7 @@ class LeafProjectile extends Enemy{
 class SnowballProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"snowball_projectile",boundary);
-	this.texture="entities/snowball";
+	this.texture="entities/snowball_projectile";
 	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8(this.texture);
     this.immune=true;
 	this.outline=false;
