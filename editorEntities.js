@@ -313,7 +313,7 @@ this.isDeparted=false;
 this.magnetDirection="DOWN";
 this.abilityOne={abilityType:2};
 this.abilityTwo={abilityType:3};
-this.abilityThree={abilityType:98};
+this.abilityThree={abilityType:97};
 this.abilityIndex=0;
 this.cachedAbilities=[];
 this.availableAbilities=[0,1,2,14,18,31,96,98];
@@ -742,6 +742,31 @@ this.isGuest=!1;
 					entity.speedMultiplier*=abilityLevels[ability.level-1]?.slow;
 					entity.decayed=true;
 				}
+			}
+		};break;
+		case 97:{/*Snowball*/
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				var area=map.areas[this.area];
+				var activeZone=area.zones.filter(e=>e.type=="active").sort((e,t)=>{
+					distance({x:e.x+e.width/2,y:e.y+e.height/2},this)-distance({x:t.x+t.width/2,y:t.y+t.height/2},this)
+				})[0]??area.zones[0];
+				var left=activeZone.x;
+				var right=activeZone.x+activeZone.width;
+				var bottom=activeZone.y+activeZone.height;
+				var top=activeZone.y;
+				var x=this.x+(this.radius+13)*Math.cos(this.input_angle);
+				var y=this.y+(this.radius+13)*Math.sin(this.input_angle);
+				var boundary={left,right,bottom,top,width:activeZone.width,height:activeZone.height};
+				area.entities.push(new SnowballProjectile(x,y,13,780,this.input_angle/Math.PI*180,boundary));
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
 		case 98:{/*Flashlight*/
@@ -1329,20 +1354,28 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
 	)&&this.pointInActiveZone){
 		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
       var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
-      if(this.magnetDirection.toLowerCase() == "down"){this.y += (!this.isIced&&!this.isDowned())*(magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
-      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (!this.isIced&&!this.isDowned())*(-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
+      if(this.magnetDirection.toLowerCase() == "down"){this.y += (!(this.isIced||this.isSnowballed)&&!this.isDowned())*(magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
+      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (!(this.isIced||this.isSnowballed)&&!this.isDowned())*(-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
     }
     if(this.radiusAdditioner!=0){this.radius+=this.radiusAdditioner}
     this.radius *= this.radiusMultiplier;
     this.radiusMultiplier = 1;
     this.radiusAdditioner = 0;
-    this.wasFrozen = this.isIced;
+    this.wasIced = this.isIced;
+    this.wasSnowballed = this.isSnowballed;
     if (this.isIced) {
       this.icedTimeLeft -= delta;
     }
     if (this.icedTimeLeft <= 0) {
       this.isIced = false;
       this.icedTimeLeft = 1000;
+    }
+    if (this.isSnowballed) {
+      this.snowballedTimeLeft -= delta;
+    }
+    if (this.snowballedTimeLeft <= 0) {
+      this.isSnowballed = false;
+      this.snowballedTimeLeft = 2500;
     }
 	if(this.isLead){
 	  this.leadTime-=delta;
@@ -1434,9 +1467,9 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
     this.distance_moved_previously = [this.d_x,this.d_y]
       this.velX=this.d_x;
       this.velY=this.d_y;
-	evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling;
-	evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling;
-	evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling;
+	evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling||this.isSnowballed;
+	evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling||this.isSnowballed;
+	evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling||this.isSnowballed;
 	if(!this.blocking){
 		this.slowing = [false];
 		this.freezing = false;
@@ -1469,9 +1502,9 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
     this.vertSpeed = -1;
 	this.magneticReduction=false;
 	this.magneticNullification=false;
-    if (!this.wasFrozen&&!this.isDowned()) {
-      this.x += vel.x * delta/1e3;
-      this.y += vel.y * delta/1e3;
+    if (!(this.wasFrozen||this.wasSnowballed)&&!this.isDowned()) {
+      this.x += vel.x * delta / 1e3;
+      this.y += vel.y * delta / 1e3;
     }
     this.speedMultiplier = 1;
     this.speedAdditioner = 0;
@@ -2816,6 +2849,30 @@ class LeafProjectile extends Enemy{
       this.remove = true;
     }
 	super.update(delta,area);
+  }
+}
+class SnowballProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"snowball_projectile",boundary);
+	this.texture="entities/snowball";
+	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8(this.texture);
+    this.immune=true;
+	this.outline=false;
+	this.clock=0;
+  }
+  playerInteraction(player){
+	if(!player.isDowned()){
+		player.isSnowballed=true;
+		player.snowballedTimeLeft=2500;
+		this.remove=true;
+	}
+  }
+  update(delta){
+	this.clock+=delta;
+    if(this.clock>25e3/6){
+      this.remove=true;
+    }
+	super.update(delta);
   }
 }
 class ImmuneEnemy extends Enemy{
