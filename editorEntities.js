@@ -2437,6 +2437,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	}
 	
 	render(e, t, delta) {
+		const Lu=$f36928166e04fda7$export$2e2bcd8739ae039;
 		(this.isHarmless || this.grassHarmless) && (e.globalAlpha = .4);
 		let n = this.harmlessTime;
 		if (this.grassHarmless && this.grassTime > 0 && (n = Math.max(this.grassTime, n)),
