@@ -759,7 +759,7 @@ this.isGuest=!1;
 				var x=this.x+(this.radius+13)*Math.cos(this.input_angle);
 				var y=this.y+(this.radius+13)*Math.sin(this.input_angle);
 				var boundary={left,right,bottom,top,width:activeZone.width,height:activeZone.height};
-				area.entities.push(new SnowballProjectile(x,y,13,780,this.input_angle/Math.PI*180,boundary));
+				area.entities.push(new SnowballProjectile(x,y,13,780,this.input_angle/Math.PI*180,this.area,boundary));
 				abilityActive=false;
 				switch(kind){
 					case 1:this.firstAbilityActivated=false;break;
@@ -2852,9 +2852,11 @@ class LeafProjectile extends Enemy{
   }
 }
 class SnowballProjectile extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
+  constructor(x,y,radius,speed,angle,area,boundary){
     super(x,y,radius,speed,angle,"snowball_projectile",boundary);
 	this.texture="entities/snowball_projectile";
+	this.showOnMap=true;
+	this.area=area;
 	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8(this.texture);
     this.immune=true;
 	this.outline=false;

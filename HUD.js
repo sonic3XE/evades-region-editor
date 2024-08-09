@@ -1863,7 +1863,7 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			void 0 !== a.heroType && (o = !0,
 			e.strokeStyle = $01bb7fd9b3660a1e$export$71c647defb4fbd5a(a.heroType).strokeColor);
 		e.fillStyle = a.color,
-		current_Area != a.area && (e.globalAlpha = .5),
+		(current_Area != a.area || a.isEnemy) && (e.globalAlpha = .5),
 		e.lineWidth = 2*camScale,
 		$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, t, r, c + 2*camScale, !0, o),
 		e.globalAlpha = 1
