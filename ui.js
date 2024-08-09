@@ -9,6 +9,8 @@ var curLang={
   "editor.asset.light_region":"Light Region",
   "editor.asset.flashlight_spawner":"Flashlight Spawner",
   "editor.category.aura": "Enemy's Aura",
+  "editor.category.slowing": "Slowing Enemy",
+  "editor.category.draining": "Draining Enemy",
   "editor.category.icicle": "Icicle Enemy",
   "editor.category.homing": "Homing Enemy",
   "editor.category.liquid": "Liquid Enemy",

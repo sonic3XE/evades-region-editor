@@ -4514,7 +4514,7 @@ class WavyEnemy extends Enemy{
     this.dir = 1;
     this.switchInterval = 800;
     this.waveTime = 0;
-    this.angleIncrement = (this.speed + 6) / this.circleSize;
+    this.angleIncrement = (this.speed/30 + 6) / this.circleSize;
   }
   update(delta) {
     this.waveTime += delta
