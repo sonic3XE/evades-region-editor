@@ -685,7 +685,6 @@ this.isGuest=!1;
 					for(var entity of map.areas[this.area].entities){
 						if(entity.isEnemy&&this.distance(this,entity)<(radius+entity.radius)&&!entity.immune){
 							entity.freeze(2000);
-							entity.damage(15);
 						}
 					}
 					this.effects.filter(e=>e.effectType==2).map(e=>{
@@ -4595,9 +4594,16 @@ class RingSniperEnemy extends Enemy{
     super(x,y,radius,speed,angle,"ring_sniper_enemy",boundary);
     this.release_interval=5000;
 	this.maxHealth=this.health=100;
+	this.auraRadius=180;
 	this.releaseTime=Math.random()*this.release_interval;
+	this.effects.push({radius:180,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+	this.drainingHP=false;
+  }
+  auraEffect(player,delta){
+	if(!player.isDowned())this.drainingHP=true;
   }
   update(delta,area) {
+	this.health-=13.5*delta/1e3;
     if(this.releaseTime<=0){
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
