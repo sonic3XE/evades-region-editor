@@ -313,7 +313,7 @@ this.isDeparted=false;
 this.magnetDirection="DOWN";
 this.abilityOne={abilityType:2};
 this.abilityTwo={abilityType:3};
-this.abilityThree={abilityType:97};
+//this.abilityThree={abilityType:97};
 this.abilityIndex=0;
 this.cachedAbilities=[];
 this.availableAbilities=[0,1,2,14,18,31,96,98];
@@ -554,6 +554,7 @@ this.isGuest=!1;
     return collided;
   }
 	handleAbility(ability,kind=1,delta,others,force=false){
+	if(!ability)return;
 	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
 	if(ability.locked||(this.deathTimer!=-1&&ability.abilityType!=18)||ability.disabled||ability.level==void 0||(!ability.continuous&&this.energy<ability.energyCost)){
 			if(kind==1)this.firstAbilityActivated=false;
@@ -772,11 +773,24 @@ this.isGuest=!1;
 		case 98:{/*Flashlight*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 				if(!this.effects.filter(e=>e.effectType==66).length){
-					this.effects.push({effectType:66,inputAngle:this.input_angle,hasLight:true,cone:{"innerAngle":35,"distance":500}});
+					this.effects.push({effectType:66,inputAngle:this.input_angle,...EvadesConfig.effects[66]});
 				}
 			}
 			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
 				this.effects.filter(e=>e.effectType==66).map(e=>{
+					e.removed=true;
+				});
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 99:{/*Lantern*/
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+				if(!this.effects.filter(e=>e.effectType==67).length){
+					this.effects.push({effectType:67,...EvadesConfig.effects[67]});
+				}
+			}
+			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
+				this.effects.filter(e=>e.effectType==67).map(e=>{
 					e.removed=true;
 				});
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
@@ -1153,132 +1167,131 @@ this.isGuest=!1;
                   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
                 }
 	update(delta){
-    this.update_knockback(delta);
-let timeFix=delta/(1e3/30);
-	  var cent=this.isCent;
-	  if(this.isLead)cent=!cent;
+		this.update_knockback(delta);
+		let timeFix=delta/(1e3/30);
+		var cent=this.isCent;
+		if(this.isLead)cent=!cent;
 		var rotationSpeed = 450;
 		var angle=this.input_angle/Math.PI*180;
-      if(angle<0){angle+=360}
-      if(angle>=360){angle-=360}
-      var distanceOne = angle - Math.abs(this.lastAngle);
-      if(this.lastAngle<=angle+rotationSpeed*delta/1e3&&this.lastAngle>=angle-rotationSpeed*delta/1e3){}
-      else if(distanceOne<-180){this.lastAngle+=rotationSpeed*delta/1e3;}
-      else if(distanceOne>=180){this.lastAngle-=rotationSpeed*delta/1e3;}
-      else if(distanceOne<0){this.lastAngle-=rotationSpeed*delta/1e3;}
-      else if(distanceOne>0){this.lastAngle+=rotationSpeed*delta/1e3;}
-      if(this.lastAngle>=360)this.lastAngle-=360;
-      if(this.lastAngle<0)this.lastAngle+=360;
-      if(this.lastAngle<=angle+rotationSpeed*delta/1e3&&this.lastAngle>=angle-rotationSpeed*delta/1e3){this.lastAngle = angle}
-this.chronoPos.push([this.x,this.y,this.deathTimer]);
-this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
-    this.inBarrier = false;
-	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
-	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
-	  var ab3=evadesRenderer.heroInfoCard.abilityThree;
-			if(ab1.cooldown!==void 0&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
-				ab1.cooldown-=delta/1e3;
-				ab1.cooldown=Math.max(ab1.cooldown,0);
-			}
-			if(ab2.cooldown!==void 0&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
-				ab2.cooldown-=delta/1e3;
-				ab2.cooldown=Math.max(ab2.cooldown,0);
-			}
-			if(ab3.cooldown!==void 0&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
-				ab3.cooldown-=delta/1e3;
-				ab3.cooldown=Math.max(ab3.cooldown,0);
-			}
-			if(this.noCooldown){
-				ab1.cooldown=0;
-				ab2.cooldown=0;
-				ab3.cooldown=0;
-			}
-			this.updateEffects([ab1,ab2,ab3]);
-		let area=map.areas[this.area];
-      this.safeZone = true;
-      this.minimum_speed = 1;
-      this.pointInActiveZone=false;
-      for(var i in area.zones){
-        var zone = area.zones[i];
-        var rect1 = {x:this.x,y:this.y,width:this.radius, height:this.radius};
-        var rect2 = {x:zone.x,y:zone.y,width:zone.width, height:zone.height}
-        if (rect1.x - this.radius < rect2.x + rect2.width &&
-            rect1.x + this.radius > rect2.x &&
-            rect1.y - this.radius < rect2.y + rect2.height &&
-            rect1.y + this.radius > rect2.y) {
-            if(zone.type=="active")this.safeZone=false;
-        }
-        if (rect1.x < rect2.x + rect2.width &&
-          rect1.x > rect2.x &&
-          rect1.y < rect2.y + rect2.height &&
-          rect1.y > rect2.y) {
-          if(zone.type=="active")this.pointInActiveZone=true;
-          if(zone.properties.minimum_speed){
-            this.minimum_speed=zone.properties.minimum_speed;
-          }
-        }
-      }
-	const deadPlayers=map.players.filter(e=>{
-      return (e.isDowned() || e.deathTimer!=-1) && e.area == this.area && (distance(e, this) < e.radius + this.radius);
-    });
-	for(var i in deadPlayers){
-		if(deadPlayers[i]!==this&&this.deathTimer==-1&&this.rescueable){
-			deadPlayers[i].deathTimer=-1;
-			this.rescuedCount++;
-			this.interactions.indexOf(deadPlayers[i])==-1&&this.interactions.push(deadPlayers[i]);
-			deadPlayers[i].interactions.indexOf(this)==-1&&deadPlayers[i].interactions.push(this);
-			this.playerInteractions=this.interactions.length;
+		if(angle<0){angle+=360}
+		if(angle>=360){angle-=360}
+		var distanceOne = angle - Math.abs(this.lastAngle);
+		if(this.lastAngle<=angle+rotationSpeed*delta/1e3&&this.lastAngle>=angle-rotationSpeed*delta/1e3){}
+		else if(distanceOne<-180){this.lastAngle+=rotationSpeed*delta/1e3;}
+		else if(distanceOne>=180){this.lastAngle-=rotationSpeed*delta/1e3;}
+		else if(distanceOne<0){this.lastAngle-=rotationSpeed*delta/1e3;}
+		else if(distanceOne>0){this.lastAngle+=rotationSpeed*delta/1e3;}
+		if(this.lastAngle>=360)this.lastAngle-=360;
+		if(this.lastAngle<0)this.lastAngle+=360;
+		if(this.lastAngle<=angle+rotationSpeed*delta/1e3&&this.lastAngle>=angle-rotationSpeed*delta/1e3){this.lastAngle = angle}
+		this.chronoPos.push([this.x,this.y,this.deathTimer]);
+		this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
+		this.inBarrier = false;
+		var ab1=evadesRenderer.heroInfoCard.abilityOne;
+		var ab2=evadesRenderer.heroInfoCard.abilityTwo;
+		var ab3=evadesRenderer.heroInfoCard.abilityThree;
+		if(ab1.cooldown!==void 0&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
+			ab1.cooldown-=delta/1e3;
+			ab1.cooldown=Math.max(ab1.cooldown,0);
 		}
-	}
-	if(this.area!=0){
-		for(var otherplayer of map.players){
-			if(otherplayer.area == this.area && otherplayer != this){
-				this.interactions.indexOf(otherplayer)==-1&&
-				this.interactions.push(otherplayer);
+		if(ab2.cooldown!==void 0&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
+			ab2.cooldown-=delta/1e3;
+			ab2.cooldown=Math.max(ab2.cooldown,0);
+		}
+		if(ab3.cooldown!==void 0&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
+			ab3.cooldown-=delta/1e3;
+			ab3.cooldown=Math.max(ab3.cooldown,0);
+		}
+		if(this.noCooldown){
+			ab1.cooldown=0;
+			ab2.cooldown=0;
+			ab3.cooldown=0;
+		}
+		this.updateEffects([ab1,ab2,ab3]);
+		let area=map.areas[this.area];
+		this.safeZone = true;
+		this.minimum_speed = 1;
+		this.pointInActiveZone=false;
+		for(var i in area.zones){
+			var zone=area.zones[i],rect1={x:this.x,y:this.y,width:this.radius, height:this.radius},rect2={x:zone.x,y:zone.y,width:zone.width, height:zone.height};
+			if(zone.type=="active"&&rect1.x-this.radius<rect2.x+rect2.width&&rect1.x+this.radius>rect2.x&&rect1.y-this.radius<rect2.y+rect2.height&&rect1.y+this.radius>rect2.y)this.safeZone=false;
+			if(rect1.x<rect2.x+rect2.width&&rect1.x>rect2.x&&rect1.y<rect2.y+rect2.height&&rect1.y>rect2.y){
+				if(zone.type=="active")this.pointInActiveZone=true;
+				if(zone.properties.minimum_speed)this.minimum_speed=zone.properties.minimum_speed;
+			}
+		}
+		const deadPlayers=map.players.filter(e=>{
+		return (e.isDowned() || e.deathTimer!=-1) && e.area == this.area && (distance(e, this) < e.radius + this.radius);
+		});
+		for(var i in deadPlayers){
+			if(deadPlayers[i]!=this&&this.deathTimer==-1&&this.rescueable){
+				deadPlayers[i].deathTimer=-1;this.rescuedCount++;
+				this.interactions.indexOf(deadPlayers[i])==-1&&this.interactions.push(deadPlayers[i]);
+				deadPlayers[i].interactions.indexOf(this)==-1&&deadPlayers[i].interactions.push(this);
 				this.playerInteractions=this.interactions.length;
 			}
 		}
-	}
-      var onTele=false;
-      this.speedMultiplier = 1;
-      if(this.collides&&this.slippery){
-        this.d_x*=2;
-        this.d_y*=2;
-        this.collidedPrev = true;
-      } else if (this.collidedPrev) {
-        this.d_x/=2;
-        this.d_y/=2;
-        this.collidedPrev = false;
-      }
-      if (this.isPoisoned) {
-        this.poisonedTimeLeft -= delta;
-        this.speedMultiplier *= 3;
-      }
-      if (this.poisonedTimeLeft <= 0) {
-        this.isPoisoned = false;
-        this.poisonedTimeLeft = 1000;
-      }
-      if (this.fusion) {
-        this.speedMultiplier *= 0.7;
-      }
-      if (!cent&&this.shift == 2) {
-        this.speedMultiplier *= 0.5;
-        this.speedAdditioner *= 0.5;
-      }
-	  this.slowing??=[false];
-	  this.draining??=[false];
-      if (this.slowing[0]) {
-        this.speedMultiplier *= (1-this.effectImmune*this.slowing[1])*this.effectReplayer;
-      }
-      if (this.draining[0]) {
-        this.energyRate -= this.draining[1]*this.effectImmune*this.effectReplayer;
-      }
-      if (this.lava) {
-        this.energyRate += 15;
-	    if(this.energy>=this.maxEnergy){
-          death(this);this.energy=0;
-	    }
-      }
+		if(this.area){
+			for(var otherplayer of map.players){
+				if(otherplayer.area==this.area&&otherplayer!=this){
+					this.interactions.indexOf(otherplayer)==-1&&this.interactions.push(otherplayer);
+					this.playerInteractions=this.interactions.length;
+				}
+			}
+		}
+		if(!this.abilityThree&&area.properties.applies_lantern){
+			if(this.abilityThree?.abilityType!=99){
+				this.abilityThree={};
+				this.abilityThree.abilityType=99;
+				evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
+				evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[this.abilityThree.abilityType]);
+				evadesRenderer.heroInfoCard.abilityThree.locked=false;
+				evadesRenderer.heroInfoCard.abilityThree.level=1;
+				evadesRenderer.heroInfoCard.abilityThree.abilityType=this.abilityThree.abilityType;
+				this.isSpawned=false;
+			}
+		}
+		var onTele=false;
+		this.speedMultiplier = 1;
+		if(this.collides&&this.slippery){
+			this.d_x*=2;
+			this.d_y*=2;
+			this.collidedPrev = true;
+		} else if (this.collidedPrev) {
+			this.d_x/=2;
+			this.d_y/=2;
+			this.collidedPrev = false;
+		}
+		if (this.isPoisoned) {
+			this.poisonedTimeLeft -= delta;
+			this.speedMultiplier *= 3;
+		}
+		if (this.poisonedTimeLeft <= 0) {
+			this.isPoisoned = false;
+			this.poisonedTimeLeft = 1000;
+		}
+		if (this.fusion) {
+			this.speedMultiplier *= 0.7;
+		}
+		if (!cent&&this.shift == 2) {
+			this.speedMultiplier *= 0.5;
+			this.speedAdditioner *= 0.5;
+		}
+		this.slowing??=[false];
+		this.draining??=[false];
+		if (this.slowing[0]) {
+			this.speedMultiplier *= (1-this.effectImmune*this.slowing[1])*this.effectReplayer;
+		}
+		if (this.draining[0]) {
+			this.energyRate -= this.draining[1]*this.effectImmune*this.effectReplayer;
+		}
+		if (this.lava) {
+			this.energyRate += 15;
+			if(this.energy>=this.maxEnergy){
+				death(this);
+				this.energy=0;
+			}
+		}
 		if(this.experienceDraining){
 			this.experience-=2*this.level*delta/1e3;
 			this.experience=Math.max(0,this.experience);
@@ -1290,328 +1303,255 @@ this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
 				this.nextLevelExperience=Number(this.nextLevelExperience.toFixed(5));
 			}
 		}
-	  if(this.enlarging)this.radiusAdditioner+=10;
-	  if(this.toxic){
-		this.energy=Math.min(this.energy,this.maxEnergy*0.7);
-	  }
-      if (this.freezing) {
-        this.speedMultiplier *= (1-this.effectImmune*(1-0.2))*this.effectReplayer;
-      }
-      if(this.className == "Brute"){
-        if(this.energy == this.maxEnergy){
-          this.effectImmune = 0;
-        } else {this.effectImmune = 0.2}
-      }
-
-      if (this.shadowed_time_left>0){
-        this.shadowed_time_left-=delta;
-      } else {
-        this.knockback_limit_count = 0;
-        this.shadowed_invulnerability = false;
-      }
-
-      if(this.mortarTime>0){this.speedMultiplier = 0;}
-      if(this.minimum_speed>this.statSpeed+this.speedAdditioner){this.statSpeed=this.minimum_speed}
-        if(cent){
-          this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
-          this.cent_max_distance = this.distance_movement * 2;
-          if(this.cent_is_moving){
-            if(this.cent_accelerating){
-              if(this.cent_distance < this.cent_max_distance){
-                this.cent_distance += this.cent_acceleration * this.distance_movement * timeFix;
-              } else {
-                this.cent_distance = this.cent_max_distance;
-                this.cent_accelerating = false;
-              }
-            } else {
-              if(this.cent_distance > 0){
-                this.cent_distance -= this.cent_deceleration * this.distance_movement * timeFix;
-              } else {
-                this.cent_distance = 0;
-                this.cent_accelerating = true;
-                this.cent_is_moving = false;
-                this.cent_input_ready = true;
-              }
-            }
-            if(this.cent_distance<0){this.cent_distance = 0;}
-          }
-          this.distance_movement = this.cent_distance;
-        }
-    if (Math.abs(this.velX)<1/32) {
-      this.velX = 0;
-    }
-    if (Math.abs(this.velY)<1/32) {
-      this.velY = 0;
-    }
-	this.survivalTime+=delta/1e3;
-    this.radius = this.defaultRadius;
-	var velY=this.velY;
-    if((
-	map.properties?.magnetism||
-	map.properties?.partial_magnetism||
-	map.areas[this.area].properties?.magnetism||
-	map.areas[this.area].properties?.partial_magnetism
-	)&&this.pointInActiveZone){
-		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
-      var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
-      if(this.magnetDirection.toLowerCase() == "down"){this.y += (!(this.isIced||this.isSnowballed)&&!this.isDowned())*(magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
-      else if(this.magnetDirection.toLowerCase() == "up"){this.y += (!(this.isIced||this.isSnowballed)&&!this.isDowned())*(-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
-    }
-    if(this.radiusAdditioner!=0){this.radius+=this.radiusAdditioner}
-    this.radius *= this.radiusMultiplier;
-    this.radiusMultiplier = 1;
-    this.radiusAdditioner = 0;
-    this.wasIced = this.isIced;
-    this.wasSnowballed = this.isSnowballed;
-    if (this.isIced) {
-      this.icedTimeLeft -= delta;
-    }
-    if (this.icedTimeLeft <= 0) {
-      this.isIced = false;
-      this.icedTimeLeft = 1000;
-    }
-    if (this.isSnowballed) {
-      this.snowballedTimeLeft -= delta;
-    }
-    if (this.snowballedTimeLeft <= 0) {
-      this.isSnowballed = false;
-      this.snowballedTimeLeft = 2500;
-    }
-	if(this.isLead){
-	  this.leadTime-=delta;
-	}
-	if(this.leadTime<0){
-	  this.isLead=false;
-	  this.leadTime=0;
-	}
-
-    if(this.speedghost){
-      this.speed-=(0.1*this.effectImmune)/this.effectReplayer*delta/1e3;
-      this.statSpeed-=(0.1*this.effectImmune)/this.effectReplayer*delta/1e3;
-      if(this.speed < 150){this.speed = 150;}
-      if(this.statSpeed < 150){this.statSpeed = 150;}
-    }
-
-    if(this.regenghost){
-      this.energyRegen-=(1.2*this.effectImmune)/this.effectReplayer*delta/1e3;
-      if(this.energyRegen < 1){this.energyRegen = 1;}
-    }
-
-    if (this.inEnemyBarrier){
-      this.inBarrier = true;
-    }
-    if (this.reducingTime>0&&!this.reducing){
-      this.reducingTime-=delta;
-	  this.radiusMultiplier*=1-this.reducingTime/2e3;
-    }
-    if (this.reducingTime>0&&this.reducing){
-	  this.reducingTime+=delta;
-	  if(this.reducingTime>2e3){
-		this.reducingTime=2e3;
-		death(this);
-	  }
-	  this.radiusMultiplier*=1-this.reducingTime/2e3;
-    }
-
-    if(this.quicksand[0]&&!this.invulnerable){
-      this.x += Math.cos(this.quicksand[1]*Math.PI/180)*this.quicksand[2]*delta/1e3;
-      this.y += Math.sin(this.quicksand[1]*Math.PI/180)*this.quicksand[2]*delta/1e3;
-      this.quicksand[0] = false;
-    }
-
-    this.energy += this.energyRate * delta/1e3;
-	this.energyRate=this.energyRegen+this.regenAdditioner;
-	if(this.energy > this.maxEnergy)this.energy=this.maxEnergy;
-	if(this.energy < 0)this.energy=0;
-    this.oldPos = (this.previousPos.x == this.x && this.previousPos.y == this.y) ? this.oldPos : {x:this.previousPos.x,y:this.previousPos.y}
-    this.previousPos = {x:this.x, y:this.y};
-    var dim = 1 - map.properties.friction;
-    if (this.slippery) {
-      dim = 0;
-    }
-    //dim = 0;
-    var friction_factor = dim;
-
-    this.slide_x = this.distance_moved_previously[0];
-    this.slide_y = this.distance_moved_previously[1];
-
-    this.slide_x *= friction_factor;
-    this.slide_y *= friction_factor;
-
-    this.d_x += this.slide_x;
-    this.d_y += this.slide_y;
-    this.abs_d_x = Math.abs(this.d_x)
-    this.abs_d_y = Math.abs(this.d_y);
-    if(cent){
-      if(this.abs_d_x > this.cent_max_distance && !this.slippery){
-        this.d_x *= this.cent_max_distance / this.abs_d_x;
-      }
-      if(this.abs_d_y > this.cent_max_distance && !this.slippery){
-        this.d_y *= this.cent_max_distance / this.abs_d_y;
-      }
-    } else {
-      if(this.abs_d_x>this.distance_movement&&!this.slippery){
-        this.d_x *= this.distance_movement / this.abs_d_x;
-      }
-      if(this.abs_d_y>this.distance_movement&&!this.slippery){
-        this.d_y *= this.distance_movement / this.abs_d_y;
-      }
-    }
-    this.prevSlippery = this.slippery;
-    if (this.abs_d_x<1/32) {
-      this.d_x = 0;
-    }
-    if (this.abs_d_y<1/32) {
-      this.d_y = 0;
-    }
-    this.distance_moved_previously = [this.d_x,this.d_y]
-      this.velX=this.d_x;
-      this.velY=this.d_y;
-	evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling||this.isSnowballed;
-	evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling||this.isSnowballed;
-	evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling||this.isSnowballed;
-	if(!this.blocking){
-		this.slowing = [false];
-		this.freezing = false;
-		this.web = false;
-		this.cobweb = false;
-		this.sticky = false;
-		this.toxic=false;
-		this.experienceDraining=false;
-		this.reducing = false;
-		this.enlarging = false;
-		this.draining = [false];
-		this.lava = false;
-		this.speedghost = false;
-		this.regenghost = false;
-		this.inEnemyBarrier=false;
-		this.slippery = false;
-		this.disabling=false;
-	}
-	this.blocking=false;
-    this.tempColor=this.color;
-    var vel;
-		var isMagnet=Boolean(map.properties?.magnetism)||Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
-		var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
-      var magneticSpeed = (this.vertSpeed == -1) ? ((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)) : this.vertSpeed;
-    var yaxis = (this.velY>=0)?1:-1;
-    if(!isMagnet){magneticSpeed*=yaxis;}
-    if(this.magnetDirection.toLowerCase() == "up"){magneticSpeed=-magneticSpeed}
-    if((isMagnet||this.vertSpeed != -1)&&this.pointInActiveZone){vel = {x:this.velX, y:this.velY*this.magneticNullification};}
-    else{vel = {x:this.velX, y:this.velY};}
-    this.vertSpeed = -1;
-	this.magneticReduction=false;
-	this.magneticNullification=false;
-    if (!(this.wasFrozen||this.wasSnowballed)&&!this.isDowned()) {
-      this.x += vel.x * delta / 1e3;
-      this.y += vel.y * delta / 1e3;
-    }
-    this.speedMultiplier = 1;
-    this.speedAdditioner = 0;
-    this.regenAdditioner = 0;
-    if(this.deathTimer!=-1){
-      this.deathTimer-=delta;
-      this.deathTimer=Math.max(0,this.deathTimer);
-    }
-      for(var i in area.zones){
-        var zone = area.zones[i];
-        if(zone.type=="teleport"||zone.type=="exit"){
-          var absolutePos={x:this.x+map.areas[this.area].x,y:this.y+map.areas[this.area].y}
-          var zonePos={x:zone.x,y:zone.y}
-          var zoneSize={x:zone.width,y:zone.height};
-          var teleporter=closestPointToRectangle({x:this.x,y:this.y},zonePos,zoneSize)
-          var dist = this.distance({x:this.x,y:this.y},teleporter)
-          if(dist < this.radius){
-            onTele=true;
-          }
-          if(dist < this.radius && !this.onTele){
-          var max = Math.pow(10, 1000);
-          var maxArea = 0;
-          var targetPoint = {x:this.x + zone.translate.x, y:this.y + zone.translate.y};
-          for (var j in map.areas) {
-            if(j==this.area)continue;
-            var rect = getAreaBoundary(map.areas[j]);
-            var closest = closestPointToRectangle(targetPoint,
-{x:map.areas[j].x-map.areas[this.area].x, y:map.areas[j].y-map.areas[this.area].y},
-{x:rect.width, y:rect.height})
-            var dist = this.distance(targetPoint, closest)
-            if (dist < max) {
-              max = dist;
-              maxArea = parseInt(j);
-            }
-          }
-          this.x=targetPoint.x+(map.areas[this.area].x-map.areas[maxArea].x);
-          this.y=targetPoint.y+(map.areas[this.area].y-map.areas[maxArea].y);
-          map.areas[this.area].entities=[];
-          this.area = maxArea;
-          spawnEntities(this.area);
-		  this.hasTranslated=true;
-		  this.chronoPos=[];
-		  break;
-          }
-        }
-        if(zone.type=="removal"){
-          var absolutePos={x:this.x+map.areas[this.area].x,y:this.y+map.areas[this.area].y}
-          var zonePos={x:zone.x,y:zone.y}
-          var zoneSize={x:zone.width,y:zone.height};
-          var teleporter=closestPointToRectangle({x:this.x,y:this.y},zonePos,zoneSize)
-          var dist = this.distance({x:this.x,y:this.y},teleporter)
-          if(dist < this.radius){
-            map.players.splice(map.players.indexOf(this));
-			break;
-          }
-        }
-      }
-          this.onTele=onTele;
-		  var safeZone;
-          area=map.areas[this.area];
-		  for(var zone of area.zones){
-			  if(zone.type=="safe"){
-				  safeZone=zone;
-				  break;
-			  };
-		  };
-		  for(var zone of area.zones){
-			  if(this.hasTranslated&&zone.type=="teleport"&&rectCircleCollision(this.x, this.y, this.radius, zone?.x, zone?.y, zone?.width, zone?.height).c){
-				var left=safeZone.x;
-				var right=safeZone.x+safeZone.width;
-				var top=safeZone.y;
-				var bottom=safeZone.y+safeZone.height;
+		if(this.enlarging)this.radiusAdditioner+=10;
+		if(this.toxic){
+			this.energy=Math.min(this.energy,this.maxEnergy*0.7);
+		}
+		if(this.freezing){
+			this.speedMultiplier*=(1-this.effectImmune*(1-0.2))*this.effectReplayer;
+		}
+		if(this.className=="Brute"){
+			if(this.energy>=this.maxEnergy)this.effectImmune = 0;
+			else this.effectImmune=0.2;
+		}
+		if(this.shadowed_time_left>0)this.shadowed_time_left-=delta;
+		else{
+			this.knockback_limit_count = 0;
+			this.shadowed_invulnerability = false;
+		}
+		if(this.mortarTime>0)this.speedMultiplier=0;
+		if(this.minimum_speed>this.statSpeed+this.speedAdditioner)this.statSpeed=this.minimum_speed;
+		if(cent){
+			this.distance_movement=(this.speed*this.speedMultiplier)+this.speedAdditioner;
+			this.cent_max_distance=this.distance_movement*2;
+			if(this.cent_is_moving){
+				if(this.cent_accelerating){
+					if(this.cent_distance<this.cent_max_distance)this.cent_distance+=this.cent_acceleration*this.distance_movement*timeFix;
+					else {
+						this.cent_distance=this.cent_max_distance;
+						this.cent_accelerating=false;
+					}
+				} else {
+					if(this.cent_distance>0)this.cent_distance-=this.cent_deceleration*this.distance_movement*timeFix;
+					else {
+						this.cent_distance=0;
+						this.cent_accelerating=true;
+						this.cent_is_moving=false;
+						this.cent_input_ready=true;
+					}
+				}
+				if(this.cent_distance<0)this.cent_distance=0;
+			}
+			this.distance_movement = this.cent_distance;
+		}
+		if (Math.abs(this.velX)<1/32) {
+			this.velX = 0;
+		}
+		if (Math.abs(this.velY)<1/32) {
+			this.velY = 0;
+		}
+		this.survivalTime+=delta/1e3;
+		this.radius = this.defaultRadius;
+		var velY=this.velY;
+		if((map.properties?.magnetism||map.properties?.partial_magnetism||map.areas[this.area].properties?.magnetism||map.areas[this.area].properties?.partial_magnetism)&&this.pointInActiveZone){
+			var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
+			var magneticSpeed=(this.vertSpeed==-1)?((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)):this.vertSpeed;
+			if(this.magnetDirection.toLowerCase()=="down"){this.y+=(!(this.isIced||this.isSnowballed)&&!this.isDowned())*(magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
+			else if(this.magnetDirection.toLowerCase()=="up"){this.y+=(!(this.isIced||this.isSnowballed)&&!this.isDowned())*(-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
+		}
+		if(this.radiusAdditioner!=0){this.radius+=this.radiusAdditioner}
+		this.radius*=this.radiusMultiplier;
+		this.radiusMultiplier=1;
+		this.radiusAdditioner=0;
+		this.wasIced=this.isIced;
+		this.wasSnowballed=this.isSnowballed;
+		if(this.isIced)this.icedTimeLeft-=delta;
+		if(this.icedTimeLeft<=0){
+			this.isIced=false;
+			this.icedTimeLeft=1000;
+		}
+		if(this.isSnowballed)this.snowballedTimeLeft-=delta;
+		if(this.snowballedTimeLeft<=0){
+			this.isSnowballed=false;
+			this.snowballedTimeLeft=2500;
+		}
+		if(this.isLead)this.leadTime-=delta;
+		if(this.leadTime<0){
+			this.isLead=false;
+			this.leadTime=0;
+		}
+		if(this.speedghost){
+			this.speed-=(0.1*this.effectImmune)/this.effectReplayer*delta/1e3;
+			this.statSpeed-=(0.1*this.effectImmune)/this.effectReplayer*delta/1e3;
+			if(this.speed<150)this.speed=150;
+			if(this.statSpeed<150)this.statSpeed=150;
+		}
+		if(this.regenghost){
+			this.energyRegen-=(1.2*this.effectImmune)/this.effectReplayer*delta/1e3;
+			if(this.energyRegen<1)this.energyRegen=1;
+		}
+		if (this.inEnemyBarrier)this.inBarrier=true;
+		if (this.reducingTime>0&&!this.reducing){
+			this.reducingTime-=delta;
+			this.radiusMultiplier*=1-this.reducingTime/2e3;
+		}
+		if (this.reducingTime>0&&this.reducing){
+			this.reducingTime+=delta;
+			if(this.reducingTime>2e3){
+				this.reducingTime=2e3;
+				death(this);
+			}
+			this.radiusMultiplier*=1-this.reducingTime/2e3;
+		}
+		if(this.quicksand[0]&&!this.invulnerable){
+			this.x+=Math.cos(this.quicksand[1]*Math.PI/180)*this.quicksand[2]*delta/1e3;
+			this.y+=Math.sin(this.quicksand[1]*Math.PI/180)*this.quicksand[2]*delta/1e3;
+			this.quicksand[0]=false;
+		}
+		this.energy+=this.energyRate*delta/1e3;
+		this.energyRate=this.energyRegen+this.regenAdditioner;
+		if(this.energy>this.maxEnergy)this.energy=this.maxEnergy;
+		if(this.energy<0)this.energy=0;
+		this.oldPos=(this.previousPos.x==this.x&&this.previousPos.y==this.y)?this.oldPos:{x:this.previousPos.x,y:this.previousPos.y}
+		this.previousPos={x:this.x,y:this.y};
+		var dim=1-map.properties.friction;
+		if(this.slippery)dim=0;
+		//dim = 0;
+		var friction_factor=dim;
+		this.slide_x=this.distance_moved_previously[0];
+		this.slide_y=this.distance_moved_previously[1];
+		this.slide_x*=friction_factor;
+		this.slide_y*=friction_factor;
+		this.d_x+=this.slide_x;
+		this.d_y+=this.slide_y;
+		this.abs_d_x=Math.abs(this.d_x)
+		this.abs_d_y=Math.abs(this.d_y);
+		if(cent){
+			if(this.abs_d_x>this.cent_max_distance&&!this.slippery)this.d_x*=this.cent_max_distance/this.abs_d_x;
+			if(this.abs_d_y>this.cent_max_distance&&!this.slippery)this.d_y*=this.cent_max_distance/this.abs_d_y;
+		}else{
+			if(this.abs_d_x>this.distance_movement&&!this.slippery)this.d_x*=this.distance_movement/this.abs_d_x;
+			if(this.abs_d_y>this.distance_movement&&!this.slippery)this.d_y*=this.distance_movement/this.abs_d_y;
+		}
+		this.prevSlippery=this.slippery;
+		if(this.abs_d_x<1/32)this.d_x=0;
+		if(this.abs_d_y<1/32)this.d_y=0;
+		this.distance_moved_previously=[this.d_x,this.d_y]
+		this.velX=this.d_x;
+		this.velY=this.d_y;
+		evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling||this.isSnowballed;
+		evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling||this.isSnowballed;
+		evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling||this.isSnowballed;
+		if(!this.blocking){
+			this.slowing=[false];
+			this.freezing=false;
+			this.web=false;
+			this.cobweb=false;
+			this.sticky=false;
+			this.toxic=false;
+			this.experienceDraining=false;
+			this.reducing=false;
+			this.enlarging=false;
+			this.draining=[false];
+			this.lava=false;
+			this.speedghost=false;
+			this.regenghost=false;
+			this.inEnemyBarrier=false;
+			this.slippery=false;
+			this.disabling=false;
+		}
+		this.blocking=false;
+		this.tempColor=this.color;
+		var vel,isMagnet=Boolean(map.properties?.magnetism)||Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism),isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism),magneticSpeed=(this.vertSpeed==-1)?((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)):this.vertSpeed;
+		var yaxis=(this.velY>=0)?1:-1;
+		if(!isMagnet)magneticSpeed*=yaxis;
+		if(this.magnetDirection.toLowerCase()=="up"){magneticSpeed=-magneticSpeed}
+		if((isMagnet||this.vertSpeed!=-1)&&this.pointInActiveZone)vel={x:this.velX,y:this.velY*this.magneticNullification};
+		else vel={x:this.velX,y:this.velY};
+		this.vertSpeed=-1;
+		this.magneticReduction=false;
+		this.magneticNullification=false;
+		if(!(this.wasFrozen||this.wasSnowballed)&&!this.isDowned()){
+			this.x+=vel.x*delta/1e3;
+			this.y+=vel.y*delta/1e3;
+		}
+		this.speedMultiplier=1;
+		this.speedAdditioner=0;
+		this.regenAdditioner=0;
+		if(this.deathTimer!=-1)this.deathTimer-=delta,this.deathTimer=Math.max(0,this.deathTimer);
+		for(var i in area.zones){
+			var zone=area.zones[i];
+			if(zone.type=="teleport"||zone.type=="exit"){
+				var absolutePos={x:this.x+map.areas[this.area].x,y:this.y+map.areas[this.area].y},zonePos={x:zone.x,y:zone.y},zoneSize={x:zone.width,y:zone.height},teleporter=closestPointToRectangle({x:this.x,y:this.y},zonePos,zoneSize),dist=this.distance({x:this.x,y:this.y},teleporter);
+				if(dist<this.radius)onTele=true;
+				if(dist<this.radius&&!this.onTele){
+					var max=Infinity,maxArea=0,targetPoint={x:this.x+zone.translate.x,y:this.y+zone.translate.y};
+					for(var j in map.areas){
+						if(j==this.area)continue;
+						var rect=getAreaBoundary(map.areas[j]),closest=closestPointToRectangle(targetPoint,{x:map.areas[j].x-map.areas[this.area].x,y:map.areas[j].y-map.areas[this.area].y},{x:rect.width,y:rect.height}),dist=this.distance(targetPoint,closest);
+						if(dist<max){max=dist;maxArea=parseInt(j)}
+					}
+					this.x=targetPoint.x+(map.areas[this.area].x-map.areas[maxArea].x);
+					this.y=targetPoint.y+(map.areas[this.area].y-map.areas[maxArea].y);
+					map.areas[this.area].entities=[];
+					this.area=maxArea;
+					spawnEntities(this.area);
+					this.hasTranslated=true;
+					this.chronoPos=[];
+					break;
+				}
+			}
+			if(zone.type=="removal"){
+				var absolutePos={x:this.x+map.areas[this.area].x,y:this.y+map.areas[this.area].y},zonePos={x:zone.x,y:zone.y},zoneSize={x:zone.width,y:zone.height},teleporter=closestPointToRectangle({x:this.x,y:this.y},zonePos,zoneSize),dist=this.distance({x:this.x,y:this.y},teleporter);
+				if(dist<this.radius){
+					map.players.splice(map.players.indexOf(this));
+					break;
+				}
+			}
+		}
+		this.onTele=onTele;
+		var safeZone;
+		area=map.areas[this.area];
+		for(var zone of area.zones){
+			if(zone.type=="safe"){
+				safeZone=zone;
+				break;
+			};
+		};
+		for(var zone of area.zones){
+			if(this.hasTranslated&&zone.type=="teleport"&&rectCircleCollision(this.x,this.y,this.radius,zone?.x,zone?.y,zone?.width,zone?.height).c){
+				var left=safeZone.x,right=left+safeZone.width,top=safeZone.y,bottom=top+safeZone.height;
 				this.x=Math.min(Math.max(this.x,left+this.radius*2),right-this.radius*2);
 				this.y=Math.min(Math.max(this.y,top+this.radius*2),bottom-this.radius*2);
 				this.hasTranslated=false;
 				break;
-			  }
-		  }
+			}
+		}
 		this.hasTranslated=false;
-this.areaNumber=this.area+1;
-this.regionName=map.name;
-this.collides=this.collision(delta);
-    if(this.deathTimer==0){
-      map.players.splice(map.players.indexOf(this),1);
-    }
+		this.areaNumber=this.area+1;
+		this.regionName=map.name;
+		this.collides=this.collision(delta);
+		if(this.deathTimer==0)map.players.splice(map.players.indexOf(this),1),console.log("Player died (death timer ran out)");
 	}
-	  knockback_player(delta,enemy,push_time,radius){
-    const timeFix = delta / (1000 / 30);
-    this.knockback = true;
-    this.knockback_push_time = push_time;
-    this.knockback_enemy_pos = {x:enemy.x,y:enemy.y};
-    this.knockback_enemy_radius = radius;
-    this.knockback_multiplayer = this.effectImmune / this.effectReplayer;
-    this.knockback_limit_count += 1;
-
-    const ePos = this.knockback_enemy_pos;
-    const pPos = this;
-    const distance_between = distance(ePos,pPos)-this.radius;
-    const distance_remaining = this.knockback_enemy_radius - distance_between;
-    const angle = Math.atan2(ePos.y-pPos.y,ePos.x-pPos.x)-Math.PI;
-    const y_distance_remaining = Math.sin(angle) * distance_remaining;
-    const x_distance_remaining = Math.cos(angle) * distance_remaining;
-
-    const ticks_until_finished = this.knockback_push_time / timeFix;
-    this.knockback_x_speed = x_distance_remaining / ticks_until_finished;
-    this.knockback_y_speed = y_distance_remaining / ticks_until_finished;
-  }
+	knockback_player(delta,enemy,push_time,radius){
+		const timeFix = delta / (1000 / 30);
+		this.knockback = true;
+		this.knockback_push_time = push_time;
+		this.knockback_enemy_pos = {x:enemy.x,y:enemy.y};
+		this.knockback_enemy_radius = radius;
+		this.knockback_multiplayer = this.effectImmune / this.effectReplayer;
+		this.knockback_limit_count += 1;
+		const ePos = this.knockback_enemy_pos;
+		const pPos = this;
+		const distance_between = distance(ePos,pPos)-this.radius;
+		const distance_remaining = this.knockback_enemy_radius - distance_between;
+		const angle = Math.atan2(ePos.y-pPos.y,ePos.x-pPos.x)-Math.PI;
+		const y_distance_remaining = Math.sin(angle) * distance_remaining;
+		const x_distance_remaining = Math.cos(angle) * distance_remaining;
+		const ticks_until_finished = this.knockback_push_time / timeFix;
+		this.knockback_x_speed = x_distance_remaining / ticks_until_finished;
+		this.knockback_y_speed = y_distance_remaining / ticks_until_finished;
+	}
   update_knockback(delta){
     if(!this.knockback) return;
     const timeFix = delta / (1000 / 30);
@@ -2468,7 +2408,6 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 			ctx.fill());
 		ctx.fillStyle = t;
 	}
-	
 	render(e, t, delta) {
 		const Lu=$f36928166e04fda7$export$2e2bcd8739ae039;
 		(this.isHarmless || this.grassHarmless) && (e.globalAlpha = .4);
@@ -3185,17 +3124,17 @@ class PositiveMagneticGhostEnemy extends Enemy{
   playerInteraction(player){
 	if(player.magnetDirection=="DOWN"){
 		player.magnetDirection="UP";
-		if(player.abilityOne.abilityType==98){
-			player.abilityOne.abilityType=99;
+		if(player.abilityOne.abilityType==100){
+			player.abilityOne.abilityType=101;
 			player.abilityOne.name=abilityConfig[player.abilityOne.abilityType].name;
 		};
-		if(player.abilityTwo.abilityType==98){
-			player.abilityTwo.abilityType=99;
+		if(player.abilityTwo.abilityType==100){
+			player.abilityTwo.abilityType=101;
 			player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
 		};
 		if(player.abilityThree){
-			if(player.abilityThree.abilityType==98){
-				player.abilityThree.abilityType=99;
+			if(player.abilityThree.abilityType==100){
+				player.abilityThree.abilityType=101;
 				player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
 			};
 		};
@@ -3212,17 +3151,17 @@ class NegativeMagneticGhostEnemy extends Enemy{
   playerInteraction(player){
 	if(player.magnetDirection=="UP"){
 		player.magnetDirection="DOWN";
-		if(player.abilityOne.abilityType==99){
-			player.abilityOne.abilityType=98;
+		if(player.abilityOne.abilityType==101){
+			player.abilityOne.abilityType=100;
 			player.abilityOne.name=abilityConfig[player.abilityOne.abilityType].name;
 		};
-		if(player.abilityTwo.abilityType==99){
-			player.abilityTwo.abilityType=98;
+		if(player.abilityTwo.abilityType==101){
+			player.abilityTwo.abilityType=100;
 			player.abilityTwo.name=abilityConfig[player.abilityTwo.abilityType].name;
 		};
 		if(player.abilityThree){
-			if(player.abilityThree.abilityType==99){
-				player.abilityThree.abilityType=98;
+			if(player.abilityThree.abilityType==101){
+				player.abilityThree.abilityType=100;
 				player.abilityThree.name=abilityConfig[player.abilityThree.abilityType].name;
 			};
 		};
@@ -4384,19 +4323,20 @@ class FlashlightItem extends SimulatorEntity{
       }
     }
   }
-  playerInteraction(player){
-	  if(!player.abilityThree){
-		  player.abilityThree={};
-	  }
-	  if(player.abilityThree.abilityType!=98&&this.isSpawned){
-	  player.abilityThree.abilityType=98;
-	  evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
-	  evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[player.abilityThree.abilityType]);
-	  evadesRenderer.heroInfoCard.abilityThree.locked=false;
-	  evadesRenderer.heroInfoCard.abilityThree.level=1;
-	  this.isSpawned=false;
-	  }
-  }
+	playerInteraction(player){
+		if(!player.abilityThree&&this.isSpawned){
+			player.abilityThree={};
+			if(player.abilityThree.abilityType!=98){
+				player.abilityThree.abilityType=98;
+				evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
+				evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[player.abilityThree.abilityType]);
+				evadesRenderer.heroInfoCard.abilityThree.locked=false;
+				evadesRenderer.heroInfoCard.abilityThree.level=1;
+				evadesRenderer.heroInfoCard.abilityThree.abilityType=this.abilityThree.abilityType;
+				this.isSpawned=false;
+			}
+		}
+	}
   render(ctx,camera) {
 	if(!this.isSpawned)return;
 	ctx.imageSmoothingEnabled = false;

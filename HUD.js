@@ -704,7 +704,7 @@ class $cee3aa9d42503f73$export$2e2bcd8739ae039 extends $0322546c98741e1e$export$
 			return [];
 		const e = [];
 		try{
-			for (const a of this.effects.list()) {
+			for (const a of this.effects) {
 				if (a.removed || void 0 === a.effectType)
 					continue;
 				const t = $01bb7fd9b3660a1e$export$96671014a1dabc4c(a.effectType);
