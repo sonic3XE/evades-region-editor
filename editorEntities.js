@@ -4603,7 +4603,8 @@ class RingSniperEnemy extends Enemy{
 	if(!player.isDowned())this.drainingHP=true;
   }
   update(delta,area) {
-	this.health-=13.5*delta/1e3;
+	if(this.drainingHP)this.health-=13.5*delta/1e3;
+	this.drainingHP=false;
     if(this.releaseTime<=0){
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
