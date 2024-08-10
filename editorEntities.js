@@ -2164,10 +2164,13 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.speedMultiplier=1;
     this.boundary=boundary;
 	this.renderFirst=true;
+	this.unfreezeTimer=40e3/9;
+	this.unfreezeTimerTotal=40e3/9;
   }
   freeze(duration){
 	  this.frozen=true;
 	  this.frozenTime=duration;
+	  this.unfreezeTimer=0;
   }
   damage(x){
 	  if(this.maxHealth!=0){
@@ -2205,8 +2208,10 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	if(this.frozenTime>0){
 	  this.frozenTime-=delta;
 	  this.speedMultiplier*=0;
-	}else{
+	}else if(this.unfreezeTimer < this.unfreezeTimerTotal){
 	  this.frozen=false;
+	  this.unfreezeTimer+=delta;
+	  this.speedMultiplier*=this.unfreezeTimer/this.unfreezeTimerTotal;
 	}
     let collided=false;
     if(this.x<this.boundary.left+this.radius){
