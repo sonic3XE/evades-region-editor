@@ -2727,8 +2727,10 @@ class TreeEnemy extends Enemy{
     this.waiting = true;
   }
   update(delta,area){
-    this.shotTimer += delta;
-    this.movementTimer += delta;
+	if(!this.frozen){
+		this.shotTimer += delta;
+		this.movementTimer += delta;
+	}
     if (this.shotTimer > this.totalReleaseTime) {
       var count = Math.floor(Math.random()*6)+2
       for (var i = 0; i < count; i++) {
@@ -2741,11 +2743,11 @@ class TreeEnemy extends Enemy{
       this.movementTimer%=500;
     }
     if(this.shotTimer>3500){
-      this.speedMultiplier = Math.sin(this.movementTimer / 20)
+      this.speedMultiplier *= Math.sin(this.movementTimer / 20)
     } else if(this.waiting){
-      this.speedMultiplier = 0;
+      this.speedMultiplier *= 0;
     } else {
-      this.speedMultiplier = Math.max(Math.sin(this.movementTimer / 200),0)
+      this.speedMultiplier *= Math.max(Math.sin(this.movementTimer / 200),0)
     }
 	super.update(delta,area);
   }
