@@ -750,7 +750,7 @@ this.isGuest=!1;
 				this.energy-=ability.energyCost;
 				var area=map.areas[this.area];
 				var activeZone=area.zones.filter(e=>e.type=="active").sort((e,t)=>{
-					distance({x:e.x+e.width/2,y:e.y+e.height/2},this)-distance({x:t.x+t.width/2,y:t.y+t.height/2},this)
+					return distance({x:e.x+e.width/2,y:e.y+e.height/2},this)-distance({x:t.x+t.width/2,y:t.y+t.height/2},this)
 				})[0]??area.zones[0];
 				var left=activeZone.x;
 				var right=activeZone.x+activeZone.width;
