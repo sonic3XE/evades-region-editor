@@ -2725,27 +2725,26 @@ class MysteryEnemy extends Enemy{
 class TreeEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"tree_enemy",boundary);
-    this.originalSpeed = this.speed;
-    this.totalReleaseTime = 4400;
-    this.shotTimer = Math.random() * this.totalReleaseTime;
-    this.movementTimer = 0;
+    this.release_interval = 4400;
+    this.release_time = Math.random() * this.release_interval;
+    this.clock = 0;
   }
   update(delta,area){
 	if(!this.frozen){
-		this.shotTimer += delta;
-		this.movementTimer += delta;
+		this.release_time += delta;
+		this.clock += delta;
 	}
-    if (this.shotTimer > this.totalReleaseTime) {
+    if (this.release_time > this.release_interval) {
       var count = Math.floor(Math.random()*6)+2
       for (var i = 0; i < count; i++) {
         area.entities.push(new LeafProjectile(this.x,this.y,EvadesConfig.defaults.leaf_projectile.radius,EvadesConfig.defaults.leaf_projectile.speed,i*180/(count/2),this.boundary))
       }
-      this.shotTimer%=this.totalReleaseTime;
+      this.release_time%=this.release_interval;
     }
-    if(this.shotTimer>this.totalReleaseTime*0.9){
-      this.speedMultiplier *= Math.sin(this.movementTimer / 20)
+    if(this.release_time>this.release_interval*0.9){
+      this.speedMultiplier *= Math.sin(this.clock / 20)
     } else {
-      this.speedMultiplier *= Math.max(Math.sin(this.movementTimer / 200),0)
+      this.speedMultiplier *= Math.max(Math.sin(this.clock / 200),0)
     }
 	super.update(delta,area);
   }
