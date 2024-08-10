@@ -144,11 +144,12 @@ function spawnEntities(area=current_Area){
 				switch(type){
 					default:{
 						map.unknownEntities??=[];
-						map.unknownEntities.indexOf(type)==-1&&(map.unknownEntities.push(type),console.warn("Unknown enemy in "+map.name+": "+type),customAlert("Unknown enemy in "+map.name+": "+type,5,"#FF0"))
+						map.unknownEntities.indexOf(type)==-1&&(map.unknownEntities.push(type),
+						console.warn("Unknown enemy in "+map.name+": "+type),customAlert("Unknown enemy in "+map.name+": "+type,5,"#FF0"))
 						try{
 							entity=new Enemy(enemyX,enemyY,radius,speed,angle,type.replace("fake_","") + "_enemy",boundary);
 						}catch(e){
-							entity=new NormalEnemy(enemyX,enemyY,radius,speed,angle,boundary);
+							entity=new MysteryEnemy(enemyX,enemyY,radius,speed,angle,type,boundary);
 						}
 					};break;
 /*					84 / 106 implemented
@@ -2708,6 +2709,12 @@ class WallEnemy extends Enemy{
 class NormalEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"normal_enemy",boundary);
+  }
+}
+class MysteryEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,type,boundary){
+    super(x,y,radius,speed,angle,"cybot_ring_projectile",boundary);
+	this.name=type;
   }
 }
 class TreeEnemy extends Enemy{
