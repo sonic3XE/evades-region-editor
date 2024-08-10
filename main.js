@@ -930,7 +930,7 @@ if(t=="region"){
 }
 createZone.addEventListener("click",e=>{map.areas[current_Area].zones.push(newZone({x:roundTo(Math.round(mouseEntity.x),settings.snapX),y:roundTo(Math.round(mouseEntity.y),settings.snapY),width:160,height:160,type:"active"})),updateMap(updateMouseEntity=true)});
 createAsset.addEventListener("click", e=>{map.areas[current_Area].assets.push(newAsset(Math.round(mouseEntity.x),Math.round(mouseEntity.y),160,160,"wall")),updateMap(updateMouseEntity=true)});
-duplicateArea.addEventListener("click",_=>{map.areas.push(createArea(JSON.parse(areaToJSON(map.areas[current_Area]))));updateMap()});
+duplicateArea.addEventListener("click",_=>{map.areas.push(newArea(JSON.parse(areaToJSON(map.areas[current_Area]))));updateMap()});
 pasteObject.addEventListener("click",global.pasteObjs=_=>{
 	updateMouseEntity=true;
 	let posX=roundTo(Math.round(mouseEntity.x),settings.snapX);
