@@ -2726,10 +2726,9 @@ class TreeEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"tree_enemy",boundary);
     this.originalSpeed = this.speed;
-    this.totalReleaseTime = 4000;
+    this.totalReleaseTime = 4400;
     this.shotTimer = Math.random() * this.totalReleaseTime;
-    this.movementTimer = Math.random() * 500;
-    this.waiting = true;
+    this.movementTimer = 0;
   }
   update(delta,area){
 	if(!this.frozen){
@@ -2743,14 +2742,8 @@ class TreeEnemy extends Enemy{
       }
       this.shotTimer%=this.totalReleaseTime;
     }
-    if(this.movementTimer>500){
-      this.waiting=!this.waiting;
-      this.movementTimer%=500;
-    }
-    if(this.shotTimer>3500){
+    if(this.shotTimer>this.totalReleaseTime*0.9){
       this.speedMultiplier *= Math.sin(this.movementTimer / 20)
-    } else if(this.waiting){
-      this.speedMultiplier *= 0;
     } else {
       this.speedMultiplier *= Math.max(Math.sin(this.movementTimer / 200),0)
     }
