@@ -4665,7 +4665,7 @@ class RingSniperProjectile extends Enemy{
       }
 	}
 	this.clock2+=delta;
-	if(this.clock2>=8320/this.speed*(1e3/30))this.remove=true;
+	if(this.clock2>=8320/this.speed*1e3)this.remove=true;
     super.update(delta);
   }
 }
