@@ -2720,57 +2720,32 @@ class MysteryEnemy extends Enemy{
 class TreeEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"tree_enemy",boundary);
-    this.staticSpeed = this.speed;
+    this.originalSpeed = this.speed;
     this.totalReleaseTime = 4000;
-    this.clock = Math.random() * 3500;
-    this.clock2 = Math.random() * 500;
-    this.clock3 = 0;
+    this.shotTimer = Math.random() * this.totalReleaseTime;
+    this.movementTimer = Math.random() * 500;
     this.waiting = true;
-    this.shake = false;
-    this.currentVelX = this.velX;
-    this.currentVelY = this.velY;
-    this.beforeShakeVelX = this.velX;
-    this.beforeShakeVelY = this.velY;
   }
   update(delta,area){
-    this.clock += delta;
-    this.clock2 += delta;
-    this.clock3 += delta;
-    if (this.clock > this.totalReleaseTime) {
+    this.shotTimer += delta;
+    this.movementTimer += delta;
+    if (this.shotTimer > this.totalReleaseTime) {
       var count = Math.floor(Math.random()*6)+2
       for (var i = 0; i < count; i++) {
         area.entities.push(new LeafProjectile(this.x,this.y,EvadesConfig.defaults.leaf_projectile.radius,EvadesConfig.defaults.leaf_projectile.speed,i*180/(count/2),this.boundary))
       }
-      this.clock = 0;
-      this.velX = this.beforeShakeVelX
-      this.velY = this.beforeShakeVelY
-      this.shake = false;
+      this.shotTimer%=this.totalReleaseTime;
     }
-    if(this.velX!==0&&this.velY!==0){this.currentVelX = this.velX;this.currentVelY=this.velY}
-    if(this.clock2>500){
+    if(this.movementTimer>500){
       this.waiting=!this.waiting;
-      this.clock2 = 0;
+      this.movementTimer%=500;
     }
-    if(this.clock>3500){
-      if(!this.shake){this.beforeShakeVelX = this.currentVelX;this.beforeShakeVelY=this.currentVelY}
-      this.shake = true;
-      if(this.clock3>50){
-        this.velX = -this.currentVelX
-        this.velY = -this.currentVelY
-        this.clock3=0;
-      }
+    if(this.shotTimer>3500){
+      this.speedMultiplier = Math.sin(this.movementTimer / 20)
     } else if(this.waiting){
-      this.velX = 0;
-      this.velY = 0;
+      this.speedMultiplier = 0;
     } else {
-      this.velX = this.currentVelX
-      this.velY = this.currentVelY
-      var deg = (this.clock2/5+90) * Math.PI / 180;
-      this.speedMultiplier = (Math.abs(Math.sin(deg)))
-      if(this.speedMultiplier>1.5){this.speedMultiplier=1.5}
-    }
-    if(this.waiting){
-      this.speedMultiplier *= 1;
+      this.speedMultiplier = Math.max(Math.sin(this.movementTimer / 200),0)
     }
 	super.update(delta,area);
   }
