@@ -3493,10 +3493,10 @@ class TeleportingEnemy extends Enemy{
     this.clock = 0;
   }
   update(delta){
-    this.clock += delta
-    if (this.clock >= 22e3/30) {
+    this.clock += delta*30
+    if (this.clock >= 22e3) {
       this.speedMultiplier *= 1;
-      this.clock = this.clock % 22e3/30;
+      this.clock = this.clock % 22e3;
     }else{
 	  this.speedMultiplier *= 0;
 	}
@@ -3513,13 +3513,13 @@ class StarEnemy extends Enemy{
     this.starPos = 1;
   }
   update(delta){
-    this.clock += delta
-    if (this.clock >= 400) {
+    this.clock += delta*60
+    if (this.clock >= 22e3) {
       this.speedMultiplier *= 1;
       this.starPos *= -1;
       this.velX *= -1;
       this.velY *= -1;
-      this.clock = this.clock % 400;
+      this.clock = this.clock % 22e3;
     }else{
 	  this.speedMultiplier *= 0;
 	}
