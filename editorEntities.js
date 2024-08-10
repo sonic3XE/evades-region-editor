@@ -3721,11 +3721,14 @@ class CrumblingEnemy extends Enemy{
 	this.hasCollided=false;
 	this.collideTime=0;
 	this.crumbleSize=1;
+	this.speedGainTimer=20e3/9;
+	this.speedGainTimerTotal=40e3/9;
   }
   onCollide(){
 	  if(!this.hasCollided){
 		this.hasCollided=true;
 		this.crumbleSize=0.5;
+		this.speedGainTimer=20e3/9;
 		var residue=new ResidueEnemy(this.x,this.y,this.ogradius/3,this.speed/6.25,Math.random()*360,this.boundary);
 		this.radiusMultiplier*=this.crumbleSize;
 		this.speedMultiplier/=2;
@@ -3742,6 +3745,10 @@ class CrumblingEnemy extends Enemy{
 		this.collideTime=0;//67 frames to go back to original size in 30fps
 	};
 	if(!this.hasCollided){
+		if(this.speedGainTimer < this.speedGainTimerTotal){
+			this.speedGainTimer+=delta;
+			this.speedMultiplier*=this.speedGainTimer/this.speedGainTimerTotal;
+		}
 		if(this.crumbleSize<1){
 			this.crumbleSize+=delta/(1e3/30)/(200/3)/2;
 		}else{
