@@ -2735,7 +2735,7 @@ class TreeEnemy extends Enemy{
 		this.clock += delta;
 	}
     if (this.release_time > this.release_interval) {
-      var count = Math.floor(Math.random()*6)+2
+      var count = Math.floor(Math.random()*7)+2
       for (var i = 0; i < count; i++) {
         area.entities.push(new LeafProjectile(this.x,this.y,EvadesConfig.defaults.leaf_projectile.radius,EvadesConfig.defaults.leaf_projectile.speed,i*180/(count/2),this.boundary))
       }
