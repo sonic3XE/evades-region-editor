@@ -620,6 +620,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # 11
 - x: last_right
   y: last_y
@@ -883,12 +884,7 @@ areas:
     spawner:
     - types:
       - switch
-      count: 9
-      radius: 40
-      speed: 180
-    - types:
-      - normal
-      count: 3
+      count: 14
       radius: 40
       speed: 180
     - types:
@@ -1073,8 +1069,8 @@ areas:
       radius: 18
       speed: 150
     - types:
-      - normal
-      count: 8
+      - switch
+      count: 12
       radius: 40
       speed: 210
     - types:
@@ -1130,8 +1126,8 @@ areas:
       radius: 18
       speed: 150
     - types:
-      - normal
-      count: 10
+      - switch
+      count: 15
       radius: 16
       speed: 210
     - types: 
@@ -1230,6 +1226,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # 21
 - x: last_right
   y: last_y
@@ -1533,8 +1530,8 @@ areas:
       radius: 35
       speed: 360
     - types:
-      - spiral
-      count: 9
+      - switch
+      count: 13
       radius: 32
       speed: 270
     - types:
@@ -1714,10 +1711,10 @@ areas:
       radius: 30
       speed: 180
     - types:
-      - normal
-      count: 4
-      radius: 18
-      speed: 240
+      - switch
+      count: 5
+      radius: 30
+      speed: 180
     - types:
       - switch
       count: 8
@@ -1808,6 +1805,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # 31
 - x: last_right
   y: last_y
@@ -2181,7 +2179,7 @@ areas:
     - types:
       - wall
       count: 4
-      radius: 30
+      radius: 15
       speed: 150
       move_clockwise: False
   - type: safe
@@ -2378,6 +2376,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # Victory 1
 - x: last_right
   y: last_y
@@ -2904,8 +2903,8 @@ areas:
       radius: 18
       speed: 240
     - types:
-      - normal
-      count: 8
+      - switch
+      count: 11
       radius: 18
       speed: 240
     - types:
@@ -2932,6 +2931,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # 11
 - x: last_right
   y: last_y
@@ -3493,8 +3493,8 @@ areas:
       radius: 25
       speed: 270
     - types:
-      - normal
-      count: 6
+      - switch
+      count: 8
       radius: 25
       speed: 270
     - types:
@@ -3521,6 +3521,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # 21
 - x: last_right
   y: last_y
@@ -3607,8 +3608,8 @@ areas:
       radius: 18
       speed: 300
     - types:
-      - normal
-      count: 9
+      - switch
+      count: 11
       radius: 18
       speed: 360
     - types:
@@ -4099,6 +4100,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # 31
 - x: last_right
   y: last_y
@@ -4242,9 +4244,9 @@ areas:
     height: last_height
     spawner:
     - types:
-      - normal
-      count: 25
-      radius: 12
+      - switch
+      count: 30
+      radius: 8
       speed: 30
     - types:
       - switch
@@ -4652,24 +4654,29 @@ areas:
     spawner:
     - types:
       - switch
-      count: 9
+      count: 8
       radius: 70
       speed: 300
     - types:
       - switch
-      count: 21
+      count: 20
       radius: 18
       speed: 360
     - types:
       - switch
-      count: 12
+      count: 10
       radius: 28
       speed: 300
     - types:
       - homing_switch
-      count: 8
+      count: 6
       radius: 38
       speed: 240
+    - types:
+      - homing_switch
+      count: 12
+      radius: 12
+      speed: 150
     - types:
       - wall # 1
       count: 9
@@ -4694,6 +4701,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # Victory 2
 - x: last_right
   y: last_y

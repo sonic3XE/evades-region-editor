@@ -152,7 +152,7 @@ function spawnEntities(area=current_Area){
 							entity=new MysteryEnemy(enemyX,enemyY,radius,speed,angle,type,boundary);
 						}
 					};break;
-/*					84 / 106 implemented
+/*					83 / 122 implemented
 */					case "experience_drain":
 					case "blocking":
 					case "slippery":
@@ -196,7 +196,6 @@ function spawnEntities(area=current_Area){
 					case "sandrock":
 					case "fire_trail":
 					case "normal":
-					case "wavy":
 					case "immune":
 					case "ring_sniper":
 					case "speed_ghost":
@@ -224,11 +223,8 @@ function spawnEntities(area=current_Area){
 					case "teleporting":
 					case "static":
 					case "star":
-					case "oscillating":
 					case "zigzag":
-					case "zoning":
 					case "sizing":
-					case "spiral":
 					case "cycling":
 					case "snowman":
 					case "crumbling":
@@ -237,7 +233,27 @@ function spawnEntities(area=current_Area){
 					case "firefly":
 					case "phantom":
 					case "mist":
-/*NOT IMPLEMENTED*/			//case "aibot": 400hp
+					case "zigzag_switch":
+					case "homing_switch":
+					case "dasher_switch":
+/*NOT IMPLEMENTED*/			//case "wacky_wall":
+					//case "zoning_switch":
+					//case "confectioner":
+					//case "confectioner_switch":
+					//case "infinity":
+					//case "infinity_switch":
+					//case "dorito":
+					//case "dorito_switch":
+					//case "spiral_switch":
+					//case "oscillating_switch":
+					//case "wavy_switch":
+					//case "penny":
+					//case "penny_switch":
+					//case "wavy":
+					//case "oscillating":
+					//case "zoning":
+					//case "spiral":
+					//case "aibot": 400hp
 					//case "eabot": 400hp
 					//case "fibot": 400hp
 					//case "wabot": 400hp
@@ -2650,7 +2666,480 @@ class PelletEntity extends SimulatorEntity{
 	e.globalAlpha = 1;
   }
 }
-//	EvadesClassic enemy files: server\src\game\entities\enemies\{{type}}_enemy.py
+class Torch extends SimulatorEntity{
+  constructor(x,y,upside_down){
+    super(x,y,null,null,"torch",null,null,null,null,null);
+	this.image = null,
+	this.baseLightRadius = 100,
+	this.randomFlickerRadius = 10,
+	this.flickerChance = 4.5 / 30,
+	this.lightRadius = this.baseLightRadius;
+	this.renderFirst=true;
+	this.flipped=upside_down;
+	this.imageName="torch";
+	this.loadedImageName="torch";
+	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8("entities/" + this.imageName);
+	this.width=13;
+	this.height=36;
+  }
+  update(){}
+  render(ctx,t,delta) {
+	const a = this.x + t.x
+	  , r = this.y + t.y;
+	var tf=delta/(1e3/30)
+	Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
+	this.flipped ? (ctx.translate(a + this.width / 2, r + this.height / 2),
+	ctx.scale(1, -1),
+	ctx.drawImage(this.image.getImage(tf), -this.width / 2, -this.height / 2, this.width, this.height),
+	ctx.scale(1, -1),
+	ctx.translate(-(a + this.width / 2), -(r + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), a, r, this.width, this.height)
+  }
+}
+class LightRegion extends SimulatorEntity{
+  constructor(x,y,width,height){
+    super(x,y,null,null,"light_region",null,null,null,null,null);
+	this.lightRectangle={x,y,width,height,intensity:1};
+  }
+  update(){}
+  render(ctx,ctxL,delta) {}
+}
+class Gate extends SimulatorEntity{
+  constructor(x,y,width,height){
+    super(x,y,null,null,"gate",null,null,null,null,null);
+	this.width=width;
+	this.height=height;
+  }
+  update(){}
+  render(ctx,ctxL,delta) {
+	ctx.imageSmoothingEnabled = false;
+	  ctx.drawImage(
+          tileMap,646,2,134,598,
+          this.x,
+          this.y,
+          this.width,
+          this.height
+        );
+  }
+}
+class Wall extends SimulatorEntity{
+  constructor(x,y,width,height,texture){
+    super(x,y,null,null,"wall",null,null,null,null,null);
+	this.texture=texture;
+	this.width=width;
+	this.height=height;
+  }
+  update(){}
+  render(ctx,camera) {
+		ctx.imageSmoothingEnabled = false;
+        if(!zoneconsts[this.texture])return;
+        var q = ctx.createPattern(zoneconsts[this.texture].active, null)
+		q.setTransform(new DOMMatrix([1,0,0,1,(camera.x+this.x)%zoneconsts[this.texture].active.width,(camera.y+this.y)%zoneconsts[this.texture].active.height]))
+        ctx.save();
+        ctx.beginPath();
+        ctx.fillStyle = ((tileMode.selectedIndex&1)&&this.texture=="normal")?zoneColors[tileMode.selectedIndex>>1].active:q;
+        ctx.rect(
+          camera.x+this.x,
+          camera.y+this.y,
+		  this.width,
+		  this.height
+        );
+        ctx.fill();
+        ctx.restore();
+        ctx.closePath();
+  }
+}
+class FlashlightItem extends SimulatorEntity{
+  constructor(x,y){
+    super(x,y,null,null,"flashlight_spawner",null,null,null,null,null);
+	this.renderFirst=true;
+	this.texture=$31e8cfefa331e399$export$93e5c64e4cc246c8('entities/flashlight_item');
+	this.spawnInterval=1e3;
+	this.width=32;
+	this.height=16;
+	this.spawnTime=this.spawnInterval-1e3;
+	this.isSpawned=false;
+  }
+  update(delta){
+	this.spawnTime+=delta * (!this.isSpawned);
+    if(this.spawnTime>=this.spawnInterval){
+		this.isSpawned=true;
+		this.spawnTime%=this.spawnInterval;
+	};
+    for(var i in map.players){
+      var player = map.players[i];
+      if(this.isSpawned&&rectCircleCollision(player.x,player.y,player.radius,this.x-this.width/2,this.y-this.height/2,this.width,this.height).c){
+        this.playerInteraction(player);
+      }
+    }
+  }
+	playerInteraction(player){
+		if(!player.abilityThree&&this.isSpawned){
+			player.abilityThree={};
+			if(player.abilityThree.abilityType!=98){
+				player.abilityThree.abilityType=98;
+				evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
+				evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[player.abilityThree.abilityType]);
+				evadesRenderer.heroInfoCard.abilityThree.locked=false;
+				evadesRenderer.heroInfoCard.abilityThree.level=1;
+				evadesRenderer.heroInfoCard.abilityThree.abilityType=this.abilityThree.abilityType;
+				this.isSpawned=false;
+			}
+		}
+	}
+  render(ctx,camera) {
+	if(!this.isSpawned)return;
+	ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(this.texture.getImage(),camera.x+(this.x-16),camera.y+this.y-8,32,16);
+  }
+}
+//	EvadesClassic(vanilla) Enemy File Template: https://github.com/Spacebrook/EvadesClassic/blob/master/server/src/game/entities/enemies/{{type}}_enemy.py
+/*
+					WAVY_SWITCH_ENEMY: 99,
+					DORITO_ENEMY: 101,
+					ZONING_SWITCH_ENEMY: 102,
+					SPIRAL_SWITCH_ENEMY: 103,
+					OSCILLATING_SWITCH_ENEMY: 104,
+					WACKY_WALL_ENEMY: 106,
+					CONFECTIONER_ENEMY: 107,
+					CONFECTIONER_SWITCH_ENEMY: 108,
+					DORITO_SWITCH_ENEMY: 109,
+					PENNY_ENEMY: 110,
+					PENNY_SWITCH_ENEMY: 111,
+					INFINITY_ENEMY: 112,
+					INFINITY_SWITCH_ENEMY: 113,
+*/
+
+class ZigzagSwitchEnemy extends Enemy{//reworked
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"zigzag_switch_enemy",boundary);
+	this.zigSpeed=0;
+	this.speeding=true;
+	this.dir=1;
+	this.constantSpeedIncrement=45/7;
+	this.angle=Math.round(this.angle/(Math.PI/2))*(Math.PI/2);
+	this.anglevel();
+    this.switchAdd=false;
+    this.turnAngle=Math.PI/2;
+    this.switch_inverval = 3e3;
+	this.switchTime=0;
+    this.switchedHarmless=this.disabled=Math.round(Math.random());
+    this.isHarmless=this.disabled;
+  }
+  update(delta){
+    if (this.zigSpeed < 1.5 && this.speeding) {
+      this.zigSpeed += this.constantSpeedIncrement*delta/1e3;
+	  if(this.zigSpeed > 1.5)this.zigSpeed=1.5,this.speeding=false;
+    } else if(this.zigSpeed > 0 && !this.speeding){
+      this.zigSpeed -= this.constantSpeedIncrement*delta/1e3;
+	  if(this.zigSpeed < 0)this.zigSpeed=0,this.speeding=true;
+	}
+	this.speedMultiplier*=this.zigSpeed;
+	if(this.zigSpeed==0){
+    if (!this.switchAdd) {
+      this.angle = Math.atan2(this.velY, this.velX);
+      this.angle -= this.turnAngle * this.dir;
+      this.velX = Math.cos(this.angle) * this.speed;
+      this.velY = Math.sin(this.angle) * this.speed;
+	  this.switchAdd=true;
+    } else {
+      this.angle = Math.atan2(this.velY, this.velX);
+      this.angle += this.turnAngle * this.dir;
+      this.velX = Math.cos(this.angle) * this.speed;
+      this.velY = Math.sin(this.angle) * this.speed;
+	  this.switchAdd=false;
+    }}
+    this.switchTime -= delta;
+    if (this.switchTime <= 0) {
+      this.switchedHarmless = this.disabled = !this.disabled;
+      this.isHarmless = this.disabled;
+	  this.switchTime += this.switch_inverval;
+    }
+    super.update(delta);
+  }
+}
+class ZoningSwitchEnemy extends Enemy{//rework
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"zoning_switch_enemy",boundary);
+    this.zoneInterval = 1000;
+    this.zoneTime = Math.random() * this.zoneInterval;
+    this.turnAngle = Math.PI / 2
+    this.turnAngle *= (Math.floor(Math.random() * 2) * 2) - 1;
+    this.switch_inverval = 3e3;
+	this.switchTime=0;
+    this.switchedHarmless=this.disabled=Math.round(Math.random());
+    this.isHarmless=this.disabled;
+  }
+  update(delta){
+    if (this.zoneTime > 0) {
+      this.zoneTime -= delta
+    } else {
+      this.zoneTime = this.zoneInterval;
+      this.angle = Math.atan2(this.velY, this.velX);
+      this.angle += this.turnAngle;
+      this.velX = Math.cos(this.angle) * this.speed;
+      this.velY = Math.sin(this.angle) * this.speed;
+    }
+    this.switchTime -= delta;
+    if (this.switchTime <= 0) {
+      this.switchedHarmless = this.disabled = !this.disabled;
+      this.isHarmless = this.disabled;
+	  this.switchTime += this.switch_inverval;
+    }
+    super.update(delta);
+  }
+}
+class SpiralSwitchEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"spiral_switch_enemy",boundary);
+    this.angleIncrement = 0.15;
+    this.angleIncrementChange = 0.12;
+    this.angleAdd = false;
+    this.dir = 1
+    this.switch_inverval = 3e3;
+	this.switchTime=0;
+    this.switchedHarmless=this.disabled=Math.round(Math.random());
+    this.isHarmless=this.disabled;
+  }
+  update(delta) {
+    if (this.angleIncrement < 0.001) {
+      this.angleAdd = true;
+    } else if (this.angleIncrement > 0.35) {
+      this.angleAdd = false;
+    }
+    if (this.angleIncrement < 0.05) {
+      this.angleIncrementChange = 0.066;
+    } else {
+      this.angleIncrementChange = 0.12;
+    }
+    if (this.angleAdd) {
+      this.angleIncrement += this.angleIncrementChange * (delta / 1000);
+    } else {
+      this.angleIncrement -= this.angleIncrementChange * (delta / 1000);
+    }
+    this.velangle();
+    this.angle += this.angleIncrement * this.dir * (delta / (1000 / 30));
+    this.anglevel();
+    this.switchTime -= delta;
+    if (this.switchTime <= 0) {
+      this.switchedHarmless = this.disabled = !this.disabled;
+      this.isHarmless = this.disabled;
+	  this.switchTime += this.switch_inverval;
+    }
+    super.update(delta);
+  }
+  onCollide(){
+    this.dir *= -1; 
+  }
+}
+class OscillatingSwitchEnemy extends Enemy{//rework
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"oscillating_switch_enemy",boundary);
+    this.clock = 0;
+    this.switch_inverval = 3e3;
+	this.switchTime=0;
+    this.switchedHarmless=this.disabled=Math.round(Math.random());
+    this.isHarmless=this.disabled;
+  }
+  update(delta){
+    this.clock += delta
+    if (this.clock > 1000) {
+      this.velX *= -1;
+      this.velY *= -1;
+      this.clock = this.clock % 1000;
+    }
+    this.switchTime -= delta;
+    if (this.switchTime <= 0) {
+      this.switchedHarmless = this.disabled = !this.disabled;
+      this.isHarmless = this.disabled;
+	  this.switchTime += this.switch_inverval;
+    }
+    super.update(delta);
+  }
+}
+class WavySwitchEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle=0,boundary){
+    super(x,y,radius,speed,angle,"wavy_switch_enemy",boundary);
+    this.circleSize = 100;
+    this.dir = 1;
+    this.waveInterval = 800;
+    this.waveTime = 0;
+    this.angleIncrement = (this.speed+180)/this.circleSize;
+    this.switch_inverval = 3e3;
+	this.switchTime=0;
+    this.switchedHarmless=this.disabled=Math.round(Math.random());
+    this.isHarmless=this.disabled;
+  }
+  update(delta) {
+    this.waveTime += delta
+    if (this.waveTime >= this.waveInterval) {
+      this.waveTime %= this.waveInterval;
+      this.dir *= -1;
+    }
+    this.velangle();
+    this.angle += this.angleIncrement*this.dir*delta/1000;
+    this.anglevel();
+    this.switchTime -= delta;
+    if (this.switchTime <= 0) {
+      this.switchedHarmless = this.disabled = !this.disabled;
+      this.isHarmless = this.disabled;
+	  this.switchTime += this.switch_inverval;
+    }
+    super.update(delta);
+  }
+  onCollide(){
+    this.dir *= -1; 
+  }
+}
+class HomingSwitchEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"homing_switch_enemy",boundary);
+    this.target_angle=this.angle;
+    this.reverse=false;
+	this.home_range=200;
+	this.increment=1.5;
+    this.switch_inverval = 3e3;
+	this.switchTime=0;
+    this.switchedHarmless=this.disabled=Math.round(Math.random());
+    this.isHarmless=this.disabled;
+  }
+  update(delta){
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    var target_angle;
+    for(var entity of information){
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > this.home_range**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      target_angle = modulus(Math.atan2(distance_y,distance_x)+Math.PI+(Math.PI*this.reverse),Math.PI*2);
+    }else {
+      target_angle = this.target_angle;
+    }
+    var angle_difference = modulus(this.angle - target_angle,Math.PI*2)
+    var angle_increment = this.increment;
+    if(angle_difference<angle_increment){
+    }else if(angle_difference < Math.PI){
+      this.angle-=angle_increment*delta/1000;
+      this.velX=Math.cos(this.angle)*this.speed;
+      this.velY=Math.sin(this.angle)*this.speed;
+    }else{
+      this.angle+=angle_increment*delta/1000;
+      this.velX=Math.cos(this.angle)*this.speed;
+      this.velY=Math.sin(this.angle)*this.speed;
+    }
+    this.switchTime -= delta;
+    if (this.switchTime <= 0) {
+      this.switchedHarmless = this.disabled = !this.disabled;
+      this.isHarmless = this.disabled;
+	  this.switchTime += this.switch_inverval;
+    }
+    super.update(delta);
+  }
+  onCollide(){
+    this.target_angle=this.angle=Math.atan2(this.velY,this.velX);
+  }
+  /*render(ctx,t) {
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = this.color;
+    ctx.beginPath();
+	ctx.setLineDash([2,2]);
+    ctx.arc(this.x + t.x, this.y + t.y,this.home_range,0,Math.PI*2,!1);
+    ctx.stroke();
+	ctx.setLineDash([]);
+    ctx.closePath();
+	super.render(ctx,t);
+  }*/
+}
+class DasherSwitchEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"dasher_switch_enemy",boundary);
+    this.reset_parameters();
+    this.switch_inverval = 3e3;
+	this.switchTime=0;
+    this.switchedHarmless=this.disabled=Math.round(Math.random());
+    this.isHarmless=this.disabled;
+  }
+  reset_parameters(){
+    //reset_parameters(self)
+    this.prepare_speed = this.speed / 5;
+    this.dash_speed = this.speed;
+    this.normal_speed = 0;
+
+    this.time_to_prepare = 750;
+    this.time_to_dash = 3000;
+    this.time_between_dashes = 750;
+    
+    this.time_preparing = 0;
+    this.time_dashing = 0;
+    this.time_since_last_dash = this.time_between_dashes;
+    this.compute_speed();
+  }
+  compute_speed(){
+    this.anglevel();
+  }
+  update(delta){
+    //update_parameters(self)
+    if(this.time_preparing == 0){
+      if(this.time_dashing == 0){
+        this.time_since_last_dash += delta;
+        if(this.time_since_last_dash > this.time_between_dashes){
+          this.time_since_last_dash = 0;
+          this.time_preparing += delta;
+          this.speed = this.prepare_speed;
+          this.compute_speed();
+        }
+      } else {
+        this.time_dashing += delta;
+        if (this.time_dashing > this.time_to_dash){
+          this.time_dashing = 0;
+          this.speed = this.normal_speed;
+        } else {
+          this.speed = this.dash_speed * ( 1 - (this.time_dashing / this.time_to_dash ) );
+        }
+        this.compute_speed();
+      }
+    } else {
+      this.time_preparing += delta;
+      if (this.time_preparing > this.time_to_prepare){
+        this.time_preparing = 0;
+        this.time_dashing += delta;
+        this.speed = this.dash_speed;
+      } else {
+        this.speed = this.prepare_speed * ( 1 - (this.time_preparing / this.time_to_prepare) );
+      }
+      this.compute_speed();
+    }
+    this.switchTime -= delta;
+    if (this.switchTime <= 0) {
+      this.switchedHarmless = this.disabled = !this.disabled;
+      this.isHarmless = this.disabled;
+	  this.switchTime += this.switch_inverval;
+    }
+    super.update(delta);
+  }
+  onCollide(){
+    this.velangle();
+  }
+}
+
 class WallEnemy extends Enemy{
   constructor(radius,speed,area_bounding_box,wall_index,wall_count,move_clockwise=true,spawn_top=true){
     super(0,0,radius,speed,0,"wall_enemy",area_bounding_box);
@@ -2812,8 +3301,6 @@ class CorrosiveEnemy extends Enemy{
     this.corrosive=true;
   }
 }
-
-//Aura Enemies
 class ExperienceDrainEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"experience_drain_enemy",boundary);
@@ -3255,7 +3742,6 @@ class SandEnemy extends Enemy{
 	this.sandSpeed=0;
   }
 }
-
 class SandrockEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"sandrock_enemy",boundary);
@@ -3336,7 +3822,7 @@ class HomingEnemy extends Enemy{
     this.target_angle=this.angle;
     this.reverse=reverse;
 	this.home_range=home_range;
-	this.increment=increment/30;
+	this.increment=increment;
   }
   update(delta){
     var closest_entity,closest_entity_distance,information;
@@ -3373,11 +3859,11 @@ class HomingEnemy extends Enemy{
     var angle_increment = this.increment;
     if(angle_difference<angle_increment){
     }else if(angle_difference < Math.PI){
-      this.angle-=angle_increment*delta/(1000/30);
+      this.angle-=angle_increment*delta/1000;
       this.velX=Math.cos(this.angle)*this.speed;
       this.velY=Math.sin(this.angle)*this.speed;
     }else{
-      this.angle+=angle_increment*delta/(1000/30);
+      this.angle+=angle_increment*delta/1000;
       this.velX=Math.cos(this.angle)*this.speed;
       this.velY=Math.sin(this.angle)*this.speed;
     }
@@ -3386,30 +3872,17 @@ class HomingEnemy extends Enemy{
   onCollide(){
     this.target_angle=this.angle=Math.atan2(this.velY,this.velX);
   }
-  /*render(ctx,ctxL) {
+  /*render(ctx,t) {
     ctx.lineWidth = 2;
     ctx.strokeStyle = this.color;
     ctx.beginPath();
-		ctx.setLineDash([2,2]);
-    ctx.arc(this.x,this.y,200,0,Math.PI*2,!1);
+	ctx.setLineDash([2,2]);
+    ctx.arc(this.x + t.x, this.y + t.y,this.home_range,0,Math.PI*2,!1);
     ctx.stroke();
-		ctx.setLineDash([]);
+	ctx.setLineDash([]);
     ctx.closePath();
-    ctx.globalAlpha=this.brightness;
-    this.isHarmless&&(ctx.globalAlpha=.4);
-    ctx.beginPath();
-    ctx.fillStyle=this.color;
-    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2,!1);
-    ctx.fill();
-    if(enemyOutline.checked){
-      ctx.lineWidth = 2;
-	 	  ctx.strokeStyle = "black";
-      ctx.stroke();
-    }
-    ctx.closePath();
-    ctx.globalAlpha=1;
-  }
-  */
+	super.render(ctx,t);
+  }*/
 }
 class DasherEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
@@ -3514,21 +3987,6 @@ class StarEnemy extends Enemy{
     this.collision(delta);
   }
 }
-class OscillatingEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"oscillating_enemy",boundary);
-    this.clock = 0;
-  }
-  update(delta){
-    this.clock += delta
-    if (this.clock > 1000) {
-      this.velX *= -1;
-      this.velY *= -1;
-      this.clock = this.clock % 1000;
-    }
-    super.update(delta);
-  }
-}
 class StaticEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"static_enemy",boundary);
@@ -3560,41 +4018,52 @@ class StaticEnemy extends Enemy{
 	super.update(delta);
   }
 }
-class ZigzagEnemy extends Enemy{
+class ZigzagEnemy extends Enemy{//reworked
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zigzag_enemy",boundary);
-    this.switchInterval = 500;
-    this.zigTime = 500;
-    this.switchAdd = false;
-    this.turnAngle = Math.PI / 2;
+	this.zigSpeed=0;
+	this.speeding=true;
+	this.dir=1;
+	this.constantSpeedIncrement=45/7;
+	this.angle=Math.round(this.angle/(Math.PI/2))*(Math.PI/2);
+	this.anglevel();
+    this.switchAdd=false;
+    this.turnAngle=Math.PI/2;
   }
   update(delta){
-    if (this.zigTime > 0) {
-      this.zigTime -= delta;
+    if (this.zigSpeed < 1.5 && this.speeding) {
+      this.zigSpeed += this.constantSpeedIncrement*delta/1e3;
+	  if(this.zigSpeed > 1.5)this.zigSpeed=1.5,this.speeding=false;
+    } else if(this.zigSpeed > 0 && !this.speeding){
+      this.zigSpeed -= this.constantSpeedIncrement*delta/1e3;
+	  if(this.zigSpeed < 0)this.zigSpeed=0,this.speeding=true;
+	}
+	this.speedMultiplier*=this.zigSpeed;
+	if(this.zigSpeed==0){
+    if (!this.switchAdd) {
+      this.angle = Math.atan2(this.velY, this.velX);
+      this.angle -= this.turnAngle * this.dir;
+      this.velX = Math.cos(this.angle) * this.speed;
+      this.velY = Math.sin(this.angle) * this.speed;
+	  this.switchAdd=true;
     } else {
-      this.zigTime = this.switchInterval
-      if (!this.switchAdd) {
-        this.angle = Math.atan2(this.velY, this.velX);
-        this.angle -= this.turnAngle;
-        this.velX = Math.cos(this.angle) * this.speed;
-        this.velY = Math.sin(this.angle) * this.speed;
-        this.switchAdd = true;
-      } else {
-        this.angle = Math.atan2(this.velY, this.velX);
-        this.angle += this.turnAngle
-        this.velX = Math.cos(this.angle) * this.speed;
-        this.velY = Math.sin(this.angle) * this.speed;
-        this.switchAdd = false;
-      }
-    }
+      this.angle = Math.atan2(this.velY, this.velX);
+      this.angle += this.turnAngle * this.dir;
+      this.velX = Math.cos(this.angle) * this.speed;
+      this.velY = Math.sin(this.angle) * this.speed;
+	  this.switchAdd=false;
+    }}
     super.update(delta);
+  }
+  onCollide(){
+	  this.dir*=-1;
   }
 }
 class ZoningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zoning_enemy",boundary);
-    this.switchInterval = 1000;
-    this.zoneTime = Math.random() * this.switchInterval;
+    this.zoneInterval = 1000;
+    this.zoneTime = Math.random() * this.zoneInterval;
     this.turnAngle = Math.PI / 2
     this.turnAngle *= (Math.floor(Math.random() * 2) * 2) - 1
   }
@@ -3602,13 +4071,46 @@ class ZoningEnemy extends Enemy{
     if (this.zoneTime > 0) {
       this.zoneTime -= delta
     } else {
-      this.zoneTime = this.switchInterval;
+      this.zoneTime = this.zoneInterval;
       this.angle = Math.atan2(this.velY, this.velX);
       this.angle += this.turnAngle;
       this.velX = Math.cos(this.angle) * this.speed;
       this.velY = Math.sin(this.angle) * this.speed;
     }
     super.update(delta);
+  }
+}
+class SpiralEnemy extends Enemy{//rework
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"spiral_enemy",boundary);
+    this.angleIncrement = 0.15;
+    this.angleIncrementChange = 0.12;
+    this.angleAdd = false;
+    this.dir = 1
+  }
+  update(delta) {
+    if (this.angleIncrement < 0.001) {
+      this.angleAdd = true;
+    } else if (this.angleIncrement > 0.35) {
+      this.angleAdd = false;
+    }
+    if (this.angleIncrement < 0.05) {
+      this.angleIncrementChange = 0.066;
+    } else {
+      this.angleIncrementChange = 0.12;
+    }
+    if (this.angleAdd) {
+      this.angleIncrement += this.angleIncrementChange * (delta / 1000);
+    } else {
+      this.angleIncrement -= this.angleIncrementChange * (delta / 1000);
+    }
+    this.velangle();
+    this.angle += this.angleIncrement * this.dir * (delta / (1000 / 30));
+    this.anglevel();
+    super.update(delta);
+  }
+  onCollide(){
+    this.dir *= -1; 
   }
 }
 class SizingEnemy extends Enemy{
@@ -3637,6 +4139,45 @@ class SizingEnemy extends Enemy{
 	super.update(delta);
   }
 }
+class OscillatingEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"oscillating_enemy",boundary);
+    this.clock = 0;
+  }
+  update(delta){
+    this.clock += delta
+    if (this.clock > 1000) {
+      this.velX *= -1;
+      this.velY *= -1;
+      this.clock = this.clock % 1000;
+    }
+    super.update(delta);
+  }
+}
+class WavyEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle=0,boundary){
+    super(x,y,radius,speed,angle,"wavy_enemy",boundary);
+    this.circleSize = 200;
+    this.dir = 1;
+    this.waveInterval = 1600;
+    this.waveTime = 0;
+    this.angleIncrement = (this.speed+180)/this.circleSize;
+  }
+  update(delta) {
+    this.waveTime += delta
+    if (this.waveTime >= this.waveInterval) {
+      this.waveTime %= this.waveInterval;
+      this.dir *= -1;
+    }
+    this.velangle();
+    this.angle += this.angleIncrement*this.dir*delta/1000;
+    this.anglevel();
+    super.update(delta);
+  }
+  onCollide(){
+    this.dir *= -1; 
+  }
+}
 class TurningEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,circle_size,boundary){
     super(x,y,radius,speed,angle,"turning_enemy",boundary);
@@ -3645,40 +4186,7 @@ class TurningEnemy extends Enemy{
   }
   update(delta) {
     this.velangle()
-    this.angle += this.dir / 30 * (delta / 30);
-    this.anglevel();
-    super.update(delta);
-  }
-  onCollide(){
-    this.dir *= -1; 
-  }
-}
-class SpiralEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"spiral_enemy",boundary);
-    this.angleIncrement = 0.15;
-    this.angleIncrementChange = 0.004;
-    this.angleAdd = false;
-    this.dir = 1
-  }
-  update(delta) {
-    if (this.angleIncrement < 0.001) {
-      this.angleAdd = true;
-    } else if (this.angleIncrement > 0.35) {
-      this.angleAdd = false;
-    }
-    if (this.angleIncrement < 0.05) {
-      this.angleIncrementChange = 0.0022;
-    } else {
-      this.angleIncrementChange = 0.004;
-    }
-    if (this.angleAdd) {
-      this.angleIncrement += this.angleIncrementChange * (delta / (1000 / 30));
-    } else {
-      this.angleIncrement -= this.angleIncrementChange * (delta / (1000 / 30));
-    }
-    this.velangle();
-    this.angle += this.angleIncrement * this.dir * (delta / (1000 / 30));
+    this.angle += this.dir/30*delta/30;
     this.anglevel();
     super.update(delta);
   }
@@ -4208,132 +4716,6 @@ class FireTrailEnemy extends Enemy{
     area.entities.push(new FireTrailEnemy(this.x,this.y,this.radius,0,0,true,this.boundary));
   }
 }
-class Torch extends SimulatorEntity{
-  constructor(x,y,upside_down){
-    super(x,y,null,null,"torch",null,null,null,null,null);
-	this.image = null,
-	this.baseLightRadius = 100,
-	this.randomFlickerRadius = 10,
-	this.flickerChance = 4.5 / 30,
-	this.lightRadius = this.baseLightRadius;
-	this.renderFirst=true;
-	this.flipped=upside_down;
-	this.imageName="torch";
-	this.loadedImageName="torch";
-	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8("entities/" + this.imageName);
-	this.width=13;
-	this.height=36;
-  }
-  update(){}
-  render(ctx,t,delta) {
-	const a = this.x + t.x
-	  , r = this.y + t.y;
-	var tf=delta/(1e3/30)
-	Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
-	this.flipped ? (ctx.translate(a + this.width / 2, r + this.height / 2),
-	ctx.scale(1, -1),
-	ctx.drawImage(this.image.getImage(tf), -this.width / 2, -this.height / 2, this.width, this.height),
-	ctx.scale(1, -1),
-	ctx.translate(-(a + this.width / 2), -(r + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), a, r, this.width, this.height)
-  }
-}
-class LightRegion extends SimulatorEntity{
-  constructor(x,y,width,height){
-    super(x,y,null,null,"light_region",null,null,null,null,null);
-	this.lightRectangle={x,y,width,height,intensity:1};
-  }
-  update(){}
-  render(ctx,ctxL,delta) {}
-}
-class Gate extends SimulatorEntity{
-  constructor(x,y,width,height){
-    super(x,y,null,null,"gate",null,null,null,null,null);
-	this.width=width;
-	this.height=height;
-  }
-  update(){}
-  render(ctx,ctxL,delta) {
-	ctx.imageSmoothingEnabled = false;
-	  ctx.drawImage(
-          tileMap,646,2,134,598,
-          this.x,
-          this.y,
-          this.width,
-          this.height
-        );
-  }
-}
-class Wall extends SimulatorEntity{
-  constructor(x,y,width,height,texture){
-    super(x,y,null,null,"wall",null,null,null,null,null);
-	this.texture=texture;
-	this.width=width;
-	this.height=height;
-  }
-  update(){}
-  render(ctx,camera) {
-		ctx.imageSmoothingEnabled = false;
-        if(!zoneconsts[this.texture])return;
-        var q = ctx.createPattern(zoneconsts[this.texture].active, null)
-		q.setTransform(new DOMMatrix([1,0,0,1,(camera.x+this.x)%zoneconsts[this.texture].active.width,(camera.y+this.y)%zoneconsts[this.texture].active.height]))
-        ctx.save();
-        ctx.beginPath();
-        ctx.fillStyle = ((tileMode.selectedIndex&1)&&this.texture=="normal")?zoneColors[tileMode.selectedIndex>>1].active:q;
-        ctx.rect(
-          camera.x+this.x,
-          camera.y+this.y,
-		  this.width,
-		  this.height
-        );
-        ctx.fill();
-        ctx.restore();
-        ctx.closePath();
-  }
-}
-class FlashlightItem extends SimulatorEntity{
-  constructor(x,y){
-    super(x,y,null,null,"flashlight_spawner",null,null,null,null,null);
-	this.renderFirst=true;
-	this.texture=$31e8cfefa331e399$export$93e5c64e4cc246c8('entities/flashlight_item');
-	this.spawnInterval=1e3;
-	this.width=32;
-	this.height=16;
-	this.spawnTime=this.spawnInterval-1e3;
-	this.isSpawned=false;
-  }
-  update(delta){
-	this.spawnTime+=delta * (!this.isSpawned);
-    if(this.spawnTime>=this.spawnInterval){
-		this.isSpawned=true;
-		this.spawnTime%=this.spawnInterval;
-	};
-    for(var i in map.players){
-      var player = map.players[i];
-      if(this.isSpawned&&rectCircleCollision(player.x,player.y,player.radius,this.x-this.width/2,this.y-this.height/2,this.width,this.height).c){
-        this.playerInteraction(player);
-      }
-    }
-  }
-	playerInteraction(player){
-		if(!player.abilityThree&&this.isSpawned){
-			player.abilityThree={};
-			if(player.abilityThree.abilityType!=98){
-				player.abilityThree.abilityType=98;
-				evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
-				evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[player.abilityThree.abilityType]);
-				evadesRenderer.heroInfoCard.abilityThree.locked=false;
-				evadesRenderer.heroInfoCard.abilityThree.level=1;
-				evadesRenderer.heroInfoCard.abilityThree.abilityType=this.abilityThree.abilityType;
-				this.isSpawned=false;
-			}
-		}
-	}
-  render(ctx,camera) {
-	if(!this.isSpawned)return;
-	ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(this.texture.getImage(),camera.x+(this.x-16),camera.y+this.y-8,32,16);
-  }
-}
 class LiquidEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,player_detection_radius,boundary){
     super(x,y,radius,speed,angle,"liquid_enemy",boundary);
@@ -4496,30 +4878,6 @@ class RadiatingBulletsProjectile extends Enemy{
 		this.remove=true;
     }
     super.update(delta);
-  }
-}
-class WavyEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle=0,boundary){
-    super(x,y,radius,speed,angle,"wavy_enemy",boundary);
-    this.circleSize = 100;
-    this.dir = 1;
-    this.switchInterval = 800;
-    this.waveTime = 0;
-    this.angleIncrement = (this.speed/30 + 6) / this.circleSize;
-  }
-  update(delta) {
-    this.waveTime += delta
-    if (this.waveTime >= this.switchInterval) {
-      this.waveTime %= this.switchInterval;
-      this.dir *= -1;
-    }
-    this.velangle();
-    this.angle += this.angleIncrement*this.dir*(delta/(1000/30));
-    this.anglevel();
-    super.update(delta);
-  }
-  onCollide(){
-    this.dir *= -1; 
   }
 }
 class SniperEnemy extends Enemy{

@@ -500,6 +500,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # 11
 - x: last_right
   y: last_y
@@ -1137,6 +1138,7 @@ areas:
     - 0
     - 0
     - 90
+  boss: true
 # 21
 - x: last_right
   y: last_y
@@ -1787,6 +1789,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # 31
 - x: last_right
   y: last_y
@@ -2403,6 +2406,7 @@ areas:
     translate:
       x: 160
       y: 0
+  boss: true
 # 41
 - x: last_right
   y: last_y

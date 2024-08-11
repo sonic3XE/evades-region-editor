@@ -12650,7 +12650,7 @@ areas:
         pattern: twinspiral
         angle: 0
         turn_speed: 2880
-        shot_interval: 500
+        shot_interval: 501
         projectile_speed: 135
         projectile_radius: 24
       - types:

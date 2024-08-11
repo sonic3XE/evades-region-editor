@@ -1563,6 +1563,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 #11
 - x: last_right
   y: last_y
@@ -2198,6 +2199,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 #21
 - x: last_right
   y: last_y
@@ -2840,6 +2842,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 #31
 - x: last_right
   y: last_y
@@ -3571,6 +3574,7 @@ areas:
     width: 64
     x: last_right
     y: 0
+  boss: true
 #41
 - x: last_right
   y: last_y
