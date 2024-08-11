@@ -354,7 +354,7 @@ areas:
     width: 64
     height: 480
     translate:
-      x: -7392
+      x: -7552
       y: 0
   - height: 32
     translate: {x: -512, y: -6944}

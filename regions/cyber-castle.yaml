@@ -182,14 +182,14 @@ areas:
     pellet_count: 0
   zones:
   - height: 480
-    translate: {x: -160, y: 0}
+    translate: {x: -176, y: 0}
     type: exit
     width: 64
     x: 0
     y: 64
   - {height: 480, type: safe, width: 480, x: 64, y: 64}
   - height: 480
-    translate: {x: 160, y: 0}
+    translate: {x: 176, y: 0}
     type: exit
     width: 64
     x: 544
@@ -303,7 +303,7 @@ areas:
     requirements:
     - cybot_not_defeated
   - height: 480
-    translate: {x: 768, y: 0}
+    translate: {x: 784, y: 0}
     type: teleport
     width: 64
     x: 3072
@@ -335,7 +335,7 @@ areas:
     requirements:
     - cybot_not_defeated
   - height: 480
-    translate: {x: -768, y: 0}
+    translate: {x: -784, y: 0}
     type: teleport
     width: 64
     x: 0
@@ -938,14 +938,14 @@ areas:
     pellet_count: 0
   zones:
   - height: 480
-    translate: {x: -160, y: 0}
+    translate: {x: -176, y: 0}
     type: exit
     width: 64
     x: 0
     y: 0
   - {height: 480, type: safe, width: 480, x: 64, y: 0}
   - height: 480
-    translate: {x: 160, y: 0}
+    translate: {x: 176, y: 0}
     type: exit
     width: 64
     x: 544
@@ -1021,8 +1021,6 @@ areas:
     y: 0
     properties:
       background_color: [0, 0, 0, 175]
-    requirements:
-    - aibot_defeated
 - name: Data Center B
   x: 7872
   y: 145072
@@ -1062,8 +1060,6 @@ areas:
     y: 0
     properties:
       background_color: [0, 0, 0, 175]
-    requirements:
-    - wabot_defeated
 - name: Data Center C
   x: 1952
   y: 139952
@@ -1103,8 +1099,6 @@ areas:
     y: 928
     properties:
       background_color: [0, 0, 0, 175]
-    requirements:
-    - eabot_defeated
 - name: Data Center D
   x: 7872
   y: 139952
@@ -1144,8 +1138,6 @@ areas:
     y: 928
     properties:
       background_color: [0, 0, 0, 175]
-    requirements:
-    - fibot_defeated
 - name: FINAL BOSS
   x: 4816
   y: 142416
@@ -1181,6 +1173,20 @@ areas:
     width: 1152
     x: 0
     y: 0
+  - height: 32
+    translate: {x: 0, y: 1088}
+    type: teleport
+    width: 64
+    x: 544
+    y: 1120
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - cybot_not_defeated
   - height: 64
     translate: {x: 0, y: -544}
     type: teleport

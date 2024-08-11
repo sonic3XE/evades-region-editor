@@ -222,7 +222,7 @@ areas:
   zones:
   - height: 480
     translate:
-      x: -160
+      x: -176
       y: 0
     type: exit
     width: 64
@@ -235,7 +235,7 @@ areas:
     y: 64
   - height: 480
     translate:
-      x: 160
+      x: 176
       y: 0
     type: exit
     width: 64
@@ -355,7 +355,7 @@ areas:
     - cybot_hard_mode_not_defeated
   - height: 480
     translate:
-      x: 768
+      x: 784
       y: 0
     type: teleport
     width: 64
@@ -391,7 +391,7 @@ areas:
     - cybot_hard_mode_not_defeated
   - height: 480
     translate:
-      x: -768
+      x: -784
       y: 0
     type: teleport
     width: 64
@@ -1393,7 +1393,7 @@ areas:
     y: 0
   - height: 480
     translate:
-      x: -160
+      x: -176
       y: 0
     type: exit
     width: 64
@@ -1401,7 +1401,7 @@ areas:
     y: 0
   - height: 480
     translate:
-      x: 160
+      x: 176
       y: 0
     type: exit
     width: 64
@@ -1544,8 +1544,6 @@ areas:
       - 0
       - 0
       - 175
-    requirements:
-    - icbot_defeated
     translate:
       x: 0
       y: -160
@@ -1594,8 +1592,6 @@ areas:
       - 0
       - 0
       - 175
-    requirements:
-    - elbot_defeated
     translate:
       x: 0
       y: -160
@@ -1644,8 +1640,6 @@ areas:
       - 0
       - 0
       - 175
-    requirements:
-    - plbot_defeated
     translate:
       x: 0
       y: 160
@@ -1694,8 +1688,6 @@ areas:
       - 0
       - 0
       - 175
-    requirements:
-    - mebot_defeated
     translate:
       x: 0
       y: 160
@@ -1744,8 +1736,6 @@ areas:
       - 0
       - 0
       - 175
-    requirements:
-    - libot_defeated
     translate:
       x: 160
       y: 0
@@ -1794,8 +1784,6 @@ areas:
       - 0
       - 0
       - 175
-    requirements:
-    - dabot_defeated
     translate:
       x: -160
       y: 0
@@ -1839,6 +1827,22 @@ areas:
     width: 1152
     x: 0
     y: 0
+  - height: 32
+    translate:
+      x: 0
+      y: 1088
+    type: teleport
+    width: 64
+    x: 544
+    y: 1120
+    properties:
+      background_color:
+      - 146
+      - 107
+      - 227
+      - 150
+    requirements:
+    - cybot_hard_mode_not_defeated
   - height: 64
     properties:
       background_color:
