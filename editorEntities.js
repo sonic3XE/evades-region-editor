@@ -2813,6 +2813,7 @@ class ZigzagSwitchEnemy extends Enemy{//reworked
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zigzag_switch_enemy",boundary);
 	this.zigSpeed=0;
+	this.zigTime=0;
 	this.speeding=true;
 	this.dir=1;
 	this.constantSpeedIncrement=45/7;
@@ -2826,12 +2827,13 @@ class ZigzagSwitchEnemy extends Enemy{//reworked
     this.isHarmless=this.disabled;
   }
   update(delta){
+	this.zigTime+=delta;
     if (this.zigSpeed < 1.5 && this.speeding) {
       this.zigSpeed += this.constantSpeedIncrement*delta/1e3;
 	  if(this.zigSpeed > 1.5)this.zigSpeed=1.5,this.speeding=false;
     } else if(this.zigSpeed > 0 && !this.speeding){
       this.zigSpeed -= this.constantSpeedIncrement*delta/1e3;
-	  if(this.zigSpeed < 0)this.zigSpeed=0,this.speeding=true;
+	  if(this.zigSpeed < 0)this.zigSpeed=0,this.zigTime>1000&&(this.speeding=true,this.zigTime%=1000);
 	}
 	this.speedMultiplier*=this.zigSpeed;
 	if(this.zigSpeed==0){
@@ -4024,6 +4026,7 @@ class ZigzagEnemy extends Enemy{//reworked
 	this.zigSpeed=0;
 	this.speeding=true;
 	this.dir=1;
+	this.zigTime=0;
 	this.constantSpeedIncrement=45/7;
 	this.angle=Math.round(this.angle/(Math.PI/2))*(Math.PI/2);
 	this.anglevel();
@@ -4031,12 +4034,13 @@ class ZigzagEnemy extends Enemy{//reworked
     this.turnAngle=Math.PI/2;
   }
   update(delta){
+	this.zigTime+=delta;
     if (this.zigSpeed < 1.5 && this.speeding) {
       this.zigSpeed += this.constantSpeedIncrement*delta/1e3;
 	  if(this.zigSpeed > 1.5)this.zigSpeed=1.5,this.speeding=false;
     } else if(this.zigSpeed > 0 && !this.speeding){
       this.zigSpeed -= this.constantSpeedIncrement*delta/1e3;
-	  if(this.zigSpeed < 0)this.zigSpeed=0,this.speeding=true;
+	  if(this.zigSpeed < 0)this.zigSpeed=0,this.zigTime>1000&&(this.speeding=true,this.zigTime%=1000);
 	}
 	this.speedMultiplier*=this.zigSpeed;
 	if(this.zigSpeed==0){
