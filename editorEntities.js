@@ -4168,11 +4168,14 @@ class SeedlingProjectile extends Enemy{
 	this.angle=Math.random()*360;
 	this.clockwise=Math.round(Math.random());
   }
+  playerInteraction(player){
+    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier,false);
+  }
   update(delta,area) {
 	this.angle+=10*delta/(1e3/30)*Math.pow(-1,this.clockwise);
     this.x=this.owner.x+(this.radius+this.owner.radius/2)*Math.cos(this.angle/180*Math.PI);
     this.y=this.owner.y+(this.radius+this.owner.radius/2)*Math.sin(this.angle/180*Math.PI);
-	this.collision(delta,false);
+	super.update(delta,area,false);
   }
 }
 class FireTrailEnemy extends Enemy{
