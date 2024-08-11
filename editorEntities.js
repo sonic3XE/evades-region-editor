@@ -2189,16 +2189,16 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	if(this.velY==0&&this.velX==0)return this.angle;
     this.angle=Math.atan2(this.velY,this.velX);
   }
-  update(delta){
+  update(delta,area,collide=true){
 	if(this.health <= 0 && this.maxHealth != 0)this.remove=true;
 	this.radius=this.ogradius*this.radiusMultiplier;
 	this.radiusMultiplier=1;
     this.x+=this.velX*this.speedMultiplier*delta/1e3;
     this.y+=this.velY*this.speedMultiplier*delta/1e3;
     this.speedMultiplier=1;
-    this.collision(delta);
+    this.collision(delta,collide);
   }
-  collision(delta){
+  collision(delta,collide){
 	if(this.HarmlessTime>0){
 	  this.HarmlessTime-=delta;
 	  this.isHarmless=true;
@@ -2213,37 +2213,39 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	  this.unfreezeTimer+=delta;
 	  this.speedMultiplier*=this.unfreezeTimer/this.unfreezeTimerTotal;
 	}
-    let collided=false;
-    if(this.x<this.boundary.left+this.radius){
-	  this.onBeforeCollide();
-      this.x=this.boundary.left+this.radius;
-      this.velX=Math.abs(this.velX);
-	  this.velangle();
-      collided=true;
-    }
-    if(this.x>this.boundary.right-this.radius){
-	  this.onBeforeCollide();
-      this.x=this.boundary.right-this.radius;
-      this.velX=-Math.abs(this.velX);
-	  this.velangle();
-      collided=true;
-    }
-    if(this.y<this.boundary.top+this.radius){
-	  this.onBeforeCollide();
-      this.y=this.boundary.top+this.radius;
-      this.velY=Math.abs(this.velY);
-	  this.velangle();
-      collided=true;
-    }
-    if(this.y>this.boundary.bottom-this.radius){
-	  this.onBeforeCollide();
-      this.y=this.boundary.bottom-this.radius;
-      this.velY=-Math.abs(this.velY);
-	  this.velangle();
-      collided=true;
-    }
-    if(this.assetCollision())collided=true;
-    if(collided)this.onCollide();
+	if(collide){
+		let collided=false;
+		if(this.x<this.boundary.left+this.radius){
+			this.onBeforeCollide();
+			this.x=this.boundary.left+this.radius;
+			this.velX=Math.abs(this.velX);
+			this.velangle();
+			collided=true;
+		}
+		if(this.x>this.boundary.right-this.radius){
+			this.onBeforeCollide();
+			this.x=this.boundary.right-this.radius;
+			this.velX=-Math.abs(this.velX);
+			this.velangle();
+			collided=true;
+		}
+		if(this.y<this.boundary.top+this.radius){
+			this.onBeforeCollide();
+			this.y=this.boundary.top+this.radius;
+			this.velY=Math.abs(this.velY);
+			this.velangle();
+			collided=true;
+		}
+		if(this.y>this.boundary.bottom-this.radius){
+			this.onBeforeCollide();
+			this.y=this.boundary.bottom-this.radius;
+			this.velY=-Math.abs(this.velY);
+			this.velangle();
+			collided=true;
+		}
+		if(this.assetCollision())collided=true;
+		if(collided)this.onCollide();
+	}
     for(var i in map.players){
       var player = map.players[i];
       if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
@@ -2512,43 +2514,45 @@ class Enemy extends SimulatorEntity{
   playerInteraction(player,delta){
     EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier);
   }
-  update(delta){
-    super.update(delta);
+  update(delta,area,collide){
+    super.update(delta,area,collide);
   }
 }
 function distance(a,b){
   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
 }
-function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier){
-  var dead=true;
-  if(harmless===undefined){
-    harmless=enemy.isHarmless;
-  }
-  if(player.nightActivated&&!immune&&!enemy.isHarmless){
-    player.nightActivated=false;
-    player.nightDuration=0;
-    player.speedAdditioner=0;
-    enemy.isHarmless=true;
-    enemy.HarmlessTime=2000;
-    harmless=true;
-  }
-  if(enemy.texture=="entities/pumpkin_off"||enemy.radius==0||harmless||enemy.shatterTime>0||player.godmode){
-	dead=false;
-  }
-  if(dead&&!corrosive){
-    if(player.isBandaged){
-      player.isBandaged=false;
-	  player.isUnbandaging=true;
-	  player.invulnerable=true;
-      setTimeout(()=>{player.isUnbandaging=player.invulnerable=false;},900)
-    }
-  }
-  if((((inBarrier&&player.inBarrier)||player.invulnerable)&&!corrosive)||harmless||enemy.radius<1){
-    dead=false;
-  }
-  if(player.deathTimer==-1&&dead){
-    death(player);
-  }
+function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier,ignores_safe_zone=true){
+	var dead=true;
+	if(harmless===undefined){
+		harmless=enemy.isHarmless;
+	}
+	if(ignores_safe_zone||!player.safeZone){
+		if(player.nightActivated&&!immune&&!enemy.isHarmless){
+			player.nightActivated=false;
+			player.nightDuration=0;
+			player.speedAdditioner=0;
+			enemy.isHarmless=true;
+			enemy.HarmlessTime=2000;
+			harmless=true;
+		}
+		if(enemy.texture=="entities/pumpkin_off"||enemy.radius==0||harmless||enemy.shatterTime>0||player.godmode){
+			dead=false;
+		}
+		if(dead&&!corrosive){
+			if(player.isBandaged){
+				player.isBandaged=false;
+				player.isUnbandaging=true;
+				player.invulnerable=true;
+				setTimeout(()=>{player.isUnbandaging=player.invulnerable=false;},900)
+			}
+		}
+		if((((inBarrier&&player.inBarrier)||player.invulnerable)&&!corrosive)||harmless||enemy.radius<1){
+			dead=false;
+		}
+		if(player.deathTimer==-1&&dead){
+			death(player);
+		}
+	}
 }
 function death(player){
     switch(player.area){
@@ -3242,7 +3246,7 @@ class SandEnemy extends Enemy{
   }
   update(delta){
 	if(this.sandSpeed<3){
-		this.sandSpeed+=0.03*delta/(1e3/30);
+		this.sandSpeed+=0.9*delta/1e3;
 	}
 	this.speedMultiplier*=this.sandSpeed;
     super.update(delta);
@@ -3259,7 +3263,7 @@ class SandrockEnemy extends Enemy{
   }
   update(delta){
 	if(this.sandrockSpeed>=0.1){
-		this.sandrockSpeed-=0.01*delta/(1e3/30);
+		this.sandrockSpeed-=0.3*delta/1e3;
 	}
 	this.speedMultiplier*=this.sandrockSpeed;
     super.update(delta);
@@ -3275,7 +3279,7 @@ class ChargingEnemy extends Enemy{
   }
   update(delta){
 	if(this.chargingSpeed<2.5){
-		this.chargingSpeed+=0.05*delta/(1e3/30);
+		this.chargingSpeed+=1.5*delta/1e3;
 	}
 	if(this.provoked){
 		this.provokedTime-=delta;
@@ -3778,7 +3782,7 @@ class SnowmanEnemy extends Enemy{
 	};
 	if(!this.hasCollided){
 		if(this.snowmanSize<3){
-			this.snowmanSize+=0.05*delta/(1e3/30);
+			this.snowmanSize+=1.5*delta/1e3;
 		}else{
 			this.snowmanSize=3;
 		}
@@ -3878,10 +3882,9 @@ class MistEnemy extends Enemy{
       this.brightness = 1;
       this.isVisible = true; // true - fading, false - going visible
       this.visibility_radius = 200;
-      this.brightness_tick = 0.05;
+      this.brightness_tick = 1.5;
 	}
   update(delta,area) {
-	var timeFix=delta/(1e3/30);
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
       information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
@@ -3906,10 +3909,10 @@ class MistEnemy extends Enemy{
       }
     }
     if(closest_entity!=void 0){
-      this.brightness-=this.brightness_tick*timeFix;
+      this.brightness-=this.brightness_tick*delta/1e3;
 	  this.brightness=Math.max(this.brightness,Number.EPSILON);
     }else if(this.brightness<1){
-      this.brightness+=this.brightness_tick*timeFix;
+      this.brightness+=this.brightness_tick*delta/1e3;
     }
 	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
     super.update(delta);
@@ -3921,10 +3924,9 @@ class PhantomEnemy extends Enemy{
       this.brightness = 1;
       this.isVisible = true; // true - fading, false - going visible
       this.visibility_radius = 250;
-      this.brightness_tick = 0.05;
+      this.brightness_tick = 1.5;
 	}
   update(delta,area) {
-	var timeFix=delta/(1e3/30);
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
       information = map.players.filter(e=>{return !e.isDowned()&&!e.nightActivated});
@@ -3950,10 +3952,10 @@ class PhantomEnemy extends Enemy{
     }
     if(closest_entity!=void 0){
 	  if(this.brightness<1){
-        this.brightness+=this.brightness_tick*timeFix;
+        this.brightness+=this.brightness_tick*delta/1e3;
 	  }
     }else if(this.brightness>0){
-      this.brightness-=this.brightness_tick*timeFix;
+      this.brightness-=this.brightness_tick*delta/1e3;
 	  this.brightness=Math.max(this.brightness,Number.EPSILON);
     }
 	this.lightRadius=this.radius*3*Math.min(1,this.brightness);
@@ -3968,19 +3970,18 @@ class GlowyEnemy extends Enemy{
       this.isVisible = true;
 	  this.lightRadius=this.radius*3*this.brightness;
       this.timer = this.invisible_timing;
-      this.brightness_tick = 0.06;
+      this.brightness_tick = 1.8;
 	}
   update(delta,area) {
-	var timeFix=delta/(1e3/30);
     if(this.isVisible && this.timer <= 0){
-      this.brightness -= this.brightness_tick * timeFix;
+      this.brightness -= this.brightness_tick * delta/1e3;
       if(this.brightness <= 0){
         this.brightness = Number.EPSILON;
         this.isVisible = false;
         this.timer = this.invisible_timing;
       }
     } else if (!this.isVisible && this.timer <= 0){
-      this.brightness += this.brightness_tick * timeFix;
+      this.brightness += this.brightness_tick * delta/1e3;
       if(this.brightness >= 1){
         this.isVisible = true;
         this.timer = this.invisible_timing;
@@ -4002,19 +4003,18 @@ class FireflyEnemy extends Enemy{
       this.brightness = this.isVisible==0?Math.random():1;
 	  this.lightRadius=this.radius*3*this.brightness;
       this.timer = this.isVisible==0?0:this.invisible_timing*Math.random();
-      this.brightness_tick = 0.06;
+      this.brightness_tick = 1.8;
 	}
   update(delta,area) {
-	var timeFix=delta/(1e3/30);
     if(this.isVisible && this.timer <= 0){
-      this.brightness -= this.brightness_tick * timeFix;
+      this.brightness -= this.brightness_tick * delta/1e3;
       if(this.brightness <= 0){
         this.brightness = Number.EPSILON;
         this.isVisible = false;
         this.timer = this.invisible_timing;
       }
     } else if (!this.isVisible && this.timer <= 0){
-      this.brightness += this.brightness_tick * timeFix;
+      this.brightness += this.brightness_tick * delta/1e3;
       if(this.brightness >= 1){
         this.isVisible = true;
         this.timer = this.invisible_timing;
@@ -4090,6 +4090,9 @@ class FlowerProjectile extends Enemy{
 	this.timer=0;
 	this.id=id;
   }
+  playerInteraction(player){
+    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier,false);
+  }
   update(delta,area) {
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
@@ -4136,8 +4139,7 @@ class FlowerProjectile extends Enemy{
 	}
     this.radiusMultiplier *= this.owner.radiusMultiplier;
 	this.setPosition(Math.sin(this.id*72*Math.PI/180),-Math.cos(this.id*72*Math.PI/180));
-	super.update(delta,area);
-	this.setPosition(Math.sin(this.id*72*Math.PI/180),-Math.cos(this.id*72*Math.PI/180));
+	super.update(delta,area,false);
   }
   setPosition(x, y){
     this.x = this.owner.x + x * this.owner.radius;
@@ -4155,6 +4157,7 @@ class SeedlingEnemy extends Enemy{
 		this.hasEntity=true;
 		area.entities.push(new SeedlingProjectile(this.x,this.y,this.radius,0,0,this,this.boundary))
 	}
+	super.update(delta,area);
   }
 }
 class SeedlingProjectile extends Enemy{
@@ -4169,9 +4172,7 @@ class SeedlingProjectile extends Enemy{
 	this.angle+=10*delta/(1e3/30)*Math.pow(-1,this.clockwise);
     this.x=this.owner.x+(this.radius+this.owner.radius/2)*Math.cos(this.angle/180*Math.PI);
     this.y=this.owner.y+(this.radius+this.owner.radius/2)*Math.sin(this.angle/180*Math.PI);
-	this.collision(delta);
-    this.x=this.owner.x+(this.radius+this.owner.radius/2)*Math.cos(this.angle/180*Math.PI);
-    this.y=this.owner.y+(this.radius+this.owner.radius/2)*Math.sin(this.angle/180*Math.PI);
+	this.collision(delta,false);
   }
 }
 class FireTrailEnemy extends Enemy{
