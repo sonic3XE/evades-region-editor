@@ -6,8 +6,8 @@ function loadFile(str,fromLocal=!0,socketSend=true){
 		current_Area=0;alertMessages=[];
 		"element" in map && (map.element.remove(),delete map.element);
 		map.element=createFolder(formatString(curLang,"editor.region"), [
-			createProperty(formatString(curLang,"editor.property.name"),createInput(map.name=obj.name,_=>{map.name=nameInput.value}),"text"),
-			createProperty(formatString(curLang,"editor.property.share_to_drive"),createInput(map.share_to_drive,_=>{map.share_to_drive=boolInput.checked}),"switch",{value:obj.share_to_drive??defaultValues.share_to_drive}),
+			createProperty(formatString(curLang,"editor.property.name"),nameInput=createInput(map.name=obj.name,_=>{map.name=nameInput.value}),"text"),
+			createProperty(formatString(curLang,"editor.property.share_to_drive"),boolInput=createInput(map.share_to_drive,_=>{map.share_to_drive=boolInput.checked}),"switch",{value:obj.share_to_drive??defaultValues.share_to_drive}),
 			(map.properties=createPropertyObj({...defaultValues.properties,...obj.properties})).element,
 		]);
 		map.element.classList.add("closed");
