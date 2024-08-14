@@ -2,7 +2,7 @@ function loadFile(str,fromLocal=!0,socketSend=true){
 	if(consumed_by_ink_demon&&useractive.hasBeenActive)return;
 	const noew=performance.now();
     try{
-		const obj=jsyaml.load(str);
+		const obj=YAML.parse(str);
 		current_Area=0;alertMessages=[];
 		"element" in map && (map.element.remove(),delete map.element);
 		map.element=createFolder(formatString(curLang,"editor.region"), [

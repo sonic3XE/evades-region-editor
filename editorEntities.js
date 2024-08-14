@@ -70,7 +70,7 @@ function spawnEntities(area=current_Area){
 		var right=randZone.x+randZone.width;
 		var bottom=randZone.y+randZone.height;
 		var top=randZone.y;
-		var pellet=new PelletEntity(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary,pelletZones);
+		var pellet=new Pellet(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary,pelletZones);
 		pellet.collision();
 		map.areas[area].entities.push(pellet);
 	}
@@ -277,7 +277,7 @@ function spawnEntities(area=current_Area){
 var verifiedEntities=[
   "wall","normal","homing","dasher"
 ];
-class SimulatedPlayer extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
+class Player extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
   constructor(x,y,hero,username=nickname.value||"Local Player") {
 	super();
     this.x=x;
@@ -2603,7 +2603,7 @@ class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
 		this.increasing = i
 	}
 }
-class PelletEntity extends SimulatorEntity{
+class Pellet extends SimulatorEntity{
   constructor(x,y,radius,boundary,pellet_zones){
     super(x,y,null,radius,"pellet",0,0,boundary);
 	const Cm = ["#b84dd4", "#a32dd8", "#3b96fd", "#43c59b", "#f98f6b", "#61c736"]
@@ -2750,7 +2750,7 @@ class Wall extends SimulatorEntity{
 }
 class FlashlightItem extends SimulatorEntity{
   constructor(x,y){
-    super(x,y,null,null,"flashlight_spawner",null,null,null,null,null);
+    super(x,y,null,null,"flashlight_item",null,null,null,null,null);
 	this.renderFirst=true;
 	this.texture=$31e8cfefa331e399$export$93e5c64e4cc246c8('entities/flashlight_item');
 	this.spawnInterval=1e3;
@@ -2781,7 +2781,7 @@ class FlashlightItem extends SimulatorEntity{
 				evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[player.abilityThree.abilityType]);
 				evadesRenderer.heroInfoCard.abilityThree.locked=false;
 				evadesRenderer.heroInfoCard.abilityThree.level=1;
-				evadesRenderer.heroInfoCard.abilityThree.abilityType=this.abilityThree.abilityType;
+				evadesRenderer.heroInfoCard.abilityThree.abilityType=player.abilityThree.abilityType;
 				this.isSpawned=false;
 			}
 		}
