@@ -152,7 +152,7 @@ function spawnEntities(area=current_Area){
 							entity=new MysteryEnemy(enemyX,enemyY,radius,speed,angle,type,boundary);
 						}
 					};break;
-/*					83 / 122 implemented
+/*					91 / 122 implemented
 */					case "experience_drain":
 					case "blocking":
 					case "slippery":
@@ -223,7 +223,6 @@ function spawnEntities(area=current_Area){
 					case "teleporting":
 					case "static":
 					case "star":
-					case "zigzag":
 					case "sizing":
 					case "cycling":
 					case "snowman":
@@ -233,26 +232,27 @@ function spawnEntities(area=current_Area){
 					case "firefly":
 					case "phantom":
 					case "mist":
-					case "zigzag_switch":
 					case "homing_switch":
 					case "dasher_switch":
+					case "zigzag":
+					case "zigzag_switch":
+					case "spiral":
+					case "spiral_switch":
+					case "wavy":
+					case "wavy_switch":
+					case "zoning_switch":
+					case "zoning":
+					case "oscillating_switch":
+					case "oscillating":
 /*NOT IMPLEMENTED*/			//case "wacky_wall":
-					//case "zoning_switch":
 					//case "confectioner":
 					//case "confectioner_switch":
 					//case "infinity":
 					//case "infinity_switch":
 					//case "dorito":
 					//case "dorito_switch":
-					//case "spiral_switch":
-					//case "oscillating_switch":
-					//case "wavy_switch":
 					//case "penny":
 					//case "penny_switch":
-					//case "wavy":
-					//case "oscillating":
-					//case "zoning":
-					//case "spiral":
 					//case "aibot": 400hp
 					//case "eabot": 400hp
 					//case "fibot": 400hp
@@ -2809,7 +2809,7 @@ class FlashlightItem extends SimulatorEntity{
 					INFINITY_SWITCH_ENEMY: 113,
 */
 
-class ZigzagSwitchEnemy extends Enemy{//reworked
+class ZigzagSwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zigzag_switch_enemy",boundary);
 	this.zigSpeed=0;
@@ -2859,27 +2859,42 @@ class ZigzagSwitchEnemy extends Enemy{//reworked
     super.update(delta);
   }
 }
-class ZoningSwitchEnemy extends Enemy{//rework
+class ZoningSwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zoning_switch_enemy",boundary);
     this.zoneInterval = 1000;
     this.zoneTime = Math.random() * this.zoneInterval;
+	this.zoneSpeed=0;
+	this.speedIncrement=2.9;
+	this.speeding=this.zoneTime < 500;
+	this.zoneSwitched=false;
+	this.dir=1;
     this.turnAngle = Math.PI / 2
-    this.turnAngle *= (Math.floor(Math.random() * 2) * 2) - 1;
+    this.turnAngle *= (Math.floor(Math.random() * 2) * 2) - 1
+	this.angle=Math.round(this.angle/(Math.PI/2))*(Math.PI/2);
+	this.anglevel();
+
     this.switch_inverval = 3e3;
 	this.switchTime=0;
     this.switchedHarmless=this.disabled=Math.round(Math.random());
     this.isHarmless=this.disabled;
   }
   update(delta){
-    if (this.zoneTime > 0) {
-      this.zoneTime -= delta
-    } else {
-      this.zoneTime = this.zoneInterval;
+	this.zoneTime+=delta;
+    if (this.zoneSpeed <= 1.45 && this.speeding) {
+      this.zoneSpeed = this.zoneTime/1e3*this.speedIncrement;
+	  if(this.zoneSpeed >= 1.45)this.zoneSpeed=1.45,this.zoneTime>(29e3/60)&&(this.speeding=false);
+    } else if(this.zoneSpeed >= 0 && !this.speeding){
+      this.zoneSpeed = 1.45-(this.zoneTime-(29e3/60))/1e3*this.speedIncrement;
+	  if(this.zoneSpeed <= 0)this.zoneSpeed=0,this.zoneTime>1000&&(this.speeding=true,this.zoneTime=0,this.zoneSwitched=true);
+	}
+	this.speedMultiplier*=Math.min(this.zoneSpeed,1.4);
+    if (this.zoneSwitched) {
       this.angle = Math.atan2(this.velY, this.velX);
-      this.angle += this.turnAngle;
+      this.angle += this.turnAngle * this.dir;
       this.velX = Math.cos(this.angle) * this.speed;
       this.velY = Math.sin(this.angle) * this.speed;
+	  this.zoneSwitched=false;
     }
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
@@ -2888,6 +2903,9 @@ class ZoningSwitchEnemy extends Enemy{//rework
 	  this.switchTime += this.switch_inverval;
     }
     super.update(delta);
+  }
+  onCollide(){
+	  this.dir*=-1;
   }
 }
 class SpiralSwitchEnemy extends Enemy{
@@ -2936,18 +2954,31 @@ class SpiralSwitchEnemy extends Enemy{
 class OscillatingSwitchEnemy extends Enemy{//rework
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"oscillating_switch_enemy",boundary);
-    this.clock = 0;
+    this.zoneInterval = 1000;
+    this.zoneTime = Math.random() * this.zoneInterval;
+	this.zoneSpeed=0;
+	this.speedIncrement=2.9;
+	this.speeding=this.zoneTime < 500;
+	this.zoneSwitched=false;
     this.switch_inverval = 3e3;
 	this.switchTime=0;
     this.switchedHarmless=this.disabled=Math.round(Math.random());
     this.isHarmless=this.disabled;
   }
   update(delta){
-    this.clock += delta
-    if (this.clock > 1000) {
+	this.zoneTime+=delta;
+    if (this.zoneSpeed <= 1.45 && this.speeding) {
+      this.zoneSpeed = this.zoneTime/1e3*this.speedIncrement;
+	  if(this.zoneSpeed >= 1.45)this.zoneSpeed=1.45,this.zoneTime>(29e3/60)&&(this.speeding=false);
+    } else if(this.zoneSpeed >= 0 && !this.speeding){
+      this.zoneSpeed = 1.45-(this.zoneTime-(29e3/60))/1e3*this.speedIncrement;
+	  if(this.zoneSpeed <= 0)this.zoneSpeed=0,this.zoneTime>1000&&(this.speeding=true,this.zoneTime=0,this.zoneSwitched=true);
+	}
+	this.speedMultiplier*=Math.min(this.zoneSpeed,1.4);
+    if (this.zoneSwitched) {
       this.velX *= -1;
       this.velY *= -1;
-      this.clock = this.clock % 1000;
+	  this.zoneSwitched=false;
     }
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
@@ -2961,24 +2992,29 @@ class OscillatingSwitchEnemy extends Enemy{//rework
 class WavySwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle=0,boundary){
     super(x,y,radius,speed,angle,"wavy_switch_enemy",boundary);
-    this.circleSize = 100;
     this.dir = 1;
-    this.waveInterval = 800;
+    this.waveInterval = (180+15)/this.speed*1e3;
     this.waveTime = 0;
-    this.angleIncrement = (this.speed+180)/this.circleSize;
+    this.angleIncrement = this.speed;
     this.switch_inverval = 3e3;
 	this.switchTime=0;
     this.switchedHarmless=this.disabled=Math.round(Math.random());
     this.isHarmless=this.disabled;
   }
+  rad_to_deg(x){
+	  return x/Math.PI*180;
+  }
+  deg_to_rad(x){
+	  return x*Math.PI/180;
+  }
   update(delta) {
     this.waveTime += delta
-    if (this.waveTime >= this.waveInterval) {
+    if (this.waveTime > this.waveInterval) {
       this.waveTime %= this.waveInterval;
       this.dir *= -1;
     }
     this.velangle();
-    this.angle += this.angleIncrement*this.dir*delta/1000;
+    this.angle+=this.deg_to_rad(this.angleIncrement*delta/1e3) * this.dir;
     this.anglevel();
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
@@ -4020,7 +4056,7 @@ class StaticEnemy extends Enemy{
 	super.update(delta);
   }
 }
-class ZigzagEnemy extends Enemy{//reworked
+class ZigzagEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zigzag_enemy",boundary);
 	this.zigSpeed=0;
@@ -4068,23 +4104,40 @@ class ZoningEnemy extends Enemy{
     super(x,y,radius,speed,angle,"zoning_enemy",boundary);
     this.zoneInterval = 1000;
     this.zoneTime = Math.random() * this.zoneInterval;
+	this.zoneSpeed=0;
+	this.speedIncrement=2.9;
+	this.speeding=this.zoneTime < 500;
+	this.zoneSwitched=false;
+	this.dir=1;
     this.turnAngle = Math.PI / 2
     this.turnAngle *= (Math.floor(Math.random() * 2) * 2) - 1
+	this.angle=Math.round(this.angle/(Math.PI/2))*(Math.PI/2);
+	this.anglevel();
   }
   update(delta){
-    if (this.zoneTime > 0) {
-      this.zoneTime -= delta
-    } else {
-      this.zoneTime = this.zoneInterval;
+	this.zoneTime+=delta;
+    if (this.zoneSpeed <= 1.45 && this.speeding) {
+      this.zoneSpeed = this.zoneTime/1e3*this.speedIncrement;
+	  if(this.zoneSpeed >= 1.45)this.zoneSpeed=1.45,this.zoneTime>(29e3/60)&&(this.speeding=false);
+    } else if(this.zoneSpeed >= 0 && !this.speeding){
+      this.zoneSpeed = 1.45-(this.zoneTime-(29e3/60))/1e3*this.speedIncrement;
+	  if(this.zoneSpeed <= 0)this.zoneSpeed=0,this.zoneTime>1000&&(this.speeding=true,this.zoneTime=0,this.zoneSwitched=true);
+	}
+	this.speedMultiplier*=Math.min(this.zoneSpeed,1.4);
+    if (this.zoneSwitched) {
       this.angle = Math.atan2(this.velY, this.velX);
-      this.angle += this.turnAngle;
+      this.angle += this.turnAngle * this.dir;
       this.velX = Math.cos(this.angle) * this.speed;
       this.velY = Math.sin(this.angle) * this.speed;
+	  this.zoneSwitched=false;
     }
     super.update(delta);
   }
+  onCollide(){
+	  this.dir *=-1;
+  }
 }
-class SpiralEnemy extends Enemy{//rework
+class SpiralEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"spiral_enemy",boundary);
     this.angleIncrement = 0.15;
@@ -4146,14 +4199,27 @@ class SizingEnemy extends Enemy{
 class OscillatingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"oscillating_enemy",boundary);
-    this.clock = 0;
+    this.zoneInterval = 1000;
+    this.zoneTime = Math.random() * this.zoneInterval;
+	this.zoneSpeed=0;
+	this.speedIncrement=2.9;
+	this.speeding=this.zoneTime < 500;
+	this.zoneSwitched=false;
   }
   update(delta){
-    this.clock += delta
-    if (this.clock > 1000) {
+	this.zoneTime+=delta;
+    if (this.zoneSpeed <= 1.45 && this.speeding) {
+      this.zoneSpeed = this.zoneTime/1e3*this.speedIncrement;
+	  if(this.zoneSpeed >= 1.45)this.zoneSpeed=1.45,this.zoneTime>(29e3/60)&&(this.speeding=false);
+    } else if(this.zoneSpeed >= 0 && !this.speeding){
+      this.zoneSpeed = 1.45-(this.zoneTime-(29e3/60))/1e3*this.speedIncrement;
+	  if(this.zoneSpeed <= 0)this.zoneSpeed=0,this.zoneTime>1000&&(this.speeding=true,this.zoneTime=0,this.zoneSwitched=true);
+	}
+	this.speedMultiplier*=Math.min(this.zoneSpeed,1.4);
+    if (this.zoneSwitched) {
       this.velX *= -1;
       this.velY *= -1;
-      this.clock = this.clock % 1000;
+	  this.zoneSwitched=false;
     }
     super.update(delta);
   }
@@ -4161,25 +4227,30 @@ class OscillatingEnemy extends Enemy{
 class WavyEnemy extends Enemy{
   constructor(x,y,radius,speed,angle=0,boundary){
     super(x,y,radius,speed,angle,"wavy_enemy",boundary);
-    this.circleSize = 200;
     this.dir = 1;
-    this.waveInterval = 1600;
+    this.waveInterval = (180+15)/this.speed*1e3;
     this.waveTime = 0;
-    this.angleIncrement = (this.speed+180)/this.circleSize;
+    this.angleIncrement = this.speed;
+  }
+  rad_to_deg(x){
+	  return x/Math.PI*180;
+  }
+  deg_to_rad(x){
+	  return x*Math.PI/180;
   }
   update(delta) {
     this.waveTime += delta
-    if (this.waveTime >= this.waveInterval) {
+    if (this.waveTime > this.waveInterval) {
       this.waveTime %= this.waveInterval;
       this.dir *= -1;
     }
     this.velangle();
-    this.angle += this.angleIncrement*this.dir*delta/1000;
+    this.angle+=this.deg_to_rad(this.angleIncrement*delta/1e3) * this.dir;
     this.anglevel();
     super.update(delta);
   }
   onCollide(){
-    this.dir *= -1; 
+    this.dir *= -1;
   }
 }
 class TurningEnemy extends Enemy{
