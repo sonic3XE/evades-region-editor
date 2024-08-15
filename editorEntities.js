@@ -2829,12 +2829,12 @@ class ZigzagSwitchEnemy extends Enemy{
   }
   update(delta){
 	this.zigTime+=delta;
-    if (this.zigSpeed <= 1.5 && this.speeding) {
+    if (this.zigSpeed < 1.5 && this.speeding) {
       this.zigSpeed += this.constantSpeedIncrement*delta/1e3;
-	  if(this.zigSpeed >= 1.5)this.zigSpeed=1.5,this.speeding=false;
+	  if(this.zigSpeed > 1.5)this.zigSpeed=1.5,this.speeding=false;
     } else if(this.zigSpeed >= 0 && !this.speeding){
       this.zigSpeed -= this.constantSpeedIncrement*delta/1e3;
-	  if(this.zigSpeed <= 0)this.zigSpeed=0,this.zigTime>1000&&(this.speeding=true,this.zigTime%=1000,this.zigSwitched=true);
+	  if(this.zigSpeed < 0)this.zigSpeed=0,this.zigTime>500&&(this.speeding=true,this.zigTime%=500,this.zigSwitched=true);
 	}
 	this.speedMultiplier*=this.zigSpeed;
 	if(this.zigSwitched){
@@ -4077,9 +4077,9 @@ class ZigzagEnemy extends Enemy{
     if (this.zigSpeed < 1.5 && this.speeding) {
       this.zigSpeed += this.constantSpeedIncrement*delta/1e3;
 	  if(this.zigSpeed > 1.5)this.zigSpeed=1.5,this.speeding=false;
-    } else if(this.zigSpeed > 0 && !this.speeding){
+    } else if(this.zigSpeed >= 0 && !this.speeding){
       this.zigSpeed -= this.constantSpeedIncrement*delta/1e3;
-	  if(this.zigSpeed <= 0)this.zigSpeed=0,this.zigTime>1000&&(this.speeding=true,this.zigTime%=1000,this.zigSwitched=true);
+	  if(this.zigSpeed < 0)this.zigSpeed=0,this.zigTime>500&&(this.speeding=true,this.zigTime%=500,this.zigSwitched=true);
 	}
 	this.speedMultiplier*=this.zigSpeed;
 	if(this.zigSwitched){
