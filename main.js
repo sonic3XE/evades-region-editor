@@ -1240,8 +1240,8 @@ function rungame(){
 	lastTime=r;
 	(delta/1e3)**-1<24&&(delta=0);
 	ti[0]+=delta;
-	ti[1]+=delta;
 	var actually=(settings.legacy30FPS?(1e3/30*(ti[0]>(1e3/30-delta/2))):delta)*isActive;
+	ti[1]+=delta*!!actually;
 	ti[0]>(1e3/30-delta/2)&&(ti[0]=0);
 	var isVisible = settings.enableMouseMovement && settings.toggleMouseMovement && playtesting;
 	inputIndicator.hidden=!isVisible;
