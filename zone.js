@@ -911,6 +911,7 @@ function cloneSpawner(e){
 	obj.angle = e.angle;
 	obj.speed = e.speed;
 	obj.count = e.count;
+	void 0 !== e.pattern_id && (obj.pattern_id = e.pattern_id);
 	obj.types = e.types.map(t => { return t.i });
 	obj.types.includes("slowing") && (
 		obj.slowing_radius = e.slowing_radius,
