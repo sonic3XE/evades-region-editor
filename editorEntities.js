@@ -5664,10 +5664,8 @@ class FrostGiantEnemy extends Enemy{
   generate_entities(delta,area){
     this.angle+=this.deg_to_rad(this.turn_speed*this.direction*delta/1e3);
     this.shot_interval-=this.shot_acceleration*delta/1e3;
-    this.turn_speed+=this.turn_acceleration*delta/1e3*30;
-	try{
+    this.turn_speed+=this.turn_acceleration*delta/(1e3/30);
     this.pattern(delta,area);
-	}catch(e){};
   }
   cone_pattern(delta,area){
     function angle_difference(x,y){

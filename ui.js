@@ -582,7 +582,7 @@ function createProperty(name = "name", input = document.createElement("input"), 
         label.classList.add("switchLabel")
         switchSpan.classList.add("switchSpan");
 
-        input.checked = options.value;
+        input.checked = options.value ?? input.checked;
 
         label.appendChild(input);
         label.appendChild(switchSpan);
