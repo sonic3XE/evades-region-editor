@@ -1682,13 +1682,13 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		$["VICTORY"] = [148, 136, 0, 255],
 		$["TELEPORT"] = [33, 135, 149, 255],
 		$["REMOVAL"] = [107, 99, 0, 255],
-		$["DUMMY"] = [60, 60, 60, 255]) : ($["ACTIVE"] = [255, 255, 255, 255],
+		$["DUMMY"] = [17, 17, 17, 255]) : ($["ACTIVE"] = [255, 255, 255, 255],
 		$["SAFE"] = [195, 195, 195, 255],
 		$["EXIT"] = [255, 244, 108, 255],
 		$["VICTORY"] = [255, 244, 108, 255],
 		$["TELEPORT"] = [106, 208, 222, 255],
 		$["REMOVAL"] = [255, 249, 186, 255],
-		$["DUMMY"] = [195, 195, 195, 255]);
+		$["DUMMY"] = [255, 255, 255, 255]);
 		for (const e of this.zones) {
 			if (e.x > o || e.x + e.width < r || e.y > n || e.y + e.height < c)
 				continue;
