@@ -242,11 +242,11 @@ function spawnEntities(area=current_Area){
 					case "wavy_switch":
 					case "zoning_switch":
 					case "zoning":
+					case "confectioner":
+					case "confectioner_switch":
 					case "oscillating_switch":
 					case "oscillating":
 /*NOT IMPLEMENTED*/			//case "wacky_wall":
-					case "confectioner":
-					//case "confectioner_switch":
 					//case "infinity":
 					//case "infinity_switch":
 					//case "dorito":
@@ -1129,10 +1129,10 @@ this.isGuest=!1;
             }
 
             if(!cent){
-			this.d_x = this.dirX * this.distance_movement / this.mouse_distance_full_strength;
+			this.velX = this.dirX * this.distance_movement / this.mouse_distance_full_strength;
 				if(!this.magnet||this.magnet&&this.safeZone){
-					if(this.vertSpeed==-1)this.d_y=this.dirY*this.distance_movement/this.mouse_distance_full_strength;
-					else this.d_y=this.dirY*this.vertSpeed/this.mouse_distance_full_strength;
+					if(this.vertSpeed==-1)this.velY=this.dirY*this.distance_movement/this.mouse_distance_full_strength;
+					else this.velY=this.dirY*this.vertSpeed/this.mouse_distance_full_strength;
 				} 
             }
         } else if (!this.cent_is_moving){
