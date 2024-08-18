@@ -622,6 +622,7 @@ function socketclosed(e){
   console.log("socket died, might reconnect after 3 seconds");
     var chatmsg=document.createElement("div");
     mouseEntities=[];
+	leaderboard.innerHTML=`<span class="leaderboard-title">Region Editor</span><div class="leaderboard-line server-info"><span class="leaderboard-name"><b>Disconnected</b></span></div>`;
 	if(global.chat){
     chatmsg.setAttribute("class","chat-message")
     chatmsg.setAttribute("style","color:red")
@@ -635,6 +636,7 @@ function socketclosed(e){
     socket=new WebSocket('wss://grass-thoracic-share.glitch.me/');
     socket.binaryType="arraybuffer";
     global.chat&&(document.getElementById("chat-window").innerHTML="");
+	leaderboard.innerHTML=`<span class="leaderboard-title">Region Editor</span><div class="leaderboard-line server-info"><span class="leaderboard-name"><b>Connecting</b></span></div>`;
     socket.addEventListener("close",socketclosed);
     socket.addEventListener("message",socketreceive);
   },3e3);
@@ -643,9 +645,9 @@ nickname.addEventListener("input",e=>{
 	socket.send(msgpack.encode({nick:nickname.value}));
 })
 function socketreceive(e){
-  var c=document.getElementById("chat-window"),message=msgpack.decode(new Uint8Array(e.data)),M;
+  let c=document.getElementById("chat-window"),message=msgpack.decode(new Uint8Array(e.data)),M,users={};
   while(message.chatmsg&&(M=document.createElement("div"),M.setAttribute("class","chat-message"),M.setAttribute("style","color:#"+(message.color??(2**24-1)).toString(16).padStart(6,"0")),M.innerHTML="<b>"+message.id+"</b>: "+message.chatmsg,c.appendChild(M),c.scrollTop=c.scrollHeight-c.clientHeight),c.childNodes.length>100){c.childNodes[0].remove()};
-  message.leaderboard&&(leaderboard.innerHTML=`<span class="leaderboard-title">Region Editor</span><div class="leaderboard-title-break"><br><span class="leaderboard-world-title">Online: ${message.leaderboard.length}/1000</span></div>${message.leaderboard.map(e=>`<div class="leaderboard-line"><span class="leaderboard-name">${e}</span>`).join("")}</div>`);
+  message.leaderboard&&(users.Europe=message.leaderboard.filter(e=>e.includes("<span class=\"head-mod\">")),users.Asia=message.leaderboard.filter(e=>e.includes("<span class=\"streamer\">")),users.Antarctica=message.leaderboard.filter(e=>e.includes("<span class=\"mod\">")),users.SouthAmerica=message.leaderboard.filter(e=>e.includes("<span class=\"youtuber\">")),users.Africa=message.leaderboard.filter(e=>e.includes("<span class=\"sr-mod\">")),users.Oceania=message.leaderboard.filter(e=>e.includes("<span class=\"jr-mod\">")),users.NorthAmerica=message.leaderboard.filter(e=>e.includes("<span class=\"dev\">")),leaderboard.innerHTML=`<span class="leaderboard-title">Region Editor</span><div class="leaderboard-line server-info"><span class="leaderboard-name"><b>Online: ${message.leaderboard.length}/1000</b></span></div>${users.Africa.length?'<div class="leaderboard-title-break"><br><span class="leaderboard-world-title sr-mod">Africa</span></div>':""}${users.Africa.map(e=>`<div class="leaderboard-line sr-mod"><span class="leaderboard-name">${e.split("</span> ")[1]}</span></div>`).join("")}${users.Antarctica.length?'<div class="leaderboard-title-break"><br><span class="leaderboard-world-title mod">Antarctica</span></div>':""}${users.Antarctica.map(e=>`<div class="leaderboard-line mod"><span class="leaderboard-name">${e.split("</span> ")[1]}</span></div>`).join("")}${users.Asia.length?'<div class="leaderboard-title-break"><br><span class="leaderboard-world-title streamer">Asia</span></div>':""}${users.Asia.map(e=>`<div class="leaderboard-line streamer"><span class="leaderboard-name">${e.split("</span> ")[1]}</span></div>`).join("")}${users.Europe.length?'<div class="leaderboard-title-break"><br><span class="leaderboard-world-title head-mod">Europe</span></div>':""}${users.Europe.map(e=>`<div class="leaderboard-line head-mod"><span class="leaderboard-name">${e.split("</span> ")[1]}</span></div>`).join("")}${users.NorthAmerica.length?'<div class="leaderboard-title-break"><br><span class="leaderboard-world-title dev">North America</span></div>':""}${users.NorthAmerica.map(e=>`<div class="leaderboard-line dev"><span class="leaderboard-name">${e.split("</span> ")[1]}</span>`).join("")}${users.Oceania.length?'<div class="leaderboard-title-break"><br><span class="leaderboard-world-title jr-mod">Oceania</span></div>':""}${users.Oceania.map(e=>`<div class="leaderboard-line jr-mod"><span class="leaderboard-name">${e.split("</span> ")[1]}</span></div>`).join("")}${users.SouthAmerica.length?'<div class="leaderboard-title-break"><br><span class="leaderboard-world-title youtuber">South America</span></div>':""}${users.SouthAmerica.map(e=>`<div class="leaderboard-line youtuber"><span class="leaderboard-name">${e.split("</span> ")[1]}</span>`).join("")}`);
   (message.chathistory??[]).map(t=>{var M=document.createElement("div");while(M.setAttribute("class","chat-message"),M.setAttribute("style","color:#"+(t.color??(2**24-1)).toString(16).padStart(6,"0")),M.innerHTML="<b>"+t.id+"</b>: "+t.chatmsg,c.appendChild(M),c.scrollTop=c.scrollHeight-c.clientHeight,c.childNodes.length>100){c.childNodes[0].remove()}});
   (message.nick!==null&&message.nick!==undefined)&&(nickname.value=message.nick);
   message.ping&&socket.send(msgpack.encode({pong:true}));
