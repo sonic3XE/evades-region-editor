@@ -1128,10 +1128,12 @@ this.isGuest=!1;
               this.d_y = this.distance_movement*Math.sin(this.mouse_angle)
             }
 
-            if(!cent){this.velX = this.dirX * this.speed / this.mouse_distance_full_strength;
-            this.addX = this.dirX * this.speedAdditioner/this.mouse_distance_full_strength;
-            this.addY = this.dirY * this.speedAdditioner/this.mouse_distance_full_strength;
-            if(!this.magnet||this.magnet&&this.safeZone){if(this.vertSpeed==-1){this.velY = this.dirY * this.speed / this.mouse_distance_full_strength;}else{this.velY = this.dirY * this.vertSpeed / this.mouse_distance_full_strength;}} 
+            if(!cent){
+			this.d_x = this.dirX * this.distance_movement / this.mouse_distance_full_strength;
+				if(!this.magnet||this.magnet&&this.safeZone){
+					if(this.vertSpeed==-1)this.d_y=this.dirY*this.distance_movement/this.mouse_distance_full_strength;
+					else this.d_y=this.dirY*this.vertSpeed/this.mouse_distance_full_strength;
+				} 
             }
         } else if (!this.cent_is_moving){
             this.dirY = 0; this.dirX = 0;
@@ -1176,7 +1178,6 @@ this.isGuest=!1;
           this.d_x = this.distance_movement * this.dirX;
           this.d_y = this.distance_movement * this.dirY;
         }
-        //this.speed-=this.speedAdditioner;
         this.speed=this.statSpeed;
       }
     }
@@ -1228,7 +1229,7 @@ this.isGuest=!1;
 		this.updateEffects([ab1,ab2,ab3]);
 		let area=map.areas[this.area];
 		this.safeZone = true;
-		this.minimum_speed = 1;
+		this.minimum_speed = 0;
 		this.pointInActiveZone=false;
 		for(var i in area.zones){
 			var zone=area.zones[i],rect1={x:this.x,y:this.y,width:this.radius, height:this.radius},rect2={x:zone.x,y:zone.y,width:zone.width, height:zone.height};
@@ -1362,12 +1363,6 @@ this.isGuest=!1;
 			}
 			this.distance_movement = this.cent_distance;
 		}
-		if (Math.abs(this.velX)<1/32) {
-			this.velX = 0;
-		}
-		if (Math.abs(this.velY)<1/32) {
-			this.velY = 0;
-		}
 		this.survivalTime+=delta/1e3;
 		this.radius = this.defaultRadius;
 		var velY=this.velY;
@@ -1452,8 +1447,6 @@ this.isGuest=!1;
 			if(this.abs_d_y>this.distance_movement&&!this.slippery)this.d_y*=this.distance_movement/this.abs_d_y;
 		}
 		this.prevSlippery=this.slippery;
-		if(this.abs_d_x<1/32)this.d_x=0;
-		if(this.abs_d_y<1/32)this.d_y=0;
 		this.distance_moved_previously=[this.d_x,this.d_y]
 		this.velX=this.d_x;
 		this.velY=this.d_y;
@@ -1501,7 +1494,7 @@ this.isGuest=!1;
 			if(this.energy<0){this.energy=0}
 		}
 		if(this.sourCandyConsumed){
-			this.speedAdditioner-=160;
+			this.speedAdditioner-=150;
 			this.regenAdditioner-=5;
 			this.sourCandyTime-=delta;
 		}
