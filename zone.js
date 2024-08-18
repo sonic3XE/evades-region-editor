@@ -149,9 +149,8 @@ function Base64_To_Ascii(str) {
     if ("/" == e) char = 63;
     char = char.toString(2);
     return `${"0".repeat(6 - char.length)}${char}`
-  }).join("").match(/(........?)/g).map(e => { return String.fromCharCode(parseInt(e, 2)) }).join("")
+  }).join("").match(/(........)/g).map(e => { return String.fromCharCode(parseInt(e, 2)) }).join("")
 }
-
 function AsciiToBase64(str){
     var map = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".split("");
     var t = str.split("").map(e=>e.charCodeAt());
@@ -163,12 +162,10 @@ function AsciiToBase64(str){
         (t[i+1]!=void 0)&&res.push((t[i+1]<<2&0b111100)+(t[i+2]>>6&0b11));
         (t[i+2]!=void 0)&&res.push(t[i+2]&0b111111);
     }
-    return res.map(e=>map[e]).join("");
+	res=res.map(e=>map[e]);
+	while(res.length%4!=0)res.push("=");
+    return res.join("");
 }
-/**
- * @param {Spawner} e
- * @returns {Spawner}
- */
 function createSPAWNERgui(point1,Zone){
 	delete point1.element;
 	const isLegacy=settings.legacySpeedUnits,
@@ -178,6 +175,7 @@ function createSPAWNERgui(point1,Zone){
 	}
 	for(var i in point1){
 		if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
+		//if(legacyProperties.indexOf(i)!=-1)point1[i]*=30*Math.pow(-1,isLegacy);
 	}
 	function CreateInput(value,step,type="number",inputEvent,input){
 		return(input=document.createElement("input"),type=="checkbox")?(input.checked=value??false):(input.value=value??"",input.step=step??1),input.addEventListener("input",inputEvent),input;
@@ -255,13 +253,13 @@ function createSPAWNERgui(point1,Zone){
 	}),	taInput = CreateInput(prop(point1,"turn_acceleration")/30**isLegacy,1/(100*30**isLegacy),null,_=>{
 		point1.turn_acceleration=(_.target.value=Number(_.target.value))*30**isLegacy;
 		spawnEntities();
-        }),	siInput = CreateInput(prop(point1,"shot_interval"),null,null,_=>{
+	}),	siInput = CreateInput(prop(point1,"shot_interval"),null,null,_=>{
 		point1.shot_interval=Number(_.target.value);
 		spawnEntities();
 	}),	saInput = CreateInput(prop(point1,"shot_acceleration")/30**isLegacy,1/(100*30**isLegacy),null,_=>{
 		point1.shot_acceleration=(_.target.value=Number(_.target.value))*30**isLegacy;
 		spawnEntities();
-        }),	piInput = CreateInput(prop(point1,"pause_interval"),null,null,_=>{
+	}),	piInput = CreateInput(prop(point1,"pause_interval"),null,null,_=>{
 		point1.pause_interval=Number(_.target.value);
 		spawnEntities();
 	}),	pdInput = CreateInput(prop(point1,"pause_duration"),null,null,_=>{
@@ -282,19 +280,19 @@ function createSPAWNERgui(point1,Zone){
 	}),	powInput = CreateInput(prop(point1,"powered"),null,"checkbox",_=>{
 		point1.powered=_.target.checked;
 		spawnEntities();
-        }),	ignInput = CreateInput(prop(point1,"ignore_invulnerability"),null,"checkbox",_=>{
+	}),	ignInput = CreateInput(prop(point1,"ignore_invulnerability"),null,"checkbox",_=>{
 		point1.ignore_invulnerability=_.target.checked;
 		spawnEntities();
-        }),	hardInput = CreateInput(prop(point1,"hard_mode"),null,"checkbox",_=>{
+	}),	hardInput = CreateInput(prop(point1,"hard_mode"),null,"checkbox",_=>{
 		point1.hard_mode=_.target.checked;
 		spawnEntities();
-        }),	spTopInput = CreateInput(prop(point1,"spawn_top"),null,"checkbox",_=>{
+	}),	spTopInput = CreateInput(prop(point1,"spawn_top"),null,"checkbox",_=>{
 		point1.spawn_top=_.target.checked;
 		spawnEntities();
-        }),	reversInput = CreateInput(prop(point1,"reverse"),null,"checkbox",_=>{
+	}),	reversInput = CreateInput(prop(point1,"reverse"),null,"checkbox",_=>{
 		point1.reverse=_.target.checked;
 		spawnEntities();
-        }),	speedInput = CreateInput((!isNaN(prop(point1,"speed"))&&prop(point1,"speed"))/30**isLegacy,1/(10*30**isLegacy),null,_=>{
+	}),	speedInput = CreateInput((!isNaN(prop(point1,"speed"))&&prop(point1,"speed"))/30**isLegacy,1/(10*30**isLegacy),null,_=>{
 		point1.speed=(_.target.value=Number(_.target.value))*30**isLegacy;
 		spawnEntities();
 	}),	radiusInput = CreateInput(prop(point1,"radius"),null,null,_=>{
@@ -321,31 +319,31 @@ function createSPAWNERgui(point1,Zone){
 	}),	drainInput = CreateInput(prop(point1,"drain"),null,null,_=>{
 		point1.drain=_.target.value=Number(_.target.value);
 		spawnEntities();
-        }),	slowInput = CreateInput(prop(point1,"slow"),1/100,null,_=>{
+	}),	slowInput = CreateInput(prop(point1,"slow"),1/100,null,_=>{
 		point1.slow=_.target.value=Number(_.target.value);
 		spawnEntities();
-        }),	ckwsInput = CreateInput(prop(point1,"move_clockwise"),null,"checkbox",_=>{
+	}),	ckwsInput = CreateInput(prop(point1,"move_clockwise"),null,"checkbox",_=>{
 		point1.move_clockwise=_.target.checked;
 		spawnEntities();
-        }),	immInput = CreateInput(prop(point1,"immune"),null,"checkbox",_=>{
+	}),	immInput = CreateInput(prop(point1,"immune"),null,"checkbox",_=>{
 		point1.immune=_.target.checked;
 		spawnEntities();
-        }),	splsInput = CreateInput(prop(point1,"speed_loss")/30**isLegacy,1/(100*30**isLegacy),null,_=>{
+	}),	splsInput = CreateInput(prop(point1,"speed_loss")/30**isLegacy,1/(100*30**isLegacy),null,_=>{
 		point1.speed_loss=(_.target.value=Number(_.target.value))*30**isLegacy;
 		spawnEntities();
-        }),	incInput = CreateInput(prop(point1,"increment")/30**isLegacy,1/(100*30**isLegacy),null,_=>{
+	}),	incInput = CreateInput(prop(point1,"increment")/30**isLegacy,1/(100*30**isLegacy),null,_=>{
 		point1.increment=(_.target.value=Number(_.target.value))*30**isLegacy;
 		spawnEntities();
-        }),	rglsInput = CreateInput(prop(point1,"regen_loss"),1/100,null,_=>{
+	}),	rglsInput = CreateInput(prop(point1,"regen_loss"),1/100,null,_=>{
 		point1.regen_loss=_.target.value=Number(_.target.value);
 		spawnEntities();
 	}),	pdrInput = CreateInput(prop(point1,"player_detection_radius"),null,null,_=>{
 		point1.player_detection_radius=_.target.value=Math.max(_.target.value,0);
 		spawnEntities();
-        }),	gravInput = CreateInput(prop(point1,"gravity")/30**isLegacy,1/30**isLegacy,null,_=>{
+	}),	gravInput = CreateInput(prop(point1,"gravity")/30**isLegacy,1/(1*30**isLegacy),null,_=>{
 		point1.gravity=(_.target.value=Number(_.target.value))*30**isLegacy;
 		spawnEntities();
-	}),	repelInput = CreateInput(prop(point1,"repulsion")/30**isLegacy,1/30**isLegacy,null,_=>{
+	}),	repelInput = CreateInput(prop(point1,"repulsion")/30**isLegacy,1/(1*30**isLegacy),null,_=>{
 		point1.repulsion=(_.target.value=Number(_.target.value))*30**isLegacy;
 		spawnEntities();
 	}),	dirInput = CreateInput(prop(point1,"direction"),null,null,_=>{
@@ -367,7 +365,7 @@ function createSPAWNERgui(point1,Zone){
 	}),	csInput = CreateInput(prop(point1,"circle_size"),null,null,_=>{
 		point1.circle_size=_.target.value=Math.max(_.target.value,0);
 		spawnEntities();
-        }),	quicksandStrengthInput = CreateInput(prop(point1,"quicksand_strength")/30**isLegacy,1/(10*30**isLegacy),null,_=>{
+	}),	quicksandStrengthInput = CreateInput(prop(point1,"quicksand_strength")/30**isLegacy,1/(10*30**isLegacy),null,_=>{
 		point1.quicksand_strength=(_.target.value=Number(_.target.value))*30**isLegacy;
 		spawnEntities();
 	}),	retiInput = CreateInput(prop(point1,"release_time"),null,null,_=>{

@@ -245,7 +245,7 @@ function spawnEntities(area=current_Area){
 					case "oscillating_switch":
 					case "oscillating":
 /*NOT IMPLEMENTED*/			//case "wacky_wall":
-					//case "confectioner":
+					case "confectioner":
 					//case "confectioner_switch":
 					//case "infinity":
 					//case "infinity_switch":
@@ -342,6 +342,8 @@ this.fusionActivated=false;
 this.mortarTime=0;
 this.sugarRushActivated=false;
 this.sweetToothConsumed=false;
+this.sourCandyConsumed=false;
+this.sourCandyTime=0;
 this.isObscured=false;
 this.isPoisoned=false;
 this.poisonedTime=1000;
@@ -1494,6 +1496,19 @@ this.isGuest=!1;
 		this.speedMultiplier=1;
 		this.speedAdditioner=0;
 		this.regenAdditioner=0;
+		if(this.sourCandyTime==5000){
+			this.energy -= this.maxEnergy/2;
+			if(this.energy<0){this.energy=0}
+		}
+		if(this.sourCandyConsumed){
+			this.speedAdditioner-=160;
+			this.regenAdditioner-=5;
+			this.sourCandyTime-=delta;
+		}
+		if(this.sourCandyTime<0){
+			this.sourCandyTime=0;
+			this.sourCandyConsumed=false;
+		}
 		if(this.deathTimer!=-1)this.deathTimer-=delta,this.deathTimer=Math.max(0,this.deathTimer);
 		for(var i in area.zones){
 			var zone=area.zones[i];
@@ -1725,10 +1740,14 @@ this.isGuest=!1;
 		this.energy < 0 && (f = 0),
 		this.energized && (u = "rgb(255, 255, 0)",
 		d = "rgb(211, 211, 0)"),
+		this.sourCandyConsumed && (u = "rgb(153, 43, 255)",
+		d = "rgb(110, 0, 212)"),
 		this.sweetToothConsumed && (u = "rgb(255, 43, 143)",
 		d = "rgb(212, 0, 100)"),
-		this.energized && this.sweetToothConsumed && (u = "rgb(255, 43, 143)",
-		d = "rgb(212, 0, 100)"),
+		this.energized && this.sweetToothConsumed && this.sourCandyConsumed && (u = "rgb(255, 255, 0)",
+		d = "rgb(211, 211, 0)"),
+		this.sourCandyConsumed && this.sweetToothConsumed && !this.energized && (u = "blue",
+		d = "rgb(68, 118, 255)"),
 		this.canGainEnergy || (u = "rgb(110, 110, 117)",
 		d = "rgb(87, 87, 92)"),
 		this.hasRadioactiveGloop && (h = 15 - this.radius),
@@ -2148,6 +2167,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	super();
     this.color = color;
 	this.effects=[];
+	this.rectCircleCollide=false;
     this.type=type;
 	this.lightRectangle=null;
 	this.outline=false;
@@ -2264,9 +2284,15 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	}
     for(var i in map.players){
       var player = map.players[i];
-      if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
-		this.playerInteraction(player,delta);
-      }
+      if(this.rectCircleCollide){
+        if(rectCircleCollision(player.x,player.y,player.radius,this.x,this.y,this.width,this.height).c){
+		  this.playerInteraction(player,delta);
+        }
+	  }else{
+	    if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.radius+player.radius)){
+		  this.playerInteraction(player,delta);
+        }
+	  }
       if(!player.safeZone&&player.deathTimer==-1&&Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.auraRadius+player.radius)){
         this.auraEffect(player,delta);
       }
@@ -2675,6 +2701,7 @@ class Torch extends SimulatorEntity{
 	this.flickerChance = 4.5 / 30,
 	this.lightRadius = this.baseLightRadius;
 	this.renderFirst=true;
+	this.rectCircleCollide=true;
 	this.flipped=upside_down;
 	this.imageName="torch";
 	this.loadedImageName="torch";
@@ -3179,7 +3206,83 @@ class DasherSwitchEnemy extends Enemy{
     this.velangle();
   }
 }
-
+class ConfectionerSwitchEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"confectioner_switch_enemy",boundary);
+    this.release_inverval = 3000;
+	this.releaseTime=Math.random()*this.release_interval;
+    this.switch_inverval = 3e3;
+	this.switchTime=0;
+    this.switchedHarmless=this.disabled=Math.round(Math.random());
+    this.isHarmless=this.disabled;
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+      area.entities.push(new SourCandyItem(this.x,this.y,13,0,0,this.boundary))
+      this.releaseTime = this.release_interval;
+    }else{
+      this.releaseTime -= delta;
+    }
+    this.switchTime -= delta;
+    if (this.switchTime <= 0) {
+      this.switchedHarmless = this.disabled = !this.disabled;
+      this.isHarmless = this.disabled;
+	  this.switchTime += this.switch_inverval;
+    }
+    super.update(delta);
+  }
+}
+class ConfectionerEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"confectioner_enemy",boundary);
+    this.release_interval = 3000,
+    this.releaseTime = Math.random()*this.release_interval;
+  }
+  update(delta,area) {
+    if(this.releaseTime<=0){
+      area.entities.push(new SourCandyItem(this.x,this.y,13,0,0,this.boundary))
+      this.releaseTime = this.release_interval;
+    }else{
+      this.releaseTime -= delta;
+    }
+    super.update(delta);
+  }
+}
+class SourCandyItem extends SimulatorEntity{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,"rgb(69,85,255)",radius,"sour_candy_item",speed,angle,boundary);
+    this.immune=true;
+	this.outline=false;
+    this.clock=0;
+	this.rectCircleCollide=true;
+	this.width=this.height=this.radius*2;
+    this.image = $31e8cfefa331e399$export$93e5c64e4cc246c8("entities/sour_candy_item"),
+    this.randomrotation=Math.floor(360*Math.random())
+  }
+  playerInteraction(player){
+	player.sourCandyConsumed=true;
+	player.sourCandyTime=5000;
+    this.remove=true;
+  }
+  render(e, t, delta) {
+    const n = this.width/2+this.x + t.x
+      , r = this.height/2+this.y + t.y;
+    e.translate(n, r),
+    e.rotate(this.randomrotation),
+    e.translate(-n, -r),
+    e.drawImage(this.image.getImage(delta), n - this.width / 2, r - this.height / 2, this.width, this.height),
+    e.translate(n, r),
+    e.rotate(-this.randomrotation),
+    e.translate(-n, -r)
+  }
+  update(delta,area){
+    this.clock += delta;
+	if(this.clock >= 3000){
+		this.remove=true;
+	}
+    super.update(delta,area,false);
+  }
+}
 class WallEnemy extends Enemy{
   constructor(radius,speed,area_bounding_box,wall_index,wall_count,move_clockwise=true,spawn_top=true){
     super(0,0,radius,speed,0,"wall_enemy",area_bounding_box);
@@ -3861,6 +3964,8 @@ class HomingEnemy extends Enemy{
     super(x,y,radius,speed,angle,"homing_enemy",boundary);
     this.target_angle=this.angle;
     this.reverse=reverse;
+	this.speed=Math.abs(this.speed);
+	this.anglevel();
 	this.home_range=home_range;
 	this.increment=increment;
   }
@@ -3891,7 +3996,7 @@ class HomingEnemy extends Enemy{
     if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      target_angle = modulus(Math.atan2(distance_y,distance_x)+Math.PI+(Math.PI*this.reverse),Math.PI*2);
+      target_angle = modulus(Math.atan2(distance_y,distance_x)+(Math.PI*!this.reverse),Math.PI*2);
     }else {
       target_angle = this.target_angle;
     }
@@ -3900,12 +4005,10 @@ class HomingEnemy extends Enemy{
     if(angle_difference<angle_increment){
     }else if(angle_difference < Math.PI){
       this.angle-=angle_increment*delta/1000;
-      this.velX=Math.cos(this.angle)*this.speed;
-      this.velY=Math.sin(this.angle)*this.speed;
+      this.anglevel();
     }else{
       this.angle+=angle_increment*delta/1000;
-      this.velX=Math.cos(this.angle)*this.speed;
-      this.velY=Math.sin(this.angle)*this.speed;
+      this.anglevel();
     }
     super.update(delta);
   }

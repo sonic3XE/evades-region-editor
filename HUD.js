@@ -2124,7 +2124,7 @@ loadPackage("./accessories.tex.pak",13,assets=>{
 	}
 });
 $31e8cfefa331e399$var$addImages("buttons", $00741949c3252cd2$exports);
-loadPackage("./entities.tex.pak",20,assets=>{
+loadPackage("./entities.tex.pak",21,assets=>{
 	var u=0;
 	$31e8cfefa331e399$var$addImages("entities",{
 		"experiorb_item":       assets[u++].url,
@@ -2139,6 +2139,7 @@ loadPackage("./entities.tex.pak",20,assets=>{
 		"pumpkin_off":          assets[u++].url,
 		"pumpkin_on":           assets[u++].url,
 		"snowball_projectile":  assets[u++].url,
+		"sour_candy_item":      assets[u++].url,
 		"sweet_tooth_item":     assets[u++].url,
 		"torch-1":              assets[u++].url,
 		"torch-2":              assets[u++].url,
