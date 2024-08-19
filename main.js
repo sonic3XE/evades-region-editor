@@ -406,6 +406,7 @@ document.addEventListener("keydown", e => {
   }
   if (e.which === controls.PLAYTEST){
   	if(e.preventDefault(),consumed_by_ink_demon)return;
+	return;
     playtesting=!playtesting;
     tl.style.transform="translate("+(-100*playtesting)+"px, 0)";
     menu.hidden=playtesting;
