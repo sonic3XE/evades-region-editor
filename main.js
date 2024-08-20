@@ -405,8 +405,8 @@ document.addEventListener("keydown", e => {
 	  return;
   }
   if (e.which === controls.PLAYTEST){
-  	if(e.preventDefault(),consumed_by_ink_demon)return;
-	return;
+  	if(e.preventDefault(),consumed_by_ink_demon)return customAlert("Fatal Error",5,"#F00");
+	return customAlert("Error 404: Simulation Not Found",5);
     playtesting=!playtesting;
     tl.style.transform="translate("+(-100*playtesting)+"px, 0)";
     menu.hidden=playtesting;

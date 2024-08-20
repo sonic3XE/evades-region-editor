@@ -33,6 +33,7 @@ function getEntityColor(type){
 	return EvadesConfig.defaults[type].color;
 }
 function spawnEntities(area=current_Area){
+	return;
 	var areaC=map.areas[area];
 	if(!areaC)return;
 	var isVictory=!!areaC.zones.filter(e=>e.type=="victory").length;
@@ -2812,7 +2813,7 @@ class FlashlightItem extends SimulatorEntity{
     ctx.drawImage(this.texture.getImage(),camera.x+(this.x-16),camera.y+this.y-8,32,16);
   }
 }
-//	EvadesClassic(vanilla) Enemy File Template: https://github.com/Spacebrook/EvadesClassic/blob/master/server/src/game/entities/enemies/{{type}}_enemy.py
+//	EvadesClassic(vanilla) Enemy File Template: https://github.com/Spacebrook/EvadesClassic/tree/master/server/src/game/entities/enemies/{{type}}_enemy.py
 /*
 					WAVY_SWITCH_ENEMY: 99,
 					DORITO_ENEMY: 101,
@@ -3343,6 +3344,27 @@ class WallEnemy extends Enemy{
 class NormalEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"normal_enemy",boundary);
+  }
+}
+class PennyEnemy extends Enemy{
+  constructor(x,y,radius,speed,angle,boundary){
+    super(x,y,radius,speed,angle,"penny_enemy",boundary);
+	this.movementInterval=800;
+	this.movementTime=0;
+  }
+  update(delta,area) {
+    this.movementTime+=delta
+	this.movementTime%=this.movementInterval;
+	if(this.movementTime<=25){
+		this.speedMultiplier=0;
+	}else if(this.movementTime<=150){
+		this.speedMultiplier*=0.25;
+	}else if(this.movementTime<=300){
+		this.speedMultiplier*=1;
+	}else{
+		//Fuck you, SpaceBrook
+	}
+    super.update(delta);
   }
 }
 class MysteryEnemy extends Enemy{

@@ -12,8 +12,11 @@ a:hover {
 a:active {
 	color: #7aadff
 }
-
+leaderboard{
+	z-index:99;
+}
 #chat {
+	z-index:99;
 	width: 300px;
 	height: 200px;
 	background-color: #0009;
@@ -230,6 +233,7 @@ body {
 }
 
 #tl {
+	z-index:100;
     position: absolute;
     top: 5px;   
     left: 5px;
@@ -665,6 +669,7 @@ input[type=number] {
     position: absolute;
     right: 15px;
     top: 0px;
+	z-index:100;
     width: 300px;
     max-height: 500px;
     margin: 0;

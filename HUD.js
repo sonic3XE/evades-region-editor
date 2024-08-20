@@ -1214,11 +1214,12 @@ class $e7009c797811e935$var$InputLayer {
 		e.stopPropagation()
 	}
 	update(e) {
+		var w=camScale
+		camScale=Math.min(window.innerWidth/1280,window.innerHeight/720);
 		global.chat && chat.setAttribute("style",`transform-origin: 0% 0%;transform: scale(${camScale}); left: ${ctx.canvas.width/2-640*camScale+10*camScale}px; top: ${ctx.canvas.height/2-360*camScale+10*camScale}px; visibility: visible;`);
 		global.leaderboard && leaderboard.setAttribute("style",`transform-origin: 100% 0%;transform: scale(${camScale}); right: ${ctx.canvas.width/2-640*camScale+10*camScale}px; top: ${ctx.canvas.height/2-360*camScale+10*camScale}px; visibility: visible;`);
+		camScale=w;
 		if(!playtesting){
-			global.chat && (chat.style.visibility="hidden");
-			global.leaderboard && (leaderboard.style.visibility="hidden");
 			this.down = !1;
 			this.initialDown = !1;
 			this.mouseMovementToggled = !1;
