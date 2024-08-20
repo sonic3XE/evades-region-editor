@@ -1138,7 +1138,6 @@ class $e7009c797811e935$var$InputLayer {
 		this.onMouseDownListeners.delete(e)
 	}
 	onKeyDown(e) {
-		if(!playtesting)return;
 		if (null === this.gameState || null === this.updateChat)
 			return;
 		if (this.gameState.initial)

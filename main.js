@@ -404,6 +404,16 @@ document.addEventListener("keydown", e => {
 	  e.preventDefault(pasteObjs());
 	  return;
   }
+	if (e.which === controls.TOGGLE_LEADERBOARD){
+		toggleLeaderboard = !toggleLeaderboard;
+		localStorage.leaderboard=toggleLeaderboard;
+		(global.leaderboard)&&(leaderboard.hidden=!toggleLeaderboard);
+	}
+	if (e.which === controls.TOGGLE_CHAT){
+		toggleChat = !toggleChat;
+		localStorage.chat=toggleChat;
+		(global.chat)&&(chat.hidden=!toggleChat);
+	}
   if (e.which === controls.PLAYTEST){
   	if(e.preventDefault(),consumed_by_ink_demon)return customAlert("Fatal Error",5,"#F00");
 	return customAlert("Error 404: Simulation Not Found",5);
@@ -501,12 +511,6 @@ document.addEventListener("keydown", e => {
   	  plr.godmode=false;
 	  plr.deathTimer=-1;
     }
-    if (e.which === controls.TOGGLE_LEADERBOARD) toggleLeaderboard = !toggleLeaderboard;
-    localStorage.leaderboard=toggleLeaderboard;
-    if (e.which === controls.TOGGLE_CHAT) toggleChat = !toggleChat;
-    localStorage.chat=toggleChat;
-    (global.chat)&&(chat.hidden=!toggleChat);
-    (global.leaderboard)&&(leaderboard.hidden=!toggleLeaderboard);
 	return;
   };
   if (e.which === controls.TOGGLE_HITBOX) hitbox = !hitbox;
