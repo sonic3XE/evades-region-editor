@@ -2151,224 +2151,256 @@ areas:
   - height: 480
     spawner:
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 475
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 475
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 625
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 625
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 775
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 775
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 925
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 925
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1075
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1075
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1225
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1225
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1375
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1375
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1525
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1525
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1675
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1675
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1825
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1825
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1975
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 1975
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 2125
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 2125
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 2275
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 2275
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 2425
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 2425
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 2575
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 2575
       y: 405
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]
       x: 2725
       y: 75
     - count: 1
-      quicksand_strength: 180
+      quicksand_strength: 240
+      quicksand_radius: 165
       radius: 0
       speed: 0
       types: [quicksand]

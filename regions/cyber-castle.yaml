@@ -985,9 +985,6 @@ areas:
 - name: Data Center A
   x: 1952
   y: 145072
-  properties:
-    pellet_count: 10
-    background_color: [0, 138, 101, 225]
   zones:
   - height: 960
     spawner:
@@ -1021,12 +1018,12 @@ areas:
     y: 0
     properties:
       background_color: [0, 0, 0, 175]
+  properties:
+    background_color: [0, 138, 101, 225]
+    pellet_count: 10
 - name: Data Center B
   x: 7872
   y: 145072
-  properties:
-    pellet_count: 10
-    background_color: [36, 117, 133, 225]
   zones:
   - height: 960
     spawner:
@@ -1060,12 +1057,12 @@ areas:
     y: 0
     properties:
       background_color: [0, 0, 0, 175]
+  properties:
+    background_color: [36, 117, 133, 225]
+    pellet_count: 10
 - name: Data Center C
   x: 1952
   y: 139952
-  properties:
-    pellet_count: 10
-    background_color: [135, 88, 38, 225]
   zones:
   - height: 960
     spawner:
@@ -1099,12 +1096,12 @@ areas:
     y: 928
     properties:
       background_color: [0, 0, 0, 175]
+  properties:
+    background_color: [135, 88, 38, 225]
+    pellet_count: 10
 - name: Data Center D
   x: 7872
   y: 139952
-  properties:
-    pellet_count: 10
-    background_color: [179, 102, 7, 225]
   zones:
   - height: 960
     spawner:
@@ -1138,6 +1135,9 @@ areas:
     y: 928
     properties:
       background_color: [0, 0, 0, 175]
+  properties:
+    background_color: [179, 102, 7, 225]
+    pellet_count: 10
 - name: FINAL BOSS
   x: 4816
   y: 142416

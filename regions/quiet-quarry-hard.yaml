@@ -1656,12 +1656,6 @@ areas:
       move_clockwise: False
       types:
       - wall
-    - count: 24
-      radius: 8
-      speed: 3
-      move_clockwise: False
-      types:
-      - wall
     type: active
     width: 2560
     x: last_right
@@ -1778,12 +1772,6 @@ areas:
     - count: 24
       radius: 8
       speed: 90
-      move_clockwise: False
-      types:
-      - wall
-    - count: 24
-      radius: 8
-      speed: 3
       move_clockwise: False
       types:
       - wall
@@ -1921,12 +1909,6 @@ areas:
       move_clockwise: False
       types:
       - wall
-    - count: 24
-      radius: 8
-      speed: 3
-      move_clockwise: False
-      types:
-      - wall
     type: active
     width: 2560
     x: last_right
@@ -2056,12 +2038,6 @@ areas:
       move_clockwise: False
       types:
       - wall
-    - count: 24
-      radius: 8
-      speed: 3
-      move_clockwise: False
-      types:
-      - wall
     type: active
     width: 2560
     x: last_right
@@ -2173,12 +2149,6 @@ areas:
     - count: 24
       radius: 8
       speed: 90
-      move_clockwise: False
-      types:
-      - wall
-    - count: 24
-      radius: 8
-      speed: 3
       move_clockwise: False
       types:
       - wall
@@ -2428,28 +2398,6 @@ areas:
     - count: 1
       radius: 140
       speed: 435
-      types:
-      - wind_ghost
-    - count: 10
-      radius: 40
-      speed: 8
-      types:
-      - switch
-    - count: 6
-      radius: 40
-      speed: 8
-      types:
-      - slowing
-    - count: 5
-      radius: 100
-      speed: 6
-      move_clockwise: False
-      spawn_top: False
-      types:
-      - wall
-    - count: 1
-      radius: 140
-      speed: 13
       types:
       - wall
     type: active
