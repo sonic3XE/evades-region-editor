@@ -1,6 +1,5 @@
 const isForked=location.origin+location.pathname!=="https://sonic3xe.github.io/evades-region-editor/",reloadPage=location.reload.bind(location),canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),map={name: "No Name",share_to_drive:true,players:[],properties:{},areas:[]},camSpeed=10,selectBuffer=5,manageExtensions=function(str){(activated_extensions.indexOf(str)==-1)?activated_extensions.push(str):activated_extensions.splice(activated_extensions.indexOf(str),1),localStorage.activatedExtensions=activated_extensions},getObjects=function(){return [...map.areas[current_Area].zones,...map.areas[current_Area].assets]},cons=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4"),prec=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3"),luma=function(arr){return arr.map(e=>{var v=e/255;return v<.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)}).map((e,t)=>{return[.2126,.7152,0.0722,0][t]*e}).reduce((e,t)=>{return e+t},0)*255},customAlert=function(text,duration=2,color="#fff"){if(duration<=0)return;alertMessages.push({text,color});duration!=1/0&&setTimeout(e=>alertMessages.splice(alertMessages.map(e=>e.text).indexOf(text),1),duration*1e3)},hexToArr=function(hex){return[parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)]},arrtoRGBA=function(arr){return`rgba(${arr.join()})`},fillZeros=function(str="0",digits=2,filler="0"){return filler.repeat(digits-str.length)+str},RGBtoHex=function(arr){return`#${fillZeros(Number(arr[0]).toString(16))}${fillZeros(Number(arr[1]).toString(16))}${fillZeros(Number(arr[2]).toString(16))}`},RGBAtoHex=function(arr){return`${RGBtoHex(arr)}${fillZeros(Number(arr[3]).toString(16))}`},ExtractDiff=function(e){e=e.replace(/ /g,"");const t=e.split("+"),i=e.split("-");return t.length>1?parseInt(t[1]||0):i.length>1?-parseInt(i[1]||0):0},loadData=async function(){await fetch("world.yaml").then(e=>{if(e?.status>=400&&!e?.ok)return customAlert(`[Error ${e.target.status}]: Unable to fetch data "${url}"`,20,"#FF0000");if(e?.status>=200&&e?.ok)return e?.text().then(t=>{return WORLD=YAML.parse(t)});console.log("bruh",e)}).catch(e=>{return customAlert(e,1/0,"#FFFF00")})},
 YAML={parse:function(e){return jsyaml.load(e,null)},stringify:function(e){return jsyaml.dump(e,{noCompatMode:true})}};
-global.tiles=loadImage("./maps/tiles.png"),global.tilesDark=loadImage("./maps/tilesDark.png")
 /*(from Discord) amasterclasher — Thu, Aug 1, 2024 01:16:33 EDT
 	added a maximum speed property so if any mapmakers would like to put that in to their maps, it does work now
 	also @Sοηiς.εχэ will ping you since you seem to care about this stuff
@@ -76,12 +75,12 @@ canvas.addEventListener("wheel", e => {
   camScale = Math.min(Math.max(1/zoomLimit,camScale),32);
 },{capture:true,passive:true});
 const mousePos={x:0,y:0,ex:0,ey:0}
-let mouseEntity={x:mousePos.x / camScale + camX,y:mousePos.y / camScale + camX}
+let mouseEntity={x:mousePos.x + camX,y:mousePos.y + camY}
 canvas.addEventListener("mousemove", e => {
   const t = canvas.getBoundingClientRect();
   const mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
-  mousePos.x=(e.offsetX - canvas.width / 2);
-  mousePos.y=(e.offsetY - canvas.height / 2);
+  mousePos.x=(e.offsetX - canvas.width / 2) / camScale;
+  mousePos.y=(e.offsetY - canvas.height / 2) / camScale;
   mousePos.ex=mouse_position.x;
   mousePos.ey=mouse_position.y;
 });
@@ -229,12 +228,21 @@ x:target.x,y:target.y};
  * @returns {Zone | Asset}
  */
 function targetedObject(e) {
+  const t = canvas.getBoundingClientRect();
+  const gameScale=Math.min(global.innerWidth/1280,global.innerHeight/720);
+  const mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
+  const gameMouseCursor={
+	x:(mouse_position.x-t.width/2)/gameScale,
+	y:(mouse_position.y-t.height/2)/gameScale
+  };
+  if(Math.abs(gameMouseCursor.x)>640)return null;
+  if(Math.abs(gameMouseCursor.y)>360)return null;
   if(playtesting)return;
   let objects = getObjects(/*type*/);
   for (let i = objects.length - 1; i >= 0; i--) {
     const obj = /*selectedObject||*/objects[i];
     const [{ x: x0, y: y0, width: x1, height: y1 }] = points(obj);
-    const mouse = { x: e.pageX, y: e.pageY };
+    const mouse = mouse_position;
     if (obj.type === "flashlight_spawner" || obj.type === "torch") {
       if (pointInCircle(mouse, { x: x0, y: y0 }, 16 * camScale + selectBuffer)) {
         return obj;
@@ -247,8 +255,16 @@ function targetedObject(e) {
 }
 
 canvas.addEventListener("mousemove", e => {
-  if (lockCursor||playtesting) return(canvas.style.cursor="default");
+  const t = canvas.getBoundingClientRect();
+  const gameScale=Math.min(global.innerWidth/1280,global.innerHeight/720);
+  const mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
+  const gameMouseCursor={
+	x:(mouse_position.x-t.width/2)/gameScale,
+	y:(mouse_position.y-t.height/2)/gameScale
+  };
+  if(lockCursor)return;
   for (let type of types) {
+    if(Math.abs(gameMouseCursor.x)>640||Math.abs(gameMouseCursor.y)>360||playtesting)break;
     let arr = getObjects(type);
 
     for (let i = arr.length - 1; i >= 0; i--) {
