@@ -263,6 +263,7 @@ var curLang={
   "editor.requirement.exact_region_name":"Exact Region Name",
   "editor.requirement.exact_area_index":"Exact Area Index",
   "editor.requirement.none":"None",
+  "editor.requirement.switch_station_found":"Switch Station Found",
   "editor.requirement.all_elements_gained":"All Elements Gained",//Removed from the game
   "editor.requirement.inaccessible":"Inaccessible",
   "editor.requirement.cybot_castle_defeated":"Cybot Castle Defeated",
