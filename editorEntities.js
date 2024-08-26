@@ -33,7 +33,6 @@ function getEntityColor(type){
 	return EvadesConfig.defaults[type].color;
 }
 function spawnEntities(area=current_Area){
-	return;
 	var areaC=map.areas[area];
 	if(!areaC)return;
 	var isVictory=!!areaC.zones.filter(e=>e.type=="victory").length;
@@ -63,19 +62,6 @@ function spawnEntities(area=current_Area){
 	for(var it in areaofzone){
 		if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
 	}
-	var sum=pelletZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
-	for(var i=0;i<(totalPellets==25?(isVictory?250:25):totalPellets);i++){
-		var rand=Math.random()*sum;
-		var randZone=pelletZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
-		var left=randZone.x;
-		var right=randZone.x+randZone.width;
-		var bottom=randZone.y+randZone.height;
-		var top=randZone.y;
-		var pellet=new Pellet(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary,pelletZones);
-		pellet.collision();
-		map.areas[area].entities.push(pellet);
-	}
-	var quicksandDir=Math.floor(Math.random()*4)*90;
 	areaC.assets.filter(e=>e.type=="flashlight_spawner").map(e=>{
 		areaC.entities.push(new FlashlightItem(e.x,e.y))
 	})
@@ -92,6 +78,20 @@ function spawnEntities(area=current_Area){
 	//areaC.assets.filter(e=>e.type=="gate").map(e=>{
 	//  areaC.entities.push(new Gate(e.x,e.y,e.width,e.height))
 	//})
+	return;
+	var sum=pelletZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
+	for(var i=0;i<(totalPellets==25?(isVictory?250:25):totalPellets);i++){
+		var rand=Math.random()*sum;
+		var randZone=pelletZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
+		var left=randZone.x;
+		var right=randZone.x+randZone.width;
+		var bottom=randZone.y+randZone.height;
+		var top=randZone.y;
+		var pellet=new Pellet(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary,pelletZones);
+		pellet.collision();
+		map.areas[area].entities.push(pellet);
+	}
+	var quicksandDir=Math.floor(Math.random()*4)*90;
 	function prop(spawner,e){
 		return spawner[e]??defaultValues.spawner[e]
 	}
@@ -1999,15 +1999,15 @@ this.isGuest=!1;
 		this.storedHatName = this.hatName);
 		this.gemName && this.gemName !== this.storedGemName && (this.gemImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("accessories/" + this.gemName.toString() + "-gem"),
 		this.storedGemName = this.gemName);
-		const r = ()=>e.drawImage(this.bodyImage.getImage(dt), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
-		  , c = ()=>e.drawImage(this.hatImage.getImage(dt), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
+		const r = ()=>e.drawImage(this.bodyImage.getImage(delta), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
+		  , c = ()=>e.drawImage(this.hatImage.getImage(delta), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3)
 		  , o = ()=>{
 			if (!this.hatName || !this.hatName.endsWith("-crown"))
 				return;
 			const r = [1e4, 7500, 5e3, 3500, 2500, 2e3, 1500, 1e3, 750, 500, 250, 100, 50];
 			(r=>{
 				null !== r && (null === this.gemImage && (this.gemImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("accessories/" + r.toString() + "-gem")),
-				e.drawImage(this.gemImage.getImage(dt), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3))
+				e.drawImage(this.gemImage.getImage(delta), t - 5 * this.radius / 3, a - 5 * this.radius / 3, 10 * this.radius / 3, 10 * this.radius / 3))
 			}
 			)((e=>{
 				if (this.gemName)
@@ -2495,7 +2495,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 			e.beginPath(),
 			e.arc(this.x + t.x, this.y + t.y, n, 0, 2 * Math.PI, !1),
 			void 0 === this.image ? (e.fillStyle = this.getColorChange(),
-			e.fill()) : e.drawImage(this.image.getImage(delta/(1e3/30)), this.x + t.x - this.radius, this.y + t.y - this.radius, 2 * n, 2 * n),
+			e.fill()) : e.drawImage(this.image.getImage(delta), this.x + t.x - this.radius, this.y + t.y - this.radius, 2 * n, 2 * n),
 			this.isRepelling && (e.fillStyle = "rgba(255, 0, 93, 0.9)",
 			e.fill()),
 			this.decayed && !this.healingTime > 0 && (e.fillStyle = "rgba(0, 0, 128, 0.2)",
@@ -2707,13 +2707,12 @@ class Torch extends SimulatorEntity{
   render(ctx,t,delta) {
 	const a = this.x + t.x
 	  , r = this.y + t.y;
-	var tf=delta/(1e3/30)
 	Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
 	this.flipped ? (ctx.translate(a + this.width / 2, r + this.height / 2),
 	ctx.scale(1, -1),
-	ctx.drawImage(this.image.getImage(tf), -this.width / 2, -this.height / 2, this.width, this.height),
+	ctx.drawImage(this.image.getImage(delta), -this.width / 2, -this.height / 2, this.width, this.height),
 	ctx.scale(1, -1),
-	ctx.translate(-(a + this.width / 2), -(r + this.height / 2))) : ctx.drawImage(this.image.getImage(tf), a, r, this.width, this.height)
+	ctx.translate(-(a + this.width / 2), -(r + this.height / 2))) : ctx.drawImage(this.image.getImage(delta), a, r, this.width, this.height)
   }
 }
 class LightRegion extends SimulatorEntity{
@@ -2752,21 +2751,7 @@ class Wall extends SimulatorEntity{
   update(){}
   render(ctx,camera) {
 		ctx.imageSmoothingEnabled = false;
-        if(!zoneconsts[this.texture])return;
-        var q = ctx.createPattern(zoneconsts[this.texture].active, null)
-		q.setTransform(new DOMMatrix([1,0,0,1,(camera.x+this.x)%zoneconsts[this.texture].active.width,(camera.y+this.y)%zoneconsts[this.texture].active.height]))
-        ctx.save();
-        ctx.beginPath();
-        ctx.fillStyle = ((tileMode.selectedIndex&1)&&this.texture=="normal")?zoneColors[tileMode.selectedIndex>>1].active:q;
-        ctx.rect(
-          camera.x+this.x,
-          camera.y+this.y,
-		  this.width,
-		  this.height
-        );
-        ctx.fill();
-        ctx.restore();
-        ctx.closePath();
+		$d2f179ecccc561fa$export$b9dfb366e63af805(ctx, $d2f179ecccc561fa$export$b9b1204f7239550e(this.texture, null, settings.tileMode), 0, 0, this.width, this.height, {x:camera.x+this.x,y:camera.y+this.y});
   }
 }
 class FlashlightItem extends SimulatorEntity{
@@ -2807,10 +2792,10 @@ class FlashlightItem extends SimulatorEntity{
 			}
 		}
 	}
-  render(ctx,camera) {
+  render(ctx,camera,delta) {
 	if(!this.isSpawned)return;
 	ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(this.texture.getImage(),camera.x+(this.x-16),camera.y+this.y-8,32,16);
+    ctx.drawImage(this.texture.getImage(delta),camera.x+(this.x-16),camera.y+this.y-8,32,16);
   }
 }
 //	EvadesClassic(vanilla) Enemy File Template: https://github.com/Spacebrook/EvadesClassic/tree/master/server/src/game/entities/enemies/{{type}}_enemy.py
