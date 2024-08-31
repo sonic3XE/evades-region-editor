@@ -682,12 +682,12 @@ var copyObjects=[];
 function createPropertyObj(obj={},t="region") {
   delete obj.inputs,delete obj.element;
   var arrayCheck=Object.keys(obj);
-  var arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
+  var arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,maximum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
 if(t=="region"){
 arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
 }
 if(t=="zone"){
-arr="background_color,friction,texture,spawns_pellets,minimum_speed".split(",");
+arr="background_color,friction,texture,spawns_pellets,minimum_speed,maximum_speed".split(",");
 }
   for(var i in obj){
     if(arr.indexOf(i)==-1&&defaultValues.properties[i]!=obj[i]){
@@ -705,6 +705,7 @@ texture = payloads.server.NORMAL_TEXTURE  #normal
 lighting = 1.0
 snow = 0
 minimum_speed = None
+maximum_speed = None
 max_level = 100
 death_timer = None
 warping_disabled = False
@@ -821,6 +822,15 @@ allow_solo_with_group = False
     };
     properties.minimum_speed = Number(_minimum_speed.value);
   });
+  const _maximum_speed = document.createElement("input");
+  _maximum_speed.value = properties.maximum_speed ?? defaultValues.properties.maximum_speed;
+  _maximum_speed.addEventListener("input", () => {
+    if (_maximum_speed.value == "") {
+      properties.maximum_speed = undefined;
+      return;
+    };
+    properties.maximum_speed = Number(_maximum_speed.value);
+  });
   const _death_timer = document.createElement("input");
   _death_timer.title = "in milliseconds";
   _death_timer.value = properties.death_timer ?? defaultValues.properties.death_timer;
@@ -873,6 +883,7 @@ var col=properties.background_color ?? defaultValues.properties.background_color
 	properties.background_color??=[...defaultValues.properties.background_color];
     properties.background_color[3] = Number(opacityInput.value);
   });
+
 if(t=="region"){
   properties.element = createFolder(formatString(curLang,"editor.property.properties"), [
     createFolder(formatString(curLang,"editor.property.background_color"), [
@@ -888,6 +899,7 @@ if(t=="region"){
     createProperty(formatString(curLang,"editor.property.lighting"), _lighting, "number"),
     createProperty(formatString(curLang,"editor.property.snow"), _snow, "number"),
     createProperty(formatString(curLang,"editor.property.minimum_speed"), _minimum_speed, "number"),
+    createProperty(formatString(curLang,"editor.property.maximum_speed"), _maximum_speed, "number"),
     createProperty(formatString(curLang,"editor.property.max_level"), _max_level, "number"),
     createProperty(formatString(curLang,"editor.property.death_timer"), _death_timer, "number"),
     createProperty(formatString(curLang,"editor.property.applies_lantern"), _applies_lantern, "switch", { value: properties.applies_lantern ?? defaultValues.properties.applies_lantern }),
@@ -922,6 +934,7 @@ if(t=="zone"){
       selectType: "text"
     }),
     createProperty(formatString(curLang,"editor.property.minimum_speed"), _minimum_speed, "number"),
+    createProperty(formatString(curLang,"editor.property.maximum_speed"), _maximum_speed, "number"),
   ]);
 };
   properties.element.classList.add("closed");
