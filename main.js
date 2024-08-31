@@ -682,9 +682,9 @@ var copyObjects=[];
 function createPropertyObj(obj={},t="region") {
   delete obj.inputs,delete obj.element;
   var arrayCheck=Object.keys(obj);
-  var arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,maximum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,maximum_speed".split(",");
+  var arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,maximum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
 if(t=="region"){
-arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
+arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,maximum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
 }
 if(t=="zone"){
 arr="background_color,friction,texture,spawns_pellets,minimum_speed,maximum_speed".split(",");
