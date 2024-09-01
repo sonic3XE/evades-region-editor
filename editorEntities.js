@@ -90,7 +90,6 @@ function spawnEntities(area=current_Area){
 		pellet.collision();
 		map.areas[area].entities.push(pellet);
 	}
-	var quicksandDir=Math.floor(Math.random()*4)*90;
 	function prop(spawner,e){
 		return spawner[e]??defaultValues.spawner[e]
 	}
@@ -190,7 +189,7 @@ function spawnEntities(area=current_Area){
 					case "slowing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`slowing_radius`),prop(spawner,"slow"),boundary);break;
 					case "gravity":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`gravity_radius`),prop(spawner,"gravity"),boundary);break;
 					case "repelling":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`repelling_radius`),prop(spawner,"repulsion"),boundary);break;
-					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`quicksand_radius`),prop(spawner,`push_direction`)??quicksandDir,prop(spawner,`quicksand_strength`),boundary);break;
+					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`quicksand_radius`),prop(spawner,`push_direction`),prop(spawner,`quicksand_strength`),boundary);break;
 					case "turning":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"circle_size"),boundary);break;
 					case "liquid":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"player_detection_radius"),boundary);break;
 					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),prop(spawner,"switch_time"),prop(spawner,"switched_harmless"),boundary);break;
@@ -1216,7 +1215,7 @@ this.isGuest=!1;
 			this.cent_input_ready=true;
 			this.cent_distance=0;
 		}
-        (this.dirY||this.dirX)&&(this.input_angle = Math.atan2(this.dirY,this.dirX));
+        (this.dirY||this.dirX)&&(this.inputAngle=this.input_angle = Math.atan2(this.dirY,this.dirX));
         if(cent && this.cent_input_ready){
           this.cent_saved_angle = this.input_angle;
           this.cent_input_ready = false;
@@ -1475,7 +1474,16 @@ this.isGuest=!1;
 			this.y+=Math.sin(this.quicksand[1]*Math.PI/180)*this.quicksand[2]*delta/1e3;
 			this.quicksand[0]=false;
 		}
-		this.energy+=this.energyRate*delta/1e3;
+		if(this.isStone){
+			this.speedMultiplier=0;
+			this.velX=0;
+			this.velY=0;
+			this.d_x=0;
+			this.d_y=0;
+			this.distance_moved_previously=[0,0];
+		}
+		this.canGainEnergy=!this.isStone;
+		this.canGainEnergy && (this.energy+=this.energyRate*delta/1e3);
 		this.energyRate=this.energyRegen+this.regenAdditioner;
 		if(this.energy>this.maxEnergy)this.energy=this.maxEnergy;
 		if(this.energy<0)this.energy=0;
@@ -2334,7 +2342,8 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 			if(effect.effectType==58)
 				void null;
 			if(effect.effectType==59)
-				player.quicksand=[true,this.push_direction,this.quicksand_strength];
+				if(!player.invulnerable)
+					player.quicksand=[true,this.push_direction??(180/Math.PI*player.inputAngle),this.quicksand_strength];
 			if(effect.effectType==60)
 				void null;
 			if(effect.effectType==61)

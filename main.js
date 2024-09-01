@@ -455,7 +455,7 @@ document.addEventListener("keydown", e => {
   };
   if(playtesting){
 	var plr=map.players[map.players.map(t=>t.id).indexOf(selfId)];
-	//Teleports you to another area (Command: /tp <area>)
+	//Teleports you to another area (Command: /tp, /teleport <area>)
 	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.E){
 		map.areas[current_Area].entities=[];
 		current_Area=Math.max(Math.min(current_Area-1,map.areas.length-1),0)
@@ -492,20 +492,19 @@ document.addEventListener("keydown", e => {
 			evadesRenderer.heroInfoCard.abilityThree.level=evadesRenderer.heroInfoCard.abilityThree.maxLevel;
 		}
 	}
-	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.Y){//Toggle Cooldown (Command: /cd)
+	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.Y){//Toggle Cooldown (Command: /cd, /cooldown)
 		plr.noCooldown=!plr.noCooldown;
 	}
-	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.U){//Revive (Command: /r)
+	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.U){//Revive (Command: /r, /s, /save, /revive)
 		plr.deathTimer=-1;
 	}
-    if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){//Admin (Command: /a)
+    if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){//Admin (Command: /a, /admin)
 		e.preventDefault();
-		plr.godmode=true;
+		plr.admin=true;
 		plr.deathTimer=-1;
 		plr.speed=17*30;
 		plr.maxEnergy=500;
 		plr.energy=500;
-		plr.upgradePoints=999;
 		plr.level=100;
 		plr.experience=plr.nextLevelExperience;
 		plr.energyRegen=500;
