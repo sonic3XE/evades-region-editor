@@ -432,7 +432,7 @@ document.addEventListener("keydown", e => {
 	}
   if (e.which === controls.PLAYTEST){
   	if(e.preventDefault(),consumed_by_ink_demon)return customAlert("Fatal Error",5,"#F00");
-	return customAlert("Error 404: Simulation Not Found",5);
+	//return customAlert("Error 404: Simulation Not Found",5);
     playtesting=!playtesting;
     tl.style.transform="translate("+(-100*playtesting)+"px, 0)";
     menu.hidden=playtesting;
@@ -1194,6 +1194,12 @@ deleteArea.addEventListener("click",_=>{
 //loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: last_right\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: last_right\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
 //Region version 2: speed becomes pixels per second
 loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 300\n    - type: active\n      x: last_right\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 150\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: last_right\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 150\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
+settings.realTime && (
+	customAlert("WARNING: The simulator will crash when dabot, elbot, and libot enemies shoot its enemies or projectiles.",10,"#FF0"),
+	customAlert("Cybot enemy can also crash the simulator when it enters phase 3.",10,"#FF0"),
+	customAlert("You can disable update area in real time in settings to prevent crashes like that. :D",10,"#FF0"),
+	customAlert("Also, please don't playtest (F4) at the area with entity crashers.",10,"#FF0")
+);
 
 /**
  * @param {SkapObject} obj
@@ -1284,31 +1290,35 @@ function rungame(){
 	if(settings.legacy30FPS){
 		while(actually>=1e3/60&&actually!=0){
 			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
-			if(settings.realTime||playtesting){global.mouseDown==void 0&&(global.mouseDown=null);
-			var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
-			if(input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-off.png">`){
-				inputIndicator.innerHTML=`<img src="./buttons/mouse-on.png">`;
-			}else if(!input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-on.png">`){
-				inputIndicator.innerHTML=`<img src="./buttons/mouse-off.png">`;
+			if(settings.realTime||playtesting){
+				global.mouseDown==void 0&&(global.mouseDown=null);
+				var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
+				if(input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-off.png">`){
+					inputIndicator.innerHTML=`<img src="./buttons/mouse-on.png">`;
+				}else if(!input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-on.png">`){
+					inputIndicator.innerHTML=`<img src="./buttons/mouse-off.png">`;
+				}
+				selfId&&controlPlayer(selfId,input,1e3/60),
+				map.players.map(e=>{e.update(1e3/60)});
+				map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area]));
 			}
-			selfId&&controlPlayer(selfId,input,1e3/60),
-			map.players.map(e=>{e.update(1e3/60)});
-			map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area]))};
 			actually-=1e3/60;
 		}
 	}else{
 		while(ti[1]>=1e3/60&&actually!=0){
 			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
-			if(settings.realTime||playtesting){global.mouseDown==void 0&&(global.mouseDown=null);
-			var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
-			if(input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-off.png">`){
-				inputIndicator.innerHTML=`<img src="./buttons/mouse-on.png">`;
-			}else if(!input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-on.png">`){
-				inputIndicator.innerHTML=`<img src="./buttons/mouse-off.png">`;
+			if(settings.realTime||playtesting){
+				global.mouseDown==void 0&&(global.mouseDown=null);
+				var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
+				if(input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-off.png">`){
+					inputIndicator.innerHTML=`<img src="./buttons/mouse-on.png">`;
+				}else if(!input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-on.png">`){
+					inputIndicator.innerHTML=`<img src="./buttons/mouse-off.png">`;
+				}
+				selfId&&controlPlayer(selfId,input,1e3/60),
+				map.players.map(e=>{e.update(1e3/60)});
+				map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area]));
 			}
-			selfId&&controlPlayer(selfId,input,1e3/60),
-			map.players.map(e=>{e.update(1e3/60)});
-			map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area]))};
 			ti[1]-=1e3/60;
 		}
 	}

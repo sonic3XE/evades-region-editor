@@ -78,7 +78,6 @@ function spawnEntities(area=current_Area){
 	//areaC.assets.filter(e=>e.type=="gate").map(e=>{
 	//  areaC.entities.push(new Gate(e.x,e.y,e.width,e.height))
 	//})
-	return;
 	var sum=pelletZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
 	for(var i=0;i<(totalPellets==25?(isVictory?250:25):totalPellets);i++){
 		var rand=Math.random()*sum;
@@ -119,6 +118,15 @@ function spawnEntities(area=current_Area){
 				var enemyY=prop(spawner,"y");
 				var boundary={left,right,bottom,top,width:activeZone.width,height:activeZone.height};
 				var angle=prop(spawner,"angle");
+				if(angle!=undefined){
+					if(String(angle).split(",").length>1){
+						var min=parseInt(angle.split(",")[0]);
+						var max=parseInt(angle.split(",")[1]);
+						angle=min+Math.random()*(max-min);
+					}
+				}else{
+				angle=Math.random()*360;
+				}
 				var speed=prop(spawner,"speed");
 				if(enemyX!=undefined){
 					if(String(enemyX).split(",").length>1){
@@ -153,7 +161,7 @@ function spawnEntities(area=current_Area){
 							entity=new MysteryEnemy(enemyX,enemyY,radius,speed,angle,type,boundary);
 						}
 					};break;
-/*					91 / 122 implemented
+/*					104 / 122 implemented
 */					case "experience_drain":
 					case "blocking":
 					case "slippery":
@@ -166,7 +174,18 @@ function spawnEntities(area=current_Area){
 					case "toxic":
 					case "enlarging":
 					case "disabling":
-					case "reducing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "eabot":
+					case "fibot":
+					case "wabot":
+					case "icbot":
+					case "mebot":
+					case "plbot":
+					case "aibot":
+					case "reducing":
+					case "dabot":
+					case "elbot":
+					case "libot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "cybot":customAlert("WARNING: The simulation will crash when it enters phase 3.",10,"#FF0"),entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"cybot_radius"),prop(spawner,"hard_mode"),boundary);break;
 					case "draining":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`draining_radius`),prop(spawner,"drain"),boundary);break;
 					case "slowing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`slowing_radius`),prop(spawner,"slow"),boundary);break;
 					case "gravity":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`gravity_radius`),prop(spawner,"gravity"),boundary);break;
@@ -185,6 +204,7 @@ function spawnEntities(area=current_Area){
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
 					case "fake_pumpkin":entity=new PumpkinEnemy(enemyX,enemyY,radius,speed,angle,boundary,true);break;
 					case "sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"recharge"),boundary);break;
+					case "ring_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,null,prop(spawner,"health"),prop(spawner,"ring_sniper_radius"),boundary);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
 					case "frost_giant":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"immune"),prop(spawner,"projectile_duration"),prop(spawner,"projectile_radius"),prop(spawner,"projectile_speed"),prop(spawner,"pause_interval"),prop(spawner,"pause_duration"),prop(spawner,"turn_speed"),prop(spawner,"turn_acceleration"),prop(spawner,"shot_interval"),prop(spawner,"shot_acceleration"),prop(spawner,"direction"),prop(spawner,"pattern"),prop(spawner,"cone_angle"),boundary);break;
 					case "seedling":
@@ -198,7 +218,6 @@ function spawnEntities(area=current_Area){
 					case "fire_trail":
 					case "normal":
 					case "immune":
-					case "ring_sniper":
 					case "speed_ghost":
 					case "gravity_ghost":
 					case "repelling_ghost":
@@ -247,27 +266,25 @@ function spawnEntities(area=current_Area){
 					case "confectioner_switch":
 					case "oscillating_switch":
 					case "oscillating":
-/*NOT IMPLEMENTED*/			//case "wacky_wall":
-					//case "infinity":
-					//case "infinity_switch":
-					//case "dorito":
-					//case "dorito_switch":
-					//case "penny":
-					//case "penny_switch":
-					//case "aibot": 400hp
-					//case "eabot": 400hp
-					//case "fibot": 400hp
-					//case "wabot": 400hp
-					//case "dabot": 500hp
-					//case "elbot": 500hp
-					//case "icbot": 500hp
-					//case "libot": 500hp
-					//case "mebot": 500hp
-					//case "plbot": 500hp
-					//case "cybot": 900hp
-					//case "thunderbolt":
-					//case "electric":
-					//case "sparking":
+/*NOT IMPLEMENTED*/			/*case "wacky_wall":
+					case "infinity":
+					case "infinity_switch":
+					case "dorito":
+					case "dorito_switch":
+					case "penny":
+					case "penny_switch":
+					case "thunderbolt":
+					case "electric":
+					case "sparking":
+					case "flaming":
+					case "stumbling":
+					case "disarming":
+					case "lurching":
+					case "infectious":
+					case "mutating":
+					case "vengeful_soul":
+					case "lost_soul":
+					*/
 					entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
 				};entity.collision();map.areas[area].entities.push(entity);
 			}
@@ -276,7 +293,30 @@ function spawnEntities(area=current_Area){
 	if(isNaN(map.areas[area].entities.filter(e=>(isNaN(e.x)||isNaN(e.y))).length)){return spawnEntities();}
 }
 var verifiedEntities=[
-  "wall","normal","homing","dasher"
+//Enemies
+  "wall_enemy",
+  "normal_enemy",
+  "immune_enemy",
+  "corrosive_enemy",
+  "homing_enemy",
+  "dasher_enemy",
+  "lunging_enemy",
+  "ring_sniper_enemy",
+  "cybot_enemy",
+  "frost_giant_enemy",
+  "radar_enemy",
+  "eabot_enemy",
+  "fibot_enemy",
+  "aibot_enemy",
+  "wabot_enemy",
+  "libot_enemy",
+  "dabot_enemy",
+  "plbot_enemy",
+  "mebot_enemy",
+  "elbot_enemy",
+  "icbot_enemy",
+//Projectiles
+  "radar_projectile",
 ];
 class Player extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
   constructor(x,y,hero,username=nickname.value||"Local Player") {
@@ -365,6 +405,13 @@ this.stickyCoatDisabled=true;
 this.electrifyInterval=0;
 this.isStone=false;
 this.roboScannerId=0;
+this.electrocuted=false;
+this.electrocutedTime=1000;
+this.electrocutedTimeLeft=0;
+this.debuff_type="none";
+this.electrify_interval=0
+this.electrify_time=0;
+this.electrify_ready=false;
 this.magnetized=false;
 this.hasWindDebuff=false;
 this.hasWaterDebuff=false;
@@ -378,6 +425,10 @@ this.interactions=[];
 this.achievementCount=0;
 this.underLibotEffect=false;
 this.underDabotEffect=false;
+this.libotEffectTime=5000;
+this.libotEffectTimeLeft=0;
+this.dabotEffectTime=5000;
+this.dabotEffectTimeLeft=0;
 this.isLead=false;
 this.leadTime=0;
 this.ictosInvulnerability=false;
@@ -1232,12 +1283,14 @@ this.isGuest=!1;
 		this.safeZone = true;
 		this.minimum_speed = 0;
 		this.pointInActiveZone=false;
+		var zoneC;
 		for(var i in area.zones){
 			var zone=area.zones[i],rect1={x:this.x,y:this.y,width:this.radius, height:this.radius},rect2={x:zone.x,y:zone.y,width:zone.width, height:zone.height};
 			if(zone.type=="active"&&rect1.x-this.radius<rect2.x+rect2.width&&rect1.x+this.radius>rect2.x&&rect1.y-this.radius<rect2.y+rect2.height&&rect1.y+this.radius>rect2.y)this.safeZone=false;
 			if(rect1.x<rect2.x+rect2.width&&rect1.x>rect2.x&&rect1.y<rect2.y+rect2.height&&rect1.y>rect2.y){
 				if(zone.type=="active")this.pointInActiveZone=true;
 				if(zone.properties.minimum_speed)this.minimum_speed=zone.properties.minimum_speed;
+				zoneC=zone;
 			}
 		}
 		const deadPlayers=map.players.filter(e=>{
@@ -1428,7 +1481,10 @@ this.isGuest=!1;
 		if(this.energy<0)this.energy=0;
 		this.oldPos=(this.previousPos.x==this.x&&this.previousPos.y==this.y)?this.oldPos:{x:this.previousPos.x,y:this.previousPos.y}
 		this.previousPos={x:this.x,y:this.y};
-		var dim=1-map.properties.friction;
+		var dim=0;
+		//if(zoneC){
+			var dim=1-map.properties.friction;
+		//}
 		if(this.slippery)dim=0;
 		//dim = 0;
 		var friction_factor=dim;
@@ -2189,6 +2245,8 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.y=y;
 	this.frozen=false;
     this.radius=radius;
+	this.energy=30;
+	this.maxEnergy=this.energy;
     this.ogradius=this.radius;
     this.radiusMultiplier=1;
     this.speedMultiplier=1;
@@ -2214,6 +2272,84 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
   playerInteraction(player,delta){
   }
   auraEffect(player,delta){
+	for(let effect of this.effects){
+		if(Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<effect.radius+player.radius){
+			if(effect.effectType==41)
+				if(!player.isStone)this.losing_health=true;
+			if(effect.effectType==44)
+				player.slowing=[true,this.slow];
+			if(effect.effectType==45)
+				player.draining=[true,this.drain];
+			if(effect.effectType==46)
+				if (!player.invulnerable) {
+					var dx = player.x - this.x;
+					var dy = player.y - this.y;
+					var dist = distance({x:0,y:0},{x:dx,y:dy});
+					var attractionAmplitude = Math.pow(2,-dist/100);
+					var moveDist = this.gravity*attractionAmplitude;
+					var angleToPlayer = Math.atan2(dy, dx);
+					player.x-=moveDist*Math.cos(angleToPlayer)*delta/1000;
+					player.y-=moveDist*Math.sin(angleToPlayer)*delta/1000;
+					player.collision(0);
+				};
+			if(effect.effectType==47)
+				if (!player.invulnerable) {
+					var dx = player.x - this.x;
+					var dy = player.y - this.y;
+					var dist = distance({x:0,y:0},{x:dx,y:dy});
+					var attractionAmplitude = Math.pow(2,-dist/100);
+					var moveDist = this.repulsion*attractionAmplitude;
+					var angleToPlayer = Math.atan2(dy, dx);
+					player.x+=moveDist*Math.cos(angleToPlayer)*delta/1000;
+					player.y+=moveDist*Math.sin(angleToPlayer)*delta/1000;
+					player.collision(0);
+				};
+			if(effect.effectType==48)
+				player.freezing=true;
+			if(effect.effectType==49)
+				player.slippery=true;
+			if(effect.effectType==50)
+				player.disabling=true;
+			if(effect.effectType==51)
+				player.experienceDraining=true;
+			if(effect.effectType==52)
+				player.enlarging=true;
+			if(effect.effectType==53)
+				player.toxic=true;
+			if(effect.effectType==54)
+				player.magneticReduction=true;
+			if(effect.effectType==55)
+				player.magneticNullification=true;
+			if(effect.effectType==56)
+				player.lava=true;
+			if(effect.effectType==57&&!(player.effectImmune==1||player.admin))
+				if(this.health>=this.maxHealth*0.98)
+					player.cybotEffect1=true;//player.reset(),player.abilityThree&&(player.abilityThree.level=1,player.abilityThree.locked=false)
+				else if(this.health>=this.maxHealth*0.3)
+					player.cybotEffect2=true;
+					//effects_reduction=-0.5*(1-player.get_effects_reduction())
+				else
+					player.cybotEffect3=true;
+					//player.deathTimerTotalMultiplier=5/6*(1-player.get_effects_reduction())
+			if(effect.effectType==58)
+				void null;
+			if(effect.effectType==59)
+				player.quicksand=[true,this.push_direction,this.quicksand_strength];
+			if(effect.effectType==60)
+				void null;
+			if(effect.effectType==61)
+				player.inEnemyBarrier=true;
+			if(effect.effectType==62)
+				player.reducing=true;
+			if(effect.effectType==63)
+				player.blocking=true;
+			if(effect.effectType==64)
+				void null;
+			if(effect.effectType==65)
+				void null;
+			
+		}
+	}
   }
   velangle(){
 	if(this.velY==0&&this.velX==0)return this.angle;
@@ -2287,7 +2423,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 		  this.playerInteraction(player,delta);
         }
 	  }
-      if(!player.safeZone&&player.deathTimer==-1&&Math.sqrt((this.x-player.x)**2+(this.y-player.y)**2)<(this.auraRadius+player.radius)){
+      if(!player.safeZone&&player.deathTimer==-1){
         this.auraEffect(player,delta);
       }
     }
@@ -2398,7 +2534,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
       }
     }
     return collided;
-  }
+    }
 	getColorChange() {
 		return this.color
 	}
@@ -2546,6 +2682,7 @@ class Enemy extends SimulatorEntity{
     this.isEnemy=true;
     this.renderFirst=false;
     this.outline=true;
+	this.timer_reduction=1;
   }
   playerInteraction(player,delta){
     EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier);
@@ -2800,21 +2937,14 @@ class FlashlightItem extends SimulatorEntity{
 }
 //	EvadesClassic(vanilla) Enemy File Template: https://github.com/Spacebrook/EvadesClassic/tree/master/server/src/game/entities/enemies/{{type}}_enemy.py
 /*
-					WAVY_SWITCH_ENEMY: 99,
 					DORITO_ENEMY: 101,
-					ZONING_SWITCH_ENEMY: 102,
-					SPIRAL_SWITCH_ENEMY: 103,
-					OSCILLATING_SWITCH_ENEMY: 104,
 					WACKY_WALL_ENEMY: 106,
-					CONFECTIONER_ENEMY: 107,
-					CONFECTIONER_SWITCH_ENEMY: 108,
 					DORITO_SWITCH_ENEMY: 109,
 					PENNY_ENEMY: 110,
 					PENNY_SWITCH_ENEMY: 111,
 					INFINITY_ENEMY: 112,
 					INFINITY_SWITCH_ENEMY: 113,
 */
-
 class ZigzagSwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zigzag_switch_enemy",boundary);
@@ -2959,7 +3089,7 @@ class SpiralSwitchEnemy extends Enemy{
     this.dir *= -1; 
   }
 }
-class OscillatingSwitchEnemy extends Enemy{//rework
+class OscillatingSwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"oscillating_switch_enemy",boundary);
     this.zoneInterval = 1000;
@@ -3214,16 +3344,26 @@ class ConfectionerSwitchEnemy extends Enemy{
 class ConfectionerEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"confectioner_enemy",boundary);
-    this.release_interval = 3000,
-    this.releaseTime = Math.random()*this.release_interval;
+	this.reset_parameters();
   }
-  update(delta,area) {
-    if(this.releaseTime<=0){
+  reset_parameters(){
+	this.has_projectile=true;
+	this.release_interval = 3000,
+    this.releaseTime = Math.random()*this.release_interval;
+	this.release_ready=false;
+  }
+  generate_entities(delta,area){
+    if(!this.release_ready){
+		this.releaseTime -= delta;
+		if(this.releaseTime<=0)this.release_ready=true;
+	}else{
       area.entities.push(new SourCandyItem(this.x,this.y,13,0,0,this.boundary))
       this.releaseTime = this.release_interval;
-    }else{
-      this.releaseTime -= delta;
-    }
+	  this.release_ready=false;
+	}
+  }
+  update(delta,area){
+	this.generate_entities(delta,area);
     super.update(delta);
   }
 }
@@ -3331,33 +3471,6 @@ class NormalEnemy extends Enemy{
     super(x,y,radius,speed,angle,"normal_enemy",boundary);
   }
 }
-class PennyEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"penny_enemy",boundary);
-	this.movementInterval=800;
-	this.movementTime=0;
-  }
-  update(delta,area) {
-    this.movementTime+=delta
-	this.movementTime%=this.movementInterval;
-	if(this.movementTime<=25){
-		this.speedMultiplier=0;
-	}else if(this.movementTime<=150){
-		this.speedMultiplier*=0.25;
-	}else if(this.movementTime<=300){
-		this.speedMultiplier*=1;
-	}else{
-		//Fuck you, SpaceBrook
-	}
-    super.update(delta);
-  }
-}
-class MysteryEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,type,boundary){
-    super(x,y,radius,speed,angle,"cybot_ring_projectile",boundary);
-	this.name=capitaliseName(type);
-  }
-}
 class TreeEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"tree_enemy",boundary);
@@ -3450,18 +3563,12 @@ class ExperienceDrainEnemy extends Enemy{
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
-  auraEffect(player,delta){
-	player.experienceDraining=true;
-  }
 }
 class BlockingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"blocking_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-  }
-  auraEffect(player,delta){
-	player.blocking=true;
   }
 }
 class SlowingEnemy extends Enemy{
@@ -3471,18 +3578,12 @@ class SlowingEnemy extends Enemy{
 	this.slow=slow;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
-  auraEffect(player,delta){
-	player.slowing=[true,this.slow];
-  }
 }
 class MagneticReductionEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"magnetic_reduction_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-  }
-  auraEffect(player,delta){
-	player.magneticReduction=true
   }
 }
 class MagneticNullificationEnemy extends Enemy{
@@ -3491,18 +3592,12 @@ class MagneticNullificationEnemy extends Enemy{
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
-  auraEffect(player,delta){
-	player.magneticNullification=true
-  }
 }
 class FreezingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"freezing_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-  }
-  auraEffect(player,delta){
-	player.freezing=true;
   }
 }
 class DrainingEnemy extends Enemy{
@@ -3512,18 +3607,12 @@ class DrainingEnemy extends Enemy{
 	this.drain=drain;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
-  auraEffect(player,delta){
-	player.draining=[true,this.drain];
-  }
 }
 class LavaEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"lava_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-  }
-  auraEffect(player,delta){
-	player.lava=true;
   }
 }
 class ToxicEnemy extends Enemy{
@@ -3532,21 +3621,12 @@ class ToxicEnemy extends Enemy{
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
-  auraEffect(player,delta){
-	if(!player.toxic){
-	  player.toxic=true;
-	  player.energy=Math.min(player.energy,player.maxEnergy*0.7);
-	}
-  }
 }
 class EnlargingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"enlarging_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-  }
-  auraEffect(player,delta){
-	player.enlarging=true;
   }
 }
 class ReducingEnemy extends Enemy{
@@ -3555,18 +3635,12 @@ class ReducingEnemy extends Enemy{
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
-  auraEffect(player,delta){
-	player.reducing=true;
-  }
 }
 class SlipperyEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,boundary){
     super(x,y,radius,speed,angle,"slippery_enemy",boundary);
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-  }
-  auraEffect(player,delta){
-	player.slippery=true;
   }
 }
 class BarrierEnemy extends Enemy{
@@ -3576,51 +3650,54 @@ class BarrierEnemy extends Enemy{
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.immune=true;
   }
-  auraEffect(player,delta){
-	player.inEnemyBarrier=true;
-  }
 }
 class RadarEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,boundary){
+  constructor(x,y,radius,speed,angle,radar_radius,boundary){
     super(x,y,radius,speed,angle,"radar_enemy",boundary);
-	this.auraRadius=aura_radius;
-	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
-	this.releaseInterval=250;
-	this.release_time=Math.random()*this.releaseInterval;
+	this.radar_radius=radar_radius;
+	this.effects.push({radius:radar_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
+	this.reset_parameters();
+  }
+  reset_parameters(){
+	this.release_interval=250;
+	this.release_time=this.release_interval;
+	this.release_ready=false;
+  }
+  generate_entities(delta,area){
+	  if(!this.release_ready){
+		  this.release_time -= delta;
+		  if(this.release_time <= 0)this.release_ready=true;
+	  }else{
+		  if(this.force_aura_off)
+			  return;
+		  let closest_entity=null,
+		  closest_entity_distance=null;
+		  active_players = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone});
+		  for(let entity of active_players){
+			  if(entity.nightActivated||entity.effectImmune==0)continue;
+			distance_x = this.x - entity.x;
+			distance_y = this.y - entity.y;
+			distance = distance_x**2 + distance_y**2
+			if(distance > (this.auraRadius * this.energy/this.maxEnergy)**2)continue;
+			if(closest_entity==void 0){
+				closest_entity=entity;
+				closest_entity_distance = distance;
+			}else if(closest_entity_distance>distance){
+				closest_entity=entity;
+				closest_entity_distance = distance;
+			}
+		  }
+          if(closest_entity!=void 0){
+            distance_x = this.x - closest_entity.x;
+            distance_y = this.y - closest_entity.y;
+            area.entities.push(new RadarProjectile(this.x,this.y,this.radius/3,EvadesConfig.defaults.radar_projectile.speed+this.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this,this.boundary))
+            this.release_time = this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy;
+			this.release_ready=false;
+          }
+	  }
   }
   update(delta,area) {
-    if(this.release_time<=0){
-    var closest_entity,closest_entity_distance,information;
-    if(map.players.length){
-      information = map.players.filter(e=>{return (e.moving||e.cent_is_moving||e.mouseActive)&&!e.isDowned()&&!e.safeZone&&!e.nightActivated});
-    }else{
-      information = [mouseEntity];
-    }
-    var distance_x;
-    var distance_y;
-    var distance;
-    for(var entity of information){
-      distance_x = this.x - entity.x;
-      distance_y = this.y - entity.y;
-      distance = distance_x**2 + distance_y**2
-      if(distance > this.auraRadius**2)continue;
-      if(closest_entity==void 0){
-        closest_entity=entity;
-        closest_entity_distance = distance;
-      }else if(closest_entity_distance>distance){
-        closest_entity=entity;
-        closest_entity_distance = distance;
-      }
-    }
-    if(closest_entity!=void 0){
-      distance_x = this.x - closest_entity.x;
-      distance_y = this.y - closest_entity.y;
-      area.entities.push(new RadarProjectile(this.x,this.y,this.radius/3,150+this.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this,this.boundary))
-      this.release_time = this.releaseInterval;
-    }
-    }else{
-      this.release_time -= delta;
-    }
+	this.generate_entities(delta,area);
     super.update(delta);
   }
 }
@@ -3629,17 +3706,21 @@ class RadarProjectile extends Enemy{
     super(x,y,radius,speed,angle,"radar_projectile",boundary);
 	this.owner=owner;
     this.immune=true;
-    this.clock = 0;
+	this.shadow_total_time=0;
+	this.shadow_time=0;
+	this.enemy_projectile=true;
   }
   onCollide(){
     this.remove=true;
   }
   update(delta) {
-    this.clock += delta;
-	if(distance(this.owner,this)>this.owner.auraRadius){
+    super.update(delta);
+	var distance_x=this.x-this.owner.x;
+	var distance_y=this.y-this.owner.y;
+	var dist=distance_y**2+distance_x**2;
+	if(dist>(this.owner.radar_radius*this.owner.energy/this.owner.maxEnergy)**2){
 		this.remove=true;
 	}
-    super.update(delta);
   }
 }
 class GravityEnemy extends Enemy{
@@ -3648,19 +3729,6 @@ class GravityEnemy extends Enemy{
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.gravity=gravity;
-  }
-  auraEffect(player,delta){
-	if (!player.invulnerable) {
-      var dx = player.x - this.x;
-      var dy = player.y - this.y;
-      var dist = distance({x:0,y:0},{x:dx,y:dy});
-      var attractionAmplitude = Math.pow(2,-dist/100);
-      var moveDist = this.gravity*attractionAmplitude;
-      var angleToPlayer = Math.atan2(dy, dx);
-      player.x-=moveDist*Math.cos(angleToPlayer)*delta/1000;
-      player.y-=moveDist*Math.sin(angleToPlayer)*delta/1000;
-	  player.collision(0);
-    }
   }
 }
 class GravityGhostEnemy extends Enemy{
@@ -3713,19 +3781,6 @@ class RepellingEnemy extends Enemy{
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.repulsion=repulsion;
-  }
-  auraEffect(player,delta){
-	if (!player.invulnerable) {
-      var dx = player.x - this.x;
-      var dy = player.y - this.y;
-      var dist = distance({x:0,y:0},{x:dx,y:dy});
-      var attractionAmplitude = Math.pow(2, -(dist / 100));
-      var moveDist = (this.repulsion * attractionAmplitude);
-      var angleToPlayer = Math.atan2(dy, dx);
-      player.x+=moveDist*Math.cos(angleToPlayer)*delta/1000;
-      player.y+=moveDist*Math.sin(angleToPlayer)*delta/1000;
-	  player.collision(0);
-    }
   }
 }
 class PositiveMagneticGhostEnemy extends Enemy{
@@ -3853,9 +3908,6 @@ class DisablingEnemy extends Enemy{
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
   }
-  auraEffect(player,delta){
-	player.disabling=true;
-  }
 }
 class QuicksandEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,aura_radius,direction,strength,boundary){
@@ -3864,9 +3916,6 @@ class QuicksandEnemy extends Enemy{
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.quicksand_strength=strength;
-  }
-  auraEffect(player,delta){
-	player.quicksand=[true,this.push_direction,this.quicksand_strength];
   }
 }
 class SandEnemy extends Enemy{
@@ -5123,22 +5172,35 @@ class SniperProjectile extends Enemy{
   }
 }
 class RingSniperEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
+  constructor(x,y,radius,speed,angle,cybotBoss,health=100,ring_sniper_radius=180,boundary){
     super(x,y,radius,speed,angle,"ring_sniper_enemy",boundary);
+	this.cybot=cybotBoss;
+	this.maxHealth=this.health=health;
+	this.losing_health=false;
+	this.movement_immune=true;
+	this.effects.push({radius:ring_sniper_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+	this.reset_parameters();
+  }
+  reset_parameters(){
+	this.has_projectiles=true;
     this.release_interval=5000;
-	this.maxHealth=this.health=100;
-	this.auraRadius=180;
 	this.releaseTime=Math.random()*this.release_interval;
-	this.effects.push({radius:180,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
-	this.drainingHP=false;
+	this.release_ready=false;
   }
-  auraEffect(player,delta){
-	if(!player.isDowned())this.drainingHP=true;
+  update_parameters(delta,area){
+	if(this.losing_health)this.damage(13.5*delta/1e3);
+	if(this.health<=0&&!this.remove){
+		this.cybot && (this.cybot.ring_sniper_count-=1);
+		this.remove=true;
+	}
   }
-  update(delta,area) {
-	if(this.drainingHP)this.health-=13.5*delta/1e3;
-	this.drainingHP=false;
-    if(this.releaseTime<=0){
+  generate_entities(delta,area){
+	  if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0){
+				this.release_ready=true;
+		}
+	}else{
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
       information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
@@ -5153,7 +5215,6 @@ class RingSniperEnemy extends Enemy{
       distance_y = this.y - entity.y;
       distance = distance_x**2 + distance_y**2
       if(distance > 2400**2)continue;
-	  // this range will be changed if this is incorrect
       if(closest_entity==void 0){
         closest_entity=entity;
         closest_entity_distance = distance;
@@ -5162,15 +5223,25 @@ class RingSniperEnemy extends Enemy{
         closest_entity_distance = distance;
       }
     }
-    if(closest_entity!=void 0){
+	if(closest_entity!=void 0){
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
-      area.entities.push(new RingSniperProjectile(this.x,this.y,EvadesConfig.defaults.ring_sniper_projectile.radius,EvadesConfig.defaults.ring_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
-      this.releaseTime = this.release_interval;
+	  let projectile=new RingSniperProjectile(this.x,this.y,EvadesConfig.defaults.ring_sniper_projectile.radius,EvadesConfig.defaults.ring_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary);
+      area.entities.push(projectile)
+	  this.cybot && this.cybot.ring_projectiles.push(projectile);
+      this.releaseTime = this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy;
+	  this.release_ready=false;
     }
-    }else{
-      this.releaseTime -= delta;
-    }
+
+	}
+  }
+  damage(damage){
+	  this.health-=damage;
+	  this.losing_health=false;
+  }
+  update(delta,area) {
+	this.update_parameters(delta,area);
+	this.generate_entities(delta,area);
     super.update(delta);
   }
 }
@@ -6284,21 +6355,18 @@ class LungingEnemy extends Enemy{
     super(x,y,radius,speed,angle,"lunging_enemy",boundary);
     this.base_speed = speed;
     this.reset_parameters();
-	this.colorChange=0;
+	this.color_change=0;
+	this.target_angle=this.angle;
   }
   reset_parameters(){
     this.lunge_speed = this.base_speed;
     this.normal_speed = 0;
-
     this.time_to_lunge = 1500;
     this.lunge_timer = 0;
-
     this.max_lunge_time = 2000;
     this.time_during_lunge = 0;
-
     this.lunge_cooldown_max = 500;
     this.lunge_cooldown_timer = 0;
-
     this.base_speed = 0;
     this.compute_speed();
   }
@@ -6308,12 +6376,12 @@ class LungingEnemy extends Enemy{
   }
   getColorChange() {
   	const e = this.hexToRgb(this.color);
-  	return e.r += this.colorChange,
-  	e.g -= 1.45 * this.colorChange,
-  	e.b -= 1.3 * this.colorChange,
+  	return e.r += this.color_change,
+  	e.g -= 1.45 * this.color_change,
+  	e.b -= 1.3 * this.color_change,
   	`rgb(${e.r}, ${e.g}, ${e.b})`
   }
-  update(delta, area){
+  update(delta,area){
     this.heating = false;
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
@@ -6337,7 +6405,7 @@ class LungingEnemy extends Enemy{
         closest_entity_distance = distance;
       }
     }
-    if (this.time_during_lunge>0){
+    if (this.time_during_lunge > 0){
       if(this.time_during_lunge >= this.max_lunge_time){
         this.time_during_lunge = 0;
         this.lunge_cooldown_timer = 1;
@@ -6354,17 +6422,19 @@ class LungingEnemy extends Enemy{
         this.lunge_cooldown_timer = 0;
       } else {
         this.lunge_cooldown_timer += delta;
-        this.colorChange = 55-Math.floor(55*this.lunge_cooldown_timer/this.lunge_cooldown_max)
+        this.color_change = 55-Math.floor(55*this.lunge_cooldown_timer/this.lunge_cooldown_max)
       }
     }
     else {
       let lunge_time_ratio = this.lunge_timer / this.time_to_lunge;
       if(closest_entity != undefined){
+		distance_x = this.x - closest_entity.x;
+		distance_y = this.y - closest_entity.y;
         let target_angle = Math.atan2(distance_y,distance_x)+Math.PI;
         target_angle += Math.random() * Math.PI/8 - Math.PI/16;
         if (this.time_during_lunge == 0){
           this.lunge_timer += delta;
-          this.colorChange = Math.floor(55 * lunge_time_ratio);
+          this.color_change = Math.floor(55 * lunge_time_ratio);
           if(this.lunge_timer >= this.time_to_lunge){
             this.lunge_timer = 0;
             this.time_during_lunge = 1;
@@ -6373,15 +6443,17 @@ class LungingEnemy extends Enemy{
           }
         }
       } else {
+		let target_angle = this.target_angle;
         if(this.lunge_timer > 0){
           this.lunge_timer-=delta;
-          this.colorChange = Math.floor(55 * lunge_time_ratio);
+          this.color_change = Math.floor(55 * lunge_time_ratio);
         }
         if(this.lunge_timer < 0){
           this.lunge_timer = 0;
         }
       }
       if (lunge_time_ratio > 0.75){
+		this.is_shaking=true;
         this.x+=Math.round(Math.random()*4-2);
         this.y+=Math.round(Math.random()*4-2);
       }
@@ -6432,4 +6504,1432 @@ class StalactiteEnemyProjectile extends Enemy{
   }
 }
 
+//Cyber Castle Bosses (may be unstable based on the enemy type and will crash anytime)
+class AibotEnemy extends Enemy{
+	constructor(x,y,radius,speed,angle,aibot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"aibot_enemy",boundary);
+		this.maxHealth=400;
+		this.health=this.maxHealth;
+		this.name="Aibot";
+		this.enemy_spawn_limit=16;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.target_player=null;
+		this.losing_health=false;
+		this.total_player_count = new Set;
+		this.effects.push({radius:aibot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=3000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=1000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		let active_players = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone});
+		for(let entity of active_players){
+			if (entity.debuff_type=="aibot_debuff"){
+				let x_dist=entity.x-this.x,
+				y_dist=entity.y-this.y,
+				dist_to_ball=Math.sqrt(x_dist**2+y_dist**2),
+				repulsion=1020*entity.effectImmune,
+				attraction_amplitude=Math.pow(2,-(dist_to_ball/100)),
+				move_dist=repulsion*attraction_amplitude/1e3*delta,
+				angle_to_ball=Math.atan2(y_dist,x_dist);
+				entity.under_effects=true;
+				entity.x+=move_dist*Math.cos(angle_to_ball);
+				entity.y+=move_dist*Math.sin(angle_to_ball);
+				entity.collision(0)
+			}
+		}
+		if(this.losing_health)this.damage(13.5/(1e3/60));
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.aibot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="upper_left";
+				if(
+					entity.aibot_defeated
+					&&entity.fibot_defeated
+					&&entity.wabot_defeated
+					&&entity.eabot_defeated
+				){
+					if(!entity.abilityThree)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0){
+				this.release_ready=true;
+				this.target_player=null;
+				this.total_player_count=new Set;
+			}
+		}else{
+			for(let entity of map.players){
+				if(!this.total_player_count.has(entity))this.total_player_count.add(entity);
+				if(entity.debuff_type=="aibot_debuff"||entity.effectImmune==0||entity.isDowned())continue;
+				if(this.target_player==null)if(Math.random()>0.75)this.target_player=entity;
+			}
+			if(this.target_player!=null){
+				this.target_player.debuff_type="aibot_debuff";
+				this.target_player.hasWindDebuff=true;
+				this.release_interval=12000/this.total_player_count.size;
+				this.release_time=this.release_interval;
+				this.release_ready=false;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				area.entities.push(new WindGhostEnemy(this.x,this.y,54,30,void 0,false,null,this.boundary))
+				area.entities.push(new RepellingGhostEnemy(this.x,this.y,90,180,void 0,this.boundary))
+				area.entities.push(new DisablingGhostEnemy(this.x,this.y,72,195,void 0,this.boundary))
+				area.entities.push(new WindSniperEnemy(this.x,this.y,30,600,void 0,this.boundary))
+				this.enemy_spawns+=4;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+	}
+	generation_disabled(){
+		return false;
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class WabotEnemy extends Enemy{
+	constructor(x,y,radius,speed,angle,wabot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"wabot_enemy",boundary);
+		this.maxHealth=400;
+		this.health=this.maxHealth;
+		this.name="Wabot";
+		this.enemy_spawn_limit=20;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.target_player=null;
+		this.losing_health=false;
+		this.total_player_count = new Set();
+		this.effects.push({radius:wabot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=3000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=1000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.wabot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="upper_right";
+				if(
+					entity.aibot_defeated
+					&&entity.fibot_defeated
+					&&entity.wabot_defeated
+					&&entity.eabot_defeated
+				){
+					if(entity.abilityThree==null)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0){
+				this.release_ready=true;
+				this.target_player=null;
+				this.total_player_count=new Set();
+			}
+		}else{
+			for(let entity of map.players){
+				if(!this.total_player_count.has(entity))this.total_player_count.add(entity);
+				if(entity.debuff_type=="wabot_debuff"||entity.effectImmune==0||entity.isDowned())continue;
+				if(this.target_player==null)if(Math.random()>0.75)this.target_player=entity;
+			}
+			if(this.target_player!=null){
+				this.target_player.debuff_type="wabot_debuff";
+				this.target_player.hasWaterDebuff=true;
+				this.release_interval=12000/this.total_player_count.size;
+				this.release_time=this.release_interval;
+				this.release_ready=false;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				area.entities.push(new LiquidEnemy(this.x,this.y,18,90,void 0,defaultValues.spawner.player_detection_radius,this.boundary))
+				area.entities.push(new FreezingEnemy(this.x,this.y,3,300,void 0,defaultValues.spawner.freezing_radius,this.boundary))
+				area.entities.push(new IcicleEnemy(this.x,this.y,30,360,defaultValues.spawner.horizontal,this.boundary))
+				area.entities.push(new SnowmanEnemy(this.x,this.y,15,360,void 0,this.boundary))
+				this.enemy_spawns+=4;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class EabotEnemy extends Enemy{
+	constructor(x,y,radius,speed,angle,eabot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"eabot_enemy",boundary);
+		this.maxHealth=400;
+		this.health=this.maxHealth;
+		this.name="Eabot";
+		this.enemy_spawn_limit=24;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.target_player=null;
+		this.losing_health=false;
+		this.total_player_count = new Set();
+		this.effects.push({radius:eabot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=3000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=1000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.eabot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="lower_left";
+				if(
+					entity.aibot_defeated
+					&&entity.fibot_defeated
+					&&entity.wabot_defeated
+					&&entity.eabot_defeated
+				){
+					if(entity.abilityThree==null)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0){
+				this.release_ready=true;
+				this.target_player=null;
+				this.total_player_count=new Set();
+			}
+		}else{
+			for(let entity of map.players){
+				if(!this.total_player_count.has(entity))this.total_player_count.add(entity);
+				if(entity.debuff_type=="eabot_debuff"||entity.effectImmune==0||entity.isDowned())continue;
+				if(this.target_player==null)if(Math.random()>0.75)this.target_player=entity;
+			}
+			if(this.target_player!=null){
+				this.target_player.debuff_type="eabot_debuff";
+				this.target_player.hasEarthDebuff=true;
+				this.target_player.isStone=true;
+				this.target_player.energy=0;
+				this.release_interval=12000/this.total_player_count.size;
+				this.release_time=this.release_interval;
+				this.release_ready=false;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				area.entities.push(new SandEnemy(this.x,this.y,18,150,void 0,this.boundary))
+				area.entities.push(new SandrockEnemy(this.x,this.y,24,450,void 0,this.boundary))
+				area.entities.push(new QuicksandEnemy(this.x,this.y,8,300,void 0,100,Math.random()*360,defaultValues.spawner.quicksand_strength,this.boundary))
+				area.entities.push(new CrumblingEnemy(this.x,this.y,30,300,void 0,this.boundary))
+				this.enemy_spawns+=4;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class FibotEnemy extends Enemy{
+	constructor(x,y,radius,speed,angle,fibot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"fibot_enemy",boundary);
+		this.maxHealth=400;
+		this.health=this.maxHealth;
+		this.name="Fibot";
+		this.enemy_spawn_limit=24;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.target_player=null;
+		this.losing_health=false;
+		this.total_player_count = new Set();
+		this.effects.push({radius:fibot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=3000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=1000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.fibot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="lower_right";
+				if(
+					entity.aibot_defeated
+					&&entity.fibot_defeated
+					&&entity.wabot_defeated
+					&&entity.eabot_defeated
+				){
+					if(entity.abilityThree==null)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0){
+				this.release_ready=true;
+				this.target_player=null;
+				this.total_player_count=new Set();
+			}
+		}else{
+			for(let entity of map.players){
+				if(!this.total_player_count.has(entity))this.total_player_count.add(entity);
+				if(entity.debuff_type=="fibot_debuff"||entity.get_effects_reduction()==1||entity.effects_immune_time>0||entity.is_downed())continue;
+				if(this.target_player==null)if(Math.random()>0.75)this.target_player=entity;
+			}
+			if(this.target_player!=null){
+				this.target_player.debuff_type="fibot_debuff";
+				this.target_player.hasFireDebuff=true;
+				this.target_player.electrify_interval=4000;
+				this.target_player.electrify_time=this.target_player.electrify_interval;
+				this.release_interval=12000/this.total_player_count.size;
+				this.release_time=this.release_interval;
+				this.release_ready=false;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				area.entities.push(new FireTrailEnemy(this.x,this.y,30,150,void 0,this.boundary))
+				area.entities.push(new LavaEnemy(this.x,this.y,12,120,void 0,defaultValues.spawner.lava_radius,this.boundary))
+				area.entities.push(new LungingEnemy(this.x,this.y,24,450,void 0,this.boundary))
+				area.entities.push(new SizingEnemy(this.x,this.y,18,360,void 0,this.boundary))
+				this.enemy_spawns+=4;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class DabotEnemy extends Enemy{//Crashes when it shoots its own projectile
+	constructor(x,y,radius,speed,angle,dabot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"dabot_enemy",boundary);
+		this.maxHealth=500;
+		this.health=this.maxHealth;
+		this.name="Dabot";
+		this.enemy_spawn_limit=5;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.losing_health=false;
+		this.total_player_count = new Set();
+		this.effects.push({radius:dabot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=3000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=1000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.dabot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="upper_left";
+				if(
+					entity.icbot_defeated
+					&&entity.elbot_defeated
+					&&entity.mebot_defeated
+					&&entity.libot_defeated
+					&&entity.dabot_defeated
+					&&entity.plbot_defeated
+				){
+					if(!entity.abilityThree)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				area.entities.push(new GravityEnemy(this.x,this.y,18,30,void 0,defaultValues.spawner.gravity_radius,defaultValues.spawner.gravity,this.boundary))
+				area.entities.push(new GravityEnemy(this.x,this.y,18,30,void 0,defaultValues.spawner.gravity_radius,defaultValues.spawner.gravity,this.boundary))
+				area.entities.push(new RepellingEnemy(this.x,this.y,18,30,void 0,defaultValues.spawner.repelling_radius,defaultValues.spawner.repulsion,this.boundary))
+				area.entities.push(new RepellingEnemy(this.x,this.y,18,30,void 0,defaultValues.spawner.repelling_radius,defaultValues.spawner.repulsion,this.boundary))
+				if(this.enemy_spawns==0){
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+					area.entities.push(new TeleportingEnemy(this.x,this.y,18,1440,void 0,this.boundary))
+				}
+				this.enemy_spawns+=1;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+		//if(this.spark_time>0||this.stomped_push_time>0||this.energy<=0||this.is_disabled)return;
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0)this.release_ready=true;
+		}else{
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      if(entity.debuff_type=="placeholder")continue;
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 3200**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new DabotProjectile(this.x,this.y,EvadesConfig.defaults.dabot_projectile.radius,EvadesConfig.defaults.dabot_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = (this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy);
+    }
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class ElbotEnemy extends Enemy{//Crashes when it tries to spawn an electric group of enemies which are not implemeted yet
+	constructor(x,y,radius,speed,angle,elbot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"elbot_enemy",boundary);
+		this.maxHealth=500;
+		this.health=this.maxHealth;
+		this.name="Elbot";
+		this.enemy_spawn_limit=4;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.losing_health=false;
+		this.effects.push({radius:elbot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=2000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=1000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.dabot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="upper_right";
+				if(
+					entity.icbot_defeated
+					&&entity.elbot_defeated
+					&&entity.mebot_defeated
+					&&entity.libot_defeated
+					&&entity.dabot_defeated
+					&&entity.plbot_defeated
+				){
+					if(!entity.abilityThree)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				if(this.enemy_spawns==0){
+					area.entities.push(new ElectricalEnemy(this.x,this.y,18,180,void 0,this.boundary))
+					area.entities.push(new ElectricalEnemy(this.x,this.y,18,180,void 0,this.boundary))
+					area.entities.push(new ElectricalEnemy(this.x,this.y,18,180,void 0,this.boundary))
+					area.entities.push(new ElectricalEnemy(this.x,this.y,18,180,void 0,this.boundary))
+					area.entities.push(new ElectricalEnemy(this.x,this.y,18,180,void 0,this.boundary))
+				}else{
+					area.entities.push(new SparkingEnemy(this.x,this.y,18,180,void 0,this.boundary))
+					area.entities.push(new SparkingEnemy(this.x,this.y,18,180,void 0,this.boundary))
+					area.entities.push(new ThunderboltEnemy(this.x,this.y,75,300,void 0,this.boundary))
+					area.entities.push(new ThunderboltEnemy(this.x,this.y,75,300,void 0,this.boundary))
+					area.entities.push(new StaticEnemy(this.x,this.y,24,90,void 0,this.boundary))
+					area.entities.push(new StaticEnemy(this.x,this.y,24,90,void 0,this.boundary))
+					area.entities.push(new StaticEnemy(this.x,this.y,24,90,void 0,this.boundary))
+					area.entities.push(new StaticEnemy(this.x,this.y,24,90,void 0,this.boundary))
+					area.entities.push(new StaticEnemy(this.x,this.y,24,90,void 0,this.boundary))
+				}
+				this.enemy_spawns+=1;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+		//if(this.spark_time>0||this.stomped_push_time>0||this.energy<=0||this.is_disabled)return;
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0)this.release_ready=true;
+		}else{
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      if(entity.debuff_type=="placeholder")continue;
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 3200**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new ElbotProjectile(this.x,this.y,EvadesConfig.defaults.elbot_projectile.radius,EvadesConfig.defaults.elbot_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = (this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy);
+    }
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class IcbotEnemy extends Enemy{
+	constructor(x,y,radius,speed,angle,icbot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"icbot_enemy",boundary);
+		this.maxHealth=500;
+		this.health=this.maxHealth;
+		this.name="Icbot";
+		this.enemy_spawn_limit=4;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.losing_health=false;
+		this.effects.push({radius:icbot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=3000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=1000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.icbot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="upper_right";
+				if(
+					entity.icbot_defeated
+					&&entity.elbot_defeated
+					&&entity.mebot_defeated
+					&&entity.libot_defeated
+					&&entity.dabot_defeated
+					&&entity.plbot_defeated
+				){
+					if(!entity.abilityThree)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				area.entities.push(new IceSniperEnemy(this.x,this.y,18,90,void 0,this.boundary))
+				area.entities.push(new IceGhostEnemy(this.x,this.y,18,90,void 0,this.boundary))
+				area.entities.push(new IceGhostEnemy(this.x,this.y,18,90,void 0,this.boundary))
+				area.entities.push(new IceGhostEnemy(this.x,this.y,18,90,void 0,this.boundary))
+				area.entities.push(new IceGhostEnemy(this.x,this.y,18,90,void 0,this.boundary))
+				area.entities.push(new FreezingEnemy(this.x,this.y,18,150,void 0,120,this.boundary))
+				area.entities.push(new SnowmanEnemy(this.x,this.y,6,180,void 0,this.boundary))
+				area.entities.push(new SnowmanEnemy(this.x,this.y,6,180,void 0,this.boundary))
+				area.entities.push(new SnowmanEnemy(this.x,this.y,6,180,void 0,this.boundary))
+				area.entities.push(new SnowmanEnemy(this.x,this.y,6,180,void 0,this.boundary))
+				this.enemy_spawns+=1;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+		//if(this.spark_time>0||this.stomped_push_time>0||this.energy<=0||this.is_disabled)return;
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0)this.release_ready=true;
+		}else{
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      if(entity.debuff_type=="placeholder")continue;
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 3200**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new IceSniperProjectile(this.x,this.y,EvadesConfig.defaults.ice_sniper_projectile.radius*3,EvadesConfig.defaults.ice_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.release_time = (this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy);
+	  this.release_ready=false;
+    }
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class LibotEnemy extends Enemy{//Crashes when it shoots its own projectile
+	constructor(x,y,radius,speed,angle,libot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"libot_enemy",boundary);
+		this.maxHealth=500;
+		this.health=this.maxHealth;
+		this.name="Libot";
+		this.enemy_spawn_limit=4;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.losing_health=false;
+		this.effects.push({radius:libot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=3000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=2000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.libot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="upper_right";
+				if(
+					entity.icbot_defeated
+					&&entity.elbot_defeated
+					&&entity.mebot_defeated
+					&&entity.libot_defeated
+					&&entity.dabot_defeated
+					&&entity.plbot_defeated
+				){
+					if(!entity.abilityThree)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				if(this.enemy_spawns==3){
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+					area.entities.push(new DasherEnemy(this.x,this.y,24,240,void 0,this.boundary))
+				}else{
+					area.entities.push(new NormalEnemy(this.x,this.y,12,180,void 0,this.boundary))
+					area.entities.push(new NormalEnemy(this.x,this.y,12,180,void 0,this.boundary))
+					area.entities.push(new NormalEnemy(this.x,this.y,12,180,void 0,this.boundary))
+					area.entities.push(new NormalEnemy(this.x,this.y,12,180,void 0,this.boundary))
+					area.entities.push(new SlowingEnemy(this.x,this.y,12,90,void 0,150+this.enemy_spawns*16,defaultValues.spawner.slow,this.boundary))
+					area.entities.push(new SlowingEnemy(this.x,this.y,12,90,void 0,150+this.enemy_spawns*16,defaultValues.spawner.slow,this.boundary))
+					area.entities.push(new SlowingEnemy(this.x,this.y,12,90,void 0,150+this.enemy_spawns*16,defaultValues.spawner.slow,this.boundary))
+					area.entities.push(new SlowingEnemy(this.x,this.y,12,90,void 0,150+this.enemy_spawns*16,defaultValues.spawner.slow,this.boundary))
+					area.entities.push(new SlowingEnemy(this.x,this.y,12,90,void 0,150+this.enemy_spawns*16,defaultValues.spawner.slow,this.boundary))
+					area.entities.push(new SlowingEnemy(this.x,this.y,12,90,void 0,150+this.enemy_spawns*16,defaultValues.spawner.slow,this.boundary))
+					area.entities.push(new SlowingEnemy(this.x,this.y,12,90,void 0,150+this.enemy_spawns*16,defaultValues.spawner.slow,this.boundary))
+					area.entities.push(new SlowingEnemy(this.x,this.y,12,90,void 0,150+this.enemy_spawns*16,defaultValues.spawner.slow,this.boundary))
+					area.entities.push(new DrainingEnemy(this.x,this.y,12,120,void 0,150+this.enemy_spawns*16,defaultValues.spawner.drain,this.boundary))
+					area.entities.push(new DrainingEnemy(this.x,this.y,12,120,void 0,150+this.enemy_spawns*16,defaultValues.spawner.drain,this.boundary))
+				}
+				this.enemy_spawns+=1;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+		//if(this.spark_time>0||this.stomped_push_time>0||this.energy<=0||this.is_disabled)return;
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0)this.release_ready=true;
+		}else{
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      if(entity.debuff_type=="placeholder")continue;
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 3200**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new LibotProjectile(this.x,this.y,EvadesConfig.defaults.libot_projectile.radius,EvadesConfig.defaults.libot_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = (this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy);
+    }
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class MebotEnemy extends Enemy{
+	constructor(x,y,radius,speed,angle,mebot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"mebot_enemy",boundary);
+		this.maxHealth=500;
+		this.health=this.maxHealth;
+		this.name="Mebot";
+		this.enemy_spawn_limit=4;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.losing_health=false;
+		this.effects.push({radius:mebot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=3000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=1000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.mebot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="lower_right";
+				if(
+					entity.icbot_defeated
+					&&entity.elbot_defeated
+					&&entity.mebot_defeated
+					&&entity.libot_defeated
+					&&entity.dabot_defeated
+					&&entity.plbot_defeated
+				){
+					if(!entity.abilityThree)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				if(this.enemy_spawns==0){
+					area.entities.push(new SwitchEnemy(this.x,this.y,40,150,void 0,defaultValues.spawner.switch_interval,defaultValues.spawner.switch_time,void 0,this.boundary))
+					area.entities.push(new SwitchEnemy(this.x,this.y,40,150,void 0,defaultValues.spawner.switch_interval,defaultValues.spawner.switch_time,void 0,this.boundary))
+					area.entities.push(new SwitchEnemy(this.x,this.y,40,150,void 0,defaultValues.spawner.switch_interval,defaultValues.spawner.switch_time,void 0,this.boundary))
+					area.entities.push(new SwitchEnemy(this.x,this.y,40,150,void 0,defaultValues.spawner.switch_interval,defaultValues.spawner.switch_time,void 0,this.boundary))
+					area.entities.push(new SwitchEnemy(this.x,this.y,40,150,void 0,defaultValues.spawner.switch_interval,defaultValues.spawner.switch_time,void 0,this.boundary))
+					area.entities.push(new SwitchEnemy(this.x,this.y,40,150,void 0,defaultValues.spawner.switch_interval,defaultValues.spawner.switch_time,void 0,this.boundary))
+					area.entities.push(new SwitchEnemy(this.x,this.y,40,150,void 0,defaultValues.spawner.switch_interval,defaultValues.spawner.switch_time,void 0,this.boundary))
+					area.entities.push(new SwitchEnemy(this.x,this.y,40,150,void 0,defaultValues.spawner.switch_interval,defaultValues.spawner.switch_time,void 0,this.boundary))
+				}else{
+					area.entities.push(new ImmuneEnemy(this.x,this.y,18,90,void 0,this.boundary))
+					area.entities.push(new ImmuneEnemy(this.x,this.y,18,90,void 0,this.boundary))
+					area.entities.push(new ImmuneEnemy(this.x,this.y,18,90,void 0,this.boundary))
+					area.entities.push(new ImmuneEnemy(this.x,this.y,30,90,void 0,this.boundary))
+					area.entities.push(new SniperEnemy(this.x,this.y,24,150,void 0,defaultValues.spawner.recharge,this.boundary))
+					if(this.enemy_spawns%2==1)
+						area.entities.push(new RadiatingBulletsEnemy(this.x,this.y,12,180,void 0,defaultValues.spawner.release_interval,defaultValues.spawner.release_time,this.boundary));
+				}
+				this.enemy_spawns+=1;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+		//if(this.spark_time>0||this.stomped_push_time>0||this.energy<=0||this.is_disabled)return;
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0)this.release_ready=true;
+		}else{
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      if(entity.debuff_type=="placeholder")continue;
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 3200**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new SniperProjectile(this.x,this.y,EvadesConfig.defaults.sniper_projectile.radius*3,EvadesConfig.defaults.sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.release_time = (this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy);
+	  this.release_ready=false;
+    }
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class PlbotEnemy extends Enemy{
+	constructor(x,y,radius,speed,angle,plbot_radius=180,boundary){
+		super(x,y,radius,speed,angle,"plbot_enemy",boundary);
+		this.maxHealth=500;
+		this.health=this.maxHealth;
+		this.name="Plbot";
+		this.enemy_spawn_limit=8;
+		this.enemy_spawns=0;
+		this.movement_immune=true;
+		this.losing_health=false;
+		this.effects.push({radius:plbot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		this.reset_parameters();
+	}
+	reset_parameters(){
+		this.has_projectiles=true;
+		this.release_interval=3000;
+		this.release_time=this.release_interval;
+		this.release_ready=false;
+		this.spawn_enemy_interval=1000;
+		this.spawn_enemy_time=this.spawn_enemy_interval
+		this.spawn_enemy_ready=false;
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+		if(this.health<=0){
+			for(let entity of map.players){
+				entity.plbot_defeated=true;
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="lower_left";
+				if(
+					entity.icbot_defeated
+					&&entity.elbot_defeated
+					&&entity.mebot_defeated
+					&&entity.libot_defeated
+					&&entity.dabot_defeated
+					&&entity.plbot_defeated
+				){
+					if(!entity.abilityThree)
+						entity.abilityThree={abilityType:102};
+					entity.ability_removed=false;
+				}
+				entity.cannot_leave_area=false;
+			}
+			for(let entity of area.entities.filter(e=>e.isEnemy)){
+				entity.remove=true;
+			}
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.spawn_enemy_ready){
+			this.spawn_enemy_time -= delta;
+			if(this.spawn_enemy_time <=0)
+				this.spawn_enemy_ready=true;
+		}else{
+			if(this.enemy_spawns<this.enemy_spawn_limit){
+				if(this.enemy_spawns<6)area.entities.push(new FlowerEnemy(this.x,this.y,32,150,void 0,defaultValues.spawner.growth_multiplier,this.boundary));
+				area.entities.push(new SeedlingEnemy(this.x,this.y,12,150,void 0,this.boundary))
+				if(this.enemy_spawns%2==0){
+					area.entities.push(new CorrosiveEnemy(this.x,this.y,18,90,void 0,this.boundary))
+					area.entities.push(new CorrosiveEnemy(this.x,this.y,18,90,void 0,this.boundary))
+					area.entities.push(new CactusEnemy(this.x,this.y,40,0,void 0,this.boundary))
+				}else{
+					area.entities.push(new CorrosiveEnemy(this.x,this.y,12,90,void 0,this.boundary))
+					area.entities.push(new CorrosiveEnemy(this.x,this.y,12,90,void 0,this.boundary))
+					area.entities.push(new CactusEnemy(this.x,this.y,60,0,void 0,this.boundary))
+				}
+				if(this.enemy_spawns==7){
+					area.entities.push(new SeedlingEnemy(this.x,this.y,36,210,void 0,this.boundary))
+				}
+				this.enemy_spawns+=1;
+				this.spawn_enemy_time=this.spawn_enemy_interval;
+				this.spawn_enemy_ready=false;
+			}
+		}
+		//if(this.spark_time>0||this.stomped_push_time>0||this.energy<=0||this.is_disabled)return;
+		if(!this.release_ready){
+			this.release_time-=delta*this.timer_reduction;
+			if(this.release_time<=0)this.release_ready=true;
+		}else{
+    var closest_entity,closest_entity_distance,information;
+    if(map.players.length){
+      information = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone&&!e.nightActivated});
+    }else{
+      information = [mouseEntity];
+    }
+    var distance_x;
+    var distance_y;
+    var distance;
+    for(var entity of information){
+      if(entity.debuff_type=="placeholder")continue;
+      distance_x = this.x - entity.x;
+      distance_y = this.y - entity.y;
+      distance = distance_x**2 + distance_y**2
+      if(distance > 3200**2)continue;
+      if(closest_entity==void 0){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }else if(closest_entity_distance>distance){
+        closest_entity=entity;
+        closest_entity_distance = distance;
+      }
+    }
+    if(closest_entity!=void 0){
+      distance_x = this.x - closest_entity.x;
+      distance_y = this.y - closest_entity.y;
+      area.entities.push(new CorrosiveSniperProjectile(this.x,this.y,36,EvadesConfig.defaults.corrosive_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
+      this.releaseTime = (this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy);
+    }
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
+class CybotEnemy extends Enemy{//Crashes when 3rd phase started
+	constructor(x,y,radius,speed,angle,cybot_radius=180,hard_mode=false,boundary){
+		super(x,y,radius,speed,angle,"cybot_enemy",boundary);
+		this.maxHealth=900;
+		this.health=this.maxHealth;
+		this.initialX=this.x;
+		this.initialY=this.y;
+		this.name=hard_mode?"Cybot MK.2":"Cybot";
+		this.growing=true;
+		this.release_ready=false;
+		this.release_interval=50;
+		this.release_time=this.release_interval;
+		this.enemy_spawn_limit=50;
+		this.enemy_spawns=0;
+		this.target_angle=0;
+		this.movement_immune=true;
+		this.losing_health=false;
+		this.hard_mode=hard_mode;
+		this.shield_up=false;
+		this.shield_time=30000;
+		this.shield_time_left=this.shield_time;
+		this.can_spawn_ring_snipers=false;
+		this.can_remove_ring_projectiles=true;
+		this.ring_sniper_count=0;
+		this.ring_projectiles=[];
+		this.boss_radius=cybot_radius
+		this.effects.push({radius:1,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Cybot"})[0])})
+		this.effects.push({radius:cybot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
+		if(this.hard_mode){
+			this.effects.push({radius:384+this.radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Cybot Shield"})[0])})
+			this.shield_up=true;
+		}
+	}
+	update_parameters(delta,area){
+		for(let entity of map.players)
+			entity.cannot_leave_area=true;
+		if(this.enemy_spawns < this.enemy_spawn_limit){
+			this.x=this.initialX;
+			this.y=this.initialY;
+			this.immune=true;
+			this.speedMultiplier=0;
+		}else{
+			if(this.health>=this.maxHealth*0.3){
+				this.immune=false;
+			}
+		}
+		for(let effect of this.effects){
+			if(effect.effectType==41){
+				if(this.immune||this.shield_up){
+					effect.radius=0;
+				}else{
+					effect.radius=this.boss_radius;
+				}
+			}
+		}
+		if(this.losing_health)this.damage(13.5/1e3*delta);
+
+		//Phase 1
+		if(this.health>=this.maxHealth*0.98){
+			for(let effect of this.effects){
+				if(effect.effectType==57){
+					if(effect.radius>0){
+						if(this.growing){
+							effect.radius+=255/1e3*delta;
+							if(effect.radius>=850)this.growing=false;
+						}else{
+							effect.radius-=21/1e3*delta
+							if(effect.radius<=1)this.growing=true;
+						}
+					}
+				}
+			}
+			if(this.shield_up){
+				this.shield_time_left -= delta;
+				for(let effect of this.effects){
+					if(effect.effectType==58){
+						effect.radius=384*(this.shield_time_left/this.shield_time)+this.radius;
+					}
+				}
+				if(this.shield_time_left<=0){
+					this.shield_up=false;
+					this.shield_time_left=this.shield_time;
+				}
+			}
+		// Phase 2
+		}else if(this.health>=this.maxHealth*0.3){
+			for(let entity of area.entities){
+				if(entity instanceof NormalEnemy){
+					entity.remove=true;
+					this.enemy_spawns=0;
+					if(this.hard_mode)
+						this.can_spawn_ring_snipers=true;
+				}
+			}
+			for(let effect of this.effects){
+				if(effect.effectType==57){
+					if(effect.radius>0){
+						if(effect.radius < 565){
+							effect.radius+=255/1e3*delta;
+						}else if(effect.radius > 565){
+							effect.radius=565;
+						}
+					}
+				}else if(effect.effectType==58){
+					let shield_percentage=this.ring_sniper_count/4;
+					if(shield_percentage<=0)this.shield_up=false;
+					effect.radius=384*shield_percentage+this.radius;
+				}
+			}
+		// Phase 3
+		}else if(this.health<this.maxHealth*0.3){
+			for(let entity of area.entities){
+				if(
+					(entity instanceof SlowingEnemy)
+					||(entity instanceof DrainingEnemy)
+					||(entity instanceof ToxicEnemy)
+				){
+					entity.remove=true;
+					this.enemy_spawns=0;
+				}
+			}
+			if(this.can_remove_ring_projectiles){
+				for(let ring of this.ring_projectiles){
+					ring.remove=true;
+				}
+				this.can_remove_ring_projectiles=false;
+			}
+			for(let effect of this.effects){
+				if(effect.effectType==57){
+					if(effect.radius>0){
+						if(effect.radius < 850){
+							effect.radius+=255/1e3*delta;
+						}else if(effect.radius > 850){
+							effect.radius=850;
+						}
+					}
+				}else if(effect.effectType==58){
+					shield_percentage=this.ring_sniper_count/4;
+					if(shield_percentage<=0)this.shield_up=false;
+					effect.radius=384*shield_percentage+this.radius;
+				}
+			}
+			if(map.players.filter(e=>!e.isDowned()).length)
+				this.health-=5.4/1e3*delta;
+			this.immune=true;
+			this.speedMultiplier=0;
+			this.x=this.initialX;
+			this.y=this.initialY;
+		}
+		// Dead
+		if(this.health<=0){
+			for(let entity of area.entities){
+				if(
+					(entity instanceof ImmuneEnemy)
+					||(entity instanceof CorrosiveEnemy)
+					||(entity instanceof InfectiousEnemy)
+					||(entity instanceof WallEnemy)
+					||(entity instanceof FrostGiantEnemy)
+				) entity.remove=true;
+			}
+			for(let entity of map.players){
+				entity.boss_kick_timer=300000;
+				entity.boss_area_exit="top_middle";
+				if(this.hard_mode)
+					entity.cybot_hard_mode_defeated=true;
+				else	entity.cybot_defeated=true;
+				entity.cannot_leave_area=false;
+			}
+			for(let ring of this.ring_projectiles){
+				ring.removed=true;
+			}
+			this.health=-1;
+			this.remove=true;
+		}
+	}
+	generate_entities(delta,area){
+		if(!this.release_ready){
+			this.release_time -= delta;
+			if(this.release_time <=0)
+				this.release_ready=true;
+		}else{
+			// Phase 1
+			if(this.health>=this.maxHealth*0.98&&this.immune&&this.enemy_spawns<this.enemy_spawn_limit){
+				if(this.hard_mode)area.entities.push(new NormalEnemy(this.x,this.y,15,225,this.target_angle,this.boundary))
+				else area.entities.push(new NormalEnemy(this.x,this.y,15,180,this.target_angle,this.boundary))
+				this.enemy_spawns+=1;
+				this.release_time=this.release_interval;
+				this.release_ready=false;
+				this.target_angle+=28.8;
+			}
+			// Phase 2
+			if(this.health>=this.maxHealth*0.3&&this.health<this.maxHealth*0.98&&this.immune&&this.enemy_spawns<this.enemy_spawn_limit){
+				if(this.hard_mode){
+					area.entities.push(new SlowingEnemy(this.x,this.y,5,300,this.target_angle,50,defaultValues.spawner.slow,this.boundary))
+					this.target_angle+=190;
+					area.entities.push(new DrainingEnemy(this.x,this.y,5,300,this.target_angle,50,defaultValues.spawner.drain,this.boundary))
+					this.target_angle+=190;
+					area.entities.push(new ToxicEnemy(this.x,this.y,5,300,this.target_angle,50,this.boundary))
+					this.target_angle+=190;
+					this.enemy_spawns+=3;
+				}else{
+					area.entities.push(new SlowingEnemy(this.x,this.y,4,300,this.target_angle,50,defaultValues.spawner.slow,this.boundary))
+					this.target_angle+=190;
+					area.entities.push(new DrainingEnemy(this.x,this.y,4,300,this.target_angle,50,defaultValues.spawner.drain,this.boundary))
+					this.target_angle+=190;
+					this.enemy_spawns+=2;
+				}
+				this.release_time=this.release_interval;
+				this.release_ready=false;
+				if(this.can_spawn_ring_snipers&&this.ring_sniper_count==0){
+					//let ring_sniper_positions=[[48,48],[48,1114],[1104,48],[1104,1114]];
+					//Relative to cybot's initial spawn
+					let ring_sniper_positions=[[-528,-528],[-528,538],[528,-528],[528,538]];
+					for(let pos of ring_sniper_positions){
+						let ring_sniper=new RingSniperEnemy(this.x+pos[0],this.y+pos[1],24,0,0,this,defaultValues.spawner.health,defaultValues.spawner.ring_sniper_radius,this.boundary)
+						area.entities.push(ring_sniper);
+						this.ring_sniper_count+=1;
+					}
+					this.shield_up=true;
+					this.can_spawn_ring_snipers=false;
+				}
+			}
+			// Phase 3
+			if(this.health>0&&this.health<this.maxHealth*0.3&&this.immune&&this.enemy_spawns<this.enemy_spawn_limit){
+				this.release_interval=200;
+				if(this.hard_mode){
+					let ring_sniper_projectile=new CybotRingProjectile(this.x,this.y,EvadesConfig.defaults.cybot_ring_projectile.radius,EvadesConfig.defaults.cybot_ring_projectile.speed,this.target_angle,this.boundary);
+					area.entities.push(ring_sniper_projectile)
+					this.ring_projectiles.push(ring_sniper_projectile);
+					this.target_angle+=130;
+					ring_sniper_projectile=new CybotRingProjectile(this.x,this.y,EvadesConfig.defaults.cybot_ring_projectile.radius,EvadesConfig.defaults.cybot_ring_projectile.speed,this.target_angle,this.boundary);
+					area.entities.push(ring_sniper_projectile)
+					this.ring_projectiles.push(ring_sniper_projectile);
+					this.enemy_spawns+=2;
+				}else{
+					area.entities.push(new ImmuneEnemy(this.x,this.y,40,180,this.target_angle,this.boundary))
+					this.target_angle+=130;
+					area.entities.push(new CorrosiveEnemy(this.x,this.y,40,180,this.target_angle,this.boundary))
+					this.target_angle+=130;
+					area.entities.push(new InfectiousEnemy(this.x,this.y,40,180,this.target_angle,this.boundary))
+					this.enemy_spawns+=3;
+				}
+				this.target_angle+=130;
+				this.release_time=this.release_interval;
+				this.release_ready=false;
+			}
+		}
+	}
+	damage(damage){
+		this.health-=damage;
+		this.losing_health=false;
+	}
+	update(delta,area){
+		this.update_parameters(delta,area);
+		this.generate_entities(delta,area);
+		super.update(delta,area);
+	}
+}
 window.warnin=false;
