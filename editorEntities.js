@@ -1483,6 +1483,7 @@ this.isGuest=!1;
 			this.distance_moved_previously=[0,0];
 		}
 		this.canGainEnergy=!this.isStone;
+		this.invulnerable=this.harden+this.isStone;
 		this.canGainEnergy && (this.energy+=this.energyRate*delta/1e3);
 		this.energyRate=this.energyRegen+this.regenAdditioner;
 		if(this.energy>this.maxEnergy)this.energy=this.maxEnergy;
