@@ -134,7 +134,7 @@ function spawnEntities(area=current_Area){
 						enemyX=min+Math.random()*(max-min);
 					}
 				}else{
-					enemyX=Math.random()*(activeZone.width-radius*2*2.5**-(randType=="sizing"))+left+radius*2.5**-(randType=="sizing");
+					enemyX=Math.random()*(activeZone.width-radius*2)+left+radius;
 				}
 				if(enemyY!=undefined){
 					if(String(enemyY).split(",").length>1){
@@ -143,11 +143,13 @@ function spawnEntities(area=current_Area){
 						enemyY=min+Math.random()*(max-min);
 					}
 				}else{
-				enemyY=Math.random()*(activeZone.height-radius*2*2.5**-(randType=="sizing"))+top+radius*2.5**-(randType=="sizing");
+					enemyY=Math.random()*(activeZone.height-radius*2)+top+radius;
 				}
 				var instance;
 				try{
-					instance=eval(`${capitalize(type)}Enemy`)}catch(e){
+					instance=eval(`${capitalize(type).replace("Fake","")}Enemy`)
+				}catch(e){
+					console.warn("Enemy Class not found!",e);
 				};
 				switch(type){
 					default:{
@@ -155,7 +157,7 @@ function spawnEntities(area=current_Area){
 						map.unknownEntities.indexOf(type)==-1&&(map.unknownEntities.push(type),
 						console.warn(`Unknown entity in ${map.name}: ${capitalize(type)}_enemy`),customAlert(`Unknown entity in ${map.name}: ${capitalize(type)}_enemy`,5,"#FF0"))
 						try{
-							entity=new Enemy(enemyX,enemyY,radius,speed,angle,type.replace("fake_","") + "_enemy",boundary);
+							entity=new Enemy(enemyX,enemyY,radius,speed,angle,type+"_enemy",boundary);
 						}catch(e){
 							entity=new MysteryEnemy(enemyX,enemyY,radius,speed,angle,type,boundary);
 						}
@@ -184,6 +186,8 @@ function spawnEntities(area=current_Area){
 					case "dabot":
 					case "elbot":
 					case "libot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "fake_pumpkin":
+					case "pumpkin":entity=new instance(enemyX,enemyY,radius,speed,angle,type.includes("fake"),boundary);break;
 					case "cybot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"cybot_radius"),prop(spawner,"hard_mode"),boundary);break;
 					case "draining":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`draining_radius`),prop(spawner,"drain"),boundary);break;
 					case "slowing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`slowing_radius`),prop(spawner,"slow"),boundary);break;
@@ -201,7 +205,6 @@ function spawnEntities(area=current_Area){
 					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
 					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),checkAreaProperties("wind_ghosts_do_not_push_while_downed"),boundary);break;
 					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
-					case "fake_pumpkin":entity=new PumpkinEnemy(enemyX,enemyY,radius,speed,angle,boundary,true);break;
 					case "sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"recharge"),boundary);break;
 					case "ring_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,null,prop(spawner,"health"),prop(spawner,"ring_sniper_radius"),boundary);break;
 					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
@@ -246,7 +249,6 @@ function spawnEntities(area=current_Area){
 					case "cycling":
 					case "snowman":
 					case "crumbling":
-					case "pumpkin":
 					case "glowy":
 					case "firefly":
 					case "phantom":
@@ -283,8 +285,7 @@ function spawnEntities(area=current_Area){
 					case "mutating":
 					case "vengeful_soul":
 					case "lost_soul":
-					*/
-					entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					*/entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
 				};entity.collision();map.areas[area].entities.push(entity);
 			}
 		}
@@ -4564,7 +4565,7 @@ class SnowmanEnemy extends Enemy{
   }
 }
 class PumpkinEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary,fake=false){
+  constructor(x,y,radius,speed,angle,fake=false,boundary){
     super(x,y,radius,speed,angle,"pumpkin_enemy",boundary);
 	this.texture="entities/pumpkin_off";
 	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8(this.texture);
