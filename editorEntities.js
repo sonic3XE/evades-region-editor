@@ -7675,7 +7675,8 @@ class PlbotEnemy extends Enemy{
       distance_x = this.x - closest_entity.x;
       distance_y = this.y - closest_entity.y;
       area.entities.push(new CorrosiveSniperProjectile(this.x,this.y,36,EvadesConfig.defaults.corrosive_sniper_projectile.speed,(Math.atan2(distance_y,distance_x)/Math.PI+1)*180,this.boundary))
-      this.releaseTime = (this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy);
+      this.release_time = (this.release_interval*(-this.energy+this.maxEnergy*2)/this.maxEnergy);
+	  this.release_ready=false;
     }
 		}
 	}
