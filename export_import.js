@@ -106,6 +106,7 @@ function mapToJSON(map) {
       if(props)
       if(!deepEquals(defaultValues.properties[props[i]],map.properties[props[i]])){
         res[props[i]]=map.properties[props[i]];
+		if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
       }
     }
     let areas = [];
@@ -150,6 +151,7 @@ function areaToJSON(area) {
     if(props[i]=="inputs"||props[i]=="element"||(area.properties.background_color&&!area.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],area.properties[props[i]])){
       res[props[i]]=area.properties[props[i]]
+      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
     }
   }
   return `{${!area.boss?"":`"boss":${area.boss},`}${(area.name==""||area.name==void 0)?"":`"name":${JSON.stringify(area.name)},`}"properties":${JSON.stringify(res)},"x":${typeof area.rx=="number"?area.rx:''.concat('"',area.rx,'"')},"y":${typeof area.ry=="number"?area.ry:''.concat('"',area.ry,'"')},"zones":[${objects.join()}],"assets":[${assets.join()}]}`.replace(`,"assets":[]`,"");
@@ -169,6 +171,7 @@ function activeToJSON(e) {
     if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
+      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
     }
   }
     return `{"type":"active","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')},"spawner":[${spawner.join()}]}`.replace(`,"spawner":[]`,"");
@@ -180,6 +183,7 @@ function safeToJSON(e) {
     if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
+      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
     }
   }
     return `{"type":"safe","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
@@ -191,6 +195,7 @@ function exitToJSON(e) {
     if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
+      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
     }
   }
     return `{"type":"${e.type}","properties":${JSON.stringify(res)},${(e.requirements.map(t=>{return t.requirement}).filter(t=>{return t!=""}).length&&e.type=="teleport")?`"requirements":${JSON.stringify(e.requirements.map(t=>{return t.requirement}).filter(t=>{return t!=""}))},`:""}"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"translate":{"x":${e.translate.x},"y":${e.translate.y}},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
@@ -202,6 +207,7 @@ function victoryToJSON(e) {
     if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
+      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
     }
   }
     return `{"type":"victory","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
@@ -213,6 +219,7 @@ function removalToJSON(e) {
     if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
+      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
     }
   }
     return `{"type":"removal","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
@@ -224,6 +231,7 @@ function dummyToJSON(e) {
     if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
     if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
       res[props[i]]=e.properties[props[i]]
+      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
     }
   }
     return `{"type":"dummy","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
