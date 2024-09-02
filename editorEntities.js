@@ -4894,6 +4894,7 @@ class FlowerProjectile extends Enemy{
 	}
     this.radiusMultiplier *= this.owner.radiusMultiplier;
 	this.setPosition(Math.sin(this.id*72*Math.PI/180),-Math.cos(this.id*72*Math.PI/180));
+	if(this.owner.remove)this.remove=true;
 	super.update(delta,area,false);
   }
   setPosition(x, y){
