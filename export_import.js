@@ -233,9 +233,15 @@ function dummyToJSON(e) {
  */
 function spawnerToJSON(spawner) {
   var object=cloneSpawner(spawner);
+  const legacyConversionProps="speed,turn_speed,turn_acceleration,shot_acceleration,projectile_speed,speed_loss,increment,gravity,repulsion,quicksand_strength".split(",")
   //if there is a default value exist in object, destroy the property.
   for(var i in object)if(object[i]==defaultValues.spawner[i])delete object[i];
-  return JSON.stringify(object);
+  var newobj={...object};
+  for(var i of legacyConversionProps){
+	  if(newobj[i]==void 0)continue;
+	  if(settings.legacySpeedUnits)newobj[i]/=30;
+  }
+  return JSON.stringify(newobj);
 }
 /**
  * ASSETS
