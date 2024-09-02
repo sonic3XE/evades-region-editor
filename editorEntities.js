@@ -153,7 +153,7 @@ function spawnEntities(area=current_Area){
 					default:{
 						map.unknownEntities??=[];
 						map.unknownEntities.indexOf(type)==-1&&(map.unknownEntities.push(type),
-						console.warn("Unknown enemy in "+map.name+": "+type),customAlert("Unknown enemy in "+map.name+": "+type,5,"#FF0"))
+						console.warn(`Unknown entity in ${map.name}: ${capitalize(type)}_enemy`),customAlert(`Unknown entity in ${map.name}: ${capitalize(type)}_enemy`,5,"#FF0"))
 						try{
 							entity=new Enemy(enemyX,enemyY,radius,speed,angle,type.replace("fake_","") + "_enemy",boundary);
 						}catch(e){
@@ -352,14 +352,25 @@ this.regionHighestAreaAchieved=0;
 this.winCount=0;
 this.rescuedCount=0;
 this.survivalTime=0;
+this.accessory_reversed=false;
 //init accessory getter by player settings
 Object.defineProperties(this,{"hatName":{get:function(){
-	return [null, "gold-crown", "silver-crown", "bronze-crown", "santa-hat", "gold-wreath", "spring-wreath", "autumn-wreath", "winter-wreath", "summer-wreath", "summer-olympics-wreath", "summer-olympics-wreath-2", "winter-olympics-wreath", "halo", "blue-santa-hat", "flames", "blue-flames", "stars", "witch-hat", "sunglasses", "flower-headband", "pirate-hat", "rose-wreath", "gold-jewels", "silver-jewels", "bronze-jewels"][settings.hat];
+	Math.abs(this.inputAngle)!=Math.PI/2&&(this.accessory_reversed=Math.abs(this.inputAngle)>Math.PI/2);
+	var curHat=[null, "gold-crown", "silver-crown", "bronze-crown", "santa-hat", "gold-wreath", "spring-wreath", "autumn-wreath", "winter-wreath", "summer-wreath", "summer-olympics-wreath", "summer-olympics-wreath-2", "winter-olympics-wreath", "halo", "blue-santa-hat", "flames", "blue-flames", "stars", "witch-hat", "sunglasses", "flower-headband", "pirate-hat", "rose-wreath", "gold-jewels", "silver-jewels", "bronze-jewels"][settings.hat];
+	(curHat=="witch-hat"&&this.accessory_reversed)&&(curHat+="-reversed");
+	return curHat;
 }},"bodyName":{get:function(){
-	return [null, "sticky-coat", "toxic-coat", "orbit-ring", "clouds", "storm-clouds", "tuxedo", "doughnut", "stardust", "broomstick", "snowglobe"][settings.body];
+	Math.abs(this.inputAngle)!=Math.PI/2&&(this.accessory_reversed=Math.abs(this.inputAngle)>Math.PI/2);
+	var curBody=[null, "sticky-coat", "toxic-coat", "orbit-ring", "clouds", "storm-clouds", "tuxedo", "doughnut", "stardust", "broomstick", "snowglobe"][settings.body];
+	(curBody=="broomstick"&&this.accessory_reversed)&&(curBody+="-reversed");
+	return curBody;
 }},"gemName":{get:function(){
 	return [null, 50, 100, 250, 500, 750, 1000, 1500, 2000, 2500, 3500, 5000, 7500, 10000][settings.gem];
 }}})
+
+
+this.inputAngle=0;
+this.input_angle=0;
 this.isIced=false;
 this.icedTime=1000;
 this.icedTimeLeft=1000;
@@ -960,6 +971,7 @@ this.isGuest=!1;
         this.thirdAbilityPressed = false;
       }
 	  var activ=[0,0,0];
+	  if(evadesRenderer.heroInfoCard){
 	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
 	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
 	  var ab3=evadesRenderer.heroInfoCard.abilityThree;
@@ -1056,7 +1068,7 @@ this.isGuest=!1;
 	this.handleAbility(ab2,2,delta,{ab1,ab3},forceOff[1]||this.secondAbility);
 	this.handleAbility(ab3,3,delta,{ab1,ab2},forceOff[2]||this.thirdAbility);
 	this.forcefirst=false;
-	this.forcesecond=false;
+	  this.forcesecond=false;};
       if (!this.prevSlippery||this.collides||(this.d_x == 0 && this.d_y == 0)) {
         if (this.slippery&&!this.prevSlippery) {
           if (!this.isMovementKeyPressed(input)) {
@@ -1261,27 +1273,29 @@ this.isGuest=!1;
 		this.chronoPos.push([this.x,this.y,this.deathTimer]);
 		this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
 		this.inBarrier = false;
-		var ab1=evadesRenderer.heroInfoCard.abilityOne;
-		var ab2=evadesRenderer.heroInfoCard.abilityTwo;
-		var ab3=evadesRenderer.heroInfoCard.abilityThree;
-		if(ab1.cooldown!==void 0&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
-			ab1.cooldown-=delta/1e3;
-			ab1.cooldown=Math.max(ab1.cooldown,0);
+		if(evadesRenderer.heroInfoCard){
+			var ab1=evadesRenderer.heroInfoCard.abilityOne;
+			var ab2=evadesRenderer.heroInfoCard.abilityTwo;
+			var ab3=evadesRenderer.heroInfoCard.abilityThree;
+			if(ab1.cooldown!==void 0&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
+				ab1.cooldown-=delta/1e3;
+				ab1.cooldown=Math.max(ab1.cooldown,0);
+			}
+			if(ab2.cooldown!==void 0&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
+				ab2.cooldown-=delta/1e3;
+				ab2.cooldown=Math.max(ab2.cooldown,0);
+			}
+			if(ab3.cooldown!==void 0&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
+				ab3.cooldown-=delta/1e3;
+				ab3.cooldown=Math.max(ab3.cooldown,0);
+			}
+			if(this.noCooldown){
+				ab1.cooldown=0;
+				ab2.cooldown=0;
+				ab3.cooldown=0;
+			}
+			this.updateEffects([ab1,ab2,ab3]);
 		}
-		if(ab2.cooldown!==void 0&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
-			ab2.cooldown-=delta/1e3;
-			ab2.cooldown=Math.max(ab2.cooldown,0);
-		}
-		if(ab3.cooldown!==void 0&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
-			ab3.cooldown-=delta/1e3;
-			ab3.cooldown=Math.max(ab3.cooldown,0);
-		}
-		if(this.noCooldown){
-			ab1.cooldown=0;
-			ab2.cooldown=0;
-			ab3.cooldown=0;
-		}
-		this.updateEffects([ab1,ab2,ab3]);
 		let area=map.areas[this.area];
 		this.safeZone = true;
 		this.minimum_speed = 0;
@@ -1520,9 +1534,11 @@ this.isGuest=!1;
 		this.distance_moved_previously=[this.d_x,this.d_y]
 		this.velX=this.d_x;
 		this.velY=this.d_y;
-		evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling||this.isSnowballed;
-		evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling||this.isSnowballed;
-		evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling||this.isSnowballed;
+		if(evadesRenderer.heroInfoCard){
+			evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling||this.isSnowballed;
+			evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling||this.isSnowballed;
+			evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling||this.isSnowballed;
+		}
 		if(!this.blocking){
 			this.slowing=[false];
 			this.freezing=false;
@@ -2059,7 +2075,7 @@ this.isGuest=!1;
 		e.closePath(),
 		e.globalAlpha = 1
 	}
-	renderAccessory(e, t, a,dt) {
+	renderAccessory(e, t, a, delta) {
 		if (void 0 === this.hatName && void 0 === this.bodyName || this.isDeparted)
 			return;
 		this.bodyName && this.bodyName !== this.storedBodyName && (this.bodyImage = $31e8cfefa331e399$export$93e5c64e4cc246c8("cosmetics/" + this.bodyName),

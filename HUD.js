@@ -924,10 +924,10 @@ class $097def8f8d652b17$export$2e2bcd8739ae039 extends $0322546c98741e1e$export$
 		$01bb7fd9b3660a1e$export$e1851a6e64efa609(this, this.stateFields(), "ability");
 		const e = $01bb7fd9b3660a1e$export$a1dfcc7b3a7a0b52(this.abilityType);
 		$01bb7fd9b3660a1e$export$304370d6b87d514e(this, this.stateFields(), e);
-		const a = `abilities/${this.name.toLowerCase().replace(" ", "_")}`;
-		void 0 !== this.image && null !== this.imageName && this.imageName === a || (this.image = $31e8cfefa331e399$export$93e5c64e4cc246c8(a),
-		this.image.blank || (this.image = $31e8cfefa331e399$export$93e5c64e4cc246c8("abilities/default")),
-		this.imageName = a)
+		const t = `abilities/${this.name.toLowerCase().replace(" ", "_")}`;
+		void 0 !== this.image && null !== this.imageName && this.imageName === t || (this.image = $31e8cfefa331e399$export$93e5c64e4cc246c8(t),
+		this.image.blank && (this.image = $31e8cfefa331e399$export$93e5c64e4cc246c8("abilities/default")),
+		this.imageName = t)
 	}
 	constructor() {
 		super(),
