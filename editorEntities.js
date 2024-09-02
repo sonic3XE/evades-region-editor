@@ -5206,8 +5206,8 @@ class RingSniperEnemy extends Enemy{
   }
   generate_entities(delta,area){
 	  if(!this.release_ready){
-			this.release_time-=delta*this.timer_reduction;
-			if(this.release_time<=0){
+			this.releaseTime-=delta*this.timer_reduction;
+			if(this.releaseTime<=0){
 				this.release_ready=true;
 		}
 	}else{
