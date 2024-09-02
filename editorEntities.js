@@ -3682,7 +3682,7 @@ class RadarEnemy extends Enemy{
 			  return;
 		  let closest_entity=null,
 		  closest_entity_distance=null;
-		  active_players = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone});
+		  let active_players = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone});
 		  for(let entity of active_players){
 			  if(entity.nightActivated||entity.effectImmune==0)continue;
 			distance_x = this.x - entity.x;
