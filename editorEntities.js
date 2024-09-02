@@ -933,6 +933,7 @@ this.isGuest=!1;
 	controlActions(input,delta){
 	var cent=this.isCent;
 	if(this.isLead)cent=!cent;
+	
     if (input.keys) {
       this.firstAbility = false;
       this.secondAbility = false;
@@ -1137,6 +1138,7 @@ this.isGuest=!1;
           if (input.isMouse&&!this.cent_is_moving&&!this.isMovementKeyPressed(input)) {
             this.mouse_distance_full_strength = 150;
             this.mouseActive = true;
+            this.movement_involved=true;
             if(this.slippery){this.mouse_distance_full_strength = 1;}
 
             if(!cent || (cent && this.cent_input_ready)){
@@ -1189,9 +1191,11 @@ this.isGuest=!1;
         } else if (!this.cent_is_moving){
             this.dirY = 0; this.dirX = 0;
             this.moving = false;
-            if(this.isMovementKeyPressed(input)){
+            this.movement_involved=false;
+			if(this.isMovementKeyPressed(input)){
               if(cent && this.cent_input_ready) this.cent_is_moving = true;
               this.moving=true;
+			  this.movement_involved=true;
               input.isMouse = false;
               this.cent_input_ready = false;
               this.cent_accelerating = true;
@@ -3681,14 +3685,14 @@ class RadarEnemy extends Enemy{
 		  if(this.force_aura_off)
 			  return;
 		  let closest_entity=null,
-		  closest_entity_distance=null;
+		  closest_entity_distance=null,distance,distance_x,distance_y;
 		  let active_players = map.players.filter(e=>{return !e.isDowned()&&!e.safeZone});
 		  for(let entity of active_players){
-			  if(entity.nightActivated||entity.effectImmune==0)continue;
-			distance_x = this.x - entity.x;
-			distance_y = this.y - entity.y;
-			distance = distance_x**2 + distance_y**2
-			if(distance > (this.auraRadius * this.energy/this.maxEnergy)**2)continue;
+			  if(entity.nightActivated||entity.effectImmune==0||!entity.movement_involved)continue;
+			distance_x = this.x - entity.x,
+			distance_y = this.y - entity.y,
+			distance = distance_x**2 + distance_y**2;
+			if(distance > (this.radar_radius * this.energy/this.maxEnergy)**2)continue;
 			if(closest_entity==void 0){
 				closest_entity=entity;
 				closest_entity_distance = distance;
@@ -3718,6 +3722,7 @@ class RadarProjectile extends Enemy{
     this.immune=true;
 	this.shadow_total_time=0;
 	this.shadow_time=0;
+	this.outline=false;
 	this.enemy_projectile=true;
   }
   onCollide(){
