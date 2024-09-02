@@ -173,6 +173,7 @@ function spawnEntities(area=current_Area){
 					case "toxic":
 					case "enlarging":
 					case "disabling":
+					case "reducing":
 					case "eabot":
 					case "fibot":
 					case "wabot":
@@ -180,11 +181,10 @@ function spawnEntities(area=current_Area){
 					case "mebot":
 					case "plbot":
 					case "aibot":
-					case "reducing":
 					case "dabot":
 					case "elbot":
 					case "libot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
-					case "cybot":customAlert("WARNING: The simulation will crash when it enters phase 3.",10,"#FF0"),entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"cybot_radius"),prop(spawner,"hard_mode"),boundary);break;
+					case "cybot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"cybot_radius"),prop(spawner,"hard_mode"),boundary);break;
 					case "draining":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`draining_radius`),prop(spawner,"drain"),boundary);break;
 					case "slowing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`slowing_radius`),prop(spawner,"slow"),boundary);break;
 					case "gravity":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`gravity_radius`),prop(spawner,"gravity"),boundary);break;
@@ -7825,10 +7825,6 @@ class CybotEnemy extends Enemy{//Crashes when 3rd phase started
 							effect.radius=850;
 						}
 					}
-				}else if(effect.effectType==58){
-					shield_percentage=this.ring_sniper_count/4;
-					if(shield_percentage<=0)this.shield_up=false;
-					effect.radius=384*shield_percentage+this.radius;
 				}
 			}
 			if(map.players.filter(e=>!e.isDowned()).length)
@@ -7899,8 +7895,11 @@ class CybotEnemy extends Enemy{//Crashes when 3rd phase started
 				this.release_time=this.release_interval;
 				this.release_ready=false;
 				if(this.can_spawn_ring_snipers&&this.ring_sniper_count==0){
+					//Globally positioned in the minimap.
+					//let ring_sniper_positions=[[27264,158464],[27264,159530],[28320,158464],[28320,159530]];
+					//Relative to area.
 					//let ring_sniper_positions=[[48,48],[48,1114],[1104,48],[1104,1114]];
-					//Relative to cybot's initial spawn
+					//Relative to cybot's initial spawn.
 					let ring_sniper_positions=[[-528,-528],[-528,538],[528,-528],[528,538]];
 					for(let pos of ring_sniper_positions){
 						let ring_sniper=new RingSniperEnemy(this.x+pos[0],this.y+pos[1],24,0,0,this,defaultValues.spawner.health,defaultValues.spawner.ring_sniper_radius,this.boundary)
