@@ -175,7 +175,6 @@ function createSPAWNERgui(point1,Zone){
 	}
 	for(var i in point1){
 		if(list.indexOf(i)==-1)customAlert("Unknown spawner property: "+i,10,"#FFF");
-		//if(legacyProperties.indexOf(i)!=-1)point1[i]*=30*Math.pow(-1,isLegacy);
 	}
 	function CreateInput(value,step,type="number",inputEvent,input){
 		return(input=document.createElement("input"),type=="checkbox")?(input.checked=value??false):(input.value=value??"",input.step=step??1),input.addEventListener("input",inputEvent),input;
@@ -791,9 +790,7 @@ function newZone(e) {
 	Zone.rh=Zone.height;
 	var spawner=Zone.spawner;
 	var requirements=Zone.requirements;
-	var properties=Zone.properties;
 	var translate=Zone.translate;
-	if(properties)Zone.properties={...defaultValues.properties,...properties};
 	Zone.properties??={};
 	if(!translate){
 		Zone.translate={x:0,y:0};

@@ -34,15 +34,16 @@ function getEntityColor(type){
 }
 function spawnEntities(area=current_Area){
 	var areaC=map.areas[area];
+	function checkAreaProperties(e){
+		var s=areaC.properties[e] ?? (map.properties[e] ?? defaultValues.properties[e]);
+		return s;
+	}
 	if(!areaC)return;
 	var isVictory=!!areaC.zones.filter(e=>e.type=="victory").length;
-	var totalPellets=areaC.properties.pellet_count ?? defaultValues.properties.pellet_count;
-	if(totalPellets==defaultValues.properties.pellet_count){
-		totalPellets=map.properties.pellet_count ?? defaultValues.properties.pellet_count;
-	}
+	var totalPellets=checkAreaProperties("pellet_count");
 	var pelletZones=[];
 	var boundary=getAreaBoundary(areaC);
-	if(areaC.properties.spawns_pellets!=void 0 && !areaC.properties.spawns_pellets){
+	if(checkAreaProperties("spawns_pellets")!=void 0 && !checkAreaProperties("spawns_pellets")){
 		for(var zone of areaC.zones){
 			if(zone.properties.spawns_pellets){
 				pelletZones.push(zone);
@@ -88,18 +89,12 @@ function spawnEntities(area=current_Area){
 		var top=randZone.y;
 		var pellet=new Pellet(Math.random()*(randZone.width-16)+randZone.x+8,Math.random()*(randZone.height-16)+randZone.y+8,8,boundary,pelletZones);
 		pellet.collision();
-		map.areas[area].entities.push(pellet);
+		areaC.entities.push(pellet);
 	}
 	function prop(spawner,e){
 		return spawner[e]??defaultValues.spawner[e]
 	}
-	function checkAreaProperties(e){
-		var t=defaultValues.properties[e];
-		var s=map.areas[area].properties[e] ?? t;
-		if(s==t)s=map.properties[e] ?? t;
-		return s;
-	}
-	var activeZones=map.areas[area].zones.filter(e=>e.type=="active");
+	var activeZones=areaC.zones.filter(e=>e.type=="active");
 	for(var activeZone of activeZones){
 		for (var i in activeZone.spawner) {
 			var spawner=activeZone.spawner[i];
@@ -286,11 +281,11 @@ function spawnEntities(area=current_Area){
 					case "vengeful_soul":
 					case "lost_soul":
 					*/entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
-				};entity.collision();map.areas[area].entities.push(entity);
+				};entity.collision();areaC.entities.push(entity);
 			}
 		}
 	}
-	if(isNaN(map.areas[area].entities.filter(e=>(isNaN(e.x)||isNaN(e.y))).length)){return spawnEntities();}
+	if(isNaN(areaC.entities.filter(e=>(isNaN(e.x)||isNaN(e.y))).length)){return spawnEntities();}
 }
 var verifiedEntities=[
 //Enemies

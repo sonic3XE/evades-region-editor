@@ -8,7 +8,7 @@ function loadFile(str,fromLocal=!0,socketSend=true){
 		map.element=createFolder(formatString(curLang,"editor.region"), [
 			createProperty(formatString(curLang,"editor.property.name"),nameInput=createInput(map.name=obj.name,_=>{map.name=nameInput.value}),"text"),
 			createProperty(formatString(curLang,"editor.property.share_to_drive"),boolInput=createInput(map.share_to_drive,_=>{map.share_to_drive=boolInput.checked}),"switch",{value:obj.share_to_drive??defaultValues.share_to_drive}),
-			(map.properties=createPropertyObj({...defaultValues.properties,...obj.properties})).element,
+			(map.properties=createPropertyObj({...defaultValues.properties,...obj.properties},"region")).element,
 		]);
 		map.element.classList.add("closed");
 		menu.insertBefore(map.element,areamenu);
@@ -120,121 +120,128 @@ function mapToJSON(map) {
  * @param {Area} area 
  */
 function areaToJSON(area) {
-  let objects = [],assets = [];
-  for (var i in area.zones) {
-    var zone=area.zones[i];
-    switch(zone.type){
-      case"active":objects.push(activeToJSON(zone));break;
-      case"safe":objects.push(safeToJSON(zone));break;
-      case"exit":
-      case"teleport":objects.push(exitToJSON(zone));break;
-      case"victory":objects.push(victoryToJSON(zone));break;
-      case"removal":objects.push(removalToJSON(zone));break;
-      case"dummy":objects.push(dummyToJSON(zone));break;
-      default:throw"Unknown zone type.";
-    }
-  }
-  for (var j in area.assets) {
-    var asset=area.assets[j];
-    switch(asset.type){
-      case"wall":assets.push(wallToJSON(asset));break;
-      case"light_region":assets.push(light_regionToJSON(asset));break;
-      case"torch":assets.push(torchToJSON(asset));break;
-      case"flashlight_spawner":assets.push(flashlight_spawnerToJSON(asset));break;
-      case"gate":assets.push(gateToJSON(asset));break;
-      default:throw"Unknown asset type.";
-    }
-  }
-  var res={};
-  var props=Object.keys(area.properties);
-  for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(area.properties.background_color&&!area.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
-    if(!deepEquals(defaultValues.properties[props[i]],area.properties[props[i]])){
-      res[props[i]]=area.properties[props[i]]
-      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
-    }
-  }
-  return `{${!area.boss?"":`"boss":${area.boss},`}${(area.name==""||area.name==void 0)?"":`"name":${JSON.stringify(area.name)},`}"properties":${JSON.stringify(res)},"x":${typeof area.rx=="number"?area.rx:''.concat('"',area.rx,'"')},"y":${typeof area.ry=="number"?area.ry:''.concat('"',area.ry,'"')},"zones":[${objects.join()}],"assets":[${assets.join()}]}`.replace(`,"assets":[]`,"");
+	let objects = [],assets = [];
+	for (var i in area.zones) {
+		var zone=area.zones[i];
+		switch(zone.type){
+			case"active":objects.push(activeToJSON(zone));break;
+			case"safe":objects.push(safeToJSON(zone));break;
+			case"exit":
+			case"teleport":objects.push(exitToJSON(zone));break;
+			case"victory":objects.push(victoryToJSON(zone));break;
+			case"removal":objects.push(removalToJSON(zone));break;
+			case"dummy":objects.push(dummyToJSON(zone));break;
+			default:throw"Unknown zone type.";
+		}
+	}
+	for (var j in area.assets) {
+		var asset=area.assets[j];
+		switch(asset.type){
+			case"wall":assets.push(wallToJSON(asset));break;
+			case"light_region":assets.push(light_regionToJSON(asset));break;
+			case"torch":assets.push(torchToJSON(asset));break;
+			case"flashlight_spawner":assets.push(flashlight_spawnerToJSON(asset));break;
+			case"gate":assets.push(gateToJSON(asset));break;
+			default:throw"Unknown asset type.";
+		}
+	}
+	var res={};
+	if(area.properties){
+		for(const[key,value]of Object.entries(area.properties)){
+			if(key=="element")continue;
+			if(void 0!==value){
+				res[key]=value;
+				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+			}
+		}
+	}
+	return `{${!area.boss?"":`"boss":${area.boss},`}${(area.name==""||area.name==void 0)?"":`"name":${JSON.stringify(area.name)},`}"properties":${JSON.stringify(res)},"x":${typeof area.rx=="number"?area.rx:''.concat('"',area.rx,'"')},"y":${typeof area.ry=="number"?area.ry:''.concat('"',area.ry,'"')},"zones":[${objects.join()}],"assets":[${assets.join()}]}`.replace(`,"assets":[]`,"");
 }
 
 /**
  * ZONES
  */
 function activeToJSON(e) {
-  var spawner=[];
-  for (var spawners in e.spawner){
-    spawner.push(spawnerToJSON(e.spawner[spawners]));
-  };
-  var res={};
-  var props=Object.keys(e.properties);
-  for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
-    if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
-      res[props[i]]=e.properties[props[i]]
-      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
-    }
-  }
-    return `{"type":"active","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')},"spawner":[${spawner.join()}]}`.replace(`,"spawner":[]`,"");
+	var spawner=[];
+	for (var spawners in e.spawner){
+		spawner.push(spawnerToJSON(e.spawner[spawners]));
+	};
+	var res={};
+	if(e.properties){
+		for(const[key,value]of Object.entries(e.properties)){
+			if(key=="element")continue;
+			if(void 0!==value){
+				res[key]=value;
+				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+			}
+		}
+	}
+	return `{"type":"${e.type}","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')},"spawner":[${spawner.join()}]}`.replace(`,"spawner":[]`,"");
 }
 function safeToJSON(e) {
-  var res={};
-  var props=Object.keys(e.properties);
-  for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
-    if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
-      res[props[i]]=e.properties[props[i]]
-      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
-    }
-  }
-    return `{"type":"safe","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
+	var res={};
+	if(e.properties){
+		for(const[key,value]of Object.entries(e.properties)){
+			if(key=="element")continue;
+			if(void 0!==value){
+				res[key]=value;
+				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+			}
+		}
+	}
+	return `{"type":"${e.type}","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
 }
 function exitToJSON(e) {
-  var res={};
-  var props=Object.keys(e.properties);
-  for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
-    if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
-      res[props[i]]=e.properties[props[i]]
-      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
-    }
-  }
-    return `{"type":"${e.type}","properties":${JSON.stringify(res)},${(e.requirements.map(t=>{return t.requirement}).filter(t=>{return t!=""}).length&&e.type=="teleport")?`"requirements":${JSON.stringify(e.requirements.map(t=>{return t.requirement}).filter(t=>{return t!=""}))},`:""}"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"translate":{"x":${e.translate.x},"y":${e.translate.y}},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
+	var res={};
+	if(e.properties){
+		for(const[key,value]of Object.entries(e.properties)){
+			if(key=="element")continue;
+			if(void 0!==value){
+				res[key]=value;
+				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+			}
+		}
+	}
+	return `{"type":"${e.type}","properties":${JSON.stringify(res)},${(e.requirements.map(t=>{return t.requirement}).filter(t=>{return t!=""}).length&&e.type=="teleport")?`"requirements":${JSON.stringify(e.requirements.map(t=>{return t.requirement}).filter(t=>{return t!=""}))},`:""}"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"translate":{"x":${e.translate.x},"y":${e.translate.y}},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
 }
 function victoryToJSON(e) {
-  var res={};
-  var props=Object.keys(e.properties);
-  for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
-    if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
-      res[props[i]]=e.properties[props[i]]
-      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
-    }
-  }
-    return `{"type":"victory","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
+	var res={};
+	if(e.properties){
+		for(const[key,value]of Object.entries(e.properties)){
+			if(key=="element")continue;
+			if(void 0!==value){
+				res[key]=value;
+				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+			}
+		}
+	}
+	return `{"type":"${e.type}","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
 }
 function removalToJSON(e) {
-  var res={};
-  var props=Object.keys(e.properties);
-  for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
-    if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
-      res[props[i]]=e.properties[props[i]]
-      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
-    }
-  }
-    return `{"type":"removal","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
+	var res={};
+	if(e.properties){
+		for(const[key,value]of Object.entries(e.properties)){
+			if(key=="element")continue;
+			if(void 0!==value){
+				res[key]=value;
+				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+			}
+		}
+	}
+	return `{"type":"removal","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
 }
 function dummyToJSON(e) {
-  var res={};
-  var props=Object.keys(e.properties);
-  for(var i in props){
-    if(props[i]=="inputs"||props[i]=="element"||(e.properties.background_color&&!e.properties.background_color.reduce((e,t)=>{return e+t})&&props[i]=="background_color"))continue;
-    if(!deepEquals(defaultValues.properties[props[i]],e.properties[props[i]])){
-      res[props[i]]=e.properties[props[i]]
-      if(settings.legacySpeedUnits&&(props[i]=="maximum_speed"||props[i]=="minimum_speed"))res[props[i]]/=30;
-    }
-  }
-    return `{"type":"dummy","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
+	var res={};
+	if(e.properties){
+		for(const[key,value]of Object.entries(e.properties)){
+			if(key=="element")continue;
+			if(void 0!==value){
+				res[key]=value;
+				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+			}
+		}
+	}
+	return `{"type":"dummy","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
 }
 /**
  * SPAWNER

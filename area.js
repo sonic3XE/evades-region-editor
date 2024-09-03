@@ -67,7 +67,7 @@ function customAREAgui(area){
       updateMap();
     });
 
-  var props=createPropertyObj(area.properties);
+  var props=createPropertyObj(area.properties,"area");
   area.properties=props;
     area.element = createFolder(formatString(curLang,"editor.area"), [
         createProperty(formatString(curLang,"editor.property.boss"), bossInput, "switch", {value: area.boss ?? defaultValues.boss}),
@@ -110,8 +110,6 @@ function newArea(e={}){
 	const area = e;
 	area.entities=[];
 	area.rx=area.x,area.ry=area.y;
-	var properties=area.properties;
-	if(properties){area.properties={...defaultValues.properties,...properties}}
     area.zones??=[];
 	area.zones=area.zones.map(t=>{
       if(t.background_color){

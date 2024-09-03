@@ -683,290 +683,172 @@ socket.addEventListener("message",socketreceive);
  * @param {Properties} obj
 */
 var copyObjects=[];
-function createPropertyObj(obj={},t="region") {
-  delete obj.inputs,delete obj.element;
-  var arrayCheck=Object.keys(obj);
-  var arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,maximum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune".split(",");
-if(t=="region"){
-arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,maximum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
-}
-if(t=="zone"){
-arr="background_color,friction,texture,spawns_pellets,minimum_speed,maximum_speed".split(",");
-}
-  for(var i in obj){
-    if(arr.indexOf(i)==-1&&defaultValues.properties[i]!=obj[i]){
-      //customAlert(`ERROR: Property name "${i}" not found.`,1/0,"#F00");
-      customAlert(`[Warning]: ${i} is not allowed in ${t} properties.`,10,"#FF9933");
-    }else if(arr.indexOf(i)==-1&&t!="zone"){
-      customAlert(`[Unknown property]: ${i} is not assigned to default property. The modified value is ${JSON.stringify(obj[i])}.`,1/0,"#FF3333");
-      delete obj[i];
-    };
-  };
-  /*
-background_color = 0  #[0,0,0,0]
-friction = 1
-texture = payloads.server.NORMAL_TEXTURE  #normal
-lighting = 1.0
-snow = 0
-minimum_speed = None
-maximum_speed = None
-max_level = 100
-death_timer = None
-warping_disabled = False
-crumble_reduced = False
-radioactive_gloop_reduced = False
-wind_ghosts_do_not_push_while_downed = False
-magnetism = False
-partial_magnetism = False
-pellet_count = 25
-pellet_multiplier = 1
-lightning_reduced = False
-applies_lantern = False
-all_enemies_immune = False
-spawns_lost_souls = False
-charge_reduced = False
-spawns_pellets = False
-
-Removed
-sticky_coat_distort_reduced = False
-allow_solo_with_group = False
-*/
-  const properties = {...obj};
-  properties.background_color&&(properties.background_color=[...properties.background_color].map(e=>Math.ceil(e)));
-  function RGBToHex(a) {
-    var r = `${"0".repeat(2 - a[0].toString(16).length)}${a[0].toString(16)}`,
-      g = `${"0".repeat(2 - a[1].toString(16).length)}${a[1].toString(16)}`,
-      b = `${"0".repeat(2 - a[2].toString(16).length)}${a[2].toString(16)}`;
-    return `#${r}${g}${b}`
-  }
-  const _partial_magnetism = document.createElement("input");
-  _partial_magnetism.addEventListener("input", () => {
-    properties.partial_magnetism = _partial_magnetism.checked;
-  });
-  const _magnetism = document.createElement("input");
-  _magnetism.addEventListener("input", () => {
-    properties.magnetism = _magnetism.checked;
-  });
-  const _lightning_reduced = document.createElement("input");
-  _lightning_reduced.addEventListener("input", () => {
-    properties.lightning_reduced = _lightning_reduced.checked;
-  });
-  /*const _radioactive_gloop_reduced = document.createElement("input");
-  _radioactive_gloop_reduced.addEventListener("input", () => {
-    properties.radioactive_gloop_reduced = _radioactive_gloop_reduced.checked;
-  });*/
-  const _spawns_lost_souls = document.createElement("input");
-  _spawns_lost_souls.addEventListener("input", () => {
-    properties.spawns_lost_souls = _spawns_lost_souls.checked;
-  });
-  const _wind_ghosts_do_not_push_while_downed = document.createElement("input");
-  _wind_ghosts_do_not_push_while_downed.addEventListener("input", () => {
-    properties.wind_ghosts_do_not_push_while_downed = _wind_ghosts_do_not_push_while_downed.checked;
-  });
-  const _sticky_coat_distort_reduced = document.createElement("input");
-  _sticky_coat_distort_reduced.addEventListener("input", () => {
-    properties.sticky_coat_distort_reduced = _sticky_coat_distort_reduced.checked;
-  });
-  const _warping_disabled = document.createElement("input");
-  _warping_disabled.addEventListener("input", () => {
-    properties.warping_disabled = _warping_disabled.checked;
-  });
-  const _crumble_reduced = document.createElement("input");
-  _crumble_reduced.addEventListener("input", () => {
-    properties.crumble_reduced = _crumble_reduced.checked;
-  });
-  const _applies_lantern = document.createElement("input");
-  _applies_lantern.addEventListener("input", () => {
-    properties.applies_lantern = _applies_lantern.checked;
-  });
-  const _spawns_pellets = document.createElement("input");
-  _spawns_pellets.addEventListener("input", () => {
-    properties.spawns_pellets = _spawns_pellets.checked;
-  });
-  const _all_enemies_immune = document.createElement("input");
-  _applies_lantern.addEventListener("input", () => {
-    properties.all_enemies_immune = _all_enemies_immune.checked;
-  });
-  /*const _allow_solo_with_group = document.createElement("input");
-  _allow_solo_with_group.addEventListener("input", () => {
-    properties.allow_solo_with_group = _allow_solo_with_group.checked;
-  });*/
-  const _charge_reduced = document.createElement("input");
-  _charge_reduced.addEventListener("input", () => {
-    properties.charge_reduced = _charge_reduced.checked;
-  });
-  //TIEM TO GET THIM OVERHALLED
-  const _lighting = document.createElement("input");
-  _lighting.value = Math.max(Math.min(properties.lighting??defaultValues.properties.lighting,1),0).toFixed(2);
-  _lighting.step = 0.01;
-  _lighting.addEventListener("input", () => {
-  _lighting.value = Math.max(Math.min(_lighting.value,1),0).toFixed(2);
-    properties.lighting = Number(_lighting.value);
-  });
-  const _snow = document.createElement("input");
-  _snow.value = Math.max(properties.snow??defaultValues.properties.snow,0).toFixed(2);
-  _snow.step = 0.01;
-  _snow.addEventListener("input", () => {
-    _snow.value = Math.max(_snow.value,0).toFixed(2);
-    properties.snow = Number(_snow.value);
-  });
-  const _max_level = document.createElement("input");
-  _max_level.value = properties.max_level??defaultValues.properties.max_level;
-  _max_level.step = 1;
-  _max_level.addEventListener("input", () => {
-    _max_level.value = Number(_max_level.value);
-    properties.max_level = Number(_max_level.value);
-  });
-  const _minimum_speed = document.createElement("input");
-  _minimum_speed.value = properties.minimum_speed ?? defaultValues.properties.minimum_speed;
-  _minimum_speed.addEventListener("input", () => {
-    if (_minimum_speed.value == "") {
-      properties.minimum_speed = undefined;
-      return;
-    };
-    properties.minimum_speed = Number(_minimum_speed.value);
-  });
-  const _maximum_speed = document.createElement("input");
-  _maximum_speed.value = properties.maximum_speed ?? defaultValues.properties.maximum_speed;
-  _maximum_speed.addEventListener("input", () => {
-    if (_maximum_speed.value == "") {
-      properties.maximum_speed = undefined;
-      return;
-    };
-    properties.maximum_speed = Number(_maximum_speed.value);
-  });
-  const _death_timer = document.createElement("input");
-  _death_timer.title = "in milliseconds";
-  _death_timer.value = properties.death_timer ?? defaultValues.properties.death_timer;
-  _death_timer.addEventListener("input", () => {
-    if (_death_timer.value == "") {
-      properties.death_timer = undefined;
-      return;
-    };
-    properties.death_timer = Number(_death_timer.value);
-  });
-
-  const _pellet_count = document.createElement("input");
-  _pellet_count.value = properties.pellet_count ?? defaultValues.properties.pellet_count;
-  _pellet_count.min = 0;
-  _pellet_count.step = 1;
-  _pellet_count.addEventListener("input", () => {
-    _pellet_count.value = Number(_pellet_count.value);
-    properties.pellet_count = Number(_pellet_count.value);
-    spawnEntities()
-  });
-
-  const _pellet_multiplier = document.createElement("input");
-  _pellet_multiplier.value = properties.pellet_multiplier ?? defaultValues.properties.pellet_multiplier;
-  _pellet_multiplier.addEventListener("input", () => {
-    _pellet_multiplier.value = Number(_pellet_multiplier.value);
-    properties.pellet_multiplier = Number(_pellet_multiplier.value);
-  });
-
-  const _friction = document.createElement("input");
-  _friction.value = properties.friction ?? defaultValues.properties.friction;
-  _friction.step = 0.01;
-  _friction.addEventListener("input", () => {
-    properties.friction = Number(_friction.value);
-  });
-
-  const colorInput = document.createElement("input");
-  const opacityInput = document.createElement("input");
-var col=properties.background_color ?? defaultValues.properties.background_color;
-  colorInput.value = RGBtoHex(col);
-  colorInput.addEventListener("input", () => {
-	properties.background_color??=[...defaultValues.properties.background_color];
-    properties.background_color[0] = hexToArr(colorInput.value)[0];
-    properties.background_color[1] = hexToArr(colorInput.value)[1];
-    properties.background_color[2] = hexToArr(colorInput.value)[2];
-  });
-
-  opacityInput.value = col[3];
-  opacityInput.addEventListener("input", () => {
-    opacityInput.value = Math.max(Math.min(Number(opacityInput.value), 255), 0);
-	properties.background_color??=[...defaultValues.properties.background_color];
-    properties.background_color[3] = Number(opacityInput.value);
-  });
-
-if(t=="region"){
-  properties.element = createFolder(formatString(curLang,"editor.property.properties"), [
-    createFolder(formatString(curLang,"editor.property.background_color"), [
-      createProperty(formatString(curLang,"editor.property.background_color.color"), colorInput, "color"),
-      createProperty(formatString(curLang,"editor.property.background_color.alpha"), opacityInput, "number"),
-    ]),
-    createProperty(formatString(curLang,"editor.property.friction"), _friction, "number"),
-    createProperty(formatString(curLang,"editor.property.texture"), null, "select", {
-      value: properties.texture ?? defaultValues.properties.texture, event: (e) => { properties.texture = e },
-      selectOptions: ["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e]),
-      selectType: "text"
-    }),
-    createProperty(formatString(curLang,"editor.property.lighting"), _lighting, "number"),
-    createProperty(formatString(curLang,"editor.property.snow"), _snow, "number"),
-    createProperty(formatString(curLang,"editor.property.minimum_speed"), _minimum_speed, "number"),
-    createProperty(formatString(curLang,"editor.property.maximum_speed"), _maximum_speed, "number"),
-    createProperty(formatString(curLang,"editor.property.max_level"), _max_level, "number"),
-    createProperty(formatString(curLang,"editor.property.death_timer"), _death_timer, "number"),
-    createProperty(formatString(curLang,"editor.property.applies_lantern"), _applies_lantern, "switch", { value: properties.applies_lantern ?? defaultValues.properties.applies_lantern }),
-    createProperty(formatString(curLang,"editor.property.all_enemies_immune"), _all_enemies_immune, "switch", { value: properties.all_enemies_immune ?? defaultValues.properties.all_enemies_immune }),
-    createProperty(formatString(curLang,"editor.property.warping_disabled"), _warping_disabled, "switch", { value: properties.warping_disabled ?? defaultValues.properties.warping_disabled }),
-    //createProperty(formatString(curLang,"editor.property.allow_solo_with_group"), _allow_solo_with_group, "switch", { value: properties.allow_solo_with_group ?? defaultValues.properties.allow_solo_with_group }),
-    createProperty(formatString(curLang,"editor.property.crumble_reduced"), _crumble_reduced, "switch", { value: properties.crumble_reduced ?? defaultValues.properties.crumble_reduced }),
-    createProperty(formatString(curLang,"editor.property.spawns_lost_souls"), _spawns_lost_souls, "switch", { value: properties.spawns_lost_souls ?? defaultValues.properties.spawns_lost_souls }),
-    //createProperty(formatString(curLang,"editor.property.lightning_reduced"), _lightning_reduced, "switch", { value: properties.lightning_reduced ?? defaultValues.properties.lightning_reduced }),
-    //createProperty(formatString(curLang,"editor.property.radioactive_gloop_reduced"), _radioactive_gloop_reduced, "switch", { value: properties.radioactive_gloop_reduced ?? defaultValues.properties.radioactive_gloop_reduced }),
-    createProperty(formatString(curLang,"editor.property.sticky_coat_distort_reduced"), _sticky_coat_distort_reduced, "switch", { value: properties.sticky_coat_distort_reduced ?? defaultValues.properties.sticky_coat_distort_reduced }),
-    createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"), _wind_ghosts_do_not_push_while_downed, "switch", { value: properties.wind_ghosts_do_not_push_while_downed ?? defaultValues.properties.wind_ghosts_do_not_push_while_downed }),
-    createProperty(formatString(curLang,"editor.property.magnetism"), _magnetism, "switch", { value: properties.magnetism ?? defaultValues.properties.magnetism }),
-    createProperty(formatString(curLang,"editor.property.partial_magnetism"), _partial_magnetism, "switch", { value: properties.partial_magnetism ?? defaultValues.properties.partial_magnetism }),
-    createProperty(formatString(curLang,"editor.property.charge_reduced"), _charge_reduced, "switch", { value: properties.charge_reduced ?? defaultValues.properties.charge_reduced }),
-    createProperty(formatString(curLang,"editor.property.spawns_pellets"), null, "select", {value:properties.spawns_pellets ?? defaultValues.properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.none"),void 0],...[true, false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType: "switch"}),
-	createProperty(formatString(curLang,"editor.property.pellet_count"), _pellet_count, "number"),
-    createProperty(formatString(curLang,"editor.property.pellet_multiplier"), _pellet_multiplier, "number")
-  ]);
-};
-if(t=="zone"){
-  properties.element = createFolder(formatString(curLang,"editor.property.properties"), [
-    createFolder(formatString(curLang,"editor.property.background_color"), [
-      createProperty(formatString(curLang,"editor.property.background_color.color"), colorInput, "color"),
-      createProperty(formatString(curLang,"editor.property.background_color.alpha"), opacityInput, "number"),
-    ]),
-    createProperty(formatString(curLang,"editor.property.spawns_pellets"), null, "select", {value:properties.spawns_pellets ?? defaultValues.properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.none"),void 0],...[true, false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType: "switch"}),
-    createProperty(formatString(curLang,"editor.property.friction"), _friction, "number"),
-    createProperty(formatString(curLang,"editor.property.texture"), null, "select", {
-      value: properties.texture ?? defaultValues.properties.texture, event: (e) => { properties.texture = e },
-      selectOptions: ["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e]),
-      selectType: "text"
-    }),
-    createProperty(formatString(curLang,"editor.property.minimum_speed"), _minimum_speed, "number"),
-    createProperty(formatString(curLang,"editor.property.maximum_speed"), _maximum_speed, "number"),
-  ]);
-};
-  properties.element.classList.add("closed");
-if(t=="region"){
-  properties.inputs = {
-    color: colorInput, 
-    opacity: opacityInput, 
-    friction: _friction, 
-    lighting: _lighting, 
-    snow: _snow, 
-    minimum_speed: _minimum_speed,
-    max_level: _max_level,
-    death_timer: _death_timer,
-    warping_disabled: _warping_disabled,
-    applies_lantern:_applies_lantern,
-    crumble_reduced: _crumble_reduced,
-    //radioactive_gloop_reduced: _radioactive_gloop_reduced,
-    wind_ghosts_do_not_push_while_downed: _wind_ghosts_do_not_push_while_downed,
-    sticky_coat_distort_reduced:_sticky_coat_distort_reduced,
-    //allow_solo_with_group:_allow_solo_with_group,
-    magnetism: _magnetism,
-    partial_magnetism: _partial_magnetism,
-    charge_reduced:_charge_reduced,
-    pellet_count: _pellet_count,
-    pellet_multiplier: _pellet_multiplier
-  };
-}
-  return properties;
+function createPropertyObj(properties={},t){
+	delete properties.element;
+	var arrayCheck=Object.keys(properties);
+	var arr="background_color,friction,lightning_reduced,spawns_lost_souls,texture,lighting,snow,minimum_speed,maximum_speed,max_level,death_timer,warping_disabled,crumble_reduced,radioactive_gloop_reduced,wind_ghosts_do_not_push_while_downed,magnetism,partial_magnetism,pellet_count,pellet_multiplier,applies_lantern,spawns_pellets,sticky_coat_distort_reduced,allow_solo_with_group,all_enemies_immune,charge_reduced".split(",");
+	if(t=="zone"){
+		arr="background_color,friction,texture,spawns_pellets,minimum_speed,maximum_speed".split(",");
+	}
+	for(var i in properties){
+		if(arr.indexOf(i)===-1&&void 0!==properties[i]){
+			customAlert(`[Warning]: ${i} is not allowed in ${t} properties.`,10,"#FF9933");
+		}else if(arr.indexOf(i)==-1&&t=="region"){
+			customAlert(`[Unknown property]: ${i} is not assigned to default property. The modified value is ${JSON.stringify(obj[i])}.`,1/0,"#FF3333");
+			delete properties[i];
+		};
+	};
+	/*
+	Region Properties Default Values
+		background_color = 0 #[0,0,0,0]
+		friction = 1
+		texture = payloads.server.NORMAL_TEXTURE #normal
+		lighting = 1.0
+		snow = 0
+		minimum_speed = None
+		maximum_speed = None
+		max_level = 100
+		death_timer = None
+		warping_disabled = False
+		crumble_reduced = False
+		wind_ghosts_do_not_push_while_downed = False
+		magnetism = False
+		partial_magnetism = False
+		pellet_count = 25
+		pellet_multiplier = 1
+		applies_lantern = False
+		all_enemies_immune = False
+		spawns_lost_souls = False
+		charge_reduced = False
+		spawns_pellets = None
+		Removed Properties
+			radioactive_gloop_reduced = False
+			lightning_reduced = False
+			sticky_coat_distort_reduced = False
+			allow_solo_with_group = False
+	*/
+	function CreateInput(value,step,type="number",inputEvent,input){
+		return(input=document.createElement("input"),type=="checkbox")?(input.checked=value??false):(input.value=value??"",input.step=step??1),input.addEventListener("input",inputEvent),input;
+	}
+	const	PartialMagnetism=CreateInput(properties.partial_magnetism,null,"checkbox",_=>{
+		properties.partial_magnetism = _.target.checked;
+	}),	Magnetism=CreateInput(properties.magnetism,null,"checkbox",_=>{
+		properties.magnetism = _.target.checked;
+	}),	LightningReduced=CreateInput(properties.lightning_reduced,null,"checkbox",_=>{
+		properties.lightning_reduced=_.target.checked;
+	}),	SpawnsLostSouls=CreateInput(properties.spawns_lost_souls,null,"checkbox",_=>{
+		properties.spawns_lost_souls=_.target.checked;
+	}),	WindGhostsDoNotPushWhileDowned=CreateInput(properties.wind_ghosts_do_not_push_while_downed,null,"checkbox",_=>{
+		properties.wind_ghosts_do_not_push_while_downed=_.target.checked;
+	}),	StickyCoatDistortReduced=CreateInput(properties.sticky_coat_distort_reduced,null,"checkbox",_=>{
+		properties.sticky_coat_distort_reduced=_.target.checked;
+	}),	WarpingDisabled=CreateInput(properties.warping_disabled,null,"checkbox",_=>{
+		properties.warping_disabled=_.target.checked;
+	}),	CrumbleReduced=CreateInput(properties.crumble_reduced,null,"checkbox",_=>{
+		properties.crumble_reduced=_.target.checked;
+	}),	AppliesLantern=CreateInput(properties.applies_lantern,null,"checkbox",_=>{
+		properties.applies_lantern=_.target.checked;
+	}),	AllEnemiesImmune=CreateInput(properties.all_enemies_immune,null,"checkbox",_=>{
+		properties.all_enemies_immune=_.target.checked;
+	}),	AllowSoloWithGroup=CreateInput(properties.allow_solo_with_group,null,"checkbox",_=>{
+		properties.allow_solo_with_group=_.target.checked;
+	}),	ChargeReduced=CreateInput(properties.charge_reduced,null,"checkbox",_=>{
+		properties.charge_reduced=_.target.checked;
+	}),	RadioactiveGloopReduced=CreateInput(properties.radioactive_gloop_reduced,null,"checkbox",_=>{
+		properties.radioactive_gloop_reduced=_.target.checked;
+	}),	MinimumSpeed=CreateInput(properties.minimum_speed,null,null,_=>{
+		if(_.target.value=="")delete properties.minimum_speed;else properties.minimum_speed=_.target.value;
+	}),	MaximumSpeed=CreateInput(properties.maximum_speed,null,null,_=>{
+		if(_.target.value=="")delete properties.maximum_speed;else properties.maximum_speed=_.target.value;
+	}),	DeathTimer=CreateInput(properties.death_timer,null,null,_=>{
+		if(_.target.value=="")delete properties.death_timer;else properties.death_timer=_.target.value;
+	}),	MaxLevel=CreateInput((DeathTimer.title="in milliseconds",properties.max_level),null,null,_=>{
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.max_level;if(_.target.value=="")delete properties.max_level;else properties.max_level=_.target.value;
+	}),	PelletCount=CreateInput(properties.pellet_count,null,null,_=>{
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.pellet_count;if(_.target.value=="")delete properties.pellet_count;else properties.pellet_count=_.target.value;spawnEntities();
+	}),	PelletMultiplier=CreateInput(properties.pellet_multiplier,null,null,_=>{
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.pellet_multiplier;if(_.target.value=="")delete properties.pellet_multiplier;else properties.pellet_multiplier=_.target.value;spawnEntities();
+	}),	Friction=CreateInput(properties.friction,null,null,_=>{
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.friction;if(_.target.value=="")delete properties.friction;else properties.friction=_.target.value;
+	}),	Lighting=CreateInput(properties.lighting,null,null,_=>{
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.lighting;if(_.target.value=="")delete properties.lighting;else properties.lighting=Number(_.target.value=clamp(_.target.value,0,1).toFixed(2));
+	}),	Snow=CreateInput(properties.snow,null,null,_=>{
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.snow;if(_.target.value=="")delete properties.snow;else properties.snow=Number(_.target.value=Math.max(_.target.value,0).toFixed(2));
+	}),	BackgroundColor=CreateInput((properties.background_color??[]).join(", "),null,"text",_=>{
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.background_color.join(", ");
+		if(_.target.value=="")properties.background_color=void 0;
+		else if(_.target.value.split(", ").length==1)_.target.value=(properties.background_color=((x)=>[(x>>24)&255,(x>>16)&255,(x>>8)&255,(x>>0)&255])(Number(_.target.value))).join(", ");
+		else if(_.target.value.split(", ").length==4)_.target.value=(properties.background_color=_.target.value.split(", ").map((e,t,a)=>isNaN(Number(a[t]))?(a[t]=0):(a[t]=Number(a[t])))).join(", ");
+	});
+	[MinimumSpeed,MaximumSpeed,DeathTimer,MaxLevel,PelletCount,PelletMultiplier,Friction,Lighting,Snow,BackgroundColor].map(e=>t!="region"&&(e.placeholder="Inherit"));
+	if(t=="region")
+		properties.element=createFolder(formatString(curLang,"editor.property.properties"),[
+			createProperty(formatString(curLang,"editor.property.all_enemies_immune"),AllEnemiesImmune,"switch"),
+			//createProperty(formatString(curLang,"editor.property.allow_solo_with_group"),AllowSoloWithGroup,"switch"),
+			createProperty(formatString(curLang,"editor.property.applies_lantern"),AppliesLantern,"switch"),
+			createProperty(formatString(curLang,"editor.property.background_color"),BackgroundColor,"text"),
+			createProperty(formatString(curLang,"editor.property.charge_reduced"),ChargeReduced,"switch"),
+			createProperty(formatString(curLang,"editor.property.crumble_reduced"),CrumbleReduced,"switch"),
+			createProperty(formatString(curLang,"editor.property.death_timer"),DeathTimer,"number"),
+			createProperty(formatString(curLang,"editor.property.friction"),Friction,"number"),
+			createProperty(formatString(curLang,"editor.property.lighting"),Lighting,"number"),
+			//createProperty(formatString(curLang,"editor.property.lightning_reduced"),LightningReduced,"switch"),
+			createProperty(formatString(curLang,"editor.property.magnetism"),Magnetism,"switch"),
+			createProperty(formatString(curLang,"editor.property.max_level"),MaxLevel,"number"),
+			createProperty(formatString(curLang,"editor.property.maximum_speed"),MaximumSpeed,"number"),
+			createProperty(formatString(curLang,"editor.property.minimum_speed"),MinimumSpeed,"number"),
+			createProperty(formatString(curLang,"editor.property.partial_magnetism"),PartialMagnetism,"switch"),
+			createProperty(formatString(curLang,"editor.property.pellet_count"),PelletCount,"number"),
+			createProperty(formatString(curLang,"editor.property.pellet_multiplier"),PelletMultiplier,"number"),
+			//createProperty(formatString(curLang,"editor.property.radioactive_gloop_reduced"),RadioactiveGloopReduced,"switch"),
+			createProperty(formatString(curLang,"editor.property.snow"),Snow,"number"),
+			createProperty(formatString(curLang,"editor.property.spawns_lost_souls"),SpawnsLostSouls,"switch"),
+			createProperty(formatString(curLang,"editor.property.spawns_pellets"),null,"select",{value:properties.spawns_pellets,event:e=>[properties.spawns_pellets=e,spawnEntities()],selectOptions:[[formatString(curLang,"editor.boolean.none"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			//createProperty(formatString(curLang,"editor.property.sticky_coat_distort_reduced"),StickyCoatDistortReduced,"switch"),
+			createProperty(formatString(curLang,"editor.property.texture"),null,"select",{value:properties.texture,event:e=>[properties.texture=e],selectOptions:["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e]),selectType:"text"}),
+			createProperty(formatString(curLang,"editor.property.warping_disabled"),WarpingDisabled,"switch"),
+			createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"),WindGhostsDoNotPushWhileDowned,"switch"),
+		]);
+	else if(t=="area")
+		properties.element=createFolder(formatString(curLang,"editor.property.properties"),[
+			createProperty(formatString(curLang,"editor.property.all_enemies_immune"),null,"select",{value:properties.all_enemies_immune,event:e=>{properties.all_enemies_immune=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			
+			createProperty(formatString(curLang,"editor.property.applies_lantern"),null,"select",{value:properties.applies_lantern,event:e=>{properties.applies_lantern=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString(curLang,"editor.property.background_color"),BackgroundColor,"text"),
+			createProperty(formatString(curLang,"editor.property.charge_reduced"),null,"select",{value:properties.charge_reduced,event:e=>{properties.charge_reduced=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString(curLang,"editor.property.crumble_reduced"),null,"select",{value:properties.crumble_reduced,event:e=>{properties.crumble_reduced=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString(curLang,"editor.property.death_timer"),DeathTimer,"number"),
+			createProperty(formatString(curLang,"editor.property.friction"),Friction,"number"),
+			createProperty(formatString(curLang,"editor.property.lighting"),Lighting,"number"),
+			
+			createProperty(formatString(curLang,"editor.property.magnetism"),null,"select",{value:properties.magnetism,event:e=>{properties.magnetism=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString(curLang,"editor.property.max_level"),MaxLevel,"number"),
+			createProperty(formatString(curLang,"editor.property.maximum_speed"),MaximumSpeed,"number"),
+			createProperty(formatString(curLang,"editor.property.minimum_speed"),MinimumSpeed,"number"),
+			createProperty(formatString(curLang,"editor.property.partial_magnetism"),null,"select",{value:properties.partial_magnetism,event:e=>{properties.partial_magnetism=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString(curLang,"editor.property.pellet_count"),PelletCount,"number"),
+			createProperty(formatString(curLang,"editor.property.pellet_multiplier"),PelletMultiplier,"number"),
+			
+			createProperty(formatString(curLang,"editor.property.snow"),Snow,"number"),
+			createProperty(formatString(curLang,"editor.property.spawns_lost_souls"),null,"select",{value:properties.spawns_lost_souls,event:e=>{properties.spawns_lost_souls=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString(curLang,"editor.property.spawns_pellets"),null,"select",{value:properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			
+			createProperty(formatString(curLang,"editor.property.texture"),null,"select",{value:properties.texture,event:e=>[properties.texture=e],selectOptions:[[formatString(curLang,"editor.texture.inherit"),void 0],...["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e])],selectType:"text"}),
+			createProperty(formatString(curLang,"editor.property.warping_disabled"),null,"select",{value:properties.warping_disabled,event:e=>{properties.warping_disabled=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"),null,"select",{value:properties.wind_ghosts_do_not_push_while_downed,event:e=>{properties.wind_ghosts_do_not_push_while_downed=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+		]);
+	else if(t=="zone")
+		properties.element=createFolder(formatString(curLang,"editor.property.properties"),[
+			createProperty(formatString(curLang,"editor.property.background_color"),BackgroundColor,"text"),
+			createProperty(formatString(curLang,"editor.property.friction"),Friction,"number"),
+			createProperty(formatString(curLang,"editor.property.texture"),null,"select",{value:properties.texture,event:e=>[properties.texture=e],selectOptions:[[formatString(curLang,"editor.texture.inherit"),void 0],...["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e])],selectType:"text"}),
+			createProperty(formatString(curLang,"editor.property.minimum_speed"),MinimumSpeed,"number"),
+			createProperty(formatString(curLang,"editor.property.maximum_speed"),MaximumSpeed,"number"),
+			createProperty(formatString(curLang,"editor.property.spawns_pellets"),null,"select",{value:properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+		]);
+	else throw new SyntaxError(`Unexpected argument`);
+	properties.element.classList.add("closed");
+	return properties;
 }
 createZone.addEventListener("click",e=>{map.areas[current_Area].zones.push(newZone({x:roundTo(Math.round(mouseEntity.x),settings.snapX),y:roundTo(Math.round(mouseEntity.y),settings.snapY),width:160,height:160,type:"active"})),updateMap(updateMouseEntity=true)});
 createAsset.addEventListener("click", e=>{map.areas[current_Area].assets.push(newAsset(Math.round(mouseEntity.x),Math.round(mouseEntity.y),160,160,"wall")),updateMap(updateMouseEntity=true)});
