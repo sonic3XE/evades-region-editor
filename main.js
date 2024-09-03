@@ -804,10 +804,10 @@ allow_solo_with_group = False
     properties.lighting = Number(_lighting.value);
   });
   const _snow = document.createElement("input");
-  _snow.value = Math.max(Math.min(properties.snow??defaultValues.properties.snow,1),0).toFixed(2);
+  _snow.value = Math.max(properties.snow??defaultValues.properties.snow,0).toFixed(2);
   _snow.step = 0.01;
   _snow.addEventListener("input", () => {
-    _snow.value = Math.max(Math.min(_snow.value,1),0).toFixed(2);
+    _snow.value = Math.max(_snow.value,0).toFixed(2);
     properties.snow = Number(_snow.value);
   });
   const _max_level = document.createElement("input");
