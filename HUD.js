@@ -1719,22 +1719,7 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	update(e, t, n, r) {
 		if (this.hidden)
 			return;
-		const i = {}
-		  , a = Object.keys(t);
-		for (let e = 0; e < a.length; e++) {
-			const n = a[e]
-			  , r = t[n];
-			r.showOnMap && (i[n] = r)
-		}
-		const o = Object.keys(e);
-		for (let t = 0; t < o.length; t++) {
-			const n = o[t];
-			if (n in i)
-				continue;
-			const r = e[n];
-			r.showOnMap && (i[n] = r)
-		}
-		this.entities = Object.values(i),
+		this.entities = [...e,...t].filter(e=>e.showOnMap),
 		this.self = n,
 		this.area = r
 	}

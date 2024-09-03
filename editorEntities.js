@@ -75,6 +75,7 @@ function spawnEntities(area=current_Area){
 	areaC.assets.filter(e=>e.type=="wall").map(e=>{
 		areaC.entities.push(new Wall(e.x,e.y,e.width,e.height,e.texture))
 	})
+	areaC.entities.map(e=>e.area=area);
 	//Don't spawn gate entities since it is removed from the game.
 	//areaC.assets.filter(e=>e.type=="gate").map(e=>{
 	//  areaC.entities.push(new Gate(e.x,e.y,e.width,e.height))
@@ -2825,12 +2826,6 @@ class Pellet extends SimulatorEntity{
         player.upgradePoints+=1;
       }
   }
-  calculateLevel(Experience){
-  var sqrt=Math.sqrt;
-  return (Experience<=20200)?(((sqrt(2*Experience+1)-1)/2)+1):
-  (Math.cbrt(3)/6*Math.cbrt(Math.sqrt(3)*Math.sqrt(388800*Experience**2-11559412800*Experience+84658163536799)+1080*Experience-16054740)+
-  	10801/(2*Math.cbrt(3)*Math.cbrt(Math.sqrt(3)*Math.sqrt(388800*Experience**2-11559412800*Experience+84658163536799)+1080*Experience-16054740))+61/2)
-  }
   calculateExperience(HeroLevel){
 	  return Math.floor(Math.min(HeroLevel,100)*Math.min(HeroLevel+1,101)*2+Math.max(0,HeroLevel*(HeroLevel+1)*(2*HeroLevel-179)/60-3535))
   }
@@ -2907,13 +2902,17 @@ class Wall extends SimulatorEntity{
   constructor(x,y,width,height,texture){
     super(x,y,null,null,"wall",null,null,null,null,null);
 	this.texture=texture;
+	this.wall=true;
 	this.width=width;
 	this.height=height;
   }
   update(){}
   render(ctx,camera) {
-		ctx.imageSmoothingEnabled = false;
+	ctx.imageSmoothingEnabled=false;
+	if(null!=this.texture){
 		$d2f179ecccc561fa$export$b9dfb366e63af805(ctx, $d2f179ecccc561fa$export$b9b1204f7239550e(this.texture, null, settings.tileMode), 0, 0, this.width, this.height, {x:camera.x+this.x,y:camera.y+this.y});
+		this.showOnMap=true;
+	}
   }
 }
 class FlashlightItem extends SimulatorEntity{

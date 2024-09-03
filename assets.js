@@ -4,6 +4,7 @@ function customASSETgui(wall){
     xInput.value = wall.x;
     xInput.addEventListener("input", () => {
         wall.x = Number(xInput.value);
+		spawnEntities();
     });
     const updnInput = document.createElement("input");
     updnInput.addEventListener("input", () => {
@@ -15,24 +16,27 @@ function customASSETgui(wall){
     yInput.value = wall.y;
     yInput.addEventListener("input", () => {
         wall.y = Number(yInput.value);
+		spawnEntities();
     });
 
     const wInput = document.createElement("input");
     wInput.value = wall.width;
     wInput.addEventListener("input", () => {
         wall.width = wInput.value = Math.max(wInput.value, 0);
+		spawnEntities();
     });
 
     const hInput = document.createElement("input");
     hInput.value = wall.height;
     hInput.addEventListener("input", () => {
         wall.height = hInput.value = Math.max(hInput.value, 0);
+		spawnEntities();
     });
 var wProp=createProperty(formatString(curLang,"editor.property.width"), wInput, "number"),
 hProp=createProperty(formatString(curLang,"editor.property.height"), hInput, "number");
 var upsidedown=createProperty(formatString(curLang,"editor.property.upside_down"), updnInput, "switch", {value:wall.upside_down});
 var texture=createProperty(formatString(curLang,"editor.property.texture"),null,"select",{
-			value:wall.texture,event:(e)=>{wall.texture=e},
+			value:wall.texture,event:(e)=>{wall.texture=e;spawnEntities()},
 			selectOptions:["normal","leaves","wooden","baguette","ice",null].map(e=>[formatString(curLang,"editor.texture."+e),e]),
 			selectType:"text"});
 	
