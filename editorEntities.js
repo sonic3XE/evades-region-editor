@@ -1297,13 +1297,17 @@ this.isGuest=!1;
 		this.minimum_speed = 0;
 		this.pointInActiveZone=false;
 		var zoneC;
-		for(var i in area.zones){
-			var zone=area.zones[i],rect1={x:this.x,y:this.y,width:this.radius, height:this.radius},rect2={x:zone.x,y:zone.y,width:zone.width, height:zone.height};
+		function checkZoneProperties(e){
+			var s=zone.properties[e] ?? area.properties[e] ?? (map.properties[e] ?? defaultValues.properties[e]);
+			return s;
+		}
+		for(var zone of area.zones){
+			var rect1={x:this.x,y:this.y,width:this.radius, height:this.radius},rect2={x:zone.x,y:zone.y,width:zone.width, height:zone.height};
 			if(zone.type=="active"&&rect1.x-this.radius<rect2.x+rect2.width&&rect1.x+this.radius>rect2.x&&rect1.y-this.radius<rect2.y+rect2.height&&rect1.y+this.radius>rect2.y)this.safeZone=false;
 			if(rect1.x<rect2.x+rect2.width&&rect1.x>rect2.x&&rect1.y<rect2.y+rect2.height&&rect1.y>rect2.y){
 				if(zone.type=="active")this.pointInActiveZone=true;
-				if(zone.properties.minimum_speed)this.minimum_speed=zone.properties.minimum_speed;
-				zoneC=zone;
+				this.minimum_speed=checkZoneProperties("minimum_speed")??0;
+				this.zoneFriction=checkZoneProperties("friction");
 			}
 		}
 		const deadPlayers=map.players.filter(e=>{
@@ -1504,10 +1508,7 @@ this.isGuest=!1;
 		if(this.energy<0)this.energy=0;
 		this.oldPos=(this.previousPos.x==this.x&&this.previousPos.y==this.y)?this.oldPos:{x:this.previousPos.x,y:this.previousPos.y}
 		this.previousPos={x:this.x,y:this.y};
-		var dim=0;
-		//if(zoneC){
-			var dim=1-map.properties.friction;
-		//}
+		var dim=1-this.zoneFriction;
 		if(this.slippery)dim=0;
 		//dim = 0;
 		var friction_factor=dim;
@@ -2809,21 +2810,19 @@ class Pellet extends SimulatorEntity{
       var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
 	  this.x=Math.random()*(randZone.width-16)+randZone.x+8;
 	  this.y=Math.random()*(randZone.height-16)+randZone.y+8;
-      player.experience+=Math.floor(1+player.area/3)*map.properties.pellet_multiplier;
+      player.experience+=Math.floor(1+player.area/3)*(map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier);
       while(player.experience>=player.nextLevelExperience){
-		if(player.level >= map.properties.max_level){
+		if(player.level >= (map.areas[player.area].properties.max_level??map.properties.max_level)){
 			player.experience=player.nextLevelExperience;
 			break;
 		}
 		player.experience-=player.tempPrevExperience-player.previousLevelExperience;
-		var newLevel=player.level+1;
-		var diff=newLevel-player.level;
-        player.tempPrevExperience=player.experience;
-        player.tempNextExperience+=this.calculateExperience(newLevel)-this.calculateExperience(newLevel-1)
+        player.tempPrevExperience+=this.calculateExperience(player.level)-this.calculateExperience(player.level-1);
+        player.level+=1;
+        player.tempNextExperience+=this.calculateExperience(player.level)-this.calculateExperience(player.level-1)
         player.nextLevelExperience=player.tempNextExperience;
 		player.previousLevelExperience=player.tempPrevExperience;
-        player.level+=diff;
-        player.upgradePoints+=diff;
+        player.upgradePoints+=1;
       }
   }
   calculateLevel(Experience){
