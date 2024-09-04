@@ -757,19 +757,19 @@ function createPropertyObj(properties={},t){
 	}),	RadioactiveGloopReduced=CreateInput(properties.radioactive_gloop_reduced,null,"checkbox",_=>{
 		properties.radioactive_gloop_reduced=_.target.checked;
 	}),	MinimumSpeed=CreateInput(properties.minimum_speed,null,null,_=>{
-		if(_.target.value=="")delete properties.minimum_speed;else properties.minimum_speed=_.target.value;
+		if(_.target.value=="")delete properties.minimum_speed;else properties.minimum_speed=Number(_.target.value);
 	}),	MaximumSpeed=CreateInput(properties.maximum_speed,null,null,_=>{
-		if(_.target.value=="")delete properties.maximum_speed;else properties.maximum_speed=_.target.value;
+		if(_.target.value=="")delete properties.maximum_speed;else properties.maximum_speed=Number(_.target.value);
 	}),	DeathTimer=CreateInput(properties.death_timer,null,null,_=>{
-		if(_.target.value=="")delete properties.death_timer;else properties.death_timer=_.target.value;
+		if(_.target.value=="")delete properties.death_timer;else properties.death_timer=Number(_.target.value);
 	}),	MaxLevel=CreateInput((DeathTimer.title="in milliseconds",properties.max_level),null,null,_=>{
-		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.max_level;if(_.target.value=="")delete properties.max_level;else properties.max_level=_.target.value;
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.max_level;if(_.target.value=="")delete properties.max_level;else properties.max_level=Number(_.target.value);
 	}),	PelletCount=CreateInput(properties.pellet_count,null,null,_=>{
-		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.pellet_count;if(_.target.value=="")delete properties.pellet_count;else properties.pellet_count=_.target.value;spawnEntities();
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.pellet_count;if(_.target.value=="")delete properties.pellet_count;else properties.pellet_count=Number(_.target.value);spawnEntities();
 	}),	PelletMultiplier=CreateInput(properties.pellet_multiplier,null,null,_=>{
-		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.pellet_multiplier;if(_.target.value=="")delete properties.pellet_multiplier;else properties.pellet_multiplier=_.target.value;spawnEntities();
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.pellet_multiplier;if(_.target.value=="")delete properties.pellet_multiplier;else properties.pellet_multiplier=Number(_.target.value);spawnEntities();
 	}),	Friction=CreateInput(properties.friction,null,null,_=>{
-		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.friction;if(_.target.value=="")delete properties.friction;else properties.friction=_.target.value;
+		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.friction;if(_.target.value=="")delete properties.friction;else properties.friction=Number(_.target.value);
 	}),	Lighting=CreateInput(properties.lighting,null,null,_=>{
 		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.lighting;if(_.target.value=="")delete properties.lighting;else properties.lighting=Number(_.target.value=clamp(_.target.value,0,1).toFixed(2));
 	}),	Snow=CreateInput(properties.snow,null,null,_=>{
