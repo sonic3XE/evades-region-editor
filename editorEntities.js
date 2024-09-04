@@ -1566,7 +1566,7 @@ this.isGuest=!1;
 		this.vertSpeed=-1;
 		this.magneticReduction=false;
 		this.magneticNullification=false;
-		if(!(this.wasFrozen||this.wasSnowballed)&&!this.isDowned()){
+		if(!this.wasIced&&!this.wasSnowballed&&!this.isDowned()){
 			this.x+=vel.x*delta/1e3;
 			this.y+=vel.y*delta/1e3;
 		}
