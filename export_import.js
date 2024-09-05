@@ -111,7 +111,7 @@ function mapToJSON(map) {
     }
     let areas = [];
     for (let area of map.areas) {
-        areas.push(areaToJSON(area));
+        areas.push(areaToJSON(area,true));
     }
     return `{"name":${JSON.stringify(map.name)},${map.share_to_drive!=defaultValues.share_to_drive?`"share_to_drive":${map.share_to_drive},`:""}"properties":${JSON.stringify(res)},"areas":[${areas.join()}]}`.replaceAll('"properties":{},',"");
 }
