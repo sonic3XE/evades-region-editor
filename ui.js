@@ -1,7 +1,7 @@
 async function loadLanguage(file){
 	return await fetch(file).then(e=>e.json());
 }
-var curLang=loadLanguage("en_us.json");
+var curLang=await loadLanguage("en_us.json");
 document.getElementsByClassName("settings-launcher")[0].addEventListener("click",e=>{
   tip.hidden=false;
   document.getElementsByClassName("settings-launcher")[0].hidden=true;
