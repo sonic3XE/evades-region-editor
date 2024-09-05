@@ -46,7 +46,7 @@ async function loadLanguage(file){
 	});
 };
 const languages=["en_us"];
-loadLanguage(`${settings.language}.json`);
+loadLanguage(`${languages[settings.language]}.json`);
 function formatString(str){
   var s=str;
   var args=Array.from(arguments).slice(2);
