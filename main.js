@@ -721,15 +721,17 @@ function createPropertyObj(properties={},t){
 		spawns_lost_souls = False
 		charge_reduced = False
 		spawns_pellets = None
-		Removed Properties
-			radioactive_gloop_reduced = False
-			lightning_reduced = False
-			sticky_coat_distort_reduced = False
-			allow_solo_with_group = False
+		
+	Removed/Unused Region Properties
+		radioactive_gloop_reduced = False
+		lightning_reduced = False
+		sticky_coat_distort_reduced = False
+		allow_solo_with_group = False
 	*/
 	function CreateInput(value,step,type="number",inputEvent,input){
 		return(input=document.createElement("input"),type=="checkbox")?(input.checked=value??false):(input.value=value??"",input.step=step??1),input.addEventListener("input",inputEvent),input;
 	}
+	const isLegacy=settings.legacySpeedUnits;
 	const	PartialMagnetism=CreateInput(properties.partial_magnetism,null,"checkbox",_=>{
 		properties.partial_magnetism = _.target.checked;
 	}),	Magnetism=CreateInput(properties.magnetism,null,"checkbox",_=>{
@@ -756,10 +758,10 @@ function createPropertyObj(properties={},t){
 		properties.charge_reduced=_.target.checked;
 	}),	RadioactiveGloopReduced=CreateInput(properties.radioactive_gloop_reduced,null,"checkbox",_=>{
 		properties.radioactive_gloop_reduced=_.target.checked;
-	}),	MinimumSpeed=CreateInput(properties.minimum_speed,null,null,_=>{
-		if(_.target.value=="")delete properties.minimum_speed;else properties.minimum_speed=Number(_.target.value);
-	}),	MaximumSpeed=CreateInput(properties.maximum_speed,null,null,_=>{
-		if(_.target.value=="")delete properties.maximum_speed;else properties.maximum_speed=Number(_.target.value);
+	}),	MinimumSpeed=CreateInput(void 0==properties.minimum_speed?"":(properties.minimum_speed/30**isLegacy),1/30**isLegacy,null,_=>{
+		if(_.target.value=="")delete properties.minimum_speed;else properties.minimum_speed=Number(_.target.value)*30**isLegacy;
+	}),	MaximumSpeed=CreateInput(void 0==properties.maximum_speed?"":(properties.maximum_speed/30**isLegacy),1/30**isLegacy,null,_=>{
+		if(_.target.value=="")delete properties.maximum_speed;else properties.maximum_speed=Number(_.target.value)*30**isLegacy;
 	}),	DeathTimer=CreateInput(properties.death_timer,null,null,_=>{
 		if(_.target.value=="")delete properties.death_timer;else properties.death_timer=Number(_.target.value);
 	}),	MaxLevel=CreateInput((DeathTimer.title="in milliseconds",properties.max_level),null,null,_=>{

@@ -66,7 +66,7 @@ function customAREAgui(area){
         }
       updateMap();
     });
-
+  
   var props=createPropertyObj(area.properties,"area");
   area.properties=props;
     area.element = createFolder(formatString(curLang,"editor.area"), [
@@ -121,10 +121,9 @@ function newArea(e={}){
         })
       }
 	  return newZone(t);
-	})
+	});
 	area.assets??=[];
 	area.assets=area.assets.map(t=>newAsset(t.x,t.y,t.width,t.height,t.type,t.upside_down,t.texture))
 	area.properties??={};
-
     return area;
 }
