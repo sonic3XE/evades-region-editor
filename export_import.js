@@ -176,7 +176,7 @@ function activeToJSON(e,legacy) {
 			}
 		}
 	}
-	return `{"type":"${e.type}","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')},"spawner":[${spawner.join()}]}`.replace(`,"spawner":[]`,"");
+	return `{"type":"${e.type}","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')},"spawner":[${spawners.join()}]}`.replace(`,"spawner":[]`,"");
 }
 function safeToJSON(e,legacy) {
 	var res={};
