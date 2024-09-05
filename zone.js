@@ -398,7 +398,7 @@ function createSPAWNERgui(point1,Zone){
 	}),	ReleaseTime = CreateInput(prop(point1,"release_time"),null,null,_=>{
 		if(!_.target.value)point1.release_time=void 0;else point1.release_time=_.target.value=Math.max(_.target.value,0);
 		spawnEntities();
-	}),	point2El = createFolder(formatString(curLang,"editor.property.types"), point1.types.map(e=>(customTypeGUI(e,point1),e.element))),
+	}),	point2El = createFolder(formatString("editor.property.types"), point1.types.map(e=>(customTypeGUI(e,point1),e.element))),
 		addBtn = document.createElement("button"),
 		centerXbtn = document.createElement("button"),
 		centerYbtn = document.createElement("button");
@@ -423,106 +423,106 @@ function createSPAWNERgui(point1,Zone){
 	point2El.appendChild(addBtn);
 	if(usingAutomationTools)point2El.appendChild(centerXbtn),point2El.appendChild(centerYbtn);
 	if(point1.types.length<2)point2El.classList.add("min");
-	li=createFolder(formatString(curLang,"editor.spawner"),[
+	li=createFolder(formatString("editor.spawner"),[
 		point2El,//Types
-		createProperty(formatString(curLang,"editor.property.count"),Count,"number"),
-		createProperty(formatString(curLang,"editor.property.speed"),Speed,"number"),
-		createProperty(formatString(curLang,"editor.property.radius"),Radius,"number"),
-		createProperty(formatString(curLang,"editor.property.x"),X,"text"),
-		createProperty(formatString(curLang,"editor.property.y"),Y,"text"),
-		createProperty(formatString(curLang,"editor.property.angle"),Angle,"text"),
-		createFolder(formatString(curLang,"editor.category.aura"),[
-			createProperty(formatString(curLang,"editor.property.freezing_radius"),FreezingRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.slippery_radius"),SlipperyRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.enlarging_radius"),EnlargingRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.lava_radius"),LavaRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.magnetic_reduction_radius"),MagneticReductionRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.magnetic_nullification_radius"),MagneticNullificationRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.disabling_radius"),DisablingRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.toxic_radius"),ToxicRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.radar_radius"),RadarRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.barrier_radius"),BarrierRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.experience_drain_radius"),ExperienceDrainRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.reducing_radius"),ReducingRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.blocking_radius"),BlockingRadius,"number"),
-			createFolder(formatString(curLang,"editor.category.aura.boss"),[
-				createProperty(formatString(curLang,"editor.property.libot_radius"),LibotRadius,"number"),
-				createProperty(formatString(curLang,"editor.property.mebot_radius"),MebotRadius,"number"),
-				createProperty(formatString(curLang,"editor.property.dabot_radius"),DabotRadius,"number"),
-				createProperty(formatString(curLang,"editor.property.plbot_radius"),PlbotRadius,"number"),
-				createProperty(formatString(curLang,"editor.property.icbot_radius"),IcbotRadius,"number"),
-				createProperty(formatString(curLang,"editor.property.elbot_radius"),ElbotRadius,"number"),
-				createProperty(formatString(curLang,"editor.property.fibot_radius"),FibotRadius,"number"),
-				createProperty(formatString(curLang,"editor.property.aibot_radius"),AibotRadius,"number"),
-				createProperty(formatString(curLang,"editor.property.wabot_radius"),WabotRadius,"number"),
-				createProperty(formatString(curLang,"editor.property.eabot_radius"),EabotRadius,"number"),
+		createProperty(formatString("editor.property.count"),Count,"number"),
+		createProperty(formatString("editor.property.speed"),Speed,"number"),
+		createProperty(formatString("editor.property.radius"),Radius,"number"),
+		createProperty(formatString("editor.property.x"),X,"text"),
+		createProperty(formatString("editor.property.y"),Y,"text"),
+		createProperty(formatString("editor.property.angle"),Angle,"text"),
+		createFolder(formatString("editor.category.aura"),[
+			createProperty(formatString("editor.property.freezing_radius"),FreezingRadius,"number"),
+			createProperty(formatString("editor.property.slippery_radius"),SlipperyRadius,"number"),
+			createProperty(formatString("editor.property.enlarging_radius"),EnlargingRadius,"number"),
+			createProperty(formatString("editor.property.lava_radius"),LavaRadius,"number"),
+			createProperty(formatString("editor.property.magnetic_reduction_radius"),MagneticReductionRadius,"number"),
+			createProperty(formatString("editor.property.magnetic_nullification_radius"),MagneticNullificationRadius,"number"),
+			createProperty(formatString("editor.property.disabling_radius"),DisablingRadius,"number"),
+			createProperty(formatString("editor.property.toxic_radius"),ToxicRadius,"number"),
+			createProperty(formatString("editor.property.radar_radius"),RadarRadius,"number"),
+			createProperty(formatString("editor.property.barrier_radius"),BarrierRadius,"number"),
+			createProperty(formatString("editor.property.experience_drain_radius"),ExperienceDrainRadius,"number"),
+			createProperty(formatString("editor.property.reducing_radius"),ReducingRadius,"number"),
+			createProperty(formatString("editor.property.blocking_radius"),BlockingRadius,"number"),
+			createFolder(formatString("editor.category.aura.boss"),[
+				createProperty(formatString("editor.property.libot_radius"),LibotRadius,"number"),
+				createProperty(formatString("editor.property.mebot_radius"),MebotRadius,"number"),
+				createProperty(formatString("editor.property.dabot_radius"),DabotRadius,"number"),
+				createProperty(formatString("editor.property.plbot_radius"),PlbotRadius,"number"),
+				createProperty(formatString("editor.property.icbot_radius"),IcbotRadius,"number"),
+				createProperty(formatString("editor.property.elbot_radius"),ElbotRadius,"number"),
+				createProperty(formatString("editor.property.fibot_radius"),FibotRadius,"number"),
+				createProperty(formatString("editor.property.aibot_radius"),AibotRadius,"number"),
+				createProperty(formatString("editor.property.wabot_radius"),WabotRadius,"number"),
+				createProperty(formatString("editor.property.eabot_radius"),EabotRadius,"number"),
 			],!0),
-		],!0),	createFolder(formatString(curLang,"editor.category.cybot"),[
-			createProperty(formatString(curLang,"editor.property.cybot_radius"),CybotRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.hard_mode"),HardMode,"switch"),
-		],!0),	createFolder(formatString(curLang,"editor.category.flower"),[
-			createProperty(formatString(curLang,"editor.property.growth_multiplier"),GrowthMultiplier,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.frost_giant"),[
-			createProperty(formatString(curLang,"editor.property.cone_angle"),ConeAngle,"number"),
-			createProperty(formatString(curLang,"editor.property.direction"),Direction,"number"),
-			createProperty(formatString(curLang,"editor.property.immune"),Immune,"switch"),
-			createProperty(formatString(curLang,"editor.property.pattern"),null,"select",{value:prop(point1,"pattern"),event:e=>{point1.pattern=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.pattern.none"),void 0],...['spiral','twinspiral','quadspiral','cone','twincone','cone_edges','twin','singlebig'].map(e=>[formatString(curLang,"editor.pattern."+e),e])],selectType:"text"}),
-			createProperty(formatString(curLang,"editor.property.pause_interval"),PauseInterval,"number"),
-			createProperty(formatString(curLang,"editor.property.pause_duration"),PauseDuration,"number"),
-			createProperty(formatString(curLang,"editor.property.projectile_duration"),ProjectileDuration,"number"),
-			createProperty(formatString(curLang,"editor.property.projectile_speed"),ProjectileSpeed,"number"),
-			createProperty(formatString(curLang,"editor.property.projectile_radius"),ProjectileRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.shot_acceleration"),ShotAcceleration,"number"),
-			createProperty(formatString(curLang,"editor.property.shot_interval"),ShotInterval,"number"),
-			createProperty(formatString(curLang,"editor.property.turn_acceleration"),TurnAcceleration,"number"),
-			createProperty(formatString(curLang,"editor.property.turn_speed"),TurnSpeed,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.draining"),[
-			createProperty(formatString(curLang,"editor.property.draining_radius"),DrainingRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.drain"),Drain,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.grass"),[
-			createProperty(formatString(curLang,"editor.property.powered"),Powered,"switch"),
-		],!0),	createFolder(formatString(curLang,"editor.category.gravity"),[
-			createProperty(formatString(curLang,"editor.property.gravity_radius"),GravityRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.gravity"),Gravity,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.homing"),[
-			createProperty(formatString(curLang,"editor.property.home_range"),HomeRange,"number"),
-			createProperty(formatString(curLang,"editor.property.increment"),Increment,"number"),
-			createProperty(formatString(curLang,"editor.property.reverse"),Reverse,"switch"),
-		],!0),	createFolder(formatString(curLang,"editor.category.icicle"),[
-			createProperty(formatString(curLang,"editor.property.horizontal"),Horizontal,"switch"),
-		],!0),	createFolder(formatString(curLang,"editor.category.liquid"),[
-			createProperty(formatString(curLang,"editor.property.player_detection_radius"),PlayerDetectionRadius,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.quicksand"),[
-			createProperty(formatString(curLang,"editor.property.push_direction"),PushDirection,"number"),
-			createProperty(formatString(curLang,"editor.property.quicksand_radius"),QuicksandRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.quicksand_strength"),QuicksandStrength,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.radiating_bullets"),[
-			createProperty(formatString(curLang,"editor.property.release_interval"),ReleaseInterval,"number"),
-			createProperty(formatString(curLang,"editor.property.release_time"),ReleaseTime,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.regen_sniper"),[
-			createProperty(formatString(curLang,"editor.property.regen_loss"),RegenLoss,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.repelling"),[
-			createProperty(formatString(curLang,"editor.property.repelling_radius"),RepellingRadius,"number"),
-			createProperty(formatString(curLang,"editor.property.repulsion"),Repulsion,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.ring_sniper"),[
-			createProperty(formatString(curLang,"editor.property.health"),Health,"number"),
-			createProperty(formatString(curLang,"editor.property.ring_sniper_radius"),RingSniperRadius,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.slowing"),[
-			createProperty(formatString(curLang,"editor.property.slow"),Slow,"number"),
-			createProperty(formatString(curLang,"editor.property.slowing_radius"),SlowingRadius,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.speed_sniper"),[
-			createProperty(formatString(curLang,"editor.property.speed_loss"),SpeedLoss,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.switch"),[
-			createProperty(formatString(curLang,"editor.property.switch_interval"),SwitchInterval,"number"),
-			createProperty(formatString(curLang,"editor.property.switch_time"),SwitchTime,"number"),
-			createProperty(formatString(curLang,"editor.property.switched_harmless"),null,"select",{value:prop(point1,"switched_harmless"),event:e=>{point1.switched_harmless=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.none"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
-		],!0),	createFolder(formatString(curLang,"editor.category.turning"),[
-			createProperty(formatString(curLang,"editor.property.circle_size"),CircleSize,"number"),
-		],!0),	createFolder(formatString(curLang,"editor.category.wall"),[
-			createProperty(formatString(curLang,"editor.property.spawn_top"),SpawnTop,"switch"),
-			createProperty(formatString(curLang,"editor.property.move_clockwise"),MoveClockwise,"switch"),
-		],!0),	createFolder(formatString(curLang,"editor.category.wind_ghost"),[
-			createProperty(formatString(curLang,"editor.property.ignore_invulnerability"),IgnoreInvulnerability,"switch"),
+		],!0),	createFolder(formatString("editor.category.cybot"),[
+			createProperty(formatString("editor.property.cybot_radius"),CybotRadius,"number"),
+			createProperty(formatString("editor.property.hard_mode"),HardMode,"switch"),
+		],!0),	createFolder(formatString("editor.category.flower"),[
+			createProperty(formatString("editor.property.growth_multiplier"),GrowthMultiplier,"number"),
+		],!0),	createFolder(formatString("editor.category.frost_giant"),[
+			createProperty(formatString("editor.property.cone_angle"),ConeAngle,"number"),
+			createProperty(formatString("editor.property.direction"),Direction,"number"),
+			createProperty(formatString("editor.property.immune"),Immune,"switch"),
+			createProperty(formatString("editor.property.pattern"),null,"select",{value:prop(point1,"pattern"),event:e=>{point1.pattern=e;spawnEntities()},selectOptions:[[formatString("editor.pattern.none"),void 0],...['spiral','twinspiral','quadspiral','cone','twincone','cone_edges','twin','singlebig'].map(e=>[formatString("editor.pattern."+e),e])],selectType:"text"}),
+			createProperty(formatString("editor.property.pause_interval"),PauseInterval,"number"),
+			createProperty(formatString("editor.property.pause_duration"),PauseDuration,"number"),
+			createProperty(formatString("editor.property.projectile_duration"),ProjectileDuration,"number"),
+			createProperty(formatString("editor.property.projectile_speed"),ProjectileSpeed,"number"),
+			createProperty(formatString("editor.property.projectile_radius"),ProjectileRadius,"number"),
+			createProperty(formatString("editor.property.shot_acceleration"),ShotAcceleration,"number"),
+			createProperty(formatString("editor.property.shot_interval"),ShotInterval,"number"),
+			createProperty(formatString("editor.property.turn_acceleration"),TurnAcceleration,"number"),
+			createProperty(formatString("editor.property.turn_speed"),TurnSpeed,"number"),
+		],!0),	createFolder(formatString("editor.category.draining"),[
+			createProperty(formatString("editor.property.draining_radius"),DrainingRadius,"number"),
+			createProperty(formatString("editor.property.drain"),Drain,"number"),
+		],!0),	createFolder(formatString("editor.category.grass"),[
+			createProperty(formatString("editor.property.powered"),Powered,"switch"),
+		],!0),	createFolder(formatString("editor.category.gravity"),[
+			createProperty(formatString("editor.property.gravity_radius"),GravityRadius,"number"),
+			createProperty(formatString("editor.property.gravity"),Gravity,"number"),
+		],!0),	createFolder(formatString("editor.category.homing"),[
+			createProperty(formatString("editor.property.home_range"),HomeRange,"number"),
+			createProperty(formatString("editor.property.increment"),Increment,"number"),
+			createProperty(formatString("editor.property.reverse"),Reverse,"switch"),
+		],!0),	createFolder(formatString("editor.category.icicle"),[
+			createProperty(formatString("editor.property.horizontal"),Horizontal,"switch"),
+		],!0),	createFolder(formatString("editor.category.liquid"),[
+			createProperty(formatString("editor.property.player_detection_radius"),PlayerDetectionRadius,"number"),
+		],!0),	createFolder(formatString("editor.category.quicksand"),[
+			createProperty(formatString("editor.property.push_direction"),PushDirection,"number"),
+			createProperty(formatString("editor.property.quicksand_radius"),QuicksandRadius,"number"),
+			createProperty(formatString("editor.property.quicksand_strength"),QuicksandStrength,"number"),
+		],!0),	createFolder(formatString("editor.category.radiating_bullets"),[
+			createProperty(formatString("editor.property.release_interval"),ReleaseInterval,"number"),
+			createProperty(formatString("editor.property.release_time"),ReleaseTime,"number"),
+		],!0),	createFolder(formatString("editor.category.regen_sniper"),[
+			createProperty(formatString("editor.property.regen_loss"),RegenLoss,"number"),
+		],!0),	createFolder(formatString("editor.category.repelling"),[
+			createProperty(formatString("editor.property.repelling_radius"),RepellingRadius,"number"),
+			createProperty(formatString("editor.property.repulsion"),Repulsion,"number"),
+		],!0),	createFolder(formatString("editor.category.ring_sniper"),[
+			createProperty(formatString("editor.property.health"),Health,"number"),
+			createProperty(formatString("editor.property.ring_sniper_radius"),RingSniperRadius,"number"),
+		],!0),	createFolder(formatString("editor.category.slowing"),[
+			createProperty(formatString("editor.property.slow"),Slow,"number"),
+			createProperty(formatString("editor.property.slowing_radius"),SlowingRadius,"number"),
+		],!0),	createFolder(formatString("editor.category.speed_sniper"),[
+			createProperty(formatString("editor.property.speed_loss"),SpeedLoss,"number"),
+		],!0),	createFolder(formatString("editor.category.switch"),[
+			createProperty(formatString("editor.property.switch_interval"),SwitchInterval,"number"),
+			createProperty(formatString("editor.property.switch_time"),SwitchTime,"number"),
+			createProperty(formatString("editor.property.switched_harmless"),null,"select",{value:prop(point1,"switched_harmless"),event:e=>{point1.switched_harmless=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.none"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
+		],!0),	createFolder(formatString("editor.category.turning"),[
+			createProperty(formatString("editor.property.circle_size"),CircleSize,"number"),
+		],!0),	createFolder(formatString("editor.category.wall"),[
+			createProperty(formatString("editor.property.spawn_top"),SpawnTop,"switch"),
+			createProperty(formatString("editor.property.move_clockwise"),MoveClockwise,"switch"),
+		],!0),	createFolder(formatString("editor.category.wind_ghost"),[
+			createProperty(formatString("editor.property.ignore_invulnerability"),IgnoreInvulnerability,"switch"),
 		],!0),
 	],!0);
 	var foldersInjectedByAddon = [];
@@ -554,7 +554,7 @@ function createSPAWNERgui(point1,Zone){
 	point1.element=li;
 }
 function customZONEgui(Zone){
-	const spawnerEl = createFolder(formatString(curLang,"editor.property.spawner"), Zone.spawner.map(e=>(createSPAWNERgui(e,Zone),e.element)));
+	const spawnerEl = createFolder(formatString("editor.property.spawner"), Zone.spawner.map(e=>(createSPAWNERgui(e,Zone),e.element)));
 	if (Zone.spawner.length < 1) spawnerEl.classList.add("min");
 	const addBtn2 = document.createElement("button");
 	spawnerEl.classList.add("array");
@@ -574,7 +574,7 @@ function customZONEgui(Zone){
 	});
 	spawnerEl.appendChild(addBtn2);
 	var requie=[];
-	const reqEl = createFolder(formatString(curLang,"editor.property.requirements"), Zone.requirements.map(p => {
+	const reqEl = createFolder(formatString("editor.property.requirements"), Zone.requirements.map(p => {
 		const e = createReq(p.requirement??p,Zone);
 		return requie.push(e),e.element;
 	}));
@@ -640,16 +640,16 @@ function customZONEgui(Zone){
 		Zone.translate.y = Number(tyInput.value);
 	});
 	const translation=createFolder("Translate", [
-		createProperty(formatString(curLang,"editor.property.x"), txInput, "number"),
-		createProperty(formatString(curLang,"editor.property.y"), tyInput, "number")
+		createProperty(formatString("editor.property.x"), txInput, "number"),
+		createProperty(formatString("editor.property.y"), tyInput, "number")
 	]);
 	(Zone.type=="active"?show:hide)(spawnerEl);
 	(Zone.type=="teleport"?show:hide)(reqEl);
 	(Zone.type=="teleport"||Zone.type=="exit"?show:hide)(translation);
 	var props=createPropertyObj(Zone.properties,"zone");
 	Zone.properties=props;
-	Zone.element = createFolder(formatString(curLang,"editor.zone"),[
-		createProperty(formatString(curLang,"editor.property.type"),null,"select",{
+	Zone.element = createFolder(formatString("editor.zone"),[
+		createProperty(formatString("editor.property.type"),null,"select",{
 			value: Zone.type,
 			event: e=>{
 				(e=="teleport"?show:hide)(reqEl);
@@ -658,13 +658,13 @@ function customZONEgui(Zone){
 				Zone.type = e;
 				spawnEntities();
 			},
-			selectOptions: ['active', 'safe', 'exit', 'teleport', 'victory', 'removal', 'dummy'].map(e=>[formatString(curLang,"editor.zone."+e),e]),
+			selectOptions: ['active', 'safe', 'exit', 'teleport', 'victory', 'removal', 'dummy'].map(e=>[formatString("editor.zone."+e),e]),
 			selectType: "text"
 			}),
-		createProperty(formatString(curLang,"editor.property.x"), xInput, "text"),
-		createProperty(formatString(curLang,"editor.property.y"), yInput, "text"),
-		createProperty(formatString(curLang,"editor.property.width"), wInput, "text"),
-		createProperty(formatString(curLang,"editor.property.height"), hInput, "text"),
+		createProperty(formatString("editor.property.x"), xInput, "text"),
+		createProperty(formatString("editor.property.y"), yInput, "text"),
+		createProperty(formatString("editor.property.width"), wInput, "text"),
+		createProperty(formatString("editor.property.height"), hInput, "text"),
 		reqEl,
 		spawnerEl,
 		translation,
@@ -830,7 +830,7 @@ function newZone(e) {
 	});
 	tyInput.disabled=e[0]!=="exact_index";
 	li = createFolder("",[
-		createProperty(formatString(curLang,"editor.requirement"), null, "select", {
+		createProperty(formatString("editor.requirement"), null, "select", {
 			value: e[0],
 			event: e=>{
 				txInput.disabled=e!="exact_index";
@@ -838,11 +838,11 @@ function newZone(e) {
 				if(e=="exact_index")point1.requirement = `${e}:${point1.regionName.replaceAll(":","\\:")}:${point1.areaIndex}`;
 				else point1.requirement=e;
 			},
-			selectOptions: [[formatString(curLang,"editor.requirement.none"),""],...['switch_station_found','inaccessible', 'cybot_castle_defeated', 'ten_hard_variants', 'mystery_keycard', 'icbot_not_defeated', 'cybot_hard_mode_not_defeated', 'cybot_hard_mode_defeated', 'elbot_not_defeated', 'plbot_not_defeated', 'mebot_not_defeated', 'libot_not_defeated', 'dabot_not_defeated', 'icbot_defeated', 'elbot_defeated', 'plbot_defeated', 'mebot_defeated', 'libot_defeated', 'dabot_defeated', 'research_lab_discovered', 'all_heroes_unlocked', 'aibot_not_defeated', 'cybot_not_defeated', 'cybot_defeated', 'wabot_not_defeated', 'eabot_not_defeated', 'fibot_not_defeated', 'aibot_defeated', 'wabot_defeated', 'eabot_defeated', 'fibot_defeated', 'coupled_corridors_found', 'dusty_depths_found', 'mansion_discovered', 'exact_index'].sort().map(e=>[formatString(curLang,"editor.requirement."+e),e])],
+			selectOptions: [[formatString("editor.requirement.none"),""],...['switch_station_found','inaccessible', 'cybot_castle_defeated', 'ten_hard_variants', 'mystery_keycard', 'icbot_not_defeated', 'cybot_hard_mode_not_defeated', 'cybot_hard_mode_defeated', 'elbot_not_defeated', 'plbot_not_defeated', 'mebot_not_defeated', 'libot_not_defeated', 'dabot_not_defeated', 'icbot_defeated', 'elbot_defeated', 'plbot_defeated', 'mebot_defeated', 'libot_defeated', 'dabot_defeated', 'research_lab_discovered', 'all_heroes_unlocked', 'aibot_not_defeated', 'cybot_not_defeated', 'cybot_defeated', 'wabot_not_defeated', 'eabot_not_defeated', 'fibot_not_defeated', 'aibot_defeated', 'wabot_defeated', 'eabot_defeated', 'fibot_defeated', 'coupled_corridors_found', 'dusty_depths_found', 'mansion_discovered', 'exact_index'].sort().map(e=>[formatString("editor.requirement."+e),e])],
 			selectType: "text"
 		}),
-		createProperty(formatString(curLang,"editor.requirement.exact_region_name"), txInput, "text"),
-		createProperty(formatString(curLang,"editor.requirement.exact_area_index"), tyInput, "number"),
+		createProperty(formatString("editor.requirement.exact_region_name"), txInput, "text"),
+		createProperty(formatString("editor.requirement.exact_area_index"), tyInput, "number"),
 		
 	]);
     li.children[0].classList.add("counter");
@@ -889,11 +889,11 @@ function createpoint2(types="normal",point1){
 
 function customTypeGUI(point2,point1){
 var enemyList="wall,normal,homing,dasher,slowing,draining,repelling,gravity,turning,sizing,sniper,freezing,teleporting,wavy,zigzag,zoning,spiral,oscillating,switch,liquid,icicle,slippery,ice_sniper,disabling,experience_drain,enlarging,speed_sniper,regen_sniper,radiating_bullets,immune,pumpkin,tree,frost_giant,snowman,corrosive,toxic,corrosive_sniper,poison_sniper,magnetic_reduction,magnetic_nullification,positive_magnetic_sniper,negative_magnetic_sniper,residue,fire_trail,ice_ghost,poison_ghost,positive_magnetic_ghost,negative_magnetic_ghost,wind_ghost,lunging,lava,gravity_ghost,repelling_ghost,star,grass,seedling,flower,disabling_ghost,glowy,firefly,mist,phantom,cybot,eabot,wabot,fibot,aibot,wind_sniper,sand,sandrock,quicksand,crumbling,radar,barrier,speed_ghost,regen_ghost,cactus,cycling,icbot,elbot,plbot,mebot,libot,dabot,sparking,thunderbolt,static,electrical,prediction_sniper,ring_sniper,lead_sniper,charging,reducing,stalactite,blocking,force_sniper_a,force_sniper_b,wavy_switch,zigzag_switch,dorito,zoning_switch,spiral_switch,oscillating_switch,homing_switch,wacky_wall,confectioner,confectioner_switch,dorito_switch,penny,penny_switch,infinity,infinity_switch,dasher_switch,flaming,stumbling,disarming,lurching,infectious,mutating,vengeful_soul,lost_soul,fake_pumpkin".split(",")
-            .map(e=>[formatString(curLang,"editor.enemy."+e),e]);
+            .map(e=>[formatString("editor.enemy."+e),e]);
   if(usingPifary)
-    enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString(curLang,"pifary-dev.enemy."+e),e]));
+    enemyList.push(...["burning","sticky_sniper","web","cobweb","defender"].map(e=>[formatString("pifary-dev.enemy."+e),e]));
   if(usingPncl9500)
-    enemyList.push(...["slooming","particulate","water_trail","nightshade","riptide","cloud","rain","storm","airburst","param_test","rotor","radioactive_sniper","sap_sniper","vine","disc","swamp","drowning","pull_sniper","puffing","bubble"].map(e=>[formatString(curLang,"pncl9500.enemy."+e),e]));
+    enemyList.push(...["slooming","particulate","water_trail","nightshade","riptide","cloud","rain","storm","airburst","param_test","rotor","radioactive_sniper","sap_sniper","vine","disc","swamp","drowning","pull_sniper","puffing","bubble"].map(e=>[formatString("pncl9500.enemy."+e),e]));
   var li = createProperty("",null, "select", {
     value:point2.i,
     event: e => {point2.i = e;spawnEntities();console.log(e)},

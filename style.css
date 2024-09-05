@@ -1056,13 +1056,12 @@ input:checked+.switchSpan::after {
 .directionHandle:hover {
     background: var(--direction_background_hover);
 }
-
 .array {
     counter-reset: index;
 }
 .array .counter::after {
     counter-increment: index;
-    content: counter(index);
+    content:counter(index);
 }
 .label.counter ~ select{transform:translateX(-25px)}
 .min .label.counter ~ select{transform:translateX(0px)}

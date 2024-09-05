@@ -69,11 +69,11 @@ function customAREAgui(area){
   
   var props=createPropertyObj(area.properties,"area");
   area.properties=props;
-    area.element = createFolder(formatString(curLang,"editor.area"), [
-        createProperty(formatString(curLang,"editor.property.boss"), bossInput, "switch", {value: area.boss ?? defaultValues.boss}),
-        createProperty(formatString(curLang,"editor.property.name"), nameInput, "text"),
-        createProperty(formatString(curLang,"editor.property.x"), xInput, "text"),
-        createProperty(formatString(curLang,"editor.property.y"), yInput, "text"),
+    area.element = createFolder(formatString("editor.area"), [
+        createProperty(formatString("editor.property.boss"), bossInput, "switch", {value: area.boss ?? defaultValues.boss}),
+        createProperty(formatString("editor.property.name"), nameInput, "text"),
+        createProperty(formatString("editor.property.x"), xInput, "text"),
+        createProperty(formatString("editor.property.y"), yInput, "text"),
         area.properties.element,
     ],true);
     area.inputs = {

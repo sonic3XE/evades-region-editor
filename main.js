@@ -784,69 +784,69 @@ function createPropertyObj(properties={},t){
 	});
 	[MinimumSpeed,MaximumSpeed,DeathTimer,MaxLevel,PelletCount,PelletMultiplier,Friction,Lighting,Snow,BackgroundColor].map(e=>t!="region"&&(e.placeholder="Inherit"));
 	if(t=="region")
-		properties.element=createFolder(formatString(curLang,"editor.property.properties"),[
-			createProperty(formatString(curLang,"editor.property.all_enemies_immune"),AllEnemiesImmune,"switch"),
-			//createProperty(formatString(curLang,"editor.property.allow_solo_with_group"),AllowSoloWithGroup,"switch"),
-			createProperty(formatString(curLang,"editor.property.applies_lantern"),AppliesLantern,"switch"),
-			createProperty(formatString(curLang,"editor.property.background_color"),BackgroundColor,"text"),
-			createProperty(formatString(curLang,"editor.property.charge_reduced"),ChargeReduced,"switch"),
-			createProperty(formatString(curLang,"editor.property.crumble_reduced"),CrumbleReduced,"switch"),
-			createProperty(formatString(curLang,"editor.property.death_timer"),DeathTimer,"number"),
-			createProperty(formatString(curLang,"editor.property.friction"),Friction,"number"),
-			createProperty(formatString(curLang,"editor.property.lighting"),Lighting,"number"),
-			//createProperty(formatString(curLang,"editor.property.lightning_reduced"),LightningReduced,"switch"),
-			createProperty(formatString(curLang,"editor.property.magnetism"),Magnetism,"switch"),
-			createProperty(formatString(curLang,"editor.property.max_level"),MaxLevel,"number"),
-			createProperty(formatString(curLang,"editor.property.maximum_speed"),MaximumSpeed,"number"),
-			createProperty(formatString(curLang,"editor.property.minimum_speed"),MinimumSpeed,"number"),
-			createProperty(formatString(curLang,"editor.property.partial_magnetism"),PartialMagnetism,"switch"),
-			createProperty(formatString(curLang,"editor.property.pellet_count"),PelletCount,"number"),
-			createProperty(formatString(curLang,"editor.property.pellet_multiplier"),PelletMultiplier,"number"),
-			//createProperty(formatString(curLang,"editor.property.radioactive_gloop_reduced"),RadioactiveGloopReduced,"switch"),
-			createProperty(formatString(curLang,"editor.property.snow"),Snow,"number"),
-			createProperty(formatString(curLang,"editor.property.spawns_lost_souls"),SpawnsLostSouls,"switch"),
-			createProperty(formatString(curLang,"editor.property.spawns_pellets"),null,"select",{value:properties.spawns_pellets,event:e=>[properties.spawns_pellets=e,spawnEntities()],selectOptions:[[formatString(curLang,"editor.boolean.none"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
-			//createProperty(formatString(curLang,"editor.property.sticky_coat_distort_reduced"),StickyCoatDistortReduced,"switch"),
-			createProperty(formatString(curLang,"editor.property.texture"),null,"select",{value:properties.texture,event:e=>[properties.texture=e],selectOptions:["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e]),selectType:"text"}),
-			createProperty(formatString(curLang,"editor.property.warping_disabled"),WarpingDisabled,"switch"),
-			createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"),WindGhostsDoNotPushWhileDowned,"switch"),
+		properties.element=createFolder(formatString("editor.property.properties"),[
+			createProperty(formatString("editor.property.all_enemies_immune"),AllEnemiesImmune,"switch"),
+			//createProperty(formatString("editor.property.allow_solo_with_group"),AllowSoloWithGroup,"switch"),
+			createProperty(formatString("editor.property.applies_lantern"),AppliesLantern,"switch"),
+			createProperty(formatString("editor.property.background_color"),BackgroundColor,"text"),
+			createProperty(formatString("editor.property.charge_reduced"),ChargeReduced,"switch"),
+			createProperty(formatString("editor.property.crumble_reduced"),CrumbleReduced,"switch"),
+			createProperty(formatString("editor.property.death_timer"),DeathTimer,"number"),
+			createProperty(formatString("editor.property.friction"),Friction,"number"),
+			createProperty(formatString("editor.property.lighting"),Lighting,"number"),
+			//createProperty(formatString("editor.property.lightning_reduced"),LightningReduced,"switch"),
+			createProperty(formatString("editor.property.magnetism"),Magnetism,"switch"),
+			createProperty(formatString("editor.property.max_level"),MaxLevel,"number"),
+			createProperty(formatString("editor.property.maximum_speed"),MaximumSpeed,"number"),
+			createProperty(formatString("editor.property.minimum_speed"),MinimumSpeed,"number"),
+			createProperty(formatString("editor.property.partial_magnetism"),PartialMagnetism,"switch"),
+			createProperty(formatString("editor.property.pellet_count"),PelletCount,"number"),
+			createProperty(formatString("editor.property.pellet_multiplier"),PelletMultiplier,"number"),
+			//createProperty(formatString("editor.property.radioactive_gloop_reduced"),RadioactiveGloopReduced,"switch"),
+			createProperty(formatString("editor.property.snow"),Snow,"number"),
+			createProperty(formatString("editor.property.spawns_lost_souls"),SpawnsLostSouls,"switch"),
+			createProperty(formatString("editor.property.spawns_pellets"),null,"select",{value:properties.spawns_pellets,event:e=>[properties.spawns_pellets=e,spawnEntities()],selectOptions:[[formatString("editor.boolean.none"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
+			//createProperty(formatString("editor.property.sticky_coat_distort_reduced"),StickyCoatDistortReduced,"switch"),
+			createProperty(formatString("editor.property.texture"),null,"select",{value:properties.texture,event:e=>[properties.texture=e],selectOptions:["normal","leaves","wooden","baguette"].map(e=>[formatString("editor.texture."+e),e]),selectType:"text"}),
+			createProperty(formatString("editor.property.warping_disabled"),WarpingDisabled,"switch"),
+			createProperty(formatString("editor.property.wind_ghosts_do_not_push_while_downed"),WindGhostsDoNotPushWhileDowned,"switch"),
 		]);
 	else if(t=="area")
-		properties.element=createFolder(formatString(curLang,"editor.property.properties"),[
-			createProperty(formatString(curLang,"editor.property.all_enemies_immune"),null,"select",{value:properties.all_enemies_immune,event:e=>{properties.all_enemies_immune=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+		properties.element=createFolder(formatString("editor.property.properties"),[
+			createProperty(formatString("editor.property.all_enemies_immune"),null,"select",{value:properties.all_enemies_immune,event:e=>{properties.all_enemies_immune=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
 			
-			createProperty(formatString(curLang,"editor.property.applies_lantern"),null,"select",{value:properties.applies_lantern,event:e=>{properties.applies_lantern=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
-			createProperty(formatString(curLang,"editor.property.background_color"),BackgroundColor,"text"),
-			createProperty(formatString(curLang,"editor.property.charge_reduced"),null,"select",{value:properties.charge_reduced,event:e=>{properties.charge_reduced=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
-			createProperty(formatString(curLang,"editor.property.crumble_reduced"),null,"select",{value:properties.crumble_reduced,event:e=>{properties.crumble_reduced=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
-			createProperty(formatString(curLang,"editor.property.death_timer"),DeathTimer,"number"),
-			createProperty(formatString(curLang,"editor.property.friction"),Friction,"number"),
-			createProperty(formatString(curLang,"editor.property.lighting"),Lighting,"number"),
+			createProperty(formatString("editor.property.applies_lantern"),null,"select",{value:properties.applies_lantern,event:e=>{properties.applies_lantern=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString("editor.property.background_color"),BackgroundColor,"text"),
+			createProperty(formatString("editor.property.charge_reduced"),null,"select",{value:properties.charge_reduced,event:e=>{properties.charge_reduced=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString("editor.property.crumble_reduced"),null,"select",{value:properties.crumble_reduced,event:e=>{properties.crumble_reduced=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString("editor.property.death_timer"),DeathTimer,"number"),
+			createProperty(formatString("editor.property.friction"),Friction,"number"),
+			createProperty(formatString("editor.property.lighting"),Lighting,"number"),
 			
-			createProperty(formatString(curLang,"editor.property.magnetism"),null,"select",{value:properties.magnetism,event:e=>{properties.magnetism=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
-			createProperty(formatString(curLang,"editor.property.max_level"),MaxLevel,"number"),
-			createProperty(formatString(curLang,"editor.property.maximum_speed"),MaximumSpeed,"number"),
-			createProperty(formatString(curLang,"editor.property.minimum_speed"),MinimumSpeed,"number"),
-			createProperty(formatString(curLang,"editor.property.partial_magnetism"),null,"select",{value:properties.partial_magnetism,event:e=>{properties.partial_magnetism=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
-			createProperty(formatString(curLang,"editor.property.pellet_count"),PelletCount,"number"),
-			createProperty(formatString(curLang,"editor.property.pellet_multiplier"),PelletMultiplier,"number"),
+			createProperty(formatString("editor.property.magnetism"),null,"select",{value:properties.magnetism,event:e=>{properties.magnetism=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString("editor.property.max_level"),MaxLevel,"number"),
+			createProperty(formatString("editor.property.maximum_speed"),MaximumSpeed,"number"),
+			createProperty(formatString("editor.property.minimum_speed"),MinimumSpeed,"number"),
+			createProperty(formatString("editor.property.partial_magnetism"),null,"select",{value:properties.partial_magnetism,event:e=>{properties.partial_magnetism=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString("editor.property.pellet_count"),PelletCount,"number"),
+			createProperty(formatString("editor.property.pellet_multiplier"),PelletMultiplier,"number"),
 			
-			createProperty(formatString(curLang,"editor.property.snow"),Snow,"number"),
-			createProperty(formatString(curLang,"editor.property.spawns_lost_souls"),null,"select",{value:properties.spawns_lost_souls,event:e=>{properties.spawns_lost_souls=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
-			createProperty(formatString(curLang,"editor.property.spawns_pellets"),null,"select",{value:properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString("editor.property.snow"),Snow,"number"),
+			createProperty(formatString("editor.property.spawns_lost_souls"),null,"select",{value:properties.spawns_lost_souls,event:e=>{properties.spawns_lost_souls=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString("editor.property.spawns_pellets"),null,"select",{value:properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
 			
-			createProperty(formatString(curLang,"editor.property.texture"),null,"select",{value:properties.texture,event:e=>[properties.texture=e],selectOptions:[[formatString(curLang,"editor.texture.inherit"),void 0],...["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e])],selectType:"text"}),
-			createProperty(formatString(curLang,"editor.property.warping_disabled"),null,"select",{value:properties.warping_disabled,event:e=>{properties.warping_disabled=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
-			createProperty(formatString(curLang,"editor.property.wind_ghosts_do_not_push_while_downed"),null,"select",{value:properties.wind_ghosts_do_not_push_while_downed,event:e=>{properties.wind_ghosts_do_not_push_while_downed=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString("editor.property.texture"),null,"select",{value:properties.texture,event:e=>[properties.texture=e],selectOptions:[[formatString("editor.texture.inherit"),void 0],...["normal","leaves","wooden","baguette"].map(e=>[formatString("editor.texture."+e),e])],selectType:"text"}),
+			createProperty(formatString("editor.property.warping_disabled"),null,"select",{value:properties.warping_disabled,event:e=>{properties.warping_disabled=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
+			createProperty(formatString("editor.property.wind_ghosts_do_not_push_while_downed"),null,"select",{value:properties.wind_ghosts_do_not_push_while_downed,event:e=>{properties.wind_ghosts_do_not_push_while_downed=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
 		]);
 	else if(t=="zone")
-		properties.element=createFolder(formatString(curLang,"editor.property.properties"),[
-			createProperty(formatString(curLang,"editor.property.background_color"),BackgroundColor,"text"),
-			createProperty(formatString(curLang,"editor.property.friction"),Friction,"number"),
-			createProperty(formatString(curLang,"editor.property.texture"),null,"select",{value:properties.texture,event:e=>[properties.texture=e],selectOptions:[[formatString(curLang,"editor.texture.inherit"),void 0],...["normal","leaves","wooden","baguette"].map(e=>[formatString(curLang,"editor.texture."+e),e])],selectType:"text"}),
-			createProperty(formatString(curLang,"editor.property.minimum_speed"),MinimumSpeed,"number"),
-			createProperty(formatString(curLang,"editor.property.maximum_speed"),MaximumSpeed,"number"),
-			createProperty(formatString(curLang,"editor.property.spawns_pellets"),null,"select",{value:properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString(curLang,"editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString(curLang,"editor.boolean."+e),e])],selectType:"switch"}),
+		properties.element=createFolder(formatString("editor.property.properties"),[
+			createProperty(formatString("editor.property.background_color"),BackgroundColor,"text"),
+			createProperty(formatString("editor.property.friction"),Friction,"number"),
+			createProperty(formatString("editor.property.texture"),null,"select",{value:properties.texture,event:e=>[properties.texture=e],selectOptions:[[formatString("editor.texture.inherit"),void 0],...["normal","leaves","wooden","baguette"].map(e=>[formatString("editor.texture."+e),e])],selectType:"text"}),
+			createProperty(formatString("editor.property.minimum_speed"),MinimumSpeed,"number"),
+			createProperty(formatString("editor.property.maximum_speed"),MaximumSpeed,"number"),
+			createProperty(formatString("editor.property.spawns_pellets"),null,"select",{value:properties.spawns_pellets,event:e=>{properties.spawns_pellets=e;spawnEntities()},selectOptions:[[formatString("editor.boolean.inherit"),void 0],...[true,false].map(e=>[formatString("editor.boolean."+e),e])],selectType:"switch"}),
 		]);
 	else throw new SyntaxError(`Unexpected argument`);
 	properties.element.classList.add("closed");
@@ -1138,12 +1138,14 @@ function pointInCircle(point, pos, r) {
  * @param {Element} element 
  */
 function hide(element) {
+  element.UUU();
   element.classList.add("hidden");
 }
 /**
  * @param {Element} element 
  */
 function show(element) {
+  element.UUU();
   element.classList.remove("hidden");
 }
 function capitalise(str = "") {

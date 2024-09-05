@@ -1,17 +1,50 @@
 async function loadLanguage(file){
-	return await fetch(file).then(e=>await e.json());
+	const res=await fetch(file);
+	await res.json().then(e=>{
+		function formatString(str){
+		  var s=e[str]??str;
+		  var args=Array.from(arguments).slice(1);
+		  args.map(t=>s=s.replace("%s",t));
+		  return s;
+		}
+		global.formatString=formatString;
+		"element" in map && (map.element.remove(),delete map.element);
+		map.element=createFolder(formatString("editor.region"), [
+			createProperty(formatString("editor.property.name"),nameInput=createInput(map.name,_=>{map.name=nameInput.value}),"text"),
+			createProperty(formatString("editor.property.share_to_drive"),boolInput=createInput(map.share_to_drive,_=>{map.share_to_drive=boolInput.checked}),"switch"),
+			(map.properties=createPropertyObj({...map.properties},"region")).element,
+		]);
+		map.element.classList.add("closed");
+		menu.insertBefore(map.element,areamenu);
+		areamenu.firstChild && areamenu.removeChild(areamenu.firstChild);
+		if(selectedObjects){
+			for(const obj of selectedObjects){
+				obj.element.remove();
+				obj.properties.element.remove();
+				delete obj.element;
+				delete obj.properties.element;
+				delete obj.inputs;
+				delete obj.properties.inputs;
+			}
+		}
+		selectedObjects=[];
+		customAREAgui(map.areas[0]);
+		areamenu.appendChild(map.areas[0].element);
+	});
+};
+global.curLang={};
+loadLanguage("en_us.json");
+function formatString(locale,str){
+  var s=locale[str];
+  var args=Array.from(arguments).slice(2);
+  args.map(t=>s=s.replace("%s",t));
+  return s;
 }
-var curLang=loadLanguage("en_us.json");
 document.getElementsByClassName("settings-launcher")[0].addEventListener("click",e=>{
   tip.hidden=false;
   document.getElementsByClassName("settings-launcher")[0].hidden=true;
-})
-function formatString(locale,str){
-  var s=locale[str]??str;
-  var args=Array.from(arguments).slice(2);
-  args.map(e=>s=s.replace("%s",e));
-  return s;
-}
+});
+
 function dragElement (elmnt){
 if(elmnt.onmousedown)return;
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -171,14 +204,15 @@ function createFolder(title = "Title", lis = [],closed=false) {
     let ul = document.createElement("ul");
     ul.classList.add("indent");
 
-    folder.UUU={ul,update:function(){
-      for (let li of folder.leList) {
-          folder.UUU.ul.appendChild(li);
-      }
-      folder.leList=[];
-    }};
+    folder.UUU=function(){
+    	if(typeof title=="function")
+	    titleLI.innerHTML = title();
+    };
     let titleLI = createLI("title");
-    titleLI.innerHTML = title;
+    if(typeof title=="function")
+	    titleLI.innerHTML = title();
+    else
+	    titleLI.innerHTML = title;
     titleLI.addEventListener("click", () => {
         folder.classList.toggle("closed");
     });
