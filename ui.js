@@ -20,7 +20,7 @@ async function loadLanguage(file){
 		contextmenu.rows[5].cells[0].innerText=formatString("editor.contextMenu.area")
 		contextmenu.rows[6].cells[0].children[0].innerText=formatString("editor.contextMenu.area.add")
 		contextmenu.rows[6].cells[1].children[0].innerText=formatString("editor.contextMenu.area.duplicate")
-		contextmenu.rows[6].cells[1].children[0].innerText=formatString("editor.contextMenu.area.delete")
+		contextmenu.rows[6].cells[2].children[0].innerText=formatString("editor.contextMenu.area.delete")
 		global.formatString=formatString;
 		"element" in map && (map.element.remove(),delete map.element);
 		map.element=createFolder(formatString("editor.region"), [
