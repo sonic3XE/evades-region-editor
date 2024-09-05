@@ -77,7 +77,7 @@ const settings={
 };
 
 (()=>{for(var i in this){
-  if(i.toLowerCase().includes("inner")||i.toLowerCase().includes("set")||i.toLowerCase().startsWith("on")||i=="fetch"||i=="alert"||i=="confirm"||i=="prompt"||i=="localStorage"||i=="performance")continue;
+  if(i.toLowerCase().includes("inner")||i.toLowerCase().includes("set")||i.toLowerCase().startsWith("on")||i=="fetch"||i=="alert"||i=="prompt"||i=="localStorage"||i=="performance")continue;
   delete this[i];
 }})();
 

@@ -24,7 +24,6 @@ async function loadLanguage(file){
 				delete obj.element;
 				delete obj.properties.element;
 				delete obj.inputs;
-				delete obj.properties.inputs;
 			}
 		}
 		selectedObjects=[];
@@ -32,10 +31,9 @@ async function loadLanguage(file){
 		areamenu.appendChild(map.areas[0].element);
 	});
 };
-global.curLang={};
 loadLanguage("en_us.json");
-function formatString(locale,str){
-  var s=locale[str];
+function formatString(str){
+  var s=str;
   var args=Array.from(arguments).slice(2);
   args.map(t=>s=s.replace("%s",t));
   return s;

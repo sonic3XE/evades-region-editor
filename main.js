@@ -7,7 +7,7 @@ YAML={parse:function(e){return jsyaml.load(e,null)},stringify:function(e){return
 let camScale=5/32,camX=0,camY=0,selectMode=null,lockCursor=false,resizing=false,alertMessages=[];
 const types = ["wall", "light_region", "flashlight_spawner", "torch", "gate", "active", "safe", "exit", "teleport", "victory", "removal"];
 const keysDown = new Set();
-document.addEventListener("keydown",e=>{!(e.repeat||e.ctrlKey||e.target instanceof HTMLInputElement)&&keysDown.add(e.which)});
+document.addEventListener("keydown",e=>{if(confirmationPopup)return;!(e.repeat||e.ctrlKey||e.target instanceof HTMLInputElement)&&keysDown.add(e.which)});
 document.addEventListener("keyup",e=>keysDown.delete(e.which))
 var zoneconsts={
   normal: {
@@ -362,7 +362,8 @@ canvas.addEventListener("contextmenu",e=>{if(e.preventDefault(),e.target===conte
 [snapX,pelletTransparency,snapY].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.value}));
 joystickDeadzone.addEventListener("input",e=>{settings.joystickDeadzone=e.target.selectedIndex/20});
 document.addEventListener("click",e=>{if(e.target==contextmenu||e.target.parentNode==contextmenu&&e.button==2)return;if(e.target==canvas&&e.button==2)return;hide(contextmenu,updateMouseEntity=true)});
-reset.addEventListener("click",e=>{1==confirm("Are you sure because it will erase the current region?")&&loadFile(`name: No Name
+reset.addEventListener("click",e=>{
+	customConfirm(formatString("editor.confirm.start_from_scratch"),formatString("editor.confirm.yes"),formatString("editor.confirm.no"),r=>{r&&loadFile(`name: No Name
 areas:
   - x: var x
     y: var y
@@ -373,6 +374,7 @@ areas:
         width: 160
         height: 160
 `,false,false)})
+})
 Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
 		if(!prec.ended && prec.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
@@ -402,6 +404,7 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 	}
 });
 document.addEventListener("keydown", e => {
+  if(confirmationPopup)return;
   var camera = { x: camX, y: camY }
   if (e.target instanceof HTMLInputElement) return;
   if(e.ctrlKey && e.which === $0372b03b1cca8a43$export$8309310f4f3643db.A){
@@ -1031,6 +1034,7 @@ rotateObject.addEventListener("click",_=>{
 	}
 	updateMap();
 });
+let confirmationPopup=false;
 createArea.addEventListener("click",_=>{if(!map.areas[current_Area])return map.areas.push(newArea({x:"var x",y:"var y"})),updateMap();map.areas.push(newArea({x:"last_right",y:"last_y"})),updateMap()});
 deleteObject.addEventListener("click",global.deleteObjs=_=>{
   selectedObjects.map(e=>{
@@ -1042,7 +1046,7 @@ deleteObject.addEventListener("click",global.deleteObjs=_=>{
     let arr2 = map.areas[current_Area].assets;
     if (arr2.includes(e)) {
       arr2[arr2.indexOf(e)]=null;
-      "element" in e && e.element.remove();
+      "element"in e&&e.element.remove();
     }
 	map.areas[current_Area].zones=arr.filter(t=>t);
 	map.areas[current_Area].assets=arr2.filter(t=>t);
@@ -1050,33 +1054,65 @@ deleteObject.addEventListener("click",global.deleteObjs=_=>{
   selectedObjects=[];
   updateMap();
 });
-deleteArea.addEventListener("click",_=>{
-  let arr = map.areas;
-  if (!confirm("are you sure to delete the current area?"))return;
-  if (map.areas.includes(map.areas[current_Area])) {
-    map.areas[current_Area].element.remove();
-    map.areas[current_Area].properties.element.remove();
-    delete map.areas[current_Area].element;
-    delete map.areas[current_Area].inputs;
-    delete map.areas[current_Area].properties.inputs;
-    delete map.areas[current_Area].properties.element;
-    map.areas.splice(map.areas.indexOf(map.areas[current_Area]), 1);
-    current_Area = Math.max(current_Area - 1, 0);
-    customAREAgui(map.areas[current_Area]);
-    areamenu.appendChild(map.areas[current_Area].element);
-	selectedObjects.map(selectedObject=>{
-		if(selectedObject.properties){
-			"element" in selectedObject.properties && selectedObject.properties.element.remove();
-			delete selectedObject.properties.inputs;
-			delete selectedObject.properties.element;
-		};
-		"element" in selectedObject && selectedObject.element.remove();
-		delete selectedObject.element;
-		delete selectedObject.inputs;
-		selectedObject.spawner&&selectedObject.spawner.map(e=>{delete e.element;delete e.inputs});
+async function customConfirm(text,yesBtn,noBtn,fn){
+	confirmationPopup=true;
+	const confirmDivOverlay=document.createElement("div"),
+		confirmDiv=document.createElement("div"),
+		btns=[document.createElement("button"),document.createElement("button")];
+	confirmDivOverlay.setAttribute("class","canvas-overlay")
+	confirmDiv.setAttribute("class","div-confirm")
+	btns[0].innerHTML=yesBtn;
+	btns[1].innerHTML=noBtn;
+	confirmDiv.innerText=text+"\n";
+	confirmDiv.appendChild(btns[0]);
+	confirmDiv.appendChild(btns[1]);
+	var u=new Promise((e,t)=>{
+		function keypressed(k){
+			k.which==$0372b03b1cca8a43$export$8309310f4f3643db.Escape&&(confirmationPopup=false,t("Cancelled action."),document.removeEventListener("keydown",keypressed),confirmDiv.remove(),confirmDivOverlay.remove())
+		}
+		document.addEventListener("keydown",keypressed)
+		btns[0].addEventListener("click",_=>{
+			confirmationPopup=false;
+			e(true);
+			confirmDiv.remove();
+			confirmDivOverlay.remove();
+		});
+		btns[1].addEventListener("click",_=>{
+			confirmationPopup=false;
+			e(false);
+			confirmDiv.remove();
+			confirmDivOverlay.remove();
+		});
 	});
-    updateMap();
-  }
+	u.then(fn);
+	confirmDivOverlay.appendChild(confirmDiv);
+	document.body.appendChild(confirmDivOverlay);
+}
+deleteArea.addEventListener("click",_=>{
+	customConfirm(formatString("editor.confirm.delete_area"),formatString("editor.confirm.yes"),formatString("editor.confirm.no"),e=>{
+		if (map.areas.includes(map.areas[current_Area]) && e) {
+			map.areas[current_Area].element.remove();
+			map.areas[current_Area].properties.element.remove();
+			delete map.areas[current_Area].element;
+			delete map.areas[current_Area].inputs;
+			delete map.areas[current_Area].properties.element;
+			map.areas.splice(map.areas.indexOf(map.areas[current_Area]),1);
+			current_Area=Math.max(current_Area-1,0);
+			customAREAgui(map.areas[current_Area]);
+			areamenu.appendChild(map.areas[current_Area].element);
+			selectedObjects.map(selectedObject=>{
+				if(selectedObject.properties){
+					"element"in selectedObject.properties&&selectedObject.properties.element.remove();
+					delete selectedObject.properties.element;
+				};
+				"element"in selectedObject&&selectedObject.element.remove();
+				delete selectedObject.element;
+				delete selectedObject.inputs;
+				selectedObject.spawner&&selectedObject.spawner.map(e=>{delete e.element;delete e.inputs});
+			});
+			updateMap();
+		}
+	})
 });
 //Region version 1: speed becomes pixels per frame (30fps)
 //loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background_color:\n    - 81\n    - 102\n    - 124\n    - 75\n  areas:\n  # 1\n  - x: 0\n    y: 0\n    zones:\n    - type: safe\n      x: 0\n      y: 0\n      width: 320\n      height: 480\n      properties:\n        minimum_speed: 10\n    - type: active\n      x: last_right\n      y: 0\n      width: 2560\n      height: 480\n      spawner:\n      - types:\n        - normal\n        count: 15\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n  # 2\n  - x: last_right\n    y: 0\n    zones:\n    - type: exit\n      x: 0\n      y: 0\n      width: 64\n      height: 480\n      translate:\n        x: -160\n        y: 0\n    - type: safe\n      x: 64\n      y: 0\n      width: 256\n      height: 480\n    - type: active\n      x: last_right\n      y: 0\n      width: 2080\n      height: 480\n      spawner:\n      - types:\n        - slowing\n        - draining\n        count: 25\n        radius: 12\n        speed: 5\n    - type: safe\n      x: last_right\n      y: 0\n      width: 256\n      height: last_height\n    - type: exit\n      x: last_right\n      y: 0\n      width: 64\n      height: last_height\n      translate:\n        x: 160\n        y: 0\n    assets: []\n",false,false);
@@ -1138,14 +1174,12 @@ function pointInCircle(point, pos, r) {
  * @param {Element} element 
  */
 function hide(element) {
-  element.UUU();
   element.classList.add("hidden");
 }
 /**
  * @param {Element} element 
  */
 function show(element) {
-  element.UUU();
   element.classList.remove("hidden");
 }
 function capitalise(str = "") {
@@ -1172,7 +1206,7 @@ function rungame(){
 	lastTime=r;
 	(delta/1e3)**-1<24&&(delta=0);
 	ti[0]+=delta;
-	var actually=(settings.legacy30FPS?(1e3/30*(ti[0]>(1e3/30-delta/2))):delta)*isActive;
+	var actually=(settings.legacy30FPS?(1e3/30*(ti[0]>(1e3/30-delta/2))):delta)*isActive*!confirmationPopup;
 	ti[1]+=delta*!!actually*!settings.legacy30FPS;
 	ti[0]>(1e3/30-delta/2)&&(ti[0]=0);
 	var isVisible = settings.enableMouseMovement && settings.toggleMouseMovement && playtesting;
