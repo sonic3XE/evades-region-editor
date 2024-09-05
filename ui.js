@@ -7,6 +7,20 @@ async function loadLanguage(file){
 		  args.map(t=>s=s.replace("%s",t));
 		  return s;
 		}
+		contextmenu.rows[0].cells[0].innerText=formatString("editor.contextMenu.object")
+		contextmenu.rows[1].cells[0].children[0].innerText=formatString("editor.contextMenu.object.copy")
+		contextmenu.rows[1].cells[1].children[0].innerText=formatString("editor.contextMenu.object.cut")
+		contextmenu.rows[1].cells[2].children[0].innerText=formatString("editor.contextMenu.object.paste")
+		contextmenu.rows[2].cells[0].children[0].innerText=formatString("editor.contextMenu.object.delete")
+		contextmenu.rows[2].cells[1].children[0].innerText=formatString("editor.contextMenu.object.duplicate")
+		contextmenu.rows[2].cells[2].children[0].innerText=formatString("editor.contextMenu.object.rotate")
+		contextmenu.rows[3].cells[0].innerText=formatString("editor.contextMenu.new")
+		contextmenu.rows[4].cells[0].children[0].innerText=formatString("editor.contextMenu.new.zone")
+		contextmenu.rows[4].cells[1].children[0].innerText=formatString("editor.contextMenu.new.asset")
+		contextmenu.rows[5].cells[0].innerText=formatString("editor.contextMenu.area")
+		contextmenu.rows[6].cells[0].children[0].innerText=formatString("editor.contextMenu.area.add")
+		contextmenu.rows[6].cells[1].children[0].innerText=formatString("editor.contextMenu.area.duplicate")
+		contextmenu.rows[6].cells[1].children[0].innerText=formatString("editor.contextMenu.area.delete")
 		global.formatString=formatString;
 		"element" in map && (map.element.remove(),delete map.element);
 		map.element=createFolder(formatString("editor.region"), [
