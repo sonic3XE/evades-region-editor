@@ -45,7 +45,8 @@ async function loadLanguage(file){
 		areamenu.appendChild(map.areas[0].element);
 	});
 };
-loadLanguage("en_us.json");
+const languages=["en_us"];
+loadLanguage(`${settings.language}.json`);
 function formatString(str){
   var s=str;
   var args=Array.from(arguments).slice(2);

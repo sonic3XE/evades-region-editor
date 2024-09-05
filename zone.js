@@ -1,7 +1,11 @@
 const useractive=navigator.userActivation;
 const animate=(function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame})();
 const settings={
-	get snapX(){
+	get language(){
+		return Number(localStorage.language??"0");
+	},set language(e){
+		return localStorage.language=e;
+	},get snapX(){
 		return Math.floor(Number(localStorage.snapX??16));
 	},set snapX(e){
 		localStorage.snapX=Math.floor(Math.min(Math.max(Number(e),1),32));
