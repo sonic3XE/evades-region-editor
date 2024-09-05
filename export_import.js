@@ -119,18 +119,18 @@ function mapToJSON(map) {
 /**
  * @param {Area} area 
  */
-function areaToJSON(area) {
+function areaToJSON(area,legacy) {
 	let objects = [],assets = [];
 	for (var i in area.zones) {
 		var zone=area.zones[i];
 		switch(zone.type){
-			case"active":objects.push(activeToJSON(zone));break;
-			case"safe":objects.push(safeToJSON(zone));break;
+			case"active":objects.push(activeToJSON(zone,legacy));break;
+			case"safe":objects.push(safeToJSON(zone,legacy));break;
 			case"exit":
-			case"teleport":objects.push(exitToJSON(zone));break;
-			case"victory":objects.push(victoryToJSON(zone));break;
-			case"removal":objects.push(removalToJSON(zone));break;
-			case"dummy":objects.push(dummyToJSON(zone));break;
+			case"teleport":objects.push(exitToJSON(zone,legacy));break;
+			case"victory":objects.push(victoryToJSON(zone,legacy));break;
+			case"removal":objects.push(removalToJSON(zone,legacy));break;
+			case"dummy":objects.push(dummyToJSON(zone,legacy));break;
 			default:throw"Unknown zone type.";
 		}
 	}
@@ -161,10 +161,10 @@ function areaToJSON(area) {
 /**
  * ZONES
  */
-function activeToJSON(e) {
-	var spawner=[];
-	for (var spawners in e.spawner){
-		spawner.push(spawnerToJSON(e.spawner[spawners]));
+function activeToJSON(e,legacy) {
+	var spawners=[];
+	for (const spawner of e.spawner){
+		spawners.push(spawnerToJSON(spawner,legacy));
 	};
 	var res={};
 	if(e.properties){
@@ -172,72 +172,72 @@ function activeToJSON(e) {
 			if(key=="element")continue;
 			if(void 0!==value){
 				res[key]=value;
-				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+				if(legacy&&settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
 			}
 		}
 	}
 	return `{"type":"${e.type}","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')},"spawner":[${spawner.join()}]}`.replace(`,"spawner":[]`,"");
 }
-function safeToJSON(e) {
+function safeToJSON(e,legacy) {
 	var res={};
 	if(e.properties){
 		for(const[key,value]of Object.entries(e.properties)){
 			if(key=="element")continue;
 			if(void 0!==value){
 				res[key]=value;
-				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+				if(legacy&&settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
 			}
 		}
 	}
 	return `{"type":"${e.type}","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
 }
-function exitToJSON(e) {
+function exitToJSON(e,legacy) {
 	var res={};
 	if(e.properties){
 		for(const[key,value]of Object.entries(e.properties)){
 			if(key=="element")continue;
 			if(void 0!==value){
 				res[key]=value;
-				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+				if(legacy&&settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
 			}
 		}
 	}
 	return `{"type":"${e.type}","properties":${JSON.stringify(res)},${(e.requirements.map(t=>{return t.requirement}).filter(t=>{return t!=""}).length&&e.type=="teleport")?`"requirements":${JSON.stringify(e.requirements.map(t=>{return t.requirement}).filter(t=>{return t!=""}))},`:""}"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"translate":{"x":${e.translate.x},"y":${e.translate.y}},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
 }
-function victoryToJSON(e) {
+function victoryToJSON(e,legacy) {
 	var res={};
 	if(e.properties){
 		for(const[key,value]of Object.entries(e.properties)){
 			if(key=="element")continue;
 			if(void 0!==value){
 				res[key]=value;
-				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+				if(legacy&&settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
 			}
 		}
 	}
 	return `{"type":"${e.type}","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
 }
-function removalToJSON(e) {
+function removalToJSON(e,legacy) {
 	var res={};
 	if(e.properties){
 		for(const[key,value]of Object.entries(e.properties)){
 			if(key=="element")continue;
 			if(void 0!==value){
 				res[key]=value;
-				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+				if(legacy&&settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
 			}
 		}
 	}
 	return `{"type":"removal","properties":${JSON.stringify(res)},"x":${typeof e.rx=="number"?e.rx:''.concat('"',e.rx,'"')},"y":${typeof e.ry=="number"?e.ry:''.concat('"',e.ry,'"')},"width":${typeof e.rw=="number"?e.rw:''.concat('"',e.rw,'"')},"height":${typeof e.rh=="number"?e.rh:''.concat('"',e.rh,'"')}}`;
 }
-function dummyToJSON(e) {
+function dummyToJSON(e,legacy) {
 	var res={};
 	if(e.properties){
 		for(const[key,value]of Object.entries(e.properties)){
 			if(key=="element")continue;
 			if(void 0!==value){
 				res[key]=value;
-				if(settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
+				if(legacy&&settings.legacySpeedUnits&&(key=="maximum_speed"||key=="minimum_speed"))res[key]/=30;
 			}
 		}
 	}
@@ -246,7 +246,7 @@ function dummyToJSON(e) {
 /**
  * SPAWNER
  */
-function spawnerToJSON(spawner) {
+function spawnerToJSON(spawner,legacy) {
   var object=cloneSpawner(spawner);
   const legacyConversionProps="speed,turn_speed,turn_acceleration,shot_acceleration,projectile_speed,speed_loss,increment,gravity,repulsion,quicksand_strength".split(",")
   //if there is a default value exist in object, destroy the property.
@@ -254,7 +254,7 @@ function spawnerToJSON(spawner) {
   var newobj={...object};
   for(var i of legacyConversionProps){
 	  if(newobj[i]==void 0)continue;
-	  if(settings.legacySpeedUnits)newobj[i]/=30;
+	  if(legacy&&settings.legacySpeedUnits)newobj[i]/=30;
   }
   return JSON.stringify(newobj);
 }
