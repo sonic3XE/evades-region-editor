@@ -727,12 +727,6 @@ input[type=number] {
 #togglemenu:focus {
     outline: none;
 }
-#togglemenu::after {
-    content: "Close Menu";
-}
-.hidden #togglemenu::after {
-    content: "Open Menu";
-}
 ul {
     list-style: none;
     margin: 0;

@@ -1,68 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="stylesheet" href="style.css" />
-        <title>Evades Region Editor</title>
-        <link rel="icon" href="evades.svg">
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-        <link rel="manifest" href="manifest.json">
-        <meta content="Evades Region Editor" name="title">
-        <meta content="Visual YAML editor in Evades.io" name="description">
-        <!-- Discord Embed -->
-        <meta content="website" property="og:type">
-        <meta content="Evades Region Editor" property="og:title">
-        <meta content="Visual YAML editor in Evades.io" property="og:description">
-        <meta content="https://sonic3xe.github.io/evades-region-editor/" property="og:url">
-        <meta content="https://sonic3xe.github.io/evades-region-editor/title.png" property="og:image">
-        <!--TWITTER-->
-        <meta content="summary" property="twitter:card">
-        <meta content="Evades Region Editor" property="twitter:title">
-        <meta content="Visual YAML editor in Evades.io" property="twitter:description">
-        <meta content="https://sonic3xe.github.io/evades-region-editor/" property="twitter:url">
-        <meta content="https://sonic3xe.github.io/evades-region-editor/title.png" property="twitter:image">
-        <!--<meta content="https://home.sonicexe66.repl.co/EXE/sally.exe" property="og:url">-->
-        <meta content="#0088ee" name="theme-color">
-		<script>const global=typeof window!='undefined'&&window.Math==Math?window:typeof self!='undefined'&&self.Math==Math?self:Function('return this')()
-		function loadPackage(fileURL,count,callback=()=>{}){
-      var sounds = [];
-      fetch(`./${fileURL}`).then(e=>e.arrayBuffer().then(a=>{
-    var restable=[...new Uint32Array(a.slice(0,count*4))];
-    var offset=0,nextOffset=0;
-    for(var i in restable){
-      offset=restable[Number(i)];
-      var fileKey=new Uint32Array(a.slice(offset,offset+4))[0];
-      var isRIFF=false;
-      var formatType="audio/octet-stream";
-      switch(fileKey){
-        case 0x5367674f: formatType="audio/ogg";break;
-        case 0x474E5089: formatType="image/png";break;
-        case 0x46464952: {
-          isRIFF=true;
-          if(new Uint32Array(a.slice(offset+8,offset+12))[0]==0x45564157){
-            formatType="audio/wave";
-          }
-        };break;
-        default: {
-          formatType="audio/mp3";
-        }
-      }
-      nextOffset=restable[Number(i)+1] ?? a.byteLength;
-      sounds.push({
-        url:URL.createObjectURL(new Blob([a.slice(offset,nextOffset)],{type:formatType})),
-        type:formatType.replace("audio/","").replace("wave","wav")
-      });
-    };
-    callback(sounds);
-    }))
-}
-			//top.location.href=("https://github.com/sonic3XE/evades-region-editor/discussions/11")
-		</script>
-    </head>
-    <body>
-        <div id="tip" hidden style="top:50%;left:50%;transform:translate(-50%,-50%)" onmouseover="dragElement(event.target);">
-            <titleheader style="font:bold 32px tah;display:block;width:100%;text-align:center">Settings</titleheader>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<title>Evades Region Editor</title>
+		<link rel="icon" href="evades.svg">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<link rel="manifest" href="manifest.json">
+		<meta content="Evades Region Editor" name="title">
+		<meta content="Visual YAML editor in Evades.io" name="description">
+		<!-- Discord Embed -->
+		<meta content="website" property="og:type">
+		<meta content="Evades Region Editor" property="og:title">
+		<meta content="Visual YAML editor in Evades.io" property="og:description">
+		<meta content="https://sonic3xe.github.io/evades-region-editor/" property="og:url">
+		<meta content="https://sonic3xe.github.io/evades-region-editor/title.png" property="og:image">
+		<!--TWITTER-->
+		<meta content="summary" property="twitter:card">
+		<meta content="Evades Region Editor" property="twitter:title">
+		<meta content="Visual YAML editor in Evades.io" property="twitter:description">
+		<meta content="https://sonic3xe.github.io/evades-region-editor/" property="twitter:url">
+		<meta content="https://sonic3xe.github.io/evades-region-editor/title.png" property="twitter:image">
+		<!--<meta content="https://home.sonicexe66.repl.co/EXE/sally.exe" property="og:url">-->
+		<meta content="#0088ee" name="theme-color">
+		<script>const global=typeof window!='undefined'&&window.Math==Math?window:typeof self!='undefined'&&self.Math==Math?self:Function('return this')()</script>
+	</head>
+	<body>
+		<div id="tip" hidden style="top:50%;left:50%;transform:translate(-50%,-50%)" onmouseover="dragElement(event.target);">
+			<titleheader style="font:bold 32px tah;display:block;width:100%;text-align:center">Settings</titleheader>
 			<table><caption><titleheader style="font: bold 20px tah;border-bottom: 1px white solid">EDITING</titleheader></caption><tbody>
 			<tr>
 				<td>Snap X: <input id="snapX" step="1" min="1" max="32" style="width:50px" type="number" value="16"></td>
@@ -115,347 +81,125 @@
 			</tr>
 			</tbody></table>
 			<button onclick="tip.hidden=true;document.getElementsByClassName('settings-launcher')[0].hidden=false;" id="closeSettings" style="position:fixed;display:block;right:0;top:0px;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
-            <button onclick="extensionPage.hidden=false">View addons</button>
-        </div>
-        <p id="extensionPage" hidden style="top:50%;left:50%;transform:translate(-50%,-50%)" onmouseover="dragElement(event.target);">
-            <titleheader style="font:bold 32px tah;display:block;width:100%;text-align:center">Addons</titleheader>
-            <label for="pifary-dev">Pifary-dev <input id="pifary-dev" type="checkbox" disabled onclick="manageExtensions('pifary-dev')"> (DISABLED)</label>
-            <br>
-            <label for="pncl9500">Pncl9500 <input id="pncl9500" type="checkbox" disabled onclick="manageExtensions('pncl9500')"> (DISABLED)</label><br>
-            <label for="automationTools">automationTools <input id="automationTools" type="checkbox" onclick="manageExtensions('automationTools')"></label><br>
-            <button onclick='customAlert("you need to refresh to apply changes.",1/0,"#FF0000");reloadPage();' style="position:absolute;right:0;bottom:0;border:none;background:rgb(255,255,255);color:black;width:100px;height:20px;">Apply</button>
-            <button onclick="extensionPage.hidden=true;" style="position:absolute;right:0;top:0;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
-        </p>
-      <p id="regionProp" hidden style="top:10px;left:10px;" onmouseover="dragElement(event.target);">
-          <button onclick="regionProp.hidden=true;document.getElementsByClassName('regional')[0].hidden=false" style="position:absolute;right:0px;top:0px;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
-          <titleheader style="font:bold 32px tah;display:block;width:100%;text-align:center">Region Properties</titleheader>
-          <label for="RegionName">Name: <input id="RegionName" oninput="map.name=RegionName.value" value="First Map"></label><br>
-          <label for="RegionBackgroundColor">Background Color: <input id="RegionBackgroundColor" type="color" oninput="hexToArr(RegionBackgroundColor.value).map((e,t)=>{map.properties.background_color[t]=e})" value="#000000"></label><br>
-          <label for="RegionBackgroundColorAlpha">Background Color Alpha: <input id="RegionBackgroundColorAlpha" type="number" min="0" max="255" value="0" step="1" oninput="map.properties.background_color[3]=RegionBackgroundColorAlpha.valueAsNumber" value="0"></label><br>
-          <label for="RegionFriction">Friction: <input id="RegionFriction" oninput="map.properties.friction=RegionFriction.valueAsNumber" type="number" min="0" max="1" value="1" step="0.01"></label><br>
-          <label for="RegionTexture">Texture: <select id="RegionTexture" oninput="map.properties.texture=['normal','leaves','wooden','baguette','ice'][RegionTexture.selectedIndex]"><option>Normal</option><option>Leaves</option><option>Wooden</option><option>Baguette</option></select></label><br>
-          <label for="RegionLighting">Lighting: <input id="RegionLighting" oninput="map.properties.lighting=RegionLighting.valueAsNumber" type="number" min="0" max="1" value="1" step="0.01"></label><br>
-          <label for="RegionSnow">Snow: <input id="RegionSnow" oninput="map.properties.snow=RegionSnow.valueAsNumber" type="number" min="0" max="1" value="0" step="0.01"></label><br>
-          <label for="RegionMinimumSpeed">Minimum Speed: <input id="RegionMinimumSpeed" type="number" oninput="map.properties.minimum_speed=RegionMinimumSpeed.value==''?void 0:RegionMinimumSpeed.valueAsNumber"></label><br>
-          <label for="RegionMaxLevel">Max Level: <input id="RegionMaxLevel" type="number" value="100" oninput="map.properties.max_level=RegionMaxLevel.valueAsNumber" value="100"></label><br>
-          <label for="RegionDeathTimer">Death Timer: <input id="RegionDeathTimer" type="number" oninput="map.properties.death_timer=RegionDeathTimer.value==''?void 0:RegionDeathTimer.valueAsNumber"></label><br>
-          <label for="RegionAppliesLantern">Applies Lantern: <input id="RegionAppliesLantern" type="checkbox" oninput="map.properties.applies_lantern=RegionAppliesLantern.checked"></label><br>
-          <label for="RegionWarpingDisabled">Warping Disabled: <input id="RegionWarpingDisabled" type="checkbox" oninput="map.properties.warping_disabled=RegionWarpingDisabled.checked"></label><br>
-          <label for="RegionAllowSoloWithGroup">Allow Solo With Group: <input id="RegionAllowSoloWithGroup" type="checkbox" oninput="map.properties.allow_solo_with_group=RegionAllowSoloWithGroup.checked"></label><br>
-          <label for="RegionCrumbleReduced">Crumble Reduced: <input id="RegionCrumbleReduced" type="checkbox" oninput="map.properties.crumble_reduced=RegionCrumbleReduced.checked"></label><br>
-          <label for="RegionRadioactiveGloopReduced">Radioactive Gloop Reduced: <input id="RegionRadioactiveGloopReduced" type="checkbox" oninput="map.properties.radioactive_gloop=RegionRadioactiveGloopReduced.checked"></label><br>
-          <label for="RegionStickyCoatDistortReduced">Sticky Coat Distort Reduced: <input id="RegionStickyCoatDistortReduced" type="checkbox" oninput="map.properties.sticky_coat_distort_reduced=RegionStickyCoatDistortReduced.checked"></label><br>
-          <label for="RegionWindGhostsDoNotPushWhileDowned">Wind Ghosts Do Not Push While Downed: <input id="RegionWindGhostsDoNotPushWhileDowned" type="checkbox" oninput="map.properties.wind_ghosts_do_not_push_while_downed=RegionWindGhostsDoNotPushWhileDowned.checked"></label><br>
-          <label for="RegionMagnetism">Magnetism: <input id="RegionMagnetism" type="checkbox" oninput="map.properties.magnetism=RegionMagnetism.checked"></label><br>
-          <label for="RegionPartialMagnetism">Partial Magnetism: <input id="RegionPartialMagnetism" type="checkbox" oninput="map.properties.partial_magnetism=RegionPartialMagnetism.checked"></label><br>
-          <label for="RegionPelletCount">Pellet Count: <input id="RegionPelletCount" oninput="map.properties.pellet_count=RegionPelletCount.valueAsNumber;spawnEntities()" type="number" min="0" step="1" value="25"></label><br>
-          <label for="RegionPelletMultiplier">Pellet Multiplier: <input id="RegionPelletMultiplier" oninput="map.properties.pellet_multiplier=RegionPelletMultiplier.valueAsNumber" type="number" value="1"></label>
-      </p>
-      <p id="areaProp" hidden="" style="top:10px;left:10px;" onmouseover="dragElement(event.target);">
-          <button onclick="areaProp.hidden=true;document.getElementsByClassName('areas')[0].hidden=false" style="position:absolute;right:0px;top:0px;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>
-          <titleheader style="font:bold 32px tah;display:block;width:100%;text-align:center">Area Properties</titleheader>
-          <label for="AreaName">Name: <input id="AreaName" oninput="map.areas[current_Area].name=AreaName.value" value=""></label><br>
-          <label for="AreaX">X: <input id="AreaX" oninput="map.areas[current_Area].rx=AreaX.value;if(!isNaN(Number(AreaX.value))){map.areas[current_Area].rx=map.areas[current_Area].x=Number(AreaX.value)}updateMap();" value="var x"></label><br>
-          <label for="AreaY">Y: <input id="AreaY" oninput="map.areas[current_Area].ry=AreaY.value;if(!isNaN(Number(AreaY.value))){map.areas[current_Area].ry=map.areas[current_Area].y=Number(AreaY.value)}updateMap();" value="var y"></label><br>
-          <label for="AreaBackgroundColor">Background Color: <input id="AreaBackgroundColor" type="color" oninput="hexToArr(AreaBackgroundColor.value).map((e,t)=>{map.areas[current_Area].properties.background_color[t]=e})" value="#000000"></label><br>
-          <label for="AreaBackgroundColorAlpha">Background Color Alpha: <input id="AreaBackgroundColorAlpha" type="number" min="0" max="255" value="0" step="1" oninput="map.areas[current_Area].properties.background_color[3]=AreaBackgroundColorAlpha.valueAsNumber"></label><br>
-          <label for="AreaFriction">Friction: <input id="AreaFriction" oninput="map.areas[current_Area].properties.friction=AreaFriction.valueAsNumber" type="number" min="0" max="1" value="1" step="0.01"></label><br>
-          <label for="AreaTexture">Texture: <select id="AreaTexture" oninput="map.areas[current_Area].properties.texture=['normal','leaves','wooden','baguette','ice'][AreaTexture.selectedIndex]"><option>Normal</option><option>Leaves</option><option>Wooden</option><option>Baguette</option></select></label><br>
-          <label for="AreaLighting">Lighting: <input id="AreaLighting" oninput="map.areas[current_Area].properties.lighting=AreaLighting.valueAsNumber" type="number" min="0" max="1" value="1" step="0.01"></label><br>
-          <label for="AreaSnow">Snow: <input id="AreaSnow" oninput="map.areas[current_Area].properties.snow=AreaSnow.valueAsNumber" type="number" min="0" max="1" value="0" step="0.01"></label><br>
-          <label for="AreaMinimumSpeed">Minimum Speed: <input id="AreaMinimumSpeed" type="number" oninput="map.areas[current_Area].properties.minimum_speed=AreaMinimumSpeed.value==''?void 0:AreaMinimumSpeed.valueAsNumber"></label><br>
-          <label for="AreaMaxLevel">Max Level: <input id="AreaMaxLevel" type="number" value="100" oninput="map.areas[current_Area].properties.max_level=AreaMaxLevel.valueAsNumber"></label><br>
-          <label for="AreaDeathTimer">Death Timer: <input id="AreaDeathTimer" type="number" oninput="map.areas[current_Area].properties.death_timer=AreaDeathTimer.value==''?void 0:AreaDeathTimer.valueAsNumber"></label><br>
-          <label for="AreaAppliesLantern">Applies Lantern: <input id="AreaAppliesLantern" type="checkbox" oninput="map.areas[current_Area].properties.applies_lantern=AreaAppliesLantern.checked"></label><br>
-          <label for="AreaWarpingDisabled">Warping Disabled: <input id="AreaWarpingDisabled" type="checkbox" oninput="map.areas[current_Area].properties.warping_disabled=AreaWarpingDisabled.checked"></label><br>
-          <label for="AreaAllowSoloWithGroup">Allow Solo With Group: <input id="AreaAllowSoloWithGroup" type="checkbox" oninput="map.areas[current_Area].properties.allow_solo_with_group=AreaAllowSoloWithGroup.checked"></label><br>
-          <label for="AreaCrumbleReduced">Crumble Reduced: <input id="AreaCrumbleReduced" type="checkbox" oninput="map.areas[current_Area].properties.crumble_reduced=AreaCrumbleReduced.checked"></label><br>
-          <label for="AreaRadioactiveGloopReduced">Radioactive Gloop Reduced: <input id="AreaRadioactiveGloopReduced" type="checkbox" oninput="map.areas[current_Area].properties.radioactive_gloop=AreaRadioactiveGloopReduced.checked"></label><br>
-          <label for="AreaStickyCoatDistortReduced">Sticky Coat Distort Reduced: <input id="AreaStickyCoatDistortReduced" type="checkbox" oninput="map.areas[current_Area].properties.sticky_coat_distort_reduced=AreaStickyCoatDistortReduced.checked"></label><br>
-          <label for="AreaWindGhostsDoNotPushWhileDowned">Wind Ghosts Do Not Push While Downed: <input id="AreaWindGhostsDoNotPushWhileDowned" type="checkbox" oninput="map.areas[current_Area].properties.wind_ghosts_do_not_push_while_downed=AreaWindGhostsDoNotPushWhileDowned.checked"></label><br>
-          <label for="AreaMagnetism">Magnetism: <input id="AreaMagnetism" type="checkbox" oninput="map.areas[current_Area].properties.magnetism=AreaMagnetism.checked"></label><br>
-          <label for="AreaPartialMagnetism">Partial Magnetism: <input id="AreaPartialMagnetism" type="checkbox" oninput="map.areas[current_Area].properties.partial_magnetism=AreaPartialMagnetism.checked"></label><br>
-          <label for="AreaPelletCount">Pellet Count: <input id="AreaPelletCount" oninput="map.areas[current_Area].properties.pellet_count=AreaPelletCount.valueAsNumber;spawnEntities()" type="number" min="0" step="1" value="25"></label><br>
-          <label for="AreaPelletMultiplier">Pellet Multiplier: <input id="AreaPelletMultiplier" oninput="map.areas[current_Area].properties.pellet_multiplier=AreaPelletMultiplier.valueAsNumber" type="number" value="1"></label>
-      </p>
-        <canvas id="canvas">How are you even playing evades??</canvas>
-        <div id="menu">
-            <div id="resizemenu"></div>
-            <ul id="areamenu"></ul>
-            <ul id="objectmenu"></ul>
-            <button id="togglemenu"></button>
-        </div>
-        <div id="tl">
-            <button id="exportFile" title="Export Map">
-                <svg width="25" height="25">
-                    <!-- Taken from IcoFont -->
-                    <path 
-                        d="M482.6 719.4c9.6 9.4 25.2 9.4 34.9 0l294.2-285.8c9.6-9.4 9.6-24.5 0-33.9l-58.5-56.8c-9.6-9.4-25.2-9.4-34.9 0l-139.2 135.2v-364.1c0-13.2-11-24-24.7-24h-98.6c-13.6 0-24.7 10.7-24.7 24v374.1l-149.4-145.2c-9.6-9.4-25.2-9.4-34.9 0l-58.5 56.8c-9.6 9.4-9.6 24.5 0 33.9l294.3 285.8z m333.4-137.8v206.5h-632.1v-206.5h-121.4v267.3c0 33.6 27.1 60.7 60.8 60.7h753.3c33.6 0 60.8-27.1 60.8-60.7v-267.3h-121.4z" 
-                        transform="scale(0.025)"
-                    />
-                </svg>
-            </button>
-          <Select id="ExportFormatType" title="Format">
-            <option>YAML</option>
-            <option>JSON</option>
-          </Select>
+			<button onclick="extensionPage.hidden=false">View addons</button>
+		</div>
+		<p id="extensionPage" hidden style="top:50%;left:50%;transform:translate(-50%,-50%)" onmouseover="dragElement(event.target);"><titleheader style="font:bold 32px tah;display:block;width:100%;text-align:center">Addons</titleheader><label for="automationTools">Automation Tools <input id="automationTools" type="checkbox" onclick="manageExtensions('automationTools')"></label><br><button onclick='customAlert("you need to refresh to apply changes.",1/0,"#FF0000");reloadPage();' style="position:absolute;right:0;bottom:0;border:none;background:rgb(255,255,255);color:black;width:100px;height:20px;">Apply</button><button onclick="extensionPage.hidden=true;" style="position:absolute;right:0;top:0;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button></p>
+		<canvas id="canvas">How are you even playing evades??</canvas>
+		<div id="menu"><div id="resizemenu"></div><ul id="areamenu"></ul><ul id="objectmenu"></ul><button id="togglemenu">editor.toggleMenu.hide</button></div>
+		<div id="tl">
+			<button id="exportFile" title="Export Map"><svg width="25" height="25"><path d="M482.6 719.4c9.6 9.4 25.2 9.4 34.9 0l294.2-285.8c9.6-9.4 9.6-24.5 0-33.9l-58.5-56.8c-9.6-9.4-25.2-9.4-34.9 0l-139.2 135.2v-364.1c0-13.2-11-24-24.7-24h-98.6c-13.6 0-24.7 10.7-24.7 24v374.1l-149.4-145.2c-9.6-9.4-25.2-9.4-34.9 0l-58.5 56.8c-9.6 9.4-9.6 24.5 0 33.9l294.3 285.8z m333.4-137.8v206.5h-632.1v-206.5h-121.4v267.3c0 33.6 27.1 60.7 60.8 60.7h753.3c33.6 0 60.8-27.1 60.8-60.7v-267.3h-121.4z" transform="scale(0.025)"/></svg></button>
+			<Select id="ExportFormatType" title="Format"><option>YAML</option><option>JSON</option></Select>
 			<!-- Spacer -->
 			<div style="height:10px;"></div>
-            <label id="importLabel" for="importFile" title="Import Map">
-                <svg width="25" height="25">
-                    <!-- Taken from IcoFont -->
-                    <path 
-                        d="M482.6 97.1c9.6-9.4 25.2-9.4 34.9 0l294.2 285.8c9.6 9.4 9.6 24.5 0 33.9l-58.5 56.8c-9.6 9.4-25.2 9.4-34.9 0l-139.2-135.3v364.1c0 13.2-11 24-24.7 24h-98.6c-13.6 0-24.7-10.7-24.7-24v-374l-149.4 145.2c-9.6 9.4-25.2 9.4-34.9 0l-58.5-56.8c-9.6-9.4-9.6-24.5 0-33.9l294.3-285.8z m333.4 484.5v206.5h-632.1v-206.5h-121.4v267.3c0 33.6 27.1 60.7 60.8 60.7h753.3c33.6 0 60.85-27.1 60.85-60.7v-267.3h-121.4z"
-                        transform="scale(0.025)"
-                    />
-                </svg>
-                <input type="file" id="importFile" accept=".json,.yaml,.txt,.yml" />
-            </label>
-          <Select id="importer" title="Select a region. (See #12. Also contact Spacebrook on GitHub for the said issue)">
-            <option></option>
-            <option>AA</option>
-            <option>AAH</option>
-            <option>BB₀</option>
-            <option>BB</option>
-            <option>BBH</option>
-            <option>CC₃</option>
-            <option>CC</option>
-            <option>CCH</option>
-            <option>CC₄</option>
-            <option>CC₂</option>
-            <option>CC₂H</option>
-            <option>DD</option>
-            <option>DDH</option>
-            <option>DD₂</option>
-            <option>EE</option>
-            <option>EEH</option>
-            <option>EE₂</option>
-            <option>EE₂H</option>
-            <option>FF</option>
-            <option>FFH</option>
-            <!--<option>FFS</option>-->
-            <option>GG</option>
-            <option>GGH</option>
-            <option>GG₂</option>
-            <option>GG₂H</option>
-            <option>HH₂</option>
-            <option>HH</option>
-            <option>HHH</option>
-            <option>II (New)</option>
-            <option>II (Old)</option>
-            <option>MM₂</option>
-            <option>MM₂H</option>
-            <option>MM</option>
-            <option>MMH</option>
-            <option>MM₃</option>
-            <option>OO</option>
-            <option>OOH</option>
-            <option>PP</option>
-            <option>PPH</option>
-            <option>QQ</option>
-            <option>QQH</option>
-            <option>RL</option>
-            <option>RR</option>
-            <option>RRH</option>
-            <option>SS₂</option>
-            <option>SS</option>
-            <option>TT₂</option>
-            <option>TT₂H</option>
-            <option>TT</option>
-            <option>VV</option>
-            <option>VVH</option>
-            <option>WW</option>
-            <option>WWH</option>
-            <option>WW₂</option>
-          </Select>
+			<label id="importLabel" for="importFile" title="Import Map"><svg width="25" height="25"><path d="M482.6 97.1c9.6-9.4 25.2-9.4 34.9 0l294.2 285.8c9.6 9.4 9.6 24.5 0 33.9l-58.5 56.8c-9.6 9.4-25.2 9.4-34.9 0l-139.2-135.3v364.1c0 13.2-11 24-24.7 24h-98.6c-13.6 0-24.7-10.7-24.7-24v-374l-149.4 145.2c-9.6 9.4-25.2 9.4-34.9 0l-58.5-56.8c-9.6-9.4-9.6-24.5 0-33.9l294.3-285.8z m333.4 484.5v206.5h-632.1v-206.5h-121.4v267.3c0 33.6 27.1 60.7 60.8 60.7h753.3c33.6 0 60.85-27.1 60.85-60.7v-267.3h-121.4z" transform="scale(0.025)"/></svg><input type="file" id="importFile" accept=".json,.yaml,.txt,.yml"/></label>
+			<Select id="importer" title="Select a region. (See #12. Also contact Spacebrook on GitHub for the said issue)">
+				<option></option>
+				<option>AA</option>
+				<option>AAH</option>
+				<option>BB₀</option>
+				<option>BB</option>
+				<option>BBH</option>
+				<option>CC₃</option>
+				<option>CC</option>
+				<option>CCH</option>
+				<option>CC₄</option>
+				<option>CC₂</option>
+				<option>CC₂H</option>
+				<option>DD</option>
+				<option>DDH</option>
+				<option>DD₂</option>
+				<option>EE</option>
+				<option>EEH</option>
+				<option>EE₂</option>
+				<option>EE₂H</option>
+				<option>FF</option>
+				<option>FFH</option>
+				<!--<option>FFS</option>-->
+				<option>GG</option>
+				<option>GGH</option>
+				<option>GG₂</option>
+				<option>GG₂H</option>
+				<option>HH₂</option>
+				<option>HH</option>
+				<option>HHH</option>
+				<option>II (New)</option>
+				<option>II (Old)</option>
+				<option>MM₂</option>
+				<option>MM₂H</option>
+				<option>MM</option>
+				<option>MMH</option>
+				<option>MM₃</option>
+				<option>OO</option>
+				<option>OOH</option>
+				<option>PP</option>
+				<option>PPH</option>
+				<option>QQ</option>
+				<option>QQH</option>
+				<option>RL</option>
+				<option>RR</option>
+				<option>RRH</option>
+				<option>SS₂</option>
+				<option>SS</option>
+				<option>TT₂</option>
+				<option>TT₂H</option>
+				<option>TT</option>
+				<option>VV</option>
+				<option>VVH</option>
+				<option>WW</option>
+				<option>WWH</option>
+				<option>WW₂</option>
+			</Select>
 			<!-- Spacer -->
 			<div style="height:10px;"></div>
-          <button id="reset" title="Start from scratch">
-            <svg height="25" width="25">
-            <path d="M667.2 105.7l106.19999999999993-105.7 226.10000000000002 227-106.20000000000005 105.80000000000001-226.0999999999999-227.10000000000002z m-24.40000000000009 24.999999999999986l226.60000000000002 226.5-515.4 514.4000000000001-226.1-226.5000000000001z m-352.19999999999993 805.4000000000001l-290.6 63.899999999999864 64-290.5 24.400000000000006-24.899999999999977 226.6 226.60000000000002z" transform="scale(0.025)"/>
-            </svg>
-          </button>
-        </div>
-      <!--Tip {{tip_index}}: {{tip_name}}<br>-->
-        <!--<p id="objectFocus" class="obj_area hidden">
-            <font id="obj_kind" style="font-size:35px;display:block;width:100%;text-align:center">Area</font>
-            <label for="AreaName">Name: <input id="AreaName" style="width:50px"></label><br>
-            <label for="posX">X: <input id="posX" style="width:100px"></label><br>
-            <label for="posY">Y: <input id="posY" style="width:100px"></label>
-        </p>-->
-        <table id="contextmenu" class="hidden">
+			<button id="reset" title="Start from scratch"><svg height="25" width="25"><path d="M667.2 105.7l106.2-105.7 226.1 227-106.2 105.8-226.1-227.1z m-24.4 25l226.6 226.5-515.4 514.4-226.1-226.5z m-352.2 805.4l-290.6 63.9 64-290.5 24.4-24.9 226.6 226.6z" transform="scale(0.025)"/></svg></button>
+		</div>
+		<!--Tip {{tip_index}}: {{tip_name}}<br>-->
+		<table id="contextmenu" class="hidden">
 			<tbody>
-			<tr><th colspan="6">Object Actions</th></tr>
-			<tr>
-				<td colspan="2"><button id="copyObject">Copy</button></td>
-				<td colspan="2"><button id="cutObject">Cut</button></td>
-				<td colspan="2"><button id="pasteObject">Paste</button></td>
-			</tr>
-			<tr>
-				<td colspan="2"><button id="deleteObject">Delete</button></td>
-				<td colspan="2"><button id="duplicateObject">Duplicate</button></td>
-				<td colspan="2"><button id="rotateObject">Rotate</button></td>
-			</tr>
-			<tr><th colspan="6">Create...</th></tr>
-			<tr>
-				<td colspan="3"><button id="createZone">Create Zone</button></td>
-				<td colspan="3"><button id="createAsset">Create Asset</button></td>
-			</tr>
-			<tr><th colspan="6">Area Actions</th></tr>
-			<tr>
-				<td colspan="2"><button id="createArea">Add Area</button></td>
-				<td colspan="2"><button id="duplicateArea">Duplicate Area</button></td>
-				<td colspan="2"><button id="deleteArea">Remove Area</button></td>
-			</tr>
-        </div>
+				<tr><th colspan="6">editor.contextMenu.object</th></tr>
+				<tr>
+					<td colspan="2"><button id="copyObject">editor.contextMenu.object.copy</button></td>
+					<td colspan="2"><button id="cutObject">editor.contextMenu.object.cut</button></td>
+					<td colspan="2"><button id="pasteObject">editor.contextMenu.object.paste</button></td>
+				</tr>
+				<tr>
+					<td colspan="2"><button id="deleteObject">editor.contextMenu.object.delete</button></td>
+					<td colspan="2"><button id="duplicateObject">editor.contextMenu.object.duplicate</button></td>
+					<td colspan="2"><button id="rotateObject">editor.contextMenu.object.rotate</button></td>
+				</tr>
+				<tr><th colspan="6">editor.contextMenu.new</th></tr>
+				<tr>
+					<td colspan="3"><button id="createZone">editor.contextMenu.new.zone</button></td>
+					<td colspan="3"><button id="createAsset">editor.contextMenu.new.asset</button></td>
+				</tr>
+				<tr><th colspan="6">editor.contextMenu.area</th></tr>
+				<tr>
+					<td colspan="2"><button id="createArea">editor.contextMenu.area.add</button></td>
+					<td colspan="2"><button id="duplicateArea">editor.contextMenu.area.duplicate</button></td>
+					<td colspan="2"><button id="deleteArea">editor.contextMenu.area.delete</button></td>
+				</tr>
+			</tbody>
+		</table>
 		<div>
-		<div id="chat" hidden style="transform-origin: 0% 0%; transform: scale(1); left: 10px; top: 10px; visibility: hidden;"><div id="chat-window"></div><input id="chat-input" type="text" autocomplete="off" placeholder="Press enter to chat" maxlength="160"></div>
-		<style>leaderboard {
-	color: #f9f9f9;
-	width: 220px;
-	max-height: 600px;
-	background-color: #00000080;
-	padding: 2px 2px 10px;
-	position: absolute;
-	overflow-x: hidden;
-	overflow-y: auto
-}
-.leaderboard-title {
-	width: 100%;
-	text-align: center;
-	white-space: nowrap;
-	font: 700 20px Tah;
-	display: inline-block
-}
-.leaderboard-world-title {
-	width: 100%;
-	text-align: center;
-	margin-top: 5px;
-	font: 18px Tah;
-	display: inline-block
-}
-.leaderboard-line {
-	text-align: center;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	font: 14px Tah;
-	overflow: hidden
-}
-.leaderboard-title-break {
-	text-align: center;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	font: 3px Tah;
-	overflow: hidden
-}
-leaderboard.big {
-	width: 230px
-}</style>
-<leaderboard hidden id="leaderboard" style="transform-origin: 100% 0%; transform: scale(1); right: 10px; top: 10px; visibility: hidden;" class="big">
-	<span class="leaderboard-title">Region Editor</span>
-	<div class="leaderboard-line server-info"><span class="leaderboard-name">Connecting</span></div>
-</leaderboard></div>
-<div hidden id="inputIndicator"><img src="./buttons/mouse-off.png"></div>
-	  <button class="areas" hidden style="width:150px;height:32px;font-family:tah;" onclick="event.target.hidden=true;areaProp.hidden=false">Area Properties</button>
-      <button class="regional" hidden style="width:150px;height:32px;font-family:tah;" onclick="event.target.hidden=true;regionProp.hidden=false">Region Properties</button>
-	  <a href="https://github.com/sonic3XE/evades-region-editor/issues/new/choose" class="issues" style="
-    position: absolute;
-    bottom: 10px;
-    right: 128px;
-    height: 32px;
-    font: bold 12px tah;
-"><svg height="32" viewBox="0 0 16 16" width="32" fill="currentcolor">
-    <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path>
-</svg><span style="
-    line-height: 32px;
-    height: 32px;
-    position: absolute;
-    top: -24px;
-    width: 128px;
-    right: -48px;
-    text-align: center;
-">Report an issue</span></a>
-<a href="/" class="mydomain" style="
-    position: absolute;
-    bottom: 10px;
-    right: 90px;
-    height: 32px;
-    font: bold 12px tah;
-"><svg width="32" height="32" viewBox="0 0 25 25" fill="currentcolor">
-                    <!-- Taken from IcoFont -->
-                    <path d="M926 427l-96 68c1 3 1 6 1 9 0 24 0 47 0 70s0 47 0 71c0 13-4 17-17 17-31 0-62 0-92 0-13 0-17-4-17-17l0-62-190 134c-14 9-16 10-29 0l-244-171c-56-40-112-80-169-120-11-8-13-13-7-23 19-27 37-53 56-80 2-3 7-5 11-9 5 3 10 6 14 8l20 15c-1-3-1-6-1-9 0-110 0-221 0-331 0-17 4-21 21-21h208c18 0 21 3 21 21v294h168v-295c0-16 4-20 20-20h209c15 0 19 4 19 19 0 112 0 224 0 336 0 2 0 5-1 7l23-16c13-9 18-8 27 5l50 72c10 14 9 18-5 28z" transform="translate(0, 25) scale(0.025, -0.025)"></path>
-                </svg><span style="
-    line-height: 32px;
-    height: 32px;
-    position: absolute;
-    top: -24px;
-    width: 128px;
-    right: -48px;
-    text-align: center;
-">Back to Domain</span></a>
-				
-<a href="https://github.com/sonic3XE/evades-region-editor/discussions/new/choose" class="discussions" style="
-    position: absolute;
-    bottom: 10px;
-    right: 212px;
-    height: 32px;
-    font: bold 12px tah;
-"><svg height="32" viewBox="0 0 16 16" width="32" fill="currentcolor">
-    <path d="M1.75 1h8.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 10.25 10H7.061l-2.574 2.573A1.458 1.458 0 0 1 2 11.543V10h-.25A1.75 1.75 0 0 1 0 8.25v-5.5C0 1.784.784 1 1.75 1ZM1.5 2.75v5.5c0 .138.112.25.25.25h1a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h3.5a.25.25 0 0 0 .25-.25v-5.5a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13 2a.25.25 0 0 0-.25-.25h-.5a.75.75 0 0 1 0-1.5h.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 14.25 12H14v1.543a1.458 1.458 0 0 1-2.487 1.03L9.22 12.28a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l2.22 2.22v-2.19a.75.75 0 0 1 .75-.75h1a.25.25 0 0 0 .25-.25Z"></path>
-</svg><span style="
-    line-height: 32px;
-    height: 32px;
-    position: absolute;
-    top: -24px;
-    width: 128px;
-    right: -48px;
-    text-align: center;
-">Discuss something</span></a>
-<a href="https://github.com/sonic3XE/evades-region-editor/compare" class="pull_request" style="
-    position: absolute;
-    bottom: 10px;
-    right: 170px;
-    height: 32px;
-    font: bold 12px tah;
-"><svg height="32" viewBox="0 0 16 16" width="32" fill="currentcolor">
-    <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"></path>
-</svg><span style="
-    line-height: 32px;
-    height: 32px;
-    position: absolute;
-    top: -24px;
-    width: 128px;
-    right: -48px;
-    text-align: center;
-">Create a pull request</span></a>
-<a href="https://discord.gg/s5aunm6" class="discord-server" style="
-    position: absolute;
-    bottom: 52px;
-    right: 10px;
-    height: 32px;
-    font: bold 12px tah;
-"><svg width="32" viewBox="0 0 127.14 96.36" fill="currentcolor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg><span style="
-    line-height: 32px;
-    height: 32px;
-    position: absolute;
-    top: -24px;
-    width: 256px;
-    right: -48px;
-    text-align: center;
-">Evades.io Discord Server</span></a>
-
-        <div class="settings-launcher"><img src="./buttons/options.png"></div>
-        <div class="hero-select-question" style="background-color: transparent;"><div></div>
-          <help id="editorHelp"><b>Hover the category</b>
-        <br><font>Area<helpText>
-          <font>Viewing other areas<helpText><b>Viewing other areas</b><br>If you want to see other areas, press left or right arrow keys.</helpText></font><hr>
-          <font>Adjusting area position<helpText><b>Adjusting area position</b><br>Click on <a onclick='[...document.querySelector("#areamenu li").classList].includes("closed")&&document.querySelector("#areamenu li").classList.toggle("closed");' href="#">Area Properties</a>. There is X and Y values that can be changed. See <a onclick='(customAlert("List of Variables used for areas",15,"#FF0"),customAlert("• last_right",15,"#FF0"),customAlert("• last_x",15,"#FF0"),customAlert("• last_y",15,"#FF0"),customAlert("• last_bottom",15,"#FF0"),customAlert("• var_x",15,"#FF0"),customAlert("• var_y",15,"#FF0"))' href="#">the list of variables</a> for this section. If you want offsets, you can include a + or - with a specified number after a variable. If you want exact position, you should put a number instead.</helpText></font><hr>
-          <font>Changing area background color<helpText><b>Changing area background color</b><br>Click on <a onclick='[...document.querySelector("#areamenu li").classList].includes("closed")&&document.querySelector("#areamenu li").classList.toggle("closed");[...document.querySelector("#areamenu li ul li.folder").classList].includes("closed")&&document.querySelector("#areamenu li ul li.folder").classList.toggle("closed");' href="#">Area's Properties</a>. There is Background Color and Alpha that can be changed. If you want specified color, set the alpha to 1 - 255 and change any color you want.</helpText></font>
-        </helpText></font><br>
-		<font>UI<helpText>
-		<font>Creating an object<helpText><b>Creating an object</b><br>If you want to create a zone or an asset, press the context menu key or right click on your mouse to see the actions.</helpText></font></helpText></font>
-          </help>
-        </div>
+			<div id="chat" hidden style="transform-origin: 0% 0%; transform: scale(1); left: 10px; top: 10px; visibility: hidden;"><div id="chat-window"></div><input id="chat-input" type="text" autocomplete="off" placeholder="Press enter to chat" maxlength="160"></div>
+			<style>
+				leaderboard{color: #f9f9f9;width: 220px;max-height: 600px;background-color: #00000080;padding: 2px 2px 10px;position: absolute;overflow-x: hidden;overflow-y: auto}
+				.leaderboard-title {width: 100%;text-align: center;white-space: nowrap;font: 700 20px Tah;display: inline-block}
+				.leaderboard-world-title {width: 100%;text-align: center;margin-top: 5px;font: 18px Tah;display: inline-block}
+				.leaderboard-line {text-align: center;text-overflow: ellipsis;white-space: nowrap;font: 14px Tah;overflow: hidden}
+				.leaderboard-title-break {text-align: center;text-overflow: ellipsis;white-space: nowrap;font: 3px Tah;overflow: hidden}
+				leaderboard.big {width: 230px}
+			</style>
+			<leaderboard hidden id="leaderboard" style="transform-origin: 100% 0%; transform: scale(1); right: 10px; top: 10px; visibility: hidden;" class="big"><span class="leaderboard-title">Region Editor</span><div class="leaderboard-line server-info"><span class="leaderboard-name">Connecting</span></div></leaderboard>
+		</div>
+		<div hidden id="inputIndicator"><img src="./buttons/mouse-off.png"></div>
+		<a href="https://github.com/sonic3XE/evades-region-editor/issues/new/choose" class="issues" style="position: absolute;bottom: 10px;right: 128px;height: 32px;font: bold 12px tah;"><svg height="32" viewBox="0 0 16 16" width="32" fill="currentcolor"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"></path><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"></path></svg><span style="line-height: 32px;height: 32px;position: absolute;top: -24px;width: 128px;right: -48px;text-align: center;">Report an issue</span></a>
+		<a href="/" class="mydomain" style="position: absolute;bottom: 10px;right: 90px;height: 32px;font: bold 12px tah;"><svg width="32" height="32" viewBox="0 0 25 25" fill="currentcolor"><path d="M926 427l-96 68c1 3 1 6 1 9 0 24 0 47 0 70s0 47 0 71c0 13-4 17-17 17-31 0-62 0-92 0-13 0-17-4-17-17l0-62-190 134c-14 9-16 10-29 0l-244-171c-56-40-112-80-169-120-11-8-13-13-7-23 19-27 37-53 56-80 2-3 7-5 11-9 5 3 10 6 14 8l20 15c-1-3-1-6-1-9 0-110 0-221 0-331 0-17 4-21 21-21h208c18 0 21 3 21 21v294h168v-295c0-16 4-20 20-20h209c15 0 19 4 19 19 0 112 0 224 0 336 0 2 0 5-1 7l23-16c13-9 18-8 27 5l50 72c10 14 9 18-5 28z" transform="translate(0, 25) scale(0.025, -0.025)"></path></svg><span style="line-height: 32px;height: 32px;position: absolute;top: -24px;width: 128px;right: -48px;text-align: center;">Back to Domain</span></a>
+		<a href="https://github.com/sonic3XE/evades-region-editor/discussions/new/choose" class="discussions" style="position: absolute;bottom: 10px;right: 212px;height: 32px;font: bold 12px tah;"><svg height="32" viewBox="0 0 16 16" width="32" fill="currentcolor"><path d="M1.75 1h8.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 10.25 10H7.061l-2.574 2.573A1.458 1.458 0 0 1 2 11.543V10h-.25A1.75 1.75 0 0 1 0 8.25v-5.5C0 1.784.784 1 1.75 1ZM1.5 2.75v5.5c0 .138.112.25.25.25h1a.75.75 0 0 1 .75.75v2.19l2.72-2.72a.749.749 0 0 1 .53-.22h3.5a.25.25 0 0 0 .25-.25v-5.5a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13 2a.25.25 0 0 0-.25-.25h-.5a.75.75 0 0 1 0-1.5h.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 14.25 12H14v1.543a1.458 1.458 0 0 1-2.487 1.03L9.22 12.28a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215l2.22 2.22v-2.19a.75.75 0 0 1 .75-.75h1a.25.25 0 0 0 .25-.25Z"></path></svg><span style="line-height: 32px;height: 32px;position: absolute;top: -24px;width: 128px;right: -48px;text-align: center;">Discuss something</span></a>
+		<a href="https://github.com/sonic3XE/evades-region-editor/compare" class="pull_request" style="position: absolute;bottom: 10px;right: 170px;height: 32px;font: bold 12px tah;"><svg height="32" viewBox="0 0 16 16" width="32" fill="currentcolor"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"></path></svg><span style="line-height: 32px;height: 32px;position: absolute;top: -24px;width: 128px;right: -48px;text-align: center;">Create a pull request</span></a>
+		<a href="https://discord.gg/s5aunm6" class="discord-server" style="position: absolute;bottom: 52px;right: 10px;height: 32px;font: bold 12px tah;"><svg width="32" viewBox="0 0 127.14 96.36" fill="currentcolor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg><span style="line-height: 32px;height: 32px;position: absolute;top: -24px;width: 256px;right: -48px;text-align: center;">Evades.io Discord Server</span></a>
+		<div class="settings-launcher"><img src="./buttons/options.png"></div>
+		<div class="hero-select-question" style="background-color: transparent;"><div></div><help id="editorHelp"><b>Hover the category</b><br><font>Area<helpText><font>Viewing other areas<helpText><b>Viewing other areas</b><br>If you want to see other areas, press left or right arrow keys.</helpText></font><hr><font>Adjusting area position<helpText><b>Adjusting area position</b><br>Click on <a onclick='[...document.querySelector("#areamenu li").classList].includes("closed")&&document.querySelector("#areamenu li").classList.toggle("closed");' href="#">Area Properties</a>. There is X and Y values that can be changed. See <a onclick='(customAlert("List of Variables used for areas",15,"#FF0"),customAlert("• last_right",15,"#FF0"),customAlert("• last_x",15,"#FF0"),customAlert("• last_y",15,"#FF0"),customAlert("• last_bottom",15,"#FF0"),customAlert("• var_x",15,"#FF0"),customAlert("• var_y",15,"#FF0"))' href="#">the list of variables</a> for this section. If you want offsets, you can include a + or - with a specified number after a variable. If you want exact position, you should put a number instead.</helpText></font><hr><font>Changing area background color<helpText><b>Changing area background color</b><br>Click on <a onclick='[...document.querySelector("#areamenu li").classList].includes("closed")&&document.querySelector("#areamenu li").classList.toggle("closed");[...document.querySelector("#areamenu li ul li.folder").classList].includes("closed")&&document.querySelector("#areamenu li ul li.folder").classList.toggle("closed");' href="#">Area's Properties</a>. There is Background Color and Alpha that can be changed. If you want specified color, set the alpha to 1 - 255 and change any color you want.</helpText></font></helpText></font><br><font>UI<helpText><font>Creating an object<helpText><b>Creating an object</b><br>If you want to create a zone or an asset, press the context menu key or right click on your mouse to see the actions.</helpText></font></helpText></font></help></div>
 		<script src="zone.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/msgpack-lite@0.1.26/dist/msgpack.min.js" type="text/javascript"></script>

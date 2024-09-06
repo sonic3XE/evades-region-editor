@@ -634,7 +634,7 @@ resizemenu.addEventListener("mousedown",_=>(resizing=true));
 document.addEventListener("mouseup",_=>(resizing=false));
 document.addEventListener("mousemove",e=>resizing&&(menu.style.width=Math.max(window.innerWidth-e.pageX-15,200)+"px"));
 document.addEventListener("DOMContentLoaded",loadData);
-togglemenu.addEventListener("click",_=>menu.classList.toggle("hidden"));
+togglemenu.addEventListener("click",_=>(menu.classList.toggle("hidden"),_.target.innerText=formatString(`editor.toggleMenu.${menu.classList=="hidden"?"show":"hide"}`)));
 exportFile.addEventListener("click",_=>download(map.name));
 importFile.addEventListener("input",_=>(importFile.files.length&&importFile.files[0].text().then(value=>loadFile(value)).catch(e=>(customAlert(e,1/0,"#FF0000"),console.error("OH SHIT!!\n",e)))));
 window.addEventListener("beforeunload",e=>(e.preventDefault(),e.returnValue="Have you saved your map?"));
@@ -1249,9 +1249,9 @@ function rungame(){
 	}
 	//setTimeout(rungame);
 }
-global.selfId=null;
+[...document.querySelectorAll("script")].map(e=>e.remove());global.selfId=null;
 animate(function run(e){
 	rungame(e);
 	render();
 	animate(run);
-})
+});
