@@ -292,7 +292,7 @@
 	"editor.property.wabot_radius":"Радиус Wabot",
 	"editor.property.warping_disabled":"Деформация отключена",
 	"editor.property.width":"Ширина",
-	"editor.property.wind_ghosts_do_not_push_ while_downed":"Призраки ветра не толкаются, пока они сбиты,"
+	"editor.property.wind_ghosts_do_not_push_while_downed":"Призраки ветра не толкают, когда они сбиты с ног",
 	"editor.property.x":"X",
 	"editor.property.y":"Y",
 	"editor.region":"Свойства региона",
