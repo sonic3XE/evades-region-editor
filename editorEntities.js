@@ -324,7 +324,7 @@ class Player extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	this.fullMapOpacity=true;
 	this.lightRectangle=null;
     this.y=y;
-	this.heroType=hero;
+	this.heroType=settings.heroType;
 	const e = $01bb7fd9b3660a1e$export$71c647defb4fbd5a(this.heroType);
 this.onTele=true;
 this.effects=[];
@@ -376,8 +376,8 @@ this.snowballedTime=2500;
 this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
-this.abilityOne={abilityType:2};
-this.abilityTwo={abilityType:3};
+this.abilityOne={abilityType:this.heroType*2};
+this.abilityTwo={abilityType:this.heroType*2+1};
 //this.abilityThree={abilityType:97};
 this.abilityIndex=0;
 this.cachedAbilities=[];
@@ -702,6 +702,7 @@ this.isGuest=!1;
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 				this.speedMultiplier*=abilityLevels[ability.level-1].slow??1;
 				this.speedAdditioner+=abilityLevels[ability.level-1].boost??0;
+				!this.effects.filter(e=>e.effectType==0).length&&this.effects.push({effectType:0});
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
 				abilityActive=false;
@@ -713,13 +714,15 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
+				this.effects.filter(e=>e.effectType==0).map(e=>e.removed=true);
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
 		case 1:{/*Harden*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 				this.speedMultiplier*=0;
-				this.invulnerable=true;
+				this.harden=true;
+				!this.effects.filter(e=>e.effectType==1).length&&this.effects.push({effectType:1});
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
 				abilityActive=false;
@@ -731,7 +734,8 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
-				this.invulnerable=false;
+				this.harden=false;
+				this.effects.filter(e=>e.effectType==1).map(e=>e.removed=true);
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;

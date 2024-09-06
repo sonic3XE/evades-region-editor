@@ -361,6 +361,7 @@ canvas.addEventListener("contextmenu",e=>{if(e.preventDefault(),e.target===conte
 [fadingEffects,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,legacy30FPS,displayTimer].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.checked}));
 [snapX,pelletTransparency,snapY].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.value}));
 lang.addEventListener("input",e=>{settings.language=e.target.selectedIndex;loadLanguage(`${languages[settings.language]}.json`)});
+herotype.addEventListener("input",e=>{settings.heroType=e.target.selectedIndex});
 joystickDeadzone.addEventListener("input",e=>{settings.joystickDeadzone=e.target.selectedIndex/20});
 document.addEventListener("click",e=>{if(e.target==contextmenu||e.target.parentNode==contextmenu&&e.button==2)return;if(e.target==canvas&&e.button==2)return;hide(contextmenu,updateMouseEntity=true)});
 reset.addEventListener("click",e=>{
@@ -447,7 +448,7 @@ document.addEventListener("keydown", e => {
 		evadesRenderer={snowRenderer:new SnowRenderer,dynamicLighting:new DynamicLighting(1),directionalIndicatorHud:new DirectionalIndicatorHud,experienceBar:new ExperienceBar,heroInfoCard:new HeroInfoCard,bottomText:new BottomText,titleText:new TitleText,minimap:new Minimap,areaInfo:new AreaInfo};
 		evadesRenderer.minimap.updateZones();
 		var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0]??map.areas[0].zones[0],
-		selfPlayer=new Player(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),1);
+		selfPlayer=new Player(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random());
 		global.selfId=selfPlayer.id;
 		map.players.push(selfPlayer);
 		evadesRenderer.heroInfoCard.abilityOne=new $097def8f8d652b17$export$2e2bcd8739ae039;

@@ -5,6 +5,10 @@ const settings={
 		return Number(localStorage.language??"0");
 	},set language(e){
 		return localStorage.language=e;
+	},get heroType(){
+		return Number(localStorage.herotype??"0");
+	},set heroType(e){
+		return localStorage.herotype=e;
 	},get snapX(){
 		return Math.floor(Number(localStorage.snapX??16));
 	},set snapX(e){
