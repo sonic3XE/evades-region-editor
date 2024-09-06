@@ -7,6 +7,7 @@ async function loadLanguage(file){
 		  args.map(t=>s=s.replace("%s",t));
 		  return s;
 		}
+		toggleMenu.innerText=formatString(`editor.toggleMenu.${menu.classList=="hidden"?"show":"hide"}`)
 		contextmenu.rows[0].cells[0].innerText=formatString("editor.contextMenu.object")
 		contextmenu.rows[1].cells[0].children[0].innerText=formatString("editor.contextMenu.object.copy")
 		contextmenu.rows[1].cells[1].children[0].innerText=formatString("editor.contextMenu.object.cut")
@@ -45,7 +46,7 @@ async function loadLanguage(file){
 		areamenu.appendChild(map.areas[0].element);
 	});
 };
-const languages=["en_us"];
+const languages=["en_us","ru_ru"];
 loadLanguage(`${languages[settings.language]}.json`);
 function formatString(str){
   var s=str;
