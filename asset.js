@@ -32,12 +32,12 @@ function customASSETgui(wall){
         wall.height = hInput.value = Math.max(hInput.value, 0);
 		spawnEntities();
     });
-var wProp=createProperty(formatString(curLang,"editor.property.width"), wInput, "number"),
-hProp=createProperty(formatString(curLang,"editor.property.height"), hInput, "number");
-var upsidedown=createProperty(formatString(curLang,"editor.property.upside_down"), updnInput, "switch", {value:wall.upside_down});
-var texture=createProperty(formatString(curLang,"editor.property.texture"),null,"select",{
+var wProp=createProperty(formatString("editor.property.width"), wInput, "number"),
+hProp=createProperty(formatString("editor.property.height"), hInput, "number");
+var upsidedown=createProperty(formatString("editor.property.upside_down"), updnInput, "switch", {value:wall.upside_down});
+var texture=createProperty(formatString("editor.property.texture"),null,"select",{
 			value:wall.texture,event:(e)=>{wall.texture=e;spawnEntities()},
-			selectOptions:["normal","leaves","wooden","baguette","ice",null].map(e=>[formatString(curLang,"editor.texture."+e),e]),
+			selectOptions:["normal","leaves","wooden","baguette","ice",null].map(e=>[formatString("editor.texture."+e),e]),
 			selectType:"text"});
 	
 				if(wall.type=="wall"){
@@ -55,8 +55,8 @@ var texture=createProperty(formatString(curLang,"editor.property.texture"),null,
 				}else{
 					show(wProp),show(hProp)
 				}
-    wall.element = createFolder(formatString(curLang,"editor.asset"), [
-		createProperty(formatString(curLang,"editor.property.type"), null, "select",{
+    wall.element = createFolder(formatString("editor.asset"), [
+		createProperty(formatString("editor.property.type"), null, "select",{
 			value: wall.type,
 			event: e => {
 				if(e=="wall"){
@@ -76,13 +76,13 @@ var texture=createProperty(formatString(curLang,"editor.property.texture"),null,
 				}
 				wall.type = e;spawnEntities()
 			},
-			selectOptions: ["wall","light_region","gate","torch","flashlight_spawner"].map(e=>[formatString(curLang,"editor.asset."+e),e]),
+			selectOptions: ["wall","light_region","gate","torch","flashlight_spawner"].map(e=>[formatString("editor.asset."+e),e]),
 			selectType: "text"
 		}),
 		texture,
 		upsidedown,
-		createProperty(formatString(curLang,"editor.property.x"), xInput, "number"),
-		createProperty(formatString(curLang,"editor.property.y"), yInput, "number"),
+		createProperty(formatString("editor.property.x"), xInput, "number"),
+		createProperty(formatString("editor.property.y"), yInput, "number"),
 		wProp,
 		hProp
 	]);
