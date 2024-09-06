@@ -346,8 +346,8 @@
 	"editor.texture.normal":"Normal",
 	"editor.texture.null":"None",
 	"editor.texture.wooden":"Wooden",
-	"editor.toggleMenu.hide": "Close Menu"
-	"editor.toggleMenu.show": "Open Menu"
+	"editor.toggleMenu.hide": "Close Menu",
+	"editor.toggleMenu.show": "Open Menu",
 	"editor.zone":"Zone Properties",
 	"editor.zone.active":"Active",
 	"editor.zone.dummy":"Dummy",
