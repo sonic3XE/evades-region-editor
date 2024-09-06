@@ -360,7 +360,7 @@ canvas.addEventListener("contextmenu",e=>{if(e.preventDefault(),e.target===conte
 [displayEnergyBars,tileMode,body_collection,hat_collection,gem_collection].map(e=>e.addEventListener("input",t=>{settings[t.target.id.split("_")[0]]=t.target.selectedIndex}));
 [fadingEffects,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,legacy30FPS,displayTimer].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.checked}));
 [snapX,pelletTransparency,snapY].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.value}));
-lang.addEventListener("input",e=>{settings.language=e.target.selectedIndex});
+lang.addEventListener("input",e=>{settings.language=e.target.selectedIndex;loadLanguage(`${languages[settings.language]}.json`)});
 joystickDeadzone.addEventListener("input",e=>{settings.joystickDeadzone=e.target.selectedIndex/20});
 document.addEventListener("click",e=>{if(e.target==contextmenu||e.target.parentNode==contextmenu&&e.button==2)return;if(e.target==canvas&&e.button==2)return;hide(contextmenu,updateMouseEntity=true)});
 reset.addEventListener("click",e=>{
