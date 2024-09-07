@@ -2396,7 +2396,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.speedMultiplier=1;
     this.collision(delta,collide);
   }
-  collision(delta,collide){
+  collision(delta,collide=true){
 	if(this.HarmlessTime>0){
 	  this.HarmlessTime-=delta;
 	  this.isHarmless=true;
