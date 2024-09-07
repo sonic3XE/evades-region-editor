@@ -1,3 +1,12 @@
+name: Cyber Castle Hard
+properties:
+  background_color:
+  - 14
+  - 170
+  - 201
+  - 125
+  death_timer: 60000
+  friction: 0.75
 areas:
 - name: Security Gate A
   x: 24352
@@ -33,13 +42,6 @@ areas:
     width: 32
     x: 0
     y: 288
-  - height: 96
-    properties:
-      minimum_speed: 300
-    type: safe
-    width: 32
-    x: 0
-    y: 192
   - height: 480
     properties:
       minimum_speed: 300
@@ -47,6 +49,13 @@ areas:
     width: 288
     x: 32
     y: 0
+  - height: 96
+    properties:
+      minimum_speed: 300
+    type: safe
+    width: 32
+    x: 0
+    y: 192
   - height: 480
     spawner:
     - angle: 0
@@ -1907,12 +1916,3 @@ areas:
       - 107
       - 227
       - 150
-name: Cyber Castle Hard
-properties:
-  background_color:
-  - 14
-  - 170
-  - 201
-  - 125
-  death_timer: 60000
-  friction: 0.75
