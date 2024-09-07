@@ -290,30 +290,34 @@ function spawnEntities(area=current_Area){
 }
 var verifiedEntities=[
 //Enemies
-  "wall_enemy",
-  "normal_enemy",
-  "immune_enemy",
-  "corrosive_enemy",
-  "homing_enemy",
-  "dasher_enemy",
+  "wall_enemy","normal_enemy","homing_enemy","dasher_enemy",
   "lunging_enemy",
-  "ring_sniper_enemy",
-  "cybot_enemy",
   "frost_giant_enemy",
   "radar_enemy",
-  "eabot_enemy",
-  "fibot_enemy",
-  "aibot_enemy",
-  "wabot_enemy",
-  "libot_enemy",
-  "dabot_enemy",
-  "plbot_enemy",
-  "mebot_enemy",
-  "elbot_enemy",
-  "icbot_enemy",
+
+  "immune_enemy",
+  "corrosive_enemy",
+//Boss entities
+  "ring_sniper_enemy","cybot_enemy","eabot_enemy","fibot_enemy",
+  "aibot_enemy","wabot_enemy","libot_enemy","dabot_enemy",
+  "plbot_enemy","mebot_enemy","elbot_enemy","icbot_enemy",
 //Projectiles
   "radar_projectile",
 ];
+
+//	EvadesClassic(vanilla) Enemy File Template: https://github.com/Spacebrook/EvadesClassic/blob/master/server/src/game/entities/enemies/{{type}}_enemy.py
+//	EvadesClassic(vanilla) Projectile File Template: https://github.com/Spacebrook/EvadesClassic/blob/master/server/src/game/entities/{{projectile_type}}.py
+
+/*
+					DORITO_ENEMY: 101,
+					WACKY_WALL_ENEMY: 106,
+					DORITO_SWITCH_ENEMY: 109,
+					PENNY_ENEMY: 110,
+					PENNY_SWITCH_ENEMY: 111,
+					INFINITY_ENEMY: 112,
+					INFINITY_SWITCH_ENEMY: 113,
+*/
+
 class Player extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
   constructor(x,y,hero,username=nickname.value||"Local Player") {
 	super();
@@ -461,6 +465,7 @@ this.ictosChance=false;
 this.flamingTimeLeft=1e3;
 this.canGainEnergy=true;
     this.deathTimerTotal=0;
+    this.deathTimerTotalMultiplier=0;
 	this.quicksand=[0,0,150];
     this.color=e.foregroundColor;
 	this.strokeColor = e.strokeColor;
@@ -1505,6 +1510,8 @@ this.isGuest=!1;
 			this.d_y=0;
 			this.distance_moved_previously=[0,0];
 		}
+		if(this.cybotEffect3)
+			this.deathTimerTotalMultiplier=5/6*this.effectImmune;
 		this.canGainEnergy=!this.isStone;
 		this.invulnerable=this.harden+this.isStone;
 		this.canGainEnergy && (this.energy+=this.energyRate*delta/1e3);
@@ -1558,6 +1565,7 @@ this.isGuest=!1;
 			this.inEnemyBarrier=false;
 			this.slippery=false;
 			this.disabling=false;
+			this.cybotEffect3=false;
 		}
 		this.blocking=false;
 		this.tempColor=this.color;
@@ -2254,6 +2262,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	this.outline=false;
     this.speed=speed;
     this.angle=angle!=undefined?(angle*Math.PI/180):(Math.random()*Math.PI*2);
+    this.target_angle=this.angle;
     this.velX=Math.cos(this.angle)*this.speed;
     this.velY=Math.sin(this.angle)*this.speed;
     this.x=x;
@@ -2361,7 +2370,6 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 					//effects_reduction=-0.5*(1-player.get_effects_reduction())
 				else
 					player.cybotEffect3=true;
-					//player.deathTimerTotalMultiplier=5/6*(1-player.get_effects_reduction())
 			if(effect.effectType==58)
 				void null;
 			if(effect.effectType==59)
@@ -2708,21 +2716,8 @@ function speedparts(direction,speed){
   return {x,y}
 }
 //BASE ENEMY
-class Enemy extends SimulatorEntity{
-  constructor(x,y,radius,speed,angle,type,boundary){
-    super(x,y,getEntityColor(type),radius,type,speed,angle,boundary);
-    this.isEnemy=true;
-    this.renderFirst=false;
-    this.outline=true;
-	this.timer_reduction=1;
-  }
-  playerInteraction(player,delta){
-    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier);
-  }
-  update(delta,area,collide){
-    super.update(delta,area,collide);
-  }
-}
+class Enemy extends SimulatorEntity{constructor(x,y,radius,speed,angle,type,boundary){super(x,y,getEntityColor(type),radius,type,speed,angle,boundary);this.isEnemy=true;this.renderFirst=false;this.outline=true;this.timer_reduction=1}playerInteraction(player,delta){EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier)}update(delta,area,collide){super.update(delta,area,collide)}};
+
 function distance(a,b){
   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
 }
@@ -2760,20 +2755,26 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
 	}
 }
 function death(player){
-    switch(player.area){
-      case 0:player.deathTimer=player.deathTimerTotal=10000;break;
-      case 1:case 2:player.deathTimer=player.deathTimerTotal=15000;break;
-      case 3:case 4:case 5:player.deathTimer=player.deathTimerTotal=20000;break;
-      case 6:case 7:player.deathTimer=player.deathTimerTotal=25000;break;
-      case 8:case 9:player.deathTimer=player.deathTimerTotal=30000;break;
-      default:player.deathTimer=player.deathTimerTotal=60000;break;
+    function checkAreaProperties(e){
+        var s=map.areas[player.area].properties[e] ?? (map.properties[e] ?? defaultValues.properties[e]);
+        return s;
     }
-    if(map.areas[player.area].properties.death_timer!==void 0){
-      player.deathTimer=player.deathTimerTotal=map.areas[player.area].properties.death_timer;
-    }else if(map.properties.death_timer!==void 0){
-      player.deathTimer=player.deathTimerTotal=map.properties.death_timer;
-    }
-	player.effects=[];
+    const death_timer_multiplier=1-player.deathTimerTotalMultiplier;
+    let death_timer=60000;
+    if(player.area<1)
+        death_timer=10000;
+    else if(player.area<3)
+        death_timer=15000;
+    else if(player.area<6)
+        death_timer=20000;
+    else if(player.area<8)
+        death_timer=25000;
+    else if(player.area<10)
+        death_timer=30000;
+    if(checkAreaProperties("death_timer")!=void 0)
+        death_timer=checkAreaProperties("death_timer");
+    player.deathTimer=player.deathTimerTotal=death_timer*death_timer_multiplier;
+    player.effects=[];
 }
 //PELLETS
 class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
@@ -2963,16 +2964,6 @@ class FlashlightItem extends SimulatorEntity{
     ctx.drawImage(this.texture.getImage(delta),camera.x+(this.x-16),camera.y+this.y-8,32,16);
   }
 }
-//	EvadesClassic(vanilla) Enemy File Template: https://github.com/Spacebrook/EvadesClassic/tree/master/server/src/game/entities/enemies/{{type}}_enemy.py
-/*
-					DORITO_ENEMY: 101,
-					WACKY_WALL_ENEMY: 106,
-					DORITO_SWITCH_ENEMY: 109,
-					PENNY_ENEMY: 110,
-					PENNY_SWITCH_ENEMY: 111,
-					INFINITY_ENEMY: 112,
-					INFINITY_SWITCH_ENEMY: 113,
-*/
 class ZigzagSwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"zigzag_switch_enemy",boundary);
@@ -3277,12 +3268,11 @@ class DasherSwitchEnemy extends Enemy{
     super(x,y,radius,speed,angle,"dasher_switch_enemy",boundary);
     this.reset_parameters();
     this.switch_inverval = 3e3;
-	this.switchTime=0;
+    this.switchTime=0;
     this.switchedHarmless=this.disabled=Math.round(Math.random());
     this.isHarmless=this.disabled;
   }
   reset_parameters(){
-    //reset_parameters(self)
     this.prepare_speed = this.speed / 5;
     this.dash_speed = this.speed;
     this.normal_speed = 0;
@@ -3299,12 +3289,12 @@ class DasherSwitchEnemy extends Enemy{
   compute_speed(){
     this.anglevel();
   }
-  update(delta){
-    //update_parameters(self)
+  update_parameters(delta){
     if(this.time_preparing == 0){
       if(this.time_dashing == 0){
-        this.time_since_last_dash += delta;
-        if(this.time_since_last_dash > this.time_between_dashes){
+        if(this.time_since_last_dash < this.time_between_dashes)
+          this.time_since_last_dash += delta;
+	else {
           this.time_since_last_dash = 0;
           this.time_preparing += delta;
           this.speed = this.prepare_speed;
@@ -3331,6 +3321,9 @@ class DasherSwitchEnemy extends Enemy{
       }
       this.compute_speed();
     }
+  }
+  update(delta){
+    this.update_parameters(delta);
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
       this.switchedHarmless = this.disabled = !this.disabled;
@@ -3346,25 +3339,35 @@ class DasherSwitchEnemy extends Enemy{
 class ConfectionerSwitchEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"confectioner_switch_enemy",boundary);
-    this.release_inverval = 3000;
-	this.releaseTime=Math.random()*this.release_interval;
-    this.switch_inverval = 3e3;
-	this.switchTime=0;
+    this.reset_parameters();
+    this.switch_inverval=3000;
+    this.switchTime=0;
     this.switchedHarmless=this.disabled=Math.round(Math.random());
     this.isHarmless=this.disabled;
   }
-  update(delta,area) {
-    if(this.releaseTime<=0){
+  reset_parameters(){
+    this.has_projectile=true;
+    this.release_interval = 3000,
+    this.releaseTime = Math.random()*this.release_interval;
+    this.release_ready=false;
+  }
+  generate_entities(delta,area){
+    if(!this.release_ready){
+      this.releaseTime -= delta;
+      if(this.releaseTime<=0)this.release_ready=true;
+    }else{
       area.entities.push(new SourCandyItem(this.x,this.y,13,0,0,this.boundary))
       this.releaseTime = this.release_interval;
-    }else{
-      this.releaseTime -= delta;
+      this.release_ready=false;
     }
+  }
+  update(delta,area){
+    this.generate_entities(delta,area);
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
       this.switchedHarmless = this.disabled = !this.disabled;
       this.isHarmless = this.disabled;
-	  this.switchTime += this.switch_inverval;
+      this.switchTime += this.switch_inverval;
     }
     super.update(delta);
   }
@@ -3372,26 +3375,26 @@ class ConfectionerSwitchEnemy extends Enemy{
 class ConfectionerEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"confectioner_enemy",boundary);
-	this.reset_parameters();
+    this.reset_parameters();
   }
   reset_parameters(){
-	this.has_projectile=true;
-	this.release_interval = 3000,
+    this.has_projectile=true;
+    this.release_interval = 3000,
     this.releaseTime = Math.random()*this.release_interval;
-	this.release_ready=false;
+    this.release_ready=false;
   }
   generate_entities(delta,area){
     if(!this.release_ready){
-		this.releaseTime -= delta;
-		if(this.releaseTime<=0)this.release_ready=true;
-	}else{
+      this.releaseTime -= delta;
+      if(this.releaseTime<=0)this.release_ready=true;
+    }else{
       area.entities.push(new SourCandyItem(this.x,this.y,13,0,0,this.boundary))
       this.releaseTime = this.release_interval;
-	  this.release_ready=false;
-	}
+      this.release_ready=false;
+    }
   }
   update(delta,area){
-	this.generate_entities(delta,area);
+    this.generate_entities(delta,area);
     super.update(delta);
   }
 }
@@ -4040,7 +4043,6 @@ class ChargingEnemy extends Enemy{
 class HomingEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,reverse,home_range,increment,boundary){
     super(x,y,radius,speed,angle,"homing_enemy",boundary);
-    this.target_angle=this.angle;
     this.reverse=reverse;
 	this.speed=Math.abs(this.speed);
 	this.anglevel();
@@ -4111,7 +4113,6 @@ class DasherEnemy extends Enemy{
     this.reset_parameters();
   }
   reset_parameters(){
-    //reset_parameters(self)
     this.prepare_speed = this.speed / 5;
     this.dash_speed = this.speed;
     this.normal_speed = 0;
@@ -4128,12 +4129,12 @@ class DasherEnemy extends Enemy{
   compute_speed(){
     this.anglevel();
   }
-  update(delta){
-    //update_parameters(self)
+  update_parameters(delta){
     if(this.time_preparing == 0){
       if(this.time_dashing == 0){
-        this.time_since_last_dash += delta;
-        if(this.time_since_last_dash > this.time_between_dashes){
+        if(this.time_since_last_dash < this.time_between_dashes)
+          this.time_since_last_dash += delta;
+	else {
           this.time_since_last_dash = 0;
           this.time_preparing += delta;
           this.speed = this.prepare_speed;
@@ -4160,6 +4161,9 @@ class DasherEnemy extends Enemy{
       }
       this.compute_speed();
     }
+  }
+  update(delta){
+    this.update_parameters(delta);
     super.update(delta);
   }
   onCollide(){
@@ -6386,7 +6390,6 @@ class LungingEnemy extends Enemy{
     this.base_speed = speed;
     this.reset_parameters();
 	this.color_change=0;
-	this.target_angle=this.angle;
   }
   reset_parameters(){
     this.lunge_speed = this.base_speed;
@@ -7719,7 +7722,6 @@ class CybotEnemy extends Enemy{//Crashes when 3rd phase started
 		this.release_time=this.release_interval;
 		this.enemy_spawn_limit=50;
 		this.enemy_spawns=0;
-		this.target_angle=0;
 		this.movement_immune=true;
 		this.losing_health=false;
 		this.hard_mode=hard_mode;
