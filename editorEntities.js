@@ -1380,13 +1380,13 @@ this.isGuest=!1;
 		this.slowing??=[false];
 		this.draining??=[false];
 		if (this.slowing[0]) {
-			this.speedMultiplier *= (1-this.effectImmune*this.slowing[1])*this.effectReplayer;
+			this.speedMultiplier *= 1-this.slowing[1]*this.effectImmune;
 		}
 		if (this.draining[0]) {
-			this.energyRate -= this.draining[1]*this.effectImmune*this.effectReplayer;
+			this.energyRate -= this.draining[1]*this.effectImmune;
 		}
 		if (this.lava) {
-			this.energyRate += 15;
+			this.energyRate+=15*this.effectImmune;
 			if(this.energy>=this.maxEnergy){
 				death(this);
 				this.energy=0;
@@ -1403,17 +1403,9 @@ this.isGuest=!1;
 				this.nextLevelExperience=Number(this.nextLevelExperience.toFixed(5));
 			}
 		}
-		if(this.enlarging)this.radiusAdditioner+=10;
-		if(this.toxic){
-			this.energy=Math.min(this.energy,this.maxEnergy*0.7);
-		}
-		if(this.freezing){
-			this.speedMultiplier*=(1-this.effectImmune*(1-0.2))*this.effectReplayer;
-		}
-		if(this.className=="Brute"){
-			if(this.energy>=this.maxEnergy)this.effectImmune = 0;
-			else this.effectImmune=0.2;
-		}
+		if(this.enlarging)this.radiusAdditioner+=10*this.effectImmune;
+		if(this.toxic)this.energy=Math.min(this.energy,this.maxEnergy*0.7);
+		if(this.freezing)this.speedMultiplier*=(1-0.2*this.effectImmune);
 		if(this.shadowed_time_left>0)this.shadowed_time_left-=delta;
 		else{
 			this.knockback_limit_count = 0;
@@ -1457,8 +1449,6 @@ this.isGuest=!1;
 		this.radius*=this.radiusMultiplier;
 		this.radiusMultiplier=1;
 		this.radiusAdditioner=0;
-		this.wasIced=this.isIced;
-		this.wasSnowballed=this.isSnowballed;
 		if(this.isIced)this.icedTimeLeft-=delta;
 		if(this.icedTimeLeft<=0){
 			this.isIced=false;
@@ -1475,13 +1465,13 @@ this.isGuest=!1;
 			this.leadTime=0;
 		}
 		if(this.speedghost){
-			this.speed-=(0.1*this.effectImmune)/this.effectReplayer*delta/1e3;
-			this.statSpeed-=(0.1*this.effectImmune)/this.effectReplayer*delta/1e3;
+			this.speed-=3*this.effectImmune*delta/1e3;
+			this.statSpeed-=3*this.effectImmune*delta/1e3;
 			if(this.speed<150)this.speed=150;
 			if(this.statSpeed<150)this.statSpeed=150;
 		}
 		if(this.regenghost){
-			this.energyRegen-=(1.2*this.effectImmune)/this.effectReplayer*delta/1e3;
+			this.energyRegen-=1.2*this.effectImmune*delta/1e3;
 			if(this.energyRegen<1)this.energyRegen=1;
 		}
 		if (this.inEnemyBarrier)this.inBarrier=true;
@@ -1490,9 +1480,9 @@ this.isGuest=!1;
 			this.radiusMultiplier*=1-this.reducingTime/2e3;
 		}
 		if (this.reducingTime>0&&this.reducing){
-			this.reducingTime+=delta;
+			this.reducingTime+=delta*this.effectImmune;
 			if(this.reducingTime>2e3){
-				this.reducingTime=2e3;
+				this.reducingTime=0;
 				death(this);
 			}
 			this.radiusMultiplier*=1-this.reducingTime/2e3;
@@ -1512,6 +1502,11 @@ this.isGuest=!1;
 		}
 		if(this.cybotEffect3)
 			this.deathTimerTotalMultiplier=5/6*this.effectImmune;
+		if(evadesRenderer.heroInfoCard){
+			evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling||this.isSnowballed;
+			evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling||this.isSnowballed;
+			evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling||this.isSnowballed;
+		}
 		this.canGainEnergy=!this.isStone;
 		this.invulnerable=this.harden+this.isStone;
 		this.canGainEnergy && (this.energy+=this.energyRate*delta/1e3);
@@ -1543,11 +1538,6 @@ this.isGuest=!1;
 		this.distance_moved_previously=[this.d_x,this.d_y]
 		this.velX=this.d_x;
 		this.velY=this.d_y;
-		if(evadesRenderer.heroInfoCard){
-			evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling||this.isSnowballed;
-			evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling||this.isSnowballed;
-			evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling||this.isSnowballed;
-		}
 		if(!this.blocking){
 			this.slowing=[false];
 			this.freezing=false;
@@ -5455,7 +5445,7 @@ class IceSniperProjectile extends Enemy{
   }
   playerInteraction(player){
 	  player.isIced=true;
-	  player.icedTimeLeft=1000;
+	  player.icedTimeLeft=1000*player.effectImmune;
   }
   onCollide(){
     this.remove=true;
@@ -5518,7 +5508,7 @@ class PoisonSniperProjectile extends Enemy{
   }
   playerInteraction(player){
     player.isPoisoned=true;
-    player.poisonedTimeLeft=1000;
+    player.poisonedTimeLeft=1000*player.effectImmune;
   }
   onCollide(){
     this.remove=true;
@@ -5584,8 +5574,8 @@ class SpeedSniperProjectile extends Enemy{
 	playerInteraction(player){
 		if(!player.isDowned()){
 			this.remove=true;
-			player.speed-=this.speed_loss;
-			player.statSpeed-=this.speed_loss;
+			player.speed-=this.speed_loss*player.effectImmune;
+			player.statSpeed-=this.speed_loss*player.effectImmune;
 			player.speed=Math.max(150,player.speed);
 			player.statSpeed=Math.max(150,player.statSpeed);
 		}
@@ -5652,7 +5642,7 @@ class LeadSniperProjectile extends Enemy{
   playerInteraction(player){
     this.remove=true;
     player.isLead=true;
-	player.leadTime=3500;
+    player.leadTime=3500*player.effectImmune;
   }
   onCollide(){
     this.remove=true;
@@ -5718,7 +5708,7 @@ class RegenSniperProjectile extends Enemy{
 	playerInteraction(player){
 		if(!player.isDowned()){
 			this.remove=true;
-			player.energyRegen-=this.regen_loss;
+			player.energyRegen-=this.regen_loss*player.effectImmune;
 			player.energyRegen=Math.max(1,player.energyRegen);
 		}
 	}

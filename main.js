@@ -77,12 +77,8 @@ canvas.addEventListener("wheel", e => {
 const mousePos={x:0,y:0,ex:0,ey:0}
 let mouseEntity={x:mousePos.x + camX,y:mousePos.y + camY}
 canvas.addEventListener("mousemove", e => {
-  const t = canvas.getBoundingClientRect();
-  const mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
-  mousePos.x=(e.offsetX - canvas.width / 2) / camScale;
-  mousePos.y=(e.offsetY - canvas.height / 2) / camScale;
-  mousePos.ex=mouse_position.x;
-  mousePos.ey=mouse_position.y;
+  mousePos.x=(e.offsetX - canvas.width / 2) / camScale+camX;
+  mousePos.y=(e.offsetY - canvas.height / 2) / camScale+camY;
 });
 var isMouse=false;
 canvas.addEventListener("mousedown", e => {
