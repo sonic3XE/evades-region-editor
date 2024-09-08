@@ -2725,7 +2725,7 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
 			enemy.HarmlessTime=2000;
 			harmless=true;
 		}
-		if(enemy.texture=="entities/pumpkin_off"||enemy.radius==0||harmless||enemy.shatterTime>0||player.godmode){
+		if(enemy.texture=="entities/pumpkin_off"||enemy.radius==0||harmless||enemy.shatterTime>0||player.godmode||player.admin){
 			dead=false;
 		}
 		if(dead&&!corrosive){
