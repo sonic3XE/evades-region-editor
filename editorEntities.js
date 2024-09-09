@@ -1213,6 +1213,7 @@ this.isGuest=!1;
 			var s=map.areas[this.area].properties[e] ?? (map.properties[e] ?? defaultValues.properties[e]);
 			return s;
 		}
+		checkAreaProperties=checkAreaProperties.bind(this);
 		this.update_knockback(delta);
 		let timeFix=delta/(1e3/30);
 		var cent=this.isCent;
