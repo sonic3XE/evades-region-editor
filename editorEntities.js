@@ -1233,6 +1233,12 @@ this.isGuest=!1;
             }
         }
         (this.dirY||this.dirX)&&(this.inputAngle=this.input_angle = Math.atan2(this.dirY,this.dirX));
+		if(!cent){
+			this.cent_is_moving=false;
+			this.cent_accelerating=false;
+			this.cent_input_ready=true;
+			this.cent_distance=0;
+		}
         if(cent && this.cent_input_ready){
           this.cent_saved_angle = this.input_angle;
           this.cent_input_ready = false;
