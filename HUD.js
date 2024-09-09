@@ -1486,6 +1486,8 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		return `${Math.floor(this.energy)} / ${this.maxEnergy}`
 	}
 	renderStat(e, t, n, r, i, a, o, s=!1, l=!1, c=!1) {
+		e.fillStyle="#FFFF0020"
+		e.fillRect(i,a+10*camScale,82*camScale,40*camScale)
 		if (o.x = i,
 		o.y = a + 10*camScale,
 		o.width = 82*camScale,
