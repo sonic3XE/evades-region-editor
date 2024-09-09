@@ -6142,7 +6142,7 @@ class ForceSniperAProjectile extends Enemy{
 	  if(this.touchedPlayers.indexOf(player)==-1){
 		  this.touchedPlayers.push(player);
 		  player.firstAbilityActivated=!player.firstAbilityActivated;
-		  player.handleAbility(player.abilityOne,1,delta,{ab2:player.abilityTwo,ab3:player.abilityThree},true);
+		  player.handleAbility(player.abilityOne,1,delta,[player.abilityTwo,player.abilityThree],true);
 	  }
   }
   onCollide(){
@@ -6209,7 +6209,7 @@ class ForceSniperBProjectile extends Enemy{
 	  if(this.touchedPlayers.indexOf(player)==-1){
 		  this.touchedPlayers.push(player);
 		  player.secondAbilityActivated=!player.secondAbilityActivated;
-		  player.handleAbility(player.abilityTwo,2,delta,{ab1:player.abilityOne,ab3:player.abilityThree},true);
+		  player.handleAbility(player.abilityTwo,2,delta,[player.abilityOne,player.abilityThree],true);
 	  }
   }
   onCollide(){
