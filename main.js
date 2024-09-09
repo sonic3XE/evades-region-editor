@@ -447,11 +447,9 @@ document.addEventListener("keydown", e => {
 		selfPlayer=new Player(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random());
 		global.selfId=selfPlayer.id;
 		map.players.push(selfPlayer);
-		evadesRenderer.heroInfoCard.abilityOne=new $097def8f8d652b17$export$2e2bcd8739ae039;
-		evadesRenderer.heroInfoCard.abilityTwo=new $097def8f8d652b17$export$2e2bcd8739ae039;
-		evadesRenderer.heroInfoCard.abilityOne.afterStateUpdate(abilityConfig[selfPlayer.abilityOne.abilityType]);
-		evadesRenderer.heroInfoCard.abilityTwo.afterStateUpdate(abilityConfig[selfPlayer.abilityTwo.abilityType]);
-		selfPlayer.abilityThree&&evadesRenderer.heroInfoCard.abilityThree.afterStateUpdate(abilityConfig[selfPlayer.abilityThree.abilityType]);
+		selfPlayer.abilityOne.afterStateUpdate(abilityConfig[selfPlayer.abilityOne.abilityType]);
+		selfPlayer.abilityTwo.afterStateUpdate(abilityConfig[selfPlayer.abilityTwo.abilityType]);
+		selfPlayer.abilityThree&&selfPlayer.abilityThree.afterStateUpdate(abilityConfig[selfPlayer.abilityThree.abilityType]);
 		spawnEntities(selfPlayer.area);
 	}else{
 		let selfPlayer=map.players.filter(e=>e.id==selfId)[0];
@@ -489,13 +487,13 @@ document.addEventListener("keydown", e => {
 		plr.energyRegen=7;
 		plr.level=100;
 		plr.experience=plr.nextLevelExperience;
-		evadesRenderer.heroInfoCard.abilityOne.locked=false;
-		evadesRenderer.heroInfoCard.abilityOne.level=evadesRenderer.heroInfoCard.abilityOne.maxLevel;
-		evadesRenderer.heroInfoCard.abilityTwo.locked=false;
-		evadesRenderer.heroInfoCard.abilityTwo.level=evadesRenderer.heroInfoCard.abilityTwo.maxLevel;
+		plr.abilityOne.locked=false;
+		plr.abilityOne.level=plr.abilityOne.maxLevel;
+		plr.abilityTwo.locked=false;
+		plr.abilityTwo.level=plr.abilityTwo.maxLevel;
 		if(plr.abilityThree){
-			evadesRenderer.heroInfoCard.abilityThree.locked=false;
-			evadesRenderer.heroInfoCard.abilityThree.level=evadesRenderer.heroInfoCard.abilityThree.maxLevel;
+			plr.abilityThree.locked=false;
+			plr.abilityThree.level=plr.abilityThree.maxLevel;
 		}
 	}
 	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.Y){//Toggle Cooldown (Command: /cd, /cooldown)
@@ -515,13 +513,13 @@ document.addEventListener("keydown", e => {
 		plr.experience=plr.nextLevelExperience;
 		plr.energyRegen=500;
 		plr.noCooldown=true;
-		evadesRenderer.heroInfoCard.abilityOne.locked=false;
-		evadesRenderer.heroInfoCard.abilityOne.level=evadesRenderer.heroInfoCard.abilityOne.maxLevel;
-		evadesRenderer.heroInfoCard.abilityTwo.locked=false;
-		evadesRenderer.heroInfoCard.abilityTwo.level=evadesRenderer.heroInfoCard.abilityTwo.maxLevel;
+		plr.abilityOne.locked=false;
+		plr.abilityOne.level=plr.abilityOne.maxLevel;
+		plr.abilityTwo.locked=false;
+		plr.abilityTwo.level=plr.abilityTwo.maxLevel;
 		if(plr.abilityThree){
-			evadesRenderer.heroInfoCard.abilityThree.locked=false;
-			evadesRenderer.heroInfoCard.abilityThree.level=evadesRenderer.heroInfoCard.abilityThree.maxLevel;
+			plr.abilityThree.locked=false;
+			plr.abilityThree.level=plr.abilityThree.maxLevel;
 		}
     }else if(e.which === controls.PLAYTEST - 2&&location.search=="?isDev"){//Godmode (Command: /g)
   	  e.preventDefault();

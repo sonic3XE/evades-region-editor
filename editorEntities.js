@@ -380,8 +380,10 @@ this.snowballedTime=2500;
 this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
-this.abilityOne={abilityType:this.heroType*2};
-this.abilityTwo={abilityType:this.heroType*2+1};
+this.abilityOne = new Ability;
+this.abilityTwo = new Ability;
+this.abilityOne.abilityType=this.heroType*2;
+this.abilityTwo.abilityType=this.heroType*2+1;
 //this.abilityThree={abilityType:97};
 this.abilityIndex=0;
 this.cachedAbilities=[];
@@ -547,16 +549,14 @@ this.isGuest=!1;
 		for(var ability of abilities){
 			if(!ability)continue;
 			var Ability=abilityConfig[ability.abilityType];
-			if(ability.abilityType==3){
+			if(ability.abilityType==3)
 				this.effects.filter(e=>e.effectType==2).map(e=>{
 					e.radius=prop("radius");
 				});
-			}
-			if(ability.abilityType==98){
+			if(ability.abilityType==98)
 				this.effects.filter(e=>e.effectType==66).map(e=>{
 					!this.isDowned()&&(e.inputAngle=this.lastAngle/180*Math.PI);
 				});
-			}
 		}
 	}
   assetCollision(){
@@ -692,7 +692,7 @@ this.isGuest=!1;
 				this.abilityOne.abilityType=this.availableAbilities[this.abilityIndex];
 				this.abilityTwo.abilityType=this.availableAbilities[this.abilityIndex+1];
 				evadesRenderer.heroInfoCard.abilityOne=this.cachedAbilities[this.abilityIndex];
-				evadesRenderer.heroInfoCard.abilityTwo=this.cachedAbilities[this.abilityIndex+1] ?? new $097def8f8d652b17$export$2e2bcd8739ae039;
+				evadesRenderer.heroInfoCard.abilityTwo=this.cachedAbilities[this.abilityIndex+1] ?? new Ability;
 				if(!this.cachedAbilities[this.abilityIndex+1])evadesRenderer.heroInfoCard.abilityTwo.unionState(this.abilityTwo);
 				abilityActive=false;
 				switch(kind){
@@ -708,6 +708,18 @@ this.isGuest=!1;
 				this.speedMultiplier*=abilityLevels[ability.level-1].slow??1;
 				this.speedAdditioner+=abilityLevels[ability.level-1].boost??0;
 				!this.effects.filter(e=>e.effectType==0).length&&this.effects.push({effectType:0});
+				if(this.effects.filter(e=>e.effectType==1).length){
+					this.harden=false;
+					this.effects.filter(e=>e.effectType==1).map(e=>e.removed=true);
+					others.map(e=>{
+						if(!e)return;
+						if(e.abilityType==1)
+							e.cooldown=e.totalCooldown;
+					})
+					if(kind!=1&&this.abilityOne.abilityType==1)this.firstAbilityActivated=false;
+					if(kind!=2&&this.abilityTwo.abilityType==1)this.secondAbilityActivated=false;
+					if(kind!=3&&this.abilityThree&&this.abilityThree.abilityType==1)this.thirdAbilityActivated=false;
+				}
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
 				abilityActive=false;
@@ -718,7 +730,7 @@ this.isGuest=!1;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
-			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
+			if(!abilityActive&&finalTrigger){
 				this.effects.filter(e=>e.effectType==0).map(e=>e.removed=true);
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
@@ -729,6 +741,17 @@ this.isGuest=!1;
 				this.harden=true;
 				this.d_x=this.d_y=0;
 				!this.effects.filter(e=>e.effectType==1).length&&this.effects.push({effectType:1});
+				if(this.effects.filter(e=>e.effectType==0).length){
+					this.effects.filter(e=>e.effectType==0).map(e=>e.removed=true);
+					others.map(e=>{
+						if(!e)return;
+						if(e.abilityType==0)
+							e.cooldown=e.totalCooldown;
+					});
+					if(kind!=1&&this.abilityOne.abilityType==0)this.firstAbilityActivated=false;
+					if(kind!=2&&this.abilityTwo.abilityType==0)this.secondAbilityActivated=false;
+					if(kind!=3&&this.abilityThree&&this.abilityThree.abilityType==0)this.thirdAbilityActivated=false;
+				}
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
 				abilityActive=false;
@@ -739,7 +762,7 @@ this.isGuest=!1;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
-			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
+			if(!abilityActive&&finalTrigger){
 				this.harden=false;
 				this.effects.filter(e=>e.effectType==1).map(e=>e.removed=true);
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
@@ -978,10 +1001,9 @@ this.isGuest=!1;
         this.thirdAbilityPressed = false;
       }
 	  var activ=[0,0,0];
-	  if(evadesRenderer.heroInfoCard){
-	  var ab1=evadesRenderer.heroInfoCard.abilityOne;
-	  var ab2=evadesRenderer.heroInfoCard.abilityTwo;
-	  var ab3=evadesRenderer.heroInfoCard.abilityThree;
+	  var ab1=this.abilityOne;
+	  var ab2=this.abilityTwo;
+	  var ab3=this.abilityThree;
 	if(this.firstAbility&&ab1.cooldown==0){
 		this.firstAbilityActivated = !this.firstAbilityActivated;
 		activ[0]=this.firstAbilityActivated;
@@ -995,87 +1017,15 @@ this.isGuest=!1;
 		activ[2]=this.thirdAbilityActivated;
 	}
 	
-	  var flow=false;
-	  var harden=false;
 	  var forceOff=[0,0,0];
 	  if(this.deathTimer!=-1){
 		  this.abilityOne.abilityType!=18&&(this.firstAbilityActivated=false);
 		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
 		  this.abilityThree?.abilityType!=18&&(this.thirdAbilityActivated=false);
 	  }
-	if(this.firstAbilityActivated&&ab1.abilityType==0||this.secondAbilityActivated&&ab2.abilityType==0||this.thirdAbilityActivated&&ab3.abilityType==0)flow=true;
-	if(this.firstAbilityActivated&&ab1.abilityType==1||this.secondAbilityActivated&&ab2.abilityType==1||this.thirdAbilityActivated&&ab3.abilityType==1)harden=true;
-	if(flow&&this.firstAbility&&ab1.abilityType==0){
-		harden=false;
-		if(ab2.abilityType==1&&this.secondAbilityActivated){
-			this.secondAbilityActivated=false;
-			forceOff[1]=1;
-		}
-		if(ab3.abilityType==1&&this.thirdAbilityActivated){
-			this.thirdAbilityActivated=false;
-			forceOff[2]=1;
-		}
-	}
-	if(flow&&this.secondAbility&&ab2.abilityType==0){
-		harden=false;
-		if(ab1.abilityType==1&&this.firstAbilityActivated){
-			this.firstAbilityActivated=false;
-			forceOff[0]=1;
-		}
-		if(ab3.abilityType==1&&this.thirdAbilityActivated){
-			this.thirdAbilityActivated=false;
-			forceOff[2]=1;
-		}
-	}
-	if(flow&&this.thirdAbility&&ab3.abilityType==0){
-		harden=false;
-		if(ab1.abilityType==1&&this.firstAbilityActivated){
-			this.firstAbilityActivated=false;
-			forceOff[1]=1;
-		}
-		if(ab2.abilityType==1&&this.secondAbilityActivated){
-			this.secondAbilityActivated=false;
-			forceOff[2]=1;
-		}
-	}
-	if(harden&&this.firstAbility&&ab1.abilityType==1){
-		flow=false;
-		if(ab2.abilityType==0&&this.secondAbilityActivated){
-			this.secondAbilityActivated=false;
-			forceOff[1]=1;
-		}
-		if(ab3.abilityType==0&&this.thirdAbilityActivated){
-			this.thirdAbilityActivated=false;
-			forceOff[2]=1;
-		}
-	}
-	if(harden&&this.secondAbility&&ab2.abilityType==1){
-		flow=false;
-		if(ab1.abilityType==0&&this.firstAbilityActivated){
-			this.firstAbilityActivated=false;
-			forceOff[0]=1;
-		}
-		if(ab3.abilityType==0&&this.thirdAbilityActivated){
-			this.thirdAbilityActivated=false;
-			forceOff[2]=1;
-		}
-	}
-	if(harden&&this.thirdAbility&&ab3.abilityType==1){
-		flow=false;
-		if(ab1.abilityType==0&&this.firstAbilityActivated){
-			this.firstAbilityActivated=false;
-			forceOff[1]=1;
-		}
-		if(ab2.abilityType==0&&this.secondAbilityActivated){
-			this.secondAbilityActivated=false;
-			forceOff[2]=1;
-		}
-	}
-	this.handleAbility(ab1,1,delta,{ab2,ab3},forceOff[0]||this.firstAbility);
-	this.handleAbility(ab2,2,delta,{ab1,ab3},forceOff[1]||this.secondAbility);
-	this.handleAbility(ab3,3,delta,{ab1,ab2},forceOff[2]||this.thirdAbility);
-	this.forcefirst=false;
-	  this.forcesecond=false;};
+	this.handleAbility(ab1,1,delta,[ab2,ab3],this.firstAbility);
+	this.handleAbility(ab2,2,delta,[ab1,ab3],this.secondAbility);
+	ab3&&this.handleAbility(ab3,3,delta,[ab1,ab2],this.thirdAbility);
       if (!this.prevSlippery||this.collides||(this.d_x == 0 && this.d_y == 0)) {
         if (this.slippery&&!this.prevSlippery) {
           if (!this.isMovementKeyPressed(input)) {
@@ -1105,23 +1055,23 @@ this.isGuest=!1;
           }
         }
         if (input.keys.has(controls.UPGRADE_ABILITY_ONE[0])||input.keys.has(controls.UPGRADE_ABILITY_ONE[1])) {
-          if (evadesRenderer.heroInfoCard.abilityOne.level < evadesRenderer.heroInfoCard.abilityOne.maxLevel && this.upgradePoints > 0) {
-			evadesRenderer.heroInfoCard.abilityOne.level++;
-			evadesRenderer.heroInfoCard.abilityOne.locked=evadesRenderer.heroInfoCard.abilityOne.level==0;
+          if (this.abilityOne.level < this.abilityOne.maxLevel && this.upgradePoints > 0) {
+			this.abilityOne.level++;
+			this.abilityOne.locked=this.abilityOne.level==0;
             this.upgradePoints--;
           }
         }
         if (input.keys.has(controls.UPGRADE_ABILITY_TWO[0])||input.keys.has(controls.UPGRADE_ABILITY_TWO[1])) {
-          if (evadesRenderer.heroInfoCard.abilityTwo.level < evadesRenderer.heroInfoCard.abilityTwo.maxLevel && this.upgradePoints > 0) {
-			evadesRenderer.heroInfoCard.abilityTwo.level++;
-			evadesRenderer.heroInfoCard.abilityTwo.locked=evadesRenderer.heroInfoCard.abilityTwo.level==0;
+          if (this.abilityTwo.level < this.abilityTwo.maxLevel && this.upgradePoints > 0) {
+			this.abilityTwo.level++;
+			this.abilityTwo.locked=this.abilityTwo.level==0;
             this.upgradePoints--;
           }
         }
         if (input.keys.has(controls.UPGRADE_ABILITY_THREE[0])||input.keys.has(controls.UPGRADE_ABILITY_THREE[1])) {
-          if (evadesRenderer.heroInfoCard.abilityThree && evadesRenderer.heroInfoCard.abilityThree.level < evadesRenderer.heroInfoCard.abilityThree.maxLevel && this.upgradePoints > 0) {
-			evadesRenderer.heroInfoCard.abilityThree.level++;
-			evadesRenderer.heroInfoCard.abilityThree.locked=evadesRenderer.heroInfoCard.abilityThree.level==0;
+          if (this.abilityThree && this.abilityThree.level < this.abilityThree.maxLevel && this.upgradePoints > 0) {
+			this.abilityThree.level++;
+			this.abilityThree.locked=this.abilityThree.level==0;
             this.upgradePoints--;
           }
         }
@@ -1279,29 +1229,27 @@ this.isGuest=!1;
 		this.chronoPos.push([this.x,this.y,this.deathTimer]);
 		this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
 		this.inBarrier = false;
-		if(evadesRenderer.heroInfoCard){
-			var ab1=evadesRenderer.heroInfoCard.abilityOne;
-			var ab2=evadesRenderer.heroInfoCard.abilityTwo;
-			var ab3=evadesRenderer.heroInfoCard.abilityThree;
-			if(ab1.cooldown!==void 0&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
-				ab1.cooldown-=delta/1e3;
-				ab1.cooldown=Math.max(ab1.cooldown,0);
-			}
-			if(ab2.cooldown!==void 0&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
-				ab2.cooldown-=delta/1e3;
-				ab2.cooldown=Math.max(ab2.cooldown,0);
-			}
-			if(ab3.cooldown!==void 0&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
-				ab3.cooldown-=delta/1e3;
-				ab3.cooldown=Math.max(ab3.cooldown,0);
-			}
-			if(this.noCooldown){
-				ab1.cooldown=0;
-				ab2.cooldown=0;
-				ab3.cooldown=0;
-			}
-			this.updateEffects([ab1,ab2,ab3]);
+		var ab1=this.abilityOne;
+		var ab2=this.abilityTwo;
+		var ab3=this.abilityThree;
+		if(ab1.cooldown!==void 0&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
+			ab1.cooldown-=delta/1e3;
+			ab1.cooldown=Math.max(ab1.cooldown,0);
 		}
+		if(ab2.cooldown!==void 0&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
+			ab2.cooldown-=delta/1e3;
+			ab2.cooldown=Math.max(ab2.cooldown,0);
+		}
+		if(ab3&&ab3.cooldown!==void 0&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
+			ab3.cooldown-=delta/1e3;
+			ab3.cooldown=Math.max(ab3.cooldown,0);
+		}
+		if(this.noCooldown){
+			ab1.cooldown=0;
+			ab2.cooldown=0;
+			ab3.cooldown=0;
+		}
+		this.updateEffects([ab1,ab2,ab3]);
 		let area=map.areas[this.area];
 		this.safeZone = true;
 		this.minimum_speed = 0;
@@ -1343,11 +1291,11 @@ this.isGuest=!1;
 			if(this.abilityThree?.abilityType!=99){
 				this.abilityThree={};
 				this.abilityThree.abilityType=99;
-				evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
-				evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[this.abilityThree.abilityType]);
-				evadesRenderer.heroInfoCard.abilityThree.locked=false;
-				evadesRenderer.heroInfoCard.abilityThree.level=1;
-				evadesRenderer.heroInfoCard.abilityThree.abilityType=this.abilityThree.abilityType;
+				this.abilityThree=new Ability;
+				this.abilityThree.unionState(abilityConfig[this.abilityThree.abilityType]);
+				this.abilityThree.locked=false;
+				this.abilityThree.level=1;
+				this.abilityThree.abilityType=this.abilityThree.abilityType;
 				this.isSpawned=false;
 			}
 		}
@@ -1502,11 +1450,9 @@ this.isGuest=!1;
 		}
 		if(this.cybotEffect3)
 			this.deathTimerTotalMultiplier=5/6*this.effectImmune;
-		if(evadesRenderer.heroInfoCard){
-			evadesRenderer.heroInfoCard.abilityOne.disabled=this.disabling||this.isSnowballed;
-			evadesRenderer.heroInfoCard.abilityTwo.disabled=this.disabling||this.isSnowballed;
-			evadesRenderer.heroInfoCard.abilityThree.disabled=this.disabling||this.isSnowballed;
-		}
+		this.abilityOne.disabled=this.disabling||this.isSnowballed;
+		this.abilityTwo.disabled=this.disabling||this.isSnowballed;
+		this.abilityThree && (this.abilityThree.disabled=this.disabling||this.isSnowballed);
 		this.canGainEnergy=!this.isStone;
 		this.invulnerable=this.harden+this.isStone;
 		this.canGainEnergy && (this.energy+=this.energyRate*delta/1e3);
@@ -2936,14 +2882,13 @@ class FlashlightItem extends SimulatorEntity{
   }
 	playerInteraction(player){
 		if(!player.abilityThree&&this.isSpawned){
-			player.abilityThree={};
+			player.abilityThree=new Ability;
 			if(player.abilityThree.abilityType!=98){
 				player.abilityThree.abilityType=98;
-				evadesRenderer.heroInfoCard.abilityThree=new $097def8f8d652b17$export$2e2bcd8739ae039;
-				evadesRenderer.heroInfoCard.abilityThree.unionState(abilityConfig[player.abilityThree.abilityType]);
-				evadesRenderer.heroInfoCard.abilityThree.locked=false;
-				evadesRenderer.heroInfoCard.abilityThree.level=1;
-				evadesRenderer.heroInfoCard.abilityThree.abilityType=player.abilityThree.abilityType;
+				player.abilityThree.unionState(abilityConfig[player.abilityThree.abilityType]);
+				player.abilityThree.locked=false;
+				player.abilityThree.level=1;
+				player.abilityThree.abilityType=player.abilityThree.abilityType;
 				this.isSpawned=false;
 			}
 		}
@@ -5183,6 +5128,7 @@ class SniperProjectile extends Enemy{
     super(x,y,radius,speed,angle,"sniper_projectile",boundary);
     this.clock = 0;
     this.immune=true;
+	this.outline=false;
   }
   onCollide(){
     this.remove=true;
@@ -5382,6 +5328,7 @@ class PredictionSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"prediction_sniper_projectile",boundary);
     this.immune=true;
+	this.outline=false;
     this.clock = 0;
   }
   onCollide(){
@@ -5441,6 +5388,7 @@ class IceSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"ice_sniper_projectile",boundary);
     this.immune=true;
+	this.outline=false;
     this.clock = 0;
   }
   playerInteraction(player){
@@ -5505,6 +5453,7 @@ class PoisonSniperProjectile extends Enemy{
     super(x,y,radius,speed,angle,"poison_sniper_projectile",boundary);
     this.immune=true;
     this.clock = 0;
+		this.outline=false;
   }
   playerInteraction(player){
     player.isPoisoned=true;
@@ -5569,10 +5518,11 @@ class SpeedSniperProjectile extends Enemy{
     super(x,y,radius,speed,angle,"speed_sniper_projectile",boundary);
     this.speed_loss=speed_loss;
     this.immune=true;
+		this.outline=false;
     this.clock = 0;
   }
 	playerInteraction(player){
-		if(!player.isDowned()){
+		if(!player.isDowned()&&!player.invulnerable){
 			this.remove=true;
 			player.speed-=this.speed_loss*player.effectImmune;
 			player.statSpeed-=this.speed_loss*player.effectImmune;
@@ -5634,26 +5584,28 @@ class LeadSniperEnemy extends Enemy{
   }
 }
 class LeadSniperProjectile extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"lead_sniper_projectile",boundary);
-    this.immune=true;
-    this.clock = 0;
-  }
-  playerInteraction(player){
-    this.remove=true;
-    player.isLead=true;
-    player.leadTime=3500*player.effectImmune;
-  }
-  onCollide(){
-    this.remove=true;
-  }
-  update(delta) {
-    this.clock += delta;
-    if (this.clock >= 7000) {
-      this.remove=true;
-    }
-    super.update(delta);
-  }
+	constructor(x,y,radius,speed,angle,boundary){
+		super(x,y,radius,speed,angle,"lead_sniper_projectile",boundary);
+		this.immune=true;
+		this.outline=false;
+		this.clock=0;
+	}
+	playerInteraction(player){
+		if(!player.isDowned()&&!player.invulnerable){
+			this.remove=true;
+			player.isLead=true;
+			player.leadTime=3500*player.effectImmune;
+		}
+	}
+	onCollide(){
+		this.remove=true;
+	}
+	update(delta) {
+		this.clock+=delta;
+		if(this.clock>=7000)
+			this.remove=true;
+		super.update(delta);
+	}
 }
 class RegenSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,regen_loss,boundary){
@@ -5704,6 +5656,7 @@ class RegenSniperProjectile extends Enemy{
     this.regen_loss=regen_loss;
     this.immune=true;
     this.clock = 0;
+	this.outline=false;
   }
 	playerInteraction(player){
 		if(!player.isDowned()){
@@ -6023,6 +5976,7 @@ class PositiveMagneticSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"positive_magnetic_sniper_projectile",boundary);
     this.immune=true;
+	this.outline=false;
     this.clock = 0;
   }
   playerInteraction(player){
@@ -6102,6 +6056,7 @@ class NegativeMagneticSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"negative_magnetic_sniper_projectile",boundary);
     this.immune=true;
+	this.outline=false;
     this.clock = 0;
   }
   playerInteraction(player){
@@ -6180,12 +6135,14 @@ class ForceSniperAProjectile extends Enemy{
     super(x,y,radius,speed,angle,"force_sniper_a_projectile",boundary);
     this.immune=true;
     this.clock = 0;
+	this.outline=false;
 	this.touchedPlayers=[];
   }
-  playerInteraction(player){
+  playerInteraction(player,delta){
 	  if(this.touchedPlayers.indexOf(player)==-1){
 		  this.touchedPlayers.push(player);
-		  player.forcefirst=true;
+		  player.firstAbilityActivated=!player.firstAbilityActivated;
+		  player.handleAbility(player.abilityOne,1,delta,{ab2:player.abilityTwo,ab3:player.abilityThree},true);
 	  }
   }
   onCollide(){
@@ -6248,10 +6205,11 @@ class ForceSniperBProjectile extends Enemy{
     this.clock = 0;
 	this.touchedPlayers=[];
   }
-  playerInteraction(player){
+  playerInteraction(player,delta){
 	  if(this.touchedPlayers.indexOf(player)==-1){
 		  this.touchedPlayers.push(player);
-		  player.forcesecond=true;
+		  player.secondAbilityActivated=!player.secondAbilityActivated;
+		  player.handleAbility(player.abilityTwo,2,delta,{ab1:player.abilityOne,ab3:player.abilityThree},true);
 	  }
   }
   onCollide(){

@@ -914,7 +914,7 @@ class AreaInfo extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.hidden = !0
 	}
 }
-class $097def8f8d652b17$export$2e2bcd8739ae039 extends $0322546c98741e1e$export$2e2bcd8739ae039 {
+class Ability extends $0322546c98741e1e$export$2e2bcd8739ae039 {
 	stateFields() {
 		return ["abilityType", "name", "description", "energyCost", "totalCooldown", "cooldown", "locked", "level", "maxLevel", "disabled", "continuous", "energyDescription"]
 	}
@@ -1622,9 +1622,9 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		super(),
 		this.width = 516,
 		this.height = 85,
-		this.abilityOne = new $097def8f8d652b17$export$2e2bcd8739ae039,
-		this.abilityTwo = new $097def8f8d652b17$export$2e2bcd8739ae039,
-		this.abilityThree = new $097def8f8d652b17$export$2e2bcd8739ae039,
+		this.abilityOne = new Ability,
+		this.abilityTwo = new Ability,
+		this.abilityThree = new Ability,
 		this.upgradeBrightness = new $4e83b777e56fdf48$export$2e2bcd8739ae039(175,175,255,5,!0),
 		this.buttons = {
 			interactionIndicator: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
