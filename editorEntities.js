@@ -730,7 +730,7 @@ this.isGuest=!1;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
-			if(!abilityActive&&finalTrigger){
+			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
 				this.effects.filter(e=>e.effectType==0).map(e=>e.removed=true);
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
@@ -762,7 +762,7 @@ this.isGuest=!1;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
-			if(!abilityActive&&finalTrigger){
+			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
 				this.harden=false;
 				this.effects.filter(e=>e.effectType==1).map(e=>e.removed=true);
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
