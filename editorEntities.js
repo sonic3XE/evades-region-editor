@@ -725,8 +725,9 @@ this.isGuest=!1;
 		};break;
 		case 1:{/*Harden*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
-				this.speedMultiplier*=0;
+				this.speedMultiplier=0;
 				this.harden=true;
+				this.d_x=this.d_y=0;
 				!this.effects.filter(e=>e.effectType==1).length&&this.effects.push({effectType:1});
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
@@ -950,7 +951,7 @@ this.isGuest=!1;
 	controlActions(input,delta){
 	var cent=this.isCent;
 	if(this.isLead)cent=!cent;
-	
+	cent&&=!this.harden;
     if (input.keys) {
       this.firstAbility = false;
       this.secondAbility = false;
@@ -1215,7 +1216,7 @@ this.isGuest=!1;
               this.moving=true;
 			  this.movement_involved=true;
               input.isMouse = false;
-              this.cent_input_ready = false;
+              if(cent)this.cent_input_ready = false;
               this.cent_accelerating = true;
             }
             if (input.keys.has(controls.DOWN[0]) || input.keys.has(controls.DOWN[1])) {
@@ -1231,23 +1232,16 @@ this.isGuest=!1;
               this.dirX = 1;
             }
         }
-		if(!cent){
-			this.cent_is_moving=false;
-			this.cent_accelerating=false;
-			this.cent_input_ready=true;
-			this.cent_distance=0;
-		}
         (this.dirY||this.dirX)&&(this.inputAngle=this.input_angle = Math.atan2(this.dirY,this.dirX));
         if(cent && this.cent_input_ready){
           this.cent_saved_angle = this.input_angle;
           this.cent_input_ready = false;
           this.cent_is_moving = true;
         }
-        if(this.cent_distance){
+        if(cent && this.cent_distance){
           this.d_x = this.dirX * this.cent_distance;
           this.d_y = this.dirY * this.cent_distance;
-        }
-        else if(this.moving&&!input.isMouse&&!cent) {
+        }else if(this.moving&&!input.isMouse&&!cent) {
           this.d_x = this.distance_movement * this.dirX;
           this.d_y = this.distance_movement * this.dirY;
         }
@@ -1568,7 +1562,7 @@ this.isGuest=!1;
 		this.vertSpeed=-1;
 		this.magneticReduction=false;
 		this.magneticNullification=false;
-		if(!this.wasIced&&!this.wasSnowballed&&!this.isDowned()){
+		if(!this.isIced&&!this.isSnowballed&&!this.isDowned()){
 			this.x+=vel.x*delta/1e3;
 			this.y+=vel.y*delta/1e3;
 		}
