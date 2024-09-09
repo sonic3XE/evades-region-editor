@@ -1209,6 +1209,10 @@ this.isGuest=!1;
                   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
                 }
 	update(delta){
+		function checkAreaProperties(e){
+			var s=map.areas[this.area].properties[e] ?? (map.properties[e] ?? defaultValues.properties[e]);
+			return s;
+		}
 		this.update_knockback(delta);
 		let timeFix=delta/(1e3/30);
 		var cent=this.isCent;
@@ -1287,11 +1291,10 @@ this.isGuest=!1;
 				}
 			}
 		}
-		if(!this.abilityThree&&area.properties.applies_lantern){
-			if(this.abilityThree?.abilityType!=99){
-				this.abilityThree={};
+		if(!this.abilityThree&&checkAreaProperties("applies_lantern")){
+			this.abilityThree=new Ability;
+			if(this.abilityThree.abilityType!=99){
 				this.abilityThree.abilityType=99;
-				this.abilityThree=new Ability;
 				this.abilityThree.unionState(abilityConfig[this.abilityThree.abilityType]);
 				this.abilityThree.locked=false;
 				this.abilityThree.level=1;
@@ -1387,8 +1390,9 @@ this.isGuest=!1;
 		this.survivalTime+=delta/1e3;
 		this.radius = this.defaultRadius;
 		var velY=this.velY;
-		if((map.properties?.magnetism||map.properties?.partial_magnetism||map.areas[this.area].properties?.magnetism||map.areas[this.area].properties?.partial_magnetism)&&this.pointInActiveZone){
-			var isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism);
+		
+		if((checkAreaProperties("magnetism")||checkAreaProperties("partial_magnetism"))&&this.pointInActiveZone){
+			var isPartial=checkAreaProperties("partial_magnetism");
 			var magneticSpeed=(this.vertSpeed==-1)?((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)):this.vertSpeed;
 			if(this.magnetDirection.toLowerCase()=="down"){this.y+=(!(this.isIced||this.isSnowballed)&&!this.isDowned())*(magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
 			else if(this.magnetDirection.toLowerCase()=="up"){this.y+=(!(this.isIced||this.isSnowballed)&&!this.isDowned())*(-magneticSpeed+this.d_y*isPartial*(!this.magneticNullification&&!this.isDowned()))*delta/1e3}
@@ -1505,7 +1509,7 @@ this.isGuest=!1;
 		}
 		this.blocking=false;
 		this.tempColor=this.color;
-		var vel,isMagnet=Boolean(map.properties?.magnetism)||Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism),isPartial=Boolean(map.properties?.partial_magnetism)||Boolean(map.areas[this.area].properties?.partial_magnetism),magneticSpeed=(this.vertSpeed==-1)?((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)):this.vertSpeed;
+		var vel,isMagnet=checkAreaProperties("partial_magnetism")||checkAreaProperties("magnetism"),isPartial=checkAreaProperties("partial_magnetism"),magneticSpeed=(this.vertSpeed==-1)?((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)):this.vertSpeed;
 		var yaxis=(this.velY>=0)?1:-1;
 		if(!isMagnet)magneticSpeed*=yaxis;
 		if(this.magnetDirection.toLowerCase()=="up"){magneticSpeed=-magneticSpeed}
