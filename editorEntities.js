@@ -283,6 +283,7 @@ function spawnEntities(area=current_Area){
 					case "lost_soul":
 					*/entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
 				};entity.collision();areaC.entities.push(entity);
+				entity.immune||=checkAreaProperties("all_enemies_immune");
 			}
 		}
 	}
