@@ -1459,7 +1459,7 @@ this.isGuest=!1;
 		this.abilityTwo.disabled=this.disabling||this.isSnowballed;
 		this.abilityThree && (this.abilityThree.disabled=this.disabling||this.isSnowballed);
 		this.canGainEnergy=!this.isStone;
-		this.invulnerable=this.harden+this.isStone;
+		this.invulnerable=this.harden+this.isStone+this.inBarrier;
 		this.canGainEnergy && (this.energy+=this.energyRate*delta/1e3);
 		this.energyRate=this.energyRegen+this.regenAdditioner;
 		if(this.energy>this.maxEnergy)this.energy=this.maxEnergy;
@@ -2657,12 +2657,12 @@ function speedparts(direction,speed){
   return {x,y}
 }
 //BASE ENEMY
-class Enemy extends SimulatorEntity{constructor(x,y,radius,speed,angle,type,boundary){super(x,y,getEntityColor(type),radius,type,speed,angle,boundary);this.isEnemy=true;this.renderFirst=false;this.outline=true;this.timer_reduction=1}playerInteraction(player,delta){EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier)}update(delta,area,collide){super.update(delta,area,collide)}};
+class Enemy extends SimulatorEntity{constructor(x,y,radius,speed,angle,type,boundary){super(x,y,getEntityColor(type),radius,type,speed,angle,boundary);this.isEnemy=true;this.renderFirst=false;this.outline=true;this.timer_reduction=1}playerInteraction(player,delta){EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune)}update(delta,area,collide){super.update(delta,area,collide)}};
 
 function distance(a,b){
   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
 }
-function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier,ignores_safe_zone=true){
+function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,ignores_safe_zone=true){
 	var dead=true;
 	if(harmless===undefined){
 		harmless=enemy.isHarmless;
@@ -2687,7 +2687,7 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,inBarrier
 				setTimeout(()=>{player.isUnbandaging=player.invulnerable=false;},900)
 			}
 		}
-		if((((inBarrier&&player.inBarrier)||player.invulnerable)&&!corrosive)||harmless||enemy.radius<1){
+		if((player.invulnerable&&!corrosive)||harmless||enemy.radius<1){
 			dead=false;
 		}
 		if(player.deathTimer==-1&&dead){
@@ -3470,25 +3470,30 @@ class TreeEnemy extends Enemy{
   }
 }
 class LeafProjectile extends Enemy{
-  constructor(x,y,radius,speed,angle,boundary){
-    super(x,y,radius,speed,angle,"leaf_projectile",boundary);
-    this.immune=true;
-	this.clock=0;
-	this.dir=this.speed/150;
-  }
-  onCollide(){
-	  this.remove=true;
-  }
-  update(delta,area){
-	this.clock+=delta;
-    this.velangle();
-    this.angle += this.dir/30 * (delta/30);
-    this.anglevel();
-    if(this.clock>1700){
-      this.remove = true;
-    }
-	super.update(delta,area);
-  }
+	constructor(x,y,radius,speed,angle,boundary){
+		super(x,y,radius,speed,angle,"leaf_projectile",boundary);
+		this.immune=true;
+		this.outline=false;
+		this.clock=0;
+		this.dir=this.speed/150;
+	}
+	onCollide(){
+		this.remove=true;
+	}
+	playerInteraction(player,delta){
+		this.remove=true;
+		super.playerInteraction(player,delta);
+	}
+	update(delta,area){
+		this.clock+=delta;
+		this.velangle();
+		this.angle += this.dir/30 * (delta/30);
+		this.anglevel();
+		if(this.clock>1700){
+			this.remove = true;
+		}
+		super.update(delta,area);
+	}
 }
 class SnowballProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,area,boundary){
@@ -4165,7 +4170,7 @@ class StaticEnemy extends Enemy{
 			  if(entity==this)continue;
 			  if(this.iseffect&&distance(this,entity)<this.radius + entity.radius){
 				  this.disabled=false;
-				  EnemyPlayerInteraction(player,this,this.corrosive,this.disabled,this.immune,player.inBarrier);
+				  EnemyPlayerInteraction(player,this,this.corrosive,this.disabled,this.immune);
 			  }
 		  }
 	  }
@@ -4754,7 +4759,7 @@ class GrassEnemy extends Enemy{
 		this.grassHarmless=false;
 		this.grassTime>=1e3 && (
 			this.grassTime=0,this.grassHarmless=true,
-			EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier),
+			EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune),
 			map.areas[player.area].entities.filter(e=>{
 				return (e instanceof GrassEnemy)&&(!e.powered);
 			}).map(e=>{
@@ -4804,7 +4809,7 @@ class FlowerProjectile extends Enemy{
 	this.id=id;
   }
   playerInteraction(player){
-    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier,false);
+    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,false);
   }
   update(delta,area) {
     var closest_entity,closest_entity_distance,information;
@@ -4883,7 +4888,7 @@ class SeedlingProjectile extends Enemy{
 	this.clockwise=Math.round(Math.random());
   }
   playerInteraction(player){
-    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier,false);
+    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,false);
   }
   update(delta,area) {
 	this.angle+=10*delta/(1e3/30)*Math.pow(-1,this.clockwise);
@@ -5069,11 +5074,12 @@ class RadiatingBulletsProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"radiating_bullets_projectile",boundary);
 	this.immune=true;
+	this.outline=false;
     this.clock = 0;
   }
   playerInteraction(player){
-    EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune,player.inBarrier);
-    this.remove=true;
+	this.remove=true;
+	super.playerInteraction(player);
   }
   onCollide(){
     this.remove=true;
@@ -5397,8 +5403,10 @@ class IceSniperProjectile extends Enemy{
     this.clock = 0;
   }
   playerInteraction(player){
+	if(!player.invulnerable){
 	  player.isIced=true;
 	  player.icedTimeLeft=1000*player.effectImmune;
+	}
   }
   onCollide(){
     this.remove=true;
@@ -5461,8 +5469,10 @@ class PoisonSniperProjectile extends Enemy{
 		this.outline=false;
   }
   playerInteraction(player){
-    player.isPoisoned=true;
-    player.poisonedTimeLeft=1000*player.effectImmune;
+	if(!player.invulnerable){
+	  player.isPoisoned=true;
+	  player.poisonedTimeLeft=1000*player.effectImmune;
+	}
   }
   onCollide(){
     this.remove=true;
@@ -5664,7 +5674,7 @@ class RegenSniperProjectile extends Enemy{
 	this.outline=false;
   }
 	playerInteraction(player){
-		if(!player.isDowned()){
+		if(!player.isDowned()&&!player.invulnerable){
 			this.remove=true;
 			player.energyRegen-=this.regen_loss*player.effectImmune;
 			player.energyRegen=Math.max(1,player.energyRegen);
@@ -5985,6 +5995,7 @@ class PositiveMagneticSniperProjectile extends Enemy{
     this.clock = 0;
   }
   playerInteraction(player){
+	if(player.isDowned()||player.invulnerable)return;
     this.remove=true;
 	if(player.magnetDirection=="DOWN"){
 		player.magnetDirection="UP";
@@ -6065,6 +6076,7 @@ class NegativeMagneticSniperProjectile extends Enemy{
     this.clock = 0;
   }
   playerInteraction(player){
+	if(player.isDowned()||player.invulnerable)return;
     this.remove=true;
     player.magnetDirection="DOWN";
 	if(player.abilityOne.abilityType==99){
@@ -6144,7 +6156,7 @@ class ForceSniperAProjectile extends Enemy{
 	this.touchedPlayers=[];
   }
   playerInteraction(player,delta){
-	  if(this.touchedPlayers.indexOf(player)==-1){
+	  if(this.touchedPlayers.indexOf(player)==-1&&!player.isDowned()&&!player.invulnerable){
 		  this.touchedPlayers.push(player);
 		  player.firstAbilityActivated=!player.firstAbilityActivated;
 		  player.handleAbility(player.abilityOne,1,delta,[player.abilityTwo,player.abilityThree],true);
@@ -6207,11 +6219,12 @@ class ForceSniperBProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"force_sniper_b_projectile",boundary);
     this.immune=true;
+	this.outline=false;
     this.clock = 0;
 	this.touchedPlayers=[];
   }
   playerInteraction(player,delta){
-	  if(this.touchedPlayers.indexOf(player)==-1){
+	  if(this.touchedPlayers.indexOf(player)==-1&&!player.isDowned()&&!player.invulnerable){
 		  this.touchedPlayers.push(player);
 		  player.secondAbilityActivated=!player.secondAbilityActivated;
 		  player.handleAbility(player.abilityTwo,2,delta,[player.abilityOne,player.abilityThree],true);
@@ -6304,6 +6317,7 @@ class WindSniperProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,boundary){
     super(x,y,radius,speed,angle,"wind_sniper_projectile",boundary);
 	this.gravity=1;
+	this.outline=false;
 	this.immune=true;
 	this.clock=0;
   }
