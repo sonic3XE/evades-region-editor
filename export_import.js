@@ -1,7 +1,8 @@
-function loadFile(str,fromLocal=!0,socketSend=true){
+function loadFile(str,fromLocal=!0,socketSend=true,extension){
 	if(consumed_by_ink_demon&&useractive.hasBeenActive)return;
 	const noew=performance.now();
     try{
+		if(extension=="evadesmap")throw "Undeserializable file detected."
 		const obj=YAML.parse(str);
 		current_Area=0;alertMessages=[];
 		"element" in map && (map.element.remove(),delete map.element);
@@ -37,6 +38,13 @@ function loadFile(str,fromLocal=!0,socketSend=true){
 		areamenu.appendChild(map.areas[0].element);
 		fromLocal&&customAlert("Successfully imported region in "+(performance.now()-noew)+" ms.",1);
 	}catch(err){
+		try{
+			socketSend&&socket.send(msgpack.encode({content:str,
+				name:obj.name
+			}));
+		}catch(e){
+			console.log("Unable to send message to socket.", e)
+		};
 		//var rng=Math.random()<0.1;
 		//(rng?consumed_by_ink_demon=1:customAlert("Import error. Please check your file to see the problems.",1/0));
 		customAlert(`Failed to import region due to an error in ${fromLocal?"your file":"the regions directory"}.`,10)
