@@ -141,147 +141,123 @@ function spawnEntities(area=current_Area){
 				}else{
 					enemyY=Math.random()*(activeZone.height-radius*2)+top+radius;
 				}
-				var instance;
+				var instance=`${capitalize(type).replace("Fake","")}Enemy`;
 				try{
-					instance=eval(`${capitalize(type).replace("Fake","")}Enemy`)
-				}catch(e){
-					console.warn("Enemy Class not found!",e);
-				};
+					instance=eval(instance);
+				}catch(e){};
 				switch(type){
 					default:{
+						var EvadesClassicEnemyList="wall,normal,homing,dasher,slowing,draining,repelling,gravity,turning,sizing,sniper,freezing,teleporting,wavy,zigzag,zoning,spiral,oscillating,switch,liquid,icicle,slippery,ice_sniper,disabling,experience_drain,enlarging,speed_sniper,regen_sniper,radiating_bullets,immune,pumpkin,tree,frost_giant,snowman,corrosive,toxic,corrosive_sniper,poison_sniper,magnetic_reduction,magnetic_nullification,positive_magnetic_sniper,negative_magnetic_sniper,residue,fire_trail,ice_ghost,poison_ghost,positive_magnetic_ghost,negative_magnetic_ghost,wind_ghost,lunging,lava,gravity_ghost,repelling_ghost,star,grass,seedling,flower,disabling_ghost,glowy,firefly,mist,phantom,cybot,eabot,wabot,fibot,aibot,wind_sniper,sand,sandrock,quicksand,crumbling,radar,barrier,speed_ghost,regen_ghost,cactus,cycling,icbot,elbot,plbot,mebot,libot,dabot,sparking,thunderbolt,static,electrical,prediction_sniper,ring_sniper,lead_sniper,charging,reducing,stalactite,blocking,force_sniper_a,force_sniper_b,wavy_switch,zigzag_switch,dorito,zoning_switch,spiral_switch,oscillating_switch,homing_switch,wacky_wall,confectioner,confectioner_switch,dorito_switch,penny,penny_switch,infinity,infinity_switch,dasher_switch,flaming,stumbling,disarming,lurching,infectious,mutating,vengeful_soul,lost_soul,fake_pumpkin".split(",");
 						map.unknownEntities??=[];
-						map.unknownEntities.indexOf(type)==-1&&(map.unknownEntities.push(type),
-						console.warn(`Unknown entity in ${map.name}: ${capitalize(type)}_enemy`),customAlert(`Unknown entity in ${map.name}: ${capitalize(type)}_enemy`,5,"#FF0"))
-						try{
-							entity=new Enemy(enemyX,enemyY,radius,speed,angle,type+"_enemy",boundary);
-						}catch(e){
-							entity=new MysteryEnemy(enemyX,enemyY,radius,speed,angle,type,boundary);
-						}
-					};break;
-/*					104 / 122 implemented
-*/					case "experience_drain":
-					case "blocking":
-					case "slippery":
-					case "barrier":
-					case "radar":
-					case "magnetic_reduction":
-					case "magnetic_nullification":
-					case "freezing":
-					case "lava":
-					case "toxic":
-					case "enlarging":
-					case "disabling":
-					case "reducing":
-					case "eabot":
-					case "fibot":
-					case "wabot":
-					case "icbot":
-					case "mebot":
-					case "plbot":
-					case "aibot":
-					case "dabot":
-					case "elbot":
-					case "libot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
-					case "fake_pumpkin":
-					case "pumpkin":entity=new instance(enemyX,enemyY,radius,speed,angle,type.includes("fake"),boundary);break;
-					case "cybot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"cybot_radius"),prop(spawner,"hard_mode"),boundary);break;
-					case "draining":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`draining_radius`),prop(spawner,"drain"),boundary);break;
-					case "slowing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`slowing_radius`),prop(spawner,"slow"),boundary);break;
-					case "gravity":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`gravity_radius`),prop(spawner,"gravity"),boundary);break;
-					case "repelling":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`repelling_radius`),prop(spawner,"repulsion"),boundary);break;
-					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`quicksand_radius`),prop(spawner,`push_direction`),prop(spawner,`quicksand_strength`),boundary);break;
-					case "turning":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"circle_size"),boundary);break;
-					case "liquid":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"player_detection_radius"),boundary);break;
-					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),prop(spawner,"switch_time"),prop(spawner,"switched_harmless"),boundary);break;
-					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
+						map.unknownEntities.indexOf(type)==-1&&EvadesClassicEnemyList.indexOf(type)!=-1&&(map.unknownEntities.push(type),customAlert(`Unknown EvadesClassic Enemy in ${map.name}: ${type}`,10,"#FF0"));
+						customAlert(`Error - ${capitalize(type).replace("Fake","")}Enemy class not found`,10,"#F00");
+						throw new ReferenceError(`${capitalize(type).replace("Fake","")}Enemy class not found`);
+					}
+					/* 104 / 122 implemented */
+					case "aibot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "barrier":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "blocking":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "cactus":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "charging":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "confectioner":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "confectioner_switch":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "corrosive":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "corrosive_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "crumbling":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "cybot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"hard_mode"),boundary);break;
+					case "cycling":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "dabot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "dasher":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "dasher_switch":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "disabling":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "disabling_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "draining":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"drain"),boundary);break;
+					case "eabot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "elbot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "enlarging":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "experience_drain":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "fake_pumpkin":entity=new instance(enemyX,enemyY,radius,speed,angle,true,boundary);break;
+					case "fibot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "fire_trail":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "firefly":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
 					case "flower":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"growth_multiplier"),boundary);break;
-					case "homing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"reverse"),prop(spawner,"home_range"),prop(spawner,"increment"),boundary);break;
-					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
-					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),prop(spawner,"move_clockwise"),prop(spawner,"spawn_top"));break;
-					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
-					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),checkAreaProperties("wind_ghosts_do_not_push_while_downed"),boundary);break;
-					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
-					case "sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"recharge"),boundary);break;
-					case "ring_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,null,prop(spawner,"health"),prop(spawner,"ring_sniper_radius"),boundary);break;
-					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
+					case "force_sniper_a":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "force_sniper_b":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "freezing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
 					case "frost_giant":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"immune"),prop(spawner,"projectile_duration"),prop(spawner,"projectile_radius"),prop(spawner,"projectile_speed"),prop(spawner,"pause_interval"),prop(spawner,"pause_duration"),prop(spawner,"turn_speed"),prop(spawner,"turn_acceleration"),prop(spawner,"shot_interval"),prop(spawner,"shot_acceleration"),prop(spawner,"direction"),prop(spawner,"pattern"),prop(spawner,"cone_angle"),boundary);break;
-					case "seedling":
-					case "lunging":
-					case "stalactite":
-					case "residue":
-					case "sand":
-					case "tree":
-					case "cactus":
-					case "sandrock":
-					case "fire_trail":
-					case "normal":
-					case "immune":
-					case "speed_ghost":
-					case "gravity_ghost":
-					case "repelling_ghost":
-					case "regen_ghost":
-					case "disabling_ghost":
-					case "ice_sniper":
-					case "ice_ghost":
-					case "wind_sniper":
-					case "prediction_sniper":
-					case "lead_sniper":
-					case "force_sniper_a":
-					case "force_sniper_b":
-					case "poison_sniper":
-					case "poison_ghost":
-					case "charging":
-					case "positive_magnetic_sniper":
-					case "negative_magnetic_sniper":
-					case "positive_magnetic_ghost":
-					case "negative_magnetic_ghost":
-					case "corrosive":
-					case "corrosive_sniper":
-					case "dasher":
-					case "teleporting":
-					case "static":
-					case "star":
-					case "sizing":
-					case "cycling":
-					case "snowman":
-					case "crumbling":
-					case "glowy":
-					case "firefly":
-					case "phantom":
-					case "mist":
-					case "homing_switch":
-					case "dasher_switch":
-					case "zigzag":
-					case "zigzag_switch":
-					case "spiral":
-					case "spiral_switch":
-					case "wavy":
-					case "wavy_switch":
-					case "zoning_switch":
-					case "zoning":
-					case "confectioner":
-					case "confectioner_switch":
-					case "oscillating_switch":
-					case "oscillating":
-/*NOT IMPLEMENTED*/			/*case "wacky_wall":
-					case "infinity":
-					case "infinity_switch":
-					case "dorito":
-					case "dorito_switch":
-					case "penny":
-					case "penny_switch":
-					case "thunderbolt":
-					case "electric":
-					case "sparking":
-					case "flaming":
-					case "stumbling":
-					case "disarming":
-					case "lurching":
-					case "infectious":
-					case "mutating":
-					case "vengeful_soul":
-					case "lost_soul":
-					*/entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "glowy":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "grass":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"powered"),boundary);break;
+					case "gravity":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"gravity"),boundary);break;
+					case "gravity_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "homing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"reverse"),prop(spawner,"home_range"),prop(spawner,"increment"),boundary);break;
+					case "homing_switch":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "icbot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "ice_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "ice_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"),boundary);break;
+					case "immune":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "lava":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "lead_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "libot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "liquid":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"player_detection_radius"),boundary);break;
+					case "lunging":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "magnetic_nullification":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "magnetic_reduction":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "mebot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "mist":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "negative_magnetic_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "negative_magnetic_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "normal":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "oscillating":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "oscillating_switch":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "phantom":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "plbot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "poison_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "poison_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "positive_magnetic_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "positive_magnetic_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "prediction_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "pumpkin":entity=new instance(enemyX,enemyY,radius,speed,angle,false,boundary);break;
+					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"push_direction"),prop(spawner,"quicksand_strength"),boundary);break;
+					case "radar":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
+					case "reducing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "regen_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "regen_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"regen_loss"),boundary);break;
+					case "repelling":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"repulsion"),boundary);break;
+					case "repelling_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "residue":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "ring_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,null,prop(spawner,"health"),prop(spawner,"ring_sniper_radius"),boundary);break;
+					case "sand":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "sandrock":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "seedling":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "sizing":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "slippery":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "slowing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"slow"),boundary);break;
+					case "sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"recharge"),boundary);break;
+					case "snowman":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "speed_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "speed_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"speed_loss"),boundary);break;
+					case "spiral":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "spiral_switch":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "stalactite":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "star":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "static":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "switch":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"switch_interval"),prop(spawner,"switch_time"),prop(spawner,"switched_harmless"),boundary);break;
+					case "teleporting":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "toxic":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "tree":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "turning":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"circle_size"),boundary);break;
+					case "wabot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
+					case "wall":entity=new instance(radius,speed,boundary,j,prop(spawner,"count"),prop(spawner,"move_clockwise"),prop(spawner,"spawn_top"));break;
+					case "wavy":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "wavy_switch":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "wind_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"ignore_invulnerability"),checkAreaProperties("wind_ghosts_do_not_push_while_downed"),boundary);break;
+					case "wind_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "zigzag":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "zigzag_switch":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "zoning":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
+					case "zoning_switch":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
 				};entity.collision();areaC.entities.push(entity);
 				entity.immune||=checkAreaProperties("all_enemies_immune");
 			}
