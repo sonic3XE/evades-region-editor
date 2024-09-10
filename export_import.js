@@ -1,9 +1,48 @@
-function loadFile(str,fromLocal=!0,socketSend=true,extension){
+function loadFile(str,fromLocal=!0,socketSend=true,isLegacy=false){
 	if(consumed_by_ink_demon&&useractive.hasBeenActive)return;
 	const noew=performance.now();
     try{
-		if(extension=="evadesmap")throw "Undeserializable file detected."
+		//if(extension=="evadesmap")throw "Undeserializable file detected."
 		const obj=YAML.parse(str);
+		if(isLegacy){
+			if(obj.properties){
+				Object.keys(obj.properties).map(e=>{
+					(e=="minimum_speed"||e=="maximum_speed")&&void 0!==obj.properties[e]&&(obj.properties[e]=parseFloat((obj.properties[e]*30).toFixed(1)));
+				});
+			};
+			obj.areas.map(e=>{
+				if(e.properties){
+					Object.keys(e.properties).map(t=>{
+						(t=="minimum_speed"||t=="maximum_speed")&&void 0!==e.properties[t]&&(e.properties[t]=parseFloat((e.properties[t]*30).toFixed(1)));
+					});
+				};
+				e.zones.map(t=>{
+					if(t.properties){
+						Object.keys(t.properties).map(a=>{
+							(a=="minimum_speed"||a=="maximum_speed")&&void 0!==t.properties[a]&&(t.properties[a]=parseFloat((t.properties[a]*30).toFixed(1)));
+						});
+					};
+					if(t.spawner){
+						t.spawner.map(a=>{
+							Object.keys(a).map(r=>{
+								(
+									r=="speed"||
+									r=="turn_speed"||
+									r=="turn_acceleration"||
+									r=="quicksand_strength"||
+									r=="increment"||
+									r=="shot_acceleration"||
+									r=="gravity"||
+									r=="repulsion"||
+									r=="speed_loss"||
+									r=="projectile_speed"
+								)&&void 0!==a[r]&&(a[r]=parseFloat((a[r]*30).toFixed(1)));
+							});
+						})
+					};
+				})
+			})
+		}
 		current_Area=0;alertMessages=[];
 		"element" in map && (map.element.remove(),delete map.element);
 		map.element=createFolder(formatString("editor.region"), [
@@ -58,7 +97,7 @@ function download(exportName = "map") {
     if(!consumed_by_ink_demon){
 		try{
 			let dataStr;(customAlert("Exporting region...",1),!ExportFormatType.selectedIndex)?(dataStr="data:text/yaml;charset=utf-8,"+encodeURIComponent(YAML.stringify(JSON.parse(mapToJSON(map))))):(dataStr="data:text/json;charset=utf-8,"+encodeURIComponent(mapToJSON(map)))
-			const a=document.createElement('a');a.setAttribute("href",dataStr),a.setAttribute("download",exportName.replace(/ /g,"-").toLowerCase()+(ExportFormatType.selectedIndex?".json":".yaml")),document.body.appendChild(a),a.click(),a.remove();
+			const a=document.createElement('a');a.setAttribute("href",dataStr),a.setAttribute("download",exportName.replace(/ /g,"-").toLowerCase()+(settings.legacySpeedUnits?".legacy":"")+(ExportFormatType.selectedIndex?".json":".yaml")),document.body.appendChild(a),a.click(),a.remove();
 		}catch(e){
 			customAlert("Export error.",60);
 			customAlert(e,60);
