@@ -1229,7 +1229,7 @@ this.isGuest=!1;
 		if(this.noCooldown){
 			ab1.cooldown=0;
 			ab2.cooldown=0;
-			ab3 && ab3.cooldown=0;
+			ab3 && (ab3.cooldown=0);
 		}
 		this.updateEffects([ab1,ab2,ab3]);
 		let area=map.areas[this.area];
