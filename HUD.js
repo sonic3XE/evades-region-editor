@@ -923,6 +923,34 @@ class Ability extends $0322546c98741e1e$export$2e2bcd8739ae039 {
 			return;
 		$01bb7fd9b3660a1e$export$e1851a6e64efa609(this, this.stateFields(), "ability");
 		const e = $01bb7fd9b3660a1e$export$a1dfcc7b3a7a0b52(this.abilityType);
+		e.pellet_powered??=false;
+		e.boost??=0;
+		e.continuous??=false;
+		e.distance??=0;
+		e.radius??=0;
+		e.speed??=0;
+		e.projectiles??=0;
+		e.total_cooldown??=0;
+		e.energy_cost??=0;
+		e.slow??=1;
+		e.passive??=false;
+		e.regen_boost??=0;
+		e.duration??=0;
+		e.length??=0;
+		e.speed_boost??=0;
+		e.effects_reduction??=0;
+		e.radius_increase??=0;
+		e.additional_uses??=0;
+		e.stun_time??=0;
+		e.speed_multiplier??=1;
+		e.stat_boost??=0;
+		e.energy_cost_reduction??=1;
+		e.growth_boost??=1;
+		e.number_of_projectiles??=0;
+		e.reduction_time??=0;
+		e.stat_reduction??=0;
+		e.dash_distance??=0;
+		e.projectile_duration??=0;
 		$01bb7fd9b3660a1e$export$304370d6b87d514e(this, this.stateFields(), e);
 		const t = `abilities/${this.name.toLowerCase().replace(" ", "_")}`;
 		void 0 !== this.image && null !== this.imageName && this.imageName === t || (this.image = $31e8cfefa331e399$export$93e5c64e4cc246c8(t),
@@ -931,7 +959,8 @@ class Ability extends $0322546c98741e1e$export$2e2bcd8739ae039 {
 	}
 	constructor() {
 		super(),
-		this.imageName = null
+		this.imageName = null;
+		
 	}
 }
 const $0372b03b1cca8a43$export$8309310f4f3643db = {

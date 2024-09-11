@@ -305,7 +305,7 @@ class Player extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	this.fullMapOpacity=true;
 	this.lightRectangle=null;
     this.y=y;
-	this.heroType=settings.heroType;
+	this.heroType=hero;
 	const e = $01bb7fd9b3660a1e$export$71c647defb4fbd5a(this.heroType);
 this.onTele=true;
 this.effects=[];
@@ -359,9 +359,10 @@ this.isDeparted=false;
 this.magnetDirection="DOWN";
 this.abilityOne = new Ability;
 this.abilityTwo = new Ability;
+this.abilityThree = new Ability;
 this.abilityOne.abilityType=this.heroType*2;
 this.abilityTwo.abilityType=this.heroType*2+1;
-//this.abilityThree={abilityType:97};
+this.abilityThree.abilityType=6;
 this.abilityIndex=0;
 this.cachedAbilities=[];
 this.availableAbilities=[0,1,2,14,18,31,96,98];
@@ -530,6 +531,10 @@ this.isGuest=!1;
 				this.effects.filter(e=>e.effectType==2).map(e=>{
 					e.radius=prop("radius");
 				});
+			if(ability.abilityType==6)
+				this.effects.filter(e=>e.effectType==3).map(e=>{
+					e.radius=prop("radius");
+				});
 			if(ability.abilityType==98)
 				this.effects.filter(e=>e.effectType==66).map(e=>{
 					!this.isDowned()&&(e.inputAngle=this.lastAngle/180*Math.PI);
@@ -652,7 +657,7 @@ this.isGuest=!1;
 		abilityActive=false;
 		this.energyRate=this.energyRegen+this.regenAdditioner;
 	}
-	ability.totalCooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+	ability.total_cooldown=(abilityLevels[ability.level-1]?.total_cooldown??(ability.total_cooldown??ability.totalCooldown))*(this.cooldown_reduction??1);
 	switch(ability.abilityType){
 		/*case -1:{
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
@@ -705,11 +710,11 @@ this.isGuest=!1;
 					case 2:this.secondAbilityActivated=false;break;
 					case 3:this.thirdAbilityActivated=false;break;
 				}
-				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+				ability.cooldown=ability.total_cooldown;
 			}
 			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
 				this.effects.filter(e=>e.effectType==0).map(e=>e.removed=true);
-				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+				ability.cooldown=ability.total_cooldown;
 			}
 		};break;
 		case 1:{/*Harden*/
@@ -723,7 +728,7 @@ this.isGuest=!1;
 					others.map(e=>{
 						if(!e)return;
 						if(e.abilityType==0)
-							e.cooldown=e.totalCooldown;
+							e.cooldown=e.total_cooldown;
 					});
 					if(kind!=1&&this.abilityOne.abilityType==0)this.firstAbilityActivated=false;
 					if(kind!=2&&this.abilityTwo.abilityType==0)this.secondAbilityActivated=false;
@@ -737,12 +742,12 @@ this.isGuest=!1;
 					case 2:this.secondAbilityActivated=false;break;
 					case 3:this.thirdAbilityActivated=false;break;
 				}
-				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+				ability.cooldown=ability.total_cooldown;
 			}
 			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
 				this.harden=false;
 				this.effects.filter(e=>e.effectType==1).map(e=>e.removed=true);
-				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+				ability.cooldown=ability.total_cooldown;
 			}
 		};break;
 		case 2:{/*Warp*/
@@ -787,6 +792,35 @@ this.isGuest=!1;
 					case 3:this.thirdAbilityActivated=false;break;
 				}
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 6:{/*Distort*/
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+				var radius=abilityLevels[ability.level-1]?.radius??abilityConfig[ability.abilityType].radius;
+				!this.effects.filter(e=>e.effectType==3).length&&this.effects.push({effectType:3,radius});
+				for(var entity of map.areas[this.area].entities){
+					if(this.effects.filter(e=>e.effectType==3).length&&entity.isEnemy&&this.distance(this,entity)<(radius+entity.radius)&&!entity.immune){
+						if(!entity.speedMultiplierEffects.filter(e=>{
+							return e.type=="distort"
+						}).length){
+							entity.speedMultiplierEffects.push({type:"distort",time:(abilityLevels[ability.level-1]?.slow??abilityConfig[ability.abilityType].slow)*40e3/9})
+						}else{
+							entity.speedMultiplierEffects.filter(e=>{return e.type=="distort"})[0].time=(abilityLevels[ability.level-1]?.slow??abilityConfig[ability.abilityType].slow)*40e3/9
+						};
+					}
+				}
+			}
+			if(!abilityActive&&finalTrigger&&ability.cooldown==0){
+				this.harden=false;
+				this.effects.filter(e=>e.effectType==3).map(e=>e.removed=true);
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 7:{/*Energize*/
+			for(var entity of map.players.filter(e=>{return e !== this && e.area === this.area})){
+				entity.is_energized=true;
+				entity.regenAdditioner+=abilityLevels[ability.level-1]?.regen_boost??0;
+				entity.cooldown_reduction=0.85;
 			}
 		};break;
 		case 14:{/*Night*/
@@ -977,32 +1011,6 @@ this.isGuest=!1;
       if (!(input.keys.has(controls.USE_ABILITY_THREE[0]) || input.keys.has(controls.USE_ABILITY_THREE[1]))) {
         this.thirdAbilityPressed = false;
       }
-	  var activ=[0,0,0];
-	  var ab1=this.abilityOne;
-	  var ab2=this.abilityTwo;
-	  var ab3=this.abilityThree;
-	if(this.firstAbility&&ab1.cooldown==0){
-		this.firstAbilityActivated = !this.firstAbilityActivated;
-		activ[0]=this.firstAbilityActivated;
-	}
-	if(this.secondAbility&&ab2.cooldown==0){
-		this.secondAbilityActivated = !this.secondAbilityActivated;
-		activ[1]=this.secondAbilityActivated;
-	}
-	if(this.thirdAbility&&ab3.cooldown==0){
-		this.thirdAbilityActivated = !this.thirdAbilityActivated;
-		activ[2]=this.thirdAbilityActivated;
-	}
-	
-	  var forceOff=[0,0,0];
-	  if(this.deathTimer!=-1){
-		  this.abilityOne.abilityType!=18&&(this.firstAbilityActivated=false);
-		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
-		  this.abilityThree?.abilityType!=18&&(this.thirdAbilityActivated=false);
-	  }
-	this.handleAbility(ab1,1,delta,[ab2,ab3],this.firstAbility);
-	this.handleAbility(ab2,2,delta,[ab1,ab3],this.secondAbility);
-	ab3&&this.handleAbility(ab3,3,delta,[ab1,ab2],this.thirdAbility);
       if (!this.prevSlippery||this.collides||(this.d_x == 0 && this.d_y == 0)) {
         if (this.slippery&&!this.prevSlippery) {
           if (!this.isMovementKeyPressed(input)) {
@@ -1195,6 +1203,27 @@ this.isGuest=!1;
 		let timeFix=delta/(1e3/30);
 		var cent=this.isCent;
 		if(this.isLead)cent=!cent;
+	  var ab1=this.abilityOne;
+	  var ab2=this.abilityTwo;
+	  var ab3=this.abilityThree;
+	if(this.firstAbility&&ab1.cooldown==0){
+		this.firstAbilityActivated = !this.firstAbilityActivated;
+	}
+	if(this.secondAbility&&ab2.cooldown==0){
+		this.secondAbilityActivated = !this.secondAbilityActivated;
+	}
+	if(this.thirdAbility&&ab3.cooldown==0){
+		this.thirdAbilityActivated = !this.thirdAbilityActivated;
+	}
+	  if(this.deathTimer!=-1){
+		  this.abilityOne.abilityType!=18&&(this.firstAbilityActivated=false);
+		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
+		  this.abilityThree?.abilityType!=18&&(this.thirdAbilityActivated=false);
+	  }
+	this.handleAbility(ab1,1,delta,[ab2,ab3],this.firstAbility);
+	this.handleAbility(ab2,2,delta,[ab1,ab3],this.secondAbility);
+	ab3&&this.handleAbility(ab3,3,delta,[ab1,ab2],this.thirdAbility);
+	this.cooldown_reduction=1;
 		var rotationSpeed = 450;
 		var angle=this.input_angle/Math.PI*180;
 		if(angle<0){angle+=360}
@@ -1214,18 +1243,18 @@ this.isGuest=!1;
 		var ab1=this.abilityOne;
 		var ab2=this.abilityTwo;
 		var ab3=this.abilityThree;
-		if(ab1.cooldown!==void 0&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
+		if(ab1.cooldown!==void 0&&!ab1.pellet_powered&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
 			ab1.cooldown-=delta/1e3;
 			ab1.cooldown=Math.max(ab1.cooldown,0);
-		}
-		if(ab2.cooldown!==void 0&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
+		};
+		if(ab2.cooldown!==void 0&&!ab2.pellet_powered&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
 			ab2.cooldown-=delta/1e3;
 			ab2.cooldown=Math.max(ab2.cooldown,0);
-		}
-		if(ab3&&ab3.cooldown!==void 0&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
+		};
+		if(ab3&&ab3.cooldown!==void 0&&!ab3.pellet_powered&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
 			ab3.cooldown-=delta/1e3;
 			ab3.cooldown=Math.max(ab3.cooldown,0);
-		}
+		};
 		if(this.noCooldown){
 			ab1.cooldown=0;
 			ab2.cooldown=0;
@@ -1341,6 +1370,9 @@ this.isGuest=!1;
 			this.shadowed_invulnerability = false;
 		}
 		if(this.mortarTime>0)this.speedMultiplier=0;
+		//this.energized=false;
+		//if (this.is_energized)this.energized=true;
+		//this.is_energized=false;
 		if(this.minimum_speed>this.statSpeed+this.speedAdditioner)this.statSpeed=this.minimum_speed;
 		if(cent){
 			this.distance_movement=(this.speed*this.speedMultiplier)+this.speedAdditioner;
@@ -2210,6 +2242,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.speedMultiplier=1;
     this.boundary=boundary;
 	this.renderFirst=true;
+	this.speedMultiplierEffects=[];
 	this.unfreezeTimer=40e3/9;
 	this.unfreezeTimerTotal=40e3/9;
   }
@@ -2331,12 +2364,18 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	}
 	if(this.frozenTime>0){
 	  this.frozenTime-=delta;
-	  this.speedMultiplier*=0;
-	}else if(this.unfreezeTimer < this.unfreezeTimerTotal){
+	  this.speedMultiplier=0;
+	}else if(this.frozen){
 	  this.frozen=false;
-	  this.unfreezeTimer+=delta;
-	  this.speedMultiplier*=this.unfreezeTimer/this.unfreezeTimerTotal;
-	}
+	  this.speedMultiplierEffects.push({type:"freeze",time:0})
+	};
+	this.speedMultiplierEffects.map(e=>{
+		e.time+=delta;
+		this.speedMultiplier*=e.time/(40e3/9);
+	});
+	this.speedMultiplierEffects=this.speedMultiplierEffects.filter(e=>{
+		return e.time < 40e3/9;
+	})
 	if(collide){
 		let collided=false;
 		if(this.x<this.boundary.left+this.radius){

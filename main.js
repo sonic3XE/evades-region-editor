@@ -444,7 +444,7 @@ document.addEventListener("keydown", e => {
 		evadesRenderer={snowRenderer:new SnowRenderer,dynamicLighting:new DynamicLighting(1),directionalIndicatorHud:new DirectionalIndicatorHud,experienceBar:new ExperienceBar,heroInfoCard:new HeroInfoCard,bottomText:new BottomText,titleText:new TitleText,minimap:new Minimap,areaInfo:new AreaInfo};
 		evadesRenderer.minimap.updateZones();
 		var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0]??map.areas[0].zones[0],
-		selfPlayer=new Player(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random());
+		selfPlayer=new Player(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),settings.heroType);
 		global.selfId=selfPlayer.id;
 		map.players.push(selfPlayer);
 		selfPlayer.abilityOne.afterStateUpdate(abilityConfig[selfPlayer.abilityOne.abilityType]);
