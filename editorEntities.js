@@ -1437,11 +1437,11 @@ this.isGuest=!1;
 			if(this.energyRegen<1)this.energyRegen=1;
 		}
 		if (this.inEnemyBarrier)this.inBarrier=true;
-		if (this.reducingTime>0&&!this.reducing){
+		if (this.reducingTime>=0&&!this.reducing){
 			this.reducingTime-=delta;
 			this.radiusMultiplier*=1-this.reducingTime/2e3;
 		}
-		if (this.reducingTime>0&&this.reducing){
+		if (this.reducingTime>=0&&this.reducing){
 			this.reducingTime+=delta*this.effectImmune;
 			if(this.reducingTime>2e3){
 				this.reducingTime=0;
@@ -1449,6 +1449,7 @@ this.isGuest=!1;
 			}
 			this.radiusMultiplier*=1-this.reducingTime/2e3;
 		}
+		this.reducingTime=Math.max(0,this.reducingTime);
 		if(this.quicksand[0]&&!this.invulnerable){
 			this.x+=Math.cos(this.quicksand[1]*Math.PI/180)*this.quicksand[2]*delta/1e3;
 			this.y+=Math.sin(this.quicksand[1]*Math.PI/180)*this.quicksand[2]*delta/1e3;
