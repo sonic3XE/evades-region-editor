@@ -4,7 +4,7 @@ YAML={parse:function(e){return jsyaml.load(e,null)},stringify:function(e){return
 	added a maximum speed property so if any mapmakers would like to put that in to their maps, it does work now
 	also @Sοηiς.εχэ will ping you since you seem to care about this stuff
 */
-let camScale=5/32,camX=0,camY=0,selectMode=null,lockCursor=false,resizing=false,alertMessages=[];
+let alertMessages=[],camScale=5/32,camX=0,camY=0,selectMode=null,lockCursor=false,resizing=false;
 const types = ["wall", "light_region", "flashlight_spawner", "torch", "gate", "active", "safe", "exit", "teleport", "victory", "removal"];
 const keysDown = new Set();
 document.addEventListener("keydown",e=>{if(confirmationPopup)return;!(e.repeat||e.ctrlKey||e.target instanceof HTMLInputElement)&&keysDown.add(e.which)});
@@ -441,7 +441,7 @@ document.addEventListener("keydown", e => {
     realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));
     playtesting?(window.tempCamPos={x:camX,y:camY,area:current_Area}):(camX=window.tempCamPos.x,camY=window.tempCamPos.y);
 	if(playtesting){
-		evadesRenderer={snowRenderer:new SnowRenderer,dynamicLighting:new DynamicLighting(1),directionalIndicatorHud:new DirectionalIndicatorHud,experienceBar:new ExperienceBar,heroInfoCard:new HeroInfoCard,bottomText:new BottomText,titleText:new TitleText,minimap:new Minimap,areaInfo:new AreaInfo};
+		evadesRenderer={snowRenderer:new SnowRenderer,dynamicLighting:new DynamicLighting(1),directionalIndicatorHud:new DirectionalIndicatorHud,experienceBar:new ExperienceBar,heroInfoCard:new HeroInfoCard,overlayText:new OverlayText,titleText:new TitleText,minimap:new Minimap,areaInfo:new AreaInfo,mobileControls:new MobileControls};
 		evadesRenderer.minimap.updateZones();
 		var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0]??map.areas[0].zones[0],
 		selfPlayer=new Player(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),settings.heroType);
@@ -1195,6 +1195,9 @@ localStorage.getItem("leaderboard")&&(
             <label for="posX">X: <input id="posX" step="1" style="width:50px" type="number"></label><br>
             <label for="posY">Y: <input id="posY" step="1" style="width:50px" type="number"></label>
         </p>*/
+var mouseOn=loadImage("./buttons/mouse-on.png");
+var mouseOff=loadImage("./buttons/mouse-off.png");
+inputIndicator.appendChild(mouseOff);
 var fpsHist=[],lastTime=0,ti=[0,0];
 function rungame(){
 	var r=performance.now()
@@ -1212,11 +1215,13 @@ function rungame(){
 			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
 			if(settings.realTime||playtesting){
 				global.mouseDown==void 0&&(global.mouseDown=null);
-				var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
-				if(input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-off.png">`){
-					inputIndicator.innerHTML=`<img src="./buttons/mouse-on.png">`;
-				}else if(!input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-on.png">`){
-					inputIndicator.innerHTML=`<img src="./buttons/mouse-off.png">`;
+				var input={isMouse:null!==mouseDown,keys:keysDown,mouse:{x:(mouseDown?.x||0)+canvas.width/2,y:(mouseDown?.y||0)+canvas.height/2}};
+				if($e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOff){
+					mouseOff.remove();
+					inputIndicator.appendChild(mouseOn);
+				}else if(!$e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOn){
+					mouseOn.remove();
+					inputIndicator.appendChild(mouseOff);
 				};
 				selfId&&controlPlayer(selfId,input,1e3/60);
 				map.players.map(e=>{e.update(1e3/60)});

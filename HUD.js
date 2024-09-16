@@ -138,8 +138,8 @@ const $e728d5a493f33528$export$69dd9a529c505ede = e=>[{
 	enum: $d102378f4de5e1dc$export$2e2bcd8739ae039.MORFE_SELECTION,
 	abilityOneName: "Reverse",
 	abilityTwoName: "Minimize",
-	unlockText: "",
-	locked: !1,
+	unlockText: "Defeat Central Core Area 10",
+	locked: e["Central Core"] < 10 && e["Central Core Hard"] < 10 && e["Catastrophic Core"] < 10,
 	level: 0,
 	backgroundColor: "#014700",
 	hoverBackgroundColor: "#002d04",
@@ -1096,6 +1096,7 @@ $4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f364
 $4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Numpad6] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_THREE_KEY;
 const $4cb5e0b12995588c$export$bb7d35f0a51c4c2a = {
 	CHAT_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.Enter,
+	COMMAND_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.ForwardSlash,
 	TOGGLE_HERO_INFO_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.H,
 	TOGGLE_MINIMAP_MODE_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.G,
 	TOGGLE_CHAT_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.V,
@@ -1128,11 +1129,11 @@ class $e7009c797811e935$var$InputLayer {
 	}
 	registerListeners() {
 		const e = this.onKeyDown.bind(this)
-		  , a = this.onKeyUp.bind(this)
-		  , t = this.onBlur.bind(this);
+		  , t = this.onKeyUp.bind(this)
+		  , a = this.onBlur.bind(this);
 		window.addEventListener("keydown", e),
-		window.addEventListener("keyup", a),
-		window.addEventListener("blur", t);
+		window.addEventListener("keyup", t),
+		window.addEventListener("blur", a);
 		const r = this.onMouseMove.bind(this)
 		  , c = this.onMouseDown.bind(this)
 		  , o = this.onMouseUp.bind(this)
@@ -1142,22 +1143,25 @@ class $e7009c797811e935$var$InputLayer {
 		this.canvas.addEventListener("mousedown", c),
 		this.canvas.addEventListener("mouseup", o),
 		this.canvas.addEventListener("mouseleave", n),
-		this.canvas.addEventListener("contextmenu", $);
-		const d = this.onGamepadConnect.bind(this)
-		  , i = this.onGamepadDisconnect.bind(this);
-		window.addEventListener("gamepadconnected", d),
-		window.addEventListener("gamepaddisconnected", i),
-		this.deregisterListeners = ()=>{
+		this.canvas.addEventListener("contextmenu", $),
+		this.canvas.addEventListener("touchmove", r),
+		this.canvas.addEventListener("touchstart", c),
+		this.canvas.addEventListener("touchend", o);
+		const i = this.onGamepadConnect.bind(this)
+		  , d = this.onGamepadDisconnect.bind(this);
+		window.addEventListener("gamepadconnected", i),
+		window.addEventListener("gamepaddisconnected", d),
+		this.deregisterListeners = () => {
 			window.removeEventListener("keydown", e),
-			window.removeEventListener("keyup", a),
-			window.removeEventListener("blur", t),
+			window.removeEventListener("keyup", t),
+			window.removeEventListener("blur", a),
 			this.canvas.removeEventListener("mousemove", r),
 			this.canvas.removeEventListener("mousedown", c),
 			this.canvas.removeEventListener("mouseup", o),
 			this.canvas.removeEventListener("mouseleave", n),
 			this.canvas.removeEventListener("contextmenu", $),
-			window.removeEventListener("gamepadconnected", d),
-			window.removeEventListener("gamepaddisconnected", i)
+			window.removeEventListener("gamepadconnected", i),
+			window.removeEventListener("gamepaddisconnected", d)
 		}
 	}
 	addMouseDownListener(e) {
@@ -1165,6 +1169,15 @@ class $e7009c797811e935$var$InputLayer {
 	}
 	removeMouseDownListener(e) {
 		this.onMouseDownListeners.delete(e)
+	}
+	addToggleListener(e) {
+		this.toggleListeners.add(e)
+	}
+	removeToggleListener(e) {
+		this.toggleListeners.delete(e)
+	}
+	notifyToggleListeners() {
+		this.toggleListeners.forEach((e => e()))
 	}
 	onKeyDown(e) {
 		if (null === this.gameState || null === this.updateChat)
@@ -1176,52 +1189,79 @@ class $e7009c797811e935$var$InputLayer {
 		if (window.tsmod && document.activeElement.getAttributeNames().includes("c-lock"))
 			return;
 		e.keyCode === $0372b03b1cca8a43$export$8309310f4f3643db.Tab && e.preventDefault();
-		const a = global.chat && !chat.hidden && document.getElementById("chat-input");
-		if (document.activeElement.nodeName!=="INPUT")
-			if (a && e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.CHAT_KEY)
-				a.focus();
-			else {
-				if (e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_1 && e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_2)
-					return e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_HERO_INFO_KEY ? (evadesRenderer.heroInfoCard.toggleVisibility(),
-					void evadesRenderer.experienceBar.toggleVisibility()) : void (e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MINIMAP_MODE_KEY ? e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_AREA_INFO_KEY ? evadesRenderer.areaInfo.toggleVisibility() : e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_CHAT_KEY ? e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_LEADERBOARD_KEY ? e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
-					e.preventDefault()) : 1 : 2 : evadesRenderer.minimap.toggleMinimapMode());
-				evadesRenderer.minimap.toggleVisibility()
+		const t = global.chat && !chat.hidden && document.getElementById("chat-input");
+		if (document.activeElement === t) {
+			if (e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.CHAT_KEY) {
+				if (0 === t.value.length)
+					return void t.blur();
+				socket.send(msgpack.encode({chat:a.value})),
+				t.value = "",
+				t.blur()
 			}
-		else if (e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.CHAT_KEY) {
-			if (0 === a.value.length)
-				return void a.blur();
-			socket.send(msgpack.encode({chat:a.value})),
-			a.value = "",
-			a.blur()
+			return
+		}
+		if (t && e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.CHAT_KEY)
+			return void t.focus();
+		if (t && document.activeElement !== t && e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.COMMAND_KEY)
+			return t.value = "/",
+			t.focus(),
+			void e.preventDefault();
+		const a = document.getElementById("mod-tools-duration-input");
+		if (document.activeElement.nodeName!=="INPUT") {
+			if (e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_1 && e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_2)
+				return e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_HERO_INFO_KEY ? (evadesRenderer.heroInfoCard.toggleVisibility(),
+				void evadesRenderer.experienceBar.toggleVisibility()) : void (e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MINIMAP_MODE_KEY ? e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_AREA_INFO_KEY ? evadesRenderer.areaInfo.toggleVisibility() : e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_CHAT_KEY ? e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_LEADERBOARD_KEY ? e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
+				e.preventDefault()) : 1 : 2 : evadesRenderer.minimap.toggleMinimapMode());
+			evadesRenderer.minimap.toggleVisibility()
 		}
 	}
 	onKeyUp(e) {
-		if(!playtesting)return;
-		//this.gameState.initial || e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && this.gameState.keys.keyUp($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
+		if(!playtesting||!this.gameState)return;
+		this.gameState.initial || e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (this.gameState.keys.keyUp($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
+		this.gameState.usingGamepad = !1)
 	}
 	onBlur(e) {
-		if(!playtesting)return;
-		//this.gameState.initial || this.gameState.keys.clear($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
+		if(!playtesting||!this.gameState)return;
+		this.gameState.initial || this.gameState.keys.clear($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
 	}
 	onMouseMove(e) {
-		this.x = e.pageX,
-		this.y = e.pageY
+		if(!playtesting)return;
+		const t = this.canvas.getBoundingClientRect();
+		let a = {};
+		a.x = window.innerWidth / this.canvas.width,
+		a.y = window.innerHeight / this.canvas.height,
+		a = a.x < a.y ? a.x : a.y;
+		let r = e;
+		null != e.touches && (1 != this.touch.down && (this.touch.down = this.touch.wasDown = !0,
+		this.touch.start.x = (e.touches[0].pageX - t.left) / a,
+		this.touch.start.y = (e.touches[0].pageY - t.top) / a),
+		this.touch.current.x = (e.touches[0].pageX - t.left) / a,
+		this.touch.current.y = (e.touches[0].pageY - t.top) / a,
+		r = e.touches[1] ? e.touches[1] : e.touches[0]),
+		this.x = (r.pageX - t.left) / a,
+		this.y = (r.pageY - t.top) / a
 	}
 	onMouseDown(e) {
 		if(!playtesting)return;
+		e.touches && void 0 === e.touches[1] && (this.touch.isTouch = !0,
+		this.onMouseMove(e)),
 		e.preventDefault(),
 		this.canvas.focus(),
 		this.canvas.blur(),
 		this.down = !0,
 		this.initialDown = !0,
-		this.onMouseDownListeners.forEach((e=>e()))
+		this.onMouseDownListeners.forEach((e => e()));
+		if(!this.gameState)return;
+		this.gameState.usingGamepad = !1
 	}
-	onMouseUp() {
+	onMouseUp(e) {
+		if(!playtesting)return;
+		e.touches && !e.touches[0] && (this.touch.down = !1),
 		this.down = !1,
 		this.initialDown = !1
 	}
 	onMouseLeave() {
-		this.enteredButtons.forEach((e=>{
+		this.enteredButtons.forEach((e => {
 			e.mouseOver = !1,
 			e.mouseDown = !1
 		}
@@ -1255,63 +1295,75 @@ class $e7009c797811e935$var$InputLayer {
 			this.mouseMovementToggled = !1;
 			return;
 		}
-		const a = settings;
-		let t, r = !1, c = !1, keys=new Set();
-		for (let a = 0; a < this.buttons.length; a++) {
-			const t = this.buttons[a];
-			t.visible && (!r && this.x >= t.x && this.x <= t.x + t.width && this.y >= t.y && this.y <= t.y + t.height ? (this.enteredButtons.add(t),
-			t.mouseOver = !0,
-			t.interactive && (this.down && !t.mouseDown ? (keys.add(t.key),controlPlayer(selfId,{keys}),
-			t.onClick()) : !this.down && t.mouseDown,
-			t.mouseDown = this.down,
+		const t = settings;
+		let a, r = !1, c = !1, keys=new Set();
+		for (let t = 0; t < this.buttons.length; t++) {
+			const a = this.buttons[t];
+			a.visible && (!r && this.x >= a.x && this.x <= a.x + a.width && this.y >= a.y && this.y <= a.y + a.height ? (this.enteredButtons.add(a),
+			a.mouseOver = !0,
+			a.interactive && (this.down && !a.mouseDown ? (keys.add(a.key),controlPlayer(selfId,{keys}),
+			a.onClick()) : !this.down && a.mouseDown,
+			a.mouseDown = this.down,
 			c = !0),
-			r = !0) : (t.mouseDown,
-			t.clickStarted = !1,
-			t.mouseOver = !1,
-			t.mouseDown = !1,
-			this.enteredButtons.has(t) && this.enteredButtons.delete(t)))
+			r = !0) : (a.mouseDown,
+			a.clickStarted = !1,
+			a.mouseOver = !1,
+			a.mouseDown = !1,
+			this.enteredButtons.has(a) && this.enteredButtons.delete(a)))
 		}
-		if (a.toggleMouseMovement ? (this.initialDown && (this.mouseMovementToggled = !this.mouseMovementToggled),
-		t = this.mouseMovementToggled) : t = this.down,
+		if (t.toggleMouseMovement ? (this.initialDown && (this.mouseMovementToggled = !this.mouseMovementToggled,
+		this.notifyToggleListeners()),
+		a = this.mouseMovementToggled) : a = this.down,
 		this.initialDown = !1,
-		a.enableMouseMovement && (e.mouseDown = !r && t ? {
+		t.enableMouseMovement && (e.mouseDown = !r && a ? {
 			x: Math.round(this.x - this.canvas.width / 2),
 			y: Math.round(this.y - this.canvas.height / 2)
 		} : null),
 		playtesting && (this.canvas.style.cursor = c ? "pointer" : "default"),
-		e.usingGamepad = !1,
 		this.gamepad) {
-			this.gamepad = navigator.getGamepads()[this.gamepad.index],
-			e.usingGamepad = !0;
-			for (let a = 0; a < this.gamepad.buttons.length; a++) {
-				const t = $4cb5e0b12995588c$export$39b8dbea490353e9[a];
-				t && (this.gamepad.buttons[a].value && !keysDown.has(t) ? (e.keys.keyDown(t),
-				keysDown.add(t)) : !this.gamepad.buttons[a].value && keysDown.has(t) && (e.keys.keyUp(t),
-				keysDown.delete(t)))
+			this.gamepad = navigator.getGamepads()[this.gamepad.index];
+			for (let t = 0; t < this.gamepad.buttons.length; t++) {
+				const a = $4cb5e0b12995588c$export$39b8dbea490353e9[t];
+				a && (this.gamepad.buttons[t].value && !this.gamepadDown.includes(a) ? (e.keys.keyDown(a),
+				this.gamepadDown.push(a),
+				e.usingGamepad = !0) : !this.gamepad.buttons[t].value && this.gamepadDown.includes(a) && (e.keys.keyUp(a),
+				this.gamepadDown.splice(this.gamepadDown.indexOf(a), 1),
+				e.usingGamepad = !0))
 			}
-			const t = this.gamepad.axes[0]
+			const a = this.gamepad.axes[0]
 			  , r = this.gamepad.axes[1];
-			if (null !== t && null !== r && (Math.abs(t) > a.joystickDeadzone || Math.abs(r) > a.joystickDeadzone)) {
-				const a = .25 * this.canvas.width
+			if (null !== a && null !== r && (Math.abs(a) > t.joystickDeadzone || Math.abs(r) > t.joystickDeadzone)) {
+				const t = .25 * this.canvas.width
 				  , c = .25 * this.canvas.height;
 				e.mouseDown = {
-					x: Math.round(t * a),
+					x: Math.round(a * t),
 					y: Math.round(r * c)
-				}
+				},
+				e.usingGamepad = !0
 			}
 			const c = .7
 			  , o = this.gamepad.axes[2]
 			  , n = this.gamepad.axes[3];
-			o <= -c && !keysDown.has($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
-			keysDown.add($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY)) : keysDown.has($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
-			keysDown.delete($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY)),
-			o >= c && !keysDown.has($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
-			keysDown.add($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY)) : keysDown.has($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
-			keysDown.delete($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY)),
-			n <= -c && !keysDown.has($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
-			keysDown.add($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY)) : keysDown.has($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
-			keysDown.delete($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY))
-		}
+			o <= -c && !this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
+			this.gamepadDown.push($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
+			e.usingGamepad = !0) : this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
+			this.gamepadDown.splice(this.gamepadDown.indexOf($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY), 1),
+			e.usingGamepad = !0),
+			o >= c && !this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
+			this.gamepadDown.push($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
+			e.usingGamepad = !0) : this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
+			this.gamepadDown.splice(this.gamepadDown.indexOf($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY), 1),
+			e.usingGamepad = !0),
+			n <= -c && !this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
+			this.gamepadDown.push($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
+			e.usingGamepad = !0) : this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
+			this.gamepadDown.splice(this.gamepadDown.indexOf($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY), 1),
+			e.usingGamepad = !0)
+		} else
+			this.touch.wasDown && (this.touch.down && Math.abs(this.touch.current.x - this.touch.start.x) >= 1 && Math.abs(this.touch.current.y - this.touch.start.y) >= 1 ? e.mouseDown = {
+				x: this.touch.current.x - this.touch.start.x,
+				y: this.touch.current.y - this.touch.start.y
+			} : e.mouseDown = null)
 	}
 	addButton(e, a=(()=>{}
 	)) {
@@ -1339,6 +1391,7 @@ class $e7009c797811e935$var$InputLayer {
 		this.down = !1,
 		this.initialDown = !1,
 		this.mouseMovementToggled = !1,
+		this.toggleListeners = new Set,
 		this.buttons = [],
 		this.enteredButtons = new Set,
 		this.gameState = null,
@@ -1346,12 +1399,29 @@ class $e7009c797811e935$var$InputLayer {
 		this.onMouseDownListeners = new Set,
 		this.gamepad = null,
 		this.gamepadDown = [],
-		this.deregisterListeners = ()=>{}
+		this.touch = {
+			isTouch: !1,
+			start: {
+				x: 0,
+				y: 0
+			},
+			current: {
+				x: 0,
+				y: 0
+			},
+			secondary: {
+				x: 0,
+				y: 0
+			},
+			down: !1,
+			wasDown: !1
+		},
+		this.deregisterListeners = () => {}
 	}
 }
 var $e7009c797811e935$export$2e2bcd8739ae039 = new $e7009c797811e935$var$InputLayer;
 
-function Dd(e) {
+function $379de2c4e3c3d2a4$export$b88b9e8f55bb52b8(e) {
 	const t = settings.legacySpeedUnits;
 	return e.replace(/\{\{speed\|([0-9\/.]+)}}/g, ((e,n)=>function(e) {
 		return t ? e.split("/").map((e=>parseFloat(e) / 30)).join("/") : e
@@ -1362,6 +1432,56 @@ const $1c037512d4c36cef$var$HERO_NAME_FONT_SIZE = 18
   , $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE = 48
   , $1c037512d4c36cef$var$keys = {"UNDEFINED_KEYTYPE":0,"W_KEY":1,"A_KEY":2,"S_KEY":3,"D_KEY":4,"UP_KEY":5,"LEFT_KEY":6,"DOWN_KEY":7,"RIGHT_KEY":8,"FOCUS_KEY":9,"ABILITY_ONE_KEY":10,"ABILITY_TWO_KEY":11,"ABILITY_THREE_KEY":12,"ACTION_KEY":13,"UPGRADE_SPEED_KEY":14,"UPGRADE_MAX_ENERGY_KEY":15,"UPGRADE_ENERGY_REGEN_KEY":16,"UPGRADE_ABILITY_ONE_KEY":17,"UPGRADE_ABILITY_TWO_KEY":18,"UPGRADE_ABILITY_THREE_KEY":19};
 class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
+	constructor() {
+		super(),
+		this.width = 516,
+		this.height = 85,
+		this.abilityOne = new Ability,
+		this.abilityTwo = new Ability,
+		this.abilityThree = new Ability,
+		this.upgradeMode = !1,
+		this.upgradeBrightness = new $4e83b777e56fdf48$export$2e2bcd8739ae039(175,175,255,5,!0),
+		this.isTouchAdjusted = !1,
+		this.buttons = {
+			interactionIndicator: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
+			speed: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
+			maxEnergy: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
+			energyRegen: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
+			useAbilityOne: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.USE_ABILITY_ONE[0]),
+			useAbilityTwo: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.USE_ABILITY_TWO[0]),
+			useAbilityThree: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.USE_ABILITY_THREE[0]),
+			upgradeSpeed: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_SPEED[0]),
+			upgradeEnergy: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_MAX_ENERGY[0]),
+			upgradeRegen: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_ENERGY_REGEN[0]),
+			upgradeAbilityOne: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_ABILITY_ONE[0]),
+			upgradeAbilityTwo: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_ABILITY_TWO[0]),
+			upgradeAbilityThree: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_ABILITY_THREE[0])
+		},
+		this.ready = !1,
+		this.hidden = !1
+	}
+	adjustToTouch() {
+		this.isTouchAdjusted = !0,
+		this.buttons.speed.key = controls.UPGRADE_SPEED[0],
+		this.buttons.maxEnergy.key = controls.UPGRADE_MAX_ENERGY[0],
+		this.buttons.energyRegen.key = controls.UPGRADE_ENERGY_REGEN[0],
+		this.buttons.hero = $e7009c797811e935$export$2e2bcd8739ae039.addButton(null, (e => {
+			this.changeUpgradeMode()
+		}
+		)),
+		this.buttons.hero.interactive = !0,
+		this.buttons.speed.interactive = !0,
+		this.buttons.maxEnergy.interactive = !0,
+		this.buttons.energyRegen.interactive = !0
+	}
+	changeUpgradeMode() {
+		this.upgradeMode = !this.upgradeMode,
+		this.upgradeMode ? (this.buttons.useAbilityOne.key = controls.UPGRADE_ABILITY_ONE[0],
+		this.buttons.useAbilityTwo.key = controls.UPGRADE_ABILITY_TWO[0],
+		this.buttons.useAbilityThree.key = controls.UPGRADE_ABILITY_THREE[0]) : (this.buttons.useAbilityOne.key = controls.USE_ABILITY_ONE[0],
+		this.buttons.useAbilityTwo.key = controls.USE_ABILITY_TWO[0],
+		this.buttons.useAbilityThree.key = controls.USE_ABILITY_THREE[0])
+	}
 	newButton(e) {
 		return {
 			x: 0,
@@ -1393,249 +1513,279 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 			e.interactive = !this.hidden,
 			e.visible = !this.hidden
 	}
-	render(e, t, n,delta) {
+	render(e, t, a,delta) {
 		if (!this.ready || this.hidden)
 			return;
+		$e7009c797811e935$export$2e2bcd8739ae039.touch.isTouch && !this.isTouchAdjusted && this.adjustToTouch();
 		const r = t.viewportSize
-		  , i = r.width / 2 - this.width / 2*camScale
-		  , a = r.height/2 + 360*camScale - this.height*camScale;
-		this.x = i,
-		this.y = a;
-		let o, s = i, l = a;
-		e.strokeStyle = "#000000",
+		  , c = r.width / 2 - this.width / 2*camScale
+		  , o = r.height/2 + 360*camScale - this.height*camScale;
+		this.x = c,
+		this.y = o;
+		let n, $ = c, i = o;
+		if (e.strokeStyle = "#000000",
 		e.fillStyle = "rgba(0, 0, 0, 0.8)",
-		o = (void 0 === this.abilityThree.abilityType || this.abilityRemoved ? this.width : this.width + 80)*camScale,
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, i, a, o, this.height*camScale, !0, !1),
-		s = i + 55*camScale,
-		l = a + 20*camScale,
-		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(18),
+		n = (void 0 === this.abilityThree.abilityType || this.abilityRemoved ? this.width : this.width + 80)*camScale,
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, c, o, n, this.height*camScale, !0, !1),
+		$ = c + 55*camScale,
+		i = o + 20*camScale,
+		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font($1c037512d4c36cef$var$HERO_NAME_FONT_SIZE),
 		e.textAlign = "center",
 		e.fillStyle = this.heroColor,
-		e.fillText(this.heroName, s, l),
-		s = i + 55*camScale,
-		l = a + 55*camScale,
+		e.fillText(this.heroName, $, i),
+		$ = c + 55*camScale,
+		i = o + 55*camScale,
 		e.fillStyle = this.heroColor,
-		$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, s, l, 23*camScale, !0, !1),
-		s = i + 55*camScale,
-		l = a + 63*camScale,
+		$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, $, i, 23*camScale, !0, !1),
+		this.buttons.hero) {
+			if (this.buttons.hero.x = $ - 23*camScale,
+			this.buttons.hero.y = i - 23*camScale,
+			this.buttons.hero.width = 46*camScale,
+			this.buttons.hero.height = 46*camScale,
+			this.buttons.hero.mouseOver) {
+				const t = 180*camScale
+				  , a = 40*camScale;
+				this.renderStatTooltip(e, "Upgrade mode: " + ["off", "on"][+this.upgradeMode], $ - t / 2, i - a - 35*camScale, t, a)
+			}
+			!this.upgradeMode && this.upgradePoints > 0 && ($ -= 28*camScale,
+			i -= 10*camScale,
+			e.fillStyle = "#aaaaaa",
+			e.beginPath(),
+			e.moveTo($, i),
+			e.lineTo($ - 15*camScale, i),
+			e.lineTo($ - 10.5*camScale, i - 6*camScale),
+			e.lineTo($ - 19.5*camScale, i - 15*camScale),
+			e.lineTo($ - 15*camScale, i - 19.5*camScale),
+			e.lineTo($ - 6*camScale, i - 10.5*camScale),
+			e.lineTo($, i - 15*camScale),
+			e.fill())
+		}
+		$ = c + 55*camScale,
+		i = o + 63*camScale,
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(22),
 		e.textAlign = "center",
 		e.fillStyle = "white",
 		this.mutatiorbBuffExperienceGain && this.mutatiorbBuffed && (e.fillStyle = "yellow"),
-		e.fillText(this.level, s, l),
-		0 === this.playerInteractions ? (s = i + 4*camScale,
-		l = a + 71*camScale,
+		e.fillText(this.level, $, i),
+		0 === this.playerInteractions ? ($ = c + 4*camScale,
+		i = o + 71*camScale,
 		e.fillStyle = "#666666",
 		e.beginPath(),
-		e.moveTo(s, l + 10*camScale),
-		e.lineTo(s + 6*camScale, l),
-		e.lineTo(s + 12*camScale, l + 10*camScale),
-		e.fill()) : 1 === this.playerInteractions && (s = i + 4*camScale,
-		l = a + 71*camScale,
+		e.moveTo($, i + 10*camScale),
+		e.lineTo($ + 6*camScale, i),
+		e.lineTo($ + 12*camScale, i + 10*camScale),
+		e.fill()) : 1 === this.playerInteractions && ($ = c + 4*camScale,
+		i = o + 71*camScale,
 		e.fillStyle = "#666666",
 		e.beginPath(),
-		e.moveTo(s, l),
-		e.lineTo(s + 10*camScale, l),
-		e.lineTo(s + 10*camScale, l + 10*camScale),
-		e.lineTo(s, l + 10*camScale),
+		e.moveTo($, i),
+		e.lineTo($ + 10*camScale, i),
+		e.lineTo($ + 10*camScale, i + 10*camScale),
+		e.lineTo($, i + 10*camScale),
 		e.fill()),
-		this.buttons.interactionIndicator.x = s,
-		this.buttons.interactionIndicator.y = l,
+		this.buttons.interactionIndicator.x = $,
+		this.buttons.interactionIndicator.y = i,
 		this.buttons.interactionIndicator.width = 10*camScale,
 		this.buttons.interactionIndicator.height = 10*camScale,
 		this.playerInteractions <= 1 && this.buttons.interactionIndicator.mouseOver && (e.fillStyle = "rgba(0, 0, 0, 0.65)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, s - 14*camScale, l - 22*camScale, 40*camScale, 20*camScale, !0, !1),
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, $ - 14*camScale, i - 22*camScale, 40*camScale, 20*camScale, !0, !1),
 		e.textAlign = "center",
 		e.fillStyle = "white",
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(14),
-		e.fillText(0 === this.playerInteractions ? "Solo" : "Duo", s + 5*camScale, l - 22*camScale + 15*camScale)),
-		s = i + 105*camScale,
-		l = a,
+		e.fillText(0 === this.playerInteractions ? "Solo" : "Duo", $ + 5*camScale, i - 22*camScale + 15*camScale)),
+		$ = c + 105*camScale,
+		i = o,
 		e.strokeStyle = "rgb(128, 128, 128)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.line(e, s, l, s, l + this.height*camScale),
+		$f36928166e04fda7$export$2e2bcd8739ae039.line(e, $, i, $, i + this.height*camScale),
 		this.upgradeBrightness.update(delta);
-		this.upgradePoints > 0 && (s = i + 136*camScale,
-		l = a + 16*camScale,
+		this.upgradePoints > 0 && ($ = c + 136*camScale,
+		i = o + 16*camScale,
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(13),
 		e.fillStyle = "white",
-		e.fillText("Points:", s, l));
-		const c = Math.round(10 * this.speed) / 10
-		  , u = Math.round(1e3 * this.energyRegen) / 1e3
-		  , d = c < EvadesConfig.upgrades.speed.max
-		  , f = this.maxEnergy.toFixed(3) < EvadesConfig.upgrades.max_energy.max
-		  , h = u < EvadesConfig.upgrades.energy_regen.max
-		  , p = this.abilityOne && this.abilityOne.level !== this.abilityOne.maxLevel
-		  , m = this.abilityTwo && this.abilityTwo.level !== this.abilityTwo.maxLevel
-		  , g = this.abilityThree && this.abilityThree.level !== this.abilityThree.maxLevel
-		  , b = d || f || h || p || m || g ? Math.round((this.upgradeBrightness.value - this.upgradeBrightness.min) / 3) : 0;
-		let y = 200
+		e.fillText("Points:", $, i));
+		const d = Math.round(10 * this.speed) / 10
+		  , s = Math.round(1e3 * this.energyRegen) / 1e3
+		  , f = d < EvadesConfig.upgrades.speed.max
+		  , l = this.maxEnergy.toFixed(3) < EvadesConfig.upgrades.max_energy.max
+		  , p = s < EvadesConfig.upgrades.energy_regen.max
+		  , b = this.abilityOne && this.abilityOne.level !== this.abilityOne.maxLevel
+		  , u = this.abilityTwo && this.abilityTwo.level !== this.abilityTwo.maxLevel
+		  , x = this.abilityThree && this.abilityThree.level !== this.abilityThree.maxLevel
+		  , h = f || l || p || b || u || x ? Math.round((this.upgradeBrightness.value - this.upgradeBrightness.min) / 3) : 0;
+		let m = 200
 		  , v = 200
-		  , x = 0;
-		if (e.fillStyle = `rgb(${200 + b}, ${200 + b}, ${b})`,
+		  , g = 0;
+		if (e.fillStyle = `rgb(${200 + h}, ${200 + h}, ${h})`,
 		this.upgradePoints > 8) {
-			s = i + 169*camScale,
-			l = a + 12*camScale,
-			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, s, l, 8*camScale, !0, !1),
-			l = a + 16*camScale,
+			const t = 8*camScale;
+			$ = c + 169*camScale,
+			i = o + 12*camScale,
+			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, $, i, t, !0, !1),
+			i = o + 16*camScale,
 			e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(10),
 			e.textAlign = "center",
-			y = 0,
+			m = 0,
 			v = 0,
-			x = 0,
-			e.fillStyle = `rgb(${y + b}, ${v + b}, ${x + b})`,
-			e.fillText(this.upgradePoints, s, l)
+			g = 0,
+			e.fillStyle = `rgb(${m + h}, ${v + h}, ${g + h})`,
+			e.fillText(this.upgradePoints, $, i)
 		} else
 			for (let t = 0; t < this.upgradePoints; t++)
-				l = a + 12*camScale,
-				s = i + 169*camScale + 20*camScale * t,
-				$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, s, l, 6*camScale, !0, !1);
-		const w = 105*camScale;
-		s = i + w,
-		l = a + 17*camScale;
+				i = o + 12*camScale,
+				$ = c + 169*camScale + 20*camScale * t,
+				$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, $, i, 6*camScale, !0, !1);
+		const y = 105*camScale;
+		$ = c + y,
+		i = o + 17*camScale;
 		let S = this.speed;
 		settings.legacySpeedUnits && (S /= 30);
-		const _ = Math.round(10 * S) / 10;
-		this.renderStat(e, "Speed", "Zoom zoom!\nHold shift to slow down.", _, s, l, this.buttons.speed, this.mutatiorbBuffSpeedBoost && this.mutatiorbBuffed),
-		this.renderUpgrade(e, s + 41*camScale, l + 52*camScale, d, n.usingGamepad ? "R←" : 1, this.buttons.upgradeSpeed),
-		s = i + w + 82*camScale,
-		this.renderStat(e, "Energy", "Used for abilities.", this.energyInfo(), s, l, this.buttons.maxEnergy, !1, this.energized, this.sweetToothConsumed),
-		this.renderUpgrade(e, s + 41*camScale, l + 52*camScale, f, n.usingGamepad ? "R↑" : 2, this.buttons.upgradeEnergy),
-		s = i + w + 164*camScale,
-		this.renderStat(e, "Regen", "How quickly your\nenergy comes back.", Math.round(10 * u) / 10, s, l, this.buttons.energyRegen),
-		this.renderUpgrade(e, s + 41*camScale, l + 52*camScale, h, n.usingGamepad ? "R→" : 3, this.buttons.upgradeRegen),
-		s = i + w + 246*camScale,
-		l = a + 17*camScale,
-		this.renderAbility(e, this.abilityOne, s, l, n.usingGamepad ? ["ZL"] : ["Z", "J"], n.usingGamepad ? "L" : 4, this.buttons.useAbilityOne, this.buttons.upgradeAbilityOne, this.mutatiorbBuffCooldownReduction && this.mutatiorbBuffed),
-		s = i + w + 328*camScale,
-		this.renderAbility(e, this.abilityTwo, s, l, n.usingGamepad ? ["ZR"] : ["X", "K"], n.usingGamepad ? "R" : 5, this.buttons.useAbilityTwo, this.buttons.upgradeAbilityTwo, this.mutatiorbBuffCooldownReduction && this.mutatiorbBuffed),
-		void 0 === this.abilityThree.abilityType || this.abilityRemoved || (s = i + w + 410*camScale,
-		this.renderAbility(e, this.abilityThree, s, l, n.usingGamepad ? ["Y"] : ["C", "L"], n.usingGamepad ? ["X"] : 6, this.buttons.useAbilityThree, this.buttons.upgradeAbilityThree, this.mutatiorbBuffCooldownReduction && this.mutatiorbBuffed))
+		const C = Math.round(10 * S) / 10;
+		this.renderStat(e, "Speed", "Zoom zoom!\nHold shift to slow down.", C, $, i, this.buttons.speed, this.mutatiorbBuffSpeedBoost && this.mutatiorbBuffed),
+		this.renderUpgrade(e, $ + 41*camScale, i + 52*camScale, f, a.usingGamepad ? "R←" : 1, this.buttons.upgradeSpeed),
+		$ = c + y + 82*camScale,
+		this.renderStat(e, "Energy", "Used for abilities.", this.energyInfo(), $, i, this.buttons.maxEnergy, !1, this.energized, this.sweetToothConsumed),
+		this.renderUpgrade(e, $ + 41*camScale, i + 52*camScale, l, a.usingGamepad ? "R↑" : 2, this.buttons.upgradeEnergy),
+		$ = c + y + 164*camScale,
+		this.renderStat(e, "Regen", "How quickly your\nenergy comes back.", Math.round(10 * s) / 10, $, i, this.buttons.energyRegen),
+		this.renderUpgrade(e, $ + 41*camScale, i + 52*camScale, p, a.usingGamepad ? "R→" : 3, this.buttons.upgradeRegen),
+		$ = c + y + 246*camScale,
+		i = o + 17*camScale,
+		this.renderAbility(e, this.abilityOne, $, i, a.usingGamepad ? ["ZL"] : ["Z", "J"], a.usingGamepad ? "L" : 4, this.buttons.useAbilityOne, this.buttons.upgradeAbilityOne, this.mutatiorbBuffCooldownReduction && this.mutatiorbBuffed),
+		$ = c + y + 328*camScale,
+		this.renderAbility(e, this.abilityTwo, $, i, a.usingGamepad ? ["ZR"] : ["X", "K"], a.usingGamepad ? "R" : 5, this.buttons.useAbilityTwo, this.buttons.upgradeAbilityTwo, this.mutatiorbBuffCooldownReduction && this.mutatiorbBuffed),
+		void 0 === this.abilityThree.abilityType || this.abilityRemoved || ($ = c + y + 410*camScale,
+		this.renderAbility(e, this.abilityThree, $, i, a.usingGamepad ? ["Y"] : ["C", "L"], a.usingGamepad ? ["X"] : 6, this.buttons.useAbilityThree, this.buttons.upgradeAbilityThree, this.mutatiorbBuffCooldownReduction && this.mutatiorbBuffed))
 	}
 	energyInfo() {
 		return `${Math.floor(this.energy)} / ${this.maxEnergy}`
 	}
-	renderStat(e, t, n, r, i, a, o, s=!1, l=!1, c=!1) {
-		if (o.x = i,
-		o.y = a + 10*camScale,
-		o.width = 82*camScale,
-		o.height = 40*camScale,
-		o.mouseOver) {
+	renderStat(e, t, a, r, c, o, n, $=!1, i=!1, d=!1) {
+		if (n.x = c,
+		n.y = o + 10*camScale,
+		n.width = 82*camScale,
+		n.height = 40*camScale,
+		n.mouseOver) {
 			const t = 185*camScale
 			  , r = 60*camScale;
-			this.renderStatTooltip(e, n, i + o.width / 2 - t / 2, a - r - 35*camScale, t, r)
+			this.renderStatTooltip(e, a, c + n.width / 2 - t / 2, o - r - 35*camScale, t, r)
 		}
-		i += 41*camScale,
-		a += 44*camScale,
+		c += 41*camScale,
+		o += 44*camScale,
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(10),
 		e.fillStyle = "white",
-		s && (e.fillStyle = "yellow"),
-		settings.displayEnergyBars > 1 && (l && (e.fillStyle = "yellow"),
-		c && (e.fillStyle = "rgb(255, 43, 143)")),
-		e.fillText(`${t}`, i, a),
+		$ && (e.fillStyle = "yellow"),
+		settings.displayEnergyBars > 1 && (i && (e.fillStyle = "yellow"),
+		d && (e.fillStyle = "rgb(255, 43, 143)")),
+		e.fillText(`${t}`, c, o),
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(22),
-		e.fillText(r, i, a - 17*camScale)
+		e.fillText(r, c, o - 17*camScale)
 	}
-	renderStatTooltip(e, a, t, r, c, o) {
+	renderStatTooltip(e, t, a, r, c, o) {
 		e.fillStyle = "rgba(0, 0, 0, 0.65)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t, r, c, o, !0, !1),
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, a, r, c, o, !0, !1),
 		e.textAlign = "center",
 		e.fillStyle = "white",
 		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16),
-		$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e, a, t + c / 2, r + 25*camScale)
+		$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e, t, a + c / 2, r + 25*camScale)
 	}
-	renderAbility(e, t, n, r, i, a, o, s, l=!1) {
-		const tv=48*camScale,td=$31e8cfefa331e399$export$93e5c64e4cc246c8;
+	renderAbility(e, t, a, r, c, o, n, $, i=!1) {
 		t.maxLevel=abilityConfig[t.abilityType].levels.length;
-		if (n += 17*camScale,
-		o.interactive = !0,
-		l) {
+		if (a += (41 - $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE / 2)*camScale,
+		n.interactive = !0,
+		i) {
 			const t = 2*camScale;
 			e.fillStyle = "rgb(110, 57, 30)",
-			e.fillRect(n - t, r - t, tv + 2 * t, tv + 2 * t)
+			e.fillRect(a - t, r - t, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale + 2 * t, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale + 2 * t)
 		}
-		if (t.locked ? (e.drawImage(t.image.getImage(0), n, r, tv, tv),
-		e.fillStyle = "rgba(0, 0, 0, 0.6)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, n, r, tv, tv, !0, !1),
-		o.interactive = !1) : (e.drawImage(t.image.getImage(0), n, r, tv, tv),
-		"Mutatiorb" === t.name && (1 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_1").getImage(), n, r, tv, tv) : 2 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_2").getImage(), n, r, tv, tv) : 3 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_3").getImage(), n, r, tv, tv) : 4 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_4").getImage(), n, r, tv, tv) : 5 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_5").getImage(), n, r, tv, tv) : 6 === this.storedPellets ? e.drawImage(td("abilities/mutatiorb_6").getImage(), n, r, tv, tv) : 7 === this.storedPellets && e.drawImage(td("abilities/mutatiorb_7").getImage(), n, r, tv, tv)),
-		!o.mouseDown && o.mouseOver ? (e.fillStyle = "rgba(0, 0, 0, 0.1)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, n, r, tv, tv, !0, !1)) : o.mouseDown || o.mouseOver || (e.fillStyle = "rgba(0, 0, 0, 0.2)",
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, n, r, tv, tv, !0, !1))),
-		t.disabled)
-			e.fillStyle = "rgba(0, 0, 0, 0.7)",
-			e.fillRect(n, r, tv, tv),
-			o.interactive = !1;
-		else if (t.cooldown > 0) {
-			e.fillStyle = "rgba(0, 0, 0, 0.7)";
-			const i = t.cooldown / t.totalCooldown;
-			1 === i ? $f36928166e04fda7$export$2e2bcd8739ae039.rect(e, n, r, tv, tv, !0, !1) : $f36928166e04fda7$export$2e2bcd8739ae039.sectorInRect(e, n, r, tv, tv, 360 * (1 - i) - 90),
-			o.interactive = !1
+		if (!this.upgradeMode && t.locked || this.upgradeMode && 0 == this.upgradePoints)
+			t.image.draw(e, a, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale),
+			e.fillStyle = "rgba(0, 0, 0, 0.6)",
+			$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, a, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, !0, !1),
+			n.interactive = !1;
+		else {
+			if (t.image.draw(e, a, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale),
+			"Mutatiorb" === t.name) {
+				$31e8cfefa331e399$export$93e5c64e4cc246c8(`abilities/mutatiorb_${this.storedPellets}`).draw(e, a, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale)
+			}
+			!n.mouseDown && n.mouseOver ? (e.fillStyle = "rgba(0, 0, 0, 0.1)",
+			$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, a, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, !0, !1)) : n.mouseDown || n.mouseOver || (e.fillStyle = "rgba(0, 0, 0, 0.2)",
+			$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, a, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, !0, !1))
 		}
-		if (o.mouseOver) {
-			const i = 235*camScale
-			  , a = Dd(t.description)
-			  , o = (20 * a.split("\n").length + 40)*camScale;
-			this.renderAbilityTooltip(e, t, a, n + 24*camScale - i / 2, r - o - 35*camScale, i, o)
+		if (!this.upgradeMode)
+			if (t.disabled)
+				e.fillStyle = "rgba(0, 0, 0, 0.7)",
+				e.fillRect(a, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale),
+				n.interactive = !1;
+			else if (t.cooldown > 0) {
+				e.fillStyle = "rgba(0, 0, 0, 0.7)";
+				const c = t.cooldown / t.totalCooldown;
+				1 === c ? $f36928166e04fda7$export$2e2bcd8739ae039.rect(e, a, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, !0, !1) : $f36928166e04fda7$export$2e2bcd8739ae039.sectorInRect(e, a, r, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale, 360 * (1 - c) - 90),
+				n.interactive = !1
+			}
+		if (n.mouseOver) {
+			const c = 235*camScale
+			  , o = $379de2c4e3c3d2a4$export$b88b9e8f55bb52b8(t.description)
+			  , n = (20 * o.split("\n").length + 40)*camScale;
+			this.renderAbilityTooltip(e, t, o, a + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale / 2 - c / 2, r - n - 35*camScale, c, n)
 		}
-		o.x = n,
-		o.y = r,
-		o.width = tv,
-		o.height = tv;
-		const c = n + 5*camScale
-		  , u = n + 45*camScale
-		  , d = r - 9*camScale;
+		n.x = a,
+		n.y = r,
+		n.width = $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale,
+		n.height = $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale;
+		const d = a + 5*camScale
+		  , s = a + 45*camScale
+		  , f = r - 9*camScale;
 		t.locked ? e.strokeStyle = "rgb(150, 150, 150)" : e.strokeStyle = "rgb(200, 200, 200)";
-		for (let n = 0; n < t.maxLevel; n++) {
-			let r = c + (u - c) / 2;
-			t.maxLevel > 1 && (r = c + (u - c) * (n / (t.maxLevel - 1))),
-			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, r, d, 3*camScale, !1, !0)
+		for (let a = 0; a < t.maxLevel; a++) {
+			let r = d + (s - d) / 2;
+			t.maxLevel > 1 && (r = d + (s - d) * (a / (t.maxLevel - 1))),
+			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, r, f, 3*camScale, !1, !0)
 		}
 		e.strokeStyle = "rgb(255, 255, 0)",
 		e.fillStyle = e.strokeStyle;
-		for (let n = 0; n < t.level; n++) {
-			let r = c + (u - c) / 2;
-			t.maxLevel > 1 && (r = c + (u - c) * (n / (t.maxLevel - 1))),
-			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, r, d, 3*camScale, !0, !0)
+		for (let a = 0; a < t.level; a++) {
+			let r = d + (s - d) / 2;
+			t.maxLevel > 1 && (r = d + (s - d) * (a / (t.maxLevel - 1))),
+			$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, r, f, 3*camScale, !0, !0)
 		}
-		if (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(10),
+		if (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font($1c037512d4c36cef$var$ABILITY_DESCRIPTION_FONT_SIZE),
 		e.textAlign = "center",
 		e.fillStyle = "white",
 		t.locked && 0 === this.upgradePoints) {
 			const t = "Locked";
-			e.fillText(t, n + 24*camScale, r + tv + 12*camScale)
+			e.fillText(t, a + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale / 2, r + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale + 12*camScale)
 		} else if (0 === this.upgradePoints) {
-			const t = `[${i.join("] or [")}]`;
-			e.fillText(t, n + 24*camScale, r + tv + 12*camScale)
+			const t = `[${c.join("] or [")}]`;
+			e.fillText(t, a + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale / 2, r + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale + 12*camScale)
 		} else {
-			const i = t.level !== t.maxLevel;
-			this.renderUpgrade(e, n + 24*camScale, r + tv + 4*camScale, i, a, s)
+			const c = t.level !== t.maxLevel;
+			this.renderUpgrade(e, a + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale / 2, r + $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE*camScale + 4*camScale, c, o, $)
 		}
 	}
-	renderAbilityTooltip(e, t, n, r, i, a, o) {
-		const Lu=$f36928166e04fda7$export$2e2bcd8739ae039;
+	renderAbilityTooltip(e, t, a, r, c, o, n) {
 		e.fillStyle = "rgba(0, 0, 0, 0.65)",
-		Lu.rect(e, r, i, a, o, !0, !1),
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, r, c, o, n, !0, !1),
 		e.textAlign = "center",
 		e.fillStyle = "white",
-		e.font = Lu.font(22),
-		e.fillText(t.name, r + a / 2, i + 25*camScale),
-		e.font = Lu.font(16),
-		Lu.multilineText(e, n, r + a / 2, i + 50*camScale)
+		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(22),
+		e.fillText(t.name, r + o / 2, c + 25*camScale),
+		e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(16),
+		$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e, a, r + o / 2, c + 50*camScale)
 	}
-	renderUpgrade(e, a, t, r, c, o) {
+	renderUpgrade(e, t, a, r, c, o) {
 		if (0 === this.upgradePoints)
 			return void (o.interactive = !1);
-		let n, $, d = Math.round((this.upgradeBrightness.value - this.upgradeBrightness.min) / 3), i = 0;
+		let n, $, i = Math.round((this.upgradeBrightness.value - this.upgradeBrightness.min) / 3), d = 0;
 		n = 200,
 		$ = 200,
-		i = 0,
+		d = 0,
 		o.interactive = !0,
-		r ? o.mouseDown && o.mouseOver ? d = 80 : o.mouseOver && (d = 50) : (o.interactive = !1,
-		d = -120),
-		e.fillStyle = `rgb(${n + d}, ${$ + d}, ${i + d})`,
+		r ? o.mouseDown && o.mouseOver ? i = 80 : o.mouseOver && (i = 50) : (o.interactive = !1,
+		i = -120),
+		e.fillStyle = `rgb(${n + i}, ${$ + i}, ${d + i})`,
 		e.strokeStyle = e.fillStyle;
-		o.x = a - 6*camScale,
-		o.y = t,
+		o.x = t - 6*camScale,
+		o.y = a,
 		o.width = 14*camScale,
 		o.height = 14*camScale,
 		$f36928166e04fda7$export$2e2bcd8739ae039.roundedRect(e, o.x, o.y, 12*camScale, 12*camScale, 1*camScale, !0, !0),
@@ -1643,39 +1793,46 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		c.length > 1 && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(8)),
 		n = 0,
 		$ = 0,
-		i = 0,
-		e.fillStyle = `rgb(${n + d}, ${$ + d}, ${i + d})`,
-		e.fillText(c, a, t + 10*camScale)
-	}
-	constructor() {
-		super(),
-		this.width = 516,
-		this.height = 85,
-		this.abilityOne = new Ability,
-		this.abilityTwo = new Ability,
-		this.abilityThree = new Ability,
-		this.upgradeBrightness = new $4e83b777e56fdf48$export$2e2bcd8739ae039(175,175,255,5,!0),
-		this.buttons = {
-			interactionIndicator: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
-			speed: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
-			maxEnergy: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
-			energyRegen: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
-			useAbilityOne: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.USE_ABILITY_ONE[0]),
-			useAbilityTwo: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.USE_ABILITY_TWO[0]),
-			useAbilityThree: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.USE_ABILITY_THREE[0]),
-			upgradeSpeed: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_SPEED[0]),
-			upgradeEnergy: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_MAX_ENERGY[0]),
-			upgradeRegen: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_ENERGY_REGEN[0]),
-			upgradeAbilityOne: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_ABILITY_ONE[0]),
-			upgradeAbilityTwo: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_ABILITY_TWO[0]),
-			upgradeAbilityThree: $e7009c797811e935$export$2e2bcd8739ae039.addButton(controls.UPGRADE_ABILITY_THREE[0])
-		},
-		this.ready = !1,
-		this.hidden = !1
+		d = 0,
+		e.fillStyle = `rgb(${n + i}, ${$ + i}, ${d + i})`,
+		e.fillText(c, t, a + 10*camScale)
 	}
 }
 let $e913e8e06e143c8e$var$cachedAreaText = null;
-class BottomText extends $cee3aa9d42503f73$export$2e2bcd8739ae039{stateFields(){return["x","y","areaPosition","areaName","areaNumber","regionName","victoryArea","isGuest","highestAreaAchieved","accessories","canCling","hasWindDebuff","hasWaterDebuff","hasFireDebuff","hasEarthDebuff"]}render(e,t,n){const r=t.viewportSize,i=this.getTutorialText();if(null!==i)return void this.renderText(e,i,r);const a=this.getAreaText();null!==a&&this.renderText(e,a,r);const o=this.getActionText(n);null!==o&&null===a&&this.renderActionText(e,o,r)}renderText(e,t,n){const r=n.width/2,i=n.height/2+360*camScale-120*camScale;e.save(),e.font="bold "+$f36928166e04fda7$export$2e2bcd8739ae039.font(28),e.textAlign="center",e.lineWidth=5*camScale,e.strokeStyle="#006b2c",e.fillStyle="#00ff6b",$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e,t,r,i,{fill:!0,stroke:!0,lineHeight:35*camScale,fromTop:!1,maxWidth:1260*camScale}),e.restore()}renderActionText(e,t,n){const r=n.width/2,i=n.height/2+360*camScale-120*camScale;e.save(),e.font="bold "+$f36928166e04fda7$export$2e2bcd8739ae039.font(18),e.textAlign="center",e.lineWidth=5*camScale,e.strokeStyle="#006b2c",e.fillStyle="#00ff6b",$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e,t,r,i,{fill:!0,stroke:!0,lineHeight:35*camScale,fromTop:!1}),e.restore()}getAreaText(){const e=this.x,t=this.y,n=$e728d5a493f33528$export$69dd9a529c505ede(this.highestAreaAchieved),r={"Central Core":{11:{text:"",heroUnlock:"Morfe",heroUnlockOnly:!0},21:{text:"Half way there.",heroUnlock:"Aurora",heroUnlockOnly:!0},41:{text:"You defeated Central Core.",victoryPoints:1,heroUnlock:"Necro"}},"Central Core Hard":{11:{text:"",heroUnlock:"Morfe",heroUnlockOnly:!0},21:{text:"Half way there.",heroUnlock:"Aurora",heroUnlockOnly:!0},41:{text:"You hardly defeated Central Core Hard.",victoryPoints:6,heroUnlock:"Necro"}},"Catastrophic Core":{11:{text:"",heroUnlock:"Morfe",heroUnlockOnly:!0},21:{text:"Half way there.",heroUnlock:"Aurora",heroUnlockOnly:!0},41:{text:"You barely defeated Catastrophic Core.",victoryPoints:11,heroUnlock:"Necro"}},"Dangerous District":{41:{text:"It's too quiet here.",victoryPoints:1,heroUnlock:"Reaper"},81:{text:"I'd probably avoid this place next time.",victoryPoints:3}},"Dangerous District Hard":{41:{text:"You can hardly hear a sound.",victoryPoints:3,heroUnlock:"Reaper"},81:{text:"I'd hardly consider returning to this place.",victoryPoints:8}},"Peculiar Pyramid":{1:{text:"A deep sinkhole formed in the middle of the dunes... Find it to use this shortcut.",condition:e>3072&&t>128&&t<256},30:{text:"Congratulations for finding your way through the Peculiar Pyramid.",victoryPoints:1},32:{text:"Welcome to Rameses' secret chamber.",victoryPoints:1,heroUnlock:"Rameses"}},"Peculiar Pyramid Hard":{30:{text:"Congratulations for hardly finding your way through the Peculiar Pyramid.",victoryPoints:3},32:{text:"This is hardly Rameses' secret chamber.",victoryPoints:2,heroUnlock:"Rameses"}},"Glacial Gorge":{41:{text:"Stop shivering. You made it.",victoryPoints:2,heroUnlock:"Nexus"}},"Glacial Gorge Hard":{41:{text:"Stop shivering. You've hardly made it.",victoryPoints:7,heroUnlock:"Nexus"}},"Wacky Wonderland":{41:{text:"Electrifying performance! The carnival's just getting started!",victoryPoints:2,heroUnlock:"Jolt"},81:{text:"Candy for everyone! Hope you had a nice stay in Wacky Wonderland.",victoryPoints:3,heroUnlock:"Candy"}},"Vicious Valley":{41:{text:"The valley is yours.",victoryPoints:2,heroUnlock:"Shade"}},"Vicious Valley Hard":{41:{text:"The valley is hardly yours.",victoryPoints:8,heroUnlock:"Shade"}},"Elite Expanse":{41:{text:"Few make it this far out in space.",victoryPoints:2,heroUnlock:"Euclid"},81:{text:"The air is thin here.",victoryPoints:6,accessoryUnlock:"Orbit Ring"}},"Elite Expanse Hard":{41:{text:"Very few can hardly make it this far out in space.",victoryPoints:6,heroUnlock:"Stella"},81:{text:"The air is hardly thin here.",victoryPoints:10,accessoryUnlock:"Stars"}},"Monumental Migration Hard":{41:{text:"Hardly a respite in your journey. An enormous path lies ahead.",victoryPoints:1},81:{text:"It's beautiful here, but your new home beckons you much further into the wild.",victoryPoints:2},121:{text:"Your adventure has hardly led to peace and tranquility...",victoryPoints:3,heroUnlock:"Chrono"},161:{text:"Stay on the tips of your toes.",victoryPoints:2},201:{text:"Where's the piece I was promised?",victoryPoints:3},241:{text:"You hear a large crowd brewing in the distance.",victoryPoints:4},281:{text:"Do they breed???",victoryPoints:3},321:{text:"Don't anger them.",victoryPoints:4},361:{text:"Booming in the distance all around you...",victoryPoints:5},401:{text:"They seem to have the same tendencies as us... just, trapped.",victoryPoints:4},441:{text:"This road used to lead to paradise. Now it goes where no hero should go.",victoryPoints:5},480:{text:"Silence fills the air."},481:{text:"Take care, take a break. This world is bounded differently.",victoryPoints:6},521:{text:"A respite in your journey. There's still a very long path ahead.",victoryPoints:2},561:{text:"It's beautiful here, atleast it was.",victoryPoints:3},601:{text:"Your adventure has led you to more discoveries.",victoryPoints:4},641:{text:"Toes.",victoryPoints:3},681:{text:"Where's the peace I was promised? Must be in area 1561.",victoryPoints:4},721:{text:"You hear a crowd brewing in the distance. What are they protesting?",victoryPoints:5},761:{text:"Do they breed...? Well, do they?",victoryPoints:4},801:{text:"Don't anger them. Just don't.",victoryPoints:5},841:{text:"BOOMing in the distance.",victoryPoints:6},881:{text:"We are all trapped,",victoryPoints:5},921:{text:"This road used to lead to paradise. Now it goes where no hero should go. (detroit)",victoryPoints:6},960:{text:"Sorrow fills the air."},961:{text:"Halfway!",victoryPoints:7},1001:{text:"Your journey has helped you reflect.",victoryPoints:3},1041:{text:"You've seen so much that everything's boring.",victoryPoints:4},1081:{text:"Your adventure isn't so much an adventure anymore.",victoryPoints:5},1121:{text:"Don't let your guard down.",victoryPoints:4},1161:{text:"What stories can they tell?",victoryPoints:5},1201:{text:"They're crowding again.",victoryPoints:6},1241:{text:"Do they breed...? Dude stop asking that question already.",victoryPoints:5},1281:{text:"Don't anger them. Yes you're starting to anger me.",victoryPoints:6},1321:{text:"Why are any of us here?",victoryPoints:7},1361:{text:"Think hard.",victoryPoints:6},1401:{text:"I'm running out of ideas.",victoryPoints:7},1440:{text:"Prayers fill the air."},1441:{text:"Be sure to keep yourself safe.",victoryPoints:6},1481:{text:"Stop leaking victory messages.",victoryPoints:4},1521:{text:"You should know that the derivative of product is not the product of the derivative.",victoryPoints:5},1561:{text:"Well dang it isn't.",victoryPoints:6},1601:{text:"New guy in town.",victoryPoints:5},1641:{text:"Residents in fear. District 7 down.",victoryPoints:6},1681:{text:"I do not know what to tell you. What is your goal?",victoryPoints:7},1721:{text:"They bread.",victoryPoints:6},1761:{text:"You've hardly escaped it.",victoryPoints:7},1801:{text:"You have the freedom of choice, right?",victoryPoints:8},1841:{text:"You are stuck now. So close. So far. Where next?",victoryPoints:7},1881:{text:"https://images.homedepot-static.com/catalog/pdfImages/11/1127f7b4-ab8e-43ac-978a-2f9395a9b50b.pdf",victoryPoints:8},1920:{text:"Despair fills the air."},1921:{text:"It's time for you to take a break.",victoryPoints:9}},"Monumental Migration":{41:{text:"A respite in your journey. A long path lies ahead.",victoryPoints:1},81:{text:"It's beautiful here, but your new home beckons you further into the wild.",victoryPoints:1},121:{text:"Your adventure has led to peace and tranquility...",victoryPoints:2,heroUnlock:"Chrono"},161:{text:"Stay on your toes.",victoryPoints:2},201:{text:"Where's the peace I was promised?",victoryPoints:2},241:{text:"You hear a crowd brewing in the distance.",victoryPoints:3},281:{text:"Do they breed...?",victoryPoints:3},321:{text:"Don't anger them. You'll only make it more difficult.",victoryPoints:3},361:{text:"Booming in the distance...",victoryPoints:4},401:{text:"They seem to have the same tendencies as us... just, trapped.",victoryPoints:4},441:{text:"This road used to lead to paradise. Now it goes where no hero should go.",victoryPoints:5},480:{text:"Death fills the air."},481:{text:"Take care. The people will require your help one day.",victoryPoints:20,accessoryUnlock:"Halo"}},"Humongous Hollow":{41:{text:"These enormous ones are defeated, but larger challenges lie beyond...",victoryPoints:1,heroUnlock:"Brute"},81:{text:"At last, you stand amongst the giants. Nothing is impossible.",victoryPoints:6}},"Humongous Hollow Hard":{41:{text:"These enormous ones are hardly defeated, and harder challenges lie beyond...",victoryPoints:3,heroUnlock:"Brute"},81:{text:"At last, you hardly stand amongst the giants. Nothing is impossible.",victoryPoints:9}},"Haunted Halls":{1:{text:"Access Mysterious Mansion to unlock the shortcut.",condition:e<32},10:{text:"It's getting dark ... You might want to pick up a flashlight.",condition:e<500},16:{text:"A large mansion looms ahead.",condition:e>8e3},17:{text:"That was just the beginning.",victoryPoints:1}},"Quiet Quarry":{41:{text:"Your soft footsteps fill the Quiet Quarry.",victoryPoints:2,heroUnlock:"Cent"}},"Quiet Quarry Hard":{41:{text:"Hardly surprising how fast these creatures can silently move.",victoryPoints:6,heroUnlock:"Cent"}},"Frozen Fjord":{41:{text:"You've followed in the path of the glaciers.",victoryPoints:3,heroUnlock:"Jötunn",accessoryUnlock:"Santa Hat"}},"Frozen Fjord Hard":{41:{text:"You've hardly followed in the path of the glaciers.",victoryPoints:8,heroUnlock:"Jötunn",accessoryUnlock:"Blue Santa Hat"}},"Ominous Occult":{17:{text:"The breeze beckons for you.",victoryPoints:7,heroUnlock:"Ghoul"}},"Ominous Occult Hard":{17:{text:"The breeze hardly beckons for you.",victoryPoints:10,heroUnlock:"Ghoul"}},"Restless Ridge":{44:{text:"You've climbed over the ridge. The air vibrates with sleepless energy.",victoryPoints:5,heroUnlock:"Mirage"}},"Restless Ridge Hard":{43:{text:"🍪 The smell of freshly baked cookies fills the air 🍪"},44:{text:"Complete the map and return to set armageddon in motion.",condition:e>1888},45:{text:"The very enemies grow stronger. You should never have come.",condition:e<960},46:{text:"The ridge shakes as its walls collapse around you.",condition:e<960},47:{text:"The very fabric of reality strains as the seams tear apart.",condition:e<960},48:{text:"You've hardly climbed over the ridge. The air vibrates with sleepless energy.",victoryPoints:18,heroUnlock:"Mirage"},49:{text:"Your brilliant triumph has hardly bought you time.",victoryPoints:4}},"Toxic Territory":{21:{text:"You've waded through the gloopy radiation.",victoryPoints:2,heroUnlock:"Glob",accessoryUnlock:"Sticky Coat"}},"Toxic Territory Hard":{21:{text:"You've hardly waded through the gloopy radiation.",victoryPoints:4,heroUnlock:"Glob",accessoryUnlock:"Toxic Coat"}},"Magnetic Monopole":{36:{text:"You've conquered the hidden electric dipole.",victoryPoints:1},37:{text:"You've repelled the opposing force.",victoryPoints:2,heroUnlock:"Magno"}},"Magnetic Monopole Hard":{36:{text:"You've hardly conquered the hidden electric dipole.",victoryPoints:3},37:{text:"You've hardly repelled the opposing force.",victoryPoints:4,heroUnlock:"Magno"}},"Burning Bunker":{37:{text:"You've reached the lowest level of the bunker.",victoryPoints:3,heroUnlock:"Ignis",accessoryUnlock:"Flames"}},"Burning Bunker Hard":{37:{text:"You've hardly reached the lowest level of the bunker.",victoryPoints:6,heroUnlock:"Ignis",accessoryUnlock:"Blue Flames"}},"Grand Garden":{29:{text:"You've ventured through the flowery garden.",victoryPoints:2,heroUnlock:"Viola"}},"Grand Garden Hard":{29:{text:"You've hardly ventured through the flowery garden.",victoryPoints:5,heroUnlock:"Viola"}},"Endless Echo":{41:{text:"The echo repeats itself.",victoryPoints:1},81:{text:"The winds continue to howl.",victoryPoints:1},121:{text:"A strange world lies ahead.",victoryPoints:2,heroUnlock:"Echelon"},161:{text:"What lies ahead, waiting to be seen?",victoryPoints:2},201:{text:"The world continues to become distorted.",victoryPoints:3},241:{text:"The echo repeats a distorted call.",victoryPoints:3,accessoryUnlock:"Clouds"},281:{text:"The winds are always changing.",victoryPoints:4},321:{text:"The future seems familiar.",victoryPoints:4},361:{text:"Just how many of them are there?",victoryPoints:5},401:{text:"There is no end.",victoryPoints:5},441:{text:"What proofs support our beliefs?",victoryPoints:6},481:{text:"Do they feel the same?",victoryPoints:6},521:{text:"The journey is tiring.",victoryPoints:7},561:{text:"Take a rest, won't you?",victoryPoints:7},601:{text:"May your adventure continue as long as you desire.",victoryPoints:8},641:{text:"Stay aware of your surroundings.",victoryPoints:8},681:{text:"Think before you act.",victoryPoints:9},721:{text:"Are you satisfied with your adventure yet?",victoryPoints:9},761:{text:"Keep going, then.",victoryPoints:10},801:{text:"Make sure to stay hydrated on your journey.",victoryPoints:10},841:{text:"Your dedication is impressive",victoryPoints:11},881:{text:"You seem truly unstoppable.",victoryPoints:11},921:{text:"You're actually doing it, and your dedication is admirable.",victoryPoints:12},961:{text:"Can you keep going? The Endless Echo will trap you soon.",victoryPoints:12}},"Endless Echo Hard":{121:{text:"It's hardly a break here.",victoryPoints:3,heroUnlock:"Echelon"},241:{text:"And if they ask, say you hardly had a bad time.",accessoryUnlock:"Storm Clouds",victoryPoints:6}},"Mysterious Mansion":{2:{text:"A full moon every night."},4:{text:"The path is inactive until you reach the next level of the mansion.",condition:e>64&&e<320&&(t<32||t>416)},29:{text:"Wield no light for another to be granted."},60:{text:"Finally, an exit out of that cursed hedge maze, and you find a strange hat.",accessoryUnlock:"Witch Hat",victoryPoints:2},61:{text:"Finally, you find a non-liminal space, and breathe a sigh of relief.",victoryPoints:1},62:{text:"You make it to the roof, and escape.",victoryPoints:1},63:{text:"You find a powerful warlock locked away, and rescue him.",victoryPoints:2,heroUnlock:"Mortuus"}},"Coupled Corridors":{1:{text:"The exit is blocked.",condition:e<64},21:{text:"You find a small resting place north of the illusion corridor.",victoryPoints:1},22:{text:"The exit is blocked.",condition:e<64},42:{text:"You find a small resting place south of the illusion corridor.",victoryPoints:1},43:{text:"The doors lock behind you.",condition:t<320},44:{text:"The doors lock behind you.",condition:t>2880},65:{text:"You've made it through the creepy corridors.",victoryPoints:3,heroUnlock:"Stheno"}},"Cyber Castle":{1:{text:"Unlock all heroes by rescuing them from the ---- to gain access...",condition:e>3136},3:{text:"Defeat the four greater ---- by staying within their auras to access the gate above..."},8:{text:"-e-e-- --e o------- -- a-- -o-- -o --i- a----s...",condition:e>3072},9:{text:"D-f--- -h- ------e- o- --l --t- -- -a-- --c---...",condition:e<64},16:{text:"You've shut down Cybot, the overseer of all bots! The world is safe for now...",victoryPoints:8,heroUnlock:"?"}},"Research Lab":{1:{text:"Permanently unlocked: After area 1, minimum level is 25 while playing with a group!"},42:{text:"You've successfully completed the experiment.",victoryPoints:7}},"Cyber Castle Hard":{1:{text:"Defeat 10 parallel distortions and ----- ------ to proceed.",condition:e>3136},15:{text:"Jvyylshapvu pz uva jhbzhapvu!"},23:{text:"You've hardly shut down Cybot, the overseer of all bots! The world is safe for now...",victoryPoints:15,heroUnlock:"?"}},"Shifting Sands":{48:{text:"You've navigated through the rocky desert.",victoryPoints:4,heroUnlock:"Boldrock"}},"Infinite Inferno":{3:{text:"Memories from the core are resurfacing..."},7:{text:"Memories of the valley are flooding back..."},11:{text:"Memories from an expanse so elite are restored..."},15:{text:"Memories of a gorge so cold are returning..."},19:{text:"Memories of a lost alcove are recalling..."},23:{text:"Memories from the district are crashing..."},27:{text:"Memories from the monopole are attracting..."},31:{text:"Memories of a peaceful garden are blooming..."},35:{text:"Memories from the castle finale have corrupted..."},39:{text:"You've travelled through the inferno of memories.",victoryPoints:4,heroUnlock:"Demona"}},"Dusty Depths":{1:{text:"The sinkhole will trap and weaken you if you continue..."},2:{text:"You're trapped now...",condition:e<320},21:{text:"You found the desert core, the final resting point.",victoryPoints:8}},"Withering Wasteland":{41:{text:"The lost Factorb technology has been recovered.",victoryPoints:4,heroUnlock:"Factorb"}}},i=(e,t,r,i,a,o)=>{let s="";void 0===t||this.isGuest||(s=`\n${t} VP awarded!`);let l=null;if(void 0!==r&&(l=$e728d5a493f33528$export$ba6e2f1cddd013f7(n,r)),!0===i&&(this.isGuest||null===l||!l.locked))return null;if(!1===o)return null;let c="";return this.isGuest?r&&(c+="\nRegister an account to permanently unlock new heroes!"):(null!==l&&l.locked&&(c+=`\nUnlocked ${r}.`),void 0===a||this.accessories.collection[(e=>e.toLowerCase().split(" ").join("-"))(a)]||(c+=`\nAdded ${a} to your accessory collection.`)),`${e}${c}${s}`};if(!(this.regionName in r))return null;if(!(this.areaNumber in r[this.regionName])){if("Endless Echo"===this.regionName&&this.areaNumber>1&&(this.areaNumber-1)%40==0){const e={text:"These words are the Endless Echo, and you are trapped within it.",victoryPoints:Math.floor((this.areaNumber-2)/80)+1};return i(e.text,e.victoryPoints,e.heroUnlock,e.heroUnlockOnly,e.accessoryUnlock,e.condition)}if("Endless Echo Hard"===this.regionName){if(!(this.areaNumber>1&&(this.areaNumber-1)%40==0))return sv=null,null;const e=["I hardly believe you know where you're going...","You've hardly begun...","You've hardly reached the end...","The echo is hardly in reach...","How hardly can you try...?","You've hardly been through it all...","It's hardly imaginable to find you here...","The end is hardly in sight...","The echo has hardly left your view...","There's hardly a story to tell...","There's hardly a voice to be heard...","There's hardly a reason to believe...","There's hardly a sight to be seen...","Where the enemies are hardly the threat...","The echo hardly halts your way...","Have you hardly had enough...?"],t={text:e[sv||Math.floor(Math.random()*e.length)],victoryPoints:Math.floor((this.areaNumber-2)/40)+1};return sv=e.indexOf(t.text),i(t.text,t.victoryPoints,t.heroUnlock,t.heroUnlockOnly,t.accessoryUnlock,t.condition)}return null}const a=r[this.regionName][this.areaNumber];return i(a.text,a.victoryPoints,a.heroUnlock,a.heroUnlockOnly,a.accessoryUnlock,a.condition)}getTutorialText(){if("Central Core"!==this.regionName)return null;const e=Object.keys(this.highestAreaAchieved);for(let t=0;t<e.length;t++)if(this.highestAreaAchieved[e[t]]>=20)return null;const t=this.x;if(1===this.areaNumber){if(t<320)return"Head right by holding D or the Right Arrow key.";if(t<1040)return"Pick up pellets to gain experience!";if(t<1760)return"If you collect enough pellets, you will level up and gain a point!";if(t<2480)return"Points can be used by pressing 1-5 to upgrade stats!";if(t<3200)return"Press 1 to increase your speed!"}else if(2===this.areaNumber){if(t<640)return"Hover your cursor over the icons to see what abilities you can unlock!";if(t<1280)return"Press 4 or 5 to unlock your two abilities.";if(t<1920)return"Using abilities consumes energy.";if(t<2560)return"Press Z and X to activate abilities 1 and 2. Or you can use J and K.";if(t<3200)return"Press 2 to upgrade max energy. Press 3 to increase energy regeneration."}else if(3===this.areaNumber){if(t<640)return"This map has 40 areas. Reach the end to unlock new heroes.";if(t<1280)return"Finally, touch downed players to rescue them!"}return null}getActionText(e){if(this.canCling)return`Press ${e.usingGamepad?"A":"Space"} to cling/uncling!`;if(!this.canCling){if(this.hasWindDebuff)return"Touch other players to remove the wind debuff!";if(this.hasWaterDebuff)return"Touch other players to remove the water debuff!";if(this.hasEarthDebuff)return"Touch other players to remove the earth debuff!";if(this.hasFireDebuff)return"Touch other players to remove the fire debuff!"}return null}}
+var $24bba5be1b54b934$exports = {}
+/*alea*/, $3TM9N = function(e,t,a){function r(e){var t=this,a=function(){var e=4022871197,t=function(t){t=String(t);for(var a=0;a<t.length;a++){var r=.02519603282416938*(e+=t.charCodeAt(a));r-=e=r>>>0,e=(r*=e)>>>0,e+=4294967296*(r-=e)}return 2.3283064365386963e-10*(e>>>0)};return t}();t.next=function(){var e=2091639*t.s0+2.3283064365386963e-10*t.c;return t.s0=t.s1,t.s1=t.s2,t.s2=e-(t.c=0|e)},t.c=1,t.s0=a(" "),t.s1=a(" "),t.s2=a(" "),t.s0-=a(e),t.s0<0&&(t.s0+=1),t.s1-=a(e),t.s1<0&&(t.s1+=1),t.s2-=a(e),t.s2<0&&(t.s2+=1),a=null}function c(e,t){return t.c=e.c,t.s0=e.s0,t.s1=e.s1,t.s2=e.s2,t}function o(e,t){var a=new r(e),o=t&&t.state,n=a.next;return n.int32=function(){return 4294967296*a.next()|0},n.double=function(){return n()+11102230246251565e-32*(2097152*n()|0)},n.quick=n,o&&("object"==typeof o&&c(o,a),n.state=function(){return c(a,{})}),n}return o}(false)
+/*xor128*/, $1QrEl = function(e,t,a){function r(e){var t=this,a="";t.x=0,t.y=0,t.z=0,t.w=0,t.next=function(){var e=t.x^t.x<<11;return t.x=t.y,t.y=t.z,t.z=t.w,t.w^=t.w>>>19^e^e>>>8},e===(0|e)?t.x=e:a+=e;for(var r=0;r<a.length+64;r++)t.x^=0|a.charCodeAt(r),t.next()}function c(e,t){return t.x=e.x,t.y=e.y,t.z=e.z,t.w=e.w,t}function o(e,t){var a=new r(e),o=t&&t.state,n=function(){return(a.next()>>>0)/4294967296};return n.double=function(){do{var e=((a.next()>>>11)+(a.next()>>>0)/4294967296)/2097152}while(0===e);return e},n.int32=a.next,n.quick=n,o&&("object"==typeof o&&c(o,a),n.state=function(){return c(a,{})}),n}return o}(false)
+/*xorwow*/, $ept1H = function(e,t,a){function r(e){var t=this,a="";t.next=function(){var e=t.x^t.x>>>2;return t.x=t.y,t.y=t.z,t.z=t.w,t.w=t.v,(t.d=t.d+362437|0)+(t.v=t.v^t.v<<4^e^e<<1)|0},t.x=0,t.y=0,t.z=0,t.w=0,t.v=0,e===(0|e)?t.x=e:a+=e;for(var r=0;r<a.length+64;r++)t.x^=0|a.charCodeAt(r),r==a.length&&(t.d=t.x<<10^t.x>>>4),t.next()}function c(e,t){return t.x=e.x,t.y=e.y,t.z=e.z,t.w=e.w,t.v=e.v,t.d=e.d,t}function o(e,t){var a=new r(e),o=t&&t.state,n=function(){return(a.next()>>>0)/4294967296};return n.double=function(){do{var e=((a.next()>>>11)+(a.next()>>>0)/4294967296)/2097152}while(0===e);return e},n.int32=a.next,n.quick=n,o&&("object"==typeof o&&c(o,a),n.state=function(){return c(a,{})}),n}return o}(false)
+/*xorshift7*/, $cPL7v = function(e,t,a){function r(e){var t=this;t.next=function(){var e,a,r=t.x,c=t.i;return e=r[c],a=(e^=e>>>7)^e<<24,a^=(e=r[c+1&7])^e>>>10,a^=(e=r[c+3&7])^e>>>3,a^=(e=r[c+4&7])^e<<7,e=r[c+7&7],a^=(e^=e<<13)^e<<9,r[c]=a,t.i=c+1&7,a},function(e,t){var a,r=[];if(t===(0|t))r[0]=t;else for(t=""+t,a=0;a<t.length;++a)r[7&a]=r[7&a]<<15^t.charCodeAt(a)+r[a+1&7]<<13;for(;r.length<8;)r.push(0);for(a=0;a<8&&0===r[a];++a);for(8==a?r[7]=-1:r[a],e.x=r,e.i=0,a=256;a>0;--a)e.next()}(t,e)}function c(e,t){return t.x=e.x.slice(),t.i=e.i,t}function o(e,t){null==e&&(e=+new Date);var a=new r(e),o=t&&t.state,n=function(){return(a.next()>>>0)/4294967296};return n.double=function(){do{var e=((a.next()>>>11)+(a.next()>>>0)/4294967296)/2097152}while(0===e);return e},n.int32=a.next,n.quick=n,o&&(o.x&&c(o,a),n.state=function(){return c(a,{})}),n}return o}(false)
+/*xor4096*/, $hDaqC = function(e,t,a){function r(e){var t=this;t.next=function(){var e,a,r=t.w,c=t.X,o=t.i;return t.w=r=r+1640531527|0,a=c[o+34&127],e=c[o=o+1&127],a^=a<<13,e^=e<<17,a^=a>>>15,e^=e>>>12,a=c[o]=a^e,t.i=o,a+(r^r>>>16)|0},function(e,t){var a,r,c,o,n,$=[],i=128;for(t===(0|t)?(r=t,t=null):(t+="\0",r=0,i=Math.max(i,t.length)),c=0,o=-32;o<i;++o)t&&(r^=t.charCodeAt((o+32)%t.length)),0===o&&(n=r),r^=r<<10,r^=r>>>15,r^=r<<4,r^=r>>>13,o>=0&&(n=n+1640531527|0,c=0==(a=$[127&o]^=r+n)?c+1:0);for(c>=128&&($[127&(t&&t.length||0)]=-1),c=127,o=512;o>0;--o)r=$[c+34&127],a=$[c=c+1&127],r^=r<<13,a^=a<<17,r^=r>>>15,a^=a>>>12,$[c]=r^a;e.w=n,e.X=$,e.i=c}(t,e)}function c(e,t){return t.i=e.i,t.w=e.w,t.X=e.X.slice(),t}function o(e,t){null==e&&(e=+new Date);var a=new r(e),o=t&&t.state,n=function(){return(a.next()>>>0)/4294967296};return n.double=function(){do{var e=((a.next()>>>11)+(a.next()>>>0)/4294967296)/2097152}while(0===e);return e},n.int32=a.next,n.quick=n,o&&(o.X&&c(o,a),n.state=function(){return c(a,{})}),n}return o}(false)
+/*tychei*/, $6b2mt = function(e,t,a){function r(e){var t=this,a="";t.next=function(){var e=t.b,a=t.c,r=t.d,c=t.a;return e=e<<25^e>>>7^a,a=a-r|0,r=r<<24^r>>>8^c,c=c-e|0,t.b=e=e<<20^e>>>12^a,t.c=a=a-r|0,t.d=r<<16^a>>>16^c,t.a=c-e|0},t.a=0,t.b=0,t.c=-1640531527,t.d=1367130551,e===Math.floor(e)?(t.a=e/4294967296|0,t.b=0|e):a+=e;for(var r=0;r<a.length+20;r++)t.b^=0|a.charCodeAt(r),t.next()}function c(e,t){return t.a=e.a,t.b=e.b,t.c=e.c,t.d=e.d,t}function o(e,t){var a=new r(e),o=t&&t.state,n=function(){return(a.next()>>>0)/4294967296};return n.double=function(){do{var e=((a.next()>>>11)+(a.next()>>>0)/4294967296)/2097152}while(0===e);return e},n.int32=a.next,n.quick=n,o&&("object"==typeof o&&c(o,a),n.state=function(){return c(a,{})}),n}return o}(false)
+  , $9d5ae4eadf0f1327$exports = {};
+!function(e,t,a){var r,c=256,o="random",n=a.pow(c,6),$=a.pow(2,52),i=2*$,d=255;function s(d,s,x){var h=[],m=b(p((s=1==s?{entropy:!0}:s||{}).entropy?[d,u(t)]:null==d?function(){try{var a;return r&&(a=r.randomBytes)?a=a(c):(a=new Uint8Array(c),(e.crypto||e.msCrypto).getRandomValues(a)),u(a)}catch(a){var o=e.navigator,n=o&&o.plugins;return[+new Date,e,n,e.screen,u(t)]}}():d,3),h),v=new f(h),g=function(){for(var e=v.g(6),t=n,a=0;e<$;)e=(e+a)*c,t*=c,a=v.g(1);for(;e>=i;)e/=2,t/=2,a>>>=1;return(e+a)/t};return g.int32=function(){return 0|v.g(4)},g.quick=function(){return v.g(4)/4294967296},g.double=g,b(u(v.S),t),(s.pass||x||function(e,t,r,c){return c&&(c.S&&l(c,v),e.state=function(){return l(v,{})}),r?(a[o]=e,t):e})(g,m,"global"in s?s.global:this==a,s.state)}function f(e){var t,a=e.length,r=this,o=0,n=r.i=r.j=0,$=r.S=[];for(a||(e=[a++]);o<c;)$[o]=o++;for(o=0;o<c;o++)$[o]=$[n=d&n+e[o%a]+(t=$[o])],$[n]=t;(r.g=function(e){for(var t,a=0,o=r.i,n=r.j,$=r.S;e--;)t=$[o=d&o+1],a=a*c+$[d&($[o]=$[n=d&n+t])+($[n]=t)];return r.i=o,r.j=n,a})(c)}function l(e,t){return t.i=e.i,t.j=e.j,t.S=e.S.slice(),t}function p(e,t){var a,r=[],c=typeof e;if(t&&"object"==c)for(a in e)try{r.push(p(e[a],t-1))}catch(e){}return r.length?r:"string"==c?e:e+"\0"}function b(e,t){for(var a,r=e+"",c=0;c<r.length;)t[d&c]=d&(a^=19*t[d&c])+r.charCodeAt(c++);return u(t)}function u(e){return String.fromCharCode.apply(0,e)}if(b(a.random(),t),$9d5ae4eadf0f1327$exports){$9d5ae4eadf0f1327$exports=s;try{r={exports:{}}}catch(e){}}else"function"==typeof define&&define.amd?define((function(){return s})):a["seed"+o]=s}("undefined"!=typeof self?self:$9d5ae4eadf0f1327$exports,[],Math),
+$9d5ae4eadf0f1327$exports.alea = $3TM9N,
+$9d5ae4eadf0f1327$exports.xor128 = $1QrEl,
+$9d5ae4eadf0f1327$exports.xorwow = $ept1H,
+$9d5ae4eadf0f1327$exports.xorshift7 = $cPL7v,
+$9d5ae4eadf0f1327$exports.xor4096 = $hDaqC,
+$9d5ae4eadf0f1327$exports.tychei = $6b2mt,
+$24bba5be1b54b934$exports = $9d5ae4eadf0f1327$exports;
+class OverlayText extends $cee3aa9d42503f73$export$2e2bcd8739ae039{	
+	static defaultX = 0;
+	static defaultY = 240;
+	static defaultFontSize = 28;
+	static defaultLineHeight = 35;
+	static defaultTextAlign = "center";
+	static defaultFillStyle = "#00ff6b";
+	static defaultStrokeStyle = "#006b2c";
+	static defaultLineWidth = 5;
+	constructor(){super(),this.animations=new Map}
+	stateFields(){return["x","y","areaPosition","areaName","areaNumber","regionName","victoryArea","isGuest","highestAreaAchieved","accessories","canCling","hasWindDebuff","hasWaterDebuff","hasFireDebuff","hasEarthDebuff"]}
+	render(e,t,a){const r=t.viewportSize;let c=[];c=c.concat(this.getTutorialText()),c=c.concat(this.getAreaText()),c=c.concat(this.getActionText(a));for(const e of this.animations.keys())c.some((t=>this.getAnimationKey(t)===e))||this.animations.delete(e);for(const t of c)this.renderText(e,t,r)}
+	getAnimationKey(e){let t=e.text;return void 0!==e.x&&(t+=`-${e.x}`),void 0!==e.y&&(t+=`-${e.y}`),t}
+	renderText(e,t,a){const r=a.width/2+(t.x||OverlayText.defaultX)*camScale,c=a.height/2+(t.y||OverlayText.defaultY)*camScale,o=this.getAnimationKey(t);this.animations.has(o)||this.animations.set(o,{progress:0,lastTime:new Date});const n=this.animations.get(o);e.save(),e.font=t.font||`bold ${$f36928166e04fda7$export$2e2bcd8739ae039.font(t.fontSize||OverlayText.defaultFontSize)}`,e.textAlign=t.textAlign||OverlayText.defaultTextAlign,e.lineWidth=(t.lineWidth||OverlayText.defaultLineWidth)*camScale,e.strokeStyle=t.strokeStyle||OverlayText.defaultStrokeStyle,e.fillStyle=t.fillStyle||OverlayText.defaultFillStyle;const $=t.opacity||1;if(e.globalAlpha=$,t.animation){switch(t.animation.type){case"fadeIn":e.globalAlpha=Math.min($,n.progress/t.animation.duration);break;case"fadeOut":e.globalAlpha=Math.max(0,$-n.progress/t.animation.duration);break;case"typewriter":const a=Math.floor(n.progress/t.animation.duration*t.text.length);t.text=t.text.substring(0,a)}const a=new Date;n.progress+=a-n.lastTime,n.lastTime=a}$f36928166e04fda7$export$2e2bcd8739ae039.multilineText(e,t.text,r,c,{fill:t.fill||!0,stroke:t.stroke||!0,lineHeight:(t.lineHeight||OverlayText.defaultLineHeight)*camScale,fromTop:t.fromTop||!1}),e.restore()}
+	getAreaText(){const e=this.x,t=this.y,a=$e728d5a493f33528$export$69dd9a529c505ede(this.highestAreaAchieved),r={"Central Core":{11:{text:"",heroUnlock:"Morfe",heroUnlockOnly:!0},21:{text:"Half way there.",heroUnlock:"Aurora",heroUnlockOnly:!0},41:{text:"You defeated Central Core.",victoryPoints:1,heroUnlock:"Necro"}},"Central Core Hard":{11:{text:"",heroUnlock:"Morfe",heroUnlockOnly:!0},21:{text:"Half way there.",heroUnlock:"Aurora",heroUnlockOnly:!0},41:{text:"You hardly defeated Central Core Hard.",victoryPoints:6,heroUnlock:"Necro"}},"Catastrophic Core":{11:{text:"",heroUnlock:"Morfe",heroUnlockOnly:!0},21:{text:"Half way there.",heroUnlock:"Aurora",heroUnlockOnly:!0},41:{text:"You barely defeated Catastrophic Core.",victoryPoints:11,heroUnlock:"Necro"}},"Dangerous District":{41:{text:"It's too quiet here.",victoryPoints:1,heroUnlock:"Reaper"},81:{text:"I'd probably avoid this place next time.",victoryPoints:3}},"Dangerous District Hard":{41:{text:"You can hardly hear a sound.",victoryPoints:3,heroUnlock:"Reaper"},81:{text:"I'd hardly consider returning to this place.",victoryPoints:8}},"Peculiar Pyramid":{1:{text:"A deep sinkhole formed in the middle of the dunes... Find it to use this shortcut.",condition:e>3072&&t>128&&t<256},30:{text:"Congratulations for finding your way through the Peculiar Pyramid.",victoryPoints:1},32:{text:"Welcome to Rameses' secret chamber.",victoryPoints:1,heroUnlock:"Rameses"}},"Peculiar Pyramid Hard":{30:{text:"Congratulations for hardly finding your way through the Peculiar Pyramid.",victoryPoints:3},32:{text:"This is hardly Rameses' secret chamber.",victoryPoints:2,heroUnlock:"Rameses"}},"Glacial Gorge":{41:{text:"Stop shivering. You made it.",victoryPoints:2,heroUnlock:"Nexus"}},"Glacial Gorge Hard":{41:{text:"Stop shivering. You've hardly made it.",victoryPoints:7,heroUnlock:"Nexus"}},"Wacky Wonderland":{41:{text:"Electrifying performance! The carnival's just getting started!",victoryPoints:2,heroUnlock:"Jolt"},81:{text:"Candy for everyone! Hope you had a nice stay in Wacky Wonderland.",victoryPoints:3,heroUnlock:"Candy"}},"Vicious Valley":{41:{text:"The valley is yours.",victoryPoints:2,heroUnlock:"Shade"}},"Vicious Valley Hard":{41:{text:"The valley is hardly yours.",victoryPoints:8,heroUnlock:"Shade"}},"Elite Expanse":{41:{text:"Few make it this far out in space.",victoryPoints:2,heroUnlock:"Euclid"},81:{text:"The air is thin here.",victoryPoints:6,accessoryUnlock:"Orbit Ring"}},"Elite Expanse Hard":{41:{text:"Very few can hardly make it this far out in space.",victoryPoints:6,heroUnlock:"Stella"},81:{text:"The air is hardly thin here.",victoryPoints:10,accessoryUnlock:"Stars"}},"Monumental Migration Hard":{41:{text:"Hardly a respite in your journey. An enormous path lies ahead.",victoryPoints:1},81:{text:"It's beautiful here, but your new home beckons you much further into the wild.",victoryPoints:2},121:{text:"Your adventure has hardly led to peace and tranquility...",victoryPoints:3,heroUnlock:"Chrono"},161:{text:"Stay on the tips of your toes.",victoryPoints:2},201:{text:"Where's the piece I was promised?",victoryPoints:3},241:{text:"You hear a large crowd brewing in the distance.",victoryPoints:4},281:{text:"Do they breed???",victoryPoints:3},321:{text:"Don't anger them.",victoryPoints:4},361:{text:"Booming in the distance all around you...",victoryPoints:5},401:{text:"They seem to have the same tendencies as us... just, trapped.",victoryPoints:4},441:{text:"This road used to lead to paradise. Now it goes where no hero should go.",victoryPoints:5},480:{text:"Silence fills the air."},481:{text:"Take care, take a break. This world is bounded differently.",victoryPoints:6},521:{text:"A respite in your journey. There's still a very long path ahead.",victoryPoints:2},561:{text:"It's beautiful here, atleast it was.",victoryPoints:3},601:{text:"Your adventure has led you to more discoveries.",victoryPoints:4},641:{text:"Toes.",victoryPoints:3},681:{text:"Where's the peace I was promised? Must be in area 1561.",victoryPoints:4},721:{text:"You hear a crowd brewing in the distance. What are they protesting?",victoryPoints:5},761:{text:"Do they breed...? Well, do they?",victoryPoints:4},801:{text:"Don't anger them. Just don't.",victoryPoints:5},841:{text:"BOOMing in the distance.",victoryPoints:6},881:{text:"We are all trapped,",victoryPoints:5},921:{text:"This road used to lead to paradise. Now it goes where no hero should go. (detroit)",victoryPoints:6},960:{text:"Sorrow fills the air."},961:{text:"Halfway!",victoryPoints:7},1001:{text:"Your journey has helped you reflect.",victoryPoints:3},1041:{text:"You've seen so much that everything's boring.",victoryPoints:4},1081:{text:"Your adventure isn't so much an adventure anymore.",victoryPoints:5},1121:{text:"Don't let your guard down.",victoryPoints:4},1161:{text:"What stories can they tell?",victoryPoints:5},1201:{text:"They're crowding again.",victoryPoints:6},1241:{text:"Do they breed...? Dude stop asking that question already.",victoryPoints:5},1281:{text:"Don't anger them. Yes you're starting to anger me.",victoryPoints:6},1321:{text:"Why are any of us here?",victoryPoints:7},1361:{text:"Think hard.",victoryPoints:6},1401:{text:"I'm running out of ideas.",victoryPoints:7},1440:{text:"Prayers fill the air."},1441:{text:"Be sure to keep yourself safe.",victoryPoints:6},1481:{text:"Stop leaking victory messages.",victoryPoints:4},1521:{text:"You should know that the derivative of product is not the product of the derivative.",victoryPoints:5},1561:{text:"Well dang it isn't.",victoryPoints:6},1601:{text:"New guy in town.",victoryPoints:5},1641:{text:"Residents in fear. District 7 down.",victoryPoints:6},1681:{text:"I do not know what to tell you. What is your goal?",victoryPoints:7},1721:{text:"They bread.",victoryPoints:6},1761:{text:"You've hardly escaped it.",victoryPoints:7},1801:{text:"You have the freedom of choice, right?",victoryPoints:8},1841:{text:"You are stuck now. So close. So far. Where next?",victoryPoints:7},1881:{text:"https://images.homedepot-static.com/catalog/pdfImages/11/1127f7b4-ab8e-43ac-978a-2f9395a9b50b.pdf",victoryPoints:8},1920:{text:"Despair fills the air."},1921:{text:"It's time for you to take a break.",victoryPoints:9}},"Monumental Migration":{41:{text:"A respite in your journey. A long path lies ahead.",victoryPoints:1},81:{text:"It's beautiful here, but your new home beckons you further into the wild.",victoryPoints:1},121:{text:"Your adventure has led to peace and tranquility...",victoryPoints:2,heroUnlock:"Chrono"},161:{text:"Stay on your toes.",victoryPoints:2},201:{text:"Where's the peace I was promised?",victoryPoints:2},241:{text:"You hear a crowd brewing in the distance.",victoryPoints:3},281:{text:"Do they breed...?",victoryPoints:3},321:{text:"Don't anger them. You'll only make it more difficult.",victoryPoints:3},361:{text:"Booming in the distance...",victoryPoints:4},401:{text:"They seem to have the same tendencies as us... just, trapped.",victoryPoints:4},441:{text:"This road used to lead to paradise. Now it goes where no hero should go.",victoryPoints:5},480:{text:"Death fills the air."},481:{text:"Take care. The people will require your help one day.",victoryPoints:20,accessoryUnlock:"Halo"}},"Humongous Hollow":{41:{text:"These enormous ones are defeated, but larger challenges lie beyond...",victoryPoints:1,heroUnlock:"Brute"},81:{text:"At last, you stand amongst the giants. Nothing is impossible.",victoryPoints:6}},"Humongous Hollow Hard":{41:{text:"These enormous ones are hardly defeated, and harder challenges lie beyond...",victoryPoints:3,heroUnlock:"Brute"},81:{text:"At last, you hardly stand amongst the giants. Nothing is impossible.",victoryPoints:9}},"Haunted Halls":{1:{text:"Access Mysterious Mansion to unlock the shortcut.",condition:e<32},10:{text:"It's getting dark ... You might want to pick up a flashlight.",condition:e<500},16:{text:"A large mansion looms ahead.",condition:e>8e3},17:{text:"That was just the beginning.",victoryPoints:1}},"Quiet Quarry":{41:{text:"Your soft footsteps fill the Quiet Quarry.",victoryPoints:2,heroUnlock:"Cent"}},"Quiet Quarry Hard":{41:{text:"Hardly surprising how fast these creatures can silently move.",victoryPoints:6,heroUnlock:"Cent"}},"Frozen Fjord":{41:{text:"You've followed in the path of the glaciers.",victoryPoints:3,heroUnlock:"Jötunn",accessoryUnlock:"Santa Hat"}},"Frozen Fjord Hard":{41:{text:"You've hardly followed in the path of the glaciers.",victoryPoints:8,heroUnlock:"Jötunn",accessoryUnlock:"Blue Santa Hat"}},"Ominous Occult":{17:{text:"The breeze beckons for you.",victoryPoints:7,heroUnlock:"Ghoul"}},"Ominous Occult Hard":{17:{text:"The breeze hardly beckons for you.",victoryPoints:10,heroUnlock:"Ghoul"}},"Restless Ridge":{44:{text:"You've climbed over the ridge. The air vibrates with sleepless energy.",victoryPoints:5,heroUnlock:"Mirage"}},"Restless Ridge Hard":{43:{text:"🍪 The smell of freshly baked cookies fills the air 🍪"},44:{text:"Complete the map and return to set armageddon in motion.",condition:e>1888},45:{text:"The very enemies grow stronger. You should never have come.",condition:e<960},46:{text:"The ridge shakes as its walls collapse around you.",condition:e<960},47:{text:"The very fabric of reality strains as the seams tear apart.",condition:e<960},48:{text:"You've hardly climbed over the ridge. The air vibrates with sleepless energy.",victoryPoints:18,heroUnlock:"Mirage"},49:{text:"Your brilliant triumph has hardly bought you time.",victoryPoints:4}},"Toxic Territory":{21:{text:"You've waded through the gloopy radiation.",victoryPoints:2,heroUnlock:"Glob",accessoryUnlock:"Sticky Coat"}},"Toxic Territory Hard":{21:{text:"You've hardly waded through the gloopy radiation.",victoryPoints:4,heroUnlock:"Glob",accessoryUnlock:"Toxic Coat"}},"Magnetic Monopole":{36:{text:"You've conquered the hidden electric dipole.",victoryPoints:1},37:{text:"You've repelled the opposing force.",victoryPoints:2,heroUnlock:"Magno"}},"Magnetic Monopole Hard":{36:{text:"You've hardly conquered the hidden electric dipole.",victoryPoints:3},37:{text:"You've hardly repelled the opposing force.",victoryPoints:4,heroUnlock:"Magno"}},"Burning Bunker":{37:{text:"You've reached the lowest level of the bunker.",victoryPoints:3,heroUnlock:"Ignis",accessoryUnlock:"Flames"}},"Burning Bunker Hard":{37:{text:"You've hardly reached the lowest level of the bunker.",victoryPoints:6,heroUnlock:"Ignis",accessoryUnlock:"Blue Flames"}},"Grand Garden":{29:{text:"You've ventured through the flowery garden.",victoryPoints:2,heroUnlock:"Viola"}},"Grand Garden Hard":{29:{text:"You've hardly ventured through the flowery garden.",victoryPoints:5,heroUnlock:"Viola"}},"Endless Echo":{41:{text:"The echo repeats itself.",victoryPoints:1},81:{text:"The winds continue to howl.",victoryPoints:1},121:{text:"A strange world lies ahead.",victoryPoints:2,heroUnlock:"Echelon"},161:{text:"What lies ahead, waiting to be seen?",victoryPoints:2},201:{text:"The world continues to become distorted.",victoryPoints:3},241:{text:"The echo repeats a distorted call.",victoryPoints:3,accessoryUnlock:"Clouds"},281:{text:"The winds are always changing.",victoryPoints:4},321:{text:"The future seems familiar.",victoryPoints:4},361:{text:"Just how many of them are there?",victoryPoints:5},401:{text:"There is no end.",victoryPoints:5},441:{text:"What proofs support our beliefs?",victoryPoints:6},481:{text:"Do they feel the same?",victoryPoints:6},521:{text:"The journey is tiring.",victoryPoints:7},561:{text:"Take a rest, won't you?",victoryPoints:7},601:{text:"May your adventure continue as long as you desire.",victoryPoints:8},641:{text:"Stay aware of your surroundings.",victoryPoints:8},681:{text:"Think before you act.",victoryPoints:9},721:{text:"Are you satisfied with your adventure yet?",victoryPoints:9},761:{text:"Keep going, then.",victoryPoints:10},801:{text:"Make sure to stay hydrated on your journey.",victoryPoints:10},841:{text:"Your dedication is impressive",victoryPoints:11},881:{text:"You seem truly unstoppable.",victoryPoints:11},921:{text:"You're actually doing it, and your dedication is admirable.",victoryPoints:12},961:{text:"Can you keep going? The Endless Echo will trap you soon.",victoryPoints:12}},"Endless Echo Hard":{121:{text:"It's hardly a break here.",victoryPoints:3,heroUnlock:"Echelon"},241:{text:"And if they ask, say you hardly had a bad time.",accessoryUnlock:"Storm Clouds",victoryPoints:6}},"Mysterious Mansion":{2:{text:"A full moon every night."},4:{text:"The path is inactive until you reach the next level of the mansion.",condition:e>64&&e<320&&(t<32||t>416)},29:{text:"Wield no light for another to be granted."},60:{text:"Finally, an exit out of that cursed hedge maze, and you find a strange hat.",accessoryUnlock:"Witch Hat",victoryPoints:2},61:{text:"Finally, you find a non-liminal space, and breathe a sigh of relief.",victoryPoints:1},62:{text:"You make it to the roof, and escape.",victoryPoints:1},63:{text:"You find a powerful warlock locked away, and rescue him.",victoryPoints:2,heroUnlock:"Mortuus"}},"Coupled Corridors":{1:{text:"The exit is blocked.",condition:e<64},21:{text:"You find a small resting place north of the illusion corridor.",victoryPoints:1},22:{text:"The exit is blocked.",condition:e<64},42:{text:"You find a small resting place south of the illusion corridor.",victoryPoints:1},43:{text:"The doors lock behind you.",condition:t<320},44:{text:"The doors lock behind you.",condition:t>2880},65:{text:"You've made it through the creepy corridors.",victoryPoints:3,heroUnlock:"Stheno"}},"Cyber Castle":{1:{text:"Unlock all heroes by rescuing them from the ---- to gain access...",condition:e>3136},3:{text:"Defeat the four greater ---- by staying within their auras to access the gate above..."},8:{text:"-e-e-- --e o------- -- a-- -o-- -o --i- a----s...",condition:e>3072},9:{text:"D-f--- -h- ------e- o- --l --t- -- -a-- --c---...",condition:e<64},16:{text:"You've shut down Cybot, the overseer of all bots! The world is safe for now...",victoryPoints:8,heroUnlock:"?"}},"Research Lab":{1:{text:"Permanently unlocked: After area 1, minimum level is 25 while playing with a group!"},42:{text:"You've successfully completed the experiment.",victoryPoints:7}},"Cyber Castle Hard":{1:{text:"Defeat 10 parallel distortions and ----- ------ to proceed.",condition:e>3136},15:{text:"Jvyylshapvu pz uva jhbzhapvu!"},23:{text:"You've hardly shut down Cybot, the overseer of all bots! The world is safe for now...",victoryPoints:15,heroUnlock:"?"}},"Shifting Sands":{48:{text:"You've navigated through the rocky desert.",victoryPoints:4,heroUnlock:"Boldrock"}},"Infinite Inferno":{3:{text:"Memories from the core are resurfacing..."},7:{text:"Memories of the valley are flooding back..."},11:{text:"Memories from an expanse so elite are restored..."},15:{text:"Memories of a gorge so cold are returning..."},19:{text:"Memories of a lost alcove are recalling..."},23:{text:"Memories from the district are crashing..."},27:{text:"Memories from the monopole are attracting..."},31:{text:"Memories of a peaceful garden are blooming..."},35:{text:"Memories from the castle finale have corrupted..."},39:{text:"You've travelled through the inferno of memories.",victoryPoints:4,heroUnlock:"Demona"}},"Dusty Depths":{1:{text:"The sinkhole will trap and weaken you if you continue..."},2:{text:"You're trapped now...",condition:e<320},21:{text:"You found the desert core, the final resting point.",victoryPoints:8}},"Withering Wasteland":{41:{text:"The lost Factorb technology has been recovered.",victoryPoints:4,heroUnlock:"Factorb"}}},c=e=>{let t="";void 0===(e={...e}).victoryPoints||this.isGuest||(t=`\n${e.victoryPoints} VP awarded!`);let r=null;if(void 0!==e.heroUnlock&&(r=$e728d5a493f33528$export$ba6e2f1cddd013f7(a,e.heroUnlock)),!0===e.heroUnlockOnly&&(this.isGuest||null===r||!r.locked))return[];if(!1===e.condition)return[];const c=e.accessoryUnlock?e.accessoryUnlock.toLowerCase().split(" ").join("-"):void 0;let o="";return this.isGuest?e.heroUnlock&&(o+="\nRegister an account to permanently unlock new heroes!"):(null!==r&&r.locked&&(o+=`\nUnlocked ${e.heroUnlock}.`),void 0===e.accessoryUnlock||null!=this.accessories&&null!=this.accessories.collection&&this.accessories.collection[c]||(o+=`\nAdded ${e.accessoryUnlock} to your accessory collection.`)),e.text=`${e.text}${o}${t}`,[e]};if(!(this.regionName in r))return[];if(!(this.areaNumber in r[this.regionName])){if("Endless Echo"===this.regionName&&this.areaNumber>1&&(this.areaNumber-1)%40==0){const e={text:"These words are the Endless Echo, and you are trapped within it.",victoryPoints:Math.floor((this.areaNumber-2)/80)+1};return getVictoryText(e.text,e.victoryPoints,e.heroUnlock,e.heroUnlockOnly,e.accessoryUnlock,e.condition)}if("Endless Echo Hard"===this.regionName){if(!(this.areaNumber>1&&(this.areaNumber-1)%40==0))return[];const e=Math.floor((this.areaNumber-1)/40),t=["I hardly believe you know where you're going...","You've hardly begun...","You've hardly reached the end...","The echo is hardly in reach...","How hardly can you try...?","You've hardly been through it all...","It's hardly imaginable to find you here...","The end is hardly in sight...","The echo has hardly left your view...","There's hardly a story to tell...","There's hardly a voice to be heard...","There's hardly a reason to believe...","There's hardly a sight to be seen...","Where the enemies are hardly the threat...","The echo hardly halts your way...","Have you hardly had enough...?"],a=$24bba5be1b54b934$exports(EvadesConfig.week_number)();return c({text:t[(Math.floor(a*t.length)+e)%t.length],victoryPoints:Math.floor((this.areaNumber-2)/40)+1})}return[]}return c(r[this.regionName][this.areaNumber])}
+	getTutorialText(){if("Central Core"!==this.regionName)return[];const e=Object.keys(this.highestAreaAchieved);for(let t=0;t<e.length;t++)if(this.highestAreaAchieved[e[t]]>=20)return[];const t=this.x;if(1===this.areaNumber){if(t<320)return[{text:"Head right by holding D or the Right Arrow key."}];if(t<1040)return[{text:"Pick up pellets to gain experience!"}];if(t<1760)return[{text:"If you collect enough pellets, you will level up and gain a point!"}];if(t<2480)return[{text:"Points can be used by pressing 1-5 to upgrade stats!"}];if(t<3200)return[{text:"Press 1 to increase your speed!"}]}else if(2===this.areaNumber){if(t<640)return[{text:"Hover your cursor over the icons to see what abilities you can unlock!"}];if(t<1280)return[{text:"Press 4 or 5 to unlock your two abilities."}];if(t<1920)return[{text:"Using abilities consumes energy."}];if(t<2560)return[{text:"Press Z and X to activate abilities 1 and 2. Or you can use J and K."}];if(t<3200)return[{text:"Press 2 to upgrade max energy. Press 3 to increase energy regeneration."}]}else if(3===this.areaNumber){if(t<640)return[{text:"This map has 40 areas. Reach the end to unlock new heroes."}];if(t<1280)return[{text:"Finally, touch downed players to rescue them!"}]}return[]}
+	getActionText(e){return this.canCling?[{text:`Press ${e.usingGamepad?"A":"Space"} to cling/uncling!`,fontSize:"18px"}]:this.hasWindDebuff?[{text:"Touch other players to remove the wind debuff!",fontSize:"18px"}]:this.hasWaterDebuff?[{text:"Touch other players to remove the water debuff!",fontSize:"18px"}]:this.hasEarthDebuff?[{text:"Touch other players to remove the earth debuff!",fontSize:"18px"}]:this.hasFireDebuff?[{text:"Touch other players to remove the fire debuff!",fontSize:"18px"}]:[]}
+}
 class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	stateFields() {
 		return ["x", "y", "width", "height", "zones"]
@@ -1755,7 +1912,7 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	toggleMinimapMode() {
 		this.areaCenteredMode = !this.areaCenteredMode
 	}
-	render(e,delta) {
+	render(e,t,a,delta) {
 		this.hidden || (
 			this.top = this.bottom + canvas.height/2 + 360*camScale - this.minimapHeight,
 			this.left = canvas.width/2 - 640*camScale,
@@ -1906,6 +2063,14 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.hidden = !1,
 		this.zones = [],
 		this.areaCanvas = null;
+	}
+}
+class MobileControls {
+	render(e, t) {
+		$e7009c797811e935$export$2e2bcd8739ae039.touch.down && (e.fillStyle = "rgba(0, 0, 0, 0.1)",
+		e.strokeStyle = "rgba(0, 0, 0, 0.2)",
+		$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, $e7009c797811e935$export$2e2bcd8739ae039.touch.start.x, $e7009c797811e935$export$2e2bcd8739ae039.touch.start.y, 180*camScale, !0, !0),
+		$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, $e7009c797811e935$export$2e2bcd8739ae039.touch.current.x, $e7009c797811e935$export$2e2bcd8739ae039.touch.current.y, 20*camScale, !0, !0))
 	}
 }
 //END OF HUD

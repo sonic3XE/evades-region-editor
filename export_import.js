@@ -43,7 +43,7 @@ function loadFile(str,fromLocal=!0,socketSend=true,isLegacy=false){
 				})
 			})
 		}
-		current_Area=0;alertMessages=[];
+		current_Area=0;
 		"element" in map && (map.element.remove(),delete map.element);
 		map.element=createFolder(formatString("editor.region"), [
 			createProperty(formatString("editor.property.name"),nameInput=createInput(map.name=obj.name,_=>{map.name=nameInput.value}),"text"),
