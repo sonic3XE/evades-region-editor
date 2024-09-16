@@ -435,6 +435,7 @@ document.addEventListener("keydown", e => {
   	if(e.preventDefault(),consumed_by_ink_demon)return customAlert("Fatal Error",5,"#F00");
 	//return customAlert("Error 404: Simulation Not Found",5);
     playtesting=!playtesting;
+	if(!playtesting)$e7009c797811e935$export$2e2bcd8739ae039.deregisterListeners(),$e7009c797811e935$export$2e2bcd8739ae039=new $e7009c797811e935$var$InputLayer,isFinish=false;
     tl.style.transform="translate("+(-100*playtesting)+"px, 0)";
     menu.hidden=playtesting;
     realTime.disabled=playtesting;
