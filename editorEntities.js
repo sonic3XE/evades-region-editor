@@ -689,7 +689,7 @@ this.isGuest=!1;
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 				this.speedMultiplier*=abilityLevels[ability.level-1].slow??1;
 				this.speedAdditioner+=abilityLevels[ability.level-1].boost??0;
-				!this.effects.filter(e=>e.effectType==0).length&&this.effects.push({effectType:0});
+				!this.effects.filter(e=>e.effectType==0).length&&this.effects.push({effectType:0,boost:abilityLevels[ability.level-1].boost??0});
 				if(this.effects.filter(e=>e.effectType==1).length){
 					this.harden=false;
 					this.effects.filter(e=>e.effectType==1).map(e=>e.removed=true);
@@ -1087,6 +1087,9 @@ this.isGuest=!1;
         if (this.freezing) {
           this.speedMultiplier *= (1-this.effectImmune*(1-0.2))*this.effectReplayer;
         }
+		if(this.effects.filter(e=>e.effectType==0).length){
+			this.speedAdditioner+=this.effects.filter(e=>e.effectType==0)[0].boost;
+		}
         this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
         this.mouseActive = false;
           if (input.isMouse&&!this.cent_is_moving&&!this.isMovementKeyPressed(input)) {
@@ -1412,6 +1415,7 @@ this.isGuest=!1;
 		this.radiusMultiplier=1;
 		this.radiusAdditioner=0;
 		if(this.isIced)this.icedTimeLeft-=delta;
+		this.wasIced=this.isIced;
 		if(this.icedTimeLeft<=0){
 			this.isIced=false;
 			this.icedTimeLeft=1000;
@@ -1529,7 +1533,7 @@ this.isGuest=!1;
 		this.vertSpeed=-1;
 		this.magneticReduction=false;
 		this.magneticNullification=false;
-		if(!this.isIced&&!this.isSnowballed&&!this.isDowned()){
+		if(!this.wasIced&&!this.isSnowballed&&!this.isDowned()){
 			this.x+=vel.x*delta/1e3;
 			this.y+=vel.y*delta/1e3;
 		}
