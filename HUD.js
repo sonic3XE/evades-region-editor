@@ -1194,7 +1194,7 @@ class $e7009c797811e935$var$InputLayer {
 			if (e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.CHAT_KEY) {
 				if (0 === t.value.length)
 					return void t.blur();
-				socket.send(msgpack.encode({chat:a.value})),
+				socket.send(msgpack.encode({chat:t.value})),
 				t.value = "",
 				t.blur()
 			}
