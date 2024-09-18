@@ -1235,11 +1235,13 @@ function rungame(){
 			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
 			if(settings.realTime||playtesting){
 				global.mouseDown==void 0&&(global.mouseDown=null);
-				var input={isMouse:(mouseDown!=null),keys:keysDown,mouse:{x:mouseDown?.x+canvas.width/2,y:mouseDown?.y+canvas.height/2}};
-				if(input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-off.png">`){
-					inputIndicator.innerHTML=`<img src="./buttons/mouse-on.png">`;
-				}else if(!input.isMouse && inputIndicator.innerHTML==`<img src="./buttons/mouse-on.png">`){
-					inputIndicator.innerHTML=`<img src="./buttons/mouse-off.png">`;
+				var input={isMouse:null!==mouseDown,keys:keysDown,mouse:{x:(mouseDown?.x||0)+canvas.width/2,y:(mouseDown?.y||0)+canvas.height/2}};
+				if($e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOff){
+					mouseOff.remove();
+					inputIndicator.appendChild(mouseOn);
+				}else if(!$e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOn){
+					mouseOn.remove();
+					inputIndicator.appendChild(mouseOff);
 				};
 				selfId&&controlPlayer(selfId,input,1e3/60);
 				map.players.map(e=>{e.update(1e3/60)});
