@@ -327,6 +327,7 @@ this.previousPos={x:this.x,y:this.y};
     this.id=Math.random();
     this.nightActivated=false;
 this.regionHighestAreaAchieved=0;
+this.regionAreasDiscovered=[true];
 this.winCount=0;
 this.rescuedCount=0;
 this.survivalTime=0;
@@ -618,6 +619,23 @@ this.isGuest=!1;
     }
     return collided;
   }
+  updateExp(x){
+  	  this.experience+=x;
+	  while(this.experience>=this.nextLevelExperience){
+		if(this.level >= (map.areas[this.area].properties.max_level??map.properties.max_level)){
+			this.experience=this.nextLevelExperience;
+			break;
+		}
+		this.experience-=this.tempPrevExperience-this.previousLevelExperience;
+        this.tempPrevExperience+=Pellet.prototype.calculateExperience(this.level)-Pellet.prototype.calculateExperience(this.level-1);
+        this.level+=1;
+        this.tempNextExperience+=Pellet.prototype.calculateExperience(this.level)-Pellet.prototype.calculateExperience(this.level-1)
+        this.nextLevelExperience=this.tempNextExperience;
+		this.previousLevelExperience=this.tempPrevExperience;
+        this.upgradePoints+=1;
+      }
+  }
+
 	handleAbility(ability,kind=1,delta,others,force=false){
 	if(!ability)return;
 	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
@@ -1606,6 +1624,7 @@ this.isGuest=!1;
 		this.areaNumber=this.area+1;
 		this.regionName=map.name;
 		this.collides=this.collision(delta);
+		if(!this.regionAreasDiscovered[this.area])this.updateExp(12*this.area),this.regionAreasDiscovered[this.area]=true;
 		if(this.deathTimer==0)map.players.splice(map.players.indexOf(this),1),console.log("Player died (death timer ran out)");
 	}
 	knockback_player(delta,enemy,push_time,radius){
@@ -2768,7 +2787,7 @@ class Pellet extends SimulatorEntity{
 	this.pellet_zones=pellet_zones;
   }
   playerInteraction(player){
-  var victoryZones=this.pellet_zones;
+    var victoryZones=this.pellet_zones;
     var areaofzone=victoryZones.map(e=>e.width*e.height);
     for(var it in areaofzone){
       if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
@@ -2778,20 +2797,7 @@ class Pellet extends SimulatorEntity{
       var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
 	  this.x=Math.random()*(randZone.width-16)+randZone.x+8;
 	  this.y=Math.random()*(randZone.height-16)+randZone.y+8;
-      player.experience+=Math.floor(1+player.area/3)*(map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier);
-      while(player.experience>=player.nextLevelExperience){
-		if(player.level >= (map.areas[player.area].properties.max_level??map.properties.max_level)){
-			player.experience=player.nextLevelExperience;
-			break;
-		}
-		player.experience-=player.tempPrevExperience-player.previousLevelExperience;
-        player.tempPrevExperience+=this.calculateExperience(player.level)-this.calculateExperience(player.level-1);
-        player.level+=1;
-        player.tempNextExperience+=this.calculateExperience(player.level)-this.calculateExperience(player.level-1)
-        player.nextLevelExperience=player.tempNextExperience;
-		player.previousLevelExperience=player.tempPrevExperience;
-        player.upgradePoints+=1;
-      }
+	  player.updateExp(Math.floor(1+player.area/3)*(map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier));
   }
   calculateExperience(HeroLevel){
 	  return Math.floor(Math.min(HeroLevel,100)*Math.min(HeroLevel+1,101)*2+Math.max(0,HeroLevel*(HeroLevel+1)*(2*HeroLevel-179)/60-3535))
