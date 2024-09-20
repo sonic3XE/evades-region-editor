@@ -1440,7 +1440,7 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.abilityTwo = new Ability,
 		this.abilityThree = new Ability,
 		this.upgradeMode = !1,
-		this.upgradeBrightness = new $4e83b777e56fdf48$export$2e2bcd8739ae039(175,175,255,5,!0),
+		this.upgradeBrightness = new $4e83b777e56fdf48$export$2e2bcd8739ae039(175,175,255,150,!0),
 		this.isTouchAdjusted = !1,
 		this.buttons = {
 			interactionIndicator: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),

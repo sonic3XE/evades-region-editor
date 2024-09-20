@@ -2759,19 +2759,19 @@ function death(player){
 }
 //PELLETS
 class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
-	update(delta) {
-		this.increasing ? (this.value += this.increment*delta/1e3,
-		this.value >= this.max && (this.value = this.max,
-		this.increasing = !1)) : (this.value -= this.increment*delta/1e3,
-		this.value <= this.min && (this.value = this.min,
-		this.increasing = !0))
-	}
-	constructor(e, t, n, r, i) {
+	constructor(e, t, a, r, c) {
 		this.value = e,
 		this.min = t,
-		this.max = n,
+		this.max = a,
 		this.increment = r,
-		this.increasing = i
+		this.increasing = c
+	}
+	update(delta) {
+		this.increasing ? (this.value += this.increment * delta / 1e3,
+		this.value >= this.max && (this.value = this.max,
+		this.increasing = !1)) : (this.value -= this.increment * delta / 1e3,
+		this.value <= this.min && (this.value = this.min,
+		this.increasing = !0))
 	}
 }
 class Pellet extends SimulatorEntity{
