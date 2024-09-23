@@ -79,14 +79,43 @@ canvas.addEventListener("wheel", e => {
 },{capture:true,passive:true});
 const mousePos={x:0,y:0,ex:0,ey:0}
 let mouseEntity={x:mousePos.x + camX,y:mousePos.y + camY}
-canvas.addEventListener("mousemove", e => {
-  mousePos.x=(e.offsetX - canvas.width / 2) / camScale+camX;
-  mousePos.y=(e.offsetY - canvas.height / 2) / camScale+camY;
+let selectionArea=null;
+function rectRectCollision(e,t){
+	return(e.x < t.width + t.x && e.x < t.x + t.width && e.x + e.width > t.x && e.y < t.y + t.height && e.y + e.height > t.y);
+}
+canvas.addEventListener("mousemove",e=>{
+	mousePos.x=(e.offsetX - canvas.width / 2) / camScale+camX;
+	mousePos.y=(e.offsetY - canvas.height / 2) / camScale+camY;
+	if(selectionArea && !selectedObjects.length){
+		selectionArea.x=Math.min(selectionArea.renderX,mousePos.x);
+		selectionArea.y=Math.min(selectionArea.renderY,mousePos.y);
+		selectionArea.width=Math.abs(selectionArea.renderX-mousePos.x);
+		selectionArea.height=Math.abs(selectionArea.renderY-mousePos.y);
+	}
+});
+canvas.addEventListener("mouseup", e => {
+	for(let obj of getObjects()){
+		if(obj.type=="torch"||obj.type=="flashlight_spawner"){
+			if(rectCircleCollision(obj.x,obj.y,16,selectionArea.x,selectionArea.y,selectionArea.width,selectionArea.height).c){
+				selectedObjects.push(obj);
+				continue;
+			}
+		}else{
+			if(rectRectCollision(selectionArea,obj)){
+				selectedObjects.push(obj);
+				continue;
+			}
+		}
+	}
+	selectionArea=null;
 });
 var isMouse=false;
 canvas.addEventListener("mousedown", e => {
   if (e.button === 1) e.preventDefault();
   if (e.button !== 0) return;
+  if(selectionArea==null && !selectedObjects.length){
+	  selectionArea={renderX:mousePos.x,renderY:mousePos.y,width:0,height:0};
+  }
   let target = targetedObject(e);
   if(lockCursor)return;
   /**
@@ -95,7 +124,7 @@ canvas.addEventListener("mousedown", e => {
   
   let beforeresize=e=>{}
   let resize = e => { };
-  if (target) {
+  if (target && !(selectionArea?.width||selectionArea?.height)) {
     var temp={width:target.width,height:target.height,
 x:target.x,y:target.y};
 	for(let obj in selectedObjects){

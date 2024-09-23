@@ -2240,6 +2240,7 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.velX=Math.cos(this.angle)*this.speed;
     this.velY=Math.sin(this.angle)*this.speed;
     this.x=x;
+    this.y=y;
     this.health=0;
     this.maxHealth=0;
     this.shatterTime=0;
@@ -2256,7 +2257,6 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
     this.isRepelling=false;
     this.isDestroyed=false;
     this.lightRadius=null;
-    this.y=y;
 	this.frozen=false;
     this.radius=radius;
 	this.energy=30;
