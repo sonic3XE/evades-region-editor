@@ -675,7 +675,8 @@ this.isGuest=!1;
 		abilityActive=false;
 		this.energyRate=this.energyRegen+this.regenAdditioner;
 	}
-	ability.total_cooldown=(abilityLevels[ability.level-1]?.total_cooldown??(ability.total_cooldown??ability.totalCooldown))*(this.cooldown_reduction??1);
+	if(ability.cooldown<=0)ability.totalCooldown=(abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown)*(this.cooldown_reduction??1);
+	ability.total_cooldown=ability.totalCooldown;
 	switch(ability.abilityType){
 		/*case -1:{
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
