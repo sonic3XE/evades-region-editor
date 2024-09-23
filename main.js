@@ -113,7 +113,7 @@ var isMouse=false;
 canvas.addEventListener("mousedown", e => {
   if (e.button === 1) e.preventDefault();
   if (e.button !== 0) return;
-  if(selectionArea==null && !selectedObjects.length){
+  if(selectionArea==null && !selectedObjects.length && !playtesting){
 	  selectionArea={renderX:mousePos.x,renderY:mousePos.y,width:0,height:0};
   }
   let target = targetedObject(e);
