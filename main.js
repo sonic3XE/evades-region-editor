@@ -763,6 +763,8 @@ function createPropertyObj(properties={},t){
 	function CreateInput(value,step,type="number",inputEvent,input){
 		return(input=document.createElement("input"),type=="checkbox")?(input.checked=value??false):(input.value=value??"",input.step=step??1),input.addEventListener("input",inputEvent),input;
 	}
+	properties.background_color=(properties.background_color??[]).map(e=>clamp(e,0,255)>>0);
+	if(!properties.background_color.length)properties.background_color=void 0;
 	const isLegacy=settings.legacySpeedUnits;
 	const	PartialMagnetism=CreateInput(properties.partial_magnetism,null,"checkbox",_=>{
 		properties.partial_magnetism = _.target.checked;
@@ -812,7 +814,7 @@ function createPropertyObj(properties={},t){
 		if(_.target.value==""&&t=="region")_.target.value=defaultValues.properties.background_color.join(", ");
 		if(_.target.value=="")properties.background_color=void 0;
 		else if(_.target.value.split(", ").length==1)_.target.value=(properties.background_color=((x)=>[(x>>24)&255,(x>>16)&255,(x>>8)&255,(x>>0)&255])(Number(_.target.value))).join(", ");
-		else if(_.target.value.split(", ").length==4)_.target.value=(properties.background_color=_.target.value.split(", ").map((e,t,a)=>isNaN(Number(a[t]))?(a[t]=0):(a[t]=Number(a[t])))).join(", ");
+		else if(_.target.value.split(", ").length==4)_.target.value=(properties.background_color=_.target.value.split(", ").map((e,t,a)=>isNaN(Number(a[t]))?(a[t]=0):(a[t]=clamp(Number(a[t])>>0,0,255)))).join(", ");
 	});
 	[MinimumSpeed,MaximumSpeed,DeathTimer,MaxLevel,PelletCount,PelletMultiplier,Friction,Lighting,Snow,BackgroundColor].map(e=>t!="region"&&(e.placeholder="Inherit"));
 	if(t=="region")
