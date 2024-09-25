@@ -337,6 +337,9 @@ function createSPAWNERgui(point1,Zone){
 	}),	ProjectileDuration = CreateInput(prop(point1,"projectile_duration"),null,null,_=>{
 		point1.projectile_duration=Number(_.target.value);
 		spawnEntities();
+	}),	Recharge = CreateInput(prop(point1,"recharge"),null,null,_=>{
+		point1.recharge=Number(_.target.value);
+		spawnEntities();
 	}),	ProjectileSpeed = CreateInput(prop(point1,"projectile_speed")==void 0?void 0:prop(point1,"projectile_speed")/30**isLegacy,1/(10*30**isLegacy),null,_=>{
 		if(!_.target.value)point1.projectile_speed=void 0;else point1.projectile_speed=(_.target.value=Number(_.target.value))*30**isLegacy;
 		spawnEntities();
@@ -520,6 +523,8 @@ function createSPAWNERgui(point1,Zone){
 			createProperty(formatString("editor.property.slowing_radius"),SlowingRadius,"number"),
 		],!0),	createFolder(formatString("editor.category.speed_sniper"),[
 			createProperty(formatString("editor.property.speed_loss"),SpeedLoss,"number"),
+		],!0),	createFolder(formatString("editor.category.sniper"),[
+			createProperty(formatString("editor.property.recharge"),Recharge,"number"),
 		],!0),	createFolder(formatString("editor.category.switch"),[
 			createProperty(formatString("editor.property.switch_interval"),SwitchInterval,"number"),
 			createProperty(formatString("editor.property.switch_time"),SwitchTime,"number"),
