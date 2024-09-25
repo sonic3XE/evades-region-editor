@@ -3198,16 +3198,14 @@ class HomingSwitchEnemy extends Enemy{
       target_angle = this.target_angle;
     }
     var angle_difference = modulus(this.angle - target_angle,Math.PI*2)
-    var angle_increment = this.increment;
+    var angle_increment = this.increment*delta/1000;
     if(angle_difference<angle_increment){
     }else if(angle_difference < Math.PI){
-      this.angle-=angle_increment*delta/1000;
-      this.velX=Math.cos(this.angle)*this.speed;
-      this.velY=Math.sin(this.angle)*this.speed;
+      this.angle-=angle_increment;
+      this.anglevel();
     }else{
-      this.angle+=angle_increment*delta/1000;
-      this.velX=Math.cos(this.angle)*this.speed;
-      this.velY=Math.sin(this.angle)*this.speed;
+      this.angle+=angle_increment;
+      this.anglevel();
     }
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
@@ -4055,13 +4053,13 @@ class HomingEnemy extends Enemy{
       target_angle = this.target_angle;
     }
     var angle_difference = modulus(this.angle - target_angle,Math.PI*2)
-    var angle_increment = this.increment;
+    var angle_increment = this.increment*delta/1000;
     if(angle_difference<angle_increment){
     }else if(angle_difference < Math.PI){
-      this.angle-=angle_increment*delta/1000;
+      this.angle-=angle_increment;
       this.anglevel();
     }else{
-      this.angle+=angle_increment*delta/1000;
+      this.angle+=angle_increment;
       this.anglevel();
     }
     super.update(delta);
