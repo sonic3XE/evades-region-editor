@@ -504,7 +504,7 @@ function createSPAWNERgui(point1,Zone){
 		],!0),	createFolder(formatString("editor.category.liquid"),[
 			createProperty(formatString("editor.property.player_detection_radius"),PlayerDetectionRadius,"number"),
 		],!0),	createFolder(formatString("editor.category.quicksand"),[
-			createProperty(formatString("editor.property.push_direction"),PushDirection,"number"),
+			//createProperty(formatString("editor.property.push_direction"),PushDirection,"number"),
 			createProperty(formatString("editor.property.quicksand_radius"),QuicksandRadius,"number"),
 			createProperty(formatString("editor.property.quicksand_strength"),QuicksandStrength,"number"),
 		],!0),	createFolder(formatString("editor.category.radiating_bullets"),[

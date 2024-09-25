@@ -218,7 +218,7 @@ function spawnEntities(area=current_Area){
 					case "positive_magnetic_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
 					case "prediction_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle,boundary);break;
 					case "pumpkin":entity=new instance(enemyX,enemyY,radius,speed,angle,false,boundary);break;
-					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"push_direction"),prop(spawner,"quicksand_strength"),boundary);break;
+					case "quicksand":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),prop(spawner,"quicksand_strength"),boundary);break;
 					case "radar":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
 					case "radiating_bullets":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"release_interval"),prop(spawner,"release_time"),boundary);break;
 					case "reducing":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`),boundary);break;
@@ -3914,9 +3914,8 @@ class DisablingEnemy extends Enemy{
   }
 }
 class QuicksandEnemy extends Enemy{
-  constructor(x,y,radius,speed,angle,aura_radius,direction,strength,boundary){
+  constructor(x,y,radius,speed,angle,aura_radius,strength,boundary){
     super(x,y,radius,speed,angle,"quicksand_enemy",boundary);
-	this.push_direction=direction;
 	this.auraRadius=aura_radius;
 	this.effects.push({radius:aura_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy "+capitaliseName(this.type.replace("_enemy",""))})[0])})
 	this.quicksand_strength=strength;
