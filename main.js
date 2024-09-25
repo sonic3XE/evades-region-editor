@@ -77,21 +77,16 @@ canvas.addEventListener("wheel", e => {
   camY = (m * y - y + camY) / m;
   camScale = Math.min(Math.max(1/zoomLimit,camScale),32);
 },{capture:true,passive:true});
-const mousePos={x:0,y:0,ex:0,ey:0}
-let mouseEntity={x:mousePos.x + camX,y:mousePos.y + camY}
+const mousePos={ex:0,ey:0}
+Object.defineProperties.bind(mousePos)(mousePos,{x:{get:function(){return this.ex / camScale+camX}},y:{get:function(){return this.ey / camScale+camY}}})
+let mouseEntity=mousePos;
 let selectionArea=null;
 function rectRectCollision(e,t){
 	return(e.x < t.width + t.x && e.x < t.x + t.width && e.x + e.width > t.x && e.y < t.y + t.height && e.y + e.height > t.y);
 }
 canvas.addEventListener("mousemove",e=>{
-	mousePos.x=(e.offsetX - canvas.width / 2) / camScale+camX;
-	mousePos.y=(e.offsetY - canvas.height / 2) / camScale+camY;
-	if(selectionArea && !selectedObjects.length){
-		selectionArea.x=Math.min(selectionArea.renderX,mousePos.x);
-		selectionArea.y=Math.min(selectionArea.renderY,mousePos.y);
-		selectionArea.width=Math.abs(selectionArea.renderX-mousePos.x);
-		selectionArea.height=Math.abs(selectionArea.renderY-mousePos.y);
-	}
+	mousePos.ex=(e.offsetX - canvas.width / 2);
+	mousePos.ey=(e.offsetY - canvas.height / 2);
 });
 canvas.addEventListener("mouseup", e => {
 	for(let obj of getObjects()){
@@ -114,7 +109,13 @@ canvas.addEventListener("mousedown", e => {
   if (e.button === 1) e.preventDefault();
   if (e.button !== 0) return;
   if(selectionArea==null && !selectedObjects.length && !playtesting){
-	  selectionArea={renderX:mousePos.x,renderY:mousePos.y,width:0,height:0};
+	selectionArea={renderX:mousePos.x,renderY:mousePos.y};
+	Object.defineProperties.bind(selectionArea)(selectionArea,{
+		x:{get:function(){return Math.min(this.renderX,mousePos.x)}},
+		y:{get:function(){return Math.min(this.renderY,mousePos.y)}},
+		width:{get:function(){return Math.abs(this.renderX-mousePos.x)}},
+		height:{get:function(){return Math.abs(this.renderY-mousePos.y)}}
+	});
   }
   let target = targetedObject(e);
   if(lockCursor)return;

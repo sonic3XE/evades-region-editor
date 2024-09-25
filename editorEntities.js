@@ -2340,7 +2340,8 @@ class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 				player.lava=true;
 			if(effect.effectType==57&&!(player.effectImmune==1||player.admin))
 				if(this.health>=this.maxHealth*0.98)
-					player.cybotEffect1=true;//player.reset(),player.abilityThree&&(player.abilityThree.level=1,player.abilityThree.locked=false)
+					player.cybotEffect1=true;
+					//player.reset(),player.abilityThree&&(player.abilityThree.level=1,player.abilityThree.locked=false)
 				else if(this.health>=this.maxHealth*0.3)
 					player.cybotEffect2=true;
 					//effects_reduction=-0.5*(1-player.get_effects_reduction())
@@ -6907,7 +6908,7 @@ class FibotEnemy extends Enemy{
 		}else{
 			for(let entity of map.players){
 				if(!this.total_player_count.has(entity))this.total_player_count.add(entity);
-				if(entity.debuff_type=="fibot_debuff"||entity.get_effects_reduction()==1||entity.effects_immune_time>0||entity.is_downed())continue;
+				if(entity.debuff_type=="fibot_debuff"||entity.effectImmune==0||entity.effects_immune_time>0||entity.is_downed())continue;
 				if(this.target_player==null)if(Math.random()>0.75)this.target_player=entity;
 			}
 			if(this.target_player!=null){
