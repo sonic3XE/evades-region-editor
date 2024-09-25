@@ -5336,7 +5336,7 @@ class PredictionSniperEnemy extends Enemy{
       distance_y = this.y - closest_entity.y;
 	  let radial={x:closest_entity.velX??0,y:closest_entity.velY??0};
 	  let diff={x:-distance_x,y:-distance_y}
-      let lead=this.timeOfImpact(diff,radial,11);
+      let lead=this.timeOfImpact(diff,radial,EvadesConfig.defaults.prediction_sniper_projectile.speed);
       var dX=diff.x + lead * radial.x;
       var dY=diff.y + lead * radial.y;
 	  if(!isNaN(lead) && lead >=0){
