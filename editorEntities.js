@@ -1578,7 +1578,7 @@ this.isGuest=!1;
 			if(zone.type=="teleport"||zone.type=="exit"){
 				var absolutePos={x:this.x+map.areas[this.area].x,y:this.y+map.areas[this.area].y},zonePos={x:zone.x,y:zone.y},zoneSize={x:zone.width,y:zone.height},teleporter=closestPointToRectangle({x:this.x,y:this.y},zonePos,zoneSize),dist=this.distance({x:this.x,y:this.y},teleporter);
 				if(dist<this.radius)onTele=true;
-				if(dist<this.radius&&!this.onTele){
+				if(dist<this.radius&&!this.onTele&&!this.cannot_leave_area){
 					var max=Infinity,maxArea=0,targetPoint={x:this.x+zone.translate.x,y:this.y+zone.translate.y};
 					for(var j in map.areas){
 						if(j==this.area)continue;
