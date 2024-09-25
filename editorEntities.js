@@ -1260,7 +1260,7 @@ this.isGuest=!1;
 		if(this.lastAngle<0)this.lastAngle+=360;
 		if(this.lastAngle<=angle+rotationSpeed*delta/1e3&&this.lastAngle>=angle-rotationSpeed*delta/1e3){this.lastAngle = angle}
 		this.chronoPos.push([this.x,this.y,this.deathTimer]);
-		this.chronoPos=this.chronoPos.slice(-Math.round(60/timeFix))
+		this.chronoPos=this.chronoPos.slice(-Math.round(2.6e3/delta));
 		this.inBarrier = false;
 		var ab1=this.abilityOne;
 		var ab2=this.abilityTwo;
