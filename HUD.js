@@ -1271,7 +1271,7 @@ class $e7009c797811e935$var$InputLayer {
 		this.canvas.style.cursor = "default"
 	}
 	onGamepadConnect(e) {
-		this.gamepad = navigator.getGamepads()[e.gamepad.index]
+		this.gamepad = gamepadFn()[e.gamepad.index]
 	}
 	onGamepadDisconnect() {
 		this.gamepad = null
@@ -1321,7 +1321,7 @@ class $e7009c797811e935$var$InputLayer {
 		} : null),
 		playtesting && (this.canvas.style.cursor = c ? "pointer" : "default"),
 		this.gamepad) {
-			this.gamepad = navigator.getGamepads()[this.gamepad.index];
+			this.gamepad = gamepadFn()[this.gamepad.index];
 			for (let t = 0; t < this.gamepad.buttons.length; t++) {
 				const a = $4cb5e0b12995588c$export$39b8dbea490353e9[t];
 				a && (this.gamepad.buttons[t].value && !this.gamepadDown.includes(a) ? (e.keys.keyDown(a),

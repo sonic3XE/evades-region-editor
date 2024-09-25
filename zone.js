@@ -1,4 +1,5 @@
 const useractive=navigator.userActivation;
+const gamepadFn=navigator.getGamepads.bind(navigator);
 const animate=(function(){return window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame||window.oRequestAnimationFrame||window.msRequestAnimationFrame})();
 const settings={
 	get language(){

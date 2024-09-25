@@ -360,10 +360,10 @@ this.isDeparted=false;
 this.magnetDirection="DOWN";
 this.abilityOne = new Ability;
 this.abilityTwo = new Ability;
-this.abilityThree = new Ability;
+//this.abilityThree = new Ability;
 this.abilityOne.abilityType=this.heroType*2;
 this.abilityTwo.abilityType=this.heroType*2+1;
-this.abilityThree.abilityType=6;
+//this.abilityThree.abilityType=6;
 this.abilityIndex=0;
 this.cachedAbilities=[];
 this.availableAbilities=[0,1,2,14,18,31,96,98];
@@ -6905,7 +6905,7 @@ class FibotEnemy extends Enemy{
 		}else{
 			for(let entity of map.players){
 				if(!this.total_player_count.has(entity))this.total_player_count.add(entity);
-				if(entity.debuff_type=="fibot_debuff"||entity.effectImmune==0||entity.effects_immune_time>0||entity.is_downed())continue;
+				if(entity.debuff_type=="fibot_debuff"||entity.effectImmune==0||entity.effects_immune_time>0||entity.isDowned())continue;
 				if(this.target_player==null)if(Math.random()>0.75)this.target_player=entity;
 			}
 			if(this.target_player!=null){
