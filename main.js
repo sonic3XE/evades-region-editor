@@ -1294,18 +1294,21 @@ function rungame(){
 	inputIndicator.hidden=!isVisible;
 	if(settings.legacy30FPS){
 		while(actually>=1e3/60&&actually!=0){
-			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
+			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>!e.remove);
 			if(settings.realTime||playtesting){
-				let state = $e7009c797811e935$export$2e2bcd8739ae039.gameState;
-				state.mouseDown==void 0&&(state.mouseDown=null);
-				var input={isMouse:null!==state.mouseDown,keys:keysDown,mouse:{x:(state.mouseDown?.x||0)+canvas.width/2,y:(state.mouseDown?.y||0)+canvas.height/2}};
-				if($e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOff){
-					mouseOff.remove();
-					inputIndicator.appendChild(mouseOn);
-				}else if(!$e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOn){
-					mouseOn.remove();
-					inputIndicator.appendChild(mouseOff);
-				};
+				const state=$e7009c797811e935$export$2e2bcd8739ae039.gameState,input={keys:keysDown};
+				if(state){
+					state.mouseDown==void 0&&(state.mouseDown=null);
+					input.isMouse=null!==state.mouseDown;
+					input.mouse={x:(state.mouseDown?.x||0)+canvas.width/2,y:(state.mouseDown?.y||0)+canvas.height/2};
+					if($e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOff){
+						mouseOff.remove();
+						inputIndicator.appendChild(mouseOn);
+					}else if(!$e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOn){
+						mouseOn.remove();
+						inputIndicator.appendChild(mouseOff);
+					}
+				}
 				selfId&&controlPlayer(selfId,input,1e3/60);
 				map.players.map(e=>{e.update(1e3/60)});
 				map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area]));
@@ -1314,18 +1317,21 @@ function rungame(){
 		}
 	}else{
 		while(ti[1]>=1e3/60&&actually!=0){
-			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
+			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>!e.remove);
 			if(settings.realTime||playtesting){
-				let state = $e7009c797811e935$export$2e2bcd8739ae039.gameState;
-				state.mouseDown==void 0&&(state.mouseDown=null);
-				var input={isMouse:null!==state.mouseDown,keys:keysDown,mouse:{x:(state.mouseDown?.x||0)+canvas.width/2,y:(state.mouseDown?.y||0)+canvas.height/2}};
-				if($e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOff){
-					mouseOff.remove();
-					inputIndicator.appendChild(mouseOn);
-				}else if(!$e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOn){
-					mouseOn.remove();
-					inputIndicator.appendChild(mouseOff);
-				};
+				const state=$e7009c797811e935$export$2e2bcd8739ae039.gameState,input={keys:keysDown};
+				if(state){
+					state.mouseDown==void 0&&(state.mouseDown=null);
+					input.isMouse=null!==state.mouseDown;
+					input.mouse={x:(state.mouseDown?.x||0)+canvas.width/2,y:(state.mouseDown?.y||0)+canvas.height/2};
+					if($e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOff){
+						mouseOff.remove();
+						inputIndicator.appendChild(mouseOn);
+					}else if(!$e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOn){
+						mouseOn.remove();
+						inputIndicator.appendChild(mouseOff);
+					}
+				}
 				selfId&&controlPlayer(selfId,input,1e3/60);
 				map.players.map(e=>{e.update(1e3/60)});
 				map.areas[current_Area].entities.map(e=>e.update(1e3/60,map.areas[current_Area]));
