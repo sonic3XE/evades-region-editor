@@ -7,35 +7,39 @@ const settings={
 	},set language(e){
 		return localStorage.language=e;
 	},get heroType(){
-		return Number(localStorage.herotype??"0");
+		return parseInt(localStorage.herotype??0);
 	},set heroType(e){
 		return localStorage.herotype=e;
 	},get snapX(){
-		return Math.floor(Number(localStorage.snapX??16));
+		return parseInt(localStorage.snapX??16);
 	},set snapX(e){
-		localStorage.snapX=Math.floor(Math.min(Math.max(Number(e),1),32));
+		localStorage.snapX=clamp(parseInt(e),1,32);
 	},get snapY(){
-		return Math.floor(Number(localStorage.snapY??16));
+		return parseInt(localStorage.snapY??16);
 	},set snapY(e){
-		localStorage.snapY=Math.floor(Math.min(Math.max(Number(e),1),32));
+		localStorage.snapY=clamp(parseInt(e),1,32);
 	},get realTime(){
 		return localStorage.realTime=="true";
 	},set realTime(e){
 		localStorage.realTime=e;
 	},get enemyOutlines(){
 		return (localStorage.enemyOutlines??"true")=="true";
+	},get abilityParticles(){
+		return (localStorage.abilityParticles??"true")=="true";
 	},set enemyOutlines(e){
 		localStorage.enemyOutlines=e;
+	},set abilityParticles(e){
+		localStorage.abilityParticles=e;
 	},get confetti(){
 		return localStorage.confetti=="true";
 	},set confetti(e){
 		localStorage.confetti=e;
 	},get tileMode(){
-		return parseInt(localStorage.tileMode??"0")
+		return parseInt(localStorage.tileMode??0)
 	},set tileMode(e){
 		localStorage.tileMode=e;
 	},get displayEnergyBars(){
-		return parseInt(localStorage.displayEnergyBars??"0")
+		return parseInt(localStorage.displayEnergyBars??0)
 	},set displayEnergyBars(e){
 		localStorage.displayEnergyBars=e;
 	},get legacy30FPS(){
@@ -71,13 +75,13 @@ const settings={
 	},set fadingEffects(e){
 		localStorage.fadingEffects=e;
 	},get pelletTransparency(){
-		return Number(localStorage.pelletTransparency??"0");
+		return parseFloat(localStorage.pelletTransparency??0);
 	},set pelletTransparency(e){
-		localStorage.pelletTransparency=Math.min(Math.max(Number(e),0),1);
+		localStorage.pelletTransparency=clamp(parseFloat(e),0,1);
 	},get joystickDeadzone(){
 		return parseFloat(localStorage.joystickDeadzone??0.05);
 	},set joystickDeadzone(e){
-		localStorage.joystickDeadzone=Math.min(Math.max(Number(e),0),1);
+		localStorage.joystickDeadzone=clamp(parseFloat(e),0,1);
 	},get displayTimer(){
 		return localStorage.displayTimer=="true";
 	},set displayTimer(e){

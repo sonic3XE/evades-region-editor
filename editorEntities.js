@@ -476,8 +476,10 @@ this.vertSpeed=-1;
     this.collides = false;
 	this.lightRadius = 50,
 	this.energyRate=1;
-	this.drawnConfetti = !1,
+	this.createdConfetti = !1,
 	this.confetti = [],
+	this.createdSupernovaStars = !1,
+	this.supernovaStars = [],
 	this.isPlayer = !0;
     this.abs_d_x = 0;
     this.abs_d_y = 0;
@@ -1225,16 +1227,13 @@ this.isGuest=!1;
 		let timeFix=delta/(1e3/30);
 		var cent=this.isCent;
 		if(this.isLead)cent=!cent;
-	  var ab1=this.abilityOne;
-	  var ab2=this.abilityTwo;
-	  var ab3=this.abilityThree;
-	if(this.firstAbility&&ab1.cooldown==0){
+	if(this.firstAbility&&this.abilityOne.cooldown==0){
 		this.firstAbilityActivated = !this.firstAbilityActivated;
 	}
-	if(this.secondAbility&&ab2.cooldown==0){
+	if(this.secondAbility&&this.abilityTwo.cooldown==0){
 		this.secondAbilityActivated = !this.secondAbilityActivated;
 	}
-	if(this.thirdAbility&&ab3.cooldown==0){
+	if(this.thirdAbility&&this.abilityThree&&this.abilityThree.cooldown==0){
 		this.thirdAbilityActivated = !this.thirdAbilityActivated;
 	}
 	  if(this.deathTimer!=-1){
@@ -1242,9 +1241,9 @@ this.isGuest=!1;
 		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
 		  this.abilityThree?.abilityType!=18&&(this.thirdAbilityActivated=false);
 	  }
-	this.handleAbility(ab1,1,delta,[ab2,ab3],this.firstAbility);
-	this.handleAbility(ab2,2,delta,[ab1,ab3],this.secondAbility);
-	ab3&&this.handleAbility(ab3,3,delta,[ab1,ab2],this.thirdAbility);
+	this.handleAbility(this.abilityOne,1,delta,[this.abilityTwo,this.abilityThree],this.firstAbility);
+	this.handleAbility(this.abilityTwo,2,delta,[this.abilityOne,this.abilityThree],this.secondAbility);
+	this.abilityThree&&this.handleAbility(this.abilityThree,3,delta,[this.abilityOne,this.abilityTwo],this.thirdAbility);
 	this.cooldown_reduction=1;
 		var rotationSpeed = 450;
 		var angle=this.input_angle/Math.PI*180;
@@ -1262,27 +1261,24 @@ this.isGuest=!1;
 		this.chronoPos.push([this.x,this.y,this.deathTimer]);
 		this.chronoPos=this.chronoPos.slice(-Math.round(2.6e3/delta));
 		this.inBarrier = false;
-		var ab1=this.abilityOne;
-		var ab2=this.abilityTwo;
-		var ab3=this.abilityThree;
-		if(ab1.cooldown!==void 0&&!ab1.pellet_powered&&!(abilityConfig[ab1.abilityType]?.pellet_powered)){
-			ab1.cooldown-=delta/1e3;
-			ab1.cooldown=Math.max(ab1.cooldown,0);
+		if(this.abilityOne.cooldown!==void 0&&!this.abilityOne.pellet_powered&&!(abilityConfig[this.abilityOne.abilityType]?.pellet_powered)){
+			this.abilityOne.cooldown-=delta/1e3;
+			this.abilityOne.cooldown=Math.max(this.abilityOne.cooldown,0);
 		};
-		if(ab2.cooldown!==void 0&&!ab2.pellet_powered&&!(abilityConfig[ab2.abilityType]?.pellet_powered)){
-			ab2.cooldown-=delta/1e3;
-			ab2.cooldown=Math.max(ab2.cooldown,0);
+		if(this.abilityTwo.cooldown!==void 0&&!this.abilityTwo.pellet_powered&&!(abilityConfig[this.abilityTwo.abilityType]?.pellet_powered)){
+			this.abilityTwo.cooldown-=delta/1e3;
+			this.abilityTwo.cooldown=Math.max(this.abilityTwo.cooldown,0);
 		};
-		if(ab3&&ab3.cooldown!==void 0&&!ab3.pellet_powered&&!(abilityConfig[ab3.abilityType]?.pellet_powered)){
-			ab3.cooldown-=delta/1e3;
-			ab3.cooldown=Math.max(ab3.cooldown,0);
+		if(this.abilityThree&&this.abilityThree.cooldown!==void 0&&!this.abilityThree.pellet_powered&&!(abilityConfig[this.abilityThree.abilityType]?.pellet_powered)){
+			this.abilityThree.cooldown-=delta/1e3;
+			this.abilityThree.cooldown=Math.max(this.abilityThree.cooldown,0);
 		};
 		if(this.noCooldown){
-			ab1.cooldown=0;
-			ab2.cooldown=0;
-			ab3 && (ab3.cooldown=0);
+			this.abilityOne.cooldown=0;
+			this.abilityTwo.cooldown=0;
+			this.abilityThree && (this.abilityThree.cooldown=0);
 		}
-		this.updateEffects([ab1,ab2,ab3]);
+		this.updateEffects([this.abilityOne,this.abilityTwo,this.abilityThree]);
 		let area=map.areas[this.area];
 		this.safeZone = true;
 		this.minimum_speed = 0;
@@ -1696,6 +1692,10 @@ this.isGuest=!1;
 		this.createdConfetti = !0) : this.createdConfetti && !this.isDowned() && (this.createdConfetti = !1),
 		this.animateConfetti(),
 		this.drawConfetti(e, t));
+		settings.abilityParticles && (!this.createdSupernovaStars && this.usedSupernova ? (this.makeSupernova(),
+		this.createdSupernovaStars = !0) : this.createdSupernovaStars && !this.usedSupernova && (this.createdSupernovaStars = !1),
+		this.animateSupernova(),
+		this.drawSupernova(e, t));
 		const n = this.x + t.x
 		  , r = this.y + t.y;
 		function i(t, i, a, o=0) {
@@ -2127,9 +2127,8 @@ this.isGuest=!1;
 		return e
 	}
 	makeConfetti() {
-		for (let e = 0; e < this.randomIntRange(50, 150) && !($9bc26d320fe964d6$var$totalConfettiRendered >= $9bc26d320fe964d6$var$MaxConfettiRendered); e++)
-			this.addConfetti(),
-			$9bc26d320fe964d6$var$totalConfettiRendered++
+		for (let e = 0; e < this.randomIntRange(50, 150); e++)
+			this.addConfetti()
 	}
 	addConfetti() {
 		const e = ["#f44336", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688", "#4CAF50", "#8BC34A", "#CDDC39", "#FFEB3B", "#FFC107", "#FF9800", "#FF5722", "#cc7d60", "#b45c5c", "#397991"]
@@ -2146,15 +2145,14 @@ this.isGuest=!1;
 			vy: this.randomRange(-5, -.8)
 		})
 	}
-	animateConfetti() {
+	animateConfetti(delta) {
 		for (let e = 0; e < this.confetti.length; e++) {
 			const t = this.confetti[e];
 			t.x += t.vx,
 			t.y += t.vy,
 			t.vx += this.randomRange(-.1, .1),
-			t.vy += .35,
-			t.y >= t.initialY + 100 && (this.confetti.splice(e, 1),
-			$9bc26d320fe964d6$var$totalConfettiRendered--)
+			t.vy += 10.5 * delta / 1e3,
+			t.y >= t.initialY + 100 && this.confetti.splice(e, 1)
 		}
 	}
 	drawConfetti(e, t) {
@@ -2166,6 +2164,67 @@ this.isGuest=!1;
 		  , c = a.y + t.y;
 		e.fillStyle = a.color,
 		e.fillRect(r, c, a.size, a.size)
+	}
+	makeSupernova() {
+		for (let e = 0; e < 45; e++)
+			this.addSupernova()
+	}
+	addSupernova() {
+		const e = ["#a07fffaa", "#9670ffaa", "#8b5dffaa", "#8053ffaa", "#7049ffaa", "#5f40ffaa"]
+		  , t = ["#ffc000aa", "#ffecb0aa", "#ffffffaa"]
+		  , a = Math.random() < .35
+		  , r = a ? t[this.randomIntRange(0, t.length - 1)] : e[this.randomIntRange(0, e.length - 1)];
+		let c, o;
+		a ? (c = this.randomRange(-2, 2),
+		o = this.randomRange(-2, 2)) : (c = this.randomRange(-8, 8),
+		o = this.randomRange(-8, 8)),
+		this.supernovaStars.push({
+			x: this.x,
+			y: this.y,
+			size: 12,
+			color: r,
+			initialX: this.x,
+			initialY: this.y,
+			vx: c,
+			vy: o,
+			isSlow: a
+		})
+	}
+	animateSupernova() {
+		let e = 0;
+		for (; e < this.supernovaStars.length; ) {
+			const t = this.supernovaStars[e];
+			t.x += t.vx,
+			t.y += t.vy,
+			t.vx *= .96,
+			t.vy *= .96;
+			const a = t.isSlow ? this.randomRange(20, 300) : this.randomRange(20, 600);
+			t.y >= t.initialY + a || t.y <= t.initialY - a || t.x >= t.initialX + a || t.x <= t.initialX - a || Math.abs(t.vx) < .1 && Math.abs(t.vy) < .1 ? this.supernovaStars.splice(e, 1) : e += 1
+		}
+	}
+	drawSupernova(e, t) {
+		for (let a = 0; a < this.supernovaStars.length; a++)
+			this.drawSupernovaPiece(e, t, this.supernovaStars[a])
+	}
+	drawSupernovaPiece(e, t, a) {
+		const r = a.x + t.x
+		  , c = a.y + t.y
+		  , o = a.size / 2
+		  , n = o
+		  , $ = o / 2.5;
+		e.fillStyle = a.color,
+		e.beginPath();
+		for (let t = 0; t < 10; t++) {
+			const a = t * Math.PI / 5
+			  , o = t % 2 == 0 ? n : $
+			  , i = r + o * Math.cos(a)
+			  , d = c + o * Math.sin(a);
+			e.lineTo(i, d)
+		}
+		e.closePath(),
+		e.globalAlpha = Math.min(1, .5 + Math.min(Math.abs(a.vx / 10), Math.abs(a.vy / 10))),
+		e.fill(),
+		e.globalAlpha = 1
 	}
 	randomIntRange(e, t) {
 		return Math.floor(Math.random() * (t - e + 1)) + e
@@ -2824,7 +2883,7 @@ class Torch extends SimulatorEntity{
 	this.image = null,
 	this.baseLightRadius = 100,
 	this.randomFlickerRadius = 10,
-	this.flickerChance = 4.5 / 30,
+	this.flickerChance = 4.5,
 	this.lightRadius = this.baseLightRadius;
 	this.renderFirst=true;
 	this.rectCircleCollide=true;
@@ -2837,6 +2896,7 @@ class Torch extends SimulatorEntity{
   }
   update(){}
   render(ctx,t,delta) {
+	this.flickerChance = 4.5 * delta / 1e3;
 	const a = this.x + t.x
 	  , r = this.y + t.y;
 	Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);

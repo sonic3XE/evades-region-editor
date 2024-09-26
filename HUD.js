@@ -26,7 +26,7 @@ const $e728d5a493f33528$export$ba6e2f1cddd013f7 = (e,a)=>{
 			return t;
 	return null
 }
-class SnowRenderer{update(e,t,a){if(this.intensity=arguments[3]("properties","snow",null,e,map),0===this.intensity)return;e!==this.area&&(this.area=e,this.reset(t));let r=0,c=0;null!==this.camera&&(r=this.camera.x-a.x,c=this.camera.y-a.y),this.camera={x:a.x,y:a.y},this.angle+=.01;const o=this.width(t),n=this.height(t),$=1+2*this.intensity;for(let e=0;e<this.particles.length;e++){const t=this.particles[e];t.x+=2*Math.sin(this.angle)*$-r,t.y+=(Math.cos(this.angle+t.d)+1+t.r/2)*$-c,t.x>o?this.particles[e]=r<0?{x:Math.random()*-r,y:Math.random()*n,r:t.r,d:t.d}:{x:0,y:Math.random()*n,r:t.r,d:t.d}:t.x<0?this.particles[e]=r>0?{x:o-Math.random()*r,y:Math.random()*n,r:t.r,d:t.d}:{x:o,y:Math.random()*n,r:t.r,d:t.d}:t.y>n&&c<0?this.particles[e]={x:Math.random()*o,y:Math.random()*-c,r:t.r,d:t.d}:t.y<0&&c>0?this.particles[e]={x:Math.random()*o,y:n-Math.random()*c,r:t.r,d:t.d}:(t.y<0||t.y>n)&&(this.particles[e]={x:Math.random()*o,y:0,r:t.r,d:t.d})}}reset(e){this.angle=0,this.particles=[],this.camera=null;const t=Math.ceil(2*this.intensity),a=Math.ceil(3.5*this.intensity),r=this.width(e),c=this.height(e);for(let e=0;e<Math.floor(40*this.intensity);e++)this.particles.push({x:Math.random()*r,y:Math.random()*c,r:Math.random()*(a-t)+t,d:Math.random()})}width(e){return e.canvas.width}height(e){return e.canvas.height}render(e){if(0===this.intensity)return;const t=this.width(e),a=this.height(e);e.fillStyle="rgba(255, 255, 255, 0.8)",e.beginPath();for(let r=0;r<this.particles.length;r++){const c=this.particles[r],o=c.x,n=c.y;o<0||n<0||o>t||n>a||(e.moveTo(o,n),e.arc(o,n,c.r,0,2*Math.PI,!1))}e.fill()}constructor(){this.intensity=0,this.particles=[],this.angle=0,this.area=null,this.camera=null}}
+class SnowRenderer{update(e,t,a){const delta=arguments[4];if(this.intensity=arguments[3]("properties","snow",null,e,map),0===this.intensity||0===delta)return;e!==this.area&&(this.area=e,this.reset(t));let r=0,c=0;null!==this.camera&&(r=this.camera.x-a.x,c=this.camera.y-a.y),this.camera={x:a.x,y:a.y},this.angle+=.3*delta/1e3;const o=this.width(t),n=this.height(t),$=30*(1+2*this.intensity)*delta/1e3;for(let e=0;e<this.particles.length;e++){const t=this.particles[e];t.x+=2*Math.sin(this.angle)*$-r,t.y+=(Math.cos(this.angle+t.d)+1+t.r/2)*$-c,t.x>o?this.particles[e]=r<0?{x:Math.random()*-r,y:Math.random()*n,r:t.r,d:t.d}:{x:0,y:Math.random()*n,r:t.r,d:t.d}:t.x<0?this.particles[e]=r>0?{x:o-Math.random()*r,y:Math.random()*n,r:t.r,d:t.d}:{x:o,y:Math.random()*n,r:t.r,d:t.d}:t.y>n&&c<0?this.particles[e]={x:Math.random()*o,y:Math.random()*-c,r:t.r,d:t.d}:t.y<0&&c>0?this.particles[e]={x:Math.random()*o,y:n-Math.random()*c,r:t.r,d:t.d}:(t.y<0||t.y>n)&&(this.particles[e]={x:Math.random()*o,y:0,r:t.r,d:t.d})}}reset(e){this.angle=0,this.particles=[],this.camera=null;const t=Math.ceil(2*this.intensity),a=Math.ceil(3.5*this.intensity),r=this.width(e),c=this.height(e);for(let e=0;e<Math.floor(40*this.intensity);e++)this.particles.push({x:Math.random()*r,y:Math.random()*c,r:Math.random()*(a-t)+t,d:Math.random()})}width(e){return e.canvas.width}height(e){return e.canvas.height}render(e){if(0===this.intensity)return;const t=this.width(e),a=this.height(e);e.fillStyle="rgba(255, 255, 255, 0.8)",e.beginPath();for(let r=0;r<this.particles.length;r++){const c=this.particles[r],o=c.x,n=c.y;o<0||n<0||o>t||n>a||(e.moveTo(o,n),e.arc(o,n,c.r,0,2*Math.PI,!1))}e.fill()}constructor(){this.intensity=0,this.particles=[],this.angle=0,this.area=null,this.camera=null}}
 class DynamicLighting{addCircleLightSource(e,t,n){this.circleLightSources.push({radius:e,x:t,y:n})}addConeLightSource(e,t,n,r,i,a){this.coneLightSources.push({x:e,y:t,centerDistance:n,directionAngle:r,innerAngle:i,distance:a})}addRectangleLightSource(e){this.rectangleLightSources.push(e)}getCachedGradient(e,t,n){if(!this.lightCache.has(t)){const r=n(e);this.lightCache.set(t,r)}return this.lightCache.get(t)}render(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height);e.scale(camScale,camScale);for(const n of this.circleLightSources){if(n.radius<0||Number.isNaN(n.radius))continue;const r=`circle_${n.radius}`,i=this.getCachedGradient(e,r,(e=>{const t=e.createRadialGradient(0,0,0,0,0,n.radius);return t.addColorStop(0,"rgba(0, 0, 0, 1)"),t.addColorStop(1,"rgba(0, 0, 0, 0)"),t}));e.save(),e.translate(n.x+t.x,n.y+t.y),e.beginPath(),e.arc(0,0,n.radius,0,2*Math.PI,!1),e.fillStyle=i,e.fill(),e.restore()}for(const n of this.coneLightSources){const r=n.x+t.x,i=n.y+t.y,a=n.directionAngle-n.innerAngle/2,o=r+n.distance*Math.cos(a),s=i+n.distance*Math.sin(a),l=e.createRadialGradient(n.x+t.x,n.y+t.y,0,n.x+t.x,n.y+t.y,n.distance);l.addColorStop(0,"rgba(0, 0, 0, 1)"),l.addColorStop(1,"rgba(0, 0, 0, 0)"),e.beginPath(),e.moveTo(r,i),e.lineTo(o,s),e.arc(r,i,n.distance,n.directionAngle-n.innerAngle/2,n.directionAngle+n.innerAngle/2,!1),e.lineTo(r,i),e.fillStyle=l,e.closePath(),e.fill()}for(const n of this.rectangleLightSources){const r=n.x+t.x+n.width/2,i=n.y+t.y+n.height/2,a=Math.max(n.width,n.height)/2,o=`rectangle_${a}_${n.intensity}`,s=this.getCachedGradient(e,o,(e=>{const t=e.createRadialGradient(0,0,0,0,0,a);return t.addColorStop(0,`rgba(0, 0, 0, ${n.intensity})`),t.addColorStop(1,"rgba(0, 0, 0, 0)"),t}));e.save(),e.translate(r,i),e.fillStyle=s,e.fillRect(-a/2-n.width/2,-a/2-n.height/2,n.width+a,n.height+a),e.restore()}e.fillStyle=`rgba(0, 0, 0, ${this.lighting})`,e.resetTransform(),e.fillRect(0,0,e.canvas.width,e.canvas.height)}constructor(e){this.lighting=e,this.circleLightSources=[],this.coneLightSources=[],this.rectangleLightSources=[],this.lightCache=new Map}}
 class $7bda4ebfc6020375$var$DirectionalIndicator {
 	update(e) {
@@ -1208,7 +1208,8 @@ class $e7009c797811e935$var$InputLayer {
 			void e.preventDefault();
 		const a = document.getElementById("mod-tools-duration-input");
 		if (document.activeElement.nodeName!=="INPUT") {
-			if (e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_1 && e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_2)
+			if (this.gameState.usingGamepad = !1,
+			e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_1 && e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_2)
 				return e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_HERO_INFO_KEY ? (evadesRenderer.heroInfoCard.toggleVisibility(),
 				void evadesRenderer.experienceBar.toggleVisibility()) : void (e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MINIMAP_MODE_KEY ? e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_AREA_INFO_KEY ? evadesRenderer.areaInfo.toggleVisibility() : e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_CHAT_KEY ? e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_LEADERBOARD_KEY ? e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
 				e.preventDefault()) : 1 : 2 : evadesRenderer.minimap.toggleMinimapMode());
@@ -1217,12 +1218,12 @@ class $e7009c797811e935$var$InputLayer {
 	}
 	onKeyUp(e) {
 		if(!playtesting||!this.gameState)return;
-		this.gameState.initial || e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (this.gameState.keys.keyUp($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
+		this.gameState.initial || e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (this.gameState.keys&&this.gameState.keys.keyUp($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
 		this.gameState.usingGamepad = !1)
 	}
 	onBlur(e) {
 		if(!playtesting||!this.gameState)return;
-		this.gameState.initial || this.gameState.keys.clear($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode])
+		this.gameState.initial || (this.gameState.keys&&this.gameState.keys.clear($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]))
 	}
 	onMouseMove(e) {
 		if(!playtesting)return;
@@ -1251,7 +1252,6 @@ class $e7009c797811e935$var$InputLayer {
 		this.down = !0,
 		this.initialDown = !0,
 		this.onMouseDownListeners.forEach((e => e()));
-		if(!this.gameState)return;
 		this.gameState.usingGamepad = !1
 	}
 	onMouseUp(e) {
@@ -1323,10 +1323,10 @@ class $e7009c797811e935$var$InputLayer {
 		this.gamepad) {
 			this.gamepad = gamepadFn()[this.gamepad.index];
 			for (let t = 0; t < this.gamepad.buttons.length; t++) {
-				const a = $4cb5e0b12995588c$export$39b8dbea490353e9[t];
-				a && (this.gamepad.buttons[t].value && !this.gamepadDown.includes(a) ? (e.keys.keyDown(a),
+				const a = [controls.FOCUS, controls.ACTION, controls.USE_ABILITY_THREE[0], controls.UPGRADE_ABILITY_THREE[0], controls.UPGRADE_ABILITY_ONE[0], controls.UPGRADE_ABILITY_TWO[0], controls.USE_ABILITY_ONE[0], controls.USE_ABILITY_TWO[0], null, null, controls.ACTION, null, controls.UP[0], controls.DOWN[0], controls.LEFT[0], controls.RIGHT[0], null, null][t];
+				a && (this.gamepad.buttons[t].value && !this.gamepadDown.includes(a) ? (keysDown.add(a),
 				this.gamepadDown.push(a),
-				e.usingGamepad = !0) : !this.gamepad.buttons[t].value && this.gamepadDown.includes(a) && (e.keys.keyUp(a),
+				e.usingGamepad = !0) : !this.gamepad.buttons[t].value && this.gamepadDown.includes(a) && (keysDown.delete(a),
 				this.gamepadDown.splice(this.gamepadDown.indexOf(a), 1),
 				e.usingGamepad = !0))
 			}
@@ -1344,20 +1344,20 @@ class $e7009c797811e935$var$InputLayer {
 			const c = .7
 			  , o = this.gamepad.axes[2]
 			  , n = this.gamepad.axes[3];
-			o <= -c && !this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
-			this.gamepadDown.push($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
-			e.usingGamepad = !0) : this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY),
-			this.gamepadDown.splice(this.gamepadDown.indexOf($e7009c797811e935$var$keys.UPGRADE_SPEED_KEY), 1),
+			o <= -c && !this.gamepadDown.includes(controls.UPGRADE_SPEED[0]) ? (keysDown.add(controls.UPGRADE_SPEED[0]),
+			this.gamepadDown.push(controls.UPGRADE_SPEED[0]),
+			e.usingGamepad = !0) : this.gamepadDown.includes(controls.UPGRADE_SPEED[0]) && (keysDown.delete(controls.UPGRADE_SPEED[0]),
+			this.gamepadDown.splice(this.gamepadDown.indexOf(controls.UPGRADE_SPEED[0]), 1),
 			e.usingGamepad = !0),
-			o >= c && !this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
-			this.gamepadDown.push($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
-			e.usingGamepad = !0) : this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY),
-			this.gamepadDown.splice(this.gamepadDown.indexOf($e7009c797811e935$var$keys.UPGRADE_ENERGY_REGEN_KEY), 1),
+			o >= c && !this.gamepadDown.includes(controls.UPGRADE_ENERGY_REGEN[0]) ? (keysDown.add(controls.UPGRADE_ENERGY_REGEN[0]),
+			this.gamepadDown.push(controls.UPGRADE_ENERGY_REGEN[0]),
+			e.usingGamepad = !0) : this.gamepadDown.includes(controls.UPGRADE_ENERGY_REGEN[0]) && (keysDown.delete(controls.UPGRADE_ENERGY_REGEN[0]),
+			this.gamepadDown.splice(this.gamepadDown.indexOf(controls.UPGRADE_ENERGY_REGEN[0]), 1),
 			e.usingGamepad = !0),
-			n <= -c && !this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) ? (e.keys.keyDown($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
-			this.gamepadDown.push($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
-			e.usingGamepad = !0) : this.gamepadDown.includes($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY) && (e.keys.keyUp($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY),
-			this.gamepadDown.splice(this.gamepadDown.indexOf($e7009c797811e935$var$keys.UPGRADE_MAX_ENERGY_KEY), 1),
+			n <= -c && !this.gamepadDown.includes(controls.UPGRADE_MAX_ENERGY[0]) ? (keysDown.add(controls.UPGRADE_MAX_ENERGY[0]),
+			this.gamepadDown.push(controls.UPGRADE_MAX_ENERGY[0]),
+			e.usingGamepad = !0) : this.gamepadDown.includes(controls.UPGRADE_MAX_ENERGY[0]) && (keysDown.delete(controls.UPGRADE_MAX_ENERGY[0]),
+			this.gamepadDown.splice(this.gamepadDown.indexOf(controls.UPGRADE_MAX_ENERGY[0]), 1),
 			e.usingGamepad = !0)
 		} else
 			this.touch.wasDown && (this.touch.down && Math.abs(this.touch.current.x - this.touch.start.x) >= 1 && Math.abs(this.touch.current.y - this.touch.start.y) >= 1 ? e.mouseDown = {

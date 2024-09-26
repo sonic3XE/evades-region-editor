@@ -53,11 +53,15 @@
 				<td colspan="2">Display Legacy Speed Units <input type="checkbox" id="legacySpeedUnits"></td>
 			</tr>
 			<tr>
+				<td>Ability Particles <input type="checkbox" id="abilityParticles"></td>
 				<td>Fading Effects <input type="checkbox" id="fadingEffects"></td>
-				<td>Display Energy Bars <select id="displayEnergyBars"><option>All</option><option>Yours</option><option>Others</option><option>None</option></select></td>
 			</tr>
 			<tr>
-				<td colspan="2">Pellet Transparency: <input type="range" value="0" min="0" max="1" step="0.01" id="pelletTransparency"></td>
+				<td colspan="2">Display Energy Bars <select id="displayEnergyBars"><option>All</option><option>Yours</option><option>Others</option><option>None</option></select></td>
+			</tr>
+			<tr>
+				<td>Pellet Transparency: <font id="pelletTransparencyValue">0.00</font></td>
+				<td><input type="range" value="0" min="0" max="1" step="0.01" id="pelletTransparency"></td>
 			</tr>
 			</tbody></table><hr>
 			<table><caption><titleheader style="font: bold 20px tah;border-bottom: 1px white solid">PLAYTESTING</titleheader></caption><tbody>
@@ -77,7 +81,8 @@
 				<td colspan="6">Enable Mouse Movement <input id="enableMouseMovement" type="checkbox"></td>
 			</tr>
 			<tr>
-				<td colspan="6">Joystick Deadzone <select id="joystickDeadzone"><option>None</option><option>Slight (0.05)</option><option>Medium (0.1)</option><option>Large (0.15)</option><option>Huge (0.2)</option></select></td>
+				<td colspan="3">Joystick Deadzone: <font id="joystickDeadzoneValue">0.05</font></td>
+				<td colspan="3"><input id="joystickDeadzone" step="0.01" min="0" max="1" style="width:100%" type="range" value="0.05"></td>
 			</tr>
 			</tbody></table>
 			<button onclick="tip.hidden=true;document.getElementsByClassName('settings-launcher')[0].hidden=false;" id="closeSettings" style="position:fixed;display:block;right:0;top:0px;border:none;background:rgb(232,17,35);color:white;width:20px;height:20px;">X</button>

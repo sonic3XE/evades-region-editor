@@ -387,11 +387,10 @@ canvas.addEventListener("mousemove", e => {
 let updateMouseEntity=true,selectedObjects=[],hitbox=true;
 canvas.addEventListener("contextmenu",e=>{if(e.preventDefault(),e.target===contextmenu||playtesting)return;contextmenu.style.left=e.x+1+"px";contextmenu.style.top=e.y+1+"px";duplicateObject.disabled=deleteObject.disabled=copyObject.disabled=cutObject.disabled=!selectedObjects.length;pasteObject.disabled=!copyObjects.length;rotateObject.disabled=(!selectedObjects.length)||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));deleteArea.disabled=map.areas.length<2;show(contextmenu,updateMouseEntity=false)});
 [displayEnergyBars,tileMode,body_collection,hat_collection,gem_collection].map(e=>e.addEventListener("input",t=>{settings[t.target.id.split("_")[0]]=t.target.selectedIndex}));
-[fadingEffects,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,legacy30FPS,displayTimer].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.checked}));
-[snapX,pelletTransparency,snapY].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.value}));
+[fadingEffects,abilityParticles,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,legacy30FPS,displayTimer].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.checked}));
+[snapX,pelletTransparency,snapY,joystickDeadzone].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.value}));
 lang.addEventListener("input",e=>{settings.language=e.target.selectedIndex;loadLanguage(`${languages[settings.language]}.json`)});
 herotype.addEventListener("input",e=>{settings.heroType=e.target.selectedIndex});
-joystickDeadzone.addEventListener("input",e=>{settings.joystickDeadzone=e.target.selectedIndex/20});
 document.addEventListener("click",e=>{if(e.target==contextmenu||e.target.parentNode==contextmenu&&e.button==2)return;if(e.target==canvas&&e.button==2)return;hide(contextmenu,updateMouseEntity=true)});
 reset.addEventListener("click",e=>{
 	customConfirm(formatString("editor.confirm.start_from_scratch"),formatString("editor.confirm.yes"),formatString("editor.confirm.no"),r=>{r&&loadFile(`name: No Name
@@ -1296,8 +1295,9 @@ function rungame(){
 		while(actually>=1e3/60&&actually!=0){
 			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
 			if(settings.realTime||playtesting){
-				global.mouseDown==void 0&&(global.mouseDown=null);
-				var input={isMouse:null!==mouseDown,keys:keysDown,mouse:{x:(mouseDown?.x||0)+canvas.width/2,y:(mouseDown?.y||0)+canvas.height/2}};
+				let state = $e7009c797811e935$export$2e2bcd8739ae039.gameState;
+				state.mouseDown==void 0&&(state.mouseDown=null);
+				var input={isMouse:null!==state.mouseDown,keys:keysDown,mouse:{x:(state.mouseDown?.x||0)+canvas.width/2,y:(state.mouseDown?.y||0)+canvas.height/2}};
 				if($e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOff){
 					mouseOff.remove();
 					inputIndicator.appendChild(mouseOn);
@@ -1315,8 +1315,9 @@ function rungame(){
 		while(ti[1]>=1e3/60&&actually!=0){
 			map.areas[current_Area].entities=map.areas[current_Area].entities.filter(e=>{return !e.remove});
 			if(settings.realTime||playtesting){
-				global.mouseDown==void 0&&(global.mouseDown=null);
-				var input={isMouse:null!==mouseDown,keys:keysDown,mouse:{x:(mouseDown?.x||0)+canvas.width/2,y:(mouseDown?.y||0)+canvas.height/2}};
+				let state = $e7009c797811e935$export$2e2bcd8739ae039.gameState;
+				state.mouseDown==void 0&&(state.mouseDown=null);
+				var input={isMouse:null!==state.mouseDown,keys:keysDown,mouse:{x:(state.mouseDown?.x||0)+canvas.width/2,y:(state.mouseDown?.y||0)+canvas.height/2}};
 				if($e7009c797811e935$export$2e2bcd8739ae039.mouseMovementToggled && inputIndicator.children[0]==mouseOff){
 					mouseOff.remove();
 					inputIndicator.appendChild(mouseOn);
