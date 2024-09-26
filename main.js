@@ -89,6 +89,7 @@ canvas.addEventListener("mousemove",e=>{
 	mousePos.ey=(e.offsetY - canvas.height / 2);
 });
 canvas.addEventListener("mouseup", e => {
+	if(!selectionArea)return;
 	for(let obj of getObjects()){
 		if(obj.type=="torch"||obj.type=="flashlight_spawner"){
 			if(rectCircleCollision(obj.x,obj.y,16,selectionArea.x,selectionArea.y,selectionArea.width,selectionArea.height).c){
@@ -108,7 +109,7 @@ var isMouse=false;
 canvas.addEventListener("mousedown", e => {
   if (e.button === 1) e.preventDefault();
   if (e.button !== 0) return;
-  if(selectionArea==null && !selectedObjects.length && !playtesting){
+  if(selectionArea==null && (!selectedObjects.length&&!targetedObject(e)) && !playtesting){
 	selectionArea={renderX:mousePos.x,renderY:mousePos.y};
 	Object.defineProperties.bind(selectionArea)(selectionArea,{
 		x:{get:function(){return Math.min(this.renderX,mousePos.x)}},
