@@ -1111,7 +1111,7 @@ this.isGuest=!1;
 		if(this.effects.filter(e=>e.effectType==0).length){
 			this.speedAdditioner+=this.effects.filter(e=>e.effectType==0)[0].boost;
 		}
-        this.distance_movement = (this.speed*this.speedMultiplier)+this.speedAdditioner;
+		this.distance_movement=(this.speed*this.speedMultiplier)+this.speedAdditioner;
         this.mouseActive = false;
           if (input.isMouse&&!this.cent_is_moving&&!this.isMovementKeyPressed(input)) {
             this.mouse_distance_full_strength = 150;
@@ -1281,7 +1281,6 @@ this.isGuest=!1;
 		this.updateEffects([this.abilityOne,this.abilityTwo,this.abilityThree]);
 		let area=map.areas[this.area];
 		this.safeZone = true;
-		this.minimum_speed = 0;
 		this.pointInActiveZone=false;
 		var zoneC;
 		function checkZoneProperties(e){
@@ -1293,7 +1292,7 @@ this.isGuest=!1;
 			if(zone.type=="active"&&rect1.x-this.radius<rect2.x+rect2.width&&rect1.x+this.radius>rect2.x&&rect1.y-this.radius<rect2.y+rect2.height&&rect1.y+this.radius>rect2.y)this.safeZone=false;
 			if(rect1.x<rect2.x+rect2.width&&rect1.x>rect2.x&&rect1.y<rect2.y+rect2.height&&rect1.y>rect2.y){
 				if(zone.type=="active")this.pointInActiveZone=true;
-				this.minimum_speed=checkZoneProperties("minimum_speed")??0;
+				this.minimum_speed=checkZoneProperties("minimum_speed");
 				this.zoneFriction=checkZoneProperties("friction");
 			}
 		}
@@ -1458,6 +1457,7 @@ this.isGuest=!1;
 		if (this.inEnemyBarrier)this.inBarrier=true;
 		if (this.reducingTime>=0&&!this.reducing){
 			this.reducingTime-=delta;
+			this.reducingTime=Math.max(this.reducingTime,0);
 			this.radiusMultiplier*=1-this.reducingTime/2e3;
 		}
 		if (this.reducingTime>=0&&this.reducing){
@@ -1569,21 +1569,21 @@ this.isGuest=!1;
 			this.sourCandyConsumed=false;
 		}
 		if(this.deathTimer!=-1)this.deathTimer-=delta,this.deathTimer=Math.max(0,this.deathTimer);
-		for(var i in area.zones){
-			var zone=area.zones[i];
+		this.collides=this.collision(delta);
+		for(var zone of area.zones){
 			if(zone.type=="teleport"||zone.type=="exit"){
-				var absolutePos={x:this.x+map.areas[this.area].x,y:this.y+map.areas[this.area].y},zonePos={x:zone.x,y:zone.y},zoneSize={x:zone.width,y:zone.height},teleporter=closestPointToRectangle({x:this.x,y:this.y},zonePos,zoneSize),dist=this.distance({x:this.x,y:this.y},teleporter);
-				if(dist<this.radius)onTele=true;
-				if(dist<this.radius&&!this.onTele&&!this.cannot_leave_area){
+				var collided=rectCircleCollision(this.x,this.y,this.radius,zone.x,zone.y,zone.width,zone.height)
+				if(collided.c)onTele=true;
+				if(collided.c&&!this.onTele&&!this.cannot_leave_area){
 					var max=Infinity,maxArea=0,targetPoint={x:this.x+zone.translate.x,y:this.y+zone.translate.y};
 					for(var j in map.areas){
 						if(j==this.area)continue;
-						var rect=getAreaBoundary(map.areas[j]),closest=closestPointToRectangle(targetPoint,{x:map.areas[j].x-map.areas[this.area].x,y:map.areas[j].y-map.areas[this.area].y},{x:rect.width,y:rect.height}),dist=this.distance(targetPoint,closest);
-						if(dist<max){max=dist;maxArea=parseInt(j)}
+						var rect=getAreaBoundary(map.areas[j]),closest=closestPointToRectangle(targetPoint,{x:map.areas[j].x-area.x,y:map.areas[j].y-area.y},{x:rect.width,y:rect.height}),dist=this.distance(targetPoint,closest);
+						if(dist<max)max=dist,maxArea=parseInt(j);
 					}
-					this.x=targetPoint.x+(map.areas[this.area].x-map.areas[maxArea].x);
-					this.y=targetPoint.y+(map.areas[this.area].y-map.areas[maxArea].y);
-					map.areas[this.area].entities=[];
+					this.x=targetPoint.x+(area.x-map.areas[maxArea].x);
+					this.y=targetPoint.y+(area.y-map.areas[maxArea].y);
+					area.entities=[];
 					this.area=maxArea;
 					spawnEntities(this.area);
 					this.hasTranslated=true;
@@ -1592,8 +1592,8 @@ this.isGuest=!1;
 				}
 			}
 			if(zone.type=="removal"){
-				var absolutePos={x:this.x+map.areas[this.area].x,y:this.y+map.areas[this.area].y},zonePos={x:zone.x,y:zone.y},zoneSize={x:zone.width,y:zone.height},teleporter=closestPointToRectangle({x:this.x,y:this.y},zonePos,zoneSize),dist=this.distance({x:this.x,y:this.y},teleporter);
-				if(dist<this.radius){
+				var collided=rectCircleCollision(this.x,this.y,this.radius,zone.x,zone.y,zone.width,zone.height)
+				if(collided.c){
 					map.players.splice(map.players.indexOf(this));
 					break;
 				}
@@ -1620,7 +1620,6 @@ this.isGuest=!1;
 		this.hasTranslated=false;
 		this.areaNumber=this.area+1;
 		this.regionName=map.name;
-		this.collides=this.collision(delta);
 		if(!this.regionAreasDiscovered[this.area])this.updateExp(12*this.area),this.regionAreasDiscovered[this.area]=true;
 		if(this.deathTimer==0)map.players.splice(map.players.indexOf(this),1),console.log("Player died (death timer ran out)");
 	}
