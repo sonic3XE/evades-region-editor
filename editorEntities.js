@@ -1102,6 +1102,9 @@ this.isGuest=!1;
         if (this.fusion) {
           this.speedMultiplier *= 0.7;
         }
+		if(this.isBurning){
+			this.speedMultiplier *= 0.05;
+		}
         if (this.slowing && this.slowing[0]) {
           this.speedMultiplier *= (1-this.effectImmune*this.slowing[1])*this.effectReplayer;
         }
@@ -1361,9 +1364,10 @@ this.isGuest=!1;
 			this.energyRate -= this.draining[1]*this.effectImmune;
 		}
 		if (this.lava) {
-			this.energyRate+=15*this.effectImmune;
+			this.energyRate+=8*this.effectImmune;
 			if(this.energy>=this.maxEnergy){
-				death(this);
+				this.isBurningTime=1500;
+				this.isBurning=true;
 				this.energy=0;
 			}
 		}
@@ -1429,10 +1433,15 @@ this.isGuest=!1;
 		this.radiusMultiplier=1;
 		this.radiusAdditioner=0;
 		if(this.isIced)this.icedTimeLeft-=delta;
+		if(this.isBurning)this.isBurningTime-=delta;
 		this.wasIced=this.isIced;
 		if(this.icedTimeLeft<=0){
 			this.isIced=false;
 			this.icedTimeLeft=1000;
+		}
+		if(this.isBurningTime<=0){
+			this.isBurning=false;
+			this.isBurningTime=1000;
 		}
 		if(this.isSnowballed)this.snowballedTimeLeft-=delta;
 		if(this.snowballedTimeLeft<=0){
@@ -1793,6 +1802,7 @@ this.isGuest=!1;
 		this.renderLeadEffect(e, n, r),
 		this.renderContinuousReviveEffect(e, n, r),
 		this.renderFlamingEffect(e, n, r),
+		this.renderisBurningEffect(e, n, r),
 		this.renderAccessory(e, n, r,delta);
 		let u = "blue"
 		  , d = "rgb(68, 118, 255)"
@@ -2055,6 +2065,19 @@ this.isGuest=!1;
 		e.beginPath(),
 		e.arc(t, n, this.radius, 0, 2 * Math.PI, !1),
 		e.fillStyle = "#aa2f2f",
+		e.fill(),
+		e.closePath(),
+		e.globalAlpha = 1
+	}
+	renderisBurningEffect(e, t, a) {
+		if (!this.isBurning)
+			return;
+		const r = (1500 - this.isBurningTime) / this.isBurningTime;
+		e.globalAlpha = .7 - .7 * r,
+		(e.globalAlpha < 0 || e.globalAlpha > .7) && (e.globalAlpha = 0),
+		e.beginPath(),
+		e.arc(t, a, this.radius, 0, 2 * Math.PI, !1),
+		e.fillStyle = "rgb(247, 131, 6)",
 		e.fill(),
 		e.closePath(),
 		e.globalAlpha = 1
