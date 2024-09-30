@@ -2463,12 +2463,8 @@ class SimulatorEntity extends EvadesEntity{
     this.collision(delta,collide);
   }
   collision(delta,collide=true){
-	if(this.HarmlessTime>0){
-	  this.HarmlessTime-=delta;
-	  this.isHarmless=true;
-	}else{
-	  this.isHarmless=(!!this.disabled);
-	}
+	if(this.harmlessTime>0)this.harmlessTime-=delta;
+	if(this.harmlessTime<=0&&!this.disabled)this.isHarmless=this.switchedHarmless;
 	if(this.frozenTime>0){
 	  this.frozenTime-=delta;
 	  this.speedMultiplier=0;
@@ -2692,7 +2688,6 @@ class SimulatorEntity extends EvadesEntity{
 		ctx.fillStyle = t;
 	}
 	render(e, t, delta) {
-		const Lu=$f36928166e04fda7$export$2e2bcd8739ae039;
 		(this.isHarmless || this.grassHarmless) && (e.globalAlpha = .4);
 		let n = this.harmlessTime;
 		if (this.grassHarmless && this.grassTime > 0 && (n = Math.max(this.grassTime, n)),
@@ -2700,7 +2695,7 @@ class SimulatorEntity extends EvadesEntity{
 		this.duration < 500 && (e.globalAlpha = Math.min(e.globalAlpha, this.duration / 500 + .2)),
 		this.fadeInTime <= 1500 && this.soulFading && (e.globalAlpha = 1 - this.fadeInTime / 1500),
 		this.isDestroyed && (e.globalAlpha = 0),
-		this.brightness > 0 && (e.globalAlpha = Math.min(this.brightness, 1)),
+		this.brightness > 0 && (e.globalAlpha = Math.min(this.brightness, e.globalAlpha)),
 		this.maxHealth > 0) {
 			const n = "rgb(140, 59, 59)"
 			  , r = "red"
@@ -2713,9 +2708,9 @@ class SimulatorEntity extends EvadesEntity{
 			e.strokeStyle = i,
 			e.strokeRect(this.x + t.x - 18, this.y + t.y - this.radius - 8, 36, 7)
 		}
-		if (this.name && (e.font = Lu.font(12/camScale),
+		if (this.name && (e.font = $f36928166e04fda7$export$2e2bcd8739ae039.font(12/camScale),
 		e.textAlign = "center",
-		e.fillStyle = "black",
+		e.fillStyle = settings.tileMode > 1 ? "white" : "black",
 		e.fillText(this.name, this.x + t.x, this.y + t.y - this.radius - 11)),
 		this.inFear ? (e.font = "bolder 20px Arz",
 		e.fillStyle = "#d32323",
@@ -2735,7 +2730,7 @@ class SimulatorEntity extends EvadesEntity{
 			e.beginPath(),
 			e.arc(this.x + t.x, this.y + t.y, n, 0, 2 * Math.PI, !1),
 			void 0 === this.image ? (e.fillStyle = this.getColorChange(),
-			e.fill()) : e.drawImage(this.image.getImage(delta), this.x + t.x - this.radius, this.y + t.y - this.radius, 2 * n, 2 * n),
+			e.fill()) : this.image.draw(e, this.x + t.x - this.radius, this.y + t.y - this.radius, 2 * n, 2 * n),
 			this.isRepelling && (e.fillStyle = "rgba(255, 0, 93, 0.9)",
 			e.fill()),
 			this.decayed && !this.healingTime > 0 && (e.fillStyle = "rgba(0, 0, 128, 0.2)",
@@ -2755,7 +2750,7 @@ class SimulatorEntity extends EvadesEntity{
 			}
 			if (settings.fadingEffects && this.switchTime <= 1500) {
 				const t = .3 - .3 * Math.cos((1500 - this.switchTime) / 220 * Math.PI);
-				this.switchedHarmless ? e.fillStyle = `rgba(25, 25, 25, ${t})` : e.fillStyle = `rgba(147, 147, 147, ${t})`,
+				this.switchedHarmless ? e.fillStyle = `rgba(25, 25, 25, ${t})` : e.fillStyle = `rgba(127, 127, 127, ${.85 * t})`,
 				e.fill()
 			}
 			settings.enemyOutlines && this.outline && (e.lineWidth = 2,
@@ -2780,7 +2775,7 @@ function speedparts(direction,speed){
   return {x,y}
 }
 //BASE ENEMY
-class Enemy extends SimulatorEntity{constructor(x,y,radius,speed,angle,type,boundary){super(x,y,getEntityColor(type),radius,type,speed,angle,boundary);this.isEnemy=true;this.renderFirst=false;this.outline=true;this.timer_reduction=1}playerInteraction(player,delta){EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune)}update(delta,area,collide){super.update(delta,area,collide)}};
+class Enemy extends SimulatorEntity{constructor(x,y,radius,speed,angle,type,boundary){super(x,y,getEntityColor(type),radius,type,speed,angle,boundary);this.isEnemy=true;this.outline=true;this.timer_reduction=1}playerInteraction(player,delta){EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune)}update(delta,area,collide){super.update(delta,area,collide)}};
 
 function distance(a,b){
   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
@@ -2796,7 +2791,7 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,ignores_s
 			player.nightDuration=0;
 			player.speedAdditioner=0;
 			enemy.isHarmless=true;
-			enemy.HarmlessTime=2000;
+			enemy.harmlessTime=2000;
 			harmless=true;
 		}
 		if(enemy.texture=="entities/pumpkin_off"||enemy.radius==0||harmless||enemy.shatterTime>0||player.godmode||player.admin){
@@ -3044,8 +3039,8 @@ class ZigzagSwitchEnemy extends Enemy{
     this.turnAngle=Math.PI/2;
     this.switch_inverval = 3e3;
 	this.switchTime=0;
-    this.switchedHarmless=this.disabled=Math.round(Math.random());
-    this.isHarmless=this.disabled;
+    this.switchedHarmless=Math.round(Math.random());
+    this.isHarmless=this.switchedHarmless;
   }
   update(delta){
 	this.zigTime+=delta;
@@ -3074,8 +3069,8 @@ class ZigzagSwitchEnemy extends Enemy{
 	  this.zigSwitched=false;}
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
-      this.switchedHarmless = this.disabled = !this.disabled;
-      this.isHarmless = this.disabled;
+      this.switchedHarmless = !this.switchedHarmless;
+      this.isHarmless = this.switchedHarmless;
 	  this.switchTime += this.switch_inverval;
     }
     super.update(delta);
@@ -3098,8 +3093,8 @@ class ZoningSwitchEnemy extends Enemy{
 
     this.switch_inverval = 3e3;
 	this.switchTime=0;
-    this.switchedHarmless=this.disabled=Math.round(Math.random());
-    this.isHarmless=this.disabled;
+    this.switchedHarmless=Math.round(Math.random());
+    this.isHarmless=this.switchedHarmless;
   }
   update(delta){
 	this.zoneTime+=delta;
@@ -3120,8 +3115,8 @@ class ZoningSwitchEnemy extends Enemy{
     }
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
-      this.switchedHarmless = this.disabled = !this.disabled;
-      this.isHarmless = this.disabled;
+      this.switchedHarmless = !this.switchedHarmless;
+      this.isHarmless = this.switchedHarmless;
 	  this.switchTime += this.switch_inverval;
     }
     super.update(delta);
@@ -3139,8 +3134,8 @@ class SpiralSwitchEnemy extends Enemy{
     this.dir = 1
     this.switch_inverval = 3e3;
 	this.switchTime=0;
-    this.switchedHarmless=this.disabled=Math.round(Math.random());
-    this.isHarmless=this.disabled;
+    this.switchedHarmless=Math.round(Math.random());
+    this.isHarmless=this.switchedHarmless;
   }
   update(delta) {
     if (this.angleIncrement < 0.001) {
@@ -3163,8 +3158,8 @@ class SpiralSwitchEnemy extends Enemy{
     this.anglevel();
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
-      this.switchedHarmless = this.disabled = !this.disabled;
-      this.isHarmless = this.disabled;
+      this.switchedHarmless = !this.switchedHarmless;
+      this.isHarmless = this.switchedHarmless;
 	  this.switchTime += this.switch_inverval;
     }
     super.update(delta);
@@ -3184,8 +3179,8 @@ class OscillatingSwitchEnemy extends Enemy{
 	this.zoneSwitched=false;
     this.switch_inverval = 3e3;
 	this.switchTime=0;
-    this.switchedHarmless=this.disabled=Math.round(Math.random());
-    this.isHarmless=this.disabled;
+    this.switchedHarmless=Math.round(Math.random());
+    this.isHarmless=this.switchedHarmless;
   }
   update(delta){
 	this.zoneTime+=delta;
@@ -3204,8 +3199,8 @@ class OscillatingSwitchEnemy extends Enemy{
     }
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
-      this.switchedHarmless = this.disabled = !this.disabled;
-      this.isHarmless = this.disabled;
+      this.switchedHarmless = !this.switchedHarmless;
+      this.isHarmless = this.switchedHarmless;
 	  this.switchTime += this.switch_inverval;
     }
     super.update(delta);
@@ -3220,8 +3215,8 @@ class WavySwitchEnemy extends Enemy{
     this.angleIncrement = this.speed;
     this.switch_inverval = 3e3;
 	this.switchTime=0;
-    this.switchedHarmless=this.disabled=Math.round(Math.random());
-    this.isHarmless=this.disabled;
+    this.switchedHarmless=Math.round(Math.random());
+    this.isHarmless=this.switchedHarmless;
   }
   rad_to_deg(x){
 	  return x/Math.PI*180;
@@ -3240,8 +3235,8 @@ class WavySwitchEnemy extends Enemy{
     this.anglevel();
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
-      this.switchedHarmless = this.disabled = !this.disabled;
-      this.isHarmless = this.disabled;
+      this.switchedHarmless = !this.switchedHarmless;
+      this.isHarmless = this.switchedHarmless;
 	  this.switchTime += this.switch_inverval;
     }
     super.update(delta);
@@ -3259,8 +3254,8 @@ class HomingSwitchEnemy extends Enemy{
 	this.increment=1.5;
     this.switch_inverval = 3e3;
 	this.switchTime=0;
-    this.switchedHarmless=this.disabled=Math.round(Math.random());
-    this.isHarmless=this.disabled;
+    this.switchedHarmless=Math.round(Math.random());
+    this.isHarmless=this.switchedHarmless;
   }
   update(delta){
     var closest_entity,closest_entity_distance,information;
@@ -3305,8 +3300,8 @@ class HomingSwitchEnemy extends Enemy{
     }
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
-      this.switchedHarmless = this.disabled = !this.disabled;
-      this.isHarmless = this.disabled;
+      this.switchedHarmless = !this.switchedHarmless;
+      this.isHarmless = this.switchedHarmless;
 	  this.switchTime += this.switch_inverval;
     }
     super.update(delta);
@@ -3332,8 +3327,8 @@ class DasherSwitchEnemy extends Enemy{
     this.reset_parameters();
     this.switch_inverval = 3e3;
     this.switchTime=0;
-    this.switchedHarmless=this.disabled=Math.round(Math.random());
-    this.isHarmless=this.disabled;
+    this.switchedHarmless=Math.round(Math.random());
+    this.isHarmless=this.switchedHarmless;
   }
   reset_parameters(){
     this.prepare_speed = this.speed / 5;
@@ -3389,8 +3384,8 @@ class DasherSwitchEnemy extends Enemy{
     this.update_parameters(delta);
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
-      this.switchedHarmless = this.disabled = !this.disabled;
-      this.isHarmless = this.disabled;
+      this.switchedHarmless = !this.switchedHarmless;
+      this.isHarmless = this.switchedHarmless;
 	  this.switchTime += this.switch_inverval;
     }
     super.update(delta);
@@ -3405,8 +3400,8 @@ class ConfectionerSwitchEnemy extends Enemy{
     this.reset_parameters();
     this.switch_inverval=3000;
     this.switchTime=0;
-    this.switchedHarmless=this.disabled=Math.round(Math.random());
-    this.isHarmless=this.disabled;
+    this.switchedHarmless=Math.round(Math.random());
+    this.isHarmless=this.switchedHarmless;
   }
   reset_parameters(){
     this.has_projectile=true;
@@ -3428,8 +3423,8 @@ class ConfectionerSwitchEnemy extends Enemy{
     this.generate_entities(delta,area);
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
-      this.switchedHarmless = this.disabled = !this.disabled;
-      this.isHarmless = this.disabled;
+      this.switchedHarmless = !this.switchedHarmless;
+      this.isHarmless = this.switchedHarmless;
       this.switchTime += this.switch_inverval;
     }
     super.update(delta);
@@ -4292,7 +4287,8 @@ class StaticEnemy extends Enemy{
 			  if(entity==this)continue;
 			  if(this.iseffect&&distance(this,entity)<this.radius + entity.radius){
 				  this.disabled=false;
-				  EnemyPlayerInteraction(player,this,this.corrosive,this.disabled,this.immune);
+				  this.isHarmless=false;
+				  EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune);
 			  }
 		  }
 	  }
@@ -4300,12 +4296,13 @@ class StaticEnemy extends Enemy{
 	    this.x=clamp(player.x,this.boundary.left+this.radius,this.boundary.right-this.radius);
 	    this.y=clamp(player.y,this.boundary.top+this.radius,this.boundary.bottom-this.radius);
 		this.iseffect=true;
+		this.speedMultiplier=0;
 	  }
   }
   update(delta){
 	if(!this.disabled){
       this.clock += delta
-	  if (this.clock > 1e3)this.disabled=true,this.clock=0;
+	  if (this.clock > 1e3)this.disabled=true,this.isHarmless=true,this.clock=0;
 	}
 	super.update(delta);
   }
@@ -5089,20 +5086,20 @@ class SwitchEnemy extends Enemy{
     this.switch_inverval = switch_inverval;
 	this.switchTime=switch_time;
 	if(switched_harmless==void 0){
-      this.switchedHarmless = this.disabled = false;
+      this.switchedHarmless = false;
       if (Math.round(Math.random()) === 1) {
-        this.switchedHarmless = this.disabled = true;
+        this.switchedHarmless = true;
       }
 	}else{
-	  this.switchedHarmless = this.disabled = switched_harmless;
+	  this.switchedHarmless = switched_harmless;
 	}
-    this.isHarmless = this.disabled;
+    this.isHarmless = this.switchedHarmless;
   }
   update(delta) {
     this.switchTime -= delta;
     if (this.switchTime <= 0) {
-      this.switchedHarmless = this.disabled = !this.disabled;
-      this.isHarmless = this.disabled;
+      this.switchedHarmless = !this.switchedHarmless;
+      this.isHarmless = this.switchedHarmless;
 	  this.switchTime += this.switch_inverval;
     }
     super.update(delta);
