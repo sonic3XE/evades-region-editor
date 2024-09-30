@@ -438,19 +438,19 @@ document.addEventListener("keydown", e => {
   if(confirmationPopup)return;
   var camera = { x: camX, y: camY }
   if (e.target instanceof HTMLInputElement) return;
-  if(e.ctrlKey && e.which === $0372b03b1cca8a43$export$8309310f4f3643db.A){
+  if(e.ctrlKey && e.which === KeyMap.A){
 	  e.preventDefault(selectedObjects.push(...map.areas[current_Area].zones,...map.areas[current_Area].assets));
 	  return;
   }
-  if(e.ctrlKey && e.which === $0372b03b1cca8a43$export$8309310f4f3643db.C && selectedObjects.length){
+  if(e.ctrlKey && e.which === KeyMap.C && selectedObjects.length){
 	  e.preventDefault(copyObjs());
 	  return;
   }
-  if(e.ctrlKey && e.which === $0372b03b1cca8a43$export$8309310f4f3643db.X && selectedObjects.length){
+  if(e.ctrlKey && e.which === KeyMap.X && selectedObjects.length){
 	  e.preventDefault(cutObjs());
 	  return;
   }
-  if(e.ctrlKey && e.which === $0372b03b1cca8a43$export$8309310f4f3643db.V && copyObjects.length){
+  if(e.ctrlKey && e.which === KeyMap.V && copyObjects.length){
 	  e.preventDefault(pasteObjs());
 	  return;
   }
@@ -494,7 +494,7 @@ document.addEventListener("keydown", e => {
   if(playtesting){
 	var plr=map.players[map.players.map(t=>t.id).indexOf(selfId)];
 	//Teleports you to another area (Command: /tp, /teleport <area>)
-	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.E){
+	if(e.which === KeyMap.E){
 		map.areas[current_Area].entities=[];
 		current_Area=Math.max(Math.min(current_Area-1,map.areas.length-1),0)
 		var safezone=map.areas[current_Area].zones.filter(e=>e.type=="safe")[0]??map.areas[current_Area].zones[0];
@@ -504,7 +504,7 @@ document.addEventListener("keydown", e => {
 		spawnEntities();
 		plr.area=current_Area;
 	}
-	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.T){
+	if(e.which === KeyMap.T){
 		map.areas[current_Area].entities=[];
 		current_Area=Math.max(Math.min(current_Area+1,map.areas.length-1),0);
 		var safezone=map.areas[current_Area].zones.filter(e=>e.type=="safe")[0]??map.areas[current_Area].zones[0];
@@ -514,7 +514,7 @@ document.addEventListener("keydown", e => {
 		spawnEntities();
 		plr.area=current_Area;
 	}
-	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.R){//Max out hero card (Command: /max)
+	if(e.which === KeyMap.R){//Max out hero card (Command: /max)
 		plr.speed=17*30;
 		plr.maxEnergy=300;
 		plr.energy=300;
@@ -530,10 +530,10 @@ document.addEventListener("keydown", e => {
 			plr.abilityThree.level=plr.abilityThree.maxLevel;
 		}
 	}
-	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.Y){//Toggle Cooldown (Command: /cd, /cooldown)
+	if(e.which === KeyMap.Y){//Toggle Cooldown (Command: /cd, /cooldown)
 		plr.noCooldown=!plr.noCooldown;
 	}
-	if(e.which === $0372b03b1cca8a43$export$8309310f4f3643db.U){//Revive (Command: /r, /s, /save, /revive)
+	if(e.which === KeyMap.U){//Revive (Command: /r, /s, /save, /revive)
 		plr.deathTimer=-1;
 	}
         if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){//Admin (Command: /a, /admin)

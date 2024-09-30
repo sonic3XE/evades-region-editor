@@ -653,7 +653,7 @@ const $f36928166e04fda7$export$2e2bcd8739ae039 = {
 	arrow: $f36928166e04fda7$var$arrow
 }
 //END OF DRAWERS
-class $0322546c98741e1e$export$2e2bcd8739ae039 {
+class FieldBacked {
 	stateFields() {
 		return []
 	}
@@ -661,7 +661,7 @@ class $0322546c98741e1e$export$2e2bcd8739ae039 {
 		const e = this.stateFields();
 		for (let a = 0; a < e.length; a++) {
 			const t = e[a];
-			"object" == typeof this[t] && null !== this[t] && this[t]instanceof $0322546c98741e1e$export$2e2bcd8739ae039 ? this[t].resetData() : this[t] = void 0
+			"object" == typeof this[t] && null !== this[t] && this[t]instanceof FieldBacked ? this[t].resetData() : this[t] = void 0
 		}
 		this.afterStateUpdate()
 	}
@@ -676,7 +676,7 @@ class $0322546c98741e1e$export$2e2bcd8739ae039 {
 		for (let o = 0; o < r.length; o++) {
 			const n = r[o];
 			void 0 !== e[n] ? (c[n] = e[n],
-			t && ("object" == typeof this[n] && null !== this[n] && this[n]instanceof $0322546c98741e1e$export$2e2bcd8739ae039 ? this[n].unionState(e[n]) : this[n] = e[n])) : c[n] = a[n]
+			t && ("object" == typeof this[n] && null !== this[n] && this[n]instanceof FieldBacked ? this[n].unionState(e[n]) : this[n] = e[n])) : c[n] = a[n]
 		}
 		return t && (this.noState = !1,
 		this.afterStateUpdate()),
@@ -689,7 +689,7 @@ class $0322546c98741e1e$export$2e2bcd8739ae039 {
 		this.noState = !0
 	}
 }
-class $cee3aa9d42503f73$export$2e2bcd8739ae039 extends $0322546c98741e1e$export$2e2bcd8739ae039 {
+class EvadesEntity extends FieldBacked {
 	render() {
 		throw new Error("Not implemented")
 	}
@@ -748,7 +748,7 @@ class $cee3aa9d42503f73$export$2e2bcd8739ae039 extends $0322546c98741e1e$export$
 		this.absoluteZIndex = null
 	}
 }
-class ExperienceBar extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
+class ExperienceBar extends EvadesEntity {
 	stateFields() {
 		return ["heroType", "level", "experience", "previousLevelExperience", "nextLevelExperience", "abilityThree"]
 	}
@@ -789,7 +789,7 @@ class ExperienceBar extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.hidden = !1
 	}
 }
-class TitleText extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
+class TitleText extends EvadesEntity {
 	stateFields() {
 		return ["heroType", "areaName", "areaNumber", "regionName", "victoryArea", "bossArea", "survivalTime"]
 	}
@@ -833,7 +833,7 @@ class TitleText extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.ready = !1
 	}
 }
-class DirectionalIndicatorHud extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
+class DirectionalIndicatorHud extends EvadesEntity {
 	resetData() {
 		this.directionalIndicators = {},
 		super.resetData()
@@ -877,7 +877,7 @@ class DirectionalIndicatorHud extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.directionalIndicators = {}
 	}
 }
-class AreaInfo extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
+class AreaInfo extends EvadesEntity {
 	update(e, a) {
 		this.self = e,
 		this.area = a
@@ -914,44 +914,16 @@ class AreaInfo extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.hidden = !0
 	}
 }
-class Ability extends $0322546c98741e1e$export$2e2bcd8739ae039 {
+class Ability extends FieldBacked {
 	stateFields() {
 		return ["abilityType", "name", "description", "energyCost", "totalCooldown", "cooldown", "locked", "level", "maxLevel", "disabled", "continuous", "energyDescription"]
 	}
 	afterStateUpdate() {
 		if (void 0 === this.abilityType)
 			return;
-		$01bb7fd9b3660a1e$export$e1851a6e64efa609(this, this.stateFields(), "ability");
+		setDefaultsFor(this, this.stateFields(), "ability");
 		const e = $01bb7fd9b3660a1e$export$a1dfcc7b3a7a0b52(this.abilityType);
-		e.pellet_powered??=false;
-		e.boost??=0;
-		e.continuous??=false;
-		e.distance??=0;
-		e.radius??=0;
-		e.speed??=0;
-		e.projectiles??=0;
-		e.total_cooldown??=0;
-		e.energy_cost??=0;
-		e.slow??=1;
-		e.passive??=false;
-		e.regen_boost??=0;
-		e.duration??=0;
-		e.length??=0;
-		e.speed_boost??=0;
-		e.effects_reduction??=0;
-		e.radius_increase??=0;
-		e.additional_uses??=0;
-		e.stun_time??=0;
-		e.speed_multiplier??=1;
-		e.stat_boost??=0;
-		e.energy_cost_reduction??=1;
-		e.growth_boost??=1;
-		e.number_of_projectiles??=0;
-		e.reduction_time??=0;
-		e.stat_reduction??=0;
-		e.dash_distance??=0;
-		e.projectile_duration??=0;
-		$01bb7fd9b3660a1e$export$304370d6b87d514e(this, this.stateFields(), e);
+		setDefaultsFrom(this, this.stateFields(), e);
 		const t = `abilities/${this.name.toLowerCase().replace(" ", "_")}`;
 		void 0 !== this.image && null !== this.imageName && this.imageName === t || (this.image = $31e8cfefa331e399$export$93e5c64e4cc246c8(t),
 		this.image.blank && (this.image = $31e8cfefa331e399$export$93e5c64e4cc246c8("abilities/default")),
@@ -963,7 +935,7 @@ class Ability extends $0322546c98741e1e$export$2e2bcd8739ae039 {
 		
 	}
 }
-const $0372b03b1cca8a43$export$8309310f4f3643db = {
+const KeyMap = {
 	Backspace: 8,
 	Tab: 9,
 	Enter: 13,
@@ -1065,45 +1037,45 @@ const $0372b03b1cca8a43$export$8309310f4f3643db = {
 	SingleQuote: 222
 }
   , $4cb5e0b12995588c$var$keys = {"UNDEFINED_KEYTYPE":0,"W_KEY":1,"A_KEY":2,"S_KEY":3,"D_KEY":4,"UP_KEY":5,"LEFT_KEY":6,"DOWN_KEY":7,"RIGHT_KEY":8,"FOCUS_KEY":9,"ABILITY_ONE_KEY":10,"ABILITY_TWO_KEY":11,"ABILITY_THREE_KEY":12,"ACTION_KEY":13,"UPGRADE_SPEED_KEY":14,"UPGRADE_MAX_ENERGY_KEY":15,"UPGRADE_ENERGY_REGEN_KEY":16,"UPGRADE_ABILITY_ONE_KEY":17,"UPGRADE_ABILITY_TWO_KEY":18,"UPGRADE_ABILITY_THREE_KEY":19}
-  , $4cb5e0b12995588c$export$e28d7df11ea0dc72 = {};
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.W] = $4cb5e0b12995588c$var$keys.W_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.A] = $4cb5e0b12995588c$var$keys.A_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.S] = $4cb5e0b12995588c$var$keys.S_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.D] = $4cb5e0b12995588c$var$keys.D_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.UpArrow] = $4cb5e0b12995588c$var$keys.UP_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.LeftArrow] = $4cb5e0b12995588c$var$keys.LEFT_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.DownArrow] = $4cb5e0b12995588c$var$keys.DOWN_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.RightArrow] = $4cb5e0b12995588c$var$keys.RIGHT_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Shift] = $4cb5e0b12995588c$var$keys.FOCUS_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.J] = $4cb5e0b12995588c$var$keys.ABILITY_ONE_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Z] = $4cb5e0b12995588c$var$keys.ABILITY_ONE_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.K] = $4cb5e0b12995588c$var$keys.ABILITY_TWO_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.X] = $4cb5e0b12995588c$var$keys.ABILITY_TWO_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.L] = $4cb5e0b12995588c$var$keys.ABILITY_THREE_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.C] = $4cb5e0b12995588c$var$keys.ABILITY_THREE_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Space] = $4cb5e0b12995588c$var$keys.ACTION_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Num1] = $4cb5e0b12995588c$var$keys.UPGRADE_SPEED_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Numpad1] = $4cb5e0b12995588c$var$keys.UPGRADE_SPEED_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Num2] = $4cb5e0b12995588c$var$keys.UPGRADE_MAX_ENERGY_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Numpad2] = $4cb5e0b12995588c$var$keys.UPGRADE_MAX_ENERGY_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Num3] = $4cb5e0b12995588c$var$keys.UPGRADE_ENERGY_REGEN_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Numpad3] = $4cb5e0b12995588c$var$keys.UPGRADE_ENERGY_REGEN_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Num4] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_ONE_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Numpad4] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_ONE_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Num5] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_TWO_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Numpad5] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_TWO_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Num6] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_THREE_KEY,
-$4cb5e0b12995588c$export$e28d7df11ea0dc72[$0372b03b1cca8a43$export$8309310f4f3643db.Numpad6] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_THREE_KEY;
-const $4cb5e0b12995588c$export$bb7d35f0a51c4c2a = {
-	CHAT_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.Enter,
-	COMMAND_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.ForwardSlash,
-	TOGGLE_HERO_INFO_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.H,
-	TOGGLE_MINIMAP_MODE_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.G,
-	TOGGLE_CHAT_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.V,
-	TOGGLE_LEADERBOARD_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.B,
-	TOGGLE_MAP_KEY_1: $0372b03b1cca8a43$export$8309310f4f3643db.M,
-	TOGGLE_MAP_KEY_2: $0372b03b1cca8a43$export$8309310f4f3643db.Tab,
-	TOGGLE_AREA_INFO_KEY: $0372b03b1cca8a43$export$8309310f4f3643db.Period
+  , GameKeyMap = {};
+GameKeyMap[KeyMap.W] = $4cb5e0b12995588c$var$keys.W_KEY,
+GameKeyMap[KeyMap.A] = $4cb5e0b12995588c$var$keys.A_KEY,
+GameKeyMap[KeyMap.S] = $4cb5e0b12995588c$var$keys.S_KEY,
+GameKeyMap[KeyMap.D] = $4cb5e0b12995588c$var$keys.D_KEY,
+GameKeyMap[KeyMap.UpArrow] = $4cb5e0b12995588c$var$keys.UP_KEY,
+GameKeyMap[KeyMap.LeftArrow] = $4cb5e0b12995588c$var$keys.LEFT_KEY,
+GameKeyMap[KeyMap.DownArrow] = $4cb5e0b12995588c$var$keys.DOWN_KEY,
+GameKeyMap[KeyMap.RightArrow] = $4cb5e0b12995588c$var$keys.RIGHT_KEY,
+GameKeyMap[KeyMap.Shift] = $4cb5e0b12995588c$var$keys.FOCUS_KEY,
+GameKeyMap[KeyMap.J] = $4cb5e0b12995588c$var$keys.ABILITY_ONE_KEY,
+GameKeyMap[KeyMap.Z] = $4cb5e0b12995588c$var$keys.ABILITY_ONE_KEY,
+GameKeyMap[KeyMap.K] = $4cb5e0b12995588c$var$keys.ABILITY_TWO_KEY,
+GameKeyMap[KeyMap.X] = $4cb5e0b12995588c$var$keys.ABILITY_TWO_KEY,
+GameKeyMap[KeyMap.L] = $4cb5e0b12995588c$var$keys.ABILITY_THREE_KEY,
+GameKeyMap[KeyMap.C] = $4cb5e0b12995588c$var$keys.ABILITY_THREE_KEY,
+GameKeyMap[KeyMap.Space] = $4cb5e0b12995588c$var$keys.ACTION_KEY,
+GameKeyMap[KeyMap.Num1] = $4cb5e0b12995588c$var$keys.UPGRADE_SPEED_KEY,
+GameKeyMap[KeyMap.Numpad1] = $4cb5e0b12995588c$var$keys.UPGRADE_SPEED_KEY,
+GameKeyMap[KeyMap.Num2] = $4cb5e0b12995588c$var$keys.UPGRADE_MAX_ENERGY_KEY,
+GameKeyMap[KeyMap.Numpad2] = $4cb5e0b12995588c$var$keys.UPGRADE_MAX_ENERGY_KEY,
+GameKeyMap[KeyMap.Num3] = $4cb5e0b12995588c$var$keys.UPGRADE_ENERGY_REGEN_KEY,
+GameKeyMap[KeyMap.Numpad3] = $4cb5e0b12995588c$var$keys.UPGRADE_ENERGY_REGEN_KEY,
+GameKeyMap[KeyMap.Num4] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_ONE_KEY,
+GameKeyMap[KeyMap.Numpad4] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_ONE_KEY,
+GameKeyMap[KeyMap.Num5] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_TWO_KEY,
+GameKeyMap[KeyMap.Numpad5] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_TWO_KEY,
+GameKeyMap[KeyMap.Num6] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_THREE_KEY,
+GameKeyMap[KeyMap.Numpad6] = $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_THREE_KEY;
+const ControlKeys = {
+	CHAT_KEY: KeyMap.Enter,
+	COMMAND_KEY: KeyMap.ForwardSlash,
+	TOGGLE_HERO_INFO_KEY: KeyMap.H,
+	TOGGLE_MINIMAP_MODE_KEY: KeyMap.G,
+	TOGGLE_CHAT_KEY: KeyMap.V,
+	TOGGLE_LEADERBOARD_KEY: KeyMap.B,
+	TOGGLE_MAP_KEY_1: KeyMap.M,
+	TOGGLE_MAP_KEY_2: KeyMap.Tab,
+	TOGGLE_AREA_INFO_KEY: KeyMap.Period
 }
   , $4cb5e0b12995588c$export$39b8dbea490353e9 = [$4cb5e0b12995588c$var$keys.FOCUS_KEY, $4cb5e0b12995588c$var$keys.ACTION_KEY, $4cb5e0b12995588c$var$keys.ABILITY_THREE_KEY, $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_THREE_KEY, $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_ONE_KEY, $4cb5e0b12995588c$var$keys.UPGRADE_ABILITY_TWO_KEY, $4cb5e0b12995588c$var$keys.ABILITY_ONE_KEY, $4cb5e0b12995588c$var$keys.ABILITY_TWO_KEY, null, null, $4cb5e0b12995588c$var$keys.ACTION_KEY, null, $4cb5e0b12995588c$var$keys.W_KEY, $4cb5e0b12995588c$var$keys.S_KEY, $4cb5e0b12995588c$var$keys.A_KEY, $4cb5e0b12995588c$var$keys.D_KEY, null, null];
 class $5eeca412293d6bd7$var$SettingStore {
@@ -1188,10 +1160,10 @@ class $e7009c797811e935$var$InputLayer {
 			return;
 		if (window.tsmod && document.activeElement.getAttributeNames().includes("c-lock"))
 			return;
-		e.keyCode === $0372b03b1cca8a43$export$8309310f4f3643db.Tab && e.preventDefault();
+		e.keyCode === KeyMap.Tab && e.preventDefault();
 		const t = global.chat && !chat.hidden && document.getElementById("chat-input");
 		if (document.activeElement === t) {
-			if (e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.CHAT_KEY) {
+			if (e.keyCode === ControlKeys.CHAT_KEY) {
 				if (0 === t.value.length)
 					return void t.blur();
 				socket.send(msgpack.encode({chat:t.value})),
@@ -1200,30 +1172,30 @@ class $e7009c797811e935$var$InputLayer {
 			}
 			return
 		}
-		if (t && e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.CHAT_KEY)
+		if (t && e.keyCode === ControlKeys.CHAT_KEY)
 			return void t.focus();
-		if (t && document.activeElement !== t && e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.COMMAND_KEY)
+		if (t && document.activeElement !== t && e.keyCode === ControlKeys.COMMAND_KEY)
 			return t.value = "/",
 			t.focus(),
 			void e.preventDefault();
 		const a = document.getElementById("mod-tools-duration-input");
 		if (document.activeElement.nodeName!=="INPUT") {
 			if (this.gameState.usingGamepad = !1,
-			e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_1 && e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MAP_KEY_2)
-				return e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_HERO_INFO_KEY ? (evadesRenderer.heroInfoCard.toggleVisibility(),
-				void evadesRenderer.experienceBar.toggleVisibility()) : void (e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_MINIMAP_MODE_KEY ? e.keyCode === $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_AREA_INFO_KEY ? evadesRenderer.areaInfo.toggleVisibility() : e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_CHAT_KEY ? e.keyCode !== $4cb5e0b12995588c$export$bb7d35f0a51c4c2a.TOGGLE_LEADERBOARD_KEY ? e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
+			e.keyCode !== ControlKeys.TOGGLE_MAP_KEY_1 && e.keyCode !== ControlKeys.TOGGLE_MAP_KEY_2)
+				return e.keyCode === ControlKeys.TOGGLE_HERO_INFO_KEY ? (evadesRenderer.heroInfoCard.toggleVisibility(),
+				void evadesRenderer.experienceBar.toggleVisibility()) : void (e.keyCode !== ControlKeys.TOGGLE_MINIMAP_MODE_KEY ? e.keyCode === ControlKeys.TOGGLE_AREA_INFO_KEY ? evadesRenderer.areaInfo.toggleVisibility() : e.keyCode !== ControlKeys.TOGGLE_CHAT_KEY ? e.keyCode !== ControlKeys.TOGGLE_LEADERBOARD_KEY ? e.keyCode in GameKeyMap && ((GameKeyMap[e.keyCode]),
 				e.preventDefault()) : 1 : 2 : evadesRenderer.minimap.toggleMinimapMode());
 			evadesRenderer.minimap.toggleVisibility()
 		}
 	}
 	onKeyUp(e) {
 		if(!playtesting||!this.gameState)return;
-		this.gameState.initial || e.keyCode in $4cb5e0b12995588c$export$e28d7df11ea0dc72 && (this.gameState.keys&&this.gameState.keys.keyUp($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]),
+		this.gameState.initial || e.keyCode in GameKeyMap && (this.gameState.keys&&this.gameState.keys.keyUp(GameKeyMap[e.keyCode]),
 		this.gameState.usingGamepad = !1)
 	}
 	onBlur(e) {
 		if(!playtesting||!this.gameState)return;
-		this.gameState.initial || (this.gameState.keys&&this.gameState.keys.clear($4cb5e0b12995588c$export$e28d7df11ea0dc72[e.keyCode]))
+		this.gameState.initial || (this.gameState.keys&&this.gameState.keys.clear(GameKeyMap[e.keyCode]))
 	}
 	onMouseMove(e) {
 		if(!playtesting)return;
@@ -1431,7 +1403,7 @@ const $1c037512d4c36cef$var$HERO_NAME_FONT_SIZE = 18
   , $1c037512d4c36cef$var$ABILITY_DESCRIPTION_FONT_SIZE = 10
   , $1c037512d4c36cef$var$ABILITY_IMAGE_SIZE = 48
   , $1c037512d4c36cef$var$keys = {"UNDEFINED_KEYTYPE":0,"W_KEY":1,"A_KEY":2,"S_KEY":3,"D_KEY":4,"UP_KEY":5,"LEFT_KEY":6,"DOWN_KEY":7,"RIGHT_KEY":8,"FOCUS_KEY":9,"ABILITY_ONE_KEY":10,"ABILITY_TWO_KEY":11,"ABILITY_THREE_KEY":12,"ACTION_KEY":13,"UPGRADE_SPEED_KEY":14,"UPGRADE_MAX_ENERGY_KEY":15,"UPGRADE_ENERGY_REGEN_KEY":16,"UPGRADE_ABILITY_ONE_KEY":17,"UPGRADE_ABILITY_TWO_KEY":18,"UPGRADE_ABILITY_THREE_KEY":19};
-class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
+class HeroInfoCard extends EvadesEntity {
 	constructor() {
 		super(),
 		this.width = 516,
@@ -1440,7 +1412,7 @@ class HeroInfoCard extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 		this.abilityTwo = new Ability,
 		this.abilityThree = new Ability,
 		this.upgradeMode = !1,
-		this.upgradeBrightness = new $4e83b777e56fdf48$export$2e2bcd8739ae039(175,175,255,150,!0),
+		this.upgradeBrightness = new Oscillator(175,175,255,150,!0),
 		this.isTouchAdjusted = !1,
 		this.buttons = {
 			interactionIndicator: $e7009c797811e935$export$2e2bcd8739ae039.addButton(null),
@@ -1815,7 +1787,7 @@ $9d5ae4eadf0f1327$exports.xorshift7 = $cPL7v,
 $9d5ae4eadf0f1327$exports.xor4096 = $hDaqC,
 $9d5ae4eadf0f1327$exports.tychei = $6b2mt,
 $24bba5be1b54b934$exports = $9d5ae4eadf0f1327$exports;
-class OverlayText extends $cee3aa9d42503f73$export$2e2bcd8739ae039{	
+class OverlayText extends EvadesEntity{	
 	static defaultX = 0;
 	static defaultY = 240;
 	static defaultFontSize = 28;
@@ -1833,7 +1805,7 @@ class OverlayText extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
 	getTutorialText(){if("Central Core"!==this.regionName)return[];const e=Object.keys(this.highestAreaAchieved);for(let t=0;t<e.length;t++)if(this.highestAreaAchieved[e[t]]>=20)return[];const t=this.x;if(1===this.areaNumber){if(t<320)return[{text:"Head right by holding D or the Right Arrow key."}];if(t<1040)return[{text:"Pick up pellets to gain experience!"}];if(t<1760)return[{text:"If you collect enough pellets, you will level up and gain a point!"}];if(t<2480)return[{text:"Points can be used by pressing 1-5 to upgrade stats!"}];if(t<3200)return[{text:"Press 1 to increase your speed!"}]}else if(2===this.areaNumber){if(t<640)return[{text:"Hover your cursor over the icons to see what abilities you can unlock!"}];if(t<1280)return[{text:"Press 4 or 5 to unlock your two abilities."}];if(t<1920)return[{text:"Using abilities consumes energy."}];if(t<2560)return[{text:"Press Z and X to activate abilities 1 and 2. Or you can use J and K."}];if(t<3200)return[{text:"Press 2 to upgrade max energy. Press 3 to increase energy regeneration."}]}else if(3===this.areaNumber){if(t<640)return[{text:"This map has 40 areas. Reach the end to unlock new heroes."}];if(t<1280)return[{text:"Finally, touch downed players to rescue them!"}]}return[]}
 	getActionText(e){return this.canCling?[{text:`Press ${e.usingGamepad?"A":"Space"} to cling/uncling!`,fontSize:"18px"}]:this.hasWindDebuff?[{text:"Touch other players to remove the wind debuff!",fontSize:"18px"}]:this.hasWaterDebuff?[{text:"Touch other players to remove the water debuff!",fontSize:"18px"}]:this.hasEarthDebuff?[{text:"Touch other players to remove the earth debuff!",fontSize:"18px"}]:this.hasFireDebuff?[{text:"Touch other players to remove the fire debuff!",fontSize:"18px"}]:[]}
 }
-class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
+class Minimap extends EvadesEntity {
 	stateFields() {
 		return ["x", "y", "width", "height", "zones"]
 	}
@@ -2047,7 +2019,7 @@ class Minimap extends $cee3aa9d42503f73$export$2e2bcd8739ae039 {
 	}
 	constructor() {
 		super(),
-		this.redOscillator = new $4e83b777e56fdf48$export$2e2bcd8739ae039(160,160,255,180,!0),
+		this.redOscillator = new Oscillator(160,160,255,180,!0),
 		this.left = 0,
 		this.bottom = 0,
 		this.maxWidth = 370,

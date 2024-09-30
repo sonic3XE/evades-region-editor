@@ -1,12 +1,12 @@
-function $01bb7fd9b3660a1e$export$e1851a6e64efa609(e, a, t) {
-	$01bb7fd9b3660a1e$export$304370d6b87d514e(e, a, EvadesConfig.defaults[t])
+function setDefaultsFor(target, fields, type) {
+	setDefaultsFrom(target, fields, EvadesConfig.defaults[type])
 }
-function $01bb7fd9b3660a1e$export$304370d6b87d514e(e, a, t) {
-	for (let r = 0; r < a.length; r++) {
-		const c = a[r];
-		if (void 0 === e[c]) {
-			const a = t[$01bb7fd9b3660a1e$export$6ca246516fec3cbe(c)];
-			void 0 !== a && (e[c] = a)
+function setDefaultsFrom(target, fields, source) {
+	for (let r = 0; r < fields.length; r++) {
+		const field = fields[r];
+		if (void 0 === target[field]) {
+			const defaultValue = source[toUnderscores(field)];
+			void 0 !== defaultValue && (target[field] = defaultValue)
 		}
 	}
 }
@@ -14,7 +14,7 @@ function $01bb7fd9b3660a1e$export$304370d6b87d514e(e, a, t) {
 function $01bb7fd9b3660a1e$export$a1dfcc7b3a7a0b52(e) {
 return EvadesConfig.abilities[e];
 }
-function $01bb7fd9b3660a1e$export$6ca246516fec3cbe(e) {
+function toUnderscores(e){
 	let a = "";
 	for (let t = 0; t < e.length; t++) {
 		const r = e[t];
@@ -295,7 +295,7 @@ var verifiedEntities=[
 					INFINITY_SWITCH_ENEMY: 113,
 */
 
-class Player extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
+class Player extends EvadesEntity{
   constructor(x,y,hero,username=nickname.value||"Local Player") {
 	super();
     this.x=x;
@@ -2307,7 +2307,7 @@ const dist=Math.sqrt(dx**2+dy**2);
   e.y=dy;
   return e;
 };
-class SimulatorEntity extends $cee3aa9d42503f73$export$2e2bcd8739ae039{
+class SimulatorEntity extends EvadesEntity{
   constructor(x,y,color,radius,type,speed=0,angle,boundary) {
 	super();
     this.color = color;
@@ -2841,13 +2841,14 @@ function death(player){
     player.effects=[];
 }
 //PELLETS
-class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
-	constructor(e, t, a, r, c) {
-		this.value = e,
-		this.min = t,
-		this.max = a,
-		this.increment = r,
-		this.increasing = c
+
+class Oscillator {
+	constructor(value, min, max, increment, increasing) {
+		this.value = value,
+		this.min = min,
+		this.max = max,
+		this.increment = increment,
+		this.increasing = increasing
 	}
 	update(delta) {
 		this.increasing ? (this.value += this.increment * delta / 1e3,
@@ -2858,46 +2859,59 @@ class $4e83b777e56fdf48$export$2e2bcd8739ae039 {
 	}
 }
 class Pellet extends SimulatorEntity{
-  constructor(x,y,radius,boundary,pellet_zones){
-    super(x,y,null,radius,"pellet",0,0,boundary);
-	const Cm = ["#b84dd4", "#a32dd8", "#3b96fd", "#43c59b", "#f98f6b", "#61c736"]
-	, Tm = ["#621c74", "#52146e", "#02499a", "#1f654e", "#ab3107", "#30631b"];
-	null !== this.color && void 0 !== this.color || (this.color = Cm[Math.floor((Math.abs(this.x) + Math.abs(this.y)) % Cm.length)],
-	Math.random() < 1e-5 && (this.color = "#333333")),
-	null !== this.darkColor && void 0 !== this.darkColor || (this.darkColor = Tm[Math.floor((Math.abs(this.x) + Math.abs(this.y)) % Tm.length)],
-	Math.random() < 1e-5 && (this.darkColor = "#cccccc")),
-    this.scaleOscillator = new $4e83b777e56fdf48$export$2e2bcd8739ae039(1.1,1.1,1.2,.15,!0);
-	this.pellet_zones=pellet_zones;
-  }
-  playerInteraction(player){
-    var victoryZones=this.pellet_zones;
-    var areaofzone=victoryZones.map(e=>e.width*e.height);
-    for(var it in areaofzone){
-      if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
-    }
-    var sum=victoryZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
-      var rand=Math.random()*sum;
-      var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
-	  this.x=Math.random()*(randZone.width-16)+randZone.x+8;
-	  this.y=Math.random()*(randZone.height-16)+randZone.y+8;
-	  player.updateExp(Math.floor(1+player.area/3)*(map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier));
-  }
-  calculateExperience(HeroLevel){
-	  return Math.floor(Math.min(HeroLevel,100)*Math.min(HeroLevel+1,101)*2+Math.max(0,HeroLevel*(HeroLevel+1)*(2*HeroLevel-179)/60-3535))
-  }
-  update(delta){
-    super.update(delta);
-	this.scaleOscillator.update(delta);
-  }
-  render(e,t) {
-	e.beginPath(),
-	e.arc(this.x + t.x, this.y + t.y, this.radius * this.scaleOscillator.value, 0, 2 * Math.PI, !1),
-	settings.tileMode > 1 ? e.fillStyle = this.darkColor : e.fillStyle = this.color,
-	e.globalAlpha = 1 - settings.pelletTransparency,
-	e.fill(),
-	e.closePath(),
-	e.globalAlpha = 1;
-  }
+	static colors = ["#b84dd4", "#a32dd8", "#3b96fd", "#43c59b", "#f98f6b", "#61c736"];
+	static darkColors = ["#621c74", "#52146e", "#02499a", "#1f654e", "#ab3107", "#30631b"]
+	constructor(x,y,radius,boundary,pellet_zones){
+		super(x,y,null,radius,"pellet",0,0,boundary);
+		this.color=null;
+		this.darkColor=null;
+		this.scaleOscillator = new Oscillator(1.1,1.1,1.2,.15,!0);
+		this.pellet_zones=pellet_zones;
+		this.afterStateUpdate();
+	}
+	stateFields() {
+		return ["x", "y", "radius"]
+	}
+	afterStateUpdate() {
+		if (null === this.color || null === this.darkColor)
+			if (Math.random() < 1e-5)
+				this.color = "#333333",
+				this.darkColor = "#cccccc";
+			else {
+				const e = Math.floor((Math.abs(this.x) + Math.abs(this.y)) % Pellet.colors.length);
+				this.color = Pellet.colors[e],
+				this.darkColor = Pellet.darkColors[e]
+			}
+		setDefaultsFor(this, this.stateFields(), "pellet")
+	}
+	playerInteraction(player){
+		var victoryZones=this.pellet_zones;
+		var areaofzone=victoryZones.map(e=>e.width*e.height);
+		for(var it in areaofzone)
+			if(areaofzone[it-1])areaofzone[it]+=areaofzone[it-1];
+		var sum=victoryZones.map(e=>e.width*e.height).reduce((e,t)=>(e+t));
+		var rand=Math.random()*sum;
+		var randZone=victoryZones[areaofzone.map(e=>(rand<e)).indexOf(true)];
+		this.x=Math.random()*(randZone.width-16)+randZone.x+8;
+		this.y=Math.random()*(randZone.height-16)+randZone.y+8;
+		player.updateExp(Math.floor(1+player.area/3)*(map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier));
+	}
+	calculateExperience(HeroLevel){
+		return Math.floor(Math.min(HeroLevel,100)*Math.min(HeroLevel+1,101)*2+Math.max(0,HeroLevel*(HeroLevel+1)*(2*HeroLevel-179)/60-3535))
+	}
+	update(delta){
+		super.update(delta);
+		this.scaleOscillator.update(delta);
+	}
+	render(e,t) {
+		e.beginPath(),
+		e.arc(this.x + t.x, this.y + t.y, this.radius * this.scaleOscillator.value, 0, 2 * Math.PI, !1),
+		settings.tileMode > 1 ? e.fillStyle = this.darkColor : e.fillStyle = this.color,
+		e.globalAlpha = 1 - settings.pelletTransparency,
+		e.fill(),
+		e.closePath(),
+		e.globalAlpha = 1;
+	}
 }
 class Torch extends SimulatorEntity{
   constructor(x,y,upside_down){
