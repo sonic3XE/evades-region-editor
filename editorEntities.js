@@ -2326,6 +2326,7 @@ class SimulatorEntity extends EvadesEntity{
     this.health=0;
     this.maxHealth=0;
     this.shatterTime=0;
+	this.harmlessTime=0;
     this.reduced=false;
     this.gainedImmunity=false;
     this.isHarmless=false;
@@ -4869,14 +4870,13 @@ class GrassEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,powered,boundary){
     super(x,y,radius,speed,angle,"grass_enemy",boundary);
 	this.powered=powered;
-	this.hasTouched=false;
 	this.grassTime=0;
 	this.grassHarmless=true;
   }
   playerInteraction(player){
 	if(!player.isDowned()){
-		this.grassHarmless=false;
-		this.grassTime>=1e3 && (
+		this.grassHarmless && this.grassTime==0 && (this.grassTime=1e3);
+		!this.grassHarmless && (
 			this.grassTime=0,this.grassHarmless=true,
 			EnemyPlayerInteraction(player,this,this.corrosive,this.isHarmless,this.immune),
 			map.areas[player.area].entities.filter(e=>{
@@ -4889,8 +4889,12 @@ class GrassEnemy extends Enemy{
 	}
   }
   update(delta,area) {
-	if(!this.grassHarmless&&this.grassTime<1e3){
-		this.grassTime+=delta;
+	if(this.grassHarmless&&this.grassTime>0){
+		this.grassTime-=delta;
+		if(this.grassTime<0){
+			this.grassHarmless=false;
+			this.grassTime=0;
+		}
 	}
     super.update(delta);
   }
