@@ -4293,7 +4293,7 @@ class StaticEnemy extends Enemy{
 			  }
 		  }
 	  }
-	  if(!player.isDowned()){
+	  if(!player.isDowned()&&!player.invulnerable){
 	    this.x=clamp(player.x,this.boundary.left+this.radius,this.boundary.right-this.radius);
 	    this.y=clamp(player.y,this.boundary.top+this.radius,this.boundary.bottom-this.radius);
 		this.iseffect=true;
