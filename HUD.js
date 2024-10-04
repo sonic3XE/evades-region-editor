@@ -2096,7 +2096,9 @@ class $31e8cfefa331e399$var$SimpleImage {
 				return void console.error("Invalid number of arguments for draw method");
 			[,,,,r,c,o,n] = t
 		}
-		r + o <= 0 || c + n <= 0 || r >= e.canvas.width || c >= e.canvas.height || (this.image || this.createImage(),
+		var tr=e.getTransform();
+		var scaled=Math.min(window.innerWidth/1280,window.innerHeight/720);
+		(r+o)*tr.a<=(e.canvas.width/2-640*scaled)||(c+n)*tr.d<=(e.canvas.height/2-360*scaled)||r*tr.a>=(e.canvas.width/2+640*scaled)||c*tr.d>=(e.canvas.height/2+360*scaled)||(this.image || this.createImage(),
 		2 === t.length ? e.drawImage(this.image, r, c) : 4 === t.length ? e.drawImage(this.image, r, c, o, n) : 8 === t.length && e.drawImage(this.image, t[0], t[1], t[2], t[3], r, c, o, n))
 	}
 }
