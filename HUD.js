@@ -12,7 +12,14 @@ function sortEntitiesByZIndex(e) {
 		, a = [];
 	for (const r of e)
 		-1 === r.absoluteZIndex ? t.push(r) : a.push(r);
-	const r = (e,t)=>e.isEnemy && t.isEnemy && e.radius !== t.radius ? t.radius - e.radius : e.isPlayer && t.isPlayer && e.isLocalPlayer !== t.isLocalPlayer ? t.isLocalPlayer ? -1 : 1 : e.constructor.name !== t.constructor.name ? $ccc1645057c0c20e$export$18da14ab4d863bec.indexOf(e.constructor.name) - $ccc1645057c0c20e$export$18da14ab4d863bec.indexOf(t.constructor.name) : (e.relativeZIndex || 0) !== (t.relativeZIndex || 0) ? (e.relativeZIndex || 0) - (t.relativeZIndex || 0) : (Math.random()<0.5);
+	const r=(e,t)=>{
+		if(e.isEnemy&&t.isEnemy){
+			if(e.inactive&&!t.inactive)return -1;
+			if(!e.inactive&&t.inactive)return 1;
+			if(e.radius!==t.radius)return t.radius-e.radius;
+		}
+		return e.isPlayer && t.isPlayer && e.isLocalPlayer !== t.isLocalPlayer ? t.isLocalPlayer ? -1 : 1 : e.constructor.name !== t.constructor.name ? $ccc1645057c0c20e$export$18da14ab4d863bec.indexOf(e.constructor.name) - $ccc1645057c0c20e$export$18da14ab4d863bec.indexOf(t.constructor.name) : (e.relativeZIndex || 0) !== (t.relativeZIndex || 0) ? (e.relativeZIndex || 0) - (t.relativeZIndex || 0) : Math.pow(-1,Math.random()<0.5);
+	};
 	return t.sort(r),
 	a.sort(r),
 	t.concat(a)

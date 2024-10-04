@@ -435,230 +435,167 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 	}
 });
 document.addEventListener("keydown", e => {
-  if(confirmationPopup)return;
-  var camera = { x: camX, y: camY }
-  if (e.target instanceof HTMLInputElement) return;
-  if(e.ctrlKey && e.which === KeyMap.A){
-	  e.preventDefault(selectedObjects.push(...map.areas[current_Area].zones,...map.areas[current_Area].assets));
-	  return;
-  }
-  if(e.ctrlKey && e.which === KeyMap.C && selectedObjects.length){
-	  e.preventDefault(copyObjs());
-	  return;
-  }
-  if(e.ctrlKey && e.which === KeyMap.X && selectedObjects.length){
-	  e.preventDefault(cutObjs());
-	  return;
-  }
-  if(e.ctrlKey && e.which === KeyMap.V && copyObjects.length){
-	  e.preventDefault(pasteObjs());
-	  return;
-  }
-	if (e.which === controls.TOGGLE_LEADERBOARD){
-		toggleLeaderboard = !toggleLeaderboard;
-		localStorage.leaderboard=toggleLeaderboard;
-		(global.leaderboard)&&(leaderboard.hidden=!toggleLeaderboard);
-	}
-	if (e.which === controls.TOGGLE_CHAT){
-		toggleChat = !toggleChat;
-		localStorage.chat=toggleChat;
-		(global.chat)&&(chat.hidden=!toggleChat);
-	}
-  if (e.which === controls.PLAYTEST){
-  	if(e.preventDefault(),consumed_by_ink_demon)return customAlert("Fatal Error",5,"#F00");
-	//return customAlert("Error 404: Simulation Not Found",5);
-    playtesting=!playtesting;
-	if(!playtesting)$e7009c797811e935$export$2e2bcd8739ae039.deregisterListeners(),$e7009c797811e935$export$2e2bcd8739ae039=new $e7009c797811e935$var$InputLayer,isFinish=false;
-    tl.style.transform="translate("+(-100*playtesting)+"px, 0)";
-    menu.hidden=playtesting;
-    realTime.disabled=playtesting;
-    realTime.disabled?(realTime.checked=true):(realTime.checked=eval(localStorage.realTime));
-    playtesting?(window.tempCamPos={x:camX,y:camY,area:current_Area}):(camX=window.tempCamPos.x,camY=window.tempCamPos.y);
+	if(confirmationPopup || e.target instanceof HTMLInputElement)
+		return;
+	if(e.ctrlKey&&e.which===KeyMap.A)
+		return e.preventDefault(selectedObjects.push(...map.areas[current_Area].zones,...map.areas[current_Area].assets));
+	if(e.ctrlKey&&e.which===KeyMap.C&&selectedObjects.length)
+		return e.preventDefault(copyObjs());
+	if(e.ctrlKey&&e.which===KeyMap.X&&selectedObjects.length)
+		return e.preventDefault(cutObjs());
+	if(e.ctrlKey&&e.which===KeyMap.V&&copyObjects.length)
+		return e.preventDefault(pasteObjs());
+	if(e.which===controls.PLAYTEST)
+		Playtest(e);
 	if(playtesting){
-		evadesRenderer={snowRenderer:new SnowRenderer,dynamicLighting:new DynamicLighting(1),directionalIndicatorHud:new DirectionalIndicatorHud,experienceBar:new ExperienceBar,heroInfoCard:new HeroInfoCard,overlayText:new OverlayText,titleText:new TitleText,minimap:new Minimap,areaInfo:new AreaInfo,mobileControls:new MobileControls};
-		evadesRenderer.minimap.updateZones();
-		var safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0]??map.areas[0].zones[0],
-		selfPlayer=new Player(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),settings.heroType);
-		global.selfId=selfPlayer.id;
-		map.players.push(selfPlayer);
-		selfPlayer.abilityOne.afterStateUpdate(abilityConfig[selfPlayer.abilityOne.abilityType]);
-		selfPlayer.abilityTwo.afterStateUpdate(abilityConfig[selfPlayer.abilityTwo.abilityType]);
-		selfPlayer.abilityThree&&selfPlayer.abilityThree.afterStateUpdate(abilityConfig[selfPlayer.abilityThree.abilityType]);
-		spawnEntities(selfPlayer.area);
-	}else{
-		let selfPlayer=map.players.filter(e=>e.id==selfId)[0];
-		selfPlayer&&(map.players.splice(map.players.indexOf(selfPlayer),1),selfId=null,current_Area=tempCamPos.area,spawnEntities());
-		evadesRenderer={snowRenderer:new SnowRenderer,dynamicLighting:new DynamicLighting(1)};
-	}
-  };
-  if(playtesting){
-	var plr=map.players[map.players.map(t=>t.id).indexOf(selfId)];
-	//Teleports you to another area (Command: /tp, /teleport <area>)
-	if(e.which === KeyMap.E){
-		map.areas[current_Area].entities=[];
-		current_Area=Math.max(Math.min(current_Area-1,map.areas.length-1),0)
-		var safezone=map.areas[current_Area].zones.filter(e=>e.type=="safe")[0]??map.areas[current_Area].zones[0];
-		plr.x=safezone.x+16+(safezone.width-32)*Math.random();
-		plr.y=safezone.y+16+(safezone.height-32)*Math.random();
-		plr.onTele=true;
-		spawnEntities();
-		plr.area=current_Area;
-	}
-	if(e.which === KeyMap.T){
-		map.areas[current_Area].entities=[];
-		current_Area=Math.max(Math.min(current_Area+1,map.areas.length-1),0);
-		var safezone=map.areas[current_Area].zones.filter(e=>e.type=="safe")[0]??map.areas[current_Area].zones[0];
-		plr.x=safezone.x+16+(safezone.width-32)*Math.random();
-		plr.y=safezone.y+16+(safezone.height-32)*Math.random();
-		plr.onTele=true;
-		spawnEntities();
-		plr.area=current_Area;
-	}
-	if(e.which === KeyMap.R){//Max out hero card (Command: /max)
-		plr.speed=17*30;
-		plr.maxEnergy=300;
-		plr.energy=300;
-		plr.energyRegen=7;
-		plr.level=100;
-		plr.experience=plr.nextLevelExperience;
-		plr.abilityOne.locked=false;
-		plr.abilityOne.level=plr.abilityOne.maxLevel;
-		plr.abilityTwo.locked=false;
-		plr.abilityTwo.level=plr.abilityTwo.maxLevel;
-		if(plr.abilityThree){
-			plr.abilityThree.locked=false;
-			plr.abilityThree.level=plr.abilityThree.maxLevel;
-		}
-	}
-	if(e.which === KeyMap.Y){//Toggle Cooldown (Command: /cd, /cooldown)
-		plr.noCooldown=!plr.noCooldown;
-	}
-	if(e.which === KeyMap.U){//Revive (Command: /r, /s, /save, /revive)
-		plr.deathTimer=-1;
-	}
-        if(e.which === controls.PLAYTEST - 3&&location.search=="?isDev"){//Admin (Command: /a, /admin)
-		e.preventDefault();
-		plr.admin=true;
-		plr.deathTimer=-1;
-		plr.speed=510;
-		plr.maxEnergy=500;
-		plr.energy=500;
-		plr.level=100;
-		plr.experience=plr.nextLevelExperience;
-		plr.energyRegen=500;
-		plr.noCooldown=true;
-		plr.abilityOne.locked=false;
-		plr.abilityOne.level=plr.abilityOne.maxLevel;
-		plr.abilityTwo.locked=false;
-		plr.abilityTwo.level=plr.abilityTwo.maxLevel;
-		if(plr.abilityThree){
-			plr.abilityThree.locked=false;
-			plr.abilityThree.level=plr.abilityThree.maxLevel;
-		}
-    }else if(e.which === controls.PLAYTEST - 2&&location.search=="?isDev"){//Godmode (Command: /g)
-  	  e.preventDefault();
-  	  plr.godmode=true;
-	  plr.deathTimer=-1;
-    }else if(e.which === controls.PLAYTEST - 1&&location.search=="?isDev"){//Survival (Command: /s)
-  	  e.preventDefault();
-  	  plr.godmode=false;
-	  plr.deathTimer=-1;
-    }
-	return;
-  };
-  if (e.which === controls.TOGGLE_HITBOX) hitbox = !hitbox;
-  if (e.which === controls.PREVIOUS_AREA&&!lockCursor) {
-    map.areas[current_Area].element.remove();
-    map.areas[current_Area].properties.element.remove();
-    delete map.areas[current_Area].element;
-    delete map.areas[current_Area].inputs;
-    delete map.areas[current_Area].properties.inputs;
-    delete map.areas[current_Area].properties.element;
-    map.areas[current_Area].entities=[];
-    var ind=current_Area;
-    current_Area = Math.max(Math.min(current_Area - 1, map.areas.length - 1), 0);
-    customAREAgui(map.areas[current_Area]);
-    areamenu.appendChild(map.areas[current_Area].element);
-    var bound=getAreaBoundary(map.areas[current_Area]);
-    camX = bound.width / 2+bound.left;
-    camY = bound.height / 2+bound.top;
-    spawnEntities();
-    if(selectedObjects.length&&ind!=current_Area){
-		selectedObjects.map(selectedObject=>{
-			if(selectedObject.properties){
-				"element" in selectedObject.properties && selectedObject.properties.element.remove();
-				delete selectedObject.properties.inputs;
-				delete selectedObject.properties.element;
-			};
-			"element" in selectedObject && selectedObject.element.remove();
-			delete selectedObject.element;
-			delete selectedObject.inputs;
-			selectedObject.spawner&&selectedObject.spawner.map(e=>{
-				e.types.map(t=>{
-					"element" in t && t.element.remove();
-					delete t.element;
+		const plr=map.players[map.players.map(t=>t.id).indexOf(selfId)];
+		let u,safezone,bound,canUpdateElements;
+		if(e.which===controls.TOGGLE_LEADERBOARD)
+			localStorage.leaderboard=toggleLeaderboard=!toggleLeaderboard,
+			leaderboard.hidden=!toggleLeaderboard;
+		if(e.which===controls.TOGGLE_CHAT)
+			localStorage.chat=toggleChat=!toggleChat,
+			chat.hidden=!toggleChat;
+		//Commands /teleport, /tp: teleport to a zone with fuzzy search. Usage: /teleport <region>
+		if(u=(e.which===KeyMap.T)-(e.which===KeyMap.E),u)
+			map.areas[current_Area].entities=[],
+			plr.area=current_Area=clamp(current_Area+u,0,map.areas.length-1),
+			safezone=map.areas[plr.area].zones.filter(e=>e.type=="safe")[0]??map.areas[plr.area].zones[0],
+			plr.x=safezone.x+16+(safezone.width-32)*Math.random(),
+			plr.y=safezone.y+16+(safezone.height-32)*Math.random(),
+			plr.onTele=true,
+			spawnEntities();
+		if(e.which===KeyMap.R)//Max out hero card (Command: /max)
+			plr.speed=510,
+			plr.maxEnergy=plr.energy=300,
+			plr.energyRegen=7,
+			plr.level=100,
+			plr.experience=plr.nextLevelExperience,
+			plr.abilityOne.locked=false,
+			plr.abilityOne.level=plr.abilityOne.maxLevel,
+			plr.abilityTwo.locked=false,
+			plr.abilityTwo.level=plr.abilityTwo.maxLevel,
+			(plr.abilityThree)&&(
+				plr.abilityThree.locked=false,
+				plr.abilityThree.level=plr.abilityThree.maxLevel
+			);
+		if(e.which===KeyMap.Y)//Toggle Cooldown (Command: /cd, /cooldown)
+			plr.noCooldown=!plr.noCooldown;
+		if(e.which===KeyMap.U)//Revive (Command: /r, /s, /save, /revive)
+			plr.godmode=false,
+			plr.deathTimer=-1;
+		if(e.which===controls.PLAYTEST-3&&location.search=="?isDev")//Admin (Command: /a, /admin)
+			e.preventDefault(),
+			plr.admin=true,
+			plr.deathTimer=-1,
+			plr.speed=510,
+			plr.maxEnergy=plr.energy=500,
+			plr.energyRegen=500,
+			plr.level=100,
+			plr.noCooldown=true,
+			plr.experience=plr.nextLevelExperience,
+			plr.abilityOne.locked=false,
+			plr.abilityOne.level=plr.abilityOne.maxLevel,
+			plr.abilityTwo.locked=false,
+			plr.abilityTwo.level=plr.abilityTwo.maxLevel,
+			(plr.abilityThree)&&(
+				plr.abilityThree.locked=false,
+				plr.abilityThree.level=plr.abilityThree.maxLevel
+			);
+		if(e.which===controls.PLAYTEST-2&&location.search=="?isDev")//Godmode (Command: /g)
+			e.preventDefault(),
+			plr.godmode=true,
+			plr.deathTimer=-1;
+		return;
+	};
+	if(e.which===controls.TOGGLE_HITBOX)
+		hitbox=!hitbox;
+	if(u=(e.which===controls.NEXT_AREA)-(e.which===controls.PREVIOUS_AREA),canUpdateElements=current_Area!=clamp(current_Area+u,0,map.areas.length-1),canUpdateElements&&!lockCursor)
+		map.areas[current_Area].element.remove(),
+		map.areas[current_Area].properties.element.remove(),
+		delete map.areas[current_Area].element,
+		delete map.areas[current_Area].inputs,
+		delete map.areas[current_Area].properties.inputs,
+		delete map.areas[current_Area].properties.element,
+		map.areas[current_Area].entities=[],
+		current_Area=clamp(current_Area+u,0,map.areas.length-1),
+		customAREAgui(map.areas[current_Area]),
+		areamenu.appendChild(map.areas[current_Area].element),
+		bound=getAreaBoundary(map.areas[current_Area]),
+		camX=bound.width/2+bound.left,
+		camY=bound.height/2+bound.top,
+		spawnEntities(),
+		selectedObjects.length&&(
+			selectedObjects.map(selectedObject=>{
+				if(selectedObject.properties)
+					"element"in selectedObject.properties&&selectedObject.properties.element.remove(),
+					delete selectedObject.properties.inputs,
+					delete selectedObject.properties.element;
+				"element"in selectedObject&&selectedObject.element.remove();
+				delete selectedObject.inputs;
+				delete selectedObject.element;
+				selectedObject.spawner&&selectedObject.spawner.map(e=>{
+					e.types.map(t=>{
+						"element"in t&&t.element.remove();
+						delete t.element;
+					});
+					"element"in e&&e.element.remove();
+					delete e.inputs;
+					delete e.element;
 				});
-				"element" in e && e.element.remove();
-				delete e.element;
-				delete e.inputs
-			});
-		});
-		selectedObjects=[];
-		duplicateObject.disabled=!selectedObjects.length;
-		deleteObject.disabled=!selectedObjects.length;
-		copyObject.disabled=!selectedObjects.length;
-		cutObject.disabled=!selectedObjects.length;
-		pasteObject.disabled=!copyObjects.length;
-		rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
-    };
-  }
-  if (e.which === controls.NEXT_AREA&&!lockCursor) {
-    map.areas[current_Area].element.remove();
-    map.areas[current_Area].properties.element.remove();
-    delete map.areas[current_Area].element;
-    delete map.areas[current_Area].inputs;
-    delete map.areas[current_Area].properties.inputs;
-    delete map.areas[current_Area].properties.element;
-    map.areas[current_Area].entities=[];
-    var ind=current_Area;
-    current_Area = Math.max(Math.min(current_Area + 1, map.areas.length - 1), 0);
-    customAREAgui(map.areas[current_Area]);
-    areamenu.appendChild(map.areas[current_Area].element);
-    var bound=getAreaBoundary(map.areas[current_Area]);
-    camX = bound.width / 2+bound.left;
-    camY = bound.height / 2+bound.top;
-    spawnEntities();
-    if(selectedObjects.length&&ind!=current_Area){
-		selectedObjects.map(selectedObject=>{
-			if(selectedObject.properties){
-				"element" in selectedObject.properties && selectedObject.properties.element.remove();
-				delete selectedObject.properties.inputs;
-				delete selectedObject.properties.element;
-			};
-			"element" in selectedObject && selectedObject.element.remove();
-			delete selectedObject.element;
-			delete selectedObject.inputs;
-			selectedObject.spawner&&selectedObject.spawner.map(e=>{
-				e.types.map(t=>{
-					"element" in t && t.element.remove();
-					delete t.element;
-				});
-				"element" in e && e.element.remove();
-				delete e.element;
-				delete e.inputs
-			});
-		});
-		selectedObjects=[];
-		duplicateObject.disabled=!selectedObjects.length;
-		deleteObject.disabled=!selectedObjects.length;
-		copyObject.disabled=!selectedObjects.length;
-		cutObject.disabled=!selectedObjects.length;
-		pasteObject.disabled=!copyObjects.length;
-		rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length));
-    };
-  }
-  if (e.which === controls.DELETE_ZONE) {deleteObjs();spawnEntities();}
+			}),
+			selectedObjects=[],
+			duplicateObject.disabled=!selectedObjects.length,
+			deleteObject.disabled=!selectedObjects.length,
+			copyObject.disabled=!selectedObjects.length,
+			cutObject.disabled=!selectedObjects.length,
+			pasteObject.disabled=!copyObjects.length,
+			rotateObject.disabled=selectedObjects.length==0||(selectedObjects.length==1?(selectedObjects.filter(e=>(isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length):(selectedObjects.filter(e=>(isNaN(parseInt(e.rx))||isNaN(parseInt(e.ry))||isNaN(parseInt(e.rw))||isNaN(parseInt(e.rh)))).length))
+		);
+	if (e.which === controls.DELETE_ZONE)
+		deleteObjs(),
+		spawnEntities();
 });
+function stopPlaytesting(local=true){
+	let selfPlayer;
+	if(local)
+		playtesting=false,
+		tl.style.transform="translate(0, 0)",
+		menu.hidden=false,
+		realTime.disabled=false,
+		camX=window.tempCamPos.x,
+		camY=window.tempCamPos.y,
+		current_Area=window.tempCamPos.area,
+		selfPlayer=map.players.filter(e=>e.id==selfId)[0],
+		selfPlayer&&(map.players.splice(map.players.indexOf(selfPlayer),1),selfId=null,current_Area=tempCamPos.area,spawnEntities()),
+		evadesRenderer={snowRenderer:new SnowRenderer,dynamicLighting:new DynamicLighting(1)};
+}
+function Playtest(e){
+	if(e.preventDefault(),consumed_by_ink_demon)return customAlert("Fatal Error",5,"#F00");
+	if(false)return customAlert("Error 404: Simulation Not Found",5);
+	let safezone,selfPlayer;
+    playtesting=!playtesting;
+	if(!playtesting)
+		return $e7009c797811e935$export$2e2bcd8739ae039.deregisterListeners(),
+			$e7009c797811e935$export$2e2bcd8739ae039=new $e7009c797811e935$var$InputLayer,
+			isFinish=false,
+			stopPlaytesting();
+    tl.style.transform="translate(-100px, 0)";
+    menu.hidden=true;
+    realTime.disabled=true;
+	if(playtesting)
+		window.tempCamPos={x:camX,y:camY,area:current_Area},
+		evadesRenderer={snowRenderer:new SnowRenderer,dynamicLighting:new DynamicLighting(1),directionalIndicatorHud:new DirectionalIndicatorHud,experienceBar:new ExperienceBar,heroInfoCard:new HeroInfoCard,overlayText:new OverlayText,titleText:new TitleText,minimap:new Minimap,areaInfo:new AreaInfo,mobileControls:new MobileControls},
+		evadesRenderer.minimap.updateZones(),
+		safezone=map.areas[0].zones.filter(e=>e.type=="safe")[0]??map.areas[0].zones[0],
+		selfPlayer=new Player(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),settings.heroType),
+		global.selfId=selfPlayer.id,
+		map.players.push(selfPlayer),
+		selfPlayer.abilityOne.afterStateUpdate(abilityConfig[selfPlayer.abilityOne.abilityType]),
+		selfPlayer.abilityTwo.afterStateUpdate(abilityConfig[selfPlayer.abilityTwo.abilityType]),
+		selfPlayer.abilityThree&&selfPlayer.abilityThree.afterStateUpdate(abilityConfig[selfPlayer.abilityThree.abilityType]),
+		spawnEntities(selfPlayer.area);
+}
 resizemenu.addEventListener("mousedown",_=>(resizing=true));
 document.addEventListener("mouseup",_=>(resizing=false));
 document.addEventListener("mousemove",e=>resizing&&(menu.style.width=Math.max(window.innerWidth-e.pageX-15,200)+"px"));

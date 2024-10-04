@@ -1221,6 +1221,7 @@ this.isGuest=!1;
                   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
                 }
 	update(delta){
+		this.isLocalPlayer=this.id==selfId;
 		function checkAreaProperties(e){
 			var s=map.areas[this.area].properties[e] ?? (map.properties[e] ?? defaultValues.properties[e]);
 			return s;
@@ -1603,7 +1604,8 @@ this.isGuest=!1;
 			if(zone.type=="removal"){
 				var collided=rectCircleCollision(this.x,this.y,this.radius,zone.x,zone.y,zone.width,zone.height)
 				if(collided.c){
-					map.players.splice(map.players.indexOf(this));
+					if(this.isLocalPlayer)stopPlaytesting();
+					else map.players.splice(map.players.indexOf(this),1);
 					break;
 				}
 			}
@@ -1630,7 +1632,11 @@ this.isGuest=!1;
 		this.areaNumber=this.area+1;
 		this.regionName=map.name;
 		if(!this.regionAreasDiscovered[this.area])this.updateExp(12*this.area),this.regionAreasDiscovered[this.area]=true;
-		if(this.deathTimer==0)map.players.splice(map.players.indexOf(this),1),console.log("Player died (death timer ran out)");
+		if(this.deathTimer==0){
+			if(this.isLocalPlayer)stopPlaytesting();
+			else map.players.splice(map.players.indexOf(this),1);
+			console.log("Player died (death timer ran out)");
+		}
 	}
 	knockback_player(delta,enemy,push_time,radius){
 		const timeFix = delta / (1000 / 30);
@@ -2322,6 +2328,7 @@ class SimulatorEntity extends EvadesEntity{
     this.velX=Math.cos(this.angle)*this.speed;
     this.velY=Math.sin(this.angle)*this.speed;
     this.x=x;
+	//this.id=Math.random();
     this.y=y;
     this.health=0;
     this.maxHealth=0;
