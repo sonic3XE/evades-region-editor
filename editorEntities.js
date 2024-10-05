@@ -474,6 +474,7 @@ this.highestAreaAchieved=defaultHighestAreaAchieved;
     this.radiusAdditioner = 0;
     this.regenAdditioner = 0;
 this.vertSpeed=-1;
+this.hasNoInput=false;
     this.effectImmune = 1;
     this.effectReplayer = 1;
     this.aura = false;
@@ -997,6 +998,7 @@ this.isGuest=!1;
 	if(this.isLead)cent=!cent;
 	cent&&=!this.harden;
     if (input.keys) {
+	  this.hasNoInput=false;
       this.firstAbility = false;
       this.secondAbility = false;
       this.thirdAbility = false;
@@ -1211,6 +1213,8 @@ this.isGuest=!1;
                 }
 	update(delta){
 		this.isLocalPlayer=this.id==selfId;
+		if(this.hasNoInput)this.controlActions({keys:new Set()},delta);
+		this.hasNoInput=true;
 		function checkAreaProperties(e){
 			var s=map.areas[this.area].properties[e] ?? (map.properties[e] ?? defaultValues.properties[e]);
 			return s;
