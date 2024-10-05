@@ -2152,11 +2152,11 @@ class $31e8cfefa331e399$export$9d5734c725768403 {
 		this.currentFrameTime >= this.frames[this.currentFrame].duration && (this.currentFrame = (this.currentFrame + 1) % this.frames.length,
 		this.currentFrameTime = 0)
 	}
-	draw(e, ...t) {
+	draw(e, delta, ...t) {
 		const a = this.frames[this.currentFrame];
 		a.image.blank && (a.image = $31e8cfefa331e399$export$93e5c64e4cc246c8(this.initData.prefixPath + "/" + a.path)),
 		a.image.draw(e, ...t),
-		this.nextFrame()
+		this.nextFrame(delta)
 	}
 }
 function $d2f179ecccc561fa$var$getTypeSuffix(e) {
