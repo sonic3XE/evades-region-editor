@@ -65,7 +65,7 @@ if(elmnt.onmousedown)return;
   if(elmnt){elmnt.onmousedown = dragMouseDown};
   function dragMouseDown(e) {
     e = e || window.event;
-    if(e.target.nodeName!="BUTTON"&&e.target.nodeName!="INPUT"&&e.target.nodeName!="SELECT"){
+    if(e.target.nodeName!="BUTTON"&&!e.target.classList.contains("clickable-text")&&e.target.nodeName!="INPUT"&&e.target.nodeName!="SELECT"){
       // get the mouse cursor position at startup:
       pos3 = e.clientX;
       pos4 = e.clientY;

@@ -1,4 +1,4 @@
-a {
+a,.clickable-text {
 	text-decoration: none;
 	color: #fff
 }
@@ -27,10 +27,10 @@ a {
 .div-confirm>button:active{
 	filter:brightness(2);
 }
-a:hover {
+a:hover,.clickable-text:hover {
 	color: #a0c5ff
 }
-a:active {
+a:active,.clickable-text:active {
 	color: #7aadff
 }
 leaderboard{
