@@ -1284,6 +1284,7 @@ this.isGuest=!1;
 			var s=zone.properties[e] ?? area.properties[e] ?? (map.properties[e] ?? defaultValues.properties[e]);
 			return s;
 		}
+		this.zoneFriction=1;
 		for(var zone of area.zones){
 			var rect1={x:this.x,y:this.y,width:this.radius, height:this.radius},rect2={x:zone.x,y:zone.y,width:zone.width, height:zone.height};
 			if(zone.type=="active"&&rect1.x-this.radius<rect2.x+rect2.width&&rect1.x+this.radius>rect2.x&&rect1.y-this.radius<rect2.y+rect2.height&&rect1.y+this.radius>rect2.y)this.safeZone=false;
