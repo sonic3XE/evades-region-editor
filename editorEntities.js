@@ -5462,6 +5462,24 @@ class RingSniperProjectile extends Enemy{
     super.update(delta);
   }
 }
+class CybotRingProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle){
+    super(x,y,radius,speed,angle,"cybot_ring_projectile");
+    this.outline=false;
+    this.immune=true;
+	this.corrosive=true;
+	this.isEnemy=false;
+  }
+  render(e, t) {
+    const defaultLine=e.lineWidth;
+    e.beginPath(),
+    e.arc(this.x + t.x, this.y + t.y, .875 * this.radius, 0, 2 * Math.PI, !1),
+    e.strokeStyle = this.color,
+    e.lineWidth = this.radius / 4,
+    e.stroke(),
+	e.lineWidth=defaultLine;
+  }
+}
 class PredictionSniperEnemy extends Enemy{
   constructor(x,y,radius,speed,angle){
     super(x,y,radius,speed,angle,"prediction_sniper_enemy");
