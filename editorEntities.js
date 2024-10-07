@@ -64,9 +64,16 @@ function spawnEntities(area=current_Area){
 	}
 	if(!pelletZones.length)pelletZones.push(areaC.zones[0]);
 	const areaOfZone=pelletZones.map(e=>e.width*e.height),
-		sum=areaOfZone.reduce((e,t)=>(e+t));
+		sum=areaOfZone.reduce((e,t)=>(e+t)),
+		playersInArea=map.players.filter(e=>(e.area==area));
 	for(const i in areaOfZone)
 		if(void 0!==areaOfZone[i-1])areaOfZone[i]+=areaOfZone[i-1];
+	!playtesting&&playersInArea.map(plr=>{
+		safezone=areaC.zones.filter(e=>e.type=="safe")[0]??areaC.zones[0],
+		plr.x=safezone.x+16+(safezone.width-32)*Math.random(),
+		plr.y=safezone.y+16+(safezone.height-32)*Math.random(),
+		plr.onTele=true;
+	});
 	areaC.entities=[];
 	areaC.entities.push(
 		new Wall(-2000,-2000,4000+boundary.width,2000),
@@ -104,8 +111,8 @@ function spawnEntities(area=current_Area){
 		areaC.entities.push(
 			new Wall(activeZone.x-2000,activeZone.y-2000,4000+activeZone.width,2000,null,index),
 			new Wall(activeZone.x-2000,activeZone.y-2000,2000,4000+activeZone.height,null,index),
-			new Wall(activeZone.x-2000,activeZone.height,4000+activeZone.width,2000,null,index),
-			new Wall(activeZone.x+activeZone.width,-2000,2000,4000+activeZone.height,null,index)
+			new Wall(activeZone.x-2000,activeZone.y+activeZone.height,4000+activeZone.width,2000,null,index),
+			new Wall(activeZone.x+activeZone.width,activeZone.y-2000,2000,4000+activeZone.height,null,index)
 		);
 		for(const spawner of activeZone.spawner){
 			const count=prop(spawner,"count");
@@ -309,7 +316,6 @@ class Player extends EvadesEntity{
 	this.accessories={"collection":{"gold-crown":false,"silver-crown":false,"bronze-crown":false,"santa-hat":false,"gold-wreath":false,"spring-wreath":false,"autumn-wreath":false,"winter-wreath":false,"summer-wreath":false,"summer-olympics-wreath":false,"summer-olympics-wreath-2":false,"winter-olympics-wreath":false,"halo":false,"blue-santa-hat":false,"flames":false,"blue-flames":false,"stars":false,"witch-hat":false,"sunglasses":false,"flower-headband":false,"pirate-hat":false,"rose-wreath":false,"gold-jewels":false,"silver-jewels":false,"bronze-jewels":false,"sticky-coat":false,"toxic-coat":false,"orbit-ring":false,"clouds":false,"storm-clouds":false,"tuxedo":false,"doughnut":false,"stardust":false,"broomstick":false,"snowglobe":false},"hat_selection":null,"body_selection":null,"gem_selection":null,"version_number":0};
 	this.showOnMap=true;
 	this.dashTrails=[];
-	this.fullMapOpacity=true;
 	this.lightRectangle=null;
     this.y=y;
 	this.heroType=hero;
@@ -345,6 +351,8 @@ Object.defineProperties(this,{"hatName":{get:function(){
 	var curHat=[null, "gold-crown", "silver-crown", "bronze-crown", "santa-hat", "gold-wreath", "spring-wreath", "autumn-wreath", "winter-wreath", "summer-wreath", "summer-olympics-wreath", "summer-olympics-wreath-2", "winter-olympics-wreath", "halo", "blue-santa-hat", "flames", "blue-flames", "stars", "witch-hat", "sunglasses", "flower-headband", "pirate-hat", "rose-wreath", "gold-jewels", "silver-jewels", "bronze-jewels"][settings.hat];
 	(curHat=="witch-hat"&&this.accessory_reversed)&&(curHat+="-reversed");
 	return curHat;
+}},"fullMapOpacity":{get:function(){
+	return this.area==map.players.filter(e=>e.id==selfId)[0].area;
 }},"bodyName":{get:function(){
 	Math.abs(this.inputAngle)!=Math.PI/2&&(this.accessory_reversed=Math.abs(this.inputAngle)>Math.PI/2);
 	var curBody=[null, "sticky-coat", "toxic-coat", "orbit-ring", "clouds", "storm-clouds", "tuxedo", "doughnut", "stardust", "broomstick", "snowglobe"][settings.body];
@@ -370,10 +378,10 @@ this.abilityOne.abilityType=this.heroType*2;
 this.abilityTwo = new Ability;
 this.abilityTwo.abilityType=this.heroType*2+1;
 //this.abilityThree = new Ability;
-//this.abilityThree.abilityType=8;
+//this.abilityThree.abilityType=97;
 this.abilityIndex=0;
 this.cachedAbilities=[];
-this.availableAbilities=[0,1,2,14,18,31,96,98];
+this.availableAbilities=[0,1,2,3,8,9,14,18,31,97,98,99];
 this.harden = false;
 this.flow = false;
 this.isBandaged=false;
@@ -925,16 +933,15 @@ this.isGuest=!1;
 				this.energy-=ability.energyCost;
 				var area=map.areas[this.area];
 				var activeZone=area.zones.filter(e=>e.type=="active").sort((e,t)=>{
-					return distance({x:e.x+e.width/2,y:e.y+e.height/2},this)-distance({x:t.x+t.width/2,y:t.y+t.height/2},this)
+					const d=distance({x:e.x+e.width/2,y:e.y+e.height/2},this)-distance({x:t.x+t.width/2,y:t.y+t.height/2},this);
+					return d==0?Math.pow(-1,Math.round(Math.random())):d;
 				})[0]??area.zones[0];
-				var left=activeZone.x;
-				var right=activeZone.x+activeZone.width;
-				var bottom=activeZone.y+activeZone.height;
-				var top=activeZone.y;
-				var x=this.x+(this.radius+13)*Math.cos(this.input_angle);
-				var y=this.y+(this.radius+13)*Math.sin(this.input_angle);
-				var boundary={left,right,bottom,top,width:activeZone.width,height:activeZone.height};
-				area.entities.push(new SnowballProjectile(x,y,13,780,this.input_angle/Math.PI*180,this.area));
+				var x=this.x+(this.radius+EvadesConfig.defaults.snowball_projectile.radius)*Math.cos(this.input_angle);
+				var y=this.y+(this.radius+EvadesConfig.defaults.snowball_projectile.radius)*Math.sin(this.input_angle);
+				const projectile=new SnowballProjectile(x,y,EvadesConfig.defaults.snowball_projectile.radius,abilityConfig[ability.abilityType].speed,this.input_angle/Math.PI*180,this.area);
+				const activeZones=area.zones.filter(e=>e.type=="active");
+				projectile.z=activeZones.indexOf(activeZone);
+				area.entities.push(projectile);
 				abilityActive=false;
 				switch(kind){
 					case 1:this.firstAbilityActivated=false;break;
@@ -1280,7 +1287,7 @@ this.isGuest=!1;
 	this.abilityOne.afterStateUpdate();
 	this.abilityTwo.afterStateUpdate();
 	this.abilityThree&&this.abilityThree.afterStateUpdate();
-	  if(this.deathTimer!=-1){
+	  if(this.wasDowned){
 		  usableWhileDowned.indexOf(this.abilityOne.abilityType)==-1&&(this.firstAbilityActivated=false);
 		  usableWhileDowned.indexOf(this.abilityTwo.abilityType)==-1&&(this.secondAbilityActivated=false);
 		  usableWhileDowned.indexOf(this.abilityThree?.abilityType)==-1&&(this.thirdAbilityActivated=false);
@@ -1352,7 +1359,7 @@ this.isGuest=!1;
 				this.playerInteractions=this.interactions.length;
 			}
 		}
-		if(!this.isDowned())this.isInfected=false;
+		if(!this.wasDowned)this.isInfected=false;
 		if(this.area){
 			for(var otherplayer of map.players){
 				if(otherplayer.area==this.area&&otherplayer!=this){
@@ -1602,7 +1609,7 @@ this.isGuest=!1;
 		this.vertSpeed=-1;
 		this.magneticReduction=false;
 		this.magneticNullification=false;
-		if(!this.wasIced&&!this.isSnowballed&&!this.wasDowned){
+		if(!this.wasIced&&!this.isSnowballed&&!this.isDowned()&&!this.wasDowned){
 			this.x+=vel.x*delta/1e3;
 			this.y+=vel.y*delta/1e3;
 		}
@@ -2384,7 +2391,6 @@ class SimulatorEntity extends EvadesEntity{
     this.isHarmless=false;
     this.corrosive=false;
     this.burning=false;
-    this.t=0;
     this.healingTime=0;
     this.inFear=false;
     this.decayed=false;
@@ -2403,15 +2409,13 @@ class SimulatorEntity extends EvadesEntity{
 	this.unfreezeTimer=40e3/9;
 	this.unfreezeTimerTotal=40e3/9;
   }
+  damage(damage){}
   freeze(duration){
-	  this.frozen=true;
-	  this.frozenTime=duration;
-	  this.unfreezeTimer=0;
-  }
-  damage(x){
-	  if(this.maxHealth!=0){
-		  this.health-=x;
-	  }
+	if(!this.movement_immune){
+		this.frozen=true;
+		this.frozenTime=duration;
+		this.unfreezeTimer=0;
+	}
   }
   anglevel(){
     this.velX=Math.cos(this.angle)*this.speed;
@@ -2832,6 +2836,7 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,ignores_s
 			dead=false;
 		}
 		if(player.deathTimer==-1&&dead){
+			player.wasDowned=true;
 			death(player);
 		}
 	}
@@ -3650,11 +3655,10 @@ class LeafProjectile extends Enemy{
 class SnowballProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,area){
     super(x,y,radius,speed,angle,"snowball_projectile");
-	this.texture="entities/snowball_projectile";
 	this.showOnMap=true;
 	this.area=area;
-	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8(this.texture);
-    this.immune=true;
+	this.image=$31e8cfefa331e399$export$93e5c64e4cc246c8("entities/snowball_projectile");
+	this.immune=true;
 	this.outline=false;
 	this.clock=0;
   }
@@ -3666,7 +3670,7 @@ class SnowballProjectile extends Enemy{
 	}
   }
   update(delta){
-	this.clock+=delta;
+    this.clock+=delta;
     if(this.clock>25e3/6){
       this.remove=true;
     }

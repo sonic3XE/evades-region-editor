@@ -1881,11 +1881,26 @@ class Minimap extends EvadesEntity {
 	toggleVisibility() {
 		this.hidden = !this.hidden
 	}
-	update(e, t, n, r) {
+	update(e, t, a, r) {
 		if (this.hidden)
 			return;
-		this.entities = [...e,...t].filter(e=>e.showOnMap),
-		this.self = n,
+		const c = {}
+		  , o = Object.keys(t);
+		for (let e = 0; e < o.length; e++) {
+			const a = o[e]
+			  , r = t[a];
+			r.showOnMap && (c[a] = r)
+		}
+		const n = Object.keys(e);
+		for (let t = 0; t < n.length; t++) {
+			const a = n[t];
+			if (a in c)
+				continue;
+			const r = e[a];
+			r.showOnMap && (c[a] = r)
+		}
+		this.entities = Object.values(c),
+		this.self = a,
 		this.area = r
 	}
 	toggleMinimapMode() {
@@ -2015,7 +2030,7 @@ class Minimap extends EvadesEntity {
 			void 0 !== a.heroType && (o = !0,
 			e.strokeStyle = $01bb7fd9b3660a1e$export$71c647defb4fbd5a(a.heroType).strokeColor);
 		e.fillStyle = a.color,
-		(current_Area != a.area || a.isEnemy) && (e.globalAlpha = .5),
+		!0 !== a.fullMapOpacity && (e.globalAlpha = .5),
 		e.lineWidth = 2*camScale,
 		$f36928166e04fda7$export$2e2bcd8739ae039.arc(e, t, r, c + 2*camScale, !0, o),
 		e.globalAlpha = 1
