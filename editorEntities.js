@@ -4356,8 +4356,9 @@ class StaticEnemy extends Enemy{
 		  }
 	  }
 	  if(!player.isDowned()&&!player.invulnerable){
-	    this.x=clamp(player.x.left+this.radius.right-this.radius);
-	    this.y=clamp(player.y.top+this.radius.bottom-this.radius);
+	    this.x=player.x;
+	    this.y=player.y;
+		this.assetCollision();
 		this.iseffect=true;
 		this.speedMultiplier=0;
 	  }
