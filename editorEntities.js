@@ -147,7 +147,7 @@ function spawnEntities(area=current_Area){
 						enemyY=randomRange(min,max);
 				}else enemyY=randomRange(top+radius,bottom-radius);
 				switch(type){
-					/* 104 / 122 implemented */
+					/* 105 / 122 implemented */
 					case "aibot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`));break;
 					case "barrier":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`));break;
 					case "blocking":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`));break;
@@ -188,8 +188,9 @@ function spawnEntities(area=current_Area){
 					case "icbot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`));break;
 					case "ice_ghost":entity=new instance(enemyX,enemyY,radius,speed,angle);break;
 					case "ice_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle);break;
-					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,prop(spawner,"horizontal"));break;
+					case "icicle":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,"horizontal"));break;
 					case "immune":entity=new instance(enemyX,enemyY,radius,speed,angle);break;
+					case "infectious":entity=new instance(enemyX,enemyY,radius,speed,angle);break;
 					case "lava":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`));break;
 					case "lead_sniper":entity=new instance(enemyX,enemyY,radius,speed,angle);break;
 					case "libot":entity=new instance(enemyX,enemyY,radius,speed,angle,prop(spawner,`${type}_radius`));break;
@@ -365,11 +366,11 @@ this.snowballedTimeLeft=2500;
 this.isDeparted=false;
 this.magnetDirection="DOWN";
 this.abilityOne = new Ability;
-this.abilityTwo = new Ability;
-//this.abilityThree = new Ability;
 this.abilityOne.abilityType=this.heroType*2;
+this.abilityTwo = new Ability;
 this.abilityTwo.abilityType=this.heroType*2+1;
-//this.abilityThree.abilityType=6;
+//this.abilityThree = new Ability;
+//this.abilityThree.abilityType=8;
 this.abilityIndex=0;
 this.cachedAbilities=[];
 this.availableAbilities=[0,1,2,14,18,31,96,98];
@@ -630,8 +631,11 @@ this.isGuest=!1;
 
 	handleAbility(ability,kind=1,delta,others,force=false){
 	if(!ability)return;
+	const usableWhileDowned=[8,18];
+	ability.pellet_powered=abilityConfig[ability.abilityType].pellet_powered??false;
+	ability.maxLevel=abilityConfig[ability.abilityType].levels.length??ability.maxLevel;
 	var abilityLevels=abilityConfig[ability.abilityType]?.levels;
-	if(ability.locked||(this.deathTimer!=-1&&ability.abilityType!=18)||ability.disabled||ability.level==void 0||(!ability.continuous&&this.energy<ability.energyCost)){
+	if(ability.locked||(this.deathTimer!=-1&&usableWhileDowned.indexOf(ability.abilityType)==-1)||ability.disabled||ability.level==void 0||(!ability.continuous&&this.energy<ability.energyCost)){
 			if(kind==1)this.firstAbilityActivated=false;
 			else if(kind==2)this.secondAbilityActivated=false;
 			else if(kind==3)this.thirdAbilityActivated=false;
@@ -667,7 +671,11 @@ this.isGuest=!1;
 		abilityActive=false;
 		this.energyRate=this.energyRegen+this.regenAdditioner;
 	}
-	if(ability.cooldown<=0)ability.totalCooldown=(abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown)*(this.cooldown_reduction??1);
+	if(ability.cooldown<=0&&!ability.pellet_powered){
+		ability.totalCooldown=(abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown)*(this.cooldown_reduction??1);
+	}else if(ability.cooldown<=0&&ability.pellet_powered){
+		ability.totalCooldown=(abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown);
+	}
 	ability.total_cooldown=ability.totalCooldown;
 	switch(ability.abilityType){
 		/*case -1:{
@@ -834,6 +842,40 @@ this.isGuest=!1;
 				entity.cooldown_reduction=0.85;
 			}
 		};break;
+		case 8:{/*Resurrection*/
+			if(this.isDowned()&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				this.deathTimer=-1;
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 9:{/*Reanimate*/
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				var area=map.areas[this.area];
+				ability.projectiles=abilityLevels[ability.level-1]?.projectiles;
+				for(var i=0.5-ability.projectiles/2;i<0.5+ability.projectiles/2;i++){
+					const offset=ability.projectiles!=1&&(i*(14+ability.projectiles)/(ability.projectiles-1));
+					var x=this.x+(this.radius+EvadesConfig.defaults.reanimate_projectile.radius)*Math.cos(this.input_angle+offset*Math.PI/180);
+					var y=this.y+(this.radius+EvadesConfig.defaults.reanimate_projectile.radius)*Math.sin(this.input_angle+offset*Math.PI/180);
+					area.entities.push(new ReanimateProjectile(x,y,EvadesConfig.defaults.reanimate_projectile.radius,abilityConfig[ability.abilityType].speed,this.input_angle/Math.PI*180+offset,this.area));
+				}
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
 		case 14:{/*Night*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
@@ -998,6 +1040,7 @@ this.isGuest=!1;
 	if(this.isLead)cent=!cent;
 	cent&&=!this.harden;
     if (input.keys) {
+	const usableWhileDowned=[8,18];
 	  this.hasNoInput=false;
       this.firstAbility = false;
       this.secondAbility = false;
@@ -1233,10 +1276,14 @@ this.isGuest=!1;
 	if(this.thirdAbility&&this.abilityThree&&this.abilityThree.cooldown==0){
 		this.thirdAbilityActivated = !this.thirdAbilityActivated;
 	}
+	const usableWhileDowned=[8,18];
+	this.abilityOne.afterStateUpdate();
+	this.abilityTwo.afterStateUpdate();
+	this.abilityThree&&this.abilityThree.afterStateUpdate();
 	  if(this.deathTimer!=-1){
-		  this.abilityOne.abilityType!=18&&(this.firstAbilityActivated=false);
-		  this.abilityTwo.abilityType!=18&&(this.secondAbilityActivated=false);
-		  this.abilityThree?.abilityType!=18&&(this.thirdAbilityActivated=false);
+		  usableWhileDowned.indexOf(this.abilityOne.abilityType)==-1&&(this.firstAbilityActivated=false);
+		  usableWhileDowned.indexOf(this.abilityTwo.abilityType)==-1&&(this.secondAbilityActivated=false);
+		  usableWhileDowned.indexOf(this.abilityThree?.abilityType)==-1&&(this.thirdAbilityActivated=false);
 	  }
 	this.handleAbility(this.abilityOne,1,delta,[this.abilityTwo,this.abilityThree],this.firstAbility);
 	this.handleAbility(this.abilityTwo,2,delta,[this.abilityOne,this.abilityThree],this.secondAbility);
@@ -1258,18 +1305,18 @@ this.isGuest=!1;
 		this.chronoPos.push([this.x,this.y,this.deathTimer]);
 		this.chronoPos=this.chronoPos.slice(-Math.round(2.6e3/delta));
 		this.inBarrier = false;
-		if(this.abilityOne.cooldown!==void 0&&!this.abilityOne.pellet_powered&&!(abilityConfig[this.abilityOne.abilityType]?.pellet_powered)){
+		if(this.abilityOne.cooldown!==void 0&&!this.abilityOne.pellet_powered){
 			this.abilityOne.cooldown-=delta/1e3;
-			this.abilityOne.cooldown=Math.max(this.abilityOne.cooldown,0);
 		};
-		if(this.abilityTwo.cooldown!==void 0&&!this.abilityTwo.pellet_powered&&!(abilityConfig[this.abilityTwo.abilityType]?.pellet_powered)){
+		this.abilityOne.cooldown=Math.max(this.abilityOne.cooldown??0,0);
+		if(this.abilityTwo.cooldown!==void 0&&!this.abilityTwo.pellet_powered){
 			this.abilityTwo.cooldown-=delta/1e3;
-			this.abilityTwo.cooldown=Math.max(this.abilityTwo.cooldown,0);
 		};
-		if(this.abilityThree&&this.abilityThree.cooldown!==void 0&&!this.abilityThree.pellet_powered&&!(abilityConfig[this.abilityThree.abilityType]?.pellet_powered)){
+		this.abilityTwo.cooldown=Math.max(this.abilityTwo.cooldown??0,0);
+		if(this.abilityThree&&this.abilityThree.cooldown!==void 0&&!this.abilityThree.pellet_powered){
 			this.abilityThree.cooldown-=delta/1e3;
-			this.abilityThree.cooldown=Math.max(this.abilityThree.cooldown,0);
 		};
+		this.abilityThree&&(this.abilityThree.cooldown=Math.max(this.abilityThree.cooldown??0,0));
 		if(this.noCooldown){
 			this.abilityOne.cooldown=0;
 			this.abilityTwo.cooldown=0;
@@ -1305,6 +1352,7 @@ this.isGuest=!1;
 				this.playerInteractions=this.interactions.length;
 			}
 		}
+		if(!this.isDowned())this.isInfected=false;
 		if(this.area){
 			for(var otherplayer of map.players){
 				if(otherplayer.area==this.area&&otherplayer!=this){
@@ -1486,11 +1534,13 @@ this.isGuest=!1;
 			this.d_y=0;
 			this.distance_moved_previously=[0,0];
 		}
+		const revivalAbilities=[8];
 		if(this.cybotEffect3)
 			this.deathTimerTotalMultiplier=5/6*this.effectImmune;
-		this.abilityOne.disabled=this.disabling||this.isSnowballed;
-		this.abilityTwo.disabled=this.disabling||this.isSnowballed;
-		this.abilityThree && (this.abilityThree.disabled=this.disabling||this.isSnowballed);
+		this.abilityOne.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityOne.abilityType)!=-1&&this.isInfected);
+		this.abilityTwo.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityTwo.abilityType)!=-1&&this.isInfected);
+		if(this.abilityThree)
+			this.abilityThree.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityThree.abilityType)!=-1&&this.isInfected);
 		this.canGainEnergy=!this.isStone;
 		this.invulnerable=this.harden+this.isStone+this.inBarrier;
 		this.canGainEnergy && (this.energy+=this.energyRate*delta/1e3);
@@ -1552,10 +1602,11 @@ this.isGuest=!1;
 		this.vertSpeed=-1;
 		this.magneticReduction=false;
 		this.magneticNullification=false;
-		if(!this.wasIced&&!this.isSnowballed&&!this.isDowned()){
+		if(!this.wasIced&&!this.isSnowballed&&!this.wasDowned){
 			this.x+=vel.x*delta/1e3;
 			this.y+=vel.y*delta/1e3;
 		}
+		this.wasDowned=this.isDowned();
 		this.speedMultiplier=1;
 		this.speedAdditioner=0;
 		this.regenAdditioner=0;
@@ -2859,6 +2910,12 @@ class Pellet extends SimulatorEntity{
 		const randZone=this.pellet_zones[areaOfZone.map(e=>(Math.random()*sum<e)).indexOf(true)];
 		this.x=randZone.x+randomRange(this.radius,randZone.width-this.radius);
 		this.y=randZone.y+randomRange(this.radius,randZone.height-this.radius);
+		if(player.abilityOne.pellet_powered)
+			player.abilityOne.cooldown-=map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier;
+		if(player.abilityTwo.pellet_powered)
+			player.abilityTwo.cooldown-=map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier;
+		if(player.abilityThree?.pellet_powered)
+			player.abilityThree.cooldown-=map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier;
 		player.updateExp(Math.floor(1+player.area/3)*(map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier));
 	}
 	calculateExperience(HeroLevel){
@@ -3520,6 +3577,15 @@ class WallEnemy extends Enemy{
     this.velY=speedparts(this.direction,this.speed).y;
   }
 }
+class InfectiousEnemy extends Enemy{
+	constructor(x,y,radius,speed,angle){
+		super(x,y,radius,speed,angle,"infectious_enemy");
+	}
+	playerInteraction(player,delta){
+		player.isInfected=true; // Disables revival abilities
+		super.playerInteraction(player,delta);
+	}
+}
 class NormalEnemy extends Enemy{
   constructor(x,y,radius,speed,angle){
     super(x,y,radius,speed,angle,"normal_enemy");
@@ -3603,6 +3669,29 @@ class SnowballProjectile extends Enemy{
     if(this.clock>25e3/6){
       this.remove=true;
     }
+	super.update(delta);
+  }
+}
+class ReanimateProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,area){
+    super(x,y,radius,speed,angle,"reanimate_projectile");
+	this.showOnMap=true;
+	this.area=area;
+    this.immune=true;
+	this.outline=false;
+	this.pixelsTraveled=0;
+  }
+  onCollide(){
+	  this.remove=true;
+  }
+  playerInteraction(player){
+	if(player.isDowned())
+		player.deathTimer=-1;
+  }
+  update(delta){
+	this.pixelsTraveled+=this.speed*delta/1e3;
+    if(this.pixelsTraveled>=1280)
+      this.remove=true;
 	super.update(delta);
   }
 }
@@ -5128,8 +5217,12 @@ class CyclingEnemy extends Enemy{
   }
 }
 class IcicleEnemy extends Enemy{
-  constructor(x,y,radius,speed,horizontal){
-    super(x,y,radius,speed,Math.round(Math.random())*180+90*!horizontal,"icicle_enemy");
+  constructor(x,y,radius,speed,angle,horizontal){
+    super(x,y,radius,speed,angle,"icicle_enemy");
+	if(angle==void 0){
+		this.angle=Math.round(Math.random())*180+90*!horizontal;
+		this.anglevel();
+	}
     this.clock = 0;
 	this.wallHit=false;
   }
@@ -6832,7 +6925,7 @@ class WabotEnemy extends Enemy{
 			if(this.enemy_spawns<this.enemy_spawn_limit){
 				area.entities.push(new LiquidEnemy(this.x,this.y,18,90,void 0,defaultValues.spawner.player_detection_radius))
 				area.entities.push(new FreezingEnemy(this.x,this.y,3,300,void 0,defaultValues.spawner.freezing_radius))
-				area.entities.push(new IcicleEnemy(this.x,this.y,30,360,defaultValues.spawner.horizontal))
+				area.entities.push(new IcicleEnemy(this.x,this.y,30,360,void 0,defaultValues.spawner.horizontal))
 				area.entities.push(new SnowmanEnemy(this.x,this.y,15,360,void 0))
 				area.entities.map(e=>[void 0==e.area&&(e.area=this.area,e.z=this.z)]);
 				this.enemy_spawns+=4;

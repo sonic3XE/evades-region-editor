@@ -591,9 +591,6 @@ function Playtest(e){
 		selfPlayer=new Player(safezone.x+16+(safezone.width-32)*Math.random(),safezone.y+16+(safezone.height-32)*Math.random(),settings.heroType),
 		global.selfId=selfPlayer.id,
 		map.players.push(selfPlayer),
-		selfPlayer.abilityOne.afterStateUpdate(abilityConfig[selfPlayer.abilityOne.abilityType]),
-		selfPlayer.abilityTwo.afterStateUpdate(abilityConfig[selfPlayer.abilityTwo.abilityType]),
-		selfPlayer.abilityThree&&selfPlayer.abilityThree.afterStateUpdate(abilityConfig[selfPlayer.abilityThree.abilityType]),
 		spawnEntities(selfPlayer.area);
 }
 resizemenu.addEventListener("mousedown",_=>(resizing=true));
