@@ -140,7 +140,7 @@ function spawnEntities(area=current_Area){
 						min=parseInt(angle.split(",")[0]),
 						max=parseInt(angle.split(",")[1]),
 						angle=randomRange(min,max);
-				}else angle=randomRange(0,360);
+				};
 				if(void 0!==enemyX){
 					if(String(enemyX).split(",").length>1)
 						min=parseInt(enemyX.split(",")[0]),
@@ -7960,6 +7960,7 @@ class CybotEnemy extends Enemy{
 		this.can_spawn_ring_snipers=false;
 		this.can_remove_ring_projectiles=true;
 		this.ring_sniper_count=0;
+		this.boss_radius=cybot_radius;
 		this.ring_projectiles=[];
 		this.effects.push({radius:1,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Cybot"})[0])})
 		this.effects.push({radius:cybot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
