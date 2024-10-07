@@ -7937,8 +7937,8 @@ class PlbotEnemy extends Enemy{
 		super.update(delta,area);
 	}
 }
-class CybotEnemy extends Enemy{//Crashes when 3rd phase started
-	constructor(x,y,radius,speed,angle,cybot_radius=180,hard_mode=false){
+class CybotEnemy extends Enemy{
+	constructor(x,y,radius,speed,angle,cybot_radius,hard_mode){
 		super(x,y,radius,speed,angle,"cybot_enemy");
 		this.maxHealth=900;
 		this.health=this.maxHealth;
@@ -7961,7 +7961,6 @@ class CybotEnemy extends Enemy{//Crashes when 3rd phase started
 		this.can_remove_ring_projectiles=true;
 		this.ring_sniper_count=0;
 		this.ring_projectiles=[];
-		this.boss_radius=cybot_radius
 		this.effects.push({radius:1,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Cybot"})[0])})
 		this.effects.push({radius:cybot_radius,effectType:effectConfig.indexOf(effectConfig.filter(e=>{return e.name=="Enemy Boss"})[0])})
 		if(this.hard_mode){
@@ -7976,10 +7975,12 @@ class CybotEnemy extends Enemy{//Crashes when 3rd phase started
 			this.x=this.initialX;
 			this.y=this.initialY;
 			this.immune=true;
+			this.gainedImmunity=true;
 			this.speedMultiplier=0;
 		}else{
 			if(this.health>=this.maxHealth*0.3){
 				this.immune=false;
+				this.gainedImmunity=false;
 			}
 		}
 		for(let effect of this.effects){
@@ -8077,6 +8078,7 @@ class CybotEnemy extends Enemy{//Crashes when 3rd phase started
 			if(map.players.filter(e=>!e.isDowned()).length)
 				this.health-=5.4/1e3*delta;
 			this.immune=true;
+			this.gainedImmunity=true;
 			this.speedMultiplier=0;
 			this.x=this.initialX;
 			this.y=this.initialY;
