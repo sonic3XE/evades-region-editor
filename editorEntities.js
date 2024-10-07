@@ -1261,6 +1261,29 @@ this.isGuest=!1;
 	distance(a,b){
                   return Math.sqrt((a.x-b.x)**2+(a.y-b.y)**2)
                 }
+	reset(){
+		this.level=1;
+		this.upgradePoints=0;
+		this.energy=30;
+		this.maxEnergy=30;
+		this.energyRegen=1;
+		this.speed=150;
+		this.experience=0;
+		this.previousLevelExperience=0;
+		this.nextLevelExperience=4;
+		this.tempPrevExperience=0;
+		this.tempNextExperience=4;
+		this.abilityOne = new Ability;
+		this.abilityOne.abilityType=this.heroType*2;
+		this.abilityTwo = new Ability;
+		this.abilityTwo.abilityType=this.heroType*2+1;
+		this.effects=[];
+		if(this.abilityThree){
+			var type=this.abilityThree.abilityType;
+			this.abilityThree = new Ability;
+			this.abilityThree.abilityType=type;
+		}
+	}
 	update(delta){
 		this.isLocalPlayer=this.id==selfId;
 		if(this.hasNoInput)this.controlActions({keys:new Set()},delta);
@@ -1283,6 +1306,16 @@ this.isGuest=!1;
 	if(this.thirdAbility&&this.abilityThree&&this.abilityThree.cooldown==0){
 		this.thirdAbilityActivated = !this.thirdAbilityActivated;
 	}
+	if(this.cybotEffect==1){
+		this.reset(),
+		this.abilityThree?.abilityType==56&&(this.abilityThree.level=1,this.abilityThree.locked=false);
+	}
+	if(this.cybotEffect==2)
+		this.effectImmune=1+0.5*this.effectImmune;
+	if(this.cybotEffect==3)
+		this.deathTimerTotalMultiplier=5/6*this.effectImmune;
+	else this.deathTimerTotalMultiplier=0;
+	
 	const usableWhileDowned=[8,18];
 	this.abilityOne.afterStateUpdate();
 	this.abilityTwo.afterStateUpdate();
@@ -1542,8 +1575,6 @@ this.isGuest=!1;
 			this.distance_moved_previously=[0,0];
 		}
 		const revivalAbilities=[8];
-		if(this.cybotEffect3)
-			this.deathTimerTotalMultiplier=5/6*this.effectImmune;
 		this.abilityOne.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityOne.abilityType)!=-1&&this.isInfected);
 		this.abilityTwo.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityTwo.abilityType)!=-1&&this.isInfected);
 		if(this.abilityThree)
@@ -1596,10 +1627,11 @@ this.isGuest=!1;
 			this.inEnemyBarrier=false;
 			this.slippery=false;
 			this.disabling=false;
-			this.cybotEffect3=false;
+			this.cybotEffect=0;
 		}
 		this.blocking=false;
 		this.tempColor=this.color;
+		this.effectImmune=1;
 		var vel,isMagnet=checkAreaProperties("partial_magnetism")||checkAreaProperties("magnetism"),isPartial=checkAreaProperties("partial_magnetism"),magneticSpeed=(this.vertSpeed==-1)?((isPartial?(this.speed/2):300)/(this.magneticReduction+1)*(!this.magneticNullification)):this.vertSpeed;
 		var yaxis=(this.velY>=0)?1:-1;
 		if(!isMagnet)magneticSpeed*=yaxis;
@@ -2474,15 +2506,11 @@ class SimulatorEntity extends EvadesEntity{
 				player.magneticNullification=true;
 			if(effect.effectType==56)
 				player.lava=true;
-			if(effect.effectType==57&&!(player.effectImmune==1||player.admin))
-				if(this.health>=this.maxHealth*0.98)
-					player.cybotEffect1=true;
-					//player.reset(),player.abilityThree&&(player.abilityThree.level=1,player.abilityThree.locked=false)
-				else if(this.health>=this.maxHealth*0.3)
-					player.cybotEffect2=true;
-					//effects_reduction=-0.5*(1-player.get_effects_reduction())
-				else
-					player.cybotEffect3=true;
+			if(effect.effectType==57&&!(player.effectImmune==0||player.admin)){
+				if(this.health>=this.maxHealth*0.98)player.cybotEffect=1;
+				else if(this.health>=this.maxHealth*0.3)player.cybotEffect=2;
+				else player.cybotEffect=3;
+			}
 			if(effect.effectType==58)
 				void null;
 			if(effect.effectType==59)
