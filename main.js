@@ -1132,7 +1132,6 @@ loadFile("\n  name: First Map\n  properties:\n    friction: 0.75\n    background
 })();
 settings.realTime && (
 	customAlert("WARNING: The simulator will crash when dabot, elbot, and libot enemies shoot its enemies or projectiles.",10,"#FF0"),
-	customAlert("Cybot enemy can also crash the simulator when it enters phase 3.",10,"#FF0"),
 	customAlert("You can disable update area in real time in settings to prevent crashes like that. :D",10,"#FF0"),
 	customAlert("Also, please don't playtest (F4) at the area with entity crashers.",10,"#FF0")
 );
@@ -1278,6 +1277,6 @@ function rungame(){
 [...document.querySelectorAll("script")].map(e=>e.remove());global.selfId=null;
 animate(function run(e){
 	rungame(e);
-	render();
+	(settings.legacy30FPS?(ti[0]==0):!0)&&render();
 	animate(run);
 });
