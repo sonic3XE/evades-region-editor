@@ -8104,7 +8104,7 @@ class CybotEnemy extends Enemy{
 				entity.cannot_leave_area=false;
 			}
 			for(let ring of this.ring_projectiles){
-				ring.removed=true;
+				ring.remove=true;
 			}
 			this.health=-1;
 			this.remove=true;
