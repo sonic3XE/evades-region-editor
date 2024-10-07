@@ -3582,7 +3582,8 @@ class InfectiousEnemy extends Enemy{
 		super(x,y,radius,speed,angle,"infectious_enemy");
 	}
 	playerInteraction(player,delta){
-		player.isInfected=true; // Disables revival abilities
+		if(!player.isDowned())
+			player.isInfected=true; // Disables revival abilities upon contacting this entity.
 		super.playerInteraction(player,delta);
 	}
 }
