@@ -5365,7 +5365,7 @@ class RingSniperEnemy extends Enemy{
   }
   reset_parameters(){
 	this.has_projectiles=true;
-    this.release_interval=5000;
+	this.release_interval=5000;
 	this.releaseTime=Math.random()*this.release_interval;
 	this.release_ready=false;
   }
@@ -8156,6 +8156,7 @@ class CybotEnemy extends Enemy{
 					let ring_sniper_positions=[[-528,-528],[-528,538],[528,-528],[528,538]];
 					for(let pos of ring_sniper_positions){
 						let ring_sniper=new RingSniperEnemy(this.x+pos[0],this.y+pos[1],24,0,0,this,defaultValues.spawner.health,defaultValues.spawner.ring_sniper_radius)
+						ring_sniper.z=this.z;
 						ring_sniper.area=this.area;
 						area.entities.push(ring_sniper);
 						this.ring_sniper_count+=1;
@@ -8169,10 +8170,12 @@ class CybotEnemy extends Enemy{
 				this.release_interval=200;
 				if(this.hard_mode){
 					let ring_sniper_projectile=new CybotRingProjectile(this.x,this.y,EvadesConfig.defaults.cybot_ring_projectile.radius,EvadesConfig.defaults.cybot_ring_projectile.speed,this.target_angle);
-					area.entities.push(ring_sniper_projectile)
+					ring_sniper_projectile.z=this.z;
+					area.entities.push(ring_sniper_projectile);
 					this.ring_projectiles.push(ring_sniper_projectile);
 					this.target_angle+=130;
 					ring_sniper_projectile=new CybotRingProjectile(this.x,this.y,EvadesConfig.defaults.cybot_ring_projectile.radius,EvadesConfig.defaults.cybot_ring_projectile.speed,this.target_angle);
+					ring_sniper_projectile.z=this.z;
 					area.entities.push(ring_sniper_projectile)
 					this.ring_projectiles.push(ring_sniper_projectile);
 					this.enemy_spawns+=2;
