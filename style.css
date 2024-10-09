@@ -270,6 +270,7 @@ body {
 	max-width: 35px;
     padding: 5px;
     display: flex;
+    -ms-flex-direction: column;
     flex-direction: column;
     background: #00000080;
 }
@@ -484,65 +485,48 @@ body {
 *[hidden]{
   visibility: hidden;
 }
-#regionProp,#areaProp {
-display: block;
-    position: absolute;
-  margin:0;
-    user-select: none;
-  max-height:250px;
-  overflow:auto;
-    background: #00000080;
-    padding: 10px;
-  border-radius:10px;
-  border:2px #000000 solid;
-}
 #tip>table{width:100%}
 #tip {
-  width:416px;
-    position: absolute;
+	width:416px;
+	position: absolute;
 	max-height:200px;
 	overflow-y:auto;
 	overflow-x:hidden;
-  margin:0;
-    user-select: none;
-    background: #2f3ab0dd;
-    padding: 10px;
-  border-radius:10px;
-  border:2px #2f3ab0 solid;
+	margin:0;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background: #2f3ab0dd;
+	padding: 10px;
+	border-radius:10px;
+	border:2px #2f3ab0 solid;
 }
-#extensionPage {
-display: grid;
-grid-column-gap: 0px;
-grid-row-gap: 0px;
-  width:350px;
-    position: absolute;
-  margin:0;
+#extensionPage{
+	display: -ms-grid;
+	display: grid;
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+	width:350px;
+	position: absolute;
+	margin:0;
+	-webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
-    background: #2f3ab0dd;
-    padding: 10px;
-  border-radius:10px;
-  align-items: center;justify-items: center;justify-content: center;align-content: center;
-  border:2px #2f3ab0 solid;
+	background: #2f3ab0dd;
+	padding: 10px;
+	border-radius:10px;
+	align-items: center;
+	justify-items: center;
+	justify-content: center;
+	align-content: center;
+	border:2px #2f3ab0 solid;
 }
-.settings-launcher {
+.settings-launcher{
 	cursor: pointer;
-  position:absolute;
+	position:absolute;
 	bottom: 6px;
 	right: 52px;
 }
-.regional {
-  cursor: pointer;
-  position:absolute;
-  bottom: 6px;
-  right: 90px;
-}
-.areas {
-  cursor: pointer;
-  position:absolute;
-  bottom: 6px;
-  right: 250px;
-}
-
 .settings-launcher img {
 	width: 32px;
 	height: 32px
@@ -554,7 +538,10 @@ grid-row-gap: 0px;
     position: absolute;
     top: 200px;
     left: 0px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
+
     background: #00000080;
     padding: 5px 10px;
 }
@@ -592,6 +579,7 @@ grid-row-gap: 0px;
 #objectActions {
     border-bottom: 1px solid #404040;
     display: flex;
+    -ms-flex-direction: column;
     flex-direction: column;
 }
 #objectActions.hidden {
@@ -692,6 +680,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 #menu {
@@ -704,7 +693,10 @@ input[type=number] {
     max-height: 500px;
     margin: 0;
     padding: 0;
+    -webkit-user-select: none;
+    -ms-user-select: none;
     user-select: none;
+
     transition: transform 0.4s;
 }
 #menu.hidden {
