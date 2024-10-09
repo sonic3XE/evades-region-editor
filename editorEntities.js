@@ -2411,7 +2411,7 @@ function rectCircleCollision(cx, cy, cr, x, y, width, height) {
   var dy=(cy-ty);
 const dist=Math.sqrt(dx**2+dy**2);
   var e={}
-  e.c=dist < cr;
+  e.c=dist <= cr;
   e.ax=Math.abs(dx);
   e.ay=Math.abs(dy);
   e.x=dx;
