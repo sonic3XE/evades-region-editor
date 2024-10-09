@@ -267,6 +267,7 @@ function spawnEntities(area=current_Area){
 							map.unknownEntities.push(type),
 							customAlert(`Unknown EvadesClassic entity in ${map.name}: ${capitalize(type).replace("Fake","")}Enemy`,10,"#FF0"),
 							customAlert(`Error - ${capitalize(type).replace("Fake","")}Enemy class not found. Default enemy behavior (NormalEnemy) is applied.`,10,"#F00");
+						if(EvadesClassicEnemyList.indexOf(type)!=-1)throw"User sonic3XE has no access to Spacebrook/EvadesClassic github source code.";
 					}
 				};
 				entity??=new Enemy(enemyX,enemyY,radius,speed,angle,type+"_enemy");
@@ -378,10 +379,8 @@ this.abilityOne.abilityType=this.heroType*2;
 this.abilityTwo = new Ability;
 this.abilityTwo.abilityType=this.heroType*2+1;
 //this.abilityThree = new Ability;
-//this.abilityThree.abilityType=97;
+//this.abilityThree.abilityType=4;
 this.abilityIndex=0;
-this.cachedAbilities=[];
-this.availableAbilities=[0,1,2,3,8,9,14,18,31,97,98,99];
 this.harden = false;
 this.flow = false;
 this.isBandaged=false;
@@ -821,6 +820,27 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
+		case 4:{/*Reverse*/
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				var area=map.areas[this.area];
+				ability.projectiles=abilityLevels[ability.level-1]?.projectiles;
+				for(var i=0.5-ability.projectiles/2;i<0.5+ability.projectiles/2;i++){
+					const offset=ability.projectiles!=1&&(i*(3+12*ability.projectiles)/(ability.projectiles-1));
+					var x=this.x+(this.radius+EvadesConfig.defaults.reverse_projectile.radius)*Math.cos(this.input_angle+offset*Math.PI/180);
+					var y=this.y+(this.radius+EvadesConfig.defaults.reverse_projectile.radius)*Math.sin(this.input_angle+offset*Math.PI/180);
+					area.entities.push(new ReverseProjectile(x,y,EvadesConfig.defaults.reverse_projectile.radius,abilityConfig[ability.abilityType].speed,this.input_angle/Math.PI*180+offset,this.area));
+				}
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
 		case 6:{/*Distort*/
 			if(ability.continuous&&abilityActive&&ability.cooldown==0){
 				var radius=abilityLevels[ability.level-1]?.radius??abilityConfig[ability.abilityType].radius;
@@ -1029,6 +1049,7 @@ this.isGuest=!1;
 				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
 			}
 		};break;
+		default:throw"User sonic3XE has no access to Spacebrook/EvadesClassic github source code.";
 	}
 	}
   isMovementKeyPressed(input){
@@ -2436,6 +2457,7 @@ class SimulatorEntity extends EvadesEntity{
 	this.maxEnergy=this.energy;
     this.ogradius=this.radius;
     this.radiusMultiplier=1;
+    this.radiusMultiplierEffects=[];
     this.speedMultiplier=1;
 	this.speedMultiplierEffects=[];
 	this.unfreezeTimer=40e3/9;
@@ -2537,7 +2559,7 @@ class SimulatorEntity extends EvadesEntity{
     this.angle=Math.atan2(this.velY,this.velX);
   }
   update(delta,area,collide=true){
-	if(this.health <= 0 && this.maxHealth != 0)this.remove=true;
+	if(this.healingTime>0)this.healingTime-=delta;
 	this.radius=this.ogradius*this.radiusMultiplier;
 	this.radiusMultiplier=1;
     this.x+=this.velX*this.speedMultiplier*delta/1e3;
@@ -2547,7 +2569,7 @@ class SimulatorEntity extends EvadesEntity{
   }
   collision(delta,collide=true){
 	if(this.harmlessTime>0)this.harmlessTime-=delta;
-	if(this.harmlessTime<=0&&!this.disabled)this.isHarmless=this.switchedHarmless;
+	if(this.harmlessTime<=0&&!this.disabled)this.isHarmless=this.switchedHarmless||(this.healingTime>0);
 	if(this.frozenTime>0){
 	  this.frozenTime-=delta;
 	  this.speedMultiplier=0;
@@ -2555,13 +2577,18 @@ class SimulatorEntity extends EvadesEntity{
 	  this.frozen=false;
 	  this.speedMultiplierEffects.push({type:"freeze",time:0})
 	};
+	if(this.minimizeTime>0){
+		this.radiusMultiplier*=0.5;
+	}else{
+		//Ain't no way to implement this return to original stat because i dont have access to EvadesClassic source code.
+	}
 	this.speedMultiplierEffects.map(e=>{
 		e.time+=delta;
 		this.speedMultiplier*=e.time/(40e3/9);
 	});
 	this.speedMultiplierEffects=this.speedMultiplierEffects.filter(e=>{
 		return e.time < 40e3/9;
-	})
+	});
 	if(collide){
 		let collided=false;
 		if(this.assetCollision())collided=true;
@@ -2840,6 +2867,10 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,ignores_s
 	if(harmless===undefined){
 		harmless=enemy.isHarmless;
 	}
+	var heal;
+	if(enemy.healingTime>0){
+		heal=true;
+	}
 	if(ignores_safe_zone||!player.safeZone){
 		if(player.nightActivated&&!immune&&!enemy.isHarmless){
 			player.nightActivated=false;
@@ -2863,7 +2894,9 @@ function EnemyPlayerInteraction(player,enemy,corrosive,harmless,immune,ignores_s
 		if((player.invulnerable&&!corrosive)||harmless||enemy.radius<1){
 			dead=false;
 		}
-		if(player.deathTimer==-1&&dead){
+		if(player.isDowned()&&heal&&!dead)
+			player.deathTimer=-1;
+		if(player.deathTimer==-1&&dead&&!heal){
 			player.wasDowned=true;
 			death(player);
 		}
@@ -3724,6 +3757,40 @@ class ReanimateProjectile extends Enemy{
   update(delta){
 	this.pixelsTraveled+=this.speed*delta/1e3;
     if(this.pixelsTraveled>=1280)
+      this.remove=true;
+	super.update(delta);
+  }
+}
+class ReverseProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,area,owner){
+    super(x,y,radius,speed,angle,"reverse_projectile");
+	this.showOnMap=true;
+	this.area=area;
+	this.owner=owner;
+    this.immune=true;
+	this.outline=false;
+	this.touchedEntities=[];
+	this.pixelsTraveled=0;
+  }
+  update(delta,area){
+	for(const entity of area.entities){
+		if(entity.immune||!(entity instanceof Enemy))continue;
+		if(distance(this,entity)<this.radius+entity.radius&&this.touchedEntities.indexOf(entity)==-1){
+			if(!entity.healingTime || entity.healingTime<3700){
+				area.entities.filter(e=>(e.owner==this.owner && e instanceof ReverseProjectile)).map(e=>this.touchedEntities.push(entity));
+				if(!entity.movement_immune){
+					entity.velX*=-1;
+					entity.velY*=-1;
+					entity.velangle();
+					entity.target_angle=entity.angle;
+				}
+				entity.healingTime=4e3;
+				entity.isHarmless=true;
+			}
+		}
+	}
+	this.pixelsTraveled+=this.speed*delta/1e3;
+    if(this.pixelsTraveled>=352)
       this.remove=true;
 	super.update(delta);
   }
@@ -4653,7 +4720,6 @@ class CrumblingEnemy extends Enemy{
 	  if(!this.hasCollided){
 		this.hasCollided=true;
 		this.crumbleSize=0.5;
-		this.speedGainTimer=20e3/9;
 		var residue=new ResidueEnemy(this.x,this.y,this.ogradius/3,this.speed/6.25,Math.random()*360);
 		this.radiusMultiplier*=this.crumbleSize;
 		this.speedMultiplier/=2;
@@ -4666,6 +4732,7 @@ class CrumblingEnemy extends Enemy{
 		this.speedMultiplier*=0.5;
 	}
 	if(this.collideTime>=3e3&&this.hasCollided){
+		throw "User sonic3XE has no access to Spacebrook/EvadesClassic github source code.";
 		this.hasCollided=false;
 		this.collideTime=0;//67 frames to go back to original size in 30fps
 	};
@@ -5252,11 +5319,7 @@ class CyclingEnemy extends Enemy{
 }
 class IcicleEnemy extends Enemy{
   constructor(x,y,radius,speed,angle,horizontal){
-    super(x,y,radius,speed,angle,"icicle_enemy");
-	if(angle==void 0){
-		this.angle=Math.round(Math.random())*180+90*!horizontal;
-		this.anglevel();
-	}
+    super(x,y,radius,speed,angle==void 0?Math.round(Math.random())*180+90*!horizontal:angle,"icicle_enemy");
     this.clock = 0;
 	this.wallHit=false;
   }
@@ -5499,6 +5562,11 @@ class CybotRingProjectile extends Enemy{
 	this.corrosive=true;
 	this.isEnemy=false;
   }
+	playerInteraction(player,delta){
+		if(!player.isDowned())
+			player.isInfected=true; // Disables revival abilities upon contacting this entity.
+		super.playerInteraction(player,delta);
+	}
   render(e, t) {
     const defaultLine=e.lineWidth;
     e.beginPath(),
@@ -6743,12 +6811,17 @@ class LungingEnemy extends Enemy{
 class StalactiteEnemy extends Enemy {
   constructor(x,y,radius,speed,angle){
     super(x,y,radius,speed,angle,"stalactite_enemy");
-    this.hasCollided = false;
-    this.collideTime = 0;
+    this.hasCollided=false;
+    this.collideTime=0;
   }
   update(delta, area) {
-    if (this.hasCollided){
-      !this.collideTime && map.areas[current_Area].entities.push(new StalactiteEnemyProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.stalactite_enemy_projectile.speed,void 0));
+	if(this.hasCollided){
+		let projectile;
+		!this.collideTime&&(
+			projectile=new StalactiteEnemyProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.stalactite_enemy_projectile.speed,void 0),
+			projectile.area=this.area,
+			projectile.z=this.z
+		);
       this.collideTime += delta;
       if (this.collideTime > 500) {
         this.hasCollided = false;
