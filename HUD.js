@@ -2317,7 +2317,7 @@ function $31e8cfefa331e399$export$93e5c64e4cc246c8(e) {
 }
 function $31e8cfefa331e399$var$loadPackedTexture(e, t) {
 	const a = new Image;
-	a.src = "packed-texture-0.webp",
+	a.src = "./packed-texture-0.webp",
 	a.onload = () => {
 		assetsLoaded.count++;
 		for (const [t,r] of Object.entries(e.frames)) {
