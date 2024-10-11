@@ -28,6 +28,8 @@ function addRow(name, url, isdir,
   var link = document.createElement("a");
 
   link.className = isdir ? "icon dir" : "icon file";
+  const fileExtension=name.split(".")[name.split(".").length-1];
+  (fileExtension.toLowerCase()=="yaml"||fileExtension.toLowerCase()=="yml")&&(link.className+=" yaml",name=name.slice(0,-fileExtension.length-1));
 
   if (isdir) {
     name = name + "/";
@@ -178,6 +180,10 @@ window.addEventListener('DOMContentLoaded', onLoad);
 
   a.file {
     background : url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAABnRSTlMAAAAAAABupgeRAAABEElEQVR42nRRx3HDMBC846AHZ7sP54BmWAyrsP588qnwlhqw/k4v5ZwWxM1hzmGRgV1cYqrRarXoH2w2m6qqiqKIR6cPtzc3xMSML2Te7XZZlnW7Pe/91/dX47WRBHuA9oyGmRknzGDjab1ePzw8bLfb6WRalmW4ip9FDVpYSWZgOp12Oh3nXJ7nxoJSGEciteP9y+fH52q1euv38WosqA6T2gGOT44vry7BEQtJkMAMMpa6JagAMcUfWYa4hkkzAc7fFlSjwqCoOUYAF5RjHZPVCFBOtSBGfgUDji3c3jpibeEMQhIMh8NwshqyRsBJgvF4jMs/YlVR5KhgNpuBLzk0OcUiR3CMhcPaOzsZiAAA/AjmaB3WZIkAAAAASUVORK5CYII=") left top no-repeat;
+  }
+
+  a.file.yaml {
+    background : url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNDcwLjY0NyI+PHBvbHlnb24gcG9pbnRzPSIyMzUuNzkzIDAgMTQzLjk3OCAxMzcuNjc0IDE0My45NzggMjI0Ljk0OSA4Ny43MDIgMjI0Ljk0OSA4Ny43MDIgMTM3LjY3NCAwIDAgNjMuMjUgMCAxMTkuMDE4IDg4LjY0NiAxNzUuMjQzIDAgMjM1Ljc5MyAwIDIzNS43OTMgMCIvPjxwYXRoIGZpbGw9IiNjYjE3MWUiIGQ9Ik0zMzAuMjk0LDE3NS40NTFoLTEwMS44NjFsLTIwLjcxNyw1MC4wMjRoLTQ1LjEwNmw5NS4zOCwtMjI0Ljk0OWg0Ni4xMzdsOTEuNTEsMjI0Ljk0OWgtNDguMmwtMTcuMTQ0LC01MC4wMjR6bS0xNi45MiwtNDQuOTExbC0zMS4yMjYsLTgyLjU1bC0zNC44MzcsODIuNTVoNjYuMDYzeiIvPjxwb2x5Z29uIHBvaW50cz0iODcuNzAxIDI1MC4xNzcgODcuNzAxIDQ3MC42NDcgMTM1LjAwNCA0NzAuNjQ3IDEzNS4wMDQgMzE4LjU2OSAxODQuNTA5IDQyMC43ODkgMjIxLjc0MyA0MjAuNzg5IDI3Mi45MzkgMzE0Ljk3NiAyNzIuOTM5IDQ3MC42MDIgMzE4LjMxOCA0NzAuNjAyIDMxOC4zMTggMjUwLjE3NyAyNTYuMzU4IDI1MC4xNzcgMjAxLjM4MSAzNDkuODgzIDE0OS4wMjEgMjUwLjE3NyA4Ny43MDEgMjUwLjE3NyA4Ny43MDEgMjUwLjE3NyIvPjxwb2x5Z29uIHBvaW50cz0iNTEyIDQyMi43MzUgMzk1LjYzOCA0MjIuNzM1IDM5NS42MzggMjUwLjEyNSAzNDcuNDQyIDI1MC4xMjUgMzQ3LjQ0MiA0NjkuNjQ3IDUxMiA0NjkuNjQ3IDUxMiA0MjIuNzM3IDUxMiA0MjIuNzM1Ii8+PC9zdmc+") left top no-repeat;
   }
 
   a.dir {
