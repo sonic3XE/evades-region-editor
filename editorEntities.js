@@ -267,7 +267,7 @@ function spawnEntities(area=current_Area){
 							map.unknownEntities.push(type),
 							customAlert(`Unknown EvadesClassic entity in ${map.name}: ${capitalize(type).replace("Fake","")}Enemy`,10,"#FF0"),
 							customAlert(`Error - ${capitalize(type).replace("Fake","")}Enemy class not found. Default enemy behavior (NormalEnemy) is applied.`,10,"#F00");
-						if(EvadesClassicEnemyList.indexOf(type)!=-1)throw"User sonic3XE has no access to Spacebrook/EvadesClassic github source code.";
+						if(EvadesClassicEnemyList.indexOf(type)!=-1&&!playtesting)throw`[server/src/game/entities/enemies/${type}_enemy.py] User sonic3XE has no access to Spacebrook/EvadesClassic github source code.`;
 					}
 				};
 				entity??=new Enemy(enemyX,enemyY,radius,speed,angle,type+"_enemy");
@@ -4722,6 +4722,8 @@ class CrumblingEnemy extends Enemy{
 		this.hasCollided=true;
 		this.crumbleSize=0.5;
 		var residue=new ResidueEnemy(this.x,this.y,this.ogradius/3,this.speed/6.25,Math.random()*360);
+		residue.area=this.area;
+		residue.z=this.z;
 		this.radiusMultiplier*=this.crumbleSize;
 		this.speedMultiplier/=2;
 		map.areas[current_Area].entities.push(residue);
@@ -4733,7 +4735,8 @@ class CrumblingEnemy extends Enemy{
 		this.speedMultiplier*=0.5;
 	}
 	if(this.collideTime>=3e3&&this.hasCollided){
-		throw "User sonic3XE has no access to Spacebrook/EvadesClassic github source code.";
+		customAlert("Fatal Error: User sonic3XE has no access to Spacebrook/EvadesClassic github source code.",1/0,"#F00");
+		throw "[server/src/game/entities/enemies/crumbling_enemy.py] User sonic3XE has no access to Spacebrook/EvadesClassic github source code.";
 		this.hasCollided=false;
 		this.collideTime=0;//67 frames to go back to original size in 30fps
 	};
