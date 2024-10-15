@@ -2974,10 +2974,11 @@ class Pellet extends SimulatorEntity{
 	}
 	playerInteraction(player){
 		const areaOfZone=this.pellet_zones.map(e=>e.width*e.height),
-			sum=areaOfZone.reduce((e,t)=>(e+t));
+			sum=areaOfZone.reduce((e,t)=>(e+t)),
+			rand=Math.random();
 		for(const i in areaOfZone)
 			if(void 0!==areaOfZone[i-1])areaOfZone[i]+=areaOfZone[i-1];
-		const randZone=this.pellet_zones[areaOfZone.map(e=>(Math.random()*sum<e)).indexOf(true)];
+		const randZone=this.pellet_zones[areaOfZone.map(e=>(rand<e/sum)).indexOf(true)];
 		this.x=randZone.x+randomRange(this.radius,randZone.width-this.radius);
 		this.y=randZone.y+randomRange(this.radius,randZone.height-this.radius);
 		if(player.abilityOne.pellet_powered)
