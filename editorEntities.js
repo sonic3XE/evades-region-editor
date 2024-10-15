@@ -63,10 +63,10 @@ function spawnEntities(area=current_Area){
 		}
 	}
 	if(!pelletZones.length)pelletZones.push(areaC.zones[0]);
+	pelletZones.sort((e,t)=>{return t.width*t.height-e.width*e.height});
 	const areaOfZone=pelletZones.map(e=>e.width*e.height),
 		sum=areaOfZone.reduce((e,t)=>(e+t)),
 		playersInArea=map.players.filter(e=>(e.area==area));
-	areaOfZone.sort((e,t)=>t-e);
 	for(const i in areaOfZone)
 		if(void 0!==areaOfZone[i-1])areaOfZone[i]+=areaOfZone[i-1];
 	!playtesting&&playersInArea.map(plr=>{
@@ -100,7 +100,7 @@ function spawnEntities(area=current_Area){
 	console.log(areaOfZone,sum)
 	
 	for(var i=0;i<(totalPellets==25?25*10**isVictory:totalPellets);i++){
-		const randZone=pelletZones[areaOfZone.map(e=>Math.random()<e/sum).indexOf(true)],
+		const randZone=pelletZones[areaOfZone.map(e=>(Math.random()<e/sum)).indexOf(true)],
 			left=randZone.x,
 			right=left+randZone.width,
 			top=randZone.y,
