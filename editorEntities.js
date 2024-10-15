@@ -48,7 +48,7 @@ function spawnEntities(area=current_Area){
 		return spawner[e]??defaultValues.spawner[e];
 	}
 	const boundary=getAreaBoundary(areaC),
-		isVictory=!!areaC.zones.filter(e=>e.type=="victory").length;
+		isVictory=areaC.zones.some(e=>e.type=="victory"),
 		totalPellets=checkAreaProperties("pellet_count");
 		pelletZones=[];
 	if(checkAreaProperties("spawns_pellets")!==void 0&&!checkAreaProperties("spawns_pellets")){
@@ -66,6 +66,7 @@ function spawnEntities(area=current_Area){
 	const areaOfZone=pelletZones.map(e=>e.width*e.height),
 		sum=areaOfZone.reduce((e,t)=>(e+t)),
 		playersInArea=map.players.filter(e=>(e.area==area));
+	areaOfZone.sort((e,t)=>t-e);
 	for(const i in areaOfZone)
 		if(void 0!==areaOfZone[i-1])areaOfZone[i]+=areaOfZone[i-1];
 	!playtesting&&playersInArea.map(plr=>{
@@ -96,8 +97,10 @@ function spawnEntities(area=current_Area){
 		entity.area=area;
 		areaC.entities.push(entity);
 	}
-	for(var i=0;i<(totalPellets==25?(isVictory?250:25):totalPellets);i++){
-		const randZone=pelletZones[areaOfZone.map(e=>(Math.random()*sum<e)).indexOf(true)],
+	console.log(areaOfZone,sum)
+	
+	for(var i=0;i<(totalPellets==25?25*10**isVictory:totalPellets);i++){
+		const randZone=pelletZones[areaOfZone.map(e=>Math.random()<e/sum).indexOf(true)],
 			left=randZone.x,
 			right=left+randZone.width,
 			top=randZone.y,
@@ -116,8 +119,10 @@ function spawnEntities(area=current_Area){
 		);
 		for(const spawner of activeZone.spawner){
 			const count=prop(spawner,"count");
-			if(count>1024)
+			if(count>1024){
+				console.log("Can't spawn 1024 or more entities in a single spawner.")
 				continue;
+			}
 			for(var j=0;j<count;j++){
 				const left=activeZone.x,
 					right=left+activeZone.width,
