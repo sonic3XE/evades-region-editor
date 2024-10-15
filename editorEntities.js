@@ -96,8 +96,6 @@ function spawnEntities(area=current_Area){
 		entity.area=area;
 		areaC.entities.push(entity);
 	}
-	console.log(areaOfZone,sum)
-	
 	for(var i=0;i<(totalPellets==25?25*10**isVictory:totalPellets);i++){
 		const randSum=Math.random()*sum,
 			randZone=pelletZones[areaOfZone.map(e=>randSum<e).indexOf(true)],
@@ -120,7 +118,7 @@ function spawnEntities(area=current_Area){
 		for(const spawner of activeZone.spawner){
 			const count=prop(spawner,"count");
 			if(count>1024){
-				console.log("Can't spawn 1024 or more entities in a single spawner.")
+				console.warn("Can't spawn 1024 or more entities in a single spawner.")
 				continue;
 			}
 			for(var j=0;j<count;j++){
