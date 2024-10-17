@@ -39,18 +39,18 @@ function customASSETgui(wall){
         wall.height = hInput.value = Math.max(hInput.value, 0);
 		spawnEntities();
     });
-var wProp=createProperty(formatString("editor.property.width"), wInput, "number"),
-hProp=createProperty(formatString("editor.property.height"), hInput, "number");
-var upsidedown=createProperty(formatString("editor.property.upside_down"), updnInput, "switch", {value:wall.upside_down});
-var texture=createProperty(formatString("editor.property.texture"),null,"select",{
-			value:wall.texture,event:(e)=>{wall.texture=e;spawnEntities()},
-			selectOptions:["normal","leaves","wooden","baguette","ice",null].map(e=>[formatString("editor.texture."+e),e]),
-			selectType:"text"});
-	
+	var wProp=createProperty(formatString("editor.property.width"), wInput, "number"),
+	hProp=createProperty(formatString("editor.property.height"), hInput, "number"),
+	upsidedown=createProperty(formatString("editor.property.upside_down"), updnInput, "switch", {value:wall.upside_down}),
+	angle=createProperty(formatString("editor.property.angle"), angleInput, "number"),
+	texture=createProperty(formatString("editor.property.texture"),null,"select",{value:wall.texture,event:(e)=>{wall.texture=e;spawnEntities()},selectOptions:["normal","leaves","wooden","baguette","ice",null].map(e=>[formatString("editor.texture."+e),e]),selectType:"text"});
+				hide(angle);
 				if(wall.type=="wall"){
 					show(texture)
+					activated_extensions.includes("rotatedWallAssets")&&show(angle)
 				}else{
 					hide(texture)
+					activated_extensions.includes("rotatedWallAssets")&&hide(angle)
 				}
 				if(wall.type=="torch"){
 					show(upsidedown)
@@ -61,15 +61,17 @@ var texture=createProperty(formatString("editor.property.texture"),null,"select"
 					hide(wProp),hide(hProp)
 				}else{
 					show(wProp),show(hProp)
-				}
-				let arr=[
+				};
+    wall.element = createFolder(formatString("editor.asset"), [
 		createProperty(formatString("editor.property.type"), null, "select",{
 			value: wall.type,
 			event: e => {
 				if(e=="wall"){
 					show(texture)
+					activated_extensions.includes("rotatedWallAssets")&&show(angle)
 				}else{
 					hide(texture)
+					activated_extensions.includes("rotatedWallAssets")&&hide(angle)
 				}
 				if(e=="torch"){
 					show(upsidedown)
@@ -77,26 +79,25 @@ var texture=createProperty(formatString("editor.property.texture"),null,"select"
 					hide(upsidedown)
 				}
 				if(e=="flashlight_spawner"||e=="torch"){
-					hide(wProp),hide(hProp)
+					hide(wProp)
+					hide(hProp)
 				}else{
-					show(wProp),show(hProp)
+					show(wProp)
+					show(hProp)
 				}
 				wall.type = e;spawnEntities()
 			},
 			selectOptions: ["wall","light_region","gate","torch","flashlight_spawner"].map(e=>[formatString("editor.asset."+e),e]),
 			selectType: "text"
 		}),
+		angle,
 		texture,
 		upsidedown,
+		wProp,
+		hProp,
 		createProperty(formatString("editor.property.x"), xInput, "number"),
 		createProperty(formatString("editor.property.y"), yInput, "number"),
-		activated_extensions.includes("rotatedWallAssets"),
-		wProp,
-		hProp
-	];
-	arr=arr.map(e=>e===true?createProperty(formatString("editor.property.angle"), angleInput, "number"):e)
-	arr=arr.filter(e=>e);
-    wall.element = createFolder(formatString("editor.asset"), arr);
+	]);
     wall.inputs = {
         x: xInput,
         y: yInput,
