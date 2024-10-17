@@ -570,7 +570,7 @@ this.isGuest=!1;
       var c=rectCircleCollision(x,y,radius,i.x,i.y,i.width,i.height);
       var a=Math.atan2(c.y,c.x);
       if(c.c){
-        collided=true;
+		collided=true;
         var relX = (x - centerX) / halfWidth;
         var relY = (y - centerY) / halfHeight;
         if (Math.abs(relX) > Math.abs(relY)) {
@@ -633,8 +633,8 @@ this.isGuest=!1;
 	    ry=y-centerY;
 	    d=Math.sqrt(rx**2+ry**2);
 	    a=Math.atan2(ry,rx)+i.rotation*Math.PI/180*usingExperiementalFeature;
-	    this.x=centerX+Math.cos(a)*d;
-	    this.y=centerY+Math.sin(a)*d;
+        this.x=centerX+Math.cos(a)*d*(i.rotation!=0);
+	    this.y=centerY+Math.sin(a)*d*(i.rotation!=0);
       }
     }
     return collided;
@@ -2656,8 +2656,8 @@ class SimulatorEntity extends EvadesEntity{
 		angle-=i.rotation*Math.PI/180*usingExperiementalFeature;
 		velX=Math.cos(angle)*this.speed;
 		velY=Math.sin(angle)*this.speed;
-		x=centerX+Math.cos(a)*d;
-		y=centerY+Math.sin(a)*d;
+		x=parseFloat((centerX+Math.cos(a)*d).toFixed(10));
+		y=parseFloat((centerY+Math.sin(a)*d).toFixed(10));
       var distX = Math.abs(x - centerX);
       var distY = Math.abs(y - centerY);
       var radius=this.radius;
@@ -2746,8 +2746,9 @@ class SimulatorEntity extends EvadesEntity{
 		ry=y-centerY;
 		d=Math.sqrt(rx**2+ry**2);
 		a=Math.atan2(ry,rx)+i.rotation*Math.PI/180*usingExperiementalFeature;
-	    this.x=centerX+Math.cos(a)*d;
-	    this.y=centerY+Math.sin(a)*d;
+	    this.x=parseFloat((centerX+Math.cos(a)*d).toFixed(10));
+	    this.y=parseFloat((centerY+Math.sin(a)*d).toFixed(10));
+	    console.log(this.x,this.y,this.velX,this.velY);
       }
     }
     return collided;
