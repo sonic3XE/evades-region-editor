@@ -309,7 +309,8 @@ function spawnerToJSON(spawner,legacy) {
  * ASSETS
  */
 function wallToJSON(wall) {
-  return `{"type":"wall","x":${wall.x},"y":${wall.y},"width":${wall.width},"height":${wall.height},"texture":"${wall.texture}"}`.replace(`"texture":"null"`,`"texture":null`);
+  const isExperiemental=activated_extensions.includes("rotatedWallAssets")&&wall.angle;
+  return `{"type":"wall","x":${wall.x},"y":${wall.y},"width":${wall.width},"height":${wall.height},${isExperiemental?`"angle":${wall.angle},`:""}"texture":"${wall.texture}"}`.replace(`"texture":"null"`,`"texture":null`);
 }
 function light_regionToJSON(light_region) {
   return `{"type":"light_region","x":${light_region.x},"y":${light_region.y},"width":${light_region.width},"height":${light_region.height}}`;

@@ -87,7 +87,7 @@ function spawnEntities(area=current_Area){
 			case"flashlight_spawner":entity=new FlashlightItem(asset.x,asset.y);break;
 			case"torch":entity=new Torch(asset.x,asset.y,asset.upside_down);break;
 			case"light_region":entity=new LightRegion(asset.x,asset.y,asset.width,asset.height);break;
-			case"wall":entity=new Wall(asset.x,asset.y,asset.width,asset.height,asset.texture);break;
+			case"wall":entity=new Wall(asset.x,asset.y,asset.width,asset.height,asset.angle,asset.texture);break;
 			//Don't spawn gate entities since it is removed from the game.
 			//case"gate":entity=new Gate(e.x,e.y,e.width,e.height);break;
 			default:{};
@@ -110,10 +110,10 @@ function spawnEntities(area=current_Area){
 	};
 	for(const[index,activeZone]of Object.entries(areaC.zones.filter(e=>e.type=="active"))){
 		areaC.entities.push(
-			new Wall(activeZone.x-2000,activeZone.y-2000,4000+activeZone.width,2000,null,index),
-			new Wall(activeZone.x-2000,activeZone.y-2000,2000,4000+activeZone.height,null,index),
-			new Wall(activeZone.x-2000,activeZone.y+activeZone.height,4000+activeZone.width,2000,null,index),
-			new Wall(activeZone.x+activeZone.width,activeZone.y-2000,2000,4000+activeZone.height,null,index)
+			new Wall(activeZone.x-2000,activeZone.y-2000,4000+activeZone.width,2000,0,null,index),
+			new Wall(activeZone.x-2000,activeZone.y-2000,2000,4000+activeZone.height,0,null,index),
+			new Wall(activeZone.x-2000,activeZone.y+activeZone.height,4000+activeZone.width,2000,0,null,index),
+			new Wall(activeZone.x+activeZone.width,activeZone.y-2000,2000,4000+activeZone.height,0,null,index)
 		);
 		for(const spawner of activeZone.spawner){
 			const count=prop(spawner,"count");
@@ -546,48 +546,58 @@ this.isGuest=!1;
 		}
 	}
   assetCollision(){
+	let usingExperiementalFeature=activated_extensions.includes("rotatedWallAssets");
     let collided=false;
     const walls=map.areas[this.area].entities.filter(e=>(e instanceof Wall && e.collisionIndex==-1));
     let centerX,centerY,halfWidth,halfHeight;
     for(var i of walls){
-      halfWidth=i.width/2;
+	  //Experimental Feature: Rotated Wall Assets
+      let x=this.x,y=this.y,newX,newY;
+	  halfWidth=i.width/2;
       halfHeight=i.height/2;
       centerX=i.x+halfWidth;
       centerY=i.y+halfHeight;
-      var distX = Math.abs(this.x - centerX);
-      var distY = Math.abs(this.y - centerY);
+	  var rx=x-centerX;
+	  var ry=y-centerY;
+	  var d=Math.sqrt(rx**2+ry**2);
+	  var a=Math.atan2(ry,rx)-i.rotation*Math.PI/180*usingExperiementalFeature;
+	  x=centerX+Math.cos(a)*d;
+	  y=centerY+Math.sin(a)*d;
+
+      var distX = Math.abs(x - centerX);
+      var distY = Math.abs(y - centerY);
       var radius=this.radius;
-      var c=rectCircleCollision(this.x,this.y,radius,i.x,i.y,i.width,i.height);
+      var c=rectCircleCollision(x,y,radius,i.x,i.y,i.width,i.height);
+      var a=Math.atan2(c.y,c.x);
       if(c.c){
         collided=true;
-        var a=Math.atan2(c.y,c.x);
-        var relX = (this.x - centerX) / halfWidth;
-        var relY = (this.y - centerY) / halfHeight;
+        var relX = (x - centerX) / halfWidth;
+        var relY = (y - centerY) / halfHeight;
         if (Math.abs(relX) > Math.abs(relY)) {
           // Horizontal collision.
           if (relX > 0) {
             //corner collision at right side
             if(relY*halfHeight > halfHeight){
-              this.x = centerX + halfWidth + this.radius*Math.cos(a);
-              this.y = centerY + halfHeight + this.radius*Math.sin(a);
+              x = centerX + halfWidth + this.radius*Math.cos(a);
+              y = centerY + halfHeight + this.radius*Math.sin(a);
             }else if(relY*halfHeight < -halfHeight){
-              this.x = centerX + halfWidth + this.radius*Math.cos(a);
-              this.y = centerY - halfHeight + this.radius*Math.sin(a);
+              x = centerX + halfWidth + this.radius*Math.cos(a);
+              y = centerY - halfHeight + this.radius*Math.sin(a);
             }else{
               // middle right collision
-              this.x = centerX + halfWidth + this.radius;
+              x = centerX + halfWidth + this.radius;
             }
           } else {
             //corner collision for left side
             if(relY*halfHeight > halfHeight){
-              this.x = centerX - halfWidth + this.radius*Math.cos(a);
-              this.y = centerY + halfHeight + this.radius*Math.sin(a);
+              x = centerX - halfWidth + this.radius*Math.cos(a);
+              y = centerY + halfHeight + this.radius*Math.sin(a);
             }else if(relY*halfHeight < -halfHeight){
-              this.x = centerX - halfWidth + this.radius*Math.cos(a);
-              this.y = centerY - halfHeight + this.radius*Math.sin(a);
+              x = centerX - halfWidth + this.radius*Math.cos(a);
+              y = centerY - halfHeight + this.radius*Math.sin(a);
             }else{
               // middle left collision
-              this.x = centerX - halfWidth - this.radius;
+              x = centerX - halfWidth - this.radius;
             }
           }
         } else {
@@ -595,29 +605,36 @@ this.isGuest=!1;
           if (relY > 0) {
             //corner collision for bottom side
             if(relX*halfWidth > halfWidth){
-              this.x = centerX + halfWidth + this.radius*Math.cos(a);
-              this.y = centerY + halfHeight + this.radius*Math.sin(a);
+              x = centerX + halfWidth + this.radius*Math.cos(a);
+              y = centerY + halfHeight + this.radius*Math.sin(a);
             }else if(relX*halfWidth < -halfWidth){
-              this.x = centerX - halfWidth + this.radius*Math.cos(a);
-              this.y = centerY + halfHeight + this.radius*Math.sin(a);
+              x = centerX - halfWidth + this.radius*Math.cos(a);
+              y = centerY + halfHeight + this.radius*Math.sin(a);
             }else{
               // middle bottom collision
-              this.y = centerY + halfHeight + this.radius;
+              y = centerY + halfHeight + this.radius;
             }
           } else {
             //corner collision for top side
             if(relX*halfWidth > halfWidth){
-              this.x = centerX + halfWidth + this.radius*Math.cos(a);
-              this.y = centerY - halfHeight + this.radius*Math.sin(a);
+              x = centerX + halfWidth + this.radius*Math.cos(a);
+              y = centerY - halfHeight + this.radius*Math.sin(a);
             }else if(relX*halfWidth < -halfWidth){
-              this.x = centerX - halfWidth + this.radius*Math.cos(a);
-              this.y = centerY - halfHeight + this.radius*Math.sin(a);
+              x = centerX - halfWidth + this.radius*Math.cos(a);
+              y = centerY - halfHeight + this.radius*Math.sin(a);
             }else{
               // middle top collision
-              this.y = centerY - halfHeight - this.radius;
+              y = centerY - halfHeight - this.radius;
             }
           }
         }
+		//Finished colliding, undoing rotation.
+	    rx=x-centerX;
+	    ry=y-centerY;
+	    d=Math.sqrt(rx**2+ry**2);
+	    a=Math.atan2(ry,rx)+i.rotation*Math.PI/180*usingExperiementalFeature;
+	    this.x=centerX+Math.cos(a)*d;
+	    this.y=centerY+Math.sin(a)*d;
       }
     }
     return collided;
@@ -2427,6 +2444,7 @@ class SimulatorEntity extends EvadesEntity{
 	super();
     this.color = color;
 	this.effects=[];
+	this.collided=false;
 	this.rectCircleCollide=false;
     this.type=type;
 	this.lightRectangle=null;
@@ -2594,9 +2612,9 @@ class SimulatorEntity extends EvadesEntity{
 		return e.time < 40e3/9;
 	});
 	if(collide){
-		let collided=false;
-		if(this.assetCollision())collided=true;
-		if(collided)this.onCollide();
+	    this.collided=false;
+		this.assetCollision();
+		if(this.collided)this.onCollide();
 	}
     for(var i in map.players){
       var player = map.players[i];
@@ -2620,61 +2638,70 @@ class SimulatorEntity extends EvadesEntity{
   onBeforeCollide(){
   }
   assetCollision(){
+	let usingExperiementalFeature=activated_extensions.includes("rotatedWallAssets");
     let collided=false;
     const walls=map.areas[this.area].entities.filter(e=>(e instanceof Wall && (e.collisionIndex==this.z||e.collisionIndex==-1)));
     let centerX,centerY,halfWidth,halfHeight;
     for(var i of walls){
-      halfWidth=i.width/2;
+	  //Experimental Feature: Rotated Wall Assets
+      let x=this.x,y=this.y,velX=this.velX,velY=this.velY,angle=this.angle;
+	  halfWidth=i.width/2;
       halfHeight=i.height/2;
       centerX=i.x+halfWidth;
       centerY=i.y+halfHeight;
-      var distX = Math.abs(this.x - centerX);
-      var distY = Math.abs(this.y - centerY);
+		var rx=x-centerX;
+		var ry=y-centerY;
+		var d=Math.sqrt(rx**2+ry**2);
+		var a=Math.atan2(ry,rx)-i.rotation*Math.PI/180*usingExperiementalFeature;
+		angle-=i.rotation*Math.PI/180*usingExperiementalFeature;
+		velX=Math.cos(angle)*this.speed;
+		velY=Math.sin(angle)*this.speed;
+		x=centerX+Math.cos(a)*d;
+		y=centerY+Math.sin(a)*d;
+      var distX = Math.abs(x - centerX);
+      var distY = Math.abs(y - centerY);
       var radius=this.radius;
-      var c=rectCircleCollision(this.x,this.y,radius,i.x,i.y,i.width,i.height);
+      var c=rectCircleCollision(x,y,radius,i.x,i.y,i.width,i.height);
+      var a=Math.atan2(c.y,c.x);
       if(c.c){
 		this.onBeforeCollide();
         collided=true;
-        var a=Math.atan2(c.y,c.x);
-        var relX = (this.x - centerX) / halfWidth;
-        var relY = (this.y - centerY) / halfHeight;
+		this.collided=true;
+        var relX = (x - centerX) / halfWidth;
+        var relY = (y - centerY) / halfHeight;
         if (Math.abs(relX) > Math.abs(relY)) {
           // Horizontal collision.
           if (relX > 0) {
             //corner collision at right side
             if(relY*halfHeight > halfHeight){
-              this.x = centerX + halfWidth + this.radius*Math.cos(a);
-              this.y = centerY + halfHeight + this.radius*Math.sin(a);
-              this.angle=a;
-              this.anglevel();
+              x = centerX + halfWidth + this.radius*Math.cos(a);
+              y = centerY + halfHeight + this.radius*Math.sin(a);
+              angle=a;
             }else if(relY*halfHeight < -halfHeight){
-              this.x = centerX + halfWidth + this.radius*Math.cos(a);
-              this.y = centerY - halfHeight + this.radius*Math.sin(a);
-              this.angle=a;
-              this.anglevel();
+              x = centerX + halfWidth + this.radius*Math.cos(a);
+              y = centerY - halfHeight + this.radius*Math.sin(a);
+              angle=a;
             }else{
               // middle right collision
-              this.x = centerX + halfWidth + this.radius;
-              this.velX=Math.abs(this.velX);
-              this.velangle();
+              x = centerX + halfWidth + this.radius;
+			  velX=Math.abs(velX);
+			  angle=Math.atan2(velY,velX);
             }
           } else {
             //corner collision for left side
             if(relY*halfHeight > halfHeight){
-              this.x = centerX - halfWidth + this.radius*Math.cos(a);
-              this.y = centerY + halfHeight + this.radius*Math.sin(a);
-              this.angle=a;
-              this.anglevel();
+              x = centerX - halfWidth + this.radius*Math.cos(a);
+              y = centerY + halfHeight + this.radius*Math.sin(a);
+              angle=a;
             }else if(relY*halfHeight < -halfHeight){
-              this.x = centerX - halfWidth + this.radius*Math.cos(a);
-              this.y = centerY - halfHeight + this.radius*Math.sin(a);
-              this.angle=a;
-              this.anglevel();
+              x = centerX - halfWidth + this.radius*Math.cos(a);
+              y = centerY - halfHeight + this.radius*Math.sin(a);
+              angle=a;
             }else{
               // middle left collision
-              this.x = centerX - halfWidth - this.radius;
-              this.velX=-Math.abs(this.velX);
-              this.velangle();
+              x = centerX - halfWidth - this.radius;
+			  velX=-Math.abs(velX);
+			  angle=Math.atan2(velY,velX);
             }
           }
         } else {
@@ -2682,41 +2709,45 @@ class SimulatorEntity extends EvadesEntity{
           if (relY > 0) {
             //corner collision for bottom side
             if(relX*halfWidth > halfWidth){
-              this.x = centerX + halfWidth + this.radius*Math.cos(a);
-              this.y = centerY + halfHeight + this.radius*Math.sin(a);
-              this.angle=a;
-              this.anglevel();
+              x = centerX + halfWidth + this.radius*Math.cos(a);
+              y = centerY + halfHeight + this.radius*Math.sin(a);
+              angle=a;
             }else if(relX*halfWidth < -halfWidth){
-              this.x = centerX - halfWidth + this.radius*Math.cos(a);
-              this.y = centerY + halfHeight + this.radius*Math.sin(a);
-              this.angle=a;
-              this.anglevel();
+              x = centerX - halfWidth + this.radius*Math.cos(a);
+              y = centerY + halfHeight + this.radius*Math.sin(a);
+              angle=a;
             }else{
               // middle bottom collision
-              this.y = centerY + halfHeight + this.radius;
-              this.velY=Math.abs(this.velY);
-              this.velangle();
+              y = centerY + halfHeight + this.radius;
+			  velY=Math.abs(velY);
+			  angle=Math.atan2(velY,velX);
             }
           } else {
             //corner collision for top side
             if(relX*halfWidth > halfWidth){
-              this.x = centerX + halfWidth + this.radius*Math.cos(a);
-              this.y = centerY - halfHeight + this.radius*Math.sin(a);
-              this.angle=a;
-              this.anglevel();
+              x = centerX + halfWidth + this.radius*Math.cos(a);
+              y = centerY - halfHeight + this.radius*Math.sin(a);
+              angle=a;
             }else if(relX*halfWidth < -halfWidth){
-              this.x = centerX - halfWidth + this.radius*Math.cos(a);
-              this.y = centerY - halfHeight + this.radius*Math.sin(a);
-              this.angle=a;
-              this.anglevel();
+              x = centerX - halfWidth + this.radius*Math.cos(a);
+              y = centerY - halfHeight + this.radius*Math.sin(a);
+              angle=a;
             }else{
               // middle top collision
-              this.y = centerY - halfHeight - this.radius;
-              this.velY=-Math.abs(this.velY);
-              this.velangle();
+              y = centerY - halfHeight - this.radius;
+			  velY=-Math.abs(velY);
+			  angle=Math.atan2(velY,velX);
             }
           }
         }
+		this.angle=angle+i.rotation*Math.PI/180*usingExperiementalFeature;
+		this.anglevel();
+		rx=x-centerX;
+		ry=y-centerY;
+		d=Math.sqrt(rx**2+ry**2);
+		a=Math.atan2(ry,rx)+i.rotation*Math.PI/180*usingExperiementalFeature;
+	    this.x=centerX+Math.cos(a)*d;
+	    this.y=centerY+Math.sin(a)*d;
       }
     }
     return collided;
@@ -3062,9 +3093,10 @@ class Gate extends SimulatorEntity{
   }
 }
 class Wall extends SimulatorEntity{
-  constructor(x,y,width,height,texture=null,collisionIndex=-1){
+  constructor(x,y,width,height,angle=0,texture=null,collisionIndex=-1){
     super(x,y,null,null,"wall");
 	this.texture=texture;
+	this.rotation=angle;
 	this.collisionIndex=collisionIndex;
 	this.wall=true;
 	this.width=width;
@@ -3072,9 +3104,9 @@ class Wall extends SimulatorEntity{
   }
   update(){}
   render(ctx,camera) {
-	ctx.imageSmoothingEnabled=false;
 	if(null!=this.texture){
-		$d2f179ecccc561fa$export$b9dfb366e63af805(ctx, $d2f179ecccc561fa$export$b9b1204f7239550e(this.texture, null, settings.tileMode), 0, 0, this.width, this.height, {x:camera.x+this.x,y:camera.y+this.y});
+		ctx.imageSmoothingEnabled=false;
+		$d2f179ecccc561fa$export$b9dfb366e63af805(ctx, $d2f179ecccc561fa$export$b9b1204f7239550e(this.texture, null, settings.tileMode), 0, 0, this.width, this.height, {x:camera.x+this.x,y:camera.y+this.y},this.rotation);
 		this.showOnMap=true;
 	}
   }
@@ -6826,9 +6858,10 @@ class StalactiteEnemy extends Enemy {
 	if(this.hasCollided){
 		let projectile;
 		!this.collideTime&&(
-			projectile=new StalactiteEnemyProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.stalactite_enemy_projectile.speed,void 0),
+			projectile=new StalactiteEnemyProjectile(this.x,this.y,this.radius/2,EvadesConfig.defaults.stalactite_enemy_projectile.speed),
 			projectile.area=this.area,
-			projectile.z=this.z
+			projectile.z=this.z,
+			area.entities.push(projectile)
 		);
       this.collideTime += delta;
       if (this.collideTime > 500) {

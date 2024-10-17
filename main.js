@@ -845,7 +845,7 @@ pasteObject.addEventListener("click",global.pasteObjs=_=>{
 			sel = newZone(zone);
 			map.areas[current_Area].zones.push(sel);
 		} else {
-			sel = newAsset(_.x+posX, _.y+posY, _.width, _.height, _.type, _.upside_down, _.texture);
+			sel = newAsset(_.x+posX, _.y+posY, _.width, _.height, _.type, _.upside_down, _.texture, _.angle);
 			map.areas[current_Area].assets.push(sel);
 		}
 	});
@@ -878,7 +878,7 @@ copyObject.addEventListener("click",global.copyObjs=_=>{
 			sel = newZone(zone);
 			copyObjects.push(sel);
 		} else {
-			sel = newAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
+			sel = newAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture, _.angle);
 			copyObjects.push(sel);
 		}
 	});
@@ -942,7 +942,7 @@ duplicateObject.addEventListener("click",$=>{
 			sel = newZone(zone);
 			map.areas[current_Area].zones.push(sel);
 		} else {
-			sel = newAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture);
+			sel = newAsset(_.x, _.y, _.width, _.height, _.type, _.upside_down, _.texture, _.angle);
 			map.areas[current_Area].assets.push(sel);
 		}
 	});

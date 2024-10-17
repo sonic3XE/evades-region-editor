@@ -26,6 +26,13 @@ function customASSETgui(wall){
 		spawnEntities();
     });
 
+    const angleInput = document.createElement("input");
+    angleInput.value = wall.angle;
+    angleInput.addEventListener("input", () => {
+        wall.angle = angleInput.value = angleInput.value%360;
+		spawnEntities();
+    });
+
     const hInput = document.createElement("input");
     hInput.value = wall.height;
     hInput.addEventListener("input", () => {
@@ -55,7 +62,7 @@ var texture=createProperty(formatString("editor.property.texture"),null,"select"
 				}else{
 					show(wProp),show(hProp)
 				}
-    wall.element = createFolder(formatString("editor.asset"), [
+				let arr=[
 		createProperty(formatString("editor.property.type"), null, "select",{
 			value: wall.type,
 			event: e => {
@@ -83,10 +90,13 @@ var texture=createProperty(formatString("editor.property.texture"),null,"select"
 		upsidedown,
 		createProperty(formatString("editor.property.x"), xInput, "number"),
 		createProperty(formatString("editor.property.y"), yInput, "number"),
+		activated_extensions.includes("rotatedWallAssets"),
 		wProp,
 		hProp
-	]);
-
+	];
+	arr=arr.map(e=>e===true?createProperty(formatString("editor.property.angle"), angleInput, "number"):e)
+	arr=arr.filter(e=>e);
+    wall.element = createFolder(formatString("editor.asset"), arr);
     wall.inputs = {
         x: xInput,
         y: yInput,
@@ -94,9 +104,9 @@ var texture=createProperty(formatString("editor.property.texture"),null,"select"
         height: hInput
     };
 };
-function newAsset(x=0,y=0,width=32,height=32,type="wall",upside_down=false,texture="ice") {
+function newAsset(x=0,y=0,width=32,height=32,type="wall",upside_down=false,texture="ice",angle=0) {
     const wall = {
-        x,y,width,height,texture,type,upside_down,rx:0,ry:0,rw:0,rh:0,isAsset:true
+        x,y,width,height,texture,type,upside_down,angle,rx:0,ry:0,rw:0,rh:0,isAsset:true
     };
     return wall;
 }

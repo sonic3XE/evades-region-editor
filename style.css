@@ -532,7 +532,7 @@ body {
 	height: 32px
 }
 #tip>titleheader{border-bottom:3px white solid}
-#extensionPage>titleheader {grid-area: 1 / 1 / 2 / 3;border-bottom:3px white solid}
+#extensionPage>titleheader {border-bottom:3px white solid}
 #objectFocus {
     display: none;
     position: absolute;

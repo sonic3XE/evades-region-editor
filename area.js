@@ -123,7 +123,7 @@ function newArea(e={}){
 	  return newZone(t);
 	});
 	area.assets??=[];
-	area.assets=area.assets.map(t=>newAsset(t.x,t.y,t.width,t.height,t.type,t.upside_down,t.texture))
+	area.assets=area.assets.map(t=>newAsset(t.x,t.y,t.width,t.height,t.type,t.upside_down,t.texture,t.angle))
 	area.properties??={};
     return area;
 }
