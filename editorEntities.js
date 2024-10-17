@@ -4795,6 +4795,7 @@ class SnowmanEnemy extends Enemy{
 	this.snowmanSizeShrink=1;
   }
   onCollide(){
+	  this.target_angle=this.angle
 	  if(!this.hasCollided){
 		this.hasCollided=true;
 		this.snowmanSizeShrink=this.snowmanSize;
