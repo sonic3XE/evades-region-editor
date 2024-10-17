@@ -561,8 +561,8 @@ this.isGuest=!1;
 	  var ry=y-centerY;
 	  var d=Math.sqrt(rx**2+ry**2);
 	  var a=Math.atan2(ry,rx)-i.rotation*Math.PI/180*usingExperiementalFeature;
-	  x=centerX+Math.cos(a)*d;
-	  y=centerY+Math.sin(a)*d;
+	  x=parseFloat((centerX+Math.cos(a)*d).toFixed(10));
+	  y=parseFloat((centerY+Math.sin(a)*d).toFixed(10));
 
       var distX = Math.abs(x - centerX);
       var distY = Math.abs(y - centerY);
@@ -633,9 +633,9 @@ this.isGuest=!1;
 	    ry=y-centerY;
 	    d=Math.sqrt(rx**2+ry**2);
 	    a=Math.atan2(ry,rx)+i.rotation*Math.PI/180*usingExperiementalFeature;
-        this.x=centerX+Math.cos(a)*d*(i.rotation!=0);
-	    this.y=centerY+Math.sin(a)*d*(i.rotation!=0);
-      }
+        this.x=parseFloat((centerX+Math.cos(a)*d).toFixed(10));
+	    this.y=parseFloat((centerY+Math.sin(a)*d).toFixed(10));
+	  }
     }
     return collided;
   }
@@ -2748,8 +2748,7 @@ class SimulatorEntity extends EvadesEntity{
 		a=Math.atan2(ry,rx)+i.rotation*Math.PI/180*usingExperiementalFeature;
 	    this.x=parseFloat((centerX+Math.cos(a)*d).toFixed(10));
 	    this.y=parseFloat((centerY+Math.sin(a)*d).toFixed(10));
-	    console.log(this.x,this.y,this.velX,this.velY);
-      }
+	  }
     }
     return collided;
     }
