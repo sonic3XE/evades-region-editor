@@ -4347,9 +4347,6 @@ class HomingEnemy extends Enemy{
     }
     super.update(delta);
   }
-  onCollide(){
-    this.target_angle=this.angle=Math.atan2(this.velY,this.velX);
-  }
   /*render(ctx,t) {
     ctx.lineWidth = 2;
     ctx.strokeStyle = this.color;
@@ -6151,6 +6148,7 @@ class FrostGiantEnemy extends Enemy{
     this.pattern=this.get_pattern_generator(pattern),
     this.cone_angle=cone_angle;
     this.initial_angle=this.angle;
+	this.shoot_angle=this.initial_angle;
     this.shot_cooldown = this.shot_interval;
     this.pause_cooldown = this.pause_interval;
     this.pause_time = this.pause_duration;
@@ -6196,7 +6194,7 @@ class FrostGiantEnemy extends Enemy{
 	  return x*Math.PI/180;
   }
   generate_entities(delta,area){
-    this.angle+=this.deg_to_rad(this.turn_speed*this.direction*delta/1e3);
+    this.shoot_angle+=this.deg_to_rad(this.turn_speed*this.direction*delta/1e3);
     this.shot_interval-=this.shot_acceleration*delta/1e3;
     this.turn_speed+=this.turn_acceleration*delta/(1e3/30);
     this.pattern(delta,area);
@@ -6205,19 +6203,19 @@ class FrostGiantEnemy extends Enemy{
     function angle_difference(x,y){
       return Math.min(Math.abs(y-x),Math.abs(y-x+Math.PI*2),Math.abs(y-x-Math.PI*2))
     };
-    if(Math.abs(angle_difference(this.angle,this.initial_angle)) >= this.deg_to_rad(this.cone_angle)){
+    if(Math.abs(angle_difference(this.shoot_angle,this.initial_angle)) >= this.deg_to_rad(this.cone_angle)){
       // Avoid accumulation floating point error by resetting angle.
-      this.angle = this.initial_angle + this.deg_to_rad(this.cone_angle * this.direction);
+      this.shoot_angle = this.initial_angle + this.deg_to_rad(this.cone_angle * this.direction);
       this.direction *= -1;
     }
 
     if(this.prepare_shot(delta)){
-      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle),this.projectile_duration)
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.shoot_angle),this.projectile_duration)
     }
   }
   spiral_pattern(delta,area){
     if(this.prepare_shot(delta)){
-      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle),this.projectile_duration)
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.shoot_angle),this.projectile_duration)
     }
   }
   singlebig_pattern(delta,area){
@@ -6234,7 +6232,7 @@ class FrostGiantEnemy extends Enemy{
     if(this.prepare_shot(delta)){
 	  var i=0;
 	  while(i<4){
-        this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle)+(i++)*90,this.projectile_duration)
+        this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.shoot_angle)+(i++)*90,this.projectile_duration)
 	  }
     }
   }
@@ -6251,15 +6249,15 @@ class FrostGiantEnemy extends Enemy{
   }
   cone_edges_pattern(delta,area){
     if(this.prepare_shot(delta)){
-      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle)+this.cone_angle,this.projectile_duration)
-      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle)-this.cone_angle,this.projectile_duration)
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.shoot_angle)+this.cone_angle,this.projectile_duration)
+      this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.shoot_angle)-this.cone_angle,this.projectile_duration)
     }
   }
   twinspiral_pattern(delta,area){
     if(this.prepare_shot(delta)){
 	  var i=0;
 	  while(i<2){
-        this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.angle)+(i++)*180,this.projectile_duration)
+        this.addBullet(area,this.x,this.y,this.projectile_speed,this.projectile_radius,this.rad_to_deg(this.shoot_angle)+(i++)*180,this.projectile_duration)
 	  }
     }
   }
@@ -6268,11 +6266,11 @@ class FrostGiantEnemy extends Enemy{
       return Math.min(Math.abs(y-x),Math.abs(y-x+Math.PI*2),Math.abs(y-x-Math.PI*2))
     };
 
-    const angle_moved = angle_difference(this.angle, this.initial_angle);
+    const angle_moved = angle_difference(this.shoot_angle, this.initial_angle);
 
     if(Math.abs(angle_moved) >= this.deg_to_rad(this.cone_angle)){
       // Avoid accumulation floating point error by resetting angle.
-      this.angle = this.initial_angle + this.deg_to_rad(this.cone_angle * this.direction);
+      this.shoot_angle = this.initial_angle + this.deg_to_rad(this.cone_angle * this.direction);
       this.direction *= -1;
     }
 
@@ -6285,6 +6283,9 @@ class FrostGiantEnemy extends Enemy{
 	  const projectile=new FrostGiantIceProjectile(x,y,radius,speed,angle,duration);
 	  projectile.area=this.area;projectile.z=this.z;
 	  area.entities.push(projectile);
+  }
+  onCollide(){
+	  this.shoot_angle=this.angle;
   }
   update(delta,area) {
     if(!this.rotation){
