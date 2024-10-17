@@ -546,7 +546,6 @@ this.isGuest=!1;
 		}
 	}
   assetCollision(){
-	let usingExperiementalFeature=activated_extensions.includes("rotatedWallAssets");
     let collided=false;
     const walls=map.areas[this.area].entities.filter(e=>(e instanceof Wall && e.collisionIndex==-1));
     let centerX,centerY,halfWidth,halfHeight;
@@ -560,7 +559,7 @@ this.isGuest=!1;
 	  var rx=x-centerX;
 	  var ry=y-centerY;
 	  var d=Math.sqrt(rx**2+ry**2);
-	  var a=Math.atan2(ry,rx)-i.rotation*Math.PI/180*usingExperiementalFeature;
+	  var a=Math.atan2(ry,rx)-i.rotation*Math.PI/180;
 	  x=parseFloat((centerX+Math.cos(a)*d).toFixed(10));
 	  y=parseFloat((centerY+Math.sin(a)*d).toFixed(10));
 
@@ -632,7 +631,7 @@ this.isGuest=!1;
 	    rx=x-centerX;
 	    ry=y-centerY;
 	    d=Math.sqrt(rx**2+ry**2);
-	    a=Math.atan2(ry,rx)+i.rotation*Math.PI/180*usingExperiementalFeature;
+	    a=Math.atan2(ry,rx)+i.rotation*Math.PI/180;
         this.x=parseFloat((centerX+Math.cos(a)*d).toFixed(10));
 	    this.y=parseFloat((centerY+Math.sin(a)*d).toFixed(10));
 	  }
@@ -2638,7 +2637,6 @@ class SimulatorEntity extends EvadesEntity{
   onBeforeCollide(){
   }
   assetCollision(){
-	let usingExperiementalFeature=activated_extensions.includes("rotatedWallAssets");
     let collided=false;
     const walls=map.areas[this.area].entities.filter(e=>(e instanceof Wall && (e.collisionIndex==this.z||e.collisionIndex==-1)));
     let centerX,centerY,halfWidth,halfHeight;
@@ -2652,8 +2650,8 @@ class SimulatorEntity extends EvadesEntity{
 		var rx=x-centerX;
 		var ry=y-centerY;
 		var d=Math.sqrt(rx**2+ry**2);
-		var a=Math.atan2(ry,rx)-i.rotation*Math.PI/180*usingExperiementalFeature;
-		angle-=i.rotation*Math.PI/180*usingExperiementalFeature;
+		var a=Math.atan2(ry,rx)-i.rotation*Math.PI/180;
+		angle-=i.rotation*Math.PI/180;
 		velX=Math.cos(angle)*this.speed;
 		velY=Math.sin(angle)*this.speed;
 		x=parseFloat((centerX+Math.cos(a)*d).toFixed(10));
@@ -2740,12 +2738,12 @@ class SimulatorEntity extends EvadesEntity{
             }
           }
         }
-		this.angle=angle+i.rotation*Math.PI/180*usingExperiementalFeature;
+		this.angle=angle+i.rotation*Math.PI/180;
 		this.anglevel();
 		rx=x-centerX;
 		ry=y-centerY;
 		d=Math.sqrt(rx**2+ry**2);
-		a=Math.atan2(ry,rx)+i.rotation*Math.PI/180*usingExperiementalFeature;
+		a=Math.atan2(ry,rx)+i.rotation*Math.PI/180;
 	    this.x=parseFloat((centerX+Math.cos(a)*d).toFixed(10));
 	    this.y=parseFloat((centerY+Math.sin(a)*d).toFixed(10));
 	  }
