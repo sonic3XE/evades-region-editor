@@ -381,6 +381,9 @@ this.abilityOne = new Ability;
 this.abilityOne.abilityType=this.heroType*2;
 this.abilityTwo = new Ability;
 this.abilityTwo.abilityType=this.heroType*2+1;
+const availAbilities=[0, 1, 2, 3, 4, 6, 7, 8, 9, 14, 18, 31, 97, 98, 99, 100, 101];
+if(availAbilities.indexOf(this.abilityOne.abilityType)==-1)this.abilityOne=void 0;
+if(availAbilities.indexOf(this.abilityTwo.abilityType)==-1)this.abilityTwo=void 0;
 //this.abilityThree = new Ability;
 //this.abilityThree.abilityType=4;
 this.abilityIndex=0;
@@ -1142,14 +1145,14 @@ this.isGuest=!1;
           }
         }
         if (input.keys.has(controls.UPGRADE_ABILITY_ONE[0])||input.keys.has(controls.UPGRADE_ABILITY_ONE[1])) {
-          if (this.abilityOne.level < this.abilityOne.maxLevel && this.upgradePoints > 0) {
+          if (this.abilityOne && this.abilityOne.level < this.abilityOne.maxLevel && this.upgradePoints > 0) {
 			this.abilityOne.level++;
 			this.abilityOne.locked=this.abilityOne.level==0;
             this.upgradePoints--;
           }
         }
-        if (input.keys.has(controls.UPGRADE_ABILITY_TWO[0])||input.keys.has(controls.UPGRADE_ABILITY_TWO[1])) {
-          if (this.abilityTwo.level < this.abilityTwo.maxLevel && this.upgradePoints > 0) {
+	    if (input.keys.has(controls.UPGRADE_ABILITY_TWO[0])||input.keys.has(controls.UPGRADE_ABILITY_TWO[1])) {
+	      if (this.abilityTwo && this.abilityTwo.level < this.abilityTwo.maxLevel && this.upgradePoints > 0) {
 			this.abilityTwo.level++;
 			this.abilityTwo.locked=this.abilityTwo.level==0;
             this.upgradePoints--;
@@ -1313,11 +1316,17 @@ this.isGuest=!1;
 		this.nextLevelExperience=4;
 		this.tempPrevExperience=0;
 		this.tempNextExperience=4;
-		this.abilityOne = new Ability;
-		this.abilityOne.abilityType=this.heroType*2;
-		this.abilityTwo = new Ability;
-		this.abilityTwo.abilityType=this.heroType*2+1;
 		this.effects=[];
+		if(this.abilityOne){
+			var type=this.abilityOne.abilityType;
+			this.abilityOne = new Ability;
+			this.abilityOne.abilityType=type;
+		}
+		if(this.abilityTwo){
+			var type=this.abilityTwo.abilityType;
+			this.abilityTwo = new Ability;
+			this.abilityTwo.abilityType=type;
+		}
 		if(this.abilityThree){
 			var type=this.abilityThree.abilityType;
 			this.abilityThree = new Ability;
@@ -1337,10 +1346,10 @@ this.isGuest=!1;
 		let timeFix=delta/(1e3/30);
 		var cent=this.isCent;
 		if(this.isLead)cent=!cent;
-	if(this.firstAbility&&this.abilityOne.cooldown==0){
+	if(this.firstAbility&&this.abilityOne&&this.abilityOne.cooldown==0){
 		this.firstAbilityActivated = !this.firstAbilityActivated;
 	}
-	if(this.secondAbility&&this.abilityTwo.cooldown==0){
+	if(this.secondAbility&&this.abilityTwo&&this.abilityTwo.cooldown==0){
 		this.secondAbilityActivated = !this.secondAbilityActivated;
 	}
 	if(this.thirdAbility&&this.abilityThree&&this.abilityThree.cooldown==0){
@@ -1357,17 +1366,23 @@ this.isGuest=!1;
 	else this.deathTimerTotalMultiplier=0;
 	
 	const usableWhileDowned=[8,18];
-	this.abilityOne.afterStateUpdate();
-	this.abilityTwo.afterStateUpdate();
+	this.abilityOne&&this.abilityOne.afterStateUpdate();
+	this.abilityTwo&&this.abilityTwo.afterStateUpdate();
 	this.abilityThree&&this.abilityThree.afterStateUpdate();
 	  if(this.wasDowned){
-		  usableWhileDowned.indexOf(this.abilityOne.abilityType)==-1&&(this.firstAbilityActivated=false);
-		  usableWhileDowned.indexOf(this.abilityTwo.abilityType)==-1&&(this.secondAbilityActivated=false);
+		  usableWhileDowned.indexOf(this.abilityOne?.abilityType)==-1&&(this.firstAbilityActivated=false);
+		  usableWhileDowned.indexOf(this.abilityTwo?.abilityType)==-1&&(this.secondAbilityActivated=false);
 		  usableWhileDowned.indexOf(this.abilityThree?.abilityType)==-1&&(this.thirdAbilityActivated=false);
 	  }
-	this.handleAbility(this.abilityOne,1,delta,[this.abilityTwo,this.abilityThree],this.firstAbility);
-	this.handleAbility(this.abilityTwo,2,delta,[this.abilityOne,this.abilityThree],this.secondAbility);
-	this.abilityThree&&this.handleAbility(this.abilityThree,3,delta,[this.abilityOne,this.abilityTwo],this.thirdAbility);
+	try{
+		this.abilityOne&&this.handleAbility(this.abilityOne,1,delta,[this.abilityTwo,this.abilityThree],this.firstAbility);
+	}catch(ignore){this.abilityOne=void 0;if(this.id==selfId){delete evadesRenderer.heroInfoCard.abilityOne,delete evadesRenderer.experienceBar.abilityOne}}
+	try{
+		this.abilityTwo&&this.handleAbility(this.abilityTwo,2,delta,[this.abilityOne,this.abilityThree],this.secondAbility);
+	}catch(ignore){this.abilityTwo=void 0;if(this.id==selfId){delete evadesRenderer.heroInfoCard.abilityTwo,delete evadesRenderer.experienceBar.abilityTwo}}
+	try{
+		this.abilityThree&&this.handleAbility(this.abilityThree,3,delta,[this.abilityOne,this.abilityTwo],this.thirdAbility);
+	}catch(ignore){this.abilityThree=void 0;if(this.id==selfId){delete evadesRenderer.heroInfoCard.abilityThree,delete evadesRenderer.experienceBar.abilityThree}}
 	this.cooldown_reduction=1;
 		var rotationSpeed = 450;
 		var angle=this.input_angle/Math.PI*180;
@@ -1385,21 +1400,21 @@ this.isGuest=!1;
 		this.chronoPos.push([this.x,this.y,this.deathTimer]);
 		this.chronoPos=this.chronoPos.slice(-Math.round(2.6e3/delta));
 		this.inBarrier = false;
-		if(this.abilityOne.cooldown!==void 0&&!this.abilityOne.pellet_powered){
+		if(this.abilityOne&&this.abilityOne.cooldown!==void 0&&!this.abilityOne.pellet_powered){
 			this.abilityOne.cooldown-=delta/1e3;
 		};
-		this.abilityOne.cooldown=Math.max(this.abilityOne.cooldown??0,0);
-		if(this.abilityTwo.cooldown!==void 0&&!this.abilityTwo.pellet_powered){
+		this.abilityOne&&(this.abilityOne.cooldown=Math.max(this.abilityOne.cooldown??0,0));
+		if(this.abilityTwo&&this.abilityTwo.cooldown!==void 0&&!this.abilityTwo.pellet_powered){
 			this.abilityTwo.cooldown-=delta/1e3;
 		};
-		this.abilityTwo.cooldown=Math.max(this.abilityTwo.cooldown??0,0);
+		this.abilityTwo&&(this.abilityTwo.cooldown=Math.max(this.abilityTwo.cooldown??0,0));
 		if(this.abilityThree&&this.abilityThree.cooldown!==void 0&&!this.abilityThree.pellet_powered){
 			this.abilityThree.cooldown-=delta/1e3;
 		};
 		this.abilityThree&&(this.abilityThree.cooldown=Math.max(this.abilityThree.cooldown??0,0));
 		if(this.noCooldown){
-			this.abilityOne.cooldown=0;
-			this.abilityTwo.cooldown=0;
+			this.abilityOne && (this.abilityOne.cooldown=0);
+			this.abilityTwo && (this.abilityTwo.cooldown=0);
 			this.abilityThree && (this.abilityThree.cooldown=0);
 		}
 		this.updateEffects([this.abilityOne,this.abilityTwo,this.abilityThree]);
@@ -1615,8 +1630,10 @@ this.isGuest=!1;
 			this.distance_moved_previously=[0,0];
 		}
 		const revivalAbilities=[8];
-		this.abilityOne.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityOne.abilityType)!=-1&&this.isInfected);
-		this.abilityTwo.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityTwo.abilityType)!=-1&&this.isInfected);
+		if(this.abilityOne)
+			this.abilityOne.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityOne.abilityType)!=-1&&this.isInfected);
+		if(this.abilityTwo)
+			this.abilityTwo.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityTwo.abilityType)!=-1&&this.isInfected);
 		if(this.abilityThree)
 			this.abilityThree.disabled=this.disabling||this.isSnowballed||(revivalAbilities.indexOf(this.abilityThree.abilityType)!=-1&&this.isInfected);
 		this.canGainEnergy=!this.isStone;
@@ -2478,18 +2495,20 @@ class SimulatorEntity extends EvadesEntity{
 	this.maxEnergy=this.energy;
     this.ogradius=this.radius;
     this.radiusMultiplier=1;
-    this.radiusMultiplierEffects=[];
+    this.MultiplierEffects=[];
     this.speedMultiplier=1;
-	this.speedMultiplierEffects=[];
-	this.unfreezeTimer=40e3/9;
-	this.unfreezeTimerTotal=40e3/9;
   }
   damage(damage){}
   freeze(duration){
 	if(!this.movement_immune){
-		this.frozen=true;
-		this.frozenTime=duration;
-		this.unfreezeTimer=0;
+	  this.speedMultiplier*=0;
+	  if(this.MultiplierEffects.some(e=>e.type=="freeze")){
+	    const frozenFX=this.MultiplierEffects.filter(e=>e.type=="freeze")[0];
+	    frozenFX.speedMult=0;
+	    frozenFX.time=-duration/1e3;
+	  }else{
+	    this.MultiplierEffects.push({type:"freeze",speedMult:0,time:-duration/1e3})
+	  }
 	}
   }
   anglevel(){
@@ -2581,6 +2600,20 @@ class SimulatorEntity extends EvadesEntity{
   }
   update(delta,area,collide=true){
 	if(this.healingTime>0)this.healingTime-=delta;
+	this.MultiplierEffects.map(e=>{
+		if(e.time>=0){
+			if(e.speedMult!=void 0)e.speedMult=(e.speedMult+0.015)*Math.pow(0.425,delta/1e3);
+			if(e.radiusMult!=void 0)e.radiusMult=(e.radiusMult+0.015)*Math.pow(0.425,delta/1e3);
+		};
+		e.time+=delta/1e3;
+		if(e.speedMult>1)e.speedMult=1;
+		if(e.radiusMult>1)e.radiusMult=1;
+		(e.speedMult!=void 0)&&(this.speedMultiplier*=e.speedMult);
+		(e.radiusMult!=void 0)&&(this.radiusMultiplier*=e.radiusMult);
+	});
+	this.MultiplierEffects=this.MultiplierEffects.filter(e=>{
+		return e.speedMult < 1 || e.radiusMult < 1;
+	});
 	this.radius=this.ogradius*this.radiusMultiplier;
 	this.radiusMultiplier=1;
     this.x+=this.velX*this.speedMultiplier*delta/1e3;
@@ -2591,25 +2624,6 @@ class SimulatorEntity extends EvadesEntity{
   collision(delta,collide=true){
 	if(this.harmlessTime>0)this.harmlessTime-=delta;
 	if(this.harmlessTime<=0&&!this.disabled)this.isHarmless=this.switchedHarmless||(this.healingTime>0);
-	if(this.frozenTime>0){
-	  this.frozenTime-=delta;
-	  this.speedMultiplier=0;
-	}else if(this.frozen){
-	  this.frozen=false;
-	  this.speedMultiplierEffects.push({type:"freeze",time:0})
-	};
-	if(this.minimizeTime>0){
-		this.radiusMultiplier*=0.5;
-	}else{
-		//Ain't no way to implement this return to original stat because i dont have access to EvadesClassic source code.
-	}
-	this.speedMultiplierEffects.map(e=>{
-		e.time+=delta;
-		this.speedMultiplier*=e.time/(40e3/9);
-	});
-	this.speedMultiplierEffects=this.speedMultiplierEffects.filter(e=>{
-		return e.time < 40e3/9;
-	});
 	if(collide){
 	    this.collided=false;
 		this.assetCollision();
@@ -3010,9 +3024,9 @@ class Pellet extends SimulatorEntity{
 		const randZone=this.pellet_zones[areaOfZone.map(e=>(rand<e/sum)).indexOf(true)];
 		this.x=randZone.x+randomRange(this.radius,randZone.width-this.radius);
 		this.y=randZone.y+randomRange(this.radius,randZone.height-this.radius);
-		if(player.abilityOne.pellet_powered)
+		if(player.abilityOne?.pellet_powered)
 			player.abilityOne.cooldown-=map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier;
-		if(player.abilityTwo.pellet_powered)
+		if(player.abilityTwo?.pellet_powered)
 			player.abilityTwo.cooldown-=map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier;
 		if(player.abilityThree?.pellet_powered)
 			player.abilityThree.cooldown-=map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier;
@@ -3796,6 +3810,7 @@ class ReanimateProjectile extends Enemy{
 	super.update(delta);
   }
 }
+//				entity.MultiplierEffects.push({type:"minimized",radiusMult:0.5,speedMult:0.25,time:-4});
 class ReverseProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,area,owner){
     super(x,y,radius,speed,angle,"reverse_projectile");
@@ -3807,6 +3822,7 @@ class ReverseProjectile extends Enemy{
 	this.touchedEntities=[];
 	this.pixelsTraveled=0;
   }
+  playerInteraction(){}
   update(delta,area){
 	for(const entity of area.entities){
 		if(entity.immune||!(entity instanceof Enemy))continue;
@@ -4744,45 +4760,31 @@ class CrumblingEnemy extends Enemy{
     super(x,y,radius,speed,angle,"crumbling_enemy");
 	this.hasCollided=false;
 	this.collideTime=0;
-	this.crumbleSize=1;
-	this.speedGainTimer=20e3/9;
-	this.speedGainTimerTotal=40e3/9;
   }
   onCollide(){
 	  if(!this.hasCollided){
 		this.hasCollided=true;
-		this.crumbleSize=0.5;
 		var residue=new ResidueEnemy(this.x,this.y,this.ogradius/3,this.speed/6.25,Math.random()*360);
 		residue.area=this.area;
 		residue.z=this.z;
-		this.radiusMultiplier*=this.crumbleSize;
+		this.radiusMultiplier/=2;
 		this.speedMultiplier/=2;
 		map.areas[current_Area].entities.push(residue);
+		let CrumbleFX;
+		if(this.MultiplierEffects.some(e=>e.type=="crumbled_on_collision"))CrumbleFX=this.MultiplierEffects.filter(e=>e.type=="crumbled_on_collision")[0],CrumbleFX.speedMult=0.5,CrumbleFX.radiusMult=0.5,CrumbleFX.time=-3;
+		else this.MultiplierEffects.push({type:"crumbled_on_collision",speedMult:0.5,radiusMult:0.5,time:-3});
 	  }
   }
   update(delta,area) {
 	if(this.hasCollided){
 		this.collideTime+=delta;
-		this.speedMultiplier*=0.5;
 	}
 	if(this.collideTime>=3e3&&this.hasCollided){
-		customAlert("Fatal Error: User sonic3XE has no access to Spacebrook/EvadesClassic github source code.",1/0,"#F00");
-		throw "[server/src/game/entities/enemies/crumbling_enemy.py] User sonic3XE has no access to Spacebrook/EvadesClassic github source code.";
+		customAlert("https://github.com/sonic3XE/evades-region-editor/issues/18#issuecomment-2408272962",1/0,"#F0F")
+		//customAlert("Fatal Error: User sonic3XE has no access to Spacebrook/EvadesClassic github source code.",1/0,"#F00");
+		//throw "[server/src/game/entities/enemies/crumbling_enemy.py] User sonic3XE has no access to Spacebrook/EvadesClassic github source code.";
 		this.hasCollided=false;
-		this.collideTime=0;//67 frames to go back to original size in 30fps
 	};
-	if(!this.hasCollided){
-		if(this.speedGainTimer < this.speedGainTimerTotal){
-			this.speedGainTimer+=delta;
-			this.speedMultiplier*=this.speedGainTimer/this.speedGainTimerTotal;
-		}
-		if(this.crumbleSize<1){
-			this.crumbleSize+=delta/(1e3/30)/(200/3)/2;
-		}else{
-			this.crumbleSize=1;
-		}
-	}
-	this.radiusMultiplier*=this.crumbleSize;
     super.update(delta);
   }
 }

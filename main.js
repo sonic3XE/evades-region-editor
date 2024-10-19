@@ -391,7 +391,7 @@ canvas.addEventListener("contextmenu",e=>{if(e.preventDefault(),e.target===conte
 [fadingEffects,abilityParticles,legacySpeedUnits,realTime,enemyOutlines,toggleMouseMovement,enableMouseMovement,confetti,legacy30FPS,displayTimer].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.checked}));
 [snapX,pelletTransparency,snapY,joystickDeadzone].map(e=>e.addEventListener("input",t=>{settings[t.target.id]=t.target.value}));
 lang.addEventListener("input",e=>{settings.language=e.target.selectedIndex;loadLanguage(`${languages[settings.language]}.json`)});
-herotype.addEventListener("input",e=>{settings.heroType=e.target.selectedIndex});
+herotype.addEventListener("input",e=>{settings.heroType=e.target.selectedIndex-1});
 document.addEventListener("click",e=>{if(e.target==contextmenu||e.target.parentNode==contextmenu&&e.button==2)return;if(e.target==canvas&&e.button==2)return;hide(contextmenu,updateMouseEntity=true)});
 reset.addEventListener("click",e=>{
 	customConfirm(formatString("editor.confirm.start_from_scratch"),formatString("editor.confirm.yes"),formatString("editor.confirm.no"),r=>{r&&loadFile(`name: No Name
@@ -471,14 +471,9 @@ document.addEventListener("keydown", e => {
 			plr.energyRegen=7,
 			plr.level=100,
 			plr.experience=plr.nextLevelExperience,
-			plr.abilityOne.locked=false,
-			plr.abilityOne.level=plr.abilityOne.maxLevel,
-			plr.abilityTwo.locked=false,
-			plr.abilityTwo.level=plr.abilityTwo.maxLevel,
-			(plr.abilityThree)&&(
-				plr.abilityThree.locked=false,
-				plr.abilityThree.level=plr.abilityThree.maxLevel
-			);
+			(plr.abilityOne)&&(plr.abilityOne.locked=false,plr.abilityOne.level=plr.abilityOne.maxLevel),
+			(plr.abilityTwo)&&(plr.abilityTwo.locked=false,plr.abilityTwo.level=plr.abilityTwo.maxLevel),
+			(plr.abilityThree)&&(plr.abilityThree.locked=false,plr.abilityThree.level=plr.abilityThree.maxLevel);
 		if(e.which===KeyMap.Y)//Toggle Cooldown (Command: /cd, /cooldown)
 			plr.noCooldown=!plr.noCooldown;
 		if(e.which===KeyMap.U)//Revive (Command: /r, /s, /save, /revive)
@@ -494,14 +489,9 @@ document.addEventListener("keydown", e => {
 			plr.level=100,
 			plr.noCooldown=true,
 			plr.experience=plr.nextLevelExperience,
-			plr.abilityOne.locked=false,
-			plr.abilityOne.level=plr.abilityOne.maxLevel,
-			plr.abilityTwo.locked=false,
-			plr.abilityTwo.level=plr.abilityTwo.maxLevel,
-			(plr.abilityThree)&&(
-				plr.abilityThree.locked=false,
-				plr.abilityThree.level=plr.abilityThree.maxLevel
-			);
+			(plr.abilityOne)&&(plr.abilityOne.locked=false,plr.abilityOne.level=plr.abilityOne.maxLevel),
+			(plr.abilityTwo)&&(plr.abilityTwo.locked=false,plr.abilityTwo.level=plr.abilityTwo.maxLevel),
+			(plr.abilityThree)&&(plr.abilityThree.locked=false,plr.abilityThree.level=plr.abilityThree.maxLevel);
 		if(e.which===controls.PLAYTEST-2&&location.search=="?isDev")//Godmode (Command: /g)
 			e.preventDefault(),
 			plr.godmode=true,
