@@ -381,7 +381,7 @@ this.abilityOne = new Ability;
 this.abilityOne.abilityType=this.heroType*2;
 this.abilityTwo = new Ability;
 this.abilityTwo.abilityType=this.heroType*2+1;
-const availAbilities=[0, 1, 2, 3, 4, 6, 7, 8, 9, 14, 18, 31, 97, 98, 99, 100, 101];
+const availAbilities=[0, 1, 2, 3, 4, 5, 8, 9, 14, 18, 31, 97, 98, 99, 100, 101];
 if(availAbilities.indexOf(this.abilityOne.abilityType)==-1)this.abilityOne=void 0;
 if(availAbilities.indexOf(this.abilityTwo.abilityType)==-1)this.abilityTwo=void 0;
 //this.abilityThree = new Ability;
@@ -853,6 +853,27 @@ this.isGuest=!1;
 					var x=this.x+(this.radius+EvadesConfig.defaults.reverse_projectile.radius)*Math.cos(this.input_angle+offset*Math.PI/180);
 					var y=this.y+(this.radius+EvadesConfig.defaults.reverse_projectile.radius)*Math.sin(this.input_angle+offset*Math.PI/180);
 					area.entities.push(new ReverseProjectile(x,y,EvadesConfig.defaults.reverse_projectile.radius,abilityConfig[ability.abilityType].speed,this.input_angle/Math.PI*180+offset,this.area));
+				}
+				abilityActive=false;
+				switch(kind){
+					case 1:this.firstAbilityActivated=false;break;
+					case 2:this.secondAbilityActivated=false;break;
+					case 3:this.thirdAbilityActivated=false;break;
+				}
+				ability.cooldown=abilityLevels[ability.level-1]?.total_cooldown??ability.totalCooldown;
+			}
+		};break;
+		case 5:{/*Minimize*/
+			if(ability.continuous&&abilityActive&&ability.cooldown==0){
+			}else if(!ability.continuous&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
+				this.energy-=ability.energyCost;
+				var area=map.areas[this.area];
+				ability.projectiles=abilityLevels[ability.level-1]?.projectiles;
+				for(var i=0.5-ability.projectiles/2;i<0.5+ability.projectiles/2;i++){
+					const offset=ability.projectiles!=1&&(i*(3+12*ability.projectiles)/(ability.projectiles-1));
+					var x=this.x+(this.radius+EvadesConfig.defaults.minimize_projectile.radius)*Math.cos(this.input_angle+offset*Math.PI/180);
+					var y=this.y+(this.radius+EvadesConfig.defaults.minimize_projectile.radius)*Math.sin(this.input_angle+offset*Math.PI/180);
+					area.entities.push(new MinimizeProjectile(x,y,EvadesConfig.defaults.minimize_projectile.radius,abilityConfig[ability.abilityType].speed,this.input_angle/Math.PI*180+offset,this.area));
 				}
 				abilityActive=false;
 				switch(kind){
@@ -3812,7 +3833,6 @@ class ReanimateProjectile extends Enemy{
 	super.update(delta);
   }
 }
-//				entity.MultiplierEffects.push({type:"minimized",radiusMult:0.5,speedMult:0.25,time:-4});
 class ReverseProjectile extends Enemy{
   constructor(x,y,radius,speed,angle,area,owner){
     super(x,y,radius,speed,angle,"reverse_projectile");
@@ -3839,6 +3859,41 @@ class ReverseProjectile extends Enemy{
 				}
 				entity.healingTime=4e3;
 				entity.isHarmless=true;
+			}
+		}
+	}
+	this.pixelsTraveled+=this.speed*delta/1e3;
+    if(this.pixelsTraveled>=352)
+      this.remove=true;
+	super.update(delta);
+  }
+}
+class MinimizeProjectile extends Enemy{
+  constructor(x,y,radius,speed,angle,area,owner){
+    super(x,y,radius,speed,angle,"minimize_projectile");
+	this.showOnMap=true;
+	this.area=area;
+	this.owner=owner;
+    this.immune=true;
+	this.outline=false;
+	this.touchedEntities=[];
+	this.pixelsTraveled=0;
+  }
+  playerInteraction(){}
+  update(delta,area){
+	for(const entity of area.entities){
+		if(entity.immune||!(entity instanceof Enemy))continue;
+		if(distance(this,entity)<this.radius+entity.radius&&this.touchedEntities.indexOf(entity)==-1){
+			if(entity.MultiplierEffects.some(e=>e.type=="minimized")){
+				const MinimizeFX=entity.MultiplierEffects.filter(e=>e.type=="minimized")[0];
+				MinimizeFX.time=-4;
+				MinimizeFX.radiusMult=0.5;
+				if(!entity.movement_immune)
+					MinimizeFX.speedMult=0.25;
+			}else{
+				const newEffect={type:"minimized",radiusMult:0.5,speedMult:0.25,time:-4};
+				if(entity.movement_immune)newEffect.speedMult=1;
+				entity.MultiplierEffects.push(newEffect);
 			}
 		}
 	}
