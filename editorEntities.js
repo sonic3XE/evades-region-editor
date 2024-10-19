@@ -4766,27 +4766,21 @@ class CrumblingEnemy extends Enemy{
   onCollide(){
 	  if(!this.hasCollided){
 		this.hasCollided=true;
-		var residue=new ResidueEnemy(this.x,this.y,this.ogradius/3,this.speed/6.25,Math.random()*360);
+		let CrumbleFX,residue=new ResidueEnemy(this.x,this.y,this.ogradius/3,this.speed/6.25,Math.random()*360);
 		residue.area=this.area;
 		residue.z=this.z;
 		this.radiusMultiplier/=2;
 		this.speedMultiplier/=2;
 		map.areas[current_Area].entities.push(residue);
-		let CrumbleFX;
 		if(this.MultiplierEffects.some(e=>e.type=="crumbled_on_collision"))CrumbleFX=this.MultiplierEffects.filter(e=>e.type=="crumbled_on_collision")[0],CrumbleFX.speedMult=0.5,CrumbleFX.radiusMult=0.5,CrumbleFX.time=-3;
 		else this.MultiplierEffects.push({type:"crumbled_on_collision",speedMult:0.5,radiusMult:0.5,time:-3});
 	  }
   }
   update(delta,area) {
-	if(this.hasCollided){
+	if(this.hasCollided)
 		this.collideTime+=delta;
-	}
-	if(this.collideTime>=3e3&&this.hasCollided){
-		customAlert("https://github.com/sonic3XE/evades-region-editor/issues/18#issuecomment-2408272962",1/0,"#F0F")
-		//customAlert("Fatal Error: User sonic3XE has no access to Spacebrook/EvadesClassic github source code.",1/0,"#F00");
-		//throw "[server/src/game/entities/enemies/crumbling_enemy.py] User sonic3XE has no access to Spacebrook/EvadesClassic github source code.";
+	if(this.collideTime>=3e3&&this.hasCollided)
 		this.hasCollided=false;
-	};
     super.update(delta);
   }
 }
