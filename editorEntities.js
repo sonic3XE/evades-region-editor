@@ -1427,12 +1427,14 @@ this.isGuest=!1;
 			return s;
 		}
 		this.zoneFriction=1;
+		this.minimum_speed=-1/0;
 		for(var zone of area.zones){
 			var rect1={x:this.x,y:this.y,width:this.radius, height:this.radius},rect2={x:zone.x,y:zone.y,width:zone.width, height:zone.height};
 			if(zone.type=="active"&&rect1.x-this.radius<rect2.x+rect2.width&&rect1.x+this.radius>rect2.x&&rect1.y-this.radius<rect2.y+rect2.height&&rect1.y+this.radius>rect2.y)this.safeZone=false;
 			if(rect1.x<rect2.x+rect2.width&&rect1.x>rect2.x&&rect1.y<rect2.y+rect2.height&&rect1.y>rect2.y){
+				const min_spd=checkZoneProperties("minimum_speed")
+				if(min_spd!=void 0)this.minimum_speed=Math.max(this.minimum_speed,min_spd);
 				if(zone.type=="active")this.pointInActiveZone=true;
-				this.minimum_speed=checkZoneProperties("minimum_speed");
 				this.zoneFriction=checkZoneProperties("friction");
 			}
 		}
