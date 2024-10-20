@@ -46,6 +46,7 @@ var zoneconsts={
 }
 importer.addEventListener("input",e=>{
 	if(!importer.selectedIndex)return;
+	document.activeElement.blur();
 	const url=WORLD.regions[importer.selectedIndex-1].file;
 	if(importer.selectedIndex=0,consumed_by_ink_demon||=!url.endsWith(".yaml"))return;
 	fetch(url).then(e=>{
