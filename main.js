@@ -492,9 +492,9 @@ document.addEventListener("keydown", e => {
 			(plr.abilityOne)&&(plr.abilityOne.locked=false,plr.abilityOne.level=plr.abilityOne.maxLevel),
 			(plr.abilityTwo)&&(plr.abilityTwo.locked=false,plr.abilityTwo.level=plr.abilityTwo.maxLevel),
 			(plr.abilityThree)&&(plr.abilityThree.locked=false,plr.abilityThree.level=plr.abilityThree.maxLevel);
-		if(e.which===controls.PLAYTEST-2&&location.search=="?isDev")//Godmode (Command: /g)
+		if(e.which===KeyMap.N)//Godmode (Command: /g)
 			e.preventDefault(),
-			plr.godmode=true,
+			plr.godmode=!plr.godmode,
 			plr.deathTimer=-1;
 		return;
 	};
