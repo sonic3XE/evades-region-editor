@@ -4377,6 +4377,9 @@ class HomingEnemy extends Enemy{
 	this.home_range=home_range;
 	this.increment=increment;
   }
+  onCollide(){
+    this.target_angle=this.angle=Math.atan2(this.velY,this.velX);
+  }
   update(delta){
     var closest_entity,closest_entity_distance,information;
     if(map.players.length){
