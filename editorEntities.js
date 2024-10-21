@@ -2628,6 +2628,14 @@ class SimulatorEntity extends EvadesEntity{
 			if(e.speedMult!=void 0)e.speedMult=(e.speedMult+0.015)*Math.pow(0.425,delta/1e3);
 			if(e.radiusMult!=void 0)e.radiusMult=(e.radiusMult+0.015)*Math.pow(0.425,delta/1e3);
 		};
+		this.effects.map(t=>{
+			var type=t.effectType;
+			if(type>43&&type<66){
+				t.ogradius??=t.radius;
+				t.radius=t.ogradius*(e.auraMult??1);
+				if(e.radiusMult>1)t.radius=t.ogradius;
+			}
+		})
 		e.time+=delta/1e3;
 		if(e.speedMult>1)e.speedMult=1;
 		if(e.radiusMult>1)e.radiusMult=1;
@@ -3089,16 +3097,15 @@ class Torch extends SimulatorEntity{
 	this.height=36;
   }
   update(){}
-  render(ctx,t,delta) {
-	this.flickerChance = 4.5 * delta / 1e3;
+  render(e,t,delta) {
+	Math.random() <= this.flickerChance * delta / 1e3 && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
 	const a = this.x + t.x
 	  , r = this.y + t.y;
-	Math.random() <= this.flickerChance && (this.lightRadius = this.baseLightRadius + Math.random() * this.randomFlickerRadius);
-	this.flipped ? (ctx.translate(a + this.width / 2, r + this.height / 2),
-	ctx.scale(1, -1),
-	this.image.draw(ctx, delta, -this.width / 2, -this.height / 2, this.width, this.height),
-	ctx.scale(1, -1),
-	ctx.translate(-(a + this.width / 2), -(r + this.height / 2))) : this.image.draw(ctx, delta, a, r, this.width, this.height)
+	this.flipped ? (e.translate(a + this.width / 2, r + this.height / 2),
+	e.scale(1, -1),
+	this.image.draw(e, delta, -this.width / 2, -this.height / 2, this.width, this.height),
+	e.scale(1, -1),
+	e.translate(-(a + this.width / 2), -(r + this.height / 2))) : this.image.draw(e, delta, a, r, this.width, this.height)
   }
 }
 class LightRegion extends SimulatorEntity{
@@ -3891,7 +3898,7 @@ class MinimizeProjectile extends Enemy{
 				if(!entity.movement_immune)
 					MinimizeFX.speedMult=0.25;
 			}else{
-				const newEffect={type:"minimized",radiusMult:0.5,speedMult:0.25,time:-4};
+				const newEffect={type:"minimized",auraMult:0.5,radiusMult:0.5,speedMult:0.25,time:-4};
 				if(entity.movement_immune)newEffect.speedMult=1;
 				entity.MultiplierEffects.push(newEffect);
 			}

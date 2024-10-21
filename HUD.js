@@ -2128,7 +2128,7 @@ class $31e8cfefa331e399$var$SimpleImage {
 		}
 		var tr=e.getTransform();
 		var scaled=Math.min(window.innerWidth/1280,window.innerHeight/720);
-		(r+o)*tr.a<=(e.canvas.width/2-640*scaled)||(c+n)*tr.d<=(e.canvas.height/2-360*scaled)||r*tr.a>=(e.canvas.width/2+640*scaled)||c*tr.d>=(e.canvas.height/2+360*scaled)||(this.image || this.createImage(),
+		(r+o)*Math.abs(tr.a)<=(e.canvas.width/2-640*scaled)||(c+n)*Math.abs(tr.d)<=(e.canvas.height/2-360*scaled)||r*Math.abs(tr.a)>=(e.canvas.width/2+640*scaled)||c*Math.abs(tr.d)>=(e.canvas.height/2+360*scaled)||(this.image || this.createImage(),
 		2 === t.length ? e.drawImage(this.image, r, c) : 4 === t.length ? e.drawImage(this.image, r, c, o, n) : 8 === t.length && e.drawImage(this.image, t[0], t[1], t[2], t[3], r, c, o, n))
 	}
 }
