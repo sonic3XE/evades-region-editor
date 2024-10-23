@@ -5410,6 +5410,7 @@ class CyclingEnemy extends Enemy{
 			default:this.entity=new (eval(rand))(this.x,this.y,this.ogradius,this.speed,(this.entity?.angle ?? this.angle)/Math.PI*180);break;
 		}
 		this.entity.area=this.area;
+		this.entity.z=this.z;
 		area.entities.push(this.entity);
 		this.clock = this.clock % this.switch_inverval;
     }
