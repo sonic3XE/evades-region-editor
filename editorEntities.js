@@ -6907,6 +6907,9 @@ class LungingEnemy extends Enemy{
 	this.speed=this.base_speed;
 	super.update(delta,area);
   }
+  onCollide(){
+    this.compute_speed();
+  }
   change_angle(angle){
     this.angle = angle;
     this.compute_speed();
