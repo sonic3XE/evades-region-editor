@@ -51,7 +51,7 @@ importer.addEventListener("input",e=>{
 	if(importer.selectedIndex=0,consumed_by_ink_demon||=!url.endsWith(".yaml"))return;
 	fetch(url).then(e=>{
 		if(e.status>=600)customAlert(`${e.status} — How did you get here?`,20,"#AFAFFFFF");
-		else if(e.status>=500)customAlert("Sorry, something went wrong with the server. Please try again later.",20,"#FFAFAFFF");
+		else if(e.status>=500)customAlert(`Sorry, something went wrong with the server. Please try again later. (Error ${e.status})`,20,"#FFAFAFFF");
 		else if(e.status>=400)customAlert(`[Error ${e.status}!!1]: Unable to fetch file "${url}"`,20,"#FFFFAFFF");
 		else if(e.status>=200)e.text().then(t=>loadFile(t,!1,!1,!1));
 	}).catch(e=>{

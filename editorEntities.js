@@ -6904,7 +6904,7 @@ class LungingEnemy extends Enemy{
         this.y+=Math.round(Math.random()*4-2);
       }
     }
-	this.speed=this.baseSpeed;
+	this.speed=this.base_speed;
 	super.update(delta,area);
   }
   change_angle(angle){
