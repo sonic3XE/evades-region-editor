@@ -12,6 +12,10 @@ a,.clickable-text {
 	height:100%;
 	z-index:9999;
 }
+.canvas-overlay0{
+	position:absolute;
+	z-index:9999;
+}
 .div-confirm>button{
 	width:200px;
 	font-size:20px;

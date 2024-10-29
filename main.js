@@ -1,5 +1,6 @@
 const isForked=location.origin+location.pathname!=="https://sonic3xe.github.io/evades-region-editor/",reloadPage=location.reload.bind(location),canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),map={name: "No Name",share_to_drive:true,players:[],properties:{},areas:[]},camSpeed=10,selectBuffer=5,manageExtensions=function(str){(activated_extensions.indexOf(str)==-1)?activated_extensions.push(str):activated_extensions.splice(activated_extensions.indexOf(str),1),localStorage.activatedExtensions=activated_extensions},getObjects=function(){return [...map.areas[current_Area].zones,...map.areas[current_Area].assets]},cons=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4"),prec=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3"),luma=function(arr){return arr.map(e=>{var v=e/255;return v<.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)}).map((e,t)=>{return[.2126,.7152,0.0722,0][t]*e}).reduce((e,t)=>{return e+t},0)*255},customAlert=function(text,duration=2,color="#fff"){if(duration<=0)return;alertMessages.push({text,color});duration!=1/0&&setTimeout(e=>alertMessages.splice(alertMessages.map(e=>e.text).indexOf(text),1),duration*1e3)},hexToArr=function(hex){return[parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)]},arrtoRGBA=function(arr){return`rgba(${arr.join()})`},fillZeros=function(str="0",digits=2,filler="0"){return filler.repeat(digits-str.length)+str},RGBtoHex=function(arr){return`#${fillZeros(Number(arr[0]).toString(16))}${fillZeros(Number(arr[1]).toString(16))}${fillZeros(Number(arr[2]).toString(16))}`},RGBAtoHex=function(arr){return`${RGBtoHex(arr)}${fillZeros(Number(arr[3]).toString(16))}`},ExtractDiff=function(e){e=e.replace(/ /g,"");const t=e.split("+"),i=e.split("-");return t.length>1?parseInt(t[1]||0):i.length>1?-parseInt(i[1]||0):0},loadData=async function(){await fetch("world.yaml").then(e=>{if(e?.status>=400&&!e?.ok)return customAlert(`[Error ${e.target.status}]: Unable to fetch data "${url}"`,20,"#FF0000");if(e?.status>=200&&e?.ok)return e?.text().then(t=>{return WORLD=YAML.parse(t)});console.log("bruh",e)}).catch(e=>{return customAlert(e,1/0,"#FFFF00")})},
 YAML={parse:function(e){return jsyaml.load(e,null)},stringify:function(e){return jsyaml.dump(e,{noCompatMode:true})}};
+const isVideoOnly=Date.getMonth()==9&&Date.getDate()>=30||Date.getMonth()>=10;
 /*(from Discord) amasterclasher — Thu, Aug 1, 2024 01:16:33 EDT
 	added a maximum speed property so if any mapmakers would like to put that in to their maps, it does work now
 	also @Sοηiς.εχэ will ping you since you seem to care about this stuff
@@ -7,8 +8,10 @@ YAML={parse:function(e){return jsyaml.load(e,null)},stringify:function(e){return
 let alertMessages=[],camScale=5/32,camX=0,camY=0,selectMode=null,lockCursor=false,resizing=false;
 const types = ["wall", "light_region", "flashlight_spawner", "torch", "gate", "active", "safe", "exit", "teleport", "victory", "removal"];
 const keysDown = new Set();
+if(!isVideoOnly){
 document.addEventListener("keydown",e=>{if(confirmationPopup)return;!(e.repeat||e.ctrlKey||e.target instanceof HTMLInputElement)&&keysDown.add(e.which)});
 document.addEventListener("keyup",e=>keysDown.delete(e.which))
+};
 var zoneconsts={
   normal: {
     active: createOffscreenCanvas(128, 128),
@@ -85,6 +88,7 @@ let selectionArea=null;
 function rectRectCollision(e,t){
 	return(e.x < t.width + t.x && e.x < t.x + t.width && e.x + e.width > t.x && e.y < t.y + t.height && e.y + e.height > t.y);
 }
+if(!isVideoOnly){
 canvas.addEventListener("mousemove",e=>{
 	mousePos.ex=(e.offsetX - canvas.width / 2);
 	mousePos.ey=(e.offsetY - canvas.height / 2);
@@ -253,7 +257,7 @@ x:target.x,y:target.y};
     selectedObjects = [];
   }
 });
-
+}
 /** 
  * @param {MouseEvent} e 
  * @returns {Zone | Asset}
@@ -286,6 +290,7 @@ function targetedObject(e) {
 }
 
 canvas.addEventListener("mousemove", e => {
+	if(isVideoOnly)return;
   const t = canvas.getBoundingClientRect();
   const gameScale=Math.min(global.innerWidth/1280,global.innerHeight/720);
   const mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
@@ -591,7 +596,7 @@ document.addEventListener("DOMContentLoaded",loadData);
 togglemenu.addEventListener("click",_=>(menu.classList.toggle("hidden"),_.target.innerText=formatString(`editor.toggleMenu.${menu.classList=="hidden"?"show":"hide"}`)));
 exportFile.addEventListener("click",_=>download(map.name));
 importFile.addEventListener("input",_=>(importFile.files.length&&importFile.files[0].text().then(value=>loadFile(value,true,true,importFile.files[0].name.split(".")[importFile.files[0].name.split(".").length-2]=="legacy")).catch(e=>(customAlert(e,1/0,"#FF0000"),console.error("OH SHIT!!\n",e)))));
-window.addEventListener("beforeunload",e=>(e.preventDefault(),e.returnValue="Have you saved your map?"));
+window.addEventListener("beforeunload",e=>(!isVideoOnly&&(e.preventDefault(),e.returnValue="Have you saved your map?")));
 function createInput(value, event, type = "string") {
   var e = document.createElement("input");
   (type == "number" || type == "string") && (e.value = value);
@@ -1266,15 +1271,54 @@ function rungame(){
 	//setTimeout(rungame);
 }
 [...document.querySelectorAll("script")].map(e=>e.remove());global.selfId=null;
+function playVideo(e){
+	e.stopImmediatePropagation();
+	e.target.requestFullscreen();
+	OrdinaryAmongstFamiliarGame.play();
+	canvas.removeEventListener("click",playVideo);
+}
+if(isVideoOnly){
+	canvas.addEventListener("click",playVideo);
+	canvas.classList.add("canvas-overlay0");
+}
 animate(function run(e){
-	rungame(e);
-	(settings.legacy30FPS?(ti[0]==0):!0)&&render();
+	if(!isVideoOnly){
+		rungame(e);
+		(settings.legacy30FPS?(ti[0]==0):!0)&&render();
+	}else{
+		if(document.fullscreenElement===null){
+			const scl=Math.min(window.innerHeight/720,window.innerWidth/1280);
+			let $, i, d = {
+				x: window.innerWidth / canvas.width,
+				y: window.innerHeight / canvas.height
+			};
+			d = d.x < d.y ? d.x : d.y,
+			$ = window.innerWidth === canvas.width * d ? canvas.width * (d - 1) / 2 : (window.innerWidth - canvas.width) / 2,
+			i = window.innerHeight === canvas.height * d ? canvas.height * (d - 1) / 2 : (window.innerHeight - canvas.height) / 2,
+			canvas.setAttribute("style", "transform-origin: center center; " + `transform: scale(${scl}); ` + `left: ${$}px; ` + `top: ${i}px;`);
+		};
+		EvadesIcons.hidden=menu.hidden=tl.hidden=true;
+		canvas.style.cursor=OrdinaryAmongstFamiliarGame.paused?"pointer":"none";
+		OrdinaryAmongstFamiliarGame.currentTime||=0.000001;
+		document.title=OrdinaryAmongstFamiliarGame.paused?"?":OrdinaryAmongstFamiliarGame.currentTime>=182.7083333333333333:"DEADDEADDEADDEADDEADDEADDEADDEADDEADDEADDEADDEADDEAD":OrdinaryAmongstFamiliarGame.currentTime>=28.41666666666666666?"Evades?":"Evades Region Editor";
+		canvas.width=1280;
+		canvas.height=720;
+		ctx.drawImage(OrdinaryAmongstFamiliarGame,0,0);
+		if(OrdinaryAmongstFamiliarGame.currentTime>=(182+17/24)){
+			//Region Editor died unexpectedly
+			localStorage.EvadesioEvictionNotice=false;
+			localStorage.sonic_is_banned_from_evades=true;
+		}
+		if(OrdinaryAmongstFamiliarGame.ended)location.replace("/");
+	}
 	animate(run);
 });
+const OrdinaryAmongstFamiliarGame=loadImage("https://cdn.glitch.me/5f5113ca-1ab8-4f8a-8357-9d142d7b1103/OrdinaryAgainstFamiliarGame.mp4")
 async function play_sonicexe_is_banned_from_evades_cutscene(tr=true){
-					let w=await fetch("/index.html").then(e=>e.text())
-					document.body.parentElement.innerHTML=w;
 					if(tr)localStorage.EvadesioEvictionNotice=!0;
+					let w=await fetch("/index.html").then(e=>e.text());
+					return location.replace("/");
+					document.body.parentElement.innerHTML=w;
 					const loadedTimes=Date.now();
 					let hadChanged=false;
 					requestAnimationFrame(function tttt(){
@@ -1291,8 +1335,9 @@ async function play_sonicexe_is_banned_from_evades_cutscene(tr=true){
             <a href="#" target="_blank"><div class="consumed"></div></a>
             <div class="description">
                 <h2><a href="#"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 511.815" fill="currentcolor"><path d="M24.983 197.869h16.918v-39.203c0-43.387 17.107-82.959 44.667-111.698C114.365 18 152.726 0 194.998 0c42.259 0 80.652 17.981 108.41 46.968 27.58 28.739 44.692 68.292 44.692 111.698v39.203h16.917c13.738 0 24.983 11.245 24.983 24.984v263.978c0 13.739-11.245 24.984-24.983 24.984H24.983C11.226 511.815 0 500.57 0 486.831V222.853c-.013-13.739 11.226-24.984 24.983-24.984zm149.509 173.905l-26.968 70.594h94.923l-24.966-71.573c15.852-8.15 26.688-24.67 26.688-43.719 0-27.169-22.015-49.169-49.184-49.169-27.153 0-49.153 22-49.153 49.169-.016 19.826 11.737 36.905 28.66 44.698zM89.187 197.869h211.602v-39.203c0-30.858-12.024-58.823-31.376-79.005-19.147-19.964-45.49-32.368-74.428-32.368-28.925 0-55.288 12.404-74.422 32.368-19.37 20.182-31.376 48.147-31.376 79.005v39.203z"></path></svg> This project is locked.</a></h2>
-                <p>Reason: Staff members in Evades.io Discord Server have banned @sonic.exe666 from that guild. (If this ban persists, <a href="evades-region-editor">this project</a> will be permanently erased from the internet)</p>
-            </div>`;}
+                <p>Reason: ???</p>
+                <!--<p>Reason: Staff members in Evades.io Discord Server have banned @sonic.exe666 from that guild. (If this ban persists, <a href="evades-region-editor">this project</a> will be permanently erased from the internet)</p>-->
+            </div>`;document.querySelector(".changelog").innerHTML=`Unable to load changelog: changelog was abnormally deleted.`}
 					localStorage.sonic_is_banned_from_evades=="true"&&(document.querySelectorAll(".changelog")[0].hidden=true)
 for(var i=0;i<100;i++){
     str+=String.fromCharCode(Math.random()*256)
