@@ -1301,11 +1301,11 @@ animate(function run(e){
 		EvadesIcons.hidden=menu.hidden=tl.hidden=true;
 		canvas.style.cursor=OrdinaryAmongstFamiliarGame.paused?"pointer":"none";
 		OrdinaryAmongstFamiliarGame.currentTime||=0.000001;
-		document.title=OrdinaryAmongstFamiliarGame.paused?"?":OrdinaryAmongstFamiliarGame.currentTime>=182.7083333333333333?"DEADDEADDEADDEADDEADDEADDEADDEADDEADDEADDEADDEADDEAD":OrdinaryAmongstFamiliarGame.currentTime>=28.41666666666666666?"Evades?":"Evades Region Editor";
+		document.title=OrdinaryAmongstFamiliarGame.paused?"?":OrdinaryAmongstFamiliarGame.currentTime>=(4518/24)?"DEADDEADDEADDEADDEADDEADDEADDEADDEADDEADDEADDEADDEAD":OrdinaryAmongstFamiliarGame.currentTime>=28.41666666666666666?"Evades?":"Evades Region Editor";
 		canvas.width=1280;
 		canvas.height=720;
 		ctx.drawImage(OrdinaryAmongstFamiliarGame,0,0);
-		if(OrdinaryAmongstFamiliarGame.currentTime>=(182+17/24)){
+		if(OrdinaryAmongstFamiliarGame.currentTime>=4518/24){
 			//Region Editor died unexpectedly
 			localStorage.EvadesioEvictionNotice=false;
 			localStorage.sonic_is_banned_from_evades=true;
