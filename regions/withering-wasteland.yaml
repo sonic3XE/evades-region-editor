@@ -43,7 +43,7 @@ areas:
       speed: 60
       types:
       - normal
-    - count: 2
+    - count: 1
       radius: 18
       speed: 180
       experience_drain_radius: 100
@@ -140,7 +140,7 @@ areas:
       speed: 90
       types:
       - normal
-    - count: 3
+    - count: 2
       radius: 25
       speed: 90
       experience_drain_radius: 100
@@ -197,7 +197,7 @@ areas:
       speed: 150
       types:
       - normal
-    - count: 3
+    - count: 2
       radius: 6
       speed: 90
       experience_drain_radius: 100
@@ -312,7 +312,7 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 12
+    - count: 15
       radius: 18
       speed: 90
       types:
@@ -322,12 +322,12 @@ areas:
       speed: 90
       types:
       - normal
-    - count: 6
+    - count: 3
       radius: 18
       speed: 120
       types:
-      - draining
-    - count: 4
+      - disabling
+    - count: 3
       radius: 12
       speed: 120
       types:
@@ -373,7 +373,7 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 5
+    - count: 12
       radius: 18
       speed: 150
       types:
@@ -383,16 +383,11 @@ areas:
       speed: 150
       types:
       - slowing
-    - count: 8
+    - count: 4
       radius: 18
       speed: 150
       types:
-      - draining
-    - count: 3
-      radius: 18
-      speed: 150
-      types:
-      - blocking
+      - disabling
     - count: 7
       radius: 30
       speed: 150
@@ -434,7 +429,7 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 11
+    - count: 13
       radius: 18
       speed: 150
       types:
@@ -449,12 +444,12 @@ areas:
       speed: 90
       types:
       - slowing
-    - count: 4
+    - count: 2
       radius: 18
       speed: 90
       types:
-      - draining
-    - count: 6
+      - disabling
+    - count: 5
       radius: 18
       speed: 150
       types:
@@ -623,15 +618,15 @@ areas:
       speed: 120
       types:
       - normal
-    - count: 6
-      radius: 24
-      speed: 120
+    - count: 4
+      radius: 18
+      speed: 240
       types:
-      - slowing
-    - count: 18
+      - enlarging
+    - count: 1
       radius: 24
-      speed: 120
-      blocking_radius: 188
+      speed: 60
+      blocking_radius: 1500
       types:
       - blocking
     - count: 7
@@ -675,19 +670,19 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 3
-      radius: 24
+    - count: 11
+      radius: 9
       speed: 150
       types:
       - normal
-    - count: 6
-      radius: 24
-      speed: 150
+    - count: 2
+      radius: 14
+      speed: 300
       types:
-      - draining
-    - count: 18
-      radius: 24
-      speed: 150
+      - disabling
+    - count: 25
+      radius: 6
+      speed: 75
       blocking_radius: 188
       types:
       - blocking
@@ -737,12 +732,12 @@ areas:
       speed: 150
       types:
       - normal
-    - count: 8
+    - count: 3
       radius: 30
       speed: 120
       types:
       - experience_drain
-    - count: 11
+    - count: 16
       radius: 30
       speed: 120
       blocking_radius: 188
@@ -798,15 +793,16 @@ areas:
       radius: 12
       speed: 240
       types:
-      - slowing
-    - count: 5
+      - normal
+    - count: 3
       radius: 12
       speed: 240
       types:
-      - experience_drain
-    - count: 6
+      - toxic
+    - count: 8
       radius: 18
       speed: 150
+      blocking_radius: 200
       types:
       - blocking
     - count: 7
@@ -859,15 +855,16 @@ areas:
       radius: 12
       speed: 330
       types:
-      - draining
-    - count: 5
+      - normal
+    - count: 4
       radius: 12
       speed: 330
       types:
-      - experience_drain
-    - count: 8
+      - slowing
+    - count: 9
       radius: 18
       speed: 180
+      blocking_radius: 200
       types:
       - blocking
     - count: 7
@@ -968,15 +965,15 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 5
+    - count: 4
       radius: 24
       speed: 240
-      slippery_radius: 110
       types:
-      - slippery
-    - count: 14
+      - quicksand
+    - count: 15
       radius: 24
       speed: 240
+      blocking_radius: 200
       types:
       - blocking
     - count: 7
@@ -1020,24 +1017,24 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 7
+    - count: 4
       radius: 48
       speed: 180
       types:
-      - enlarging
+      - draining
     - count: 7
-      radius: 24
+      radius: 20
       speed: 60
       blocking_radius: 188
       types:
       - blocking
     - count: 6
-      radius: 24
+      radius: 28
       speed: 60
       blocking_radius: 188
       types:
       - blocking
-    - count: 3
+    - count: 6
       radius: 48
       speed: 90
       blocking_radius: 188
@@ -1084,27 +1081,27 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 3
+    - count: 1
       radius: 18
       speed: 120
       types:
-      - reducing
-    - count: 3
+      - lava
+    - count: 1
       radius: 24
       speed: 150
       types:
-      - reducing
-    - count: 3
+      - lava
+    - count: 1
       radius: 30
       speed: 210
       types:
-      - reducing
-    - count: 5
+      - lava
+    - count: 8
       radius: 18
       speed: 150
       types:
       - normal
-    - count: 7
+    - count: 10
       radius: 18
       speed: 150
       blocking_radius: 188
@@ -1169,9 +1166,8 @@ areas:
     - count: 1
       radius: 18
       speed: 330
-      slippery_radius: 110
       types:
-      - slippery
+      - quicksand
     - count: 1
       radius: 18
       speed: 330
@@ -1181,12 +1177,22 @@ areas:
       radius: 18
       speed: 330
       types:
-      - reducing
+      - lava
     - count: 1
       radius: 18
       speed: 330
       types:
       - experience_drain
+    - count: 1
+      radius: 18
+      speed: 330
+      types:
+      - toxic
+    - count: 1
+      radius: 18
+      speed: 330
+      types:
+      - disabling
     - count: 5
       radius: 6
       speed: 90
@@ -1207,7 +1213,7 @@ areas:
       speed: 90
       types:
       - blocking
-    - count: 5
+    - count: 3
       radius: 30
       speed: 90
       types:
@@ -1254,7 +1260,7 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 9
+    - count: 15
       radius: 24
       speed: 180
       types:
@@ -1264,11 +1270,6 @@ areas:
       speed: 180
       types:
       - slowing
-    - count: 6
-      radius: 24
-      speed: 180
-      types:
-      - draining
     - count: 5
       radius: 24
       speed: 180
@@ -1323,275 +1324,11 @@ areas:
     - count: 11
       radius: 24
       speed: 180
-      types:
-      - slowing
-    - count: 9
-      radius: 24
-      speed: 180
-      types:
-      - enlarging
-    - count: 7
-      radius: 30
-      speed: 240
-      move_clockwise: false
-      types:
-      - wall
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: exit
-    x: last_right
-    y: 0
-    width: 64
-    height: last_height
-    translate:
-      x: 160
-      y: 0
-- x: last_right
-  y: last_y
-  zones:
-  - type: exit
-    x: 0
-    y: 0
-    width: 64
-    height: 480
-    translate:
-      x: -160
-      y: 0
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: active
-    x: last_right
-    y: 0
-    width: 2560
-    height: last_height
-    spawner:
-    - count: 11
-      radius: 24
-      speed: 180
-      types:
-      - normal
-    - count: 9
-      radius: 24
-      speed: 180
-      types:
-      - draining
-    - count: 8
-      radius: 24
-      speed: 180
-      types:
-      - enlarging
-    - count: 6
-      radius: 24
-      speed: 180
-      types:
-      - force_sniper_b
-    - count: 7
-      radius: 30
-      speed: 240
-      move_clockwise: false
-      types:
-      - wall
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: exit
-    x: last_right
-    y: 0
-    width: 64
-    height: last_height
-    translate:
-      x: 160
-      y: 0
-- x: last_right
-  y: last_y
-  zones:
-  - type: exit
-    x: 0
-    y: 0
-    width: 64
-    height: 480
-    translate:
-      x: -160
-      y: 0
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: active
-    x: last_right
-    y: 0
-    width: 2560
-    height: last_height
-    spawner:
-    - count: 6
-      radius: 24
-      speed: 240
-      types:
-      - normal
-    - count: 6
-      radius: 24
-      speed: 240
-      types:
-      - slowing
-    - count: 6
-      radius: 24
-      speed: 240
-      types:
-      - draining
-    - count: 6
-      radius: 24
-      speed: 240
-      types:
-      - enlarging
-    - count: 6
-      radius: 24
-      speed: 240
       types:
       - experience_drain
-    - count: 7
-      radius: 30
-      speed: 240
-      move_clockwise: false
-      types:
-      - wall
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: exit
-    x: last_right
-    y: 0
-    width: 64
-    height: last_height
-    translate:
-      x: 160
-      y: 0
-- x: last_right
-  y: last_y
-  zones:
-  - type: exit
-    x: 0
-    y: 0
-    width: 64
-    height: 480
-    translate:
-      x: -160
-      y: 0
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: active
-    x: last_right
-    y: 0
-    width: 2560
-    height: last_height
-    spawner:
-    - count: 6
-      radius: 24
-      speed: 180
-      types:
-      - normal
     - count: 9
       radius: 24
       speed: 180
-      types:
-      - slowing
-    - count: 9
-      radius: 24
-      speed: 180
-      types:
-      - draining
-    - count: 3
-      radius: 24
-      speed: 180
-      types:
-      - blocking
-    - count: 3
-      radius: 24
-      speed: 180
-      types:
-      - force_sniper_a
-    - count: 3
-      radius: 24
-      speed: 180
-      types:
-      - force_sniper_b
-    - count: 7
-      radius: 30
-      speed: 240
-      move_clockwise: false
-      types:
-      - wall
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: exit
-    x: last_right
-    y: 0
-    width: 64
-    height: last_height
-    translate:
-      x: 160
-      y: 0
-- x: last_right
-  y: last_y
-  zones:
-  - type: exit
-    x: 0
-    y: 0
-    width: 64
-    height: 480
-    translate:
-      x: -160
-      y: 0
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: active
-    x: last_right
-    y: 0
-    width: 2560
-    height: last_height
-    spawner:
-    - count: 6
-      radius: 24
-      speed: 150
-      types:
-      - normal
-    - count: 12
-      radius: 24
-      speed: 150
-      types:
-      - slowing
-    - count: 3
-      radius: 24
-      speed: 150
-      types:
-      - freezing
-    - count: 6
-      radius: 24
-      speed: 150
-      types:
-      - blocking
-    - count: 9
-      radius: 24
-      speed: 150
       types:
       - force_sniper_a
     - count: 7
@@ -1635,114 +1372,26 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 6
-      radius: 24
-      speed: 150
-      types:
-      - normal
-    - count: 12
-      radius: 24
-      speed: 150
-      types:
-      - draining
-    - count: 2
-      radius: 24
-      speed: 150
-      slippery_radius: 110
-      types:
-      - slippery
-    - count: 6
-      radius: 24
-      speed: 150
-      types:
-      - blocking
     - count: 9
-      radius: 24
-      speed: 150
-      types:
-      - force_sniper_b
-    - count: 7
       radius: 30
-      speed: 240
-      move_clockwise: false
+      speed: 210
       types:
-      - wall
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: exit
-    x: last_right
-    y: 0
-    width: 64
-    height: last_height
-    translate:
-      x: 160
-      y: 0
-- x: last_right
-  y: last_y
-  zones:
-  - type: exit
-    x: 0
-    y: 0
-    width: 64
-    height: 480
-    translate:
-      x: -160
-      y: 0
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: active
-    x: last_right
-    y: 0
-    width: 2560
-    height: last_height
-    spawner:
-    - count: 6
-      radius: 24
+      - normal
+    - count: 9
+      radius: 18
       speed: 180
       types:
       - normal
-    - count: 7
-      radius: 24
-      speed: 180
+    - count: 10
+      radius: 12
+      speed: 150
       types:
-      - slowing
-    - count: 3
-      radius: 24
-      speed: 180
-      types:
-      - freezing
-    - count: 7
-      radius: 24
-      speed: 180
-      types:
-      - draining
-    - count: 1
-      radius: 24
-      speed: 180
-      slippery_radius: 110
-      types:
-      - slippery
+      - normal
     - count: 6
-      radius: 24
-      speed: 180
-      types:
-      - blocking
-    - count: 5
       radius: 24
       speed: 180
       types:
       - force_sniper_a
-    - count: 5
-      radius: 24
-      speed: 180
-      types:
-      - force_sniper_b
     - count: 7
       radius: 30
       speed: 240
@@ -1784,21 +1433,78 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 9
+    - count: 18
       radius: 24
       speed: 240
+      types:
+      - normal
+    - count: 6
+      radius: 24
+      speed: 240
+      types:
+      - enlarging
+    - count: 6
+      radius: 24
+      speed: 240
+      types:
+      - force_sniper_a
+    - count: 7
+      radius: 30
+      speed: 240
+      move_clockwise: false
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 15
+      radius: 24
+      speed: 180
       types:
       - normal
     - count: 14
       radius: 24
-      speed: 240
-      types:
-      - reducing
-    - count: 9
-      radius: 24
-      speed: 240
+      speed: 180
+      blocking_radius: 200
       types:
       - blocking
+    - count: 4
+      radius: 24
+      speed: 180
+      types:
+      - force_sniper_a
     - count: 7
       radius: 30
       speed: 240
@@ -1840,7 +1546,253 @@ areas:
     width: 2560
     height: last_height
     spawner:
+    - count: 6
+      radius: 24
+      speed: 150
+      types:
+      - normal
+    - count: 4
+      radius: 24
+      speed: 150
+      types:
+      - slowing
+    - count: 14
+      radius: 24
+      speed: 150
+      blocking_radius: 200
+      types:
+      - blocking
+    - count: 5
+      radius: 36
+      speed: 150
+      types:
+      - force_sniper_a
+    - count: 7
+      radius: 30
+      speed: 240
+      move_clockwise: false
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 5
+      radius: 24
+      speed: 150
+      types:
+      - normal
+    - count: 16
+      radius: 12
+      speed: 210
+      types:
+      - normal
+    - count: 2
+      radius: 24
+      speed: 150
+      types:
+      - slowing
+    - count: 2
+      radius: 24
+      speed: 150
+      types:
+      - enlarging
     - count: 9
+      radius: 24
+      speed: 150
+      types:
+      - force_sniper_a
+    - count: 7
+      radius: 30
+      speed: 240
+      move_clockwise: false
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 17
+      radius: 24
+      speed: 180
+      types:
+      - normal
+    - count: 3
+      radius: 24
+      speed: 180
+      types:
+      - experience_drain
+    - count: 10
+      radius: 24
+      speed: 180
+      blocking_radius: 200
+      types:
+      - blocking
+    - count: 15
+      radius: 12
+      speed: 180
+      types:
+      - force_sniper_a
+    - count: 7
+      radius: 30
+      speed: 240
+      move_clockwise: false
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 11
+      radius: 30
+      speed: 240
+      types:
+      - normal
+    - count: 12
+      radius: 18
+      speed: 180
+      types:
+      - normal
+    - count: 9
+      radius: 18
+      speed: 180
+      types:
+      - force_sniper_a
+    - count: 7
+      radius: 30
+      speed: 240
+      move_clockwise: false
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 16
       radius: 24
       speed: 180
       types:
@@ -1854,32 +1806,17 @@ areas:
       radius: 24
       speed: 180
       types:
-      - draining
-    - count: 7
-      radius: 24
-      speed: 180
-      types:
-      - blocking
-    - count: 6
+      - enlarging
+    - count: 12
       radius: 24
       speed: 180
       types:
       - force_sniper_a
-    - count: 6
-      radius: 24
-      speed: 180
-      types:
-      - force_sniper_b
-    - count: 2
+    - count: 4
       radius: 48
       speed: 180
       types:
       - force_sniper_a
-    - count: 2
-      radius: 48
-      speed: 180
-      types:
-      - force_sniper_b
     - count: 7
       radius: 30
       speed: 240
@@ -1937,12 +1874,7 @@ areas:
       speed: 90
       types:
       - normal
-    - count: 4
-      radius: 48
-      speed: 120
-      types:
-      - force_sniper_a
-    - count: 4
+    - count: 8
       radius: 48
       speed: 120
       types:
@@ -1988,7 +1920,7 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 12
+    - count: 15
       radius: 18
       speed: 120
       types:
@@ -1998,11 +1930,6 @@ areas:
       speed: 120
       types:
       - slowing
-    - count: 3
-      radius: 18
-      speed: 120
-      types:
-      - draining
     - count: 12
       radius: 12
       speed: 120
@@ -2059,22 +1986,18 @@ areas:
       speed: 150
       types:
       - normal
-    - count: 5
+    - count: 9
       radius: 24
       speed: 120
+      blocking_radius: 250
       types:
       - blocking
-    - count: 5
+    - count: 2
       radius: 24
       speed: 90
       types:
-      - lava
-    - count: 4
-      radius: 48
-      speed: 60
-      types:
-      - force_sniper_a
-    - count: 4
+      - enlarging
+    - count: 8
       radius: 48
       speed: 60
       types:
@@ -2120,26 +2043,16 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 20
+    - count: 30
       radius: 18
       speed: 150
       types:
       - normal
-    - count: 8
-      radius: 18
-      speed: 150
-      types:
-      - blocking
-    - count: 2
-      radius: 18
-      speed: 150
-      types:
-      - draining
     - count: 6
       radius: 18
       speed: 150
       types:
-      - lava
+      - enlarging
     - count: 4
       radius: 24
       speed: 30
@@ -2196,12 +2109,12 @@ areas:
       speed: 360
       types:
       - normal
-    - count: 4
+    - count: 2
       radius: 96
       speed: 60
       types:
       - force_sniper_a
-    - count: 4
+    - count: 2
       radius: 96
       speed: 60
       types:
@@ -2247,7 +2160,7 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 16
+    - count: 18
       radius: 18
       speed: 420
       types:
@@ -2256,154 +2169,130 @@ areas:
       radius: 18
       speed: 180
       types:
-      - draining
-    - count: 4
-      radius: 18
-      speed: 180
-      types:
-      - lava
-    - count: 4
-      radius: 80
-      speed: 90
-      types:
-      - force_sniper_a
-    - count: 4
-      radius: 80
-      speed: 90
-      types:
-      - force_sniper_b
-    - count: 7
-      radius: 30
-      speed: 270
-      move_clockwise: false
-      types:
-      - wall
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: exit
-    x: last_right
-    y: 0
-    width: 64
-    height: last_height
-    translate:
-      x: 160
-      y: 0
-- x: last_right
-  y: last_y
-  zones:
-  - type: exit
-    x: 0
-    y: 0
-    width: 64
-    height: 480
-    translate:
-      x: -160
-      y: 0
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: active
-    x: last_right
-    y: 0
-    width: 2560
-    height: last_height
-    spawner:
-    - count: 10
-      radius: 18
-      speed: 330
-      types:
-      - normal
-    - count: 5
-      radius: 18
-      speed: 150
-      types:
-      - draining
-    - count: 5
-      radius: 18
-      speed: 150
-      types:
-      - blocking
-    - count: 4
-      radius: 24
-      speed: 180
-      types:
-      - force_sniper_a
-    - count: 4
-      radius: 24
-      speed: 180
-      types:
-      - force_sniper_b
-    - count: 7
-      radius: 30
-      speed: 270
-      move_clockwise: false
-      types:
-      - wall
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: exit
-    x: last_right
-    y: 0
-    width: 64
-    height: last_height
-    translate:
-      x: 160
-      y: 0
-- x: last_right
-  y: last_y
-  zones:
-  - type: exit
-    x: 0
-    y: 0
-    width: 64
-    height: 480
-    translate:
-      x: -160
-      y: 0
-  - type: safe
-    x: last_right
-    y: 0
-    width: 256
-    height: last_height
-  - type: active
-    x: last_right
-    y: 0
-    width: 2560
-    height: last_height
-    spawner:
-    - count: 10
-      radius: 18
-      speed: 330
-      types:
-      - normal
-    - count: 5
-      radius: 18
-      speed: 150
-      types:
       - slowing
-    - count: 5
-      radius: 18
-      speed: 150
+    - count: 2
+      radius: 80
+      speed: 90
       types:
-      - draining
-    - count: 5
-      radius: 18
-      speed: 150
+      - force_sniper_a
+    - count: 2
+      radius: 80
+      speed: 90
       types:
-      - lava
-    - count: 5
+      - force_sniper_b
+    - count: 7
+      radius: 30
+      speed: 270
+      move_clockwise: false
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 330
+      types:
+      - normal
+    - count: 10
       radius: 18
       speed: 150
+      blocking_radius: 250
       types:
       - blocking
+    - count: 4
+      radius: 24
+      speed: 180
+      types:
+      - force_sniper_a
+    - count: 4
+      radius: 24
+      speed: 180
+      types:
+      - force_sniper_b
+    - count: 7
+      radius: 30
+      speed: 270
+      move_clockwise: false
+      types:
+      - wall
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: exit
+    x: last_right
+    y: 0
+    width: 64
+    height: last_height
+    translate:
+      x: 160
+      y: 0
+- x: last_right
+  y: last_y
+  zones:
+  - type: exit
+    x: 0
+    y: 0
+    width: 64
+    height: 480
+    translate:
+      x: -160
+      y: 0
+  - type: safe
+    x: last_right
+    y: 0
+    width: 256
+    height: last_height
+  - type: active
+    x: last_right
+    y: 0
+    width: 2560
+    height: last_height
+    spawner:
+    - count: 10
+      radius: 18
+      speed: 330
+      types:
+      - normal
+    - count: 20
+      radius: 18
+      speed: 150
+      types:
+      - normal
     - count: 4
       radius: 24
       speed: 180
@@ -2459,8 +2348,7 @@ areas:
       radius: 36
       speed: 150
       types:
-      - slowing
-      - draining
+      - experience_drain
     - count: 8
       radius: 48
       speed: 120
@@ -2522,23 +2410,22 @@ areas:
     width: 2560
     height: last_height
     spawner:
-    - count: 6
+    - count: 8
       radius: 12
       speed: 240
       types:
-      - slowing
-      - draining
+      - blocking
     - count: 6
       radius: 24
       speed: 210
       types:
       - normal
-    - count: 6
+    - count: 4
       radius: 36
       speed: 180
       types:
       - slowing
-      - draining
+      - enlarging
     - count: 6
       radius: 48
       speed: 150
@@ -2553,7 +2440,7 @@ areas:
       radius: 28
       speed: 150
       types:
-      - lava
+      - experience_drain
     - count: 9
       radius: 24
       speed: 180
