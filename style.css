@@ -5,6 +5,7 @@ a,.clickable-text {
 .canvas-overlay{
 	position:absolute;
 	background:#00000080;
+	backdrop-filter:blur(10px);
 	top:0;
 	left:0;
 	font-size:35px;

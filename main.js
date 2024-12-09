@@ -1025,7 +1025,7 @@ async function customConfirm(text,yesBtn,noBtn,fn){
 	confirmDiv.appendChild(btns[1]);
 	var u=new Promise((e,t)=>{
 		function keypressed(k){
-			k.which==$0372b03b1cca8a43$export$8309310f4f3643db.Escape&&(confirmationPopup=false,t("Cancelled action."),document.removeEventListener("keydown",keypressed),confirmDiv.remove(),confirmDivOverlay.remove())
+			k.which==KeyMap.Escape&&(confirmationPopup=false,t("Cancelled action."),document.removeEventListener("keydown",keypressed),confirmDiv.remove(),confirmDivOverlay.remove())
 		}
 		document.addEventListener("keydown",keypressed)
 		btns[0].addEventListener("click",_=>{
