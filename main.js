@@ -100,6 +100,7 @@ canvas.addEventListener("mouseup", e => {
 			}
 		}else{
 			if(rectRectCollision(selectionArea,obj)){
+				if(selectionArea.width==0||selectionArea.height==0)break;
 				selectedObjects.push(obj);
 				continue;
 			}
@@ -111,14 +112,29 @@ var isMouse=false;
 canvas.addEventListener("mousedown", e => {
   if (e.button === 1) e.preventDefault();
   if (e.button !== 0) return;
+  const t = canvas.getBoundingClientRect();
+  const mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
+  const gameMouseCursor={
+	x:(mouse_position.x-t.width/2)/CamViewpoint.gameScale,
+	y:(mouse_position.y-t.height/2)/CamViewpoint.gameScale
+  };
+  if(Math.abs(gameMouseCursor.x)>640)return;
+  if(Math.abs(gameMouseCursor.y)>360)return;
   if(selectionArea==null && (!selectedObjects.length&&!targetedObject(e)) && !playtesting){
-	selectionArea={renderX:mousePos.x,renderY:mousePos.y};
-	Object.defineProperties.bind(selectionArea)(selectionArea,{
-		x:{get:function(){return Math.min(this.renderX,mousePos.x)}},
-		y:{get:function(){return Math.min(this.renderY,mousePos.y)}},
-		width:{get:function(){return Math.abs(this.renderX-mousePos.x)}},
-		height:{get:function(){return Math.abs(this.renderY-mousePos.y)}}
-	});
+	selectionArea={
+		renderX:mousePos.x,
+		renderY:mousePos.y,
+		get ClampedMousePos(){
+			return{
+				x:clamp(mousePos.x,CamViewpoint.left,CamViewpoint.right),
+				y:clamp(mousePos.y,CamViewpoint.top,CamViewpoint.bottom)
+			};
+		},
+		get x(){return Math.min(this.renderX,this.ClampedMousePos.x)},
+		get y(){return Math.min(this.renderY,this.ClampedMousePos.y)},
+		get width(){return Math.abs(this.renderX-this.ClampedMousePos.x)},
+		get height(){return Math.abs(this.renderY-this.ClampedMousePos.y)},
+	};
   }
   let target = targetedObject(e);
   if(lockCursor)return;
@@ -258,20 +274,31 @@ x:target.x,y:target.y};
  * @param {MouseEvent} e 
  * @returns {Zone | Asset}
  */
+let CamViewpoint={
+	get gameScale(){return Math.min(innerWidth/1280,innerHeight/720)},
+	get x(){return this.left},
+	get y(){return this.top},
+	get centerX(){return camX},
+	get centerY(){return camY},
+	set centerX(x){camX=x},
+	set centerY(y){camY=y},
+	get left(){return this.centerX-640*this.gameScale/camScale},
+	get right(){return this.centerX+640*this.gameScale/camScale},
+	get top(){return this.centerY-360*this.gameScale/camScale},
+	get bottom(){return this.centerY+360*this.gameScale/camScale},
+	get width(){return 1280*this.gameScale/camScale},
+	get height(){return 720*this.gameScale/camScale},
+};
 function targetedObject(e) {
-  const t = canvas.getBoundingClientRect();
-  const gameScale=Math.min(global.innerWidth/1280,global.innerHeight/720);
-  const mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
-  const gameMouseCursor={
-	x:(mouse_position.x-t.width/2)/gameScale,
-	y:(mouse_position.y-t.height/2)/gameScale
-  };
-  if(Math.abs(gameMouseCursor.x)>640)return null;
-  if(Math.abs(gameMouseCursor.y)>360)return null;
+  const t = canvas.getBoundingClientRect(), mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
+  if(clamp(mousePos.x,CamViewpoint.left,CamViewpoint.right)!==mousePos.x)return null;
+  if(clamp(mousePos.y,CamViewpoint.top,CamViewpoint.bottom)!==mousePos.y)return null;
   if(playtesting)return;
   let objects = getObjects(/*type*/);
   for (let i = objects.length - 1; i >= 0; i--) {
-    const obj = /*selectedObject||*/objects[i];
+    const obj = objects[i];
+	if(!rectRectCollision(obj,CamViewpoint))continue;
+	if(!rectCircleCollision(obj.x,obj.y,16,CamViewpoint.x,CamViewpoint.y,CamViewpoint.width,CamViewpoint.height).c)continue;
     const [{ x: x0, y: y0, width: x1, height: y1 }] = points(obj);
     const mouse = mouse_position;
     if (obj.type === "flashlight_spawner" || obj.type === "torch") {
@@ -294,95 +321,87 @@ canvas.addEventListener("mousemove", e => {
 	y:(mouse_position.y-t.height/2)/gameScale
   };
   if(lockCursor)return;
-  for (let type of types) {
-    if(Math.abs(gameMouseCursor.x)>640||Math.abs(gameMouseCursor.y)>360||playtesting)break;
-    let arr = getObjects(type);
+  let arr = getObjects();
 
-    for (let i = arr.length - 1; i >= 0; i--) {
-      const obj = /*selectedObject||*/arr[i];
-      const [{ x: x0, y: y0, width: x1, height: y1 }] = points(obj);
-      const mouse = point(e);
+  for (let i = arr.length - 1; i >= 0; i--) {
+	if(clamp(mousePos.x,CamViewpoint.left,CamViewpoint.right)!==mousePos.x||clamp(mousePos.y,CamViewpoint.top,CamViewpoint.bottom)!==mousePos.y||playtesting)break;
+    const obj = /*selectedObject||*/arr[i];
+	if(!rectRectCollision(obj,CamViewpoint))continue;
+    const [{ x: x0, y: y0, width: x1, height: y1 }] = points(obj);
+    const mouse = point(e), type = obj.type;
 
-      if (type === "flashlight_spawner") {
-        if (pointInCircle(mouse, { x: x0, y: y0 }, 16 * camScale + selectBuffer)) {
-          canvas.style.cursor = "grab";
-          selectMode = "m";
-          return;
-        }
-        continue;
-      } else if (type === "torch") {
-        if (pointInCircle(mouse, { x: x0, y: y0 }, 16 * camScale + selectBuffer)) {
-          canvas.style.cursor = "grab";
-          selectMode = "m";
-          return;
-        }
-        continue;
-      }
-      var fixedPosX0=Math.min(x1,x0);
-      var fixedPosY0=Math.min(y1,y0);
-      var fixedPosX1=Math.max(x1,x0);
-      var fixedPosY1=Math.max(y1,y0);
-      const outer = pointInRect(mouse, { x: fixedPosX0 - selectBuffer, y: fixedPosY0 - selectBuffer }, { x: fixedPosX1 + selectBuffer, y: fixedPosY1 + selectBuffer });
-      const up = pointInRect(mouse, { x: fixedPosX0 - selectBuffer, y: fixedPosY0 - selectBuffer }, { x: fixedPosX1 + selectBuffer, y: fixedPosY0 + selectBuffer });
-      const left = pointInRect(mouse, { x: fixedPosX0 - selectBuffer, y: fixedPosY0 - selectBuffer }, { x: fixedPosX0 + selectBuffer, y: fixedPosY1 + selectBuffer });
-      const down = pointInRect(mouse, { x: fixedPosX0 - selectBuffer, y: fixedPosY1 - selectBuffer }, { x: fixedPosX1 + selectBuffer, y: fixedPosY1 + selectBuffer });
-      const right = pointInRect(mouse, { x: fixedPosX1 - selectBuffer, y: fixedPosY0 - selectBuffer }, { x: fixedPosX1 + selectBuffer, y: fixedPosY1 + selectBuffer });
-      const middle = pointInRect(mouse, { x: fixedPosX0, y: fixedPosY0 }, { x: fixedPosX1, y: fixedPosY1 });
-
-      if (middle) {
+    if (type === "flashlight_spawner" || type === "torch") {
+      if (pointInCircle(mouse, { x: x0, y: y0 }, 16 * camScale + selectBuffer)) {
         canvas.style.cursor = "grab";
         selectMode = "m";
-      } else if (down) {
-        if (left) {
-          canvas.style.cursor = "nesw-resize";
-          selectMode = "dl";
-        } else if (right) {
-          canvas.style.cursor = "nwse-resize";
-          selectMode = "dr";
-        } else {
-          canvas.style.cursor = "ns-resize";
-          selectMode = "d";
-        }
-      } else if (right) {
-        if (up) {
-          canvas.style.cursor = "nesw-resize";
-          selectMode = "ur";
-        } else if (down) {
-          canvas.style.cursor = "nwse-resize";
-          selectMode = "dr";
-        } else {
-          canvas.style.cursor = "ew-resize";
-          selectMode = "r";
-        }
-      } else if (up) {
-        if (left) {
-          canvas.style.cursor = "nwse-resize";
-          selectMode = "ul";
-        } else if (right) {
-          canvas.style.cursor = "nesw-resize";
-          selectMode = "ur";
-        } else {
-          canvas.style.cursor = "ns-resize";
-          selectMode = "u";
-        }
-      } else if (left) {
-        if (up) {
-          canvas.style.cursor = "nwse-resize";
-          selectMode = "ul";
-        } else if (down) {
-          canvas.style.cursor = "nesw-resize";
-          selectMode = "dl";
-        } else {
-          canvas.style.cursor = "ew-resize";
-          selectMode = "l";
-        }
-      } else {
-        canvas.style.cursor = "initial";
-        selectMode = null;
+        return;
       }
-
-      if (outer) return;
+      continue;
     }
+    var fixedPosX0=Math.min(x1,x0);
+    var fixedPosY0=Math.min(y1,y0);
+    var fixedPosX1=Math.max(x1,x0);
+    var fixedPosY1=Math.max(y1,y0);
+    const outer = pointInRect(mouse, { x: fixedPosX0 - selectBuffer, y: fixedPosY0 - selectBuffer }, { x: fixedPosX1 + selectBuffer, y: fixedPosY1 + selectBuffer });
+    const up = pointInRect(mouse, { x: fixedPosX0 - selectBuffer, y: fixedPosY0 - selectBuffer }, { x: fixedPosX1 + selectBuffer, y: fixedPosY0 + selectBuffer });
+    const left = pointInRect(mouse, { x: fixedPosX0 - selectBuffer, y: fixedPosY0 - selectBuffer }, { x: fixedPosX0 + selectBuffer, y: fixedPosY1 + selectBuffer });
+    const down = pointInRect(mouse, { x: fixedPosX0 - selectBuffer, y: fixedPosY1 - selectBuffer }, { x: fixedPosX1 + selectBuffer, y: fixedPosY1 + selectBuffer });
+    const right = pointInRect(mouse, { x: fixedPosX1 - selectBuffer, y: fixedPosY0 - selectBuffer }, { x: fixedPosX1 + selectBuffer, y: fixedPosY1 + selectBuffer });
+    const middle = pointInRect(mouse, { x: fixedPosX0, y: fixedPosY0 }, { x: fixedPosX1, y: fixedPosY1 });
+
+    if (middle) {
+      canvas.style.cursor = "grab";
+      selectMode = "m";
+    } else if (down) {
+      if (left) {
+        canvas.style.cursor = "nesw-resize";
+        selectMode = "dl";
+      } else if (right) {
+        canvas.style.cursor = "nwse-resize";
+        selectMode = "dr";
+      } else {
+        canvas.style.cursor = "ns-resize";
+        selectMode = "d";
+      }
+    } else if (right) {
+      if (up) {
+        canvas.style.cursor = "nesw-resize";
+        selectMode = "ur";
+      } else if (down) {
+        canvas.style.cursor = "nwse-resize";
+        selectMode = "dr";
+      } else {
+        canvas.style.cursor = "ew-resize";
+        selectMode = "r";
+      }
+    } else if (up) {
+      if (left) {
+        canvas.style.cursor = "nwse-resize";
+        selectMode = "ul";
+      } else if (right) {
+        canvas.style.cursor = "nesw-resize";
+        selectMode = "ur";
+      } else {
+        canvas.style.cursor = "ns-resize";
+        selectMode = "u";
+      }
+    } else if (left) {
+      if (up) {
+        canvas.style.cursor = "nwse-resize";
+        selectMode = "ul";
+      } else if (down) {
+        canvas.style.cursor = "nesw-resize";
+        selectMode = "dl";
+      } else {
+        canvas.style.cursor = "ew-resize";
+        selectMode = "l";
+      }
+    } else {
+      canvas.style.cursor = "initial";
+      selectMode = null;
+    }
+
+    if (outer) return;
   }
   canvas.style.cursor = "initial";
 });
