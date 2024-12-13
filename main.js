@@ -582,7 +582,7 @@ function stopPlaytesting(local=true){
 		camY=window.tempCamPos.y,
 		current_Area=window.tempCamPos.area,
 		selfPlayer=map.players.filter(e=>e.id==selfId)[0],
-		selfPlayer&&(map.players.splice(map.players.indexOf(selfPlayer),1),selfId=null,current_Area=tempCamPos.area,spawnEntities()),
+		selfPlayer&&(selfPlayer.remove=true,map.players.splice(map.players.indexOf(selfPlayer),1),selfId=null,current_Area=tempCamPos.area,spawnEntities()),
 		evadesRenderer={snowRenderer:new SnowRenderer,dynamicLighting:new DynamicLighting(1)};
 }
 function Playtest(e){

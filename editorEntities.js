@@ -917,6 +917,10 @@ this.isGuest=!1;
 			if(this.isDowned()&&abilityActive&&ability.cooldown==0&&this.energy>=ability.energyCost){
 				this.energy-=ability.energyCost;
 				this.deathTimer=-1;
+				for(const entity of map.areas[this.area].entities){
+					if(entity instanceof ParticleGenerator && entity.owner==this)
+						entity.duration=800;
+				}
 				abilityActive=false;
 				switch(kind){
 					case 1:this.firstAbilityActivated=false;break;
@@ -1797,6 +1801,7 @@ this.isGuest=!1;
 		this.regionName=map.name;
 		if(!this.regionAreasDiscovered[this.area])this.updateExp(12*this.area),this.regionAreasDiscovered[this.area]=true;
 		if(this.deathTimer==0){
+			this.remove=true;
 			if(this.isLocalPlayer)stopPlaytesting();
 			else map.players.splice(map.players.indexOf(this),1);
 			console.log("Player died (death timer ran out)");
@@ -1870,10 +1875,6 @@ this.isGuest=!1;
 		this.createdConfetti = !0) : this.createdConfetti && !this.isDowned() && (this.createdConfetti = !1),
 		this.animateConfetti(),
 		this.drawConfetti(e, t));
-		settings.abilityParticles && (!this.createdSupernovaStars && this.usedSupernova ? (this.makeSupernova(),
-		this.createdSupernovaStars = !0) : this.createdSupernovaStars && !this.usedSupernova && (this.createdSupernovaStars = !1),
-		this.animateSupernova(),
-		this.drawSupernova(e, t));
 		const n = this.x + t.x
 		  , r = this.y + t.y;
 		function i(t, i, a, o=0) {
@@ -1951,7 +1952,7 @@ this.isGuest=!1;
 			e.lineWidth = 1,
 			e.closePath()
 		}
-		const c = 1e3 / 30;
+		const c = delta / 1e3;
 		if (this.mortarTime > 3e3)
 			e.fillStyle = l,
 			this.mortarTime % (4 * c > 3 * c) ? i(1, 1, this.radius) : this.mortarTime % (4 * c > 2 * c) ? i(1, -1, this.radius) : this.mortarTime % (4 * c > c) ? i(-1, 1, this.radius) : i(-1, -1, this.radius);
@@ -3001,6 +3002,8 @@ function death(player){
         death_timer=checkAreaProperties("death_timer");
     player.deathTimer=player.deathTimerTotal=death_timer*death_timer_multiplier;
     player.effects=[];
+	let resurrectionAbility=player.abilityOne?.abilityType==8?player.abilityOne:player.abilityTwo?.abilityType==8?player.abilityTwo:player.abilityThree?.abilityType==8&&player.abilityThree;
+	if(!player.isInfected&&player.heroType==4&&resurrectionAbility&&resurrectionAbility.cooldown==0&&!(resurrectionAbility.locked||resurrectionAbility.disabled))map.areas[player.area].entities.push(new ParticleGenerator(player.x,player.y,"Resurrection Downed",-1,player));
 }
 //PELLETS
 
@@ -3018,6 +3021,336 @@ class Oscillator {
 		this.increasing = !1)) : (this.value -= this.increment * delta / 1e3,
 		this.value <= this.min && (this.value = this.min,
 		this.increasing = !0))
+	}
+}
+class ParticleGenerator extends SimulatorEntity {
+	constructor(x,y,particleType,duration,owner) {
+		super(x,y,null,null,"particle_generator"),
+		this.particles = [];
+		this.owner = owner;
+		this.particleStyle=particleType;
+		this.duration=duration;
+		this.createdParticles = !1
+		this.afterStateUpdate();
+	}
+	stateFields() {
+		return ["x", "y", "particleStyle", "duration"]
+	}
+	playerInteraction(){} // Harmless entity that produces particles
+	update(delta){
+		this.x=this.owner.x;
+		this.y=this.owner.y;
+		if(this.owner.remove)this.remove=true;
+		if(this.duration != -1){
+			this.duration-=delta;
+			if(this.duration<0)this.remove=true;
+		}
+	}
+	afterStateUpdate() {
+		super.afterStateUpdate(),
+		setDefaultsFor(this, this.stateFields(), "particle_generator"),
+		settings.abilityParticles && !this.createdParticles && this.createParticles()
+	}
+	render(e, t, delta) {
+		switch (this.particleStyle) {
+		case "Supernova":
+			this.animateSupernovaStars(delta),
+			this.drawSupernovaStars(e, t);
+			break;
+		case "Shift":
+			this.animateShiftParticles(delta),
+			this.drawCircleParticles(e, t);
+			break;
+		case "Wildfire":
+			this.animateWildfireParticles(delta),
+			this.drawCircleParticles(e, t);
+			break;
+		case "Resurrection Pellet":
+			this.animateResurrectionParticles(delta),
+			this.drawSparkleParticles(e, t);
+			break;
+		case "Resurrection Downed":
+			this.animateResurrectionDownedParticles(delta),
+			this.drawSparkleParticles(e, t);
+		case "None":
+		}
+	}
+	createParticles() {
+		switch (this.createdParticles = !0,
+		this.particleStyle) {
+		case "Supernova":
+			this.createSupernovaStars();
+			break;
+		case "Shift":
+			this.createShiftParticles();
+			break;
+		case "Wildfire":
+			this.createWildfireParticles();
+			break;
+		case "Resurrection Pellet":
+			this.createResurrectionParticles(9, 112);
+			break;
+		case "Resurrection Downed":
+			this.createResurrectionParticles(9, ( () => this.randomIntRange(80, 175)));
+		case "None":
+		}
+	}
+	createSupernovaStars() {
+		for (let e = 0; e < 45; e++) {
+			const e = ["#a07fffaa", "#9670ffaa", "#8b5dffaa", "#8053ffaa", "#7049ffaa", "#5f40ffaa"]
+			  , t = ["#ffc000aa", "#ffecb0aa", "#ffffffaa"]
+			  , a = Math.random() < .35
+			  , r = a ? t[this.randomIntRange(0, t.length - 1)] : e[this.randomIntRange(0, e.length - 1)];
+			let c, o;
+			a ? (c = this.randomRange(-2, 2),
+			o = this.randomRange(-2, 2)) : (c = this.randomRange(-8, 8),
+			o = this.randomRange(-8, 8)),
+			this.particles.push({
+				x: this.x,
+				y: this.y,
+				size: 12,
+				color: r,
+				vx: c,
+				vy: o,
+				isSlow: a
+			})
+		}
+	}
+	animateSupernovaStars(delta) {
+		let e = 0;
+		for (; e < this.particles.length; ) {
+			const t = this.particles[e];
+			t.x += t.vx,
+			t.y += t.vy,
+			t.vx *= .96,
+			t.vy *= .96;
+			const a = t.isSlow ? this.randomRange(20, 300) : this.randomRange(20, 600);
+			t.y >= this.y + a || t.y <= this.y - a || t.x >= this.x + a || t.x <= this.x - a || Math.abs(t.vx) < .1 && Math.abs(t.vy) < .1 ? this.particles.splice(e, 1) : e += 1
+		}
+	}
+	drawSupernovaStars(e, t) {
+		for (let a = 0; a < this.particles.length; a++) {
+			const r = this.particles[a]
+			  , c = r.x + t.x
+			  , o = r.y + t.y
+			  , n = r.size / 2
+			  , $ = 5
+			  , i = n
+			  , d = n / 2.5;
+			e.fillStyle = r.color,
+			e.beginPath();
+			for (let t = 0; t < 2 * $; t++) {
+				const a = t * Math.PI / $
+				  , r = t % 2 == 0 ? i : d
+				  , n = c + r * Math.cos(a)
+				  , s = o + r * Math.sin(a);
+				e.lineTo(n, s)
+			}
+			e.closePath(),
+			e.globalAlpha = Math.min(1, .5 + Math.min(Math.abs(r.vx / 10), Math.abs(r.vy / 10))),
+			e.fill(),
+			e.globalAlpha = 1
+		}
+	}
+	animateShiftParticles(delta) {
+		let e = 0;
+		for (; e < this.particles.length; ) {
+			const t = this.particles[e];
+			t.lifespan += delta;
+			const a = 3;
+			t.x += t.vx + (Math.random() * a - a / 2),
+			t.y += t.vy + (Math.random() * a - a / 2);
+			if (Math.sqrt((t.x - this.x) ** 2 + (t.y - this.y) ** 2) < 1) {
+				this.particles.splice(e, 1);
+				continue
+			}
+			const r = .75 * Math.max(0, Math.min(1, (1e3 - t.lifespan) / 1e3));
+			t.color = `rgba(${t.colorRGB.r}, ${t.colorRGB.g}, ${t.colorRGB.b}, ${r})`,
+			t.lifespan >= 1e3 ? this.particles.splice(e, 1) : e += 1
+		}
+	}
+	createShiftParticles() {
+		for (let e = 0; e < 50; e++) {
+			const e = 2 * Math.random() * Math.PI
+			  , t = 10 + 20 * Math.random()
+			  , a = -t * Math.cos(e) / 200
+			  , r = -t * Math.sin(e) / 200
+			  , c = [{
+				r: 0,
+				g: 128,
+				b: 128
+			}, {
+				r: 0,
+				g: 0,
+				b: 255
+			}, {
+				r: 0,
+				g: 0,
+				b: 139
+			}]
+			  , o = c[Math.floor(Math.random() * c.length)];
+			this.particles.push({
+				x: this.x + t * Math.cos(e),
+				y: this.y + t * Math.sin(e),
+				size: 5,
+				color: `rgba(${o.r}, ${o.g}, ${o.b}, 0.75)`,
+				colorRGB: o,
+				vx: a,
+				vy: r,
+				maxRadius: 10,
+				lifespan: 0
+			})
+		}
+	}
+	drawCircleParticles(e, t) {
+		for (let a = 0; a < this.particles.length; a++) {
+			const r = this.particles[a]
+			  , c = r.x + t.x
+			  , o = r.y + t.y;
+			e.fillStyle = r.color,
+			e.beginPath(),
+			e.arc(c, o, r.size, 0, 2 * Math.PI),
+			e.fill()
+		}
+	}
+	animateWildfireParticles(delta) {
+		let e = 0;
+		for (; e < this.particles.length; ) {
+			const t = this.particles[e];
+			t.lifespan += delta;
+			const a = 1
+			  , r = a + (8 - a) * (1 - t.lifespan / 1500);
+			t.x -= t.vx * r,
+			t.y -= t.vy * r;
+			if (Math.sqrt((t.x - this.x) ** 2 + (t.y - this.y) ** 2) < 1) {
+				this.particles.splice(e, 1);
+				continue
+			}
+			const c = .8 * Math.max(.5, Math.min(1, (1500 - t.lifespan) / 1500));
+			t.color = `rgba(${t.colorRGB.r}, ${t.colorRGB.g}, ${t.colorRGB.b}, ${c})`,
+			t.lifespan >= 1500 ? this.particles.splice(e, 1) : e += 1
+		}
+	}
+	createWildfireParticles() {
+		const e = [{
+			r: 255,
+			g: 165,
+			b: 0
+		}, {
+			r: 255,
+			g: 0,
+			b: 0
+		}, {
+			r: 255,
+			g: 255,
+			b: 0
+		}];
+		this.emitWildfireParticlesRound(25, 22, e),
+		setTimeout(( () => {
+			this.emitWildfireParticlesRound(25, 22, e)
+		}
+		), 500)
+	}
+	emitWildfireParticlesRound(e, t, a) {
+		for (let r = 0; r < e; r++) {
+			const c = r / e * 2 * Math.PI
+			  , o = t * Math.cos(c) / 100
+			  , n = t * Math.sin(c) / 100
+			  , $ = a[Math.floor(Math.random() * a.length)];
+			this.particles.push({
+				x: this.x,
+				y: this.y,
+				size: 5,
+				color: `rgba(${$.r}, ${$.g}, ${$.b}, 0.75)`,
+				colorRGB: $,
+				vx: o,
+				vy: n,
+				lifespan: 0
+			})
+		}
+	}
+	createResurrectionParticles(e, t) {
+		for (let a = 0; a < e; a += 1) {
+			const e = this.randomIntRange(-15, 15)
+			  , a = this.randomIntRange(-15, 15);
+			this.particles.push({
+				x: e,
+				y: a,
+				size: 4,
+				color: 4026593280 + (t instanceof Function ? t() : t),
+				horizontalMagnitude: this.randomRange(-1, 1),
+				verticalMagnitude: this.randomRange(-1, 2)
+			})
+		}
+	}
+	animateResurrectionParticles(delta) {
+		for (let e = 0; e < this.particles.length; e += 1) {
+			const t = this.particles[e];
+			t.x += 7 * t.horizontalMagnitude * delta / 1e3,
+			t.y += 14 * t.verticalMagnitude * delta / 1e3,
+			(255 & t.color) >= 128 * delta / 1e3 && (t.color -= 128 * delta / 1e3)
+		}
+	}
+	animateResurrectionDownedParticles(delta) {
+		if (this.duration >= 0)
+			return void this.animateResurrectionParticles(delta);
+		let e = 0;
+		for (; e < this.particles.length; ) {
+			(255 & this.particles[e].color) <= 128 * delta / 1e3 && (this.particles.splice(e, 1),
+			this.createResurrectionParticles(1, ( () => this.randomIntRange(80, 175)))),
+			e += 1
+		}
+		this.animateResurrectionParticles(delta);
+	}
+	drawSparkleParticles(e, t) {
+		for (let a = 0; a < this.particles.length; a += 1) {
+			const r = this.particles[a]
+			  , c = r.color >> 24 & 255
+			  , o = r.color >> 16 & 255
+			  , n = r.color >> 8 & 255
+			  , $ = (255 & r.color) / 255;
+			e.fillStyle = `rgba(${c}, ${o}, ${n}, ${$})`;
+			const i = [{
+				x: 0,
+				y: -r.size
+			}, {
+				x: .4 * r.size,
+				y: .4 * -r.size
+			}, {
+				x: r.size,
+				y: 0
+			}, {
+				x: .4 * r.size,
+				y: .4 * r.size
+			}, {
+				x: 0,
+				y: r.size
+			}, {
+				x: .4 * -r.size,
+				y: .4 * r.size
+			}, {
+				x: -r.size,
+				y: 0
+			}, {
+				x: .4 * -r.size,
+				y: .4 * -r.size
+			}, {
+				x: 0,
+				y: -r.size
+			}];
+			e.beginPath(),
+			e.moveTo(this.x + r.x + i[0].x + t.x, this.y + r.y + i[0].y + t.y);
+			for (let a = 1; a < i.length; a++)
+				e.lineTo(this.x + r.x + i[a].x + t.x, this.y + r.y + i[a].y + t.y);
+			e.closePath(),
+			e.fill()
+		}
+	}
+	randomIntRange(e, t) {
+		return Math.floor(Math.random() * (t - e + 1)) + e
+	}
+	randomRange(e, t) {
+		return Math.random() * (t - e + Number.EPSILON) + e
 	}
 }
 class Pellet extends SimulatorEntity{
@@ -3055,12 +3388,15 @@ class Pellet extends SimulatorEntity{
 		const randZone=this.pellet_zones[areaOfZone.map(e=>(rand<e/sum)).indexOf(true)];
 		this.x=randZone.x+randomRange(this.radius,randZone.width-this.radius);
 		this.y=randZone.y+randomRange(this.radius,randZone.height-this.radius);
+		let resurrectionAbility=player.abilityOne?.abilityType==8?player.abilityOne:player.abilityTwo?.abilityType==8?player.abilityTwo:player.abilityThree?.abilityType==8&&player.abilityThree;
+		let resurrectionAbilityCooldown=resurrectionAbility&&resurrectionAbility.cooldown;
 		if(player.abilityOne?.pellet_powered)
 			player.abilityOne.cooldown-=map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier;
 		if(player.abilityTwo?.pellet_powered)
 			player.abilityTwo.cooldown-=map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier;
 		if(player.abilityThree?.pellet_powered)
 			player.abilityThree.cooldown-=map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier;
+		if(resurrectionAbility&&resurrectionAbility.cooldown==0&&resurrectionAbilityCooldown!=0)map.areas[player.area].entities.push(new ParticleGenerator(player.x,player.y,"Resurrection Pellet",800,player));
 		player.updateExp(Math.floor(1+player.area/3)*(map.areas[player.area].properties.pellet_multiplier??map.properties.pellet_multiplier));
 	}
 	calculateExperience(HeroLevel){
