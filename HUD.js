@@ -780,18 +780,19 @@ class ExperienceBar extends EvadesEntity {
 		let c;
 		e.fillStyle = `rgba(${r.r}, ${r.g}, ${r.b}, 0.4)`;
 		var width=this.width+82*(void 0!==this.abilityOne)+82*(void 0!==this.abilityTwo)+82*(void 0!==this.abilityThree);
-		width=Math.max(width,this.width+82*2);
+		width=Math.max(width,this.minWidth);
 		c = width,
-		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t.width / 2 - width / 2*camScale, t.height/2 + 360*camScale - (this.height + this.expBarOffsetY)*camScale, c*camScale, this.height*camScale, !0, !1);
+		$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t.width / 2 - this.minWidth / 2*camScale, t.height/2 + 360*camScale - (this.height + this.expBarOffsetY)*camScale, c*camScale, this.height*camScale, !0, !1);
 		const o = (this.experience - this.previousLevelExperience) / (this.nextLevelExperience - this.previousLevelExperience);
 		if (o > 0) {
 			e.fillStyle = this.progressColor;
 			let a = c * o;
-			$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t.width / 2 - width / 2*camScale, t.height/2 + 360*camScale - (this.height + this.expBarOffsetY)*camScale, a*camScale, this.height*camScale, !0, !1)
+			$f36928166e04fda7$export$2e2bcd8739ae039.rect(e, t.width / 2 - this.minWidth / 2*camScale, t.height/2 + 360*camScale - (this.height + this.expBarOffsetY)*camScale, a*camScale, this.height*camScale, !0, !1)
 		}
 	}
 	constructor() {
 		super(),
+		this.minWidth = 516,
 		this.width = 350,
 		this.height = 15,
 		this.expBarOffsetY = 85,
@@ -1417,6 +1418,7 @@ class HeroInfoCard extends EvadesEntity {
 	constructor() {
 		super(),
 		this.width = 350,
+		this.minWidth = 516,
 		this.height = 85,
 		this.abilityOne = new Ability,
 		this.abilityTwo = new Ability,
@@ -1500,16 +1502,16 @@ class HeroInfoCard extends EvadesEntity {
 			return;
 		$e7009c797811e935$export$2e2bcd8739ae039.touch.isTouch && !this.isTouchAdjusted && this.adjustToTouch();
 		const r = t.viewportSize
-		  , c = r.width / 2 - (350+82*2) / 2*camScale
+		  , c = r.width / 2 - this.minWidth / 2*camScale
 		  , o = r.height/2 + 360*camScale - this.height*camScale;
 		this.x = c,
 		this.y = o;
 		let n, $ = c, i = o;
-		this.width=350;
-		if((this.abilityOne && void 0 !== this.abilityOne.abilityType))this.width+=82;
-		if((this.abilityTwo && void 0 !== this.abilityTwo.abilityType))this.width+=82;
-		if((this.abilityThree && void 0 !== this.abilityThree.abilityType))this.width+=82;
-		this.width=Math.max(this.width,350+82*2);
+		let width=350;
+		if((this.abilityOne && void 0 !== this.abilityOne.abilityType))width+=82;
+		if((this.abilityTwo && void 0 !== this.abilityTwo.abilityType))width+=82;
+		if((this.abilityThree && void 0 !== this.abilityThree.abilityType))width+=82;
+		this.width=Math.max(width,this.minWidth);
 		if (e.strokeStyle = "#000000",
 		e.fillStyle = "rgba(0, 0, 0, 0.8)",
 		n = this.width*camScale,
