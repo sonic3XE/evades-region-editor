@@ -352,7 +352,7 @@ this.accessory_reversed=false;
 //init accessory getter by player settings
 Object.defineProperties(this,{"hatName":{get:function(){
 	Math.abs(this.inputAngle)!=Math.PI/2&&(this.accessory_reversed=Math.abs(this.inputAngle)>Math.PI/2);
-	var curHat=[null, "gold-crown", "silver-crown", "bronze-crown", "santa-hat", "gold-wreath", "spring-wreath", "autumn-wreath", "winter-wreath", "summer-wreath", "summer-olympics-wreath", "summer-olympics-wreath-2", "winter-olympics-wreath", "halo", "blue-santa-hat", "flames", "blue-flames", "stars", "witch-hat", "sunglasses", "flower-headband", "pirate-hat", "rose-wreath", "gold-jewels", "silver-jewels", "bronze-jewels"][settings.hat];
+	var curHat=[null, "gold-crown", "silver-crown", "bronze-crown", "santa-hat", "gold-wreath", "spring-wreath", "autumn-wreath", "winter-wreath", "summer-wreath", "summer-olympics-wreath", "summer-olympics-wreath-2", "winter-olympics-wreath", "halo", "blue-santa-hat", "flames", "blue-flames", "stars", "witch-hat", "sunglasses", "flower-headband", "pirate-hat", "rose-wreath", "gold-jewels", "silver-jewels", "bronze-jewels", "fruit-bowl"][settings.hat];
 	(curHat=="witch-hat"&&this.accessory_reversed)&&(curHat+="-reversed");
 	return curHat;
 }},"fullMapOpacity":{get:function(){
