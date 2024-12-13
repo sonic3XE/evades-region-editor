@@ -47,7 +47,7 @@ function spawnEntities(area=current_Area){
 	function prop(spawner,e){
 		return spawner[e]??defaultValues.spawner[e];
 	}
-	const boundary=getAreaBoundary(areaC),
+	const boundary=areaC.boundary,
 		isVictory=areaC.zones.some(e=>e.type=="victory"),
 		totalPellets=checkAreaProperties("pellet_count");
 		pelletZones=[];

@@ -1,4 +1,13 @@
-const isForked=location.origin+location.pathname!=="https://sonic3xe.github.io/evades-region-editor/",reloadPage=location.reload.bind(location),canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),map={name: "No Name",share_to_drive:true,players:[],properties:{},areas:[]},camSpeed=10,selectBuffer=5,manageExtensions=function(str){(activated_extensions.indexOf(str)==-1)?activated_extensions.push(str):activated_extensions.splice(activated_extensions.indexOf(str),1),localStorage.activatedExtensions=activated_extensions},getObjects=function(){return [...map.areas[current_Area].zones,...map.areas[current_Area].assets]},cons=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4"),prec=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3"),luma=function(arr){return arr.map(e=>{var v=e/255;return v<.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)}).map((e,t)=>{return[.2126,.7152,0.0722,0][t]*e}).reduce((e,t)=>{return e+t},0)*255},customAlert=function(text,duration=2,color="#fff"){if(duration<=0)return;alertMessages.push({text,color});duration!=1/0&&setTimeout(e=>alertMessages.splice(alertMessages.map(e=>e.text).indexOf(text),1),duration*1e3)},hexToArr=function(hex){return[parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)]},arrtoRGBA=function(arr){return`rgba(${arr.join()})`},fillZeros=function(str="0",digits=2,filler="0"){return filler.repeat(digits-str.length)+str},RGBtoHex=function(arr){return`#${fillZeros(Number(arr[0]).toString(16))}${fillZeros(Number(arr[1]).toString(16))}${fillZeros(Number(arr[2]).toString(16))}`},RGBAtoHex=function(arr){return`${RGBtoHex(arr)}${fillZeros(Number(arr[3]).toString(16))}`},ExtractDiff=function(e){e=e.replace(/ /g,"");const t=e.split("+"),i=e.split("-");return t.length>1?parseInt(t[1]||0):i.length>1?-parseInt(i[1]||0):0},loadData=async function(){await fetch("world.yaml").then(e=>{if(e?.status>=400&&!e?.ok)return customAlert(`[Error ${e.target.status}]: Unable to fetch data "${url}"`,20,"#FF0000");if(e?.status>=200&&e?.ok)return e?.text().then(t=>{return WORLD=YAML.parse(t)});console.log("bruh",e)}).catch(e=>{return customAlert(e,1/0,"#FFFF00")})},
+const isForked=location.origin+location.pathname!=="https://sonic3xe.github.io/evades-region-editor/",reloadPage=location.reload.bind(location),canvas=document.getElementById("canvas"),ctx=canvas.getContext("2d"),map={name: "No Name",share_to_drive:true,players:[],properties:{},areas:[]},camSpeed=10,selectBuffer=5,manageExtensions=function(str){(activated_extensions.indexOf(str)==-1)?activated_extensions.push(str):activated_extensions.splice(activated_extensions.indexOf(str),1),localStorage.activatedExtensions=activated_extensions},getObjects=function(){
+	const res=[];
+	for(const zone of map.areas[current_Area].zones)
+		if(rectRectCollision(zone,CamViewpoint)||selectionArea)
+			res.push(zone);
+	for(const asset of map.areas[current_Area].assets)
+		if(rectRectCollision(asset,CamViewpoint)||rectCircleCollision(asset.x,asset.y,asset.radius,CamViewpoint.x,CamViewpoint.y,CamViewpoint.width,CamViewpoint.height)||selectionArea)
+			res.push(asset);
+	return res
+},cons=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/consumedd.mp4"),prec=loadImage("https://cdn.glitch.global/4777c7d0-2cac-439c-bde4-07470718a4d7/jumpscare.mp3"),luma=function(arr){return arr.map(e=>{var v=e/255;return v<.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)}).map((e,t)=>{return[.2126,.7152,0.0722,0][t]*e}).reduce((e,t)=>{return e+t},0)*255},customAlert=function(text,duration=2,color="#fff"){if(duration<=0)return;alertMessages.push({text,color});duration!=1/0&&setTimeout(e=>alertMessages.splice(alertMessages.map(e=>e.text).indexOf(text),1),duration*1e3)},hexToArr=function(hex){return[parseInt(hex.slice(1,3),16),parseInt(hex.slice(3,5),16),parseInt(hex.slice(5,7),16)]},arrtoRGBA=function(arr){return`rgba(${arr.join()})`},fillZeros=function(str="0",digits=2,filler="0"){return filler.repeat(digits-str.length)+str},RGBtoHex=function(arr){return`#${fillZeros(Number(arr[0]).toString(16))}${fillZeros(Number(arr[1]).toString(16))}${fillZeros(Number(arr[2]).toString(16))}`},RGBAtoHex=function(arr){return`${RGBtoHex(arr)}${fillZeros(Number(arr[3]).toString(16))}`},ExtractDiff=function(e){e=e.replace(/ /g,"");const t=e.split("+"),i=e.split("-");return t.length>1?parseInt(t[1]||0):i.length>1?-parseInt(i[1]||0):0},loadData=async function(){await fetch("world.yaml").then(e=>{if(e?.status>=400&&!e?.ok)return customAlert(`[Error ${e.target.status}]: Unable to fetch data "${url}"`,20,"#FF0000");if(e?.status>=200&&e?.ok)return e?.text().then(t=>{return WORLD=YAML.parse(t)});console.log("bruh",e)}).catch(e=>{return customAlert(e,1/0,"#FFFF00")})},
 YAML={parse:function(e){return jsyaml.load(e,null)},stringify:function(e){return jsyaml.dump(e,{noCompatMode:true})}};
 let now=new Date;
 /*(from Discord) amasterclasher — Thu, Aug 1, 2024 01:16:33 EDT
@@ -60,7 +69,7 @@ importer.addEventListener("input",e=>{
 		console.error("Fetch API failed.",e.stack)
 	})
 })
-function updateMap(){let lastZone,boundaries,FileDef,pushX,pushY;map.areas.map((area,i,r)=>(boundaries=[getAreaBoundary(area)],FileDef=WORLD&&WORLD.regions.filter(e=>e.file==`regions/${map.name.split(" ").join("-").toLowerCase()}.yaml`)[0]||{x:0,y:0},pushX=0,pushY=0,area.rx.toString().startsWith("var x")&&(area.x=FileDef.x+ExtractDiff(area.rx)),area.ry.toString().startsWith("var y")&&(area.y=FileDef.y+ExtractDiff(area.ry)),boundaries[0].left&&((pushX=-boundaries[0].left,current_Area==i&&(camX+=pushX),area.rx.toString().startsWith("var x"))?(area.rx=("var x +"+(ExtractDiff(area.rx)+boundaries[0].left)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.x.value=area.rx):(area.rx.toString().startsWith("last_x"))?(area.rx=("last_x +"+(ExtractDiff(area.rx)+boundaries[0].left)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.x.value=area.rx):(area.rx.toString().startsWith("last_right"))?(area.rx=("last_right +"+(ExtractDiff(area.rx)+boundaries[0].left)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.x.value=area.rx):(area.rx=area.x+boundaries[0].left,area.x=area.rx,area.inputs)&&(area.inputs.x.value=area.rx)),boundaries[0].top&&((pushY=-boundaries[0].top,current_Area==i&&(camY+=pushY),area.ry.toString().startsWith("var y"))?(area.ry=("var y +"+(ExtractDiff(area.ry)+boundaries[0].top)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.y.value=area.ry):(area.ry.toString().startsWith("last_y"))?(area.ry=("last_y +"+(ExtractDiff(area.ry)+boundaries[0].top)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.y.value=area.ry):(area.ry.toString().startsWith("last_bottom"))?(area.ry=("last_bottom +"+(ExtractDiff(area.ry)+boundaries[0].top)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.y.value=area.ry):(area.ry=area.y+boundaries[0].top,area.y=area.ry,area.inputs)&&(area.inputs.y.value=area.ry)),r[i-1]&&(boundaries.push(getAreaBoundary(r[i-1])),area.rx.toString().startsWith("last_x")&&(area.x=r[i-1].x+ExtractDiff(area.rx)),area.ry.toString().startsWith("last_y")&&(area.y=r[i-1].y+ExtractDiff(area.ry)),area.rx.toString().startsWith("last_right")&&(area.x=boundaries[1].right+r[i-1].x+ExtractDiff(area.rx)),area.ry.toString().startsWith("last_bottom")&&(area.y=boundaries[1].bottom+r[i-1].y+ExtractDiff(area.ry))),area.zones.map((zone,j,u)=>(lastZone=u[j-1],!isNaN(zone.rx)&&(zone.rx+=pushX),!isNaN(zone.ry)&&(zone.ry+=pushY),zone.x+=pushX,zone.y+=pushY,zone.inputs&&(zone.inputs.x.value=zone.rx,zone.inputs.y.value=zone.ry),(lastZone&&(zone.ry=="last_y"||zone.ry=="last_top"||zone.rx=="last_x"||zone.rx=="last_left"||zone.rw=="last_width"||zone.rh=="last_height"||zone.rx=="last_right"||zone.ry=="last_bottom"))&&((zone.rx=="last_x"||zone.rx=="last_left")&&(zone.x=lastZone.x),(zone.ry=="last_y"||zone.ry=="last_top")&&(zone.y=lastZone.y),zone.rw=="last_width"&&(zone.width=lastZone.width),zone.rh=="last_height"&&(zone.height=lastZone.height),zone.rx=="last_right"&&(zone.x=lastZone.x+lastZone.width),zone.ry=="last_bottom"&&(zone.y=lastZone.y+lastZone.height)))))),spawnEntities()}
+function updateMap(){let lastZone,boundaries,FileDef,pushX,pushY;map.areas.map((area,i,r)=>(boundaries=[getAreaBoundary(area)],FileDef=WORLD&&WORLD.regions.filter(e=>e.file==`regions/${map.name.split(" ").join("-").toLowerCase()}.yaml`)[0]||{x:0,y:0},pushX=0,pushY=0,area.rx.toString().startsWith("var x")&&(area.x=FileDef.x+ExtractDiff(area.rx)),area.ry.toString().startsWith("var y")&&(area.y=FileDef.y+ExtractDiff(area.ry)),boundaries[0].left&&((pushX=-boundaries[0].left,current_Area==i&&(camX+=pushX),area.rx.toString().startsWith("var x"))?(area.rx=("var x +"+(ExtractDiff(area.rx)+boundaries[0].left)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.x.value=area.rx):(area.rx.toString().startsWith("last_x"))?(area.rx=("last_x +"+(ExtractDiff(area.rx)+boundaries[0].left)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.x.value=area.rx):(area.rx.toString().startsWith("last_right"))?(area.rx=("last_right +"+(ExtractDiff(area.rx)+boundaries[0].left)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.x.value=area.rx):(area.rx=area.x+boundaries[0].left,area.x=area.rx,area.inputs)&&(area.inputs.x.value=area.rx)),boundaries[0].top&&((pushY=-boundaries[0].top,current_Area==i&&(camY+=pushY),area.ry.toString().startsWith("var y"))?(area.ry=("var y +"+(ExtractDiff(area.ry)+boundaries[0].top)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.y.value=area.ry):(area.ry.toString().startsWith("last_y"))?(area.ry=("last_y +"+(ExtractDiff(area.ry)+boundaries[0].top)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.y.value=area.ry):(area.ry.toString().startsWith("last_bottom"))?(area.ry=("last_bottom +"+(ExtractDiff(area.ry)+boundaries[0].top)).replace("+-","- ").replace("+","+ ").replace(" + 0",""),area.inputs)&&(area.inputs.y.value=area.ry):(area.ry=area.y+boundaries[0].top,area.y=area.ry,area.inputs)&&(area.inputs.y.value=area.ry)),r[i-1]&&(boundaries.push(getAreaBoundary(r[i-1])),area.rx.toString().startsWith("last_x")&&(area.x=r[i-1].x+ExtractDiff(area.rx)),area.ry.toString().startsWith("last_y")&&(area.y=r[i-1].y+ExtractDiff(area.ry)),area.rx.toString().startsWith("last_right")&&(area.x=boundaries[1].right+r[i-1].x+ExtractDiff(area.rx)),area.ry.toString().startsWith("last_bottom")&&(area.y=boundaries[1].bottom+r[i-1].y+ExtractDiff(area.ry))),area.zones.map((zone,j,u)=>(lastZone=u[j-1],!isNaN(zone.rx)&&(zone.rx+=pushX),!isNaN(zone.ry)&&(zone.ry+=pushY),zone.x+=pushX,zone.y+=pushY,zone.inputs&&(zone.inputs.x.value=zone.rx,zone.inputs.y.value=zone.ry),(lastZone&&(zone.ry=="last_y"||zone.ry=="last_top"||zone.rx=="last_x"||zone.rx=="last_left"||zone.rw=="last_width"||zone.rh=="last_height"||zone.rx=="last_right"||zone.ry=="last_bottom"))&&((zone.rx=="last_x"||zone.rx=="last_left")&&(zone.x=lastZone.x),(zone.ry=="last_y"||zone.ry=="last_top")&&(zone.y=lastZone.y),zone.rw=="last_width"&&(zone.width=lastZone.width),zone.rh=="last_height"&&(zone.height=lastZone.height),zone.rx=="last_right"&&(zone.x=lastZone.x+lastZone.width),zone.ry=="last_bottom"&&(zone.y=lastZone.y+lastZone.height)))),area.boundary=getAreaBoundary(area))),spawnEntities()}
 var copiedObjects=[];
 function roundTo(x, y) { return Math.round(x / y) * y }
 // Zooming
@@ -93,6 +102,7 @@ canvas.addEventListener("mousemove",e=>{
 canvas.addEventListener("mouseup", e => {
 	if(!selectionArea)return;
 	for(let obj of getObjects()){
+		if(selectionArea.width==0||selectionArea.height==0)break;
 		if(obj.type=="torch"||obj.type=="flashlight_spawner"){
 			if(rectCircleCollision(obj.x,obj.y,16,selectionArea.x,selectionArea.y,selectionArea.width,selectionArea.height).c){
 				selectedObjects.push(obj);
@@ -100,7 +110,6 @@ canvas.addEventListener("mouseup", e => {
 			}
 		}else{
 			if(rectRectCollision(selectionArea,obj)){
-				if(selectionArea.width==0||selectionArea.height==0)break;
 				selectedObjects.push(obj);
 				continue;
 			}
@@ -294,11 +303,8 @@ function targetedObject(e) {
   if(clamp(mousePos.x,CamViewpoint.left,CamViewpoint.right)!==mousePos.x)return null;
   if(clamp(mousePos.y,CamViewpoint.top,CamViewpoint.bottom)!==mousePos.y)return null;
   if(playtesting)return;
-  let objects = getObjects(/*type*/);
-  for (let i = objects.length - 1; i >= 0; i--) {
-    const obj = objects[i];
-	if(!rectRectCollision(obj,CamViewpoint))continue;
-	if(!rectCircleCollision(obj.x,obj.y,16,CamViewpoint.x,CamViewpoint.y,CamViewpoint.width,CamViewpoint.height).c)continue;
+  let objects = getObjects().reverse();
+  for (const obj of objects) {
     const [{ x: x0, y: y0, width: x1, height: y1 }] = points(obj);
     const mouse = mouse_position;
     if (obj.type === "flashlight_spawner" || obj.type === "torch") {
@@ -325,8 +331,7 @@ canvas.addEventListener("mousemove", e => {
 
   for (let i = arr.length - 1; i >= 0; i--) {
 	if(clamp(mousePos.x,CamViewpoint.left,CamViewpoint.right)!==mousePos.x||clamp(mousePos.y,CamViewpoint.top,CamViewpoint.bottom)!==mousePos.y||playtesting)break;
-    const obj = /*selectedObject||*/arr[i];
-	if(!rectRectCollision(obj,CamViewpoint))continue;
+    const obj = arr[i];
     const [{ x: x0, y: y0, width: x1, height: y1 }] = points(obj);
     const mouse = point(e), type = obj.type;
 
@@ -531,7 +536,7 @@ document.addEventListener("keydown", e => {
 		current_Area=clamp(current_Area+u,0,map.areas.length-1),
 		customAREAgui(map.areas[current_Area]),
 		areamenu.appendChild(map.areas[current_Area].element),
-		bound=getAreaBoundary(map.areas[current_Area]),
+		bound=map.areas[current_Area].boundary,
 		camX=bound.width/2+bound.left,
 		camY=bound.height/2+bound.top,
 		spawnEntities(),
