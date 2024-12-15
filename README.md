@@ -1,5 +1,5 @@
 # Evades Region Editor
-Sorry, something went wrong. Please try again later.
+This is a visual editor where you can import your maps.
 
 ## Region files from Evades.io
-Sorry, something went wrong. Please try again later.
+The region files are currently cached from Google Drive folder "Evades.io Map Files".
