@@ -17,7 +17,7 @@ let now=new Date;
 let alertMessages=[],camScale=5/32,camX=0,camY=0,selectMode=null,lockCursor=false,resizing=false;
 const types = ["wall", "light_region", "flashlight_spawner", "torch", "gate", "active", "safe", "exit", "teleport", "victory", "removal"];
 const keysDown = new Set();
-document.addEventListener("keydown",e=>{if(confirmationPopup)return;!(e.repeat||e.ctrlKey||e.target instanceof HTMLInputElement)&&keysDown.add(e.which)});
+document.addEventListener("keydown",e=>{if(confirmationPopup || consumed_by_ink_demon)return;!(e.repeat||e.ctrlKey||e.target instanceof HTMLInputElement)&&keysDown.add(e.which)});
 document.addEventListener("keyup",e=>keysDown.delete(e.which))
 var zoneconsts={
   normal: {
@@ -55,7 +55,7 @@ var zoneconsts={
   }, ice: { active: createOffscreenCanvas(512, 512) }
 }
 importer.addEventListener("input",e=>{
-	if(!importer.selectedIndex)return;
+	if(!importer.selectedIndex || consumed_by_ink_demon)return;
 	document.activeElement.blur();
 	const url=WORLD.regions[importer.selectedIndex-1].file;
 	if(importer.selectedIndex=0,consumed_by_ink_demon||=!url.endsWith(".yaml"))return;
@@ -77,7 +77,7 @@ var current_Area = 0;
 var speedMultiplier=1;
 var zoomLimit=8388608;
 canvas.addEventListener("wheel", e => {
-  if (e.ctrlKey) return;
+  if (e.ctrlKey || consumed_by_ink_demon) return;
   let m = 0.85 ** (e.deltaY / 125)*speedMultiplier;
   let x = (e.pageX - canvas.width / 2) / camScale + camX;
   let y = (e.pageY - canvas.height / 2) / camScale + camY;
@@ -100,7 +100,7 @@ canvas.addEventListener("mousemove",e=>{
 	mousePos.ey=(e.offsetY - canvas.height / 2);
 });
 canvas.addEventListener("mouseup", e => {
-	if(!selectionArea)return;
+	if(!selectionArea || consumed_by_ink_demon)return;
 	for(let obj of getObjects()){
 		if(selectionArea.width==0||selectionArea.height==0)break;
 		if(obj.type=="torch"||obj.type=="flashlight_spawner"){
@@ -120,7 +120,7 @@ canvas.addEventListener("mouseup", e => {
 var isMouse=false;
 canvas.addEventListener("mousedown", e => {
   if (e.button === 1) e.preventDefault();
-  if (e.button !== 0) return;
+  if (e.button !== 0 || consumed_by_ink_demon) return;
   const t = canvas.getBoundingClientRect();
   const mouse_position = {x:(e.pageX - t.left),y:(e.pageY - t.top)};
   const gameMouseCursor={
@@ -433,7 +433,8 @@ areas:
 })
 Object.defineProperty(global,"consumed_by_ink_demon",{
 	get(){
-		if(!prec.ended && prec.paused && useractive.hasBeenActive && new Date().getMonth()==3 && new Date().getDate()==1){
+		if(!prec.ended && prec.paused && useractive.hasBeenActive && /* ERE:GE EoL */ new Date().getTime >= 1734998400000){
+			!localStorage.hasWarned&&(alert("Evades Region Editor: Github Edition has reached its end of life and possibly will be consumed by mysterious entities when you try to interact the editor."),localStorage.hasWarned=true);
 			global.a=1;
 			prec.play();
 			setTimeout(()=>{
@@ -460,7 +461,7 @@ Object.defineProperty(global,"consumed_by_ink_demon",{
 	}
 });
 document.addEventListener("keydown", e => {
-	if(confirmationPopup || e.target instanceof HTMLInputElement)
+	if(confirmationPopup || e.target instanceof HTMLInputElement || consumed_by_ink_demon)
 		return;
 	if(e.ctrlKey&&e.which===KeyMap.A)
 		return e.preventDefault(selectedObjects.push(...map.areas[current_Area].zones,...map.areas[current_Area].assets));

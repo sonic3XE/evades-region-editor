@@ -325,13 +325,12 @@ function render() {
 	ctx.strokeStyle = "#000";
 	ctx.lineWidth = 4;
 	ctx.font = "bold 20px tah";
-	if (isForked)
-		ctx.textAlign = "right",
-		ctx.fillStyle = "white",
-		ctx.globalAlpha = 0.1,
-		ctx.strokeText("Made by Sonic3XE", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 20),
-		ctx.fillText("Made by Sonic3XE", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 20),
-		ctx.globalAlpha = 1;
+	ctx.textAlign = "right",
+	ctx.fillStyle = "white",
+	ctx.strokeText("End of Support is near", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 120, 1260 * scl),
+	ctx.fillText("End of Support is near", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 120, 1260 * scl),
+	ctx.strokeText("Starting on Christmas Eve, Evades Region Editor: Github Edition will no longer receive security updates and will be vulnerable to mysterious entities that consume this domain.", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 100, 1260 * scl),
+	ctx.fillText("Starting on Christmas Eve, Evades Region Editor: Github Edition will no longer receive security updates and will be vulnerable to mysterious entities that consume this domain.", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 100, 1260 * scl),
 	ctx.textAlign = "left";
 	if (assetsLoaded.count / 7 != 1)
 		ctx.fillRect(10, canvas.height - 20, assetsLoaded.count / 7 * 200, 10),
