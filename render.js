@@ -92,6 +92,12 @@ function arrayToInt32(s){
 	return new DataView(new Int8Array(s).buffer).getUint32();
 }
 function render() {
+	redoffset.dx.baseVal=5*Math.sin(le/(1e3/30) * Math.PI/180);
+	redoffset.dy.baseVal=Math.random() * 10 * (Date.now() - new Date(new Date().getFullYear(),11,1)) / (new Date(new Date().getFullYear(),11,24) - new Date(new Date().getFullYear(),11,1))
+	greenoffset.dx.baseVal=-5*Math.sin(le/(1e3/30) * Math.PI/180);
+	greenoffset.dy.baseVal=Math.random() * 10 * (Date.now() - new Date(new Date().getFullYear(),11,1)) / (new Date(new Date().getFullYear(),11,24) - new Date(new Date().getFullYear(),11,1))
+	blueoffset.dx.baseVal=-5*Math.sin(le/(1e3/30) * Math.PI/180);
+	blueoffset.dy.baseVal=Math.random() * 10 * (Date.now() - new Date(new Date().getFullYear(),11,1)) / (new Date(new Date().getFullYear(),11,24) - new Date(new Date().getFullYear(),11,1))
 	//new Date().getMonth() == 9 && (document.body.style.filter = `sepia(${(Date.now() - new Date(new Date().getFullYear(),9,1)) / (new Date(new Date().getFullYear(),9,31) - new Date(new Date().getFullYear(),9,1))})`);
 	const delta=performance.now()-le;le=performance.now();
 	const actually=delta*isActive
