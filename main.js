@@ -504,7 +504,8 @@ document.addEventListener("keydown", e => {
 			plr.noCooldown=!plr.noCooldown;
 		if(e.which===KeyMap.U)//Revive (Command: /r, /s, /save, /revive)
 			plr.godmode=false,
-			plr.deathTimer=-1;
+			plr.deathTimer=-1,
+			map.areas[plr.area].entities.find(e=>plr.heroType==4&&e.owner==plr).duration=800;
 		if(e.which===controls.PLAYTEST-3&&location.search=="?isDev")//Admin (Command: /a, /admin)
 			e.preventDefault(),
 			plr.admin=true,

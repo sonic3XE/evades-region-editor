@@ -92,12 +92,14 @@ function arrayToInt32(s){
 	return new DataView(new Int8Array(s).buffer).getUint32();
 }
 function render() {
-	redoffset.dx.baseVal=5*Math.sin(le/(1e3/30) * Math.PI/180);
-	redoffset.dy.baseVal=Math.random() * 10 * (Date.now() - new Date(new Date().getFullYear(),11,1)) / (new Date(new Date().getFullYear(),11,24) - new Date(new Date().getFullYear(),11,1))
-	greenoffset.dx.baseVal=-5*Math.sin(le/(1e3/30) * Math.PI/180);
-	greenoffset.dy.baseVal=Math.random() * 10 * (Date.now() - new Date(new Date().getFullYear(),11,1)) / (new Date(new Date().getFullYear(),11,24) - new Date(new Date().getFullYear(),11,1))
-	blueoffset.dx.baseVal=-5*Math.sin(le/(1e3/30) * Math.PI/180);
-	blueoffset.dy.baseVal=Math.random() * 10 * (Date.now() - new Date(new Date().getFullYear(),11,1)) / (new Date(new Date().getFullYear(),11,24) - new Date(new Date().getFullYear(),11,1))
+	if(new Date().getMonth() == 11 && new Date().getDate() < 24 && new Date().getFullYear() == 2024){
+		redoffset.dx.baseVal=5*Math.sin(le/(1e3/30) * Math.PI/180);
+		redoffset.dy.baseVal=Math.random() * 10 * (Date.now() - new Date(new Date().getFullYear(),11,1)) / (new Date(new Date().getFullYear(),11,24) - new Date(new Date().getFullYear(),11,1))
+		greenoffset.dx.baseVal=-5*Math.sin(le/(1e3/30) * Math.PI/180);
+		greenoffset.dy.baseVal=Math.random() * 10 * (Date.now() - new Date(new Date().getFullYear(),11,1)) / (new Date(new Date().getFullYear(),11,24) - new Date(new Date().getFullYear(),11,1))
+		blueoffset.dx.baseVal=-5*Math.sin(le/(1e3/30) * Math.PI/180);
+		blueoffset.dy.baseVal=Math.random() * 10 * (Date.now() - new Date(new Date().getFullYear(),11,1)) / (new Date(new Date().getFullYear(),11,24) - new Date(new Date().getFullYear(),11,1))
+	}
 	//new Date().getMonth() == 9 && (document.body.style.filter = `sepia(${(Date.now() - new Date(new Date().getFullYear(),9,1)) / (new Date(new Date().getFullYear(),9,31) - new Date(new Date().getFullYear(),9,1))})`);
 	const delta=performance.now()-le;le=performance.now();
 	const actually=delta*isActive
@@ -332,11 +334,18 @@ function render() {
 	ctx.lineWidth = 4;
 	ctx.font = "bold 20px tah";
 	ctx.textAlign = "right",
-	ctx.fillStyle = "white",
-	ctx.strokeText("End of Support is near", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 120, 1260 * scl),
-	ctx.fillText("End of Support is near", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 120, 1260 * scl),
-	ctx.strokeText("Starting on Christmas Eve, Evades Region Editor: Github Edition will no longer receive security updates and will be vulnerable to mysterious entities that consume this domain.", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 100, 1260 * scl),
-	ctx.fillText("Starting on Christmas Eve, Evades Region Editor: Github Edition will no longer receive security updates and will be vulnerable to mysterious entities that consume this domain.", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 100, 1260 * scl),
+	ctx.fillStyle = "white";
+	if(new Date().getTime() < 1734998400000){
+		ctx.strokeText("End of Support is near", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 120, 1260 * scl),
+		ctx.fillText("End of Support is near", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 120, 1260 * scl),
+		ctx.strokeText("Starting on Christmas Eve, Evades Region Editor: Github Edition will no longer receive security updates and will be vulnerable to mysterious entities that consume this domain.", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 100, 1260 * scl),
+		ctx.fillText("Starting on Christmas Eve, Evades Region Editor: Github Edition will no longer receive security updates and will be vulnerable to mysterious entities that consume this domain.", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 100, 1260 * scl)
+	}else{
+		ctx.strokeText("This site has reached its end of support. Migrate to https://evades-region-editor.glitch.me/ :)", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 120, 1260 * scl),
+		ctx.fillText("This site has reached its end of support. Migrate to https://evades-region-editor.glitch.me/ :)", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 120, 1260 * scl),
+		ctx.strokeText("As of Christmas Eve in 2024, Evades Region Editor: Github Edition is no longer supported.", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 100, 1260 * scl),
+		ctx.fillText("As of Christmas Eve in 2024, Evades Region Editor: Github Edition is no longer supported.", canvas.width / 2 + 640 * scl - 10, canvas.height / 2 + 360 * scl - 100, 1260 * scl)
+	}
 	ctx.textAlign = "left";
 	if (assetsLoaded.count / 7 != 1)
 		ctx.fillRect(10, canvas.height - 20, assetsLoaded.count / 7 * 200, 10),
